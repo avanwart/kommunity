@@ -1,0 +1,487 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4A6CF1CC-4F7A-43D2-A9CD-07DB4D8C45CD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BootBaronLib</RootNamespace>
+    <AssemblyName>BootBaronLib</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AWSSDK, Version=1.5.11.0, Culture=neutral, PublicKeyToken=cd2d24cd2bace800, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AWSSDK.1.5.11.0\lib\AWSSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Client">
+      <HintPath>..\packages\Google.GData.Client.2.1.0.0\lib\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Extensions">
+      <HintPath>..\packages\Google.GData.Extensions.2.1.0.0\lib\Google.GData.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.YouTube">
+      <HintPath>..\packages\Google.GData.YouTube.2.1.0.0\lib\Google.GData.YouTube.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="LitS3">
+      <HintPath>..\packages\LitS3.1.0.1\lib\LitS3.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppSpec\DasKlub\BLL\CacheHelper.cs" />
+    <Compile Include="AppSpec\DasKlub\BLL\cGoogleMap.cs" />
+    <Compile Include="AppSpec\DasKlub\BLL\ContentLinker.cs" />
+    <Compile Include="AppSpec\DasKlub\BLL\MasterPageHelper.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Acknowledgement.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\ArtistContent\Artist.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\ArtistContent\ArtistProperty.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\ArtistContent\ArtistSong.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\ArtistContent\ArtistEvents.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\BlackIP.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\BlockedUser.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\CalendarItem.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\ChatRoom.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\ChatRoomUser.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\CityRegionCountry.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\DomainConnection\SiteDomain.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\StatusCommentAcknowledgement.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\UserContent\HostedVideoLog.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\VideoContest\ContestResult.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\WallMessage.cs" />
+    <Compile Include="Interfaces\IDisplayName.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\InterestedIn.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Logging\ErrorLog.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Logging\ClickLog.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\PhotoItem.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\RelationshipStatus.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\SiteComment.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\StatusComment.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\StatusUpdateNotification.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\UserContent\Content.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\UserContent\ContentComment.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\UserContent\ContentType.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\VideoContest\Contest.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\DirectMessage.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\GeoData.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\MultiProperty.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\EventCycle.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Playlist.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\PlaylistVideo.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\ProfileLog.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Role.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\ArtistContent\SongProperty.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\MultiPropertyVideo.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\PropertyType.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\ArtistContent\Song.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Status.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Event.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\StatusUpdate.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\UserAccount.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\UserAccountDetail.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\UserAccountRole.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\UserAccountVideo.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\UserAddress.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\UserConnection.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\UserPhoto.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Venue.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Video.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\VideoContest\ContestVideo.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\VideoContest\ContestVideoVote.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\VideoLog.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\VideoRequest.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\VideoSong.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Vote.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\YouAre.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Zone.cs" />
+    <Compile Include="BaseTypes\BaseExistance.cs" />
+    <Compile Include="Configs\AmazonCloudConfigs.cs" />
+    <Compile Include="Configs\DataBaseConfigs.cs" />
+    <Compile Include="Interfaces\ILocalizedName.cs" />
+    <Compile Include="Interfaces\IJSONResponse.cs" />
+    <Compile Include="Interfaces\ISiteDomain.cs" />
+    <Compile Include="Interfaces\IGetAllForDomain.cs" />
+    <Compile Include="Interfaces\IUnorderdListItem.cs" />
+    <Compile Include="Interfaces\IUnorderdList.cs" />
+    <Compile Include="Interfaces\ICalendarEvent.cs" />
+    <Compile Include="Interfaces\IDatesInRange.cs" />
+    <Compile Include="Interfaces\IGet.cs" />
+    <Compile Include="Interfaces\IGetCachedDataRow.cs" />
+    <Compile Include="Interfaces\IGetFromSQL.cs" />
+    <Compile Include="Interfaces\IIsHidden.cs" />
+    <Compile Include="BaseTypes\BaseIUserLog.cs" />
+    <Compile Include="Configs\GeneralConfigs.cs" />
+    <Compile Include="DAL\DAL.cs" />
+    <Compile Include="HttpModules\HttpHeaderCleanup.cs" />
+    <Compile Include="Interfaces\IFullResponse.cs" />
+    <Compile Include="Interfaces\IUniqueKey.cs" />
+    <Compile Include="Interfaces\IUpdateAll.cs" />
+    <Compile Include="Interfaces\IBaseCRUD.cs" />
+    <Compile Include="Interfaces\IGetAll.cs" />
+    <Compile Include="Interfaces\ICRUDs.cs" />
+    <Compile Include="Interfaces\ICR.cs" />
+    <Compile Include="Interfaces\ISet.cs" />
+    <Compile Include="Interfaces\ISetReportingControls.cs" />
+    <Compile Include="Interfaces\ISubids.cs" />
+    <Compile Include="Interfaces\IURLTo.cs" />
+    <Compile Include="Interfaces\IUserLog.cs" />
+    <Compile Include="Interfaces\ICRUD.cs" />
+    <Compile Include="Interfaces\IDirty.cs" />
+    <Compile Include="Interfaces\IPixelLoadingPage.cs" />
+    <Compile Include="Operational\ADOExtenstion.cs" />
+    <Compile Include="Operational\CopyObj.cs" />
+    <Compile Include="Operational\ImageResize.cs" />
+    <Compile Include="Operational\Pop3Client.cs" />
+    <Compile Include="Operational\StaticHelper.cs" />
+    <Compile Include="Operational\StaticReflection.cs" />
+    <Compile Include="Operational\ZipStorer.cs" />
+    <Compile Include="Operational\Converters.cs" />
+    <Compile Include="Operational\Encryption.cs" />
+    <Compile Include="Operational\FileReaders.cs" />
+    <Compile Include="Operational\Utilities.cs" />
+    <Compile Include="Operational\XMLUtil.cs" />
+    <Compile Include="Providers\MembershipProvider.cs" />
+    <Compile Include="Providers\RolesProvider.cs" />
+    <Compile Include="Resources\_Messages.tr.Designer.cs">
+      <DependentUpon>_Messages.tr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.ar.Designer.cs">
+      <DependentUpon>Messages.ar.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.zh.Designer.cs">
+      <DependentUpon>Messages.zh.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.da.Designer.cs">
+      <DependentUpon>Messages.da.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.hu.Designer.cs">
+      <DependentUpon>Messages.hu.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.cs.Designer.cs">
+      <DependentUpon>Messages.cs.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.fi.Designer.cs">
+      <DependentUpon>Messages.fi.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.ko.Designer.cs">
+      <DependentUpon>Messages.ko.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.el.Designer.cs">
+      <DependentUpon>Messages.el.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.ja.Designer.cs">
+      <DependentUpon>Messages.ja.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.sv.Designer.cs">
+      <DependentUpon>Messages.sv.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.nl.Designer.cs">
+      <DependentUpon>Messages.nl.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.it.Designer.cs">
+      <DependentUpon>Messages.it.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.pt.Designer.cs">
+      <DependentUpon>Messages.pt.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.fr.Designer.cs">
+      <DependentUpon>Messages.fr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.pl.Designer.cs">
+      <DependentUpon>Messages.pl.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.fo.Designer.cs">
+      <DependentUpon>Messages.fo.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.ru.Designer.cs">
+      <DependentUpon>Messages.ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.es.Designer.cs">
+      <DependentUpon>Messages.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages.de.Designer.cs">
+      <DependentUpon>Messages.de.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Messages1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Values\SiteStructs.cs" />
+    <Compile Include="Values\SiteEnums.cs" />
+    <Compile Include="Values\Values.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Xml.Linq.XElement.datasource" />
+    <None Include="Properties\DataSources\System.Xml.XmlNode.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\_Messages.tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>_Messages.tr.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.ar.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.zh.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.zh.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.da.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.da.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.hu.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.hu.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.cs.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.cs.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.fi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.fi.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.ko.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.ko.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.el.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.el.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.ja.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.ja.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.sv.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.sv.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.nl.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.nl.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.it.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.it.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.pt.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.pt.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.fr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.fr.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.pl.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.pl.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.fo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.fo.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.ru.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.es.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.de.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Messages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Messages1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

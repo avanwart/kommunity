@@ -1,0 +1,128 @@
+﻿@model BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Product
+@using Web.Helpers
+@using BootBaronLib.AppSpec.DasKlub.BOL.ProductItem;
+@using BootBaronLib.Resources;
+@Html.HiddenFor(model => model.ProductID)
+<div>
+    <fieldset>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Name)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Name, new { @style = "width:500px" })
+            @Html.CSSClassValidationMessageFor(m => m.Name)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.ProductKey)
+                   <i>@BootBaronLib.Resources.Messages.DashSeperatedLowercaseWords</i>
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.ProductKey, new { @style = "width:500px" })
+            @Html.CSSClassValidationMessageFor(m => m.ProductKey)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.MetaKeywords)
+            <i>@BootBaronLib.Resources.Messages.SeperateWithCommas</i>
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.MetaKeywords, new { @style = "width:500px" })
+                 
+            @Html.CSSClassValidationMessageFor(m => m.MetaKeywords)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.IsInStock)
+        </div>
+        <div class="editor-field">
+            @Html.CheckBoxFor(m => m.IsInStock)
+            @Html.CSSClassValidationMessageFor(m => m.IsInStock)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Brand)
+        </div>
+        <div class="editor-field">
+            @{
+                if (ViewBag.BrandList != null)
+                {
+ 
+                @Html.DropDownListFor(m => m.BrandID, (IEnumerable<SelectListItem>)ViewBag.BrandList)
+                                   
+                @Html.CSSClassValidationMessageFor(m => m.BrandID)
+                }
+            }
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Category)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("departmentList", 
+            new SelectList(ViewBag.Departments, "departmentID", "Name",
+                ( Model.Department != null) ?  Model.Department.DepartmentID: 0), 
+                Messages.DashSelect)
+
+                @Html.DropDownList("Category.CategoryID",
+                         new SelectList(ViewBag.CategoriesForDepartment, 
+                             "categoryID", "Name",
+                     ( Model.Category != null) ?  
+                     Model.Category.CategoryID : 0),
+                           Messages.DashSelect)
+              
+                 
+            @Html.CSSClassValidationMessageFor(m => m.Category.CategoryID)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Taxonomy)
+        </div>
+        <div class="editor-field">
+            <div id="taxonomy_field">
+                @if (!string.IsNullOrEmpty(Model.Taxonomy))
+                {
+                    string[] taxonomy = Model.Taxonomy.Split('|');
+                    int j = 0;
+
+                    foreach (string taxItem in taxonomy)
+                    {
+                        if (string.IsNullOrEmpty(taxItem))
+                        {
+                            continue;
+                        }
+
+                        GoogleTaxonomies gtaxes = new GoogleTaxonomies();
+
+                        if (j == 0)
+                        {
+                            gtaxes.GetGoogleTaxonomyByNameParent(j);
+                        }
+                        else
+                        {
+                            GoogleTaxonomy gtax = new GoogleTaxonomy();
+                            gtax.GetGoogleTaxonomy(Convert.ToInt32(taxItem));
+                            gtaxes.GetGoogleTaxonomyByNameParent(Convert.ToInt32(gtax.ParentID));
+                        }
+                        string parentName = "parentTaxonmy_" + @j.ToString();
+                
+                    <select id="@parentName">
+                        @foreach (GoogleTaxonomy gtax in gtaxes)
+                        {
+                            <option 
+                  @if (gtax.GoogleTaxonomyID == Convert.ToInt32(taxItem))
+                  {
+                   <text> selected="selected" </text>
+                  }
+                   value="@gtax.GoogleTaxonomyID">@gtax.Name</option>   
+                        }
+                    </select>
+                        j++;
+                    }
+                }
+            </div>
+            @Html.CSSClassValidationMessageFor(m => m.Taxonomy)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.MetaDescription)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(m => m.MetaDescription, new { @style = "width:500px;height:100px" })
+            @Html.CSSClassValidationMessageFor(m => m.MetaDescription)
+        </div>
+    </fieldset>
+</div>

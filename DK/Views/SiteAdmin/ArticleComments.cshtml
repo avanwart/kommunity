@@ -1,0 +1,81 @@
+﻿@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComments
+@{
+    ViewBag.Title = BootBaronLib.Resources.Messages.ManageNewsComments;
+}
+@{Html.RenderPartial("_adminMenu"); }
+<h2>@BootBaronLib.Resources.Messages.ManageNewsComments</h2>
+ 
+<table>
+    <tr>
+        <th>@BootBaronLib.Resources.Messages.Name
+        </th>
+
+                <th>@BootBaronLib.Resources.Messages.IpAddress
+        </th>
+       
+        <th>@BootBaronLib.Resources.Messages.CreatedOn
+        </th>
+
+                <th>@BootBaronLib.Resources.Messages.Status
+        </th>
+
+
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.FromName
+                </td>
+
+                    <td>
+                @item.IpAddress
+            </td>
+           
+            <td>
+                @item.CreateDate
+            </td>
+
+                        <td>
+                @item.StatusTypeName
+            </td>
+
+
+            <td>
+                @Html.ActionLink(BootBaronLib.Resources.Messages.Edit, 
+                "EditArticleComment", new { id = item.ContentCommentID })
+            </td>
+        </tr>
+    }
+</table>
+@{
+    int pageSize = Convert.ToInt32(ViewBag.PageCount);
+
+    for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
+    {
+        if (string.IsNullOrEmpty(Request.QueryString[
+            BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString()]) && 
+            pageNumber == 1)
+        {
+    @pageNumber     
+        }
+        else if (!string.IsNullOrEmpty(Request.QueryString[
+            BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString()]) &&
+            pageNumber ==
+            Convert.ToInt32(Request.QueryString[
+            BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString()])
+            )
+        {
+    @pageNumber 
+        }
+        else
+        {
+    <a href="@Url.Content("~/account/articlecomments/?" +
+      BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString() +
+      "=" + pageNumber.ToString())">@pageNumber.ToString()</a>  
+        }
+    }
+    
+}

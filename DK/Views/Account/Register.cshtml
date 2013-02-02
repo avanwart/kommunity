@@ -1,0 +1,18 @@
+﻿
+@using BootBaronLib.Resources;
+@{
+    ViewBag.Title = Messages.Register;
+}
+<div class="row">
+    <div class="span6">
+            @{Html.RenderPartial("_AdBanner"); }
+    <h2>@Messages.Register</h2>
+    <a href="@Url.Content("~/account/logon")" class="btn">@Messages.SignIn</a>
+  
+      @{Html.RenderPartial("_registerControls"); }
+    </div>
+   <div class="span4">
+        @*@{Html.RenderPartial("_AdBanner2"); }*@
+        <img src="@Url.Content("~/content/images/stills/bouncer.jpg")" title="@Messages.Register" alt="@Messages.Register" />
+    </div>
+</div>

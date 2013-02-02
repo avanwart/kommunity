@@ -1,0 +1,1696 @@
+@charset "utf-8";
+/* CSS Spites*/
+/* Acknowledge */
+img.applaud
+{
+	width:46px;
+	height:46px;
+	background:url(acknowledgement.png) 0 0;
+}
+img.applaud_check
+{
+	width:46;
+	height:46;
+	background:url(acknowledgement.png)  0 -47px;
+}
+img.beat
+{
+	width:46;
+	height:46;
+	background:url(acknowledgement.png)  0 -96px;
+}
+img.beat_check
+{
+	width:46;
+	height:46;
+	background:url(acknowledgement.png) 0 -143px;
+}
+
+/* Countries */
+
+img.country_AD
+{
+	width:77;
+	height:53;
+	background:url(countries.png) 0 0;
+}
+img.country_AL
+{
+	width:76;
+	height:53;
+	background:url(countries.png) 0 -54px;
+}
+img.country_AR
+{
+	width:82;
+	height:52;
+	background:url(countries.png) 0 -108px;
+}
+img.country_AS
+{
+	width:100;
+	height:51;
+	background:url(countries.png) 0 -162px;
+}
+img.country_AT
+{
+	width:81;
+	height:53;
+	background:url(countries.png) 0 -214px;
+}
+img.country_AU
+{
+	width:100;
+	height:50;
+	background:url(countries.png) 0 -268px;
+}
+img.country_BD
+{
+	width:93;
+	height:53;
+	background:url(countries.png) 0 -319px; 
+}
+img.country_BE
+{
+	width:62;
+	height:53;
+	background:url(countries.png) 0 -373px; 
+}
+img.country_BG
+{
+	width:89;
+	height:53;
+	background:url(countries.png) 0 -427px;
+}
+img.country_BR
+{
+	width:76;
+	height:52;
+	background:url(countries.png) 0 -482px;
+}
+img.country_BY
+{
+	width:99;
+	height:51;
+	background:url(countries.png) 0 -535px;
+}
+img.country_PT
+{
+	width:81;
+	height:50;
+	background:url(countries.png) 0 -587px;
+}
+img.country_PY
+{
+	width:89;
+	height:53;
+	background:url(countries.png) 0 -641px;
+}
+img.country_RE
+{
+	width:80;
+	height:53;
+	background:url(countries.png) 0 -695px;
+}
+img.country_RS
+{
+	width:79;
+	height:53;
+	background:url(countries.png) 0 -749px;
+}
+img.country_RO
+{
+	width:80;
+	height:53;
+	background:url(countries.png) 0 -803px;
+}
+img.country_RU
+{
+	width:82;
+	height:53;
+	background:url(countries.png) 0 -857px;
+}
+img.country_SE
+{
+	width:86;
+	height:53;
+	background:url(countries.png) 0 -911px;
+}
+img.country_SG
+{
+	width:82;
+	height:53;
+	background:url(countries.png) 0 -965px;
+}
+img.country_SI
+{
+	width:100;
+	height:50;
+	background:url(countries.png) 0 -1019px;
+}
+img.country_SK
+{
+	width:83;
+	height:53;
+	background:url(countries.png) 0 -1070px; 
+}
+img.country_SM
+{
+	width:70;
+	height:52;
+	background:url(countries.png) 0 -1124px;
+}
+img.country_CA
+{
+	width:99;
+	height:47;
+	background:url(countries.png) -106px 0px;
+}
+img.country_BZ
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -106px -49px;
+}
+img.country_CH
+{
+	width:54;
+	height:53;
+	background:url(countries.png) -106px -103px
+}
+img.country_CL
+{
+	width:79;
+	height:52;
+	background:url(countries.png) -106px -157px;
+}
+img.country_CN
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -106px -211px;
+}
+img.country_CO
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -106px -265px;
+}
+img.country_CR
+{
+	width:91;
+	height:53;
+	background:url(countries.png) -106px -319px;
+}
+img.country_CU
+{
+	width:100;
+	height:51;
+	background:url(countries.png) -106px -373px;
+}
+img.country_CY
+{
+	width:90;
+	height:53;
+	background:url(countries.png) -106px -426px; 
+}
+img.country_CZ
+{
+	width:80;
+	height:53;
+	background:url(countries.png) -106px -480px;
+}
+img.country_DE
+{
+	width:89;
+	height:52;
+	background:url(countries.png) -106px -534px;
+}
+img.country_SR
+{
+	width:79;
+	height:52;
+	background:url(countries.png) -106px -588px;
+}
+img.country_SY
+{
+	width:83;
+	height:52;
+	background:url(countries.png) -106px -641px;
+}
+img.country_SV
+{
+	width:96;
+	height:52;
+	background:url(countries.png) -106px -697px;
+}
+img.country_TH
+{
+	width:78;
+	height:52;
+	background:url(countries.png) -106px -750px;
+}
+img.country_TR
+{
+	width:81;
+	height:52;
+	background:url(countries.png) -106px -804px;
+}
+img.country_UA
+{
+	width:81;
+	height:52;
+	background:url(countries.png) -106px -857px;
+}
+img.country_UK
+{
+	width:100;
+	height:50;
+	background:url(countries.png) -106px -911px;
+}
+img.country_US
+{
+	width:99;
+	height:53;
+	background:url(countries.png) -106px -962px;
+}
+img.country_UY
+{
+	width:82;
+	height:50;
+	background:url(countries.png) -106px -1016px;
+}
+img.country_VE
+{
+	width:80;
+	height:50;
+	background:url(countries.png) -106px -1073px;
+}
+img.country_VA
+{
+	width:53;
+	height:53;
+	background:url(countries.png) -106px -1124px;
+}
+img.country_FR
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -220px 0px;
+}
+img.country_DK
+{
+	width:71;
+	height:53;
+	background:url(countries.png) -220px -54px;
+}
+img.country_DO
+{
+	width:85;
+	height:53;
+	background:url(countries.png) -220px -108px;
+}
+img.country_EC
+{
+	width:80;
+	height:53;
+	background:url(countries.png) -220px -162px
+}
+img.country_EE
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -220px -216px;
+}
+img.country_ES
+{
+	width:79;
+	height:52;
+	background:url(countries.png) -220px -270px;
+}
+img.country_FI
+{
+	width:85;
+	height:53;
+	background:url(countries.png) -220px -324px;
+}
+img.country_FO
+{
+	width:74;
+	height:53;
+	background:url(countries.png) -220px -378px;
+}
+img.country_GE
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -220px -432px;
+}
+img.country_GF
+{
+	width:80;
+	height:53;
+	background:url(countries.png) -220px -486px;
+}
+img.country_GH
+{
+	width:81;
+	height:51;
+	background:url(countries.png) -220px -540px;
+}
+img.country_YT
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -220px -594px;
+}
+img.country_VI
+{
+	width:81;
+	height:54;
+	background:url(countries.png) -220px -648px;
+}
+img.country_ZA
+{
+	width:79;
+	height:53;
+	background:url(countries.png) -220px -702px;
+}
+img.country_GG
+{
+	width:81;
+	height:52;
+	background:url(countries.png) -316px 0px;
+}
+img.country_GL
+{
+	width:80;
+	height:52;
+	background:url(countries.png) -316px -54px;
+}
+img.country_GP
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -316px -108px;
+}
+img.country_GR
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -316px -162px;
+}
+img.country_GT
+{
+	width:85;
+	height:52;
+	background:url(countries.png) -316px -216px;
+}
+img.country_GY
+{
+	width:87;
+	height:53;
+	background:url(countries.png) -316px -270px;
+}
+img.country_GU
+{
+	width:99;
+	height:53;
+	background:url(countries.png) -316px -324px;
+}
+img.country_HN
+{
+	width:99;
+	height:49;
+	background:url(countries.png) -316px -379px;
+}
+img.country_HR
+{
+	width:100;
+	height:50;
+	background:url(countries.png) -316px -429px;
+}
+img.country_HU
+{
+	width:100;
+	height:50;
+	background:url(countries.png) -316px -480px;
+}
+img.country_IE
+{
+	width:100;
+	height:50;
+	background:url(countries.png) -316px -531px
+}
+img.country_IM
+{
+	width:99;
+	height:51;
+	background:url(countries.png) -426px 0px;
+}
+img.country_IN
+{
+	width:80;
+	height:50;
+	background:url(countries.png) -426px -53px;
+}
+img.country_RN
+{
+	width:80;
+	height:52;
+	background:url(countries.png) -426px -107px;
+}
+img.country_IS
+{
+	width:73;
+	height:53;
+	background:url(countries.png) -426px -160px;
+}
+img.country_JE
+{
+	width:95;
+	height:53;
+	background:url(countries.png) -426px -214px;
+}
+img.country_JE
+{
+	width:90;
+	height:53;
+	background:url(countries.png) -426px -267px;
+}
+img.country_IT
+{
+	width:78;
+	height:52;
+	background:url(countries.png) -426px -323px;
+}
+img.country_JP
+{
+	width:78;
+	height:52;
+	background:url(countries.png) -426px -377px;
+}
+img.country_KP
+{
+	width:98;
+	height:51;
+	background:url(countries.png) -426px -430px;
+}
+img.country_LI
+{
+	width:88;
+	height:52;
+	background:url(countries.png) -426px -483px;
+}
+img.country_KR
+{
+	width:77;
+	height:53;
+	background:url(countries.png) -426px -536px;
+}
+img.country_LK
+{
+	width:100;
+	height:51;
+	background:url(countries.png) -539px 0px;
+}
+img.country_LT
+{
+	width:90;
+	height:54;
+	background:url(countries.png) -539px -52px;
+}
+img.country_LU
+{
+	width:88;
+	height:53;
+	background:url(countries.png) -539px -106px;
+}
+img.country_LV
+{
+	width:100;
+	height:51;
+	background:url(countries.png) -539px -160px;
+}
+img.country_MC
+{
+	width:66;
+	height:53;
+	background:url(countries.png) -539px -212px;
+}
+img.country_MD
+{
+	width:100;
+	height:51;
+	background:url(countries.png) -539px -266px;
+}
+img.country_ME
+{
+	width:98;
+	height:50;
+	background:url(countries.png) -539px -318px;
+}
+img.country_MH
+{
+	width:101;
+	height:53;
+	background:url(countries.png) -539px -368px;
+}
+img.country_MQ
+{
+	width:100;
+	height:50;
+	background:url(countries.png) -539px -423px;
+}
+img.country_MK
+{
+	width:82;
+	height:54;
+	background:url(countries.png) -539px -473px;
+}
+img.country_MT
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -539px -528px;
+}
+img.country_MX
+{
+	width:94;
+	height:53;
+	background:url(countries.png) -658px 0px;
+}
+img.country_NI
+{
+	width:91;
+	height:53;
+	background:url(countries.png) -659px -54px;
+}
+img.country_NL
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -659px -108px;
+}
+img.country_NO
+{
+	width:74;
+	height:52;
+	background:url(countries.png) -659px -162px;
+}
+img.country_NZ
+{
+	width:99;
+	height:51;
+	background:url(countries.png) -659px -216px;
+}
+img.country_PE
+{
+	width:81;
+	height:53;
+	background:url(countries.png) -659px -268px;
+}
+img.country_PA
+{
+	width:80;
+	height:53;
+	background:url(countries.png) -659px -322px;
+}
+img.country_PH
+{
+	width:83;
+	height:52;
+	background:url(countries.png) -659px -376px;
+}
+img.country_PL
+{
+	width:87;
+	height:53;
+	background:url(countries.png) -659px -430px;
+}
+img.country_PK
+{
+	width:80;
+	height:53;
+	background:url(countries.png) -659px -484px;
+}
+img.country_PR
+{
+	width:81;
+	height:52;
+	background:url(countries.png) -659px -538px;
+}
+img.country_AD_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png)  -220px -772px;
+}
+img.country_AM_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -236px -773px;
+}
+img.country_AL_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -255px -773px;
+}
+img.country_AS_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -272px -773px;
+}
+img.country_EE_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -290px -773px;
+}
+img.country_AT_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -219px -783px;
+}
+img.country_AU_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -236px -783px;
+}
+img.country_BD_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -254px -783px;
+}
+img.country_BG_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -272px -783px;
+}
+img.country_ES_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -290px -783px;
+}
+img.country_BE
+
+_small
+{
+	width:10;
+	height:8;
+	background:url(countries.png) -219px -793px;
+}
+img.country_BR_small
+{
+	width:12px;
+	height:8px;
+	background:url(countries.png) -236px -793px;
+}
+img.country_BY_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -255px -793px;
+}
+img.country_BZ_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -272px -793px; 
+}
+img.country_FI_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -290px -793px;
+}
+img.country_CA_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -219px -803px;
+}
+img.country_CH_small
+{
+	width:8;
+	height:8;
+	background:url(countries.png) -236px -803px;
+}
+img.country_CN_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -254px -803px;
+}
+img.country_CO_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -272px -803px;
+}
+img.country_FO_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -290px -803px;
+}
+img.country_CR_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -219px -813px;
+}
+img.country_CU_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -236px -813px 
+}
+img.country_CY_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -254px -813px;
+}
+img.country_CZ_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -272px -813px;
+}
+img.country_FR_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -290px -813px;
+}
+img.country_DE_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -219px -823px;
+}
+img.country_DK_small
+{
+	width:11;
+	height:8;
+	background:url(countries.png) -236px -823px;
+}
+img.country_DO_small
+{
+	width:13px;
+	height:8px;
+	background:url(countries.png) -254px -823px;
+}
+img.country_EC_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -272px -823px;
+}
+img.country_GE_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -290px -823px;
+}
+img.country_GF_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -219px -833px;
+}
+img.country_GG_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -236px -833px;
+}
+img.country_GL_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -272px -833px
+}
+img.country_GP_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -290px -833px;
+}
+img.country_GR_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -219px -843px;
+}
+img.country_GT_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -236px -843px;
+}
+img.country_GU_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -253px -843px;
+}
+img.country_GY_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -272px -843px;
+}
+img.country_HN_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -290px -843px
+}
+img.country_HR_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -219px -853px;
+}
+img.country_HU_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -236px -853px;
+}
+img.country_IE_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -253px -853px
+}
+img.country_IM_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -271px -853px;
+}
+img.country_IN_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -290px -853px;
+}
+img.country_IQ_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -219px -863px;
+}
+img.country_IR_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -236px -863px;
+}
+img.country_IS_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -253px -863px;
+}
+img.country_IT_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -267px -863px;
+}
+img.country_JE_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -288px -863px;
+}
+img.country_JP_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -219px -873px
+}
+img.country_KP_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -236px -873px; 
+}
+img.country_KR_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -253px -873px;
+}
+img.country_LI_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -267px -873px;
+}
+img.country_LK_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -287px -873px;
+}
+img.country_LT_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -219px -882px;
+}
+img.country_LU_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -236px -882px;
+}
+img.country_LV_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -252px -882px;
+}
+img.country_MC_small
+{
+	width:10;
+	height:8;
+	background:url(countries.png) -270px -882px;
+}
+img.country_MD_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -287px -882px;
+}
+img.country_ME_small
+{
+	width:15;
+	height:7;
+	background:url(countries.png) -219px -891px;
+}
+img.country_MH_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -236px -891px;
+}
+img.country_MK_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -253px -891px;
+}
+img.country_MQ_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -270px -891px;
+}
+img.country_MT_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -289px -891px;
+}
+img.country_MX_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -219px -900px
+}
+img.country_NI_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -236px -900px;
+}
+img.country_NL_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -253px -900px;
+}
+img.country_NO_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -270px -900px;
+}
+img.country_NZ_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -287px -900px;
+}
+img.country_PA_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -219px -909px;
+}
+img.country_PE_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -236px -909px;
+}
+img.country_PH_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -253px -909px;
+}
+img.country_PK_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -270px -909px;
+}
+img.country_PL_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -288px -909px;
+}
+img.country_PR_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -219px -918px;
+}
+img.country_PT_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -236px -918px;
+}
+img.country_PY_small
+{
+	width:14;
+	height:8;
+	background:url(countries.png) -253px -918px;
+}
+img.country_RE_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -270px -918px;
+}
+img.country_HR_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -290px -918px;
+}
+img.country_RO_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -219px -927px;
+}
+img.country_SE_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -253px -927px;
+}
+img.country_PL_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -270px -927px;
+}
+img.country_SI_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -287px -927px;
+}
+img.country_SK_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -219px -936px;
+}
+img.country_SM_small
+{
+	width:11;
+	height:8;
+	background:url(countries.png) -236px -936px;
+}
+img.country_SR_small
+{
+	width:11;
+	height:8;
+	background:url(countries.png) -253px -936px;
+}
+img.country_SY_small
+{
+	width:13;
+	heigth:8;
+	background:url(countries.png) -270px -936px;
+}
+img.country_TH_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -290px -936px;
+}
+img.country_UA_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -219px -945px;
+}
+img.country_UK_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -253px -945px;
+}
+img.country_UY_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -289px -945px;
+}
+img.country_VA_small
+{
+	width:9;
+	height:8;
+	background:url(countries.png) -219px -954px;
+}
+img.country_VE_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -236px -954px;
+}
+img.country_VI_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -253px -954px;
+}
+img.country_YT_small
+{
+	width:13;
+	height:8;
+	background:url(countries.png) -270px -954px;
+}
+img.country_ZA_small
+{
+	width:12;
+	height:8;
+	background:url(countries.png) -289px -954px;
+}
+img.country_Default
+{
+	width:100;
+	height:53;
+	background:url(countries.png) -449px -1152px;
+}
+img.country_Default_small
+{
+	width:15;
+	height:8;
+	background:url(countries.png) -566px -1197px;
+}
+/*Arrows*/
+img.arrow_uiTop
+{
+	width:50;
+	height:50;
+	background:url(arrows.png) 0 0; 
+}
+img.arrow_uiDown
+{
+	width:50;
+	height:50;
+	background:url(arrows.png) 0px -51px;
+}
+img.arrow_upArrowA
+{
+	width:48;
+	height:48;
+	background:url(arrows.png) -2px -102px;
+}
+img.arrow_upArrowB
+{
+	width:48;
+	height:48;
+	background:url(arrows.png) -2px -150px;
+}
+img.arrow_downArrowA
+{
+	width:48;
+	height:48;
+	background:url(arrows.png) -2px -198px;
+}
+img.arrow_downArrowB
+{
+	width:48;
+	height:48;
+	background:url(arrows.png) -2px -248px
+}
+img.arrow_OrangeArrowA
+{
+	width:48;
+	height:48;
+	background:url(arrows.png) -2px -298px;
+}
+img.arrow_OrangeArrowB
+{
+	width:48;
+	height:48;
+	background:url(arrows.png) -2px -349px;
+}
+img.arrow_GreenArrowA
+{
+	width:35;
+	height:34;
+	background:url(arrows.png) -8px -399px;
+}
+img.arrow_GreenArrowB
+{
+	width:35;
+	height:33;
+	background:url(arrows.png) -8px -433px;
+}
+/*icons*/
+img.icons_BdayHat
+{
+	width:15;
+	height:20;
+	background:url(icons.png) 0 0;
+}
+img.icons_Compass
+{
+	width:16;
+	height:16;
+	background:url(icons.png) 0px -21px;
+}
+img.icons_Monitor
+{
+	width:15;
+	height:14;
+	background:url(icons.png) 0px -37px;
+}
+img.icons_Doc
+{
+	width:16;
+	height:16;
+	background:url(icons.png) 0px -52px;
+}
+img.icons_Dollar
+{
+	width:11;
+	height:14;
+	background:url(icons.png) 0px -68px;
+}
+img.icons_irl
+{
+	width:16;
+	height:16;
+	background:url(icons.png) 0px -82px;
+}
+img.icons_irlGreen
+{
+	width:16;
+	height:16;
+	background:url(icons.png) 0px -98px;
+}
+img.icons_irlOrange
+{
+	width:16;
+	height:16;
+	background:url(icons.png) 0px -118px;
+}
+img.icons_Kalendar
+{
+	width:15;
+	height:15;
+	background:url(icons.png) 0px -134px;
+}
+img.icons_Keyboard
+{
+	width:16;
+	height:10;
+	background:url(icons.png) 0px -149px;
+}
+img.icons_KeyboardGreen
+{
+	width:16;
+	height:10;
+	background:url(icons.png) 0px -159px;
+}
+img.icons_KeyboardOrange
+{
+	width:16;
+	height:10;
+	background:url(icons.png) 0px -169px;
+}
+img.icons_iconMail
+{
+	width:16;
+	height:10;
+	background:url(icons.png) 0px -180px;
+}
+img.icons_iconMobile
+{
+	width:9;
+	height:15;
+	background:url(icons.png) 0px -190px;
+}
+img.icons_iconNote
+{
+	width:11;
+	height:16;
+	background:url(icons.png) 0px -206px;
+}
+img.icons_iconPhoto
+{
+	width:16;
+	height:12;
+	background:url(icons.png) -24px 0;
+}
+img.icons_icon_Rss
+{
+	width:15;
+	height:15;
+	background:url(icons.png) -24px -12px;
+}
+img.icons_iconUser
+{
+	width:14;
+	height:15;
+	background:url(icons.png) -24px -30px;
+}
+img.icons_iconVideo
+{
+	width:14;
+	height:15;
+	background:url(icons.png) -24px -44px;
+}
+img.icons_iconRss
+{
+	width:14;
+	height:14;
+	background:url(icons.png) -24px -59px;
+}
+img.icons_RssSmall
+{
+	width:15;
+	height:15;
+	background:url(icons.png) -42px -59px;
+}
+img.icons_smallMail
+{
+	width:16;
+	height:9;
+	background:url(icons.png) -24px -74px;
+}
+img.iconsSpeaker_off
+{
+	width:35;
+	height:35;
+	background:url(icons.png) -32px -91px;
+}
+img.iconsSpeaker_on
+{
+	width:35;
+	height:35;
+	background:url(icons.png) -33px -125px;
+}
+/* Interested In */
+img.interestedin_A
+{
+	width:11;
+	height:13;
+	background:url(interestedIn.png) 0 0;
+}
+img.interestedin_B
+{
+	width:15;
+	height:14;
+	background:url(interestedIn.png) 0 -13px;
+}
+img.interestedin_C
+{
+	width:14;
+	height:15;
+	background:url(interestedIn.png) 0 -28px;
+}
+img.interestedin_D
+{
+	width:14;
+	height:15;
+	background:url(interestedIn.png) 0 -43px;
+}
+img.interestedin_E
+{
+	width:13;
+	height:14;
+	background:url(interestedIn.png) 0 -58px;
+}
+img.interestedin_F
+{
+	width:15;
+	height:10;
+	background:url(interestedIn.png) 0 -73px;
+}
+img.interestedin_G
+{
+	width:10;
+	height:14;
+	background:url(interestedIn.png) 0 -83px;
+}
+img.interestedin_H
+{
+	width:11;
+	height:14;
+	background:url(interestedIn.png) 0 -98px;
+}
+img.interestedin_I
+{
+	width:15;
+	height:15;
+	background:url(interestedIn.png) 0 -113px;
+}
+/* relationship status */
+img.relationshipStatus_Green
+{
+	width:15;
+	height:15;
+	background:url(relationshipStatus.png) 0 0;
+}
+img.relationshipStatus_Red
+{
+	width:15;
+	height:15;
+	background:url(relationshipStatus.png) 0 -16px;
+}
+img.relationshipStatus_Yellow
+{
+	width:15;
+	height:15;
+	background:url(relationshipStatus.png) 0 -32px;
+}
+img.relationshipStatus_NotSure
+{
+	width:16;
+	height:23;
+	background:url(relationshipStatus.png) 0 -47px;
+}
+/* roles */
+img.roles_admin
+{
+	width:15;
+	height:15;
+	background:url(roles.png) 0 0;
+	
+}
+img.roles_ambassador
+{
+	width:15;
+	height:15;
+	background:url(roles.png) 0px -16px
+}
+img.roles_cyber_girl
+{
+	width:15;
+	height:15;
+	background:url(roles.png) 0px -32px;
+}
+img.roles_guard
+{
+	width:15;
+	height:15;
+	background:url(roles.png) 0px -48px;
+}
+img.roles_kontest_winner
+{
+	width:15;
+	height:15;
+	background:url(roles.png) 0px -64px;
+}
+img.roles_supporter
+{
+	width:15;
+	height:15;
+	background:url(roles.png) 0px -79px
+}
+/* sex */
+img.sex_A
+{
+	width:11;
+	height:13;
+	background:url(sex.png) 0 0;
+}
+img.sex_AD
+{
+	width:11;
+	height:13;
+	background:url(sex.png) -12px 0px;
+}
+img.sex_B
+{
+	width:11;
+	height:14;
+	background:url(sex.png) 0px -13px;
+}
+img.sex_BD
+{
+	width:11;
+	height:14;
+	background:url(sex.png) -12px -14px;
+}
+img.sex_G
+{
+	width:11;
+	height:16;
+	background:url(sex.png) 0px -28px;
+}
+img.sex_F
+{
+	width:11;
+	height:16;
+	background:url(sex.png) -12px -28px;
+}
+img.sex_G
+{
+	width:14;
+	height:12;
+	background:url(sex.png) 0px -44px;
+}
+img.sex_H
+{
+	width:16;
+	height:12;
+	background:url(sex.png) -15px -44px;
+}
+img.sex_I
+{
+	width:10;
+	height:14;
+	background:url(sex.png) 0px -56px; 
+}
+img.sex_J
+{
+	width:10;
+	height:14;
+	background:url(sex.png) -11px -56px;
+}
+img.sex_K
+{
+	width:12;
+	height:16;
+	background:url(sex.png) 0px -95px;
+}
+img.sex_L
+{
+	width:12;
+	height:16;
+	background:url(sex.png) -12px -95px;
+}
+img.sex_M
+{
+	width:15;
+	height:15;
+	background:url(sex.png) 0px -112px;
+}
+/*user status*/
+img.userStatus_Block_User
+{
+	width:93;
+	height:93;
+	background:url(userstatus.png) 0px 0px; 
+}
+img.userStatus_Block_user_small
+{
+	width:47;
+	height:47;
+	background:url(userstatus.png) -94px -43px;
+}
+img.userStatus_Eye_Spy
+{
+	width:93;
+	height:93;
+	background:url(userstatus.png) 0px -92px; 
+}
+img.userStatus_Keyboard
+{
+	width:93;
+	height:93;
+	background:url(userstatus.png) -94px -92px;
+}
+img.userStatus_Keyboard_Check
+{
+	width:47;
+	height:47;
+	background:url(userstatus.png) -94px -278px;
+}
+img.userStatus_Handprint
+{
+	width:93;
+	height:93;
+	background:url(userstatus.png) 0px -185px;
+}
+img.userStatus_HandprintCheck
+{
+	width:47;
+	height:48;
+	background:url(userstatus.png) -94px -229px;
+}
+img.userStatus_HandprintSmall
+{
+	width:47;
+	height:48;
+	background:url(userstatus.png) -141px -229px;
+}
+img.userStatus_Handprint_Hourglass
+{
+	width:47;
+	height:48;
+	background:url(userstatus.png) 0px -277px;
+}
+img.userStatus_Keyboard_Hourglass
+{
+	width:47;
+	height:48;
+	background:url(userstatus.png) -47px -277px;
+}

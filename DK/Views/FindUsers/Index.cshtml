@@ -1,0 +1,418 @@
+﻿@model DasKlub.Models.FindUsersModel
+@using BootBaronLib.Resources;
+@using BootBaronLib.Enums;
+@using BootBaronLib.Operational;
+@{
+    ViewBag.Title = Messages.FindUsers;
+}
+<div class="row">
+    <div class="span12">
+        @{Html.RenderPartial("_AdBanner"); }
+        <h2>@Messages.FindUsers</h2>
+        <hr />
+           <div id="cse-search-form" style="float: right; width: 370px; margin-left: 3px;">
+                                @BootBaronLib.Resources.Messages.LoadingDotDotDot
+                            </div>
+
+
+
+
+
+
+                            <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+                            <script type="text/javascript">
+                                ////////////////////////////////////////////// google search
+
+
+                                google.load('search', '1', { language: '@BootBaronLib.Operational.Utilities.GetCurrentLanguageCode().ToLower()' });
+                                google.setOnLoadCallback(function () {
+                                    var customSearchControl =
+                                     new google.search.CustomSearchControl('@Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                   BootBaronLib.Enums.SiteEnums.SiteBrandType.GOOGS,
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))');
+                                    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+                                    var options = new google.search.DrawOptions();
+                                    options.setAutoComplete(true);
+                                    options.enableSearchboxOnly("/search");
+                                    customSearchControl.draw('cse-search-form', options);
+                                }, true);
+
+
+
+
+
+                            </script>
+        <div class="clear"></div>
+              <hr />
+
+        <div id="loading_message" style="visibility: hidden;">
+            @Messages.LoadingDotDotDot
+            <img src="@Url.Content("~/content/images/loading/ajax-loader.gif")" />
+        </div>
+
+        <div class="span12 no_mp">
+                       
+                         
+
+
+ 
+            <div class="span3 no_mp">
+                <div class="control-group">
+                    <label class="control-label" for="YouAreID">
+                        @Messages.TheyAre
+                    </label>
+                    <div class="controls">
+                        @if (ViewBag.YouAres != null)
+                        {
+                            @Html.DropDownList("YouAreID", new SelectList(
+ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model.YouAreID), Messages.All)
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="span3 no_mp">
+                <div class="control-group">
+                    <label class="control-label" for="RelationshipStatusID">
+                        @Messages.RelationshipStatus
+                    </label>
+                    <div class="controls">
+                        @if (ViewBag.RelationshipStatuses != null)
+                        {
+                            @Html.DropDownList("RelationshipStatusID", new SelectList(
+         ViewBag.RelationshipStatuses, "RelationshipStatusID", "LocalizedName",
+         Model.RelationshipStatusID == null ? 0 : Model.RelationshipStatusID), Messages.All)
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="span3 no_mp">
+                <div class="control-group">
+                    <label class="control-label" for="InterestedInID">
+                        @Messages.InterestedIn
+                    </label>
+                    <div class="controls">
+                        @if (ViewBag.InterestedIns != null)
+                        {
+                            @Html.DropDownList("InterestedInID", new SelectList(
+         ViewBag.InterestedIns, "InterestedInID", "LocalizedName", Model.InterestedInID == null ? 0 : Model.InterestedInID), Messages.All)
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="span3 no_mp">
+                <div class="control-group">
+                    <label class="control-label" for="lang">
+                        @Messages.Language
+                    </label>
+                    <div class="controls">
+                        <select name="lang" id="lang">
+                            <option value="">@Messages.All</option>
+                            @if (ViewBag.Languages != null)
+                            {
+                                foreach (string lang in ViewBag.Languages)
+                                {
+                                    SiteEnums.SiteLanguages langCode =
+                                    (SiteEnums.SiteLanguages)Enum.Parse(
+                                   typeof(SiteEnums.SiteLanguages), lang);
+
+
+                                    if (langCode.ToString() != Model.Lang)
+                                    {
+                                <option value="@langCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(langCode))</option>
+                                    }
+                                    else
+                                    {
+                                <option selected="selected" value="@langCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(langCode))</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span12 no_mp">
+
+
+            <div class="span3 no_mp">
+                <div class="control-group">
+                    <label class="control-label" for="country">
+                        @Messages.Country
+                    </label>
+                    <div class="controls">
+                        <select name="country" id="country">
+                            <option value="">@Messages.All</option>
+                            @if (ViewBag.CountryOptions != null)
+                            {
+                                foreach (string country in ViewBag.CountryOptions)
+                                {
+
+                                    SiteEnums.CountryCodeISO countryCode =
+                                     (SiteEnums.CountryCodeISO)Enum.Parse(
+                                    typeof(SiteEnums.CountryCodeISO), country);
+
+                                    if (countryCode != SiteEnums.CountryCodeISO.U0 &&
+                                         countryCode != SiteEnums.CountryCodeISO.RD)
+                                    {
+                                        if (countryCode.ToString() == Model.Country)
+                                        {
+                                <option selected="selected" value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
+                                        }
+                                        else
+                                        {
+                                <option value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
+                                        }
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="span2 no_mp">
+                <div class="control-group">
+                    <label class="control-label" for="postalcode">
+                        @Messages.PostalCode
+                    </label>
+                    <div class="controls">
+                        <input type="text" value="@Model.PostalCode" maxlength="10" id="postalcode" name="postalcode" class="input-small" />
+                    </div>
+                </div>
+            </div>
+            <div class="span2 no_mp">
+                <div class="control-group">
+                    <label class="control-label" for="ageFrom">
+                        @Messages.AgeFrom
+                    </label>
+                    <div class="controls">
+                        <select id="ageFrom" class="span1">
+                            @for (int i = BootBaronLib.Configs.GeneralConfigs.MinimumAge; i < 99; i++)
+                            {
+                                if (i == Model.AgeFrom)
+                                {
+                                <option selected="selected" value="@i">@i</option>
+                                }
+
+                                else
+                                {
+                                <option value="@i">@i</option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="span2 no_mp">
+                <div class="control-group">
+                    <label class="control-label" for="ageTo">
+                        @Messages.AgeTo
+                    </label>
+                    <div class="controls">
+                        <select id="ageTo" class="span1">
+                            @for (int i = BootBaronLib.Configs.GeneralConfigs.MinimumAge; i < 99; i++)
+                            {
+
+                                if (i == Model.AgeTo)
+                                {
+                                <option selected="selected" value="@i">@i</option>
+                                }
+                                else
+                                {
+                                <option value="@i">@i</option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="span3 no_mp">
+                <div class="control-group">
+                    <label class="control-label">
+                        &nbsp;
+                    </label>
+                    <button class="btn btn-success" onclick="searchUsers()">
+                        @Messages.Search
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="row">
+    <div class="span8">
+
+
+        <div class="filtered_list">
+            @if (string.IsNullOrEmpty(ViewBag.FilteredUsers))
+            {
+                <i>@Messages.NoResults</i>
+            }
+            else
+            {
+
+                if (Convert.ToBoolean(ViewBag.SortByDistance))
+                {
+                <i>@Messages.SortedByDistance</i>
+                }
+                else
+                {
+                <i>@Messages.SortedByActivity</i>
+                }
+              
+              
+                @Html.Raw(ViewBag.FilteredUsers)
+            }
+        </div>
+
+        <div class="clear"></div>
+        @if (!string.IsNullOrEmpty(ViewBag.FilteredUsers) && Request.Browser.IsMobileDevice)
+        {
+
+            <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@BootBaronLib.Resources.Messages.LoadMore</button> 
+        }
+
+        @{Html.RenderPartial("_bottomLoadingMessage"); }
+
+    </div>
+    <div class="span4">
+        <hr />
+        <b>100% @Messages.Random:
+                    @Messages.FeaturedModel</b>
+        @if (ViewBag.FeaturedModel != null)
+        {
+            @Html.Raw(ViewBag.FeaturedModel)
+             
+              
+        }
+
+
+        <hr />
+        @{Html.RenderPartial("_AdBanner2"); }
+
+        <hr />
+        <a href="@Url.Content("~/map")">@Messages.Map
+        </a>
+
+
+    </div>
+</div>
+
+
+@section _css {
+
+
+    @if (Request.Browser.IsMobileDevice)
+    {
+        <style type="text/css">
+            .video_page_list_item img
+            {
+                width: 55px;
+                height: 41px;
+            }
+        </style>  
+    }}
+<div class="clear">
+</div>
+
+
+
+@section _javascript {
+
+    <script type="text/javascript">
+
+
+        function searchUsers() {
+            $('#loading_message').css({ opacity: 0.0, visibility: "visible" }).animate({ opacity: 1.0 });
+
+
+            window.location = window.location.href.split('?')[0] +
+           '?ageFrom=' + $('select#ageFrom').val() + '&ageTo=' + $('select#ageTo').val() +
+             '&postalcode=' + $('#postalcode').val() + '&country=' + $('select#country').val() +
+                 '&lang=' + $('select#lang').val() + '&RelationshipStatusID=' + $('select#RelationshipStatusID').val() +
+             '&YouAreID=' + $('select#YouAreID').val() + '&InterestedInID=' + $('select#InterestedInID').val();
+
+
+        }
+    </script>
+
+    @if (Request.Browser.IsMobileDevice)
+    {
+       
+       
+        <script type="text/javascript">
+
+
+            $('#load_more').click(function () {
+                $('#loading').fadeIn();
+
+                $.post($rootUrl + 'findusers/Items?time=' + new Date().getTime(), { pageNumber: pageNumber },
+                           function (data) {
+
+                               pageNumber++;
+                               $('.filtered_list ul').append(data.ListItems);
+                               $('#loading').fadeOut();
+                           });
+
+            });
+
+        </script>
+       
+       
+        
+    }
+    else
+    {
+        <script type="text/javascript">
+
+
+            $(function () {
+                $('.filtered_list ul').scrollPagination({
+                    'contentPage': $rootUrl + 'findusers/items', // the page where you are searching for results
+                    'contentData': {}, // you can pass the children().size() to know where is the pagination
+                    'scrollTarget': $(window), // who gonna scroll? in this example, the full window
+                    'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please
+                    'beforeLoad': function () { // before load, some function, maybe display a preloader div
+                        $('#loading').fadeIn();
+
+
+                    },
+                    'afterLoad': function (elementsLoaded) { // after loading, some function to animate results and hide a preloader div
+                        $('#loading').fadeOut();
+                        $('#loading_message').fadeOut();
+                        pageNumber++;
+                        var i = 0;
+                        $(elementsLoaded).fadeInWithDelay();
+                        if ($('.filtered_list ul').children().size() > 10000) { // if more than 100 results loaded stop pagination (only for test)
+                            $('#nomoreresults').fadeIn();
+                            $('.filtered_list ul').stopScrollPagination();
+
+
+                        }
+                    }
+                });
+
+                // code for fade in element by element with delay
+                $.fn.fadeInWithDelay = function () {
+                    var delay = 0;
+                    return this.each(function () {
+                        $(this).delay(delay).animate({ opacity: 1 }, 200);
+                        delay += 100;
+                    });
+                };
+
+            });
+        </script>
+    }
+
+
+
+
+}

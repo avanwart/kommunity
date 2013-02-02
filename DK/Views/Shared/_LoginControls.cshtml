@@ -1,0 +1,36 @@
+﻿@using BootBaronLib.Resources;
+@if (!Request.IsAuthenticated)
+{
+<h4>@Messages.SignIn</h4>
+    using (Html.BeginForm("LogOn", "Account", FormMethod.Post, new
+    {
+        @class = "form-inline",
+        @style="margin-bottom:0;"
+    
+    }))
+    {
+       
+    @Html.TextBox("userName", string.Empty,
+         new { @class = "input-small", placeholder = @Messages.UserName, @style = "margin-right:5px;" })
+
+    @Html.Password("password", string.Empty,
+         new { @class = "input-small", placeholder = @Messages.Password })
+
+    <button class="btn btn-primary" type="submit">
+        @Messages.SignIn</button>
+    <br />
+    <label class="checkbox">
+    @Html.CheckBox("rememberMe", true, new { @style = "width:10px;" })
+        
+      @Messages.RememberMe
+    </label>
+    <br />
+               <a href="@Url.Content("~/account/forgotpassword")"> @Messages.ForgotYourPassword </a>
+    }
+}
+else if ( Membership.GetUser() != null)
+{
+    @Html.Raw(Messages.SignedInAs + ": " + Membership.GetUser().UserName)   
+@*    <br />
+    @Html.ActionLink(Messages.SignOff, "LogOff", "Account") *@
+}

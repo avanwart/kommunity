@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = BootBaronLib.Resources.Messages.Video;
+}
+
+@section _css {
+<style type="text/css">
+ #player { width:100%;}
+ </style>
+}
+<div 
+
+class="row">
+    <div class="span8">
+        <div id="player">
+        </div>
+        <script src="http://www.youtube.com/player_api" type="text/javascript"></script>
+        <div class="row">
+
+            <div>
+            @*    @{Html.RenderPartial("_AdBanner"); }*@
+            </div>
+        </div>
+        <br />
+        <div class="demo">
+            <div id="accordion">
+                <h3>
+                    <a href="javascript:window.hash">YouTube : @BootBaronLib.Resources.Messages.Comments</a></h3>
+                <div>
+                    <ul id="comments">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br />
+        
+    </div>
+    <div class="span4">
+        <div class="vid_filter_block">
+            @{Html.RenderPartial("_AdBanner4"); }
+            <hr />
+            <div id="related_videos">
+            </div>
+            <div class="clear">
+            </div>
+            <div class="vid_filter_block">
+                <b>@BootBaronLib.Resources.Messages.Video:</b>
+                <div id="current_song">
+                </div>
+                <br />
+                <div id="buy_link">
+                </div>
+                <br />
+                <b>@BootBaronLib.Resources.Messages.UploadPhoto:</b>
+                <div id="user_account">
+                </div>
+                 
+                <a class="btn btn-primary" id="add_to_playlist" href="#">@BootBaronLib.Resources.Messages.AddToPlaylist</a>
+
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<i><a id="claim_video" href="#">@BootBaronLib.Resources.Messages.ClaimYouUploadedThisVideo</a></i>
+       
+
+@section _javascript {
+
+
+
+<link rel="stylesheet" href="@Url.Content("~/content/style/ui-darkness/jquery-ui-1.8.19.custom.css")" /> 
+<script type="text/javascript" src="@Url.Content("~/content/script/jquery.ui.core.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/content/script/jquery.ui.widget.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/content/script/accordion.js")"></script>
+ 
+ 
+<script type="text/javascript">
+
+ 
+
+ 
+
+
+
+    $(document).ready(function () {
+
+    youtubeVideoHeight = '@ViewBag.VideoHeight';
+
+youtubeVideoWidth = '@ViewBag.VideoWidth';
+
+  
+                hashkey = window.location.hash;
+
+                hashkey = hashkey.replace('#!', '');
+
+                var urlToFetch;
+
+                if ( loadFromHash )
+                {
+                    urlToFetch = $rootUrl + "io/operation.ashx?vid=" + hashkey;
+                }
+                else 
+                {
+                    urlToFetch = $rootUrl +  "io/operation.ashx?playlist=1";
+                }
+
+   
+                $.getJSON(urlToFetch, function (data) {
+
+                    vidDefault = data;
+
+                    loadJSONVideo(vidDefault);
+
+
+                });
+
+
+ 
+
+
+
+                $("#accordion").accordion({ header: "h3", autoHeight: false, collapsible: true, active: false });
+
+
+                $("#accordion").on("accordionchangestart", function (event, ui) {
+                    $("ul#comments").html('');
+                    getYouTubeInfo(vidDefault.ProviderKey);
+                });
+
+
+    });
+
+
+
+</script>
+}

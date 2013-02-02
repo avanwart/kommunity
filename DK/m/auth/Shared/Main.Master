@@ -1,0 +1,56 @@
+﻿<%@ Master   Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="DasKlub.m.auth.Shared.Main" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Auth</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        #auth_nav ul li
+        {
+            float: left;
+            list-style-type: none;
+            padding-right: 15px;
+            border: 2px solid #FFF;
+        }
+    </style>
+    
+       
+    
+</head>
+<body>
+    <form id="form1" runat="server">
+    <a href="/">HOME</a>
+    <div id="auth_nav">
+        <ul>
+            <li><a href="ModifyVenue.aspx">Venues</a></li>
+            <li><a href="NewTourDate.aspx">Events</a> </li>
+            <li><a href="ArtistTD.aspx">Band Tour Dates</a> </li>
+        
+       
+            <li><a href="VideoInput.aspx">Videos</a> </li>
+            <li><a href="SongProperties.aspx">Song Properties</a> </li>
+                        <li><a href="UserAddress.aspx">User Addresses</a> </li>
+ 
+ 
+
+<li><a href="ArtistProperties.aspx">Artist Properties</a> </li>
+ 
+ 
+        </ul>
+    </div>
+    <div style="clear: both">
+    </div>
+        <asp:Literal ID="litMessage" runat="server"></asp:Literal>
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+    
+ 
+          
+          
+</body>
+</html>

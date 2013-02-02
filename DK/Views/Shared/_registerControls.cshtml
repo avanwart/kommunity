@@ -1,0 +1,110 @@
+﻿  @using BootBaronLib.Resources;
+  @model DasKlub.Models.RegisterModel
+                     @if (!Request.IsAuthenticated)
+                     {
+  using (Html.BeginForm("Register", "Account"))
+  {
+      if (!string.IsNullOrWhiteSpace(Request.QueryString["refuser"]))
+      {
+          <input type="hidden" value="@Request.QueryString["refuser"]" name="refuser" />
+      }
+                        @Html.ValidationSummary(false, Messages.PleaseCorrectTheErrors)
+ 
+        <br />
+        <div class="clear">
+        </div>
+        <div>
+            <div style="float: left;">
+                <fieldset>
+                    <legend>@Messages.CreateANewAccount</legend>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.UserName)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(m => m.UserName, new { maxlength = "15" })  
+                        @Html.ValidationMessageFor(m => m.UserName)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Email)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(m => m.Email, new { maxlength = "75" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.NewPassword)
+                    </div>
+                    <div class="editor-field">
+                        @Html.PasswordFor(m => m.NewPassword, new { maxlength = "15" })
+                        @Html.ValidationMessageFor(m => m.NewPassword)
+                    </div>
+                  
+                    <div class="editor-label">
+                    @Messages.BirthDate
+                    </div>
+                    <div class="editor-field">
+                        <select name="year" class="span1">
+                            <option selected="selected" value="">@Messages.Year</option>
+                                @for (int i = DateTime.UtcNow.Year -  BootBaronLib.Configs.GeneralConfigs.MinimumAge; i >= DateTime.UtcNow.Year - 100; i--)
+                                {
+                                <option value="@i">@i</option>
+                                }
+                        </select>
+                        -
+                        <select name="month" class="span1">
+                            <option selected="selected" value="">@Messages.Month</option>
+                            @for (int i = 1; i <= 12; i++)
+                            {
+                                <option value="@i">@i.ToString("00")</option>
+                            }
+                        </select>
+                        -
+                        <select name="day" class="span1">
+                            <option selected="selected" value="">@Messages.Day</option>
+                            @for (int i = 1; i <= 31; i++)
+                            {
+                                <option value="@i">@i.ToString("00")</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="editor-label">
+                    @Html.LabelFor(m => m.YouAreID)
+                    </div>
+                    @{
+                                var youAres = new BootBaronLib.AppSpec.DasKlub.BOL.YouAres();
+            youAres.GetAll();
+
+
+            youAres.Sort(delegate(BootBaronLib.AppSpec.DasKlub.BOL.YouAre p1, BootBaronLib.AppSpec.DasKlub.BOL.YouAre p2)
+            {
+                return p1.LocalizedName.CompareTo(p2.LocalizedName);
+            });
+
+            ViewBag.YouAres = youAres.Select(x => new { YouAreID = x.YouAreID, LocalizedName = x.LocalizedName });
+            }
+
+
+                    <div class="editor-field">
+                                              @Html.DropDownList("YouAreID", new SelectList(
+ViewBag.YouAres, "YouAreID", "LocalizedName", Model == null ? 0 : Model.YouAreID), Messages.DashSelect)
+                     @Html.ValidationMessageFor(m => m.YouAreID)
+                    </div>
+                    <div class="editor-field">
+               
+ 
+                               
+                               @Messages.BySigningUpYouAgreeToTheTermsOfService
+                                 <a target="_blank" href="@Url.Content("~/SiteContent?brandType=" + BootBaronLib.Enums.SiteEnums.SiteBrandType.TERMS.ToString())">@Messages.Here</a>
+                              
+                    </div>
+                    <br />
+                    <p>
+                        <input class="btn btn-success" type="submit" value="@Messages.Register" />
+                    </p>
+                </fieldset>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+  }
+                     }

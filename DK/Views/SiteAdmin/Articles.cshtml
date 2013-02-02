@@ -1,0 +1,82 @@
+﻿@using Web.Helpers
+@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents
+@{
+    ViewBag.Title = BootBaronLib.Resources.Messages.ManageNews;
+}
+@{Html.RenderPartial("_adminMenu"); }
+<h2>@BootBaronLib.Resources.Messages.ManageNews</h2>
+<hr />
+@Html.ActionLink(BootBaronLib.Resources.Messages.CreateNew, "CreateArticle")
+<table>
+    <tr>
+        <th>@BootBaronLib.Resources.Messages.Photo
+        </th>
+
+                <th>@BootBaronLib.Resources.Messages.Language
+        </th>
+        <th>@BootBaronLib.Resources.Messages.Title
+        </th>
+          
+
+        <th>@BootBaronLib.Resources.Messages.CreatedOn
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (!string.IsNullOrEmpty(item.ContentPhotoThumbURL))
+                {
+                    <a target="_blank" href="@item.UrlTo">
+                        <img alt="@item.Title"  
+                         src="@Html.S3ContentPath(item.ContentPhotoThumbURL)" />
+                    </a>
+                }
+            </td>
+                    <td>
+                @item.Language
+            </td>
+            <td>
+                <a target="_blank" href="@item.UrlTo">@item.Title</a>
+            </td>
+            
+            <td>
+                @item.CreateDate
+            </td>
+            <td>
+                @Html.ActionLink(BootBaronLib.Resources.Messages.Edit, 
+                "EditArticle", new { id = item.ContentID })
+            </td>
+        </tr>
+    }
+</table>
+@{
+    int pageSize = Convert.ToInt32(ViewBag.PageCount);
+
+    for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
+    {
+        if (string.IsNullOrEmpty(Request.QueryString[
+            BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString()]) && pageNumber == 1)
+        {
+    @pageNumber     
+        }
+        else if (!string.IsNullOrEmpty(Request.QueryString[
+            BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString()]) &&
+            pageNumber ==
+            Convert.ToInt32(Request.QueryString[
+            BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString()])
+            )
+        {
+    @pageNumber 
+        }
+        else
+        {
+    <a href="@Url.Content("~/siteadmin/articles/?" +
+      BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString() +
+      "=" + pageNumber.ToString())">@pageNumber.ToString()</a>  
+        }
+    }
+    
+}

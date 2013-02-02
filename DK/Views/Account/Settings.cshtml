@@ -1,0 +1,160 @@
+﻿@using BootBaronLib.Resources
+@{
+    ViewBag.Title =  Messages.EditProfile + ": " + Messages.Settings;
+    Layout = "~/Views/Shared/Site.cshtml";
+}
+<div class="row">
+    <div class="span8">
+        @{Html.RenderPartial("_AdBanner"); }
+        <h2>@Messages.EditProfile
+        </h2>
+          <hr />
+        @{Html.RenderPartial("_editProfileMenu"); }
+        @if (!ViewBag.IsValid)
+        {
+           
+            @Html.ValidationSummary(true, Messages.PleaseCorrectTheErrors)
+            
+        }
+        @if ((ViewBag.ProfileUpdated != null && ViewBag.ProfileUpdated) || Request.QueryString["updated"] != null && Request.QueryString["updated"] == "1")
+        {
+            <div class="alert alert-success">@Messages.Success</div>
+        }
+        @using (Html.BeginForm("Settings", "Account"))
+        {
+       
+            <fieldset>
+                <div class="editor-label">
+                    @Html.Label(Messages.ProfileLogging)
+                </div>
+                <div class="editor-field">
+                    <label class="checkbox">
+                        <input
+        @if (ViewBag.UserAccountDetail.EnableProfileLogging)
+        {
+         <text> checked="checked"</text>
+        }
+              type="checkbox" name="enableprofilelogging"/>
+                        <i>@Messages.YourProfileViewsWillNotBeRecorded</i>
+                    </label>
+                </div>
+                <div class="editor-label">
+                    @Messages.DisplayMyAge
+                </div>
+                <div class="editor-field">
+                    <label class="checkbox">
+                        <input
+        @if (ViewBag.UserAccountDetail.DisplayAge)
+        {
+         <text> checked="checked"</text>
+        }
+              type="checkbox" name="displayage"/>
+                        <i>@Messages.YourAgeWillNotDisplay</i>
+                    </label>
+                </div>
+                
+                <div class="editor-label">
+                    @Messages.EMailMyMessages
+                </div>
+                <div class="editor-field">
+                    <label class="checkbox">
+                        <input @if (ViewBag.UserAccountDetail.EmailMessages)
+                               {
+         <text> checked="checked"</text>
+                               } 
+          name="emailmessages"  type="checkbox"  />
+                        <i>@Messages.MessagesAreSentToYourEmail</i>
+                    </label>
+                </div>
+
+                <div class="editor-label">
+                    @Messages.ShowMyLocationOnTheMap
+                </div>
+                <div class="editor-field">
+                    <label class="checkbox">
+                        <input @if (ViewBag.UserAccountDetail.ShowOnMap)
+                               {
+         <text> checked="checked"</text>
+                               } 
+          name="showonmap"  type="checkbox"  />
+                        <i>@Messages.YouDoNotAppearOnTheMap</i>
+                    </label>
+                </div>
+
+                                <div class="editor-label">
+                    @Messages.MembersOnlyProfile
+                </div>
+                <div class="editor-field">
+                    <label class="checkbox">
+                        <input @if (ViewBag.UserAccountDetail.MembersOnlyProfile)
+                               {
+         <text> checked="checked"</text>
+                               } 
+          name="membersonlyprofile"  type="checkbox"  />
+                        <i>@Messages.OnlyMembersCanSeeYourProfile</i>
+                    </label>
+                </div>
+
+
+                @if (ViewBag.Membership != null)
+                {
+                    <div class="editor-label">
+                        @Messages.EMail
+                    </div>
+
+                    <div class="editor-field">
+                        <input  value="@ViewBag.Membership.Email" type="text" maxlength="75" 
+                              name="email" style="width: 250px" />
+                    </div>
+
+         
+            
+                    <div class="editor-label">
+                        @Messages.UserName
+                    </div>
+
+                    <div class="editor-field">
+                        <input
+         value="@ViewBag.Membership.UserName"
+         type="text" name="username" style="width: 150px" maxlength="15" />
+                    </div>
+            
+            
+                    <input  class="btn btn-success" type="submit" value="@Messages.Submit" />
+      
+                }
+            </fieldset>
+     
+            <style type="text/css">
+                .editor-field
+                {
+                    padding-bottom: 10px;
+                }
+            </style>
+      
+    
+
+            <br />
+        }
+        @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "changepassword" ||
+            ViewContext.RouteData.Values["action"].ToString().ToLower() == "changepasswordsuccess")
+        {
+            <text>@Messages.ChangePassword</text>
+        }
+        else
+        {
+            <a href="@Url.Content("~/account/changepassword")">@Messages.ChangePassword</a>
+        }
+        <br />
+        <br />
+        <br />
+        <p>
+            <i><a href="@Url.Content("~/account/userdeletion")">
+            <del>@Messages.DeleteAccount</del></a>
+            </i>
+        </p>
+    </div>
+    <div class="span4">
+        @{Html.RenderPartial("_AdBanner2"); }
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿ @{
+    ViewBag.Title =  ViewBag.FirstLetter;
+}
+@{Html.RenderPartial("_AdBanner"); }
+
+<div class="row">
+<div class="span8">
+
+<h2>@ViewBag.FirstLetter</h2>
+    <hr />
+<h4>@BootBaronLib.Resources.Messages.UploadingUsers</h4>
+
+
+
+  @Html.Raw(HttpUtility.HtmlDecode(ViewBag.LetterOfUsers))
+  <div class="clear"></div>
+
+       <div id="band_list_cloud">
+
+@Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudUsers))
+ </div>
+ 
+</div>
+<div class="span4">
+
+</div>
+</div>
+
+
+   

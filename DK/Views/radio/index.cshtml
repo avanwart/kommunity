@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = BootBaronLib.Resources.Messages.Radio;
+}
+ 
+<div class="row">
+    <div class="span8">
+        @{Html.RenderPartial("_AdBanner"); }
+        <h2>@BootBaronLib.Resources.Messages.Radio
+        </h2>
+ <hr />
+
+        @if (!Request.Browser.IsMobileDevice)
+        {
+
+                        @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                   BootBaronLib.Enums.SiteEnums.SiteBrandType.RADIO,
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+     
+            
+             
+        }
+        else
+        {
+                        @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                   BootBaronLib.Enums.SiteEnums.SiteBrandType.RADIM,
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+        }
+    </div>
+    <div class="span4">
+        @{Html.RenderPartial("_AdBanner2"); }
+    </div>
+</div>

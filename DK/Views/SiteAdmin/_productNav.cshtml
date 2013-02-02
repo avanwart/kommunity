@@ -1,0 +1,20 @@
+﻿@using Web.Helpers
+@using BootBaronLib.Resources
+@model BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Product
+<b>
+@Messages.Editing:
+@Model.Name</b><br /><ul class="tabs">
+    <li class="@(ViewBag.nav == "BasicDetails" ? "active" : "")"><a href="@Url.Action("EditProduct", "Account", new { id = Model.ProductID })">@Messages.BasicDetails</a></li>
+        <li class="@(ViewBag.nav == "TextDescriptions" ? "active" : "")"><a 
+     href="@Url.Action("TextDescriptions", "Account", new { id = Model.ProductID })">@Messages.TextDescriptions</a></li>
+            
+             <li class="@(ViewBag.nav == "PhotoAndVideo" ? "active" : "")"><a 
+     href="@Url.Action("PhotoAndVideo", "Account", new { id = Model.ProductID })">@Messages.PhotoAndVideo</a></li>
+
+    <li class="@(ViewBag.nav == "Variations" ? "active" : "")"><a 
+     href="@Url.Action("Variations", "Account", new { id = Model.ProductID })">@Messages.Variations</a></li>
+    <li class="@(ViewBag.nav == "Shipping" ? "active" : "")"><a 
+     href="@Url.Action("Shipping", "Account", new { id = Model.ProductID })">@Messages.Shipping</a></li>
+    <li class="@(ViewBag.nav == "Reviews" ? "active" : "")"><a 
+     href="@Url.Action("Reviews", "Account", new { id = Model.ProductID })">@Messages.Reviews</a></li>
+</ul>

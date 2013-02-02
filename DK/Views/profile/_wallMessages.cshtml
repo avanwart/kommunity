@@ -1,0 +1,30 @@
+﻿@model  DasKlub.Models.ProfileModel
+ @using BootBaronLib.Resources;
+
+ @using (Html.BeginForm("WriteWallMessage", "Profile"))
+ {
+                <div class="span4" style="margin: 0;">
+                    <textarea id="message_text" rows="4" name="message" style="width: 80%;" class="input-xlarge expand65-600"></textarea>
+                </div>
+     
+     <input type="hidden" value="@Model.UserAccountID.ToString()" name="toUserAccountID" />
+     
+       <button type="submit" id="submit_post" class="btn btn-success">@Messages.Submit</button>
+ }
+
+<div class="clear"></div>
+
+
+    <div id="status_update_list">
+           @{
+               BootBaronLib.AppSpec.DasKlub.BOL.WallMessages wall = new BootBaronLib.AppSpec.DasKlub.BOL.WallMessages();
+
+               wall.GetWallMessagessPageWise(1, 5, Model.UserAccountID);
+               
+             }
+
+        @Html.Raw(wall.ToUnorderdList)
+           
+        </div>
+
+ 

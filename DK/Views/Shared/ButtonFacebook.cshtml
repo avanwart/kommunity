@@ -1,0 +1,8 @@
+﻿@{
+	var imgUrl = Url.Content("~/images/fb-login.png");
+	if (ViewData.Get<string>("size") == "small")
+	{
+		imgUrl = Url.Content("~/images/fb-login.png");
+	}
+}
+<a href="@Url.Action("FacebookStartLogin", "Authentication", new{returnUrl = this.Request.Url.PathAndQuery})" rel="nofollow external"><img src="@imgUrl" alt="@T("Login using Facebook")" /></a>

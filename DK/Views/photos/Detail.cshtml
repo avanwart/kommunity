@@ -1,0 +1,52 @@
+﻿@using Web.Helpers
+@model  BootBaronLib.AppSpec.DasKlub.BOL.PhotoItem
+@{
+    ViewBag.Title = Model.Title;
+    ViewBag.ThumbIcon = BootBaronLib.Operational.Converters.FromString.GetFixedLengthString(Html.S3ContentPath(Model.FilePathThumb).ToString(), 50);
+}
+@{Html.RenderPartial("_AdBanner"); }
+<div class="row">
+    <div class="span8">
+    @if (Model == null)
+    {
+    <b>@BootBaronLib.Resources.Messages.Deleted</b>
+    }
+    else
+    {
+        <div id="status_update_list">
+            @Html.Raw(ViewBag.StatusUpdateList)
+        </div>
+    }
+        @section _javascript {
+            @{Html.RenderPartial("_statusCommenting-js"); }
+        }
+    </div>
+    <div class="span4">
+   
+
+       
+                     @if (ViewBag.NextPhoto != null)
+        {
+            <i>@BootBaronLib.Resources.Messages.NextPhoto</i>
+            <ul class="photo_navs">
+                @Html.Raw(ViewBag.NextPhoto.ToUnorderdListItem)
+            </ul>
+        }
+
+
+                
+                     <br />
+       
+              
+                @if (ViewBag.PreviousPhoto != null)
+                {
+            <i>@BootBaronLib.Resources.Messages.PreviousPhoto</i>
+            <ul class="photo_navs">
+                @Html.Raw(ViewBag.PreviousPhoto.ToUnorderdListItem)
+            </ul>
+                }
+        <hr />
+               @{Html.RenderPartial("_AdBanner3"); } 
+         
+    </div>
+</div>

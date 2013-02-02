@@ -1,0 +1,1675 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>hesap</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>tüm</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>iptal</value>
+  </data>
+  <data name="CannotUnencodeAHashedPassword" xml:space="preserve">
+    <value>Hashed parola unencode olamaz.</value>
+  </data>
+  <data name="ChangePasswordCancel" xml:space="preserve">
+    <value>Şifreyi değiştir nedeniyle yeni şifre doğrulama hatası nedeniyle iptal.</value>
+  </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>buraya tıklayın</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>yakın</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>yorumlamak</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Parolayı Onayla</value>
+  </data>
+  <data name="ConnectionStringCannotBeBlank" xml:space="preserve">
+    <value>Bağlantı dizesi boş olamaz.</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>devam etmek</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>saymak</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Mevcut Şifre</value>
+  </data>
+  <data name="DefaultLanguage" xml:space="preserve">
+    <value>Varsayılan Dil</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>silmek</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>tanım</value>
+  </data>
+  <data name="DoNotRespondToThisEmail" xml:space="preserve">
+    <value>Bu e-postaya yanıt vermeyin</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="EMail" xml:space="preserve">
+    <value>e-posta</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>İngilizce (English)</value>
+  </data>
+  <data name="EnterTheEmailAddress" xml:space="preserve">
+    <value>E-posta adresi girin</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>hata</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptCount" xml:space="preserve">
+    <value>Başarısız Şifre Cevap Denemesi Sayısı</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptWindowStart" xml:space="preserve">
+    <value>Başarısız Şifre Cevap Denemesi Windows'un Başlat</value>
+  </data>
+  <data name="FailedPasswordAttemptCount" xml:space="preserve">
+    <value>Başarısız Parola Denemesi Sayısı</value>
+  </data>
+  <data name="FailedPasswordAttemptWindowStart" xml:space="preserve">
+    <value>Başarısız Parola Denemesi Windows'un Başlat</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>dosya</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>ad</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>yasak</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Şifrenizi mi unuttunuz?</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>itibaren</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>Alman (Deutsch)</value>
+  </data>
+  <data name="GetPasswordFailedNoUnique" xml:space="preserve">
+    <value>Parola başarısız alın. Benzersiz bir kullanıcı bulunamadı.</value>
+  </data>
+  <data name="Go" xml:space="preserve">
+    <value>gitmek</value>
+    <comment>Used to start a search</comment>
+  </data>
+  <data name="HashedOrEncryptedPasswords" xml:space="preserve">
+    <value>Hashed veya Şifreli parolalar otomatik oluşturulan tuşları ile desteklenmez.</value>
+  </data>
+  <data name="HasSentThisMessage" xml:space="preserve">
+    <value>Bu mesajı gönderdi</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Merhaba</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>ev</value>
+  </data>
+  <data name="IncorrectPasswordAnswer" xml:space="preserve">
+    <value>Yanlış şifre cevap.</value>
+  </data>
+  <data name="IpAddress" xml:space="preserve">
+    <value>IP Adresi</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>Aktif mi</value>
+  </data>
+  <data name="IsAdmin" xml:space="preserve">
+    <value>Yönetici mi</value>
+  </data>
+  <data name="IsApproved" xml:space="preserve">
+    <value>Onaylı mı</value>
+  </data>
+  <data name="IsLockedOut" xml:space="preserve">
+    <value>Kilitli</value>
+  </data>
+  <data name="IsOnline" xml:space="preserve">
+    <value>Yayında</value>
+  </data>
+  <data name="JustNow" xml:space="preserve">
+    <value>hemen şimdi</value>
+  </data>
+  <data name="KeepMeLoggedIn" xml:space="preserve">
+    <value>me logged tutmak</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>dil</value>
+  </data>
+  <data name="LastActivityDateTime" xml:space="preserve">
+    <value>Son Aktivitesi Tarih Saat</value>
+  </data>
+  <data name="LastLockoutDate" xml:space="preserve">
+    <value>Son Lokavt Tarihi</value>
+  </data>
+  <data name="LastLoginDate" xml:space="preserve">
+    <value>Son Giriş Tarihi</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>soyadı</value>
+  </data>
+  <data name="LastNameIsRequired" xml:space="preserve">
+    <value>Soyad gereklidir</value>
+  </data>
+  <data name="LastPasswordChangedDateTime" xml:space="preserve">
+    <value>Son Şifre Tarih Saat Değişti</value>
+  </data>
+  <data name="SignInToYourAccountHere" xml:space="preserve">
+    <value>Burada Sizin hesabınıza giriş yapın</value>
+  </data>
+  <data name="SignOff" xml:space="preserve">
+    <value>çıkarken imza atmak</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>isim</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Yeni Şifre</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>sonraki</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>hayır</value>
+  </data>
+  <data name="Norweigen" xml:space="preserve">
+    <value>Norveç (Norge)</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Bulunamadı</value>
+  </data>
+  <data name="NoVideoPlaybackCapabilities" xml:space="preserve">
+    <value>Hiçbir video oynatma yetenekleri</value>
+  </data>
+  <data name="NumberOfViews" xml:space="preserve">
+    <value>İzlenme sayısı</value>
+  </data>
+  <data name="OneHourAgo" xml:space="preserve">
+    <value>Bir Saat Önce</value>
+  </data>
+  <data name="OneMinuteAgo" xml:space="preserve">
+    <value>Bir Dakika Önce</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>şifre</value>
+  </data>
+  <data name="PasswordAnswer" xml:space="preserve">
+    <value>Şifre Cevap</value>
+  </data>
+  <data name="PasswordFormat" xml:space="preserve">
+    <value>Şifre Biçimi</value>
+  </data>
+  <data name="PasswordFormatNotSupported" xml:space="preserve">
+    <value>Şifre biçimi desteklenmiyor.</value>
+  </data>
+  <data name="PasswordQuestion" xml:space="preserve">
+    <value>Parola Sorusunu</value>
+  </data>
+  <data name="PasswordReset" xml:space="preserve">
+    <value>Parola Sıfırlama</value>
+  </data>
+  <data name="PasswordRetrievalNotEnabled" xml:space="preserve">
+    <value>Şifre Alma Etkin Değil.</value>
+  </data>
+  <data name="PasswordSalt" xml:space="preserve">
+    <value>Şifre Tuz</value>
+  </data>
+  <data name="PleaseConfirmYourNewPassword" xml:space="preserve">
+    <value>Yeni şifrenizi onaylayın</value>
+  </data>
+  <data name="PleaseEnterYourCurrentPassword" xml:space="preserve">
+    <value>Geçerli parolanızı girin</value>
+  </data>
+  <data name="PleaseEnterYourEmailAddress" xml:space="preserve">
+    <value>E-posta adresinizi girin.</value>
+  </data>
+  <data name="PleaseEnterYourNewPassword" xml:space="preserve">
+    <value>Yeni şifrenizi giriniz</value>
+  </data>
+  <data name="PleaseProvideEmailAddress" xml:space="preserve">
+    <value>E-posta adresi girin</value>
+  </data>
+  <data name="ProviderKey" xml:space="preserve">
+    <value>Sağlayıcı Anahtar</value>
+  </data>
+  <data name="ProviderName" xml:space="preserve">
+    <value>ProviderName</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>değerlendirme</value>
+  </data>
+  <data name="RetrieveYourPassword" xml:space="preserve">
+    <value>Şifrenizi Al</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Rolleri</value>
+  </data>
+  <data name="Russia" xml:space="preserve">
+    <value>Rusya</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Arama</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>Arama Sonuçları</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>göndermek</value>
+  </data>
+  <data name="SendEMailInvite" xml:space="preserve">
+    <value>E-posta Davet Gönder</value>
+  </data>
+  <data name="SendMeMyPassword" xml:space="preserve">
+    <value>Şifremi yolla</value>
+  </data>
+  <data name="SendPasswordResetEmail" xml:space="preserve">
+    <value>Şifre Sıfırlama E-posta gönder</value>
+  </data>
+  <data name="SorryAnErrorOccurred" xml:space="preserve">
+    <value>İsteğiniz işlenirken Özür dileriz, bir hata oluştu.</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>İspanyolca (Español)</value>
+  </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>İsveççe (Svenska)</value>
+  </data>
+  <data name="ThePasswordsEnteredDoNotMatch" xml:space="preserve">
+    <value>Parolalar uyuşmuyor girdi</value>
+  </data>
+  <data name="TheSuppliedUserIsLockedOut" xml:space="preserve">
+    <value>Sağlanan kullanıcı kilitlenmiştir.</value>
+  </data>
+  <data name="TheSuppliedUserNameIsNotFound" xml:space="preserve">
+    <value>Sağlanan kullanıcı adı bulunamadı.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>tip</value>
+  </data>
+  <data name="TypeIsRequired" xml:space="preserve">
+    <value>Tip gereklidir</value>
+  </data>
+  <data name="UnableToLockOutUser" xml:space="preserve">
+    <value>Lokavt kullanıcı yapılamıyor.</value>
+  </data>
+  <data name="UnableToUpdateFailureCount" xml:space="preserve">
+    <value>Yetmezliği sayısı güncellenemedi.</value>
+  </data>
+  <data name="UnableToUpdateFailureCountAndWindowStart" xml:space="preserve">
+    <value>Arıza sayısı ve pencere başlangıç ​​güncellenemedi.</value>
+  </data>
+  <data name="UnsupportedPasswordFormat" xml:space="preserve">
+    <value>Desteklenmeyen parola biçimi.</value>
+  </data>
+  <data name="UpdateFailureCountFailedNoUniqueUserFound" xml:space="preserve">
+    <value>Güncelleme hatası sayımı başarısız oldu. Benzersiz bir kullanıcı bulunamadı.</value>
+  </data>
+  <data name="UpdateUserFailedNoUniqueUserFound" xml:space="preserve">
+    <value>Güncelleme kullanıcı başarısız oldu. Benzersiz bir kullanıcı bulunamadı.</value>
+  </data>
+  <data name="UserAccount" xml:space="preserve">
+    <value>Kullanıcı Hesabı</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>kullanıcı adı</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>evet</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>dün</value>
+  </data>
+  <data name="YourNewAccountIsReadyForUse" xml:space="preserve">
+    <value>Sizin Yeni Hesap kullanıma hazır</value>
+  </data>
+  <data name="YourPasswordHasBeenReset" xml:space="preserve">
+    <value>Şifrenizi sıfırlama olmuştur</value>
+  </data>
+  <data name="FindUsers" xml:space="preserve">
+    <value>kullanıcıları bul</value>
+  </data>
+  <data name="DashSelect" xml:space="preserve">
+    <value>- Seçin -</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Profil Düzenle</value>
+  </data>
+  <data name="Failure" xml:space="preserve">
+    <value>başarısızlık</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>posta</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>beni</value>
+  </data>
+  <data name="MyZone" xml:space="preserve">
+    <value>Benim dilimi</value>
+  </data>
+  <data name="NameLength4To50" xml:space="preserve">
+    <value>Adı uzunluğu 4 ile 50 karakter olmalıdır</value>
+  </data>
+  <data name="PayPalEmail" xml:space="preserve">
+    <value>PayPal E-posta</value>
+  </data>
+  <data name="Photos" xml:space="preserve">
+    <value>Resimler</value>
+  </data>
+  <data name="Playlist" xml:space="preserve">
+    <value>Playlist</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="StatusUpdate" xml:space="preserve">
+    <value>Durum Güncelleme</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>sunmak</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>başarı</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>bağlantı</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>ülke</value>
+  </data>
+  <data name="IsDefault" xml:space="preserve">
+    <value>mi Standart</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>gereken</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Beni Hatırla?</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Yorumlar</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>Yayınlandı</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Devamı</value>
+  </data>
+  <data name="Tagged" xml:space="preserve">
+    <value>Takip edilen</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiketler</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>hakkında</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>adres</value>
+  </data>
+  <data name="BasicDetails" xml:space="preserve">
+    <value>Temel Detayları</value>
+  </data>
+  <data name="BlockIP" xml:space="preserve">
+    <value>IP engelleme</value>
+  </data>
+  <data name="BriefDescription" xml:space="preserve">
+    <value>Kısa Açıklama</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>onaylı</value>
+  </data>
+  <data name="DashSeperatedLowercaseWords" xml:space="preserve">
+    <value>dash-seperated-lowercase-words</value>
+  </data>
+  <data name="EditArticle" xml:space="preserve">
+    <value>Madde düzenleme</value>
+  </data>
+  <data name="EditArticleComment" xml:space="preserve">
+    <value>Madde Açıklama Düzenle</value>
+  </data>
+  <data name="Editing" xml:space="preserve">
+    <value>kurgu</value>
+  </data>
+  <data name="EmailWillNotBePublished" xml:space="preserve">
+    <value>E-posta yayınlanan olmayacak</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>anahtar</value>
+  </data>
+  <data name="LatestNews" xml:space="preserve">
+    <value>Son haberler</value>
+  </data>
+  <data name="LeaveAComment" xml:space="preserve">
+    <value>Bir Yorum bırak</value>
+  </data>
+  <data name="SignedInAs" xml:space="preserve">
+    <value>Olarak oturum açıldı</value>
+  </data>
+  <data name="LoginUnsuccessfulPleaseCorrect" xml:space="preserve">
+    <value>Giriş başarısız oldu.Hataları düzeltin ve tekrar deneyin.</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>Ana Sayfa</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>Meta Açıklama</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>haber</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>fotoğraf</value>
+  </data>
+  <data name="PhotoAndVideo" xml:space="preserve">
+    <value>Fotoğraf ve Video</value>
+  </data>
+  <data name="BusinessAddress" xml:space="preserve">
+    <value>İş adresi</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>kaydetmek</value>
+  </data>
+  <data name="SeperateWithCommas" xml:space="preserve">
+    <value>Virgülle ayırın</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Burada Kaydolun</value>
+  </data>
+  <data name="TypeToSearch" xml:space="preserve">
+    <value>Arama için yazın...</value>
+  </data>
+  <data name="Unconfirmed" xml:space="preserve">
+    <value>doğrulanmamış</value>
+  </data>
+  <data name="UseTheFormToCreateANewAccount" xml:space="preserve">
+    <value>Yeni bir hesap oluşturmak için aşağıdaki formu kullanın.</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="YouCommentWillBeReviewed" xml:space="preserve">
+    <value>Yorumunuz yorum Olacak</value>
+  </data>
+  <data name="YourQuestionWillBeReviewed" xml:space="preserve">
+    <value>Sizin Soru yorum Olacak</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Doğum tarihi</value>
+  </data>
+  <data name="YouAre" xml:space="preserve">
+    <value>sen</value>
+  </data>
+  <data name="PasswordBetween4and15Characters" xml:space="preserve">
+    <value>Şifre 4 ile 15 karakter arasında olmalıdır</value>
+  </data>
+  <data name="UserNameBetween4and15Characters" xml:space="preserve">
+    <value>Adi 4 ila 15 karakter arasında olmalıdır</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>uç</value>
+  </data>
+  <data name="LoadingDotDotDot" xml:space="preserve">
+    <value>Yükleniyor...</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>Sonuçlar yok</value>
+  </data>
+  <data name="UploadingUsers" xml:space="preserve">
+    <value>Yükleme kullanıcıları</value>
+  </data>
+  <data name="VideoType" xml:space="preserve">
+    <value>Video Türü</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtre</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videolar</value>
+  </data>
+  <data name="AddToFavorites" xml:space="preserve">
+    <value>Sık Kullanılanlara Ekle</value>
+  </data>
+  <data name="AddToPlaylist" xml:space="preserve">
+    <value>Çalma listesine ekle</value>
+  </data>
+  <data name="BringDown" xml:space="preserve">
+    <value>indirmek</value>
+  </data>
+  <data name="BringUp" xml:space="preserve">
+    <value>yetiştirmek</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Listesinden Kaldır</value>
+  </data>
+  <data name="Uploader" xml:space="preserve">
+    <value>Gönderen</value>
+  </data>
+  <data name="BandsYouHaveSeenLive" xml:space="preserve">
+    <value>Gördüğünüz Bantları yaşamak</value>
+  </data>
+  <data name="BandsYouWantToSeeLiveOrJustListenTo" xml:space="preserve">
+    <value>Canlı ya da sadece görmek istiyorum Bantları dinle</value>
+  </data>
+  <data name="CurrentCountry" xml:space="preserve">
+    <value>Mevcut ülke</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>posta kodu</value>
+  </data>
+  <data name="MessageToTheWorld" xml:space="preserve">
+    <value>Dünyaya Mesaj</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>isteğe bağlı</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>web sitesi</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>temas</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>radyo</value>
+  </data>
+  <data name="Albania" xml:space="preserve">
+    <value>Arnavutluk</value>
+  </data>
+  <data name="AllImagesAreConvertedToASquare" xml:space="preserve">
+    <value>Bütün Görüntüleri Kare dönüştürülür</value>
+  </data>
+  <data name="AmericanSamoa" xml:space="preserve">
+    <value>Amerikan Samoası</value>
+  </data>
+  <data name="Andorra" xml:space="preserve">
+    <value>Andorra</value>
+  </data>
+  <data name="Argentina" xml:space="preserve">
+    <value>Arjantin</value>
+  </data>
+  <data name="Armenia" xml:space="preserve">
+    <value>Ermenistan</value>
+  </data>
+  <data name="Australia" xml:space="preserve">
+    <value>Avustralya</value>
+  </data>
+  <data name="Austria" xml:space="preserve">
+    <value>Avusturya</value>
+  </data>
+  <data name="Bangladesh" xml:space="preserve">
+    <value>Bangladeş</value>
+  </data>
+  <data name="Belarus" xml:space="preserve">
+    <value>Belarus</value>
+  </data>
+  <data name="Belgium" xml:space="preserve">
+    <value>Belçika</value>
+  </data>
+  <data name="Belize" xml:space="preserve">
+    <value>Belize</value>
+  </data>
+  <data name="Brazil" xml:space="preserve">
+    <value>Brezilya</value>
+  </data>
+  <data name="Bulgaria" xml:space="preserve">
+    <value>Bulgaristan</value>
+  </data>
+  <data name="Canada" xml:space="preserve">
+    <value>Kanada</value>
+  </data>
+  <data name="Chile" xml:space="preserve">
+    <value>Şili</value>
+  </data>
+  <data name="China" xml:space="preserve">
+    <value>Çin</value>
+  </data>
+  <data name="Colombia" xml:space="preserve">
+    <value>Kolombiya</value>
+  </data>
+  <data name="CostaRica" xml:space="preserve">
+    <value>Kostarika</value>
+  </data>
+  <data name="CurrentDefault" xml:space="preserve">
+    <value>Mevcut Standart</value>
+  </data>
+  <data name="Cyprus" xml:space="preserve">
+    <value>Kıbrıs</value>
+  </data>
+  <data name="CzechRepublic" xml:space="preserve">
+    <value>Çek Cumhuriyeti</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>gün</value>
+  </data>
+  <data name="Denmark" xml:space="preserve">
+    <value>Danimarka</value>
+  </data>
+  <data name="DisplayMyAge" xml:space="preserve">
+    <value>Benim yaşımdaki Ekran</value>
+  </data>
+  <data name="DominicanRepublic" xml:space="preserve">
+    <value>Dominik Cumhuriyeti</value>
+  </data>
+  <data name="Ecuador" xml:space="preserve">
+    <value>Ekvador</value>
+  </data>
+  <data name="ElSalvador" xml:space="preserve">
+    <value>El Salvador</value>
+  </data>
+  <data name="Estonia" xml:space="preserve">
+    <value>Estonya</value>
+  </data>
+  <data name="FaroeIslands" xml:space="preserve">
+    <value>Faroe Adaları</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>kadın</value>
+  </data>
+  <data name="Finland" xml:space="preserve">
+    <value>Finlandiya</value>
+  </data>
+  <data name="France" xml:space="preserve">
+    <value>Fransa</value>
+  </data>
+  <data name="FrenchGuiana" xml:space="preserve">
+    <value>Fransız Guyanası</value>
+  </data>
+  <data name="Georgia" xml:space="preserve">
+    <value>Georgia</value>
+  </data>
+  <data name="Germany" xml:space="preserve">
+    <value>Almanya</value>
+  </data>
+  <data name="Ghana" xml:space="preserve">
+    <value>Gana</value>
+  </data>
+  <data name="Greece" xml:space="preserve">
+    <value>Yunanistan</value>
+  </data>
+  <data name="Greenland" xml:space="preserve">
+    <value>Grönland</value>
+  </data>
+  <data name="Guadeloupe" xml:space="preserve">
+    <value>Guadeloupe</value>
+  </data>
+  <data name="Guam" xml:space="preserve">
+    <value>Guam</value>
+  </data>
+  <data name="Guatemala" xml:space="preserve">
+    <value>Guatemala</value>
+  </data>
+  <data name="Guernsey" xml:space="preserve">
+    <value>bir tür inek</value>
+  </data>
+  <data name="Guyana" xml:space="preserve">
+    <value>Guyana</value>
+  </data>
+  <data name="Honduras" xml:space="preserve">
+    <value>Honduras</value>
+  </data>
+  <data name="Hungary" xml:space="preserve">
+    <value>Macaristan</value>
+  </data>
+  <data name="Iceland" xml:space="preserve">
+    <value>İzlanda</value>
+  </data>
+  <data name="India" xml:space="preserve">
+    <value>Hindistan</value>
+  </data>
+  <data name="Ireland" xml:space="preserve">
+    <value>İrlanda</value>
+  </data>
+  <data name="IsleOfMan" xml:space="preserve">
+    <value>Isle of Man</value>
+  </data>
+  <data name="Israel" xml:space="preserve">
+    <value>İsrail</value>
+  </data>
+  <data name="Italy" xml:space="preserve">
+    <value>İtalya</value>
+  </data>
+  <data name="Japan" xml:space="preserve">
+    <value>Japonya</value>
+  </data>
+  <data name="Jersey" xml:space="preserve">
+    <value>Jersey</value>
+  </data>
+  <data name="Latvia" xml:space="preserve">
+    <value>Letonya</value>
+  </data>
+  <data name="Liechtenstein" xml:space="preserve">
+    <value>Lihtenştayn</value>
+  </data>
+  <data name="Lithuania" xml:space="preserve">
+    <value>Litvanya</value>
+  </data>
+  <data name="Luxembourg" xml:space="preserve">
+    <value>Lüksemburg</value>
+  </data>
+  <data name="Macedonia" xml:space="preserve">
+    <value>Makedonya</value>
+  </data>
+  <data name="MakeDefault" xml:space="preserve">
+    <value>Varsayılan Yap</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>erkek</value>
+  </data>
+  <data name="Malta" xml:space="preserve">
+    <value>Malta</value>
+  </data>
+  <data name="MarshallIslands" xml:space="preserve">
+    <value>Marshall Adaları</value>
+  </data>
+  <data name="Martinique" xml:space="preserve">
+    <value>Martinik</value>
+  </data>
+  <data name="Mayotte" xml:space="preserve">
+    <value>Mayotte</value>
+  </data>
+  <data name="Mexico" xml:space="preserve">
+    <value>Meksika</value>
+  </data>
+  <data name="Moldova" xml:space="preserve">
+    <value>Moldova</value>
+  </data>
+  <data name="Monaco" xml:space="preserve">
+    <value>Monaco</value>
+  </data>
+  <data name="Montenegro" xml:space="preserve">
+    <value>Karadağ</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>ay</value>
+  </data>
+  <data name="Netherlands" xml:space="preserve">
+    <value>Hollanda</value>
+  </data>
+  <data name="NewZealand" xml:space="preserve">
+    <value>Yeni Zelanda</value>
+  </data>
+  <data name="Nicaragua" xml:space="preserve">
+    <value>Nikaragua</value>
+  </data>
+  <data name="Norway" xml:space="preserve">
+    <value>Norveç</value>
+  </data>
+  <data name="NowEditYourProfile" xml:space="preserve">
+    <value>Şimdi Profilinizi düzenleyin</value>
+  </data>
+  <data name="Pakistan" xml:space="preserve">
+    <value>Pakistan</value>
+  </data>
+  <data name="Panama" xml:space="preserve">
+    <value>Panama</value>
+  </data>
+  <data name="Paraguay" xml:space="preserve">
+    <value>Paraguay</value>
+  </data>
+  <data name="Peru" xml:space="preserve">
+    <value>Peru</value>
+  </data>
+  <data name="PleaseCorrectTheErrors" xml:space="preserve">
+    <value>Hataları düzeltin</value>
+  </data>
+  <data name="Poland" xml:space="preserve">
+    <value>Polonya</value>
+  </data>
+  <data name="Portugal" xml:space="preserve">
+    <value>Portekiz</value>
+  </data>
+  <data name="ProfilePhotos" xml:space="preserve">
+    <value>Profil Resimleri</value>
+  </data>
+  <data name="PuertoRico" xml:space="preserve">
+    <value>Portoriko</value>
+  </data>
+  <data name="Reunion" xml:space="preserve">
+    <value>Reunion</value>
+  </data>
+  <data name="Romania" xml:space="preserve">
+    <value>Romanya</value>
+  </data>
+  <data name="SanMarino" xml:space="preserve">
+    <value>San Marino</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>seçilmiş</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Dosya Seçin</value>
+  </data>
+  <data name="SelectThePhotoToReplace" xml:space="preserve">
+    <value>Değiştirmek için fotoğrafı seçin</value>
+  </data>
+  <data name="Serbia" xml:space="preserve">
+    <value>Sırbistan</value>
+  </data>
+  <data name="ShowMyLocationOnTheMap" xml:space="preserve">
+    <value>Haritadaki yerini göster</value>
+  </data>
+  <data name="Singapore" xml:space="preserve">
+    <value>Singapur</value>
+  </data>
+  <data name="Slovakia" xml:space="preserve">
+    <value>Slovakya</value>
+  </data>
+  <data name="Slovenia" xml:space="preserve">
+    <value>Slovenya</value>
+  </data>
+  <data name="SouthAfrica" xml:space="preserve">
+    <value>Güney Afrika</value>
+  </data>
+  <data name="Spain" xml:space="preserve">
+    <value>İspanya</value>
+  </data>
+  <data name="SriLanka" xml:space="preserve">
+    <value>Sri Lanka</value>
+  </data>
+  <data name="Suriname" xml:space="preserve">
+    <value>Surinam</value>
+  </data>
+  <data name="Sweden" xml:space="preserve">
+    <value>İsveç</value>
+  </data>
+  <data name="Switzerland" xml:space="preserve">
+    <value>İsviçre</value>
+  </data>
+  <data name="SyrianArabRepublic" xml:space="preserve">
+    <value>Suriye Arap Cumhuriyeti</value>
+  </data>
+  <data name="Thailand" xml:space="preserve">
+    <value>Tayland</value>
+  </data>
+  <data name="Turkey" xml:space="preserve">
+    <value>Türkiye</value>
+  </data>
+  <data name="Ukraine" xml:space="preserve">
+    <value>Ukrayna</value>
+  </data>
+  <data name="UnitedKingdom" xml:space="preserve">
+    <value>Büyük Britanya</value>
+  </data>
+  <data name="UnitedStates" xml:space="preserve">
+    <value>Amerika Birleşik Devletleri</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>bilinmeyen</value>
+  </data>
+  <data name="UploadPhoto" xml:space="preserve">
+    <value>Fotoğraf Yükle</value>
+  </data>
+  <data name="Uruguay" xml:space="preserve">
+    <value>Uruguay</value>
+  </data>
+  <data name="VaticanCity" xml:space="preserve">
+    <value>Vatikan</value>
+  </data>
+  <data name="Venezuela" xml:space="preserve">
+    <value>Venezuela</value>
+  </data>
+  <data name="VirginIslands" xml:space="preserve">
+    <value>Virgin Adaları, ABD</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>yıl</value>
+  </data>
+  <data name="AccountInformation" xml:space="preserve">
+    <value>Hesap Bilgileri</value>
+  </data>
+  <data name="BySigningUpYouAgreeToTheTermsOfService" xml:space="preserve">
+    <value>Imzalayarak size hizmet şartlarını kabul ediyorum</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>burada</value>
+  </data>
+  <data name="AccountDeletionCannotBeUndone" xml:space="preserve">
+    <value>Hesap silme işlemi geri alınamaz</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>yönetici</value>
+  </data>
+  <data name="Alien" xml:space="preserve">
+    <value>uzaylı</value>
+  </data>
+  <data name="Applaud" xml:space="preserve">
+    <value>alkışlamak</value>
+  </data>
+  <data name="Audience" xml:space="preserve">
+    <value>izleyici</value>
+  </data>
+  <data name="AutoPlayVideoInProfile" xml:space="preserve">
+    <value>Profil Autoplay Video</value>
+  </data>
+  <data name="BeatDown" xml:space="preserve">
+    <value>vurmak</value>
+  </data>
+  <data name="BlockedUsers" xml:space="preserve">
+    <value>Engellenen kullanıcılar</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Şifre Değiştir</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Sohbet Odası</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>onaylamak</value>
+  </data>
+  <data name="ContactRequest" xml:space="preserve">
+    <value>istek İletişim</value>
+  </data>
+  <data name="CopyrightAllRights" xml:space="preserve">
+    <value>Telif {0} {1}. Tüm hakları saklıdır.</value>
+  </data>
+  <data name="CyberAssociates" xml:space="preserve">
+    <value>Cyber ​​İştirakler</value>
+  </data>
+  <data name="DanceGroup" xml:space="preserve">
+    <value>Dans Grubu</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Hesabı Sil</value>
+  </data>
+  <data name="DeleteMyAccount" xml:space="preserve">
+    <value>Hesabımı Sil?</value>
+  </data>
+  <data name="HaveYouMetInRealLife" xml:space="preserve">
+    <value>Gerçek hayatta tanıştın mı?</value>
+  </data>
+  <data name="InterestedIn" xml:space="preserve">
+    <value>Uçuş</value>
+  </data>
+  <data name="LookingForFriends" xml:space="preserve">
+    <value>Arkadaşları aranıyor</value>
+  </data>
+  <data name="MaleAndFemale" xml:space="preserve">
+    <value>Erkek ve Kadın</value>
+  </data>
+  <data name="MessagesAreSentToYourEmail" xml:space="preserve">
+    <value>Etkinleştirildiğinde, mesajları e-posta adresinize gönderilir.</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>kısmak</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>Şimdi Değil</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Şifreler eşleşmiyor</value>
+  </data>
+  <data name="ProfileLogging" xml:space="preserve">
+    <value>Profil Günlüğü</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>okumak</value>
+  </data>
+  <data name="RealLifeContacts" xml:space="preserve">
+    <value>Gerçek hayat kişileri</value>
+  </data>
+  <data name="RelationshipStatus" xml:space="preserve">
+    <value>İlişki durumu</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>cevap</value>
+  </data>
+  <data name="Robot" xml:space="preserve">
+    <value>Robot</value>
+  </data>
+  <data name="SingleAndLooking" xml:space="preserve">
+    <value>Tek ve seyir</value>
+  </data>
+  <data name="Song" xml:space="preserve">
+    <value>şarkı</value>
+  </data>
+  <data name="TakenOrNotInterested" xml:space="preserve">
+    <value>Çekildiği ya ilgilenmiyor</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>okunmamış</value>
+  </data>
+  <data name="Venue" xml:space="preserve">
+    <value>buluşma yeri</value>
+  </data>
+  <data name="Visitors" xml:space="preserve">
+    <value>Ziyaretçiler</value>
+  </data>
+  <data name="WouldYouLikeToBeCyberAssociates" xml:space="preserve">
+    <value>Siber iştirakçi olmak ister misiniz?</value>
+  </data>
+  <data name="YouDoNotAppearOnTheMap" xml:space="preserve">
+    <value>Bu özelliği devre dışı bırakıldığında, harita üzerinde görünmez.</value>
+  </data>
+  <data name="YourAgeWillNotDisplay" xml:space="preserve">
+    <value>Bu devre dışı bırakılırsa, yaşınız profilinizde görüntülenmez.</value>
+  </data>
+  <data name="YouResponded" xml:space="preserve">
+    <value>Sen yanıtladı</value>
+  </data>
+  <data name="YourProfileViewsWillNotBeRecorded" xml:space="preserve">
+    <value>Bu devre dışı bırakılırsa, profil görünümleri kaydedilmez ve sizin profilinize kimlerin göremiyorum.</value>
+  </data>
+  <data name="DeleteThis" xml:space="preserve">
+    <value>Bu silinsin mi?</value>
+  </data>
+  <data name="AboutOneMinuteAgo" xml:space="preserve">
+    <value>yaklaşık bir dakika önce</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>önceki</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{0} gün önce</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>{0} saat önce</value>
+  </data>
+  <data name="MinutesAgo" xml:space="preserve">
+    <value>{0} dakika önce</value>
+  </data>
+  <data name="MonthsAgo" xml:space="preserve">
+    <value>{0} ay önce</value>
+  </data>
+  <data name="SecondsAgo" xml:space="preserve">
+    <value>{0} saniye önce</value>
+  </data>
+  <data name="WeeksAgo" xml:space="preserve">
+    <value>{0} hafta önce</value>
+  </data>
+  <data name="YearsAgo" xml:space="preserve">
+    <value>{0} yıl önce</value>
+  </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>Anahtar Kelimeler</value>
+  </data>
+  <data name="Handed" xml:space="preserve">
+    <value>teslim</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>geçersiz</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Sol</value>
+  </data>
+  <data name="OnlineNow" xml:space="preserve">
+    <value>Şimdi Sistemde</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>sağ</value>
+  </data>
+  <data name="AlreadyInUse" xml:space="preserve">
+    <value>Zaten kullanımda</value>
+  </data>
+  <data name="EditYourEmailSettings" xml:space="preserve">
+    <value>E-posta ayarlarını düzenle</value>
+  </data>
+  <data name="IncorrectFormat" xml:space="preserve">
+    <value>Yanlış format</value>
+  </data>
+  <data name="SourceFile" xml:space="preserve">
+    <value>Kaynak Dosya</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>Gönderildi</value>
+  </data>
+  <data name="Cyborg" xml:space="preserve">
+    <value>Cyborg</value>
+  </data>
+  <data name="HardwareAndSoftwareSkills" xml:space="preserve">
+    <value>Donanım ve yazılım becerileri</value>
+  </data>
+  <data name="Ambidextrous" xml:space="preserve">
+    <value>çok yönlü</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>harita</value>
+  </data>
+  <data name="FeaturedModel" xml:space="preserve">
+    <value>Seçme modeli</value>
+  </data>
+  <data name="Inbox" xml:space="preserve">
+    <value>Gelen Kutusu</value>
+  </data>
+  <data name="NewestUsers" xml:space="preserve">
+    <value>Yeni kullanıcılar</value>
+  </data>
+  <data name="NewestVideos" xml:space="preserve">
+    <value>Yeni videolar</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>yorum yok</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Bildirimler</value>
+  </data>
+  <data name="Outbox" xml:space="preserve">
+    <value>yenmek</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Gizlilik politikası</value>
+  </data>
+  <data name="SubmitYourYouTubeVideoLinkHere" xml:space="preserve">
+    <value>Burada YouTube video link ekle</value>
+  </data>
+  <data name="TermsAndCondtions" xml:space="preserve">
+    <value>Şartlar ve koşullar</value>
+  </data>
+  <data name="Applauded" xml:space="preserve">
+    <value>alkışladı</value>
+  </data>
+  <data name="BeatenDown" xml:space="preserve">
+    <value>kırılmış</value>
+  </data>
+  <data name="Commented" xml:space="preserve">
+    <value>Yorumlanan</value>
+  </data>
+  <data name="EMailMyMessages" xml:space="preserve">
+    <value>Benim e-posta mesajlarına</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>ayrıntı</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>ayrıntılar</value>
+  </data>
+  <data name="FilterNewsByTag" xml:space="preserve">
+    <value>Etikete göre filtrele haberleri</value>
+  </data>
+  <data name="ManageNews" xml:space="preserve">
+    <value>Haber yönet</value>
+  </data>
+  <data name="ManageNewsComments" xml:space="preserve">
+    <value>Haberler Yorumlar yönet</value>
+  </data>
+  <data name="Croatia" xml:space="preserve">
+    <value>Hırvatistan</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>özürlü</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>mesaj</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>yeni</value>
+  </data>
+  <data name="NextVideo" xml:space="preserve">
+    <value>Sonraki video</value>
+  </data>
+  <data name="NoFile" xml:space="preserve">
+    <value>Dosya yok</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>telefon</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Yayın Tarihi</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Silindi</value>
+  </data>
+  <data name="LoadMore" xml:space="preserve">
+    <value>daha fazla yükle</value>
+  </data>
+  <data name="NextPhoto" xml:space="preserve">
+    <value>Sonraki Fotoğraf</value>
+  </data>
+  <data name="PreviousPhoto" xml:space="preserve">
+    <value>Önceki Fotoğraf</value>
+  </data>
+  <data name="SeeMoreNews" xml:space="preserve">
+    <value>Daha fazla haber göster</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>profil</value>
+  </data>
+  <data name="HappyBirthday" xml:space="preserve">
+    <value>Doğum günün kutlu olsun</value>
+  </data>
+  <data name="AddAsCyberAssociate" xml:space="preserve">
+    <value>Siber ortak olarak ekle</value>
+  </data>
+  <data name="AddAsRealLifeContact" xml:space="preserve">
+    <value>Gerçek hayat Kişi olarak ekle</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>müzik</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>mesaj gönder</value>
+  </data>
+  <data name="SoundOn" xml:space="preserve">
+    <value>Ses açık</value>
+  </data>
+  <data name="Cuba" xml:space="preserve">
+    <value>Küba</value>
+  </data>
+  <data name="NorthKorea" xml:space="preserve">
+    <value>Kuzey Kore</value>
+  </data>
+  <data name="SouthKorea" xml:space="preserve">
+    <value>Güney Kore</value>
+  </data>
+  <data name="CheckYourEmailAndSpamFolder" xml:space="preserve">
+    <value>E-posta ve spam klasörünü kontrol edin</value>
+  </data>
+  <data name="MorePhotos" xml:space="preserve">
+    <value>Daha fazla fotoğraf</value>
+  </data>
+  <data name="NewestPhotos" xml:space="preserve">
+    <value>Yeni resimler</value>
+  </data>
+  <data name="Band" xml:space="preserve">
+    <value>grup</value>
+  </data>
+  <data name="CreateANewAccount" xml:space="preserve">
+    <value>Yeni hesap oluştur</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>başlık</value>
+  </data>
+  <data name="CreatedOn" xml:space="preserve">
+    <value>Oluşturuldu</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Yeni Oluştur</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Rusça (русский)</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>yaş</value>
+  </data>
+  <data name="LastActive" xml:space="preserve">
+    <value>Son Aktif</value>
+  </data>
+  <data name="FavoriteVideos" xml:space="preserve">
+    <value>Favori Videolar</value>
+  </data>
+  <data name="LatestUpdate" xml:space="preserve">
+    <value>Son Güncelleme</value>
+  </data>
+  <data name="UploadedVideos" xml:space="preserve">
+    <value>Yüklenen Videolar</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>bekleme</value>
+  </data>
+  <data name="MostApplaudedThisWeek" xml:space="preserve">
+    <value>Bu hafta en çok alkış</value>
+  </data>
+  <data name="MostBeatenDownThisWeek" xml:space="preserve">
+    <value>Bu hafta en çok yere serildim</value>
+  </data>
+  <data name="ApproximateLocation" xml:space="preserve">
+    <value>Yaklaşık Yer</value>
+  </data>
+  <data name="FromDesktop" xml:space="preserve">
+    <value>masaüstünde</value>
+  </data>
+  <data name="FromMobile" xml:space="preserve">
+    <value>mobil Gönderen</value>
+  </data>
+  <data name="OnIPhoneEmailYourPhotoToWithYourMessageInTheBodyTo" xml:space="preserve">
+    <value>Hazır Vücut Mesajınız ile Hazır IPhone E On Your Fotoğraf</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>engellemek</value>
+  </data>
+  <data name="SendFromYourAccountEmail" xml:space="preserve">
+    <value>Hesabınız E-Gönder</value>
+  </data>
+  <data name="RotatePhoto" xml:space="preserve">
+    <value>Fotoğraf Döndür</value>
+  </data>
+  <data name="Latin" xml:space="preserve">
+    <value>Latince</value>
+  </data>
+  <data name="SoundOff" xml:space="preserve">
+    <value>Ses kapalı</value>
+  </data>
+  <data name="TurnSoundOff" xml:space="preserve">
+    <value>Sesiz açın</value>
+  </data>
+  <data name="TurnSoundOn" xml:space="preserve">
+    <value>Ses aç</value>
+  </data>
+  <data name="MembersOnlyProfile" xml:space="preserve">
+    <value>Sadece Üye Profili</value>
+  </data>
+  <data name="OnlyMembersCanSeeYourProfile" xml:space="preserve">
+    <value>Etkinleştirildiğinde sadece üyeler profilinizi görebilirsiniz</value>
+  </data>
+  <data name="CreativeCommunity" xml:space="preserve">
+    <value>Yaratıcı Topluluk</value>
+  </data>
+  <data name="Featuring" xml:space="preserve">
+    <value>sahip</value>
+  </data>
+  <data name="Dance" xml:space="preserve">
+    <value>dans</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Düzenlendi</value>
+  </data>
+  <data name="FemaleDuo" xml:space="preserve">
+    <value>kadın ikilisi</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>grup</value>
+  </data>
+  <data name="Interview" xml:space="preserve">
+    <value>röportaj</value>
+  </data>
+  <data name="Live" xml:space="preserve">
+    <value>yaşamak</value>
+  </data>
+  <data name="MaleDuo" xml:space="preserve">
+    <value>Erkek ikilisi</value>
+  </data>
+  <data name="MusicVideo" xml:space="preserve">
+    <value>müzik video</value>
+  </data>
+  <data name="Raw" xml:space="preserve">
+    <value>çiğ</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>göstermek</value>
+  </data>
+  <data name="FootageType" xml:space="preserve">
+    <value>film tipi</value>
+  </data>
+  <data name="Random" xml:space="preserve">
+    <value>rasgele</value>
+  </data>
+  <data name="NewestAtTop" xml:space="preserve">
+    <value>Üstündeki Yeni</value>
+  </data>
+  <data name="MostCommentedOnThisWeek" xml:space="preserve">
+    <value>Bu hafta en çok yorumladı</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>veya</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>konu</value>
+  </data>
+  <data name="Contests" xml:space="preserve">
+    <value>Yarışmalar</value>
+  </data>
+  <data name="FullScreen" xml:space="preserve">
+    <value>Tam ekran</value>
+  </data>
+  <data name="AgeFrom" xml:space="preserve">
+    <value>yaşları</value>
+  </data>
+  <data name="AgeTo" xml:space="preserve">
+    <value>için Yaş</value>
+  </data>
+  <data name="TheyAre" xml:space="preserve">
+    <value>Bunlar</value>
+  </data>
+  <data name="SortedByActivity" xml:space="preserve">
+    <value>Aktivite Sıralayan</value>
+  </data>
+  <data name="SortedByDistance" xml:space="preserve">
+    <value>Mesafeye göre sırala</value>
+  </data>
+  <data name="InvalidLink" xml:space="preserve">
+    <value>bağlantıyı Geçersiz</value>
+  </data>
+  <data name="VideoRejected" xml:space="preserve">
+    <value>video reddedildi</value>
+  </data>
+  <data name="WaitingToBeReviewed" xml:space="preserve">
+    <value>Bu video yorumlanan bekliyor</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>görüntü</value>
+  </data>
+  <data name="Tutorial" xml:space="preserve">
+    <value>öğretici</value>
+  </data>
+  <data name="Polish" xml:space="preserve">
+    <value>Polonyalı (polski)</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>günler</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Saatleri</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Dakika</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Saniye</value>
+  </data>
+  <data name="ContestDetails" xml:space="preserve">
+    <value>Yarışma detayları</value>
+  </data>
+  <data name="CurentContestEntries" xml:space="preserve">
+    <value>Cari yarışma girişleri</value>
+  </data>
+  <data name="TimeRemainingInContest" xml:space="preserve">
+    <value>Zaman yarışma kalan</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>belge</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>indir</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>Fransız (français)</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>Portekizce (português)</value>
+  </data>
+  <data name="ClaimYouUploadedThisVideo" xml:space="preserve">
+    <value>Bu video yüklendiği iddia</value>
+  </data>
+  <data name="Italian" xml:space="preserve">
+    <value>İtalyan (italiano)</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>Hollandalı (Nederlands)</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>şehir</value>
+  </data>
+  <data name="RegionState" xml:space="preserve">
+    <value>Bölge / Eyalet</value>
+  </data>
+  <data name="StreetAddress" xml:space="preserve">
+    <value>sokak adresi</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>önceki</value>
+  </data>
+  <data name="Japanese" xml:space="preserve">
+    <value>Japon (日本の)</value>
+  </data>
+  <data name="Greek" xml:space="preserve">
+    <value>Yunan (ελληνικά)</value>
+  </data>
+  <data name="Korean" xml:space="preserve">
+    <value>Kore (한국의)</value>
+  </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>Fince (suomi)</value>
+  </data>
+  <data name="Czech" xml:space="preserve">
+    <value>Çek (český)</value>
+  </data>
+  <data name="Hungarian" xml:space="preserve">
+    <value>Macarca (magyar)</value>
+  </data>
+  <data name="Danish" xml:space="preserve">
+    <value>Danimarkalı (dansk)</value>
+  </data>
+  <data name="Iran" xml:space="preserve">
+    <value>İran</value>
+  </data>
+  <data name="Iraq" xml:space="preserve">
+    <value>Irak</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Teşekkürler</value>
+  </data>
+  <data name="VoteFor" xml:space="preserve">
+    <value>oy vermek</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Rapor</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>Çince (中國的)</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>Mağaza</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>Arapça (العربية)</value>
+  </data>
+  <data name="Turkish" xml:space="preserve">
+    <value>Türk</value>
+  </data>
+  <data name="Percentage" xml:space="preserve">
+    <value>yüzdesi</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Sonuçlar</value>
+  </data>
+  <data name="Votes" xml:space="preserve">
+    <value>oy</value>
+  </data>
+</root>

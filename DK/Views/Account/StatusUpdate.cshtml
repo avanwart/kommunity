@@ -1,0 +1,33 @@
+﻿@model BootBaronLib.AppSpec.DasKlub.BOL.StatusUpdate
+@using BootBaronLib.Resources
+@using Web.Helpers
+@{
+    ViewBag.Title = Model.StatusUpdateID.ToString() ;
+   
+}
+@{Html.RenderPartial("_AdBanner"); }
+<div class="row">
+    <div class="span8">
+
+    @if (Model.CreateDate == DateTime.MinValue)
+    {
+        <b>    @Messages.Deleted</b>
+    }
+    else
+    {
+        
+           <div id="status_update_list">
+            @Html.Raw(ViewBag.StatusUpdateList)
+        </div>
+       
+    }   
+        @section _javascript {
+
+        @{Html.RenderPartial("_statusCommenting-js"); }
+}
+    
+    </div>
+    <div class="span4">
+        @{Html.RenderPartial("_AdBanner2"); }
+    </div>
+</div>

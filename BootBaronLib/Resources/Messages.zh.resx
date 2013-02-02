@@ -1,0 +1,1687 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>帳戶</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>所有</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CannotUnencodeAHashedPassword" xml:space="preserve">
+    <value>不能unencode一個哈希密碼。</value>
+  </data>
+  <data name="ChangePasswordCancel" xml:space="preserve">
+    <value>更改密碼取消，因為新的密碼驗證失敗。</value>
+  </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>請點擊這裡</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>評論</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>確認密碼</value>
+  </data>
+  <data name="ConnectionStringCannotBeBlank" xml:space="preserve">
+    <value>連接字符串不能為空。</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>數</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>目前的密碼</value>
+  </data>
+  <data name="DefaultLanguage" xml:space="preserve">
+    <value>默認語言</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="DoNotRespondToThisEmail" xml:space="preserve">
+    <value>不要回复此電子郵件</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="EMail" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>(英語) English</value>
+  </data>
+  <data name="EnterTheEmailAddress" xml:space="preserve">
+    <value>輸入您的電子郵件地址</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptCount" xml:space="preserve">
+    <value>失敗的密碼提示問題答案嘗試計數</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptWindowStart" xml:space="preserve">
+    <value>失敗的密碼提示問題答案嘗試窗口開始</value>
+  </data>
+  <data name="FailedPasswordAttemptCount" xml:space="preserve">
+    <value>失敗的密碼嘗試次數</value>
+  </data>
+  <data name="FailedPasswordAttemptWindowStart" xml:space="preserve">
+    <value>失敗的密碼嘗試窗口開始</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>被禁止</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>忘記密碼？</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>從</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>德國的 (Deutsch)</value>
+  </data>
+  <data name="GetPasswordFailedNoUnique" xml:space="preserve">
+    <value>獲取密碼失敗。獨特的用戶發現。</value>
+  </data>
+  <data name="Go" xml:space="preserve">
+    <value>去</value>
+    <comment>Used to start a search</comment>
+  </data>
+  <data name="HashedOrEncryptedPasswords" xml:space="preserve">
+    <value>散列或加密的密碼不支持自動生成的鍵。</value>
+  </data>
+  <data name="HasSentThisMessage" xml:space="preserve">
+    <value>已發送此消息</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>你好</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>家</value>
+  </data>
+  <data name="IncorrectPasswordAnswer" xml:space="preserve">
+    <value>不正確的密碼提示問題答案。</value>
+  </data>
+  <data name="IpAddress" xml:space="preserve">
+    <value>IP地址</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>處於活動狀態</value>
+  </data>
+  <data name="IsAdmin" xml:space="preserve">
+    <value>是Admin</value>
+  </data>
+  <data name="IsApproved" xml:space="preserve">
+    <value>被批准</value>
+  </data>
+  <data name="IsLockedOut" xml:space="preserve">
+    <value>被鎖定</value>
+  </data>
+  <data name="IsOnline" xml:space="preserve">
+    <value>在線上</value>
+  </data>
+  <data name="JustNow" xml:space="preserve">
+    <value>剛才</value>
+  </data>
+  <data name="KeepMeLoggedIn" xml:space="preserve">
+    <value>記住登錄狀態</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>語</value>
+  </data>
+  <data name="LastActivityDateTime" xml:space="preserve">
+    <value>活動日期時間</value>
+  </data>
+  <data name="LastLockoutDate" xml:space="preserve">
+    <value>最後鎖定日期</value>
+  </data>
+  <data name="LastLoginDate" xml:space="preserve">
+    <value>最後登錄時間</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="LastNameIsRequired" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="LastPasswordChangedDateTime" xml:space="preserve">
+    <value>上次密碼更改日期時間</value>
+  </data>
+  <data name="SignInToYourAccountHere" xml:space="preserve">
+    <value>登錄到您的帳戶</value>
+  </data>
+  <data name="SignOff" xml:space="preserve">
+    <value>簽署</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名稱</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>新密碼</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>下</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>沒有</value>
+  </data>
+  <data name="Norweigen" xml:space="preserve">
+    <value>挪威 (Norge)</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>未找到</value>
+  </data>
+  <data name="NoVideoPlaybackCapabilities" xml:space="preserve">
+    <value>無視頻播放功能</value>
+  </data>
+  <data name="NumberOfViews" xml:space="preserve">
+    <value>觀看次數</value>
+  </data>
+  <data name="OneHourAgo" xml:space="preserve">
+    <value>一小時前</value>
+  </data>
+  <data name="OneMinuteAgo" xml:space="preserve">
+    <value>一分鐘前</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="PasswordAnswer" xml:space="preserve">
+    <value>密碼提示答案</value>
+  </data>
+  <data name="PasswordFormat" xml:space="preserve">
+    <value>密碼格式</value>
+  </data>
+  <data name="PasswordFormatNotSupported" xml:space="preserve">
+    <value>密碼格式不支持。</value>
+  </data>
+  <data name="PasswordQuestion" xml:space="preserve">
+    <value>密碼問題</value>
+  </data>
+  <data name="PasswordReset" xml:space="preserve">
+    <value>重設密碼</value>
+  </data>
+  <data name="PasswordRetrievalNotEnabled" xml:space="preserve">
+    <value>找回密碼未啟用。</value>
+  </data>
+  <data name="PasswordSalt" xml:space="preserve">
+    <value>密碼鹽</value>
+  </data>
+  <data name="PleaseConfirmYourNewPassword" xml:space="preserve">
+    <value>請確認您的新密碼</value>
+  </data>
+  <data name="PleaseEnterYourCurrentPassword" xml:space="preserve">
+    <value>請輸入您的當前密碼</value>
+  </data>
+  <data name="PleaseEnterYourEmailAddress" xml:space="preserve">
+    <value>請輸入您的電子郵件地址。</value>
+  </data>
+  <data name="PleaseEnterYourNewPassword" xml:space="preserve">
+    <value>請輸入您的新密碼</value>
+  </data>
+  <data name="PleaseProvideEmailAddress" xml:space="preserve">
+    <value>請提供電郵地址</value>
+  </data>
+  <data name="ProviderKey" xml:space="preserve">
+    <value>供應商的關鍵</value>
+  </data>
+  <data name="ProviderName" xml:space="preserve">
+    <value>ProviderName</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>等級</value>
+  </data>
+  <data name="RetrieveYourPassword" xml:space="preserve">
+    <value>找回您的密碼</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>角色</value>
+  </data>
+  <data name="Russia" xml:space="preserve">
+    <value>俄國</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>搜索結果</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>發送</value>
+  </data>
+  <data name="SendEMailInvite" xml:space="preserve">
+    <value>發送電子郵件邀請</value>
+  </data>
+  <data name="SendMeMyPassword" xml:space="preserve">
+    <value>密碼發送給我</value>
+  </data>
+  <data name="SendPasswordResetEmail" xml:space="preserve">
+    <value>發送密碼重設電郵</value>
+  </data>
+  <data name="SorryAnErrorOccurred" xml:space="preserve">
+    <value>抱歉，處理您的請求時發生錯誤。</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>西班牙的 (Español)</value>
+  </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>瑞典 (Svenska)</value>
+  </data>
+  <data name="ThePasswordsEnteredDoNotMatch" xml:space="preserve">
+    <value>輸入的密碼不匹配</value>
+  </data>
+  <data name="TheSuppliedUserIsLockedOut" xml:space="preserve">
+    <value>所提供的用戶被鎖定。</value>
+  </data>
+  <data name="TheSuppliedUserNameIsNotFound" xml:space="preserve">
+    <value>提供的用戶名是找不到的。</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="TypeIsRequired" xml:space="preserve">
+    <value>類型是必需的</value>
+  </data>
+  <data name="UnableToLockOutUser" xml:space="preserve">
+    <value>無法鎖定用戶。</value>
+  </data>
+  <data name="UnableToUpdateFailureCount" xml:space="preserve">
+    <value>無法更新失敗次數。</value>
+  </data>
+  <data name="UnableToUpdateFailureCountAndWindowStart" xml:space="preserve">
+    <value>無法更新失敗次數和窗口開始。</value>
+  </data>
+  <data name="UnsupportedPasswordFormat" xml:space="preserve">
+    <value>不支持的密碼格式。</value>
+  </data>
+  <data name="UpdateFailureCountFailedNoUniqueUserFound" xml:space="preserve">
+    <value>更新失敗次數失敗。獨特的用戶發現。</value>
+  </data>
+  <data name="UpdateUserFailedNoUniqueUserFound" xml:space="preserve">
+    <value>更新用戶失敗。獨特的用戶發現。</value>
+  </data>
+  <data name="UserAccount" xml:space="preserve">
+    <value>用戶帳戶</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>用戶名</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="YourNewAccountIsReadyForUse" xml:space="preserve">
+    <value>你的帳戶就可以使用</value>
+  </data>
+  <data name="YourPasswordHasBeenReset" xml:space="preserve">
+    <value>您的密碼已重設</value>
+  </data>
+  <data name="FindUsers" xml:space="preserve">
+    <value>查找用戶</value>
+  </data>
+  <data name="DashSelect" xml:space="preserve">
+    <value>- 請選擇 -</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>編輯個人資料</value>
+  </data>
+  <data name="Failure" xml:space="preserve">
+    <value>失敗</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>郵件</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>我</value>
+  </data>
+  <data name="MyZone" xml:space="preserve">
+    <value>我區</value>
+  </data>
+  <data name="NameLength4To50" xml:space="preserve">
+    <value>名長度必須在4到50個字符之間</value>
+  </data>
+  <data name="PayPalEmail" xml:space="preserve">
+    <value>PayPal電子郵件</value>
+  </data>
+  <data name="Photos" xml:space="preserve">
+    <value>圖片</value>
+  </data>
+  <data name="Playlist" xml:space="preserve">
+    <value>播放列表</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設置</value>
+  </data>
+  <data name="StatusUpdate" xml:space="preserve">
+    <value>狀態更新</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>鏈接</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>國家</value>
+  </data>
+  <data name="IsDefault" xml:space="preserve">
+    <value>是默認</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>需要</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>記得我嗎？</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>評論</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>發布時間</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>閱讀更多</value>
+  </data>
+  <data name="Tagged" xml:space="preserve">
+    <value>標籤</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>標籤</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>關於</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="BasicDetails" xml:space="preserve">
+    <value>基本細節</value>
+  </data>
+  <data name="BlockIP" xml:space="preserve">
+    <value>封鎖IP</value>
+  </data>
+  <data name="BriefDescription" xml:space="preserve">
+    <value>簡介</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>已確認</value>
+  </data>
+  <data name="DashSeperatedLowercaseWords" xml:space="preserve">
+    <value>dash-seperated-lowercase-words</value>
+  </data>
+  <data name="EditArticle" xml:space="preserve">
+    <value>編輯文章</value>
+  </data>
+  <data name="EditArticleComment" xml:space="preserve">
+    <value>編輯文章評論</value>
+  </data>
+  <data name="Editing" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="EmailWillNotBePublished" xml:space="preserve">
+    <value>電子郵件不會被公開</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>關鍵</value>
+  </data>
+  <data name="LatestNews" xml:space="preserve">
+    <value>最新消息</value>
+  </data>
+  <data name="LeaveAComment" xml:space="preserve">
+    <value>發表評論</value>
+  </data>
+  <data name="SignedInAs" xml:space="preserve">
+    <value>作為簽署</value>
+  </data>
+  <data name="LoginUnsuccessfulPleaseCorrect" xml:space="preserve">
+    <value>登錄是不成功的。請更正錯誤，然後再試一次。</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>登錄</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>主頁</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>Meta描述</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>新聞</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>照片</value>
+  </data>
+  <data name="PhotoAndVideo" xml:space="preserve">
+    <value>照片和視頻</value>
+  </data>
+  <data name="BusinessAddress" xml:space="preserve">
+    <value>商家地址</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>註冊</value>
+  </data>
+  <data name="SeperateWithCommas" xml:space="preserve">
+    <value>以逗號分隔</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>在此註冊</value>
+  </data>
+  <data name="TypeToSearch" xml:space="preserve">
+    <value>鍵入到搜索...</value>
+  </data>
+  <data name="Unconfirmed" xml:space="preserve">
+    <value>未經證實的</value>
+  </data>
+  <data name="UseTheFormToCreateANewAccount" xml:space="preserve">
+    <value>使用下面的表格來創建一個新的帳戶。</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>視頻</value>
+  </data>
+  <data name="YouCommentWillBeReviewed" xml:space="preserve">
+    <value>您的評論將被審查</value>
+  </data>
+  <data name="YourQuestionWillBeReviewed" xml:space="preserve">
+    <value>你的問題會評論</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>出生日期</value>
+  </data>
+  <data name="YouAre" xml:space="preserve">
+    <value>您</value>
+  </data>
+  <data name="PasswordBetween4and15Characters" xml:space="preserve">
+    <value>密碼必須是4至15個字符</value>
+  </data>
+  <data name="UserNameBetween4and15Characters" xml:space="preserve">
+    <value>用戶名必須是4至15個字符</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>結束</value>
+  </data>
+  <data name="LoadingDotDotDot" xml:space="preserve">
+    <value>載入中...</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>沒有結果</value>
+  </data>
+  <data name="UploadingUsers" xml:space="preserve">
+    <value>上傳用戶</value>
+  </data>
+  <data name="VideoType" xml:space="preserve">
+    <value>視頻類型</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>過濾器</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>視頻</value>
+  </data>
+  <data name="AddToFavorites" xml:space="preserve">
+    <value>添加到收藏夾</value>
+  </data>
+  <data name="AddToPlaylist" xml:space="preserve">
+    <value>添加到播放列表</value>
+  </data>
+  <data name="BringDown" xml:space="preserve">
+    <value>減低</value>
+  </data>
+  <data name="BringUp" xml:space="preserve">
+    <value>帶</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>從列表中刪除</value>
+  </data>
+  <data name="Uploader" xml:space="preserve">
+    <value>上傳</value>
+  </data>
+  <data name="BandsYouHaveSeenLive" xml:space="preserve">
+    <value>帶你所看到的生活</value>
+  </data>
+  <data name="BandsYouWantToSeeLiveOrJustListenTo" xml:space="preserve">
+    <value>帶你看直播或者只是聽</value>
+  </data>
+  <data name="CurrentCountry" xml:space="preserve">
+    <value>目前國</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>郵政編碼</value>
+  </data>
+  <data name="MessageToTheWorld" xml:space="preserve">
+    <value>消息給世界</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>可選</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>網站</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>聯繫</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>無線電</value>
+  </data>
+  <data name="Albania" xml:space="preserve">
+    <value>阿爾巴尼亞</value>
+  </data>
+  <data name="AllImagesAreConvertedToASquare" xml:space="preserve">
+    <value>所有的圖像轉換為一個正方形</value>
+  </data>
+  <data name="AmericanSamoa" xml:space="preserve">
+    <value>美屬薩摩亞</value>
+  </data>
+  <data name="Andorra" xml:space="preserve">
+    <value>安道爾</value>
+  </data>
+  <data name="Argentina" xml:space="preserve">
+    <value>阿根廷</value>
+  </data>
+  <data name="Armenia" xml:space="preserve">
+    <value>亞美尼亞</value>
+  </data>
+  <data name="Australia" xml:space="preserve">
+    <value>澳大利亞</value>
+  </data>
+  <data name="Austria" xml:space="preserve">
+    <value>奧地利</value>
+  </data>
+  <data name="Bangladesh" xml:space="preserve">
+    <value>孟加拉國</value>
+  </data>
+  <data name="Belarus" xml:space="preserve">
+    <value>白俄羅斯</value>
+  </data>
+  <data name="Belgium" xml:space="preserve">
+    <value>比利時</value>
+  </data>
+  <data name="Belize" xml:space="preserve">
+    <value>伯利茲</value>
+  </data>
+  <data name="Brazil" xml:space="preserve">
+    <value>巴西</value>
+  </data>
+  <data name="Bulgaria" xml:space="preserve">
+    <value>保加利亞</value>
+  </data>
+  <data name="Canada" xml:space="preserve">
+    <value>加拿大</value>
+  </data>
+  <data name="Chile" xml:space="preserve">
+    <value>智利</value>
+  </data>
+  <data name="China" xml:space="preserve">
+    <value>中國</value>
+  </data>
+  <data name="Colombia" xml:space="preserve">
+    <value>哥倫比亞</value>
+  </data>
+  <data name="CostaRica" xml:space="preserve">
+    <value>哥斯達黎加</value>
+  </data>
+  <data name="CurrentDefault" xml:space="preserve">
+    <value>當前默認</value>
+  </data>
+  <data name="Cyprus" xml:space="preserve">
+    <value>塞浦路斯</value>
+  </data>
+  <data name="CzechRepublic" xml:space="preserve">
+    <value>捷克共和國</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="Denmark" xml:space="preserve">
+    <value>丹麥</value>
+  </data>
+  <data name="DisplayMyAge" xml:space="preserve">
+    <value>顯示我的年齡</value>
+  </data>
+  <data name="DominicanRepublic" xml:space="preserve">
+    <value>多米尼加共和國</value>
+  </data>
+  <data name="Ecuador" xml:space="preserve">
+    <value>厄瓜多爾</value>
+  </data>
+  <data name="ElSalvador" xml:space="preserve">
+    <value>薩爾瓦多</value>
+  </data>
+  <data name="Estonia" xml:space="preserve">
+    <value>愛沙尼亞</value>
+  </data>
+  <data name="FaroeIslands" xml:space="preserve">
+    <value>法羅群島</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>女</value>
+  </data>
+  <data name="Finland" xml:space="preserve">
+    <value>芬蘭</value>
+  </data>
+  <data name="France" xml:space="preserve">
+    <value>法國</value>
+  </data>
+  <data name="FrenchGuiana" xml:space="preserve">
+    <value>法屬圭亞那</value>
+  </data>
+  <data name="Georgia" xml:space="preserve">
+    <value>格魯吉亞</value>
+  </data>
+  <data name="Germany" xml:space="preserve">
+    <value>德國</value>
+  </data>
+  <data name="Ghana" xml:space="preserve">
+    <value>加納</value>
+  </data>
+  <data name="Greece" xml:space="preserve">
+    <value>希臘</value>
+  </data>
+  <data name="Greenland" xml:space="preserve">
+    <value>格陵蘭</value>
+  </data>
+  <data name="Guadeloupe" xml:space="preserve">
+    <value>瓜德羅普島</value>
+  </data>
+  <data name="Guam" xml:space="preserve">
+    <value>關島</value>
+  </data>
+  <data name="Guatemala" xml:space="preserve">
+    <value>危地馬拉</value>
+  </data>
+  <data name="Guernsey" xml:space="preserve">
+    <value>根西島</value>
+  </data>
+  <data name="Guyana" xml:space="preserve">
+    <value>圭亞那</value>
+  </data>
+  <data name="Honduras" xml:space="preserve">
+    <value>洪都拉斯</value>
+  </data>
+  <data name="Hungary" xml:space="preserve">
+    <value>匈牙利</value>
+  </data>
+  <data name="Iceland" xml:space="preserve">
+    <value>冰島</value>
+  </data>
+  <data name="India" xml:space="preserve">
+    <value>印度</value>
+  </data>
+  <data name="Ireland" xml:space="preserve">
+    <value>愛爾蘭</value>
+  </data>
+  <data name="IsleOfMan" xml:space="preserve">
+    <value>馬恩島</value>
+  </data>
+  <data name="Israel" xml:space="preserve">
+    <value>以色列</value>
+  </data>
+  <data name="Italy" xml:space="preserve">
+    <value>意大利</value>
+  </data>
+  <data name="Japan" xml:space="preserve">
+    <value>日本</value>
+  </data>
+  <data name="Jersey" xml:space="preserve">
+    <value>新澤西州</value>
+  </data>
+  <data name="Latvia" xml:space="preserve">
+    <value>拉脫維亞</value>
+  </data>
+  <data name="Liechtenstein" xml:space="preserve">
+    <value>列支敦士登</value>
+  </data>
+  <data name="Lithuania" xml:space="preserve">
+    <value>立陶宛</value>
+  </data>
+  <data name="Luxembourg" xml:space="preserve">
+    <value>盧森堡</value>
+  </data>
+  <data name="Macedonia" xml:space="preserve">
+    <value>馬其頓</value>
+  </data>
+  <data name="MakeDefault" xml:space="preserve">
+    <value>設為默認值</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>男</value>
+  </data>
+  <data name="Malta" xml:space="preserve">
+    <value>馬耳他</value>
+  </data>
+  <data name="MarshallIslands" xml:space="preserve">
+    <value>馬紹爾群島</value>
+  </data>
+  <data name="Martinique" xml:space="preserve">
+    <value>馬提尼克島</value>
+  </data>
+  <data name="Mayotte" xml:space="preserve">
+    <value>馬約特島</value>
+  </data>
+  <data name="Mexico" xml:space="preserve">
+    <value>墨西哥</value>
+  </data>
+  <data name="Moldova" xml:space="preserve">
+    <value>摩爾多瓦</value>
+  </data>
+  <data name="Monaco" xml:space="preserve">
+    <value>摩納哥</value>
+  </data>
+  <data name="Montenegro" xml:space="preserve">
+    <value>黑山</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="Netherlands" xml:space="preserve">
+    <value>荷蘭</value>
+  </data>
+  <data name="NewZealand" xml:space="preserve">
+    <value>新西蘭</value>
+  </data>
+  <data name="Nicaragua" xml:space="preserve">
+    <value>尼加拉瓜</value>
+  </data>
+  <data name="Norway" xml:space="preserve">
+    <value>挪威</value>
+  </data>
+  <data name="NowEditYourProfile" xml:space="preserve">
+    <value>現在，編輯你的個人資料</value>
+  </data>
+  <data name="Pakistan" xml:space="preserve">
+    <value>巴基斯坦</value>
+  </data>
+  <data name="Panama" xml:space="preserve">
+    <value>巴拿馬</value>
+  </data>
+  <data name="Paraguay" xml:space="preserve">
+    <value>巴拉圭</value>
+  </data>
+  <data name="Peru" xml:space="preserve">
+    <value>秘魯</value>
+  </data>
+  <data name="PleaseCorrectTheErrors" xml:space="preserve">
+    <value>請更正錯誤</value>
+  </data>
+  <data name="Poland" xml:space="preserve">
+    <value>波蘭</value>
+  </data>
+  <data name="Portugal" xml:space="preserve">
+    <value>葡萄牙</value>
+  </data>
+  <data name="ProfilePhotos" xml:space="preserve">
+    <value>個人頭像</value>
+  </data>
+  <data name="PuertoRico" xml:space="preserve">
+    <value>波多黎各</value>
+  </data>
+  <data name="Reunion" xml:space="preserve">
+    <value>團圓</value>
+  </data>
+  <data name="Romania" xml:space="preserve">
+    <value>羅馬尼亞</value>
+  </data>
+  <data name="SanMarino" xml:space="preserve">
+    <value>聖馬力諾</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>選</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>選擇“文件”</value>
+  </data>
+  <data name="SelectThePhotoToReplace" xml:space="preserve">
+    <value>選擇照片，以取代</value>
+  </data>
+  <data name="Serbia" xml:space="preserve">
+    <value>塞爾維亞</value>
+  </data>
+  <data name="ShowMyLocationOnTheMap" xml:space="preserve">
+    <value>在地圖上顯示我的位置</value>
+  </data>
+  <data name="Singapore" xml:space="preserve">
+    <value>新加坡</value>
+  </data>
+  <data name="Slovakia" xml:space="preserve">
+    <value>斯洛伐克</value>
+  </data>
+  <data name="Slovenia" xml:space="preserve">
+    <value>斯洛文尼亞</value>
+  </data>
+  <data name="SouthAfrica" xml:space="preserve">
+    <value>南非</value>
+  </data>
+  <data name="Spain" xml:space="preserve">
+    <value>西班牙</value>
+  </data>
+  <data name="SriLanka" xml:space="preserve">
+    <value>斯里蘭卡</value>
+  </data>
+  <data name="Suriname" xml:space="preserve">
+    <value>蘇里南</value>
+  </data>
+  <data name="Sweden" xml:space="preserve">
+    <value>瑞典</value>
+  </data>
+  <data name="Switzerland" xml:space="preserve">
+    <value>瑞士</value>
+  </data>
+  <data name="SyrianArabRepublic" xml:space="preserve">
+    <value>阿拉伯敘利亞共和國</value>
+  </data>
+  <data name="Thailand" xml:space="preserve">
+    <value>泰國</value>
+  </data>
+  <data name="Turkey" xml:space="preserve">
+    <value>土耳其</value>
+  </data>
+  <data name="Ukraine" xml:space="preserve">
+    <value>烏克蘭</value>
+  </data>
+  <data name="UnitedKingdom" xml:space="preserve">
+    <value>聯合王國</value>
+  </data>
+  <data name="UnitedStates" xml:space="preserve">
+    <value>美國</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="UploadPhoto" xml:space="preserve">
+    <value>上傳照片</value>
+  </data>
+  <data name="Uruguay" xml:space="preserve">
+    <value>烏拉圭</value>
+  </data>
+  <data name="VaticanCity" xml:space="preserve">
+    <value>梵蒂岡城</value>
+  </data>
+  <data name="Venezuela" xml:space="preserve">
+    <value>委內瑞拉</value>
+  </data>
+  <data name="VirginIslands" xml:space="preserve">
+    <value>美國維爾京群島，</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="AccountInformation" xml:space="preserve">
+    <value>帳戶信息</value>
+  </data>
+  <data name="BySigningUpYouAgreeToTheTermsOfService" xml:space="preserve">
+    <value>通過註冊，你同意服務條款</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>這裡</value>
+  </data>
+  <data name="AccountDeletionCannotBeUndone" xml:space="preserve">
+    <value>帳戶不能撤消刪除</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>管理員</value>
+  </data>
+  <data name="Alien" xml:space="preserve">
+    <value>異己</value>
+  </data>
+  <data name="Applaud" xml:space="preserve">
+    <value>鼓掌</value>
+  </data>
+  <data name="Audience" xml:space="preserve">
+    <value>聽眾</value>
+  </data>
+  <data name="AutoPlayVideoInProfile" xml:space="preserve">
+    <value>在配置文件的自動播放視頻</value>
+  </data>
+  <data name="BeatDown" xml:space="preserve">
+    <value>擊倒</value>
+  </data>
+  <data name="BlockedUsers" xml:space="preserve">
+    <value>被阻止的用戶</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>更改密碼</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>聊天室</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="ContactRequest" xml:space="preserve">
+    <value>聯繫請求</value>
+  </data>
+  <data name="CopyrightAllRights" xml:space="preserve">
+    <value>版權所有{0} {1}。保留所有權利。</value>
+  </data>
+  <data name="CyberAssociates" xml:space="preserve">
+    <value>網絡聯營公司</value>
+  </data>
+  <data name="DanceGroup" xml:space="preserve">
+    <value>舞蹈團</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>刪除帳戶</value>
+  </data>
+  <data name="DeleteMyAccount" xml:space="preserve">
+    <value>刪除我的帳戶？</value>
+  </data>
+  <data name="HaveYouMetInRealLife" xml:space="preserve">
+    <value>在現實生活中，你見過嗎？</value>
+  </data>
+  <data name="InterestedIn" xml:space="preserve">
+    <value>有興趣</value>
+  </data>
+  <data name="LookingForFriends" xml:space="preserve">
+    <value>找朋友</value>
+  </data>
+  <data name="MaleAndFemale" xml:space="preserve">
+    <value>男女</value>
+  </data>
+  <data name="MessagesAreSentToYourEmail" xml:space="preserve">
+    <value>當啟用時，消息被發送到您的電子郵件地址。</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>靜音</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>不是現在</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>密碼不匹配</value>
+  </data>
+  <data name="ProfileLogging" xml:space="preserve">
+    <value>剖面測井</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>閱讀</value>
+  </data>
+  <data name="RealLifeContacts" xml:space="preserve">
+    <value>現實生活中的接觸</value>
+  </data>
+  <data name="RelationshipStatus" xml:space="preserve">
+    <value>婚姻狀態</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>回复</value>
+  </data>
+  <data name="Robot" xml:space="preserve">
+    <value>機器人</value>
+  </data>
+  <data name="SingleAndLooking" xml:space="preserve">
+    <value>單身並在尋找</value>
+  </data>
+  <data name="Song" xml:space="preserve">
+    <value>歌曲</value>
+  </data>
+  <data name="TakenOrNotInterested" xml:space="preserve">
+    <value>採取或不感興趣的</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>未讀</value>
+  </data>
+  <data name="Venue" xml:space="preserve">
+    <value>地點</value>
+  </data>
+  <data name="Visitors" xml:space="preserve">
+    <value>遊客</value>
+  </data>
+  <data name="WouldYouLikeToBeCyberAssociates" xml:space="preserve">
+    <value>你想成為網絡聯營公司嗎？</value>
+  </data>
+  <data name="YouDoNotAppearOnTheMap" xml:space="preserve">
+    <value>當被禁止，則不會出現在地圖上。</value>
+  </data>
+  <data name="YourAgeWillNotDisplay" xml:space="preserve">
+    <value>如果禁用，您的年齡將不會顯示在您的個人資料。</value>
+  </data>
+  <data name="YouResponded" xml:space="preserve">
+    <value>您回應</value>
+  </data>
+  <data name="YourProfileViewsWillNotBeRecorded" xml:space="preserve">
+    <value>如果禁用，將不被記錄您的個人資料的意見，你看不到是誰看到您的個人資料。</value>
+  </data>
+  <data name="DeleteThis" xml:space="preserve">
+    <value>刪除嗎？</value>
+  </data>
+  <data name="AboutOneMinuteAgo" xml:space="preserve">
+    <value>約一分鐘前</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>背面</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{0} 天前</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>{0} 小時前</value>
+  </data>
+  <data name="MinutesAgo" xml:space="preserve">
+    <value>{0} 分鐘前</value>
+  </data>
+  <data name="MonthsAgo" xml:space="preserve">
+    <value>{0} 個月前</value>
+  </data>
+  <data name="SecondsAgo" xml:space="preserve">
+    <value>{0} 秒前</value>
+  </data>
+  <data name="WeeksAgo" xml:space="preserve">
+    <value>{0} 週前</value>
+  </data>
+  <data name="YearsAgo" xml:space="preserve">
+    <value>{0} 年前</value>
+  </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>關鍵詞</value>
+  </data>
+  <data name="Handed" xml:space="preserve">
+    <value>流傳</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>無效</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>左</value>
+  </data>
+  <data name="OnlineNow" xml:space="preserve">
+    <value>立即在線</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>權</value>
+  </data>
+  <data name="AlreadyInUse" xml:space="preserve">
+    <value>已經在使用</value>
+  </data>
+  <data name="EditYourEmailSettings" xml:space="preserve">
+    <value>編輯您的電子郵件設置</value>
+  </data>
+  <data name="IncorrectFormat" xml:space="preserve">
+    <value>不正確的格式</value>
+  </data>
+  <data name="SourceFile" xml:space="preserve">
+    <value>源文件</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>上傳</value>
+  </data>
+  <data name="Cyborg" xml:space="preserve">
+    <value>靠機械裝置維持生命的人</value>
+  </data>
+  <data name="HardwareAndSoftwareSkills" xml:space="preserve">
+    <value>硬件和軟件技術</value>
+  </data>
+  <data name="Ambidextrous" xml:space="preserve">
+    <value>懷二心的</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>地圖</value>
+  </data>
+  <data name="FeaturedModel" xml:space="preserve">
+    <value>功能模型</value>
+  </data>
+  <data name="Inbox" xml:space="preserve">
+    <value>收件箱</value>
+  </data>
+  <data name="NewestUsers" xml:space="preserve">
+    <value>最新用戶</value>
+  </data>
+  <data name="NewestVideos" xml:space="preserve">
+    <value>最新視頻</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>沒有評論</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>通知</value>
+  </data>
+  <data name="Outbox" xml:space="preserve">
+    <value>發件箱</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>隱私政策</value>
+  </data>
+  <data name="SubmitYourYouTubeVideoLinkHere" xml:space="preserve">
+    <value>提交您的YouTube視頻鏈接在這裡</value>
+  </data>
+  <data name="TermsAndCondtions" xml:space="preserve">
+    <value>條款和條件</value>
+  </data>
+  <data name="Applauded" xml:space="preserve">
+    <value>叫好</value>
+  </data>
+  <data name="BeatenDown" xml:space="preserve">
+    <value>打壓</value>
+  </data>
+  <data name="Commented" xml:space="preserve">
+    <value>評論</value>
+  </data>
+  <data name="EMailMyMessages" xml:space="preserve">
+    <value>我的信息發送電子郵件</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>細節</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>詳細信息</value>
+  </data>
+  <data name="FilterNewsByTag" xml:space="preserve">
+    <value>過濾新聞標籤</value>
+  </data>
+  <data name="ManageNews" xml:space="preserve">
+    <value>管理新聞</value>
+  </data>
+  <data name="ManageNewsComments" xml:space="preserve">
+    <value>管理新聞評論</value>
+  </data>
+  <data name="Croatia" xml:space="preserve">
+    <value>克羅地亞</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>殘疾人</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>新</value>
+  </data>
+  <data name="NextVideo" xml:space="preserve">
+    <value>下一個視頻</value>
+  </data>
+  <data name="NoFile" xml:space="preserve">
+    <value>沒有文件</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>電話</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>發布日期</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="LoadMore" xml:space="preserve">
+    <value>裝入更多</value>
+  </data>
+  <data name="NextPhoto" xml:space="preserve">
+    <value>下一張圖</value>
+  </data>
+  <data name="PreviousPhoto" xml:space="preserve">
+    <value>前一張圖</value>
+  </data>
+  <data name="SeeMoreNews" xml:space="preserve">
+    <value>查看更多新聞</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>輪廓</value>
+  </data>
+  <data name="HappyBirthday" xml:space="preserve">
+    <value>祝你生日快樂</value>
+  </data>
+  <data name="AddAsCyberAssociate" xml:space="preserve">
+    <value>加為網絡聯營公司</value>
+  </data>
+  <data name="AddAsRealLifeContact" xml:space="preserve">
+    <value>加為現實生活中接觸（IRL）</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>音樂</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>發送消息</value>
+  </data>
+  <data name="SoundOn" xml:space="preserve">
+    <value>聲音開</value>
+  </data>
+  <data name="Cuba" xml:space="preserve">
+    <value>古巴</value>
+  </data>
+  <data name="NorthKorea" xml:space="preserve">
+    <value>北朝鮮</value>
+  </data>
+  <data name="SouthKorea" xml:space="preserve">
+    <value>韓國</value>
+  </data>
+  <data name="CheckYourEmailAndSpamFolder" xml:space="preserve">
+    <value>請檢查您的電子郵件和垃圾郵件文件夾</value>
+  </data>
+  <data name="MorePhotos" xml:space="preserve">
+    <value>更多照片</value>
+  </data>
+  <data name="NewestPhotos" xml:space="preserve">
+    <value>最新照片</value>
+  </data>
+  <data name="Band" xml:space="preserve">
+    <value>帶</value>
+  </data>
+  <data name="CreateANewAccount" xml:space="preserve">
+    <value>創建一個新的帳戶</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="CreatedOn" xml:space="preserve">
+    <value>創建</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>創建新</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>俄 (русский)</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>年齡</value>
+  </data>
+  <data name="LastActive" xml:space="preserve">
+    <value>最後上線</value>
+  </data>
+  <data name="FavoriteVideos" xml:space="preserve">
+    <value>最喜愛的影片</value>
+  </data>
+  <data name="LatestUpdate" xml:space="preserve">
+    <value>最新更新</value>
+  </data>
+  <data name="UploadedVideos" xml:space="preserve">
+    <value>上傳的視頻</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>等候</value>
+  </data>
+  <data name="MostApplaudedThisWeek" xml:space="preserve">
+    <value>大多數對此表示歡迎週</value>
+  </data>
+  <data name="MostBeatenDownThisWeek" xml:space="preserve">
+    <value>最擊倒本週</value>
+  </data>
+  <data name="ApproximateLocation" xml:space="preserve">
+    <value>大概位置</value>
+  </data>
+  <data name="FromDesktop" xml:space="preserve">
+    <value>從台式機</value>
+  </data>
+  <data name="FromMobile" xml:space="preserve">
+    <value>從移動</value>
+  </data>
+  <data name="OnIPhoneEmailYourPhotoToWithYourMessageInTheBodyTo" xml:space="preserve">
+    <value>在IPhone電郵您的照片，您的消息在身體上</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>阻止</value>
+  </data>
+  <data name="SendFromYourAccountEmail" xml:space="preserve">
+    <value>從您帳戶的電子郵件發送</value>
+  </data>
+  <data name="RotatePhoto" xml:space="preserve">
+    <value>旋轉照片</value>
+  </data>
+  <data name="Latin" xml:space="preserve">
+    <value>拉丁</value>
+  </data>
+  <data name="SoundOff" xml:space="preserve">
+    <value>關閉聲音</value>
+  </data>
+  <data name="TurnSoundOff" xml:space="preserve">
+    <value>打開聲音關閉</value>
+  </data>
+  <data name="TurnSoundOn" xml:space="preserve">
+    <value>打開聲音</value>
+  </data>
+  <data name="MembersOnlyProfile" xml:space="preserve">
+    <value>只限個人資料</value>
+  </data>
+  <data name="OnlyMembersCanSeeYourProfile" xml:space="preserve">
+    <value>當啟用時，只有會員才能查看更新</value>
+  </data>
+  <data name="CreativeCommunity" xml:space="preserve">
+    <value>創意社區</value>
+  </data>
+  <data name="Featuring" xml:space="preserve">
+    <value>擁有</value>
+  </data>
+  <data name="Dance" xml:space="preserve">
+    <value>舞蹈</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="FemaleDuo" xml:space="preserve">
+    <value>女雙核</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>組</value>
+  </data>
+  <data name="Interview" xml:space="preserve">
+    <value>訪問</value>
+  </data>
+  <data name="Live" xml:space="preserve">
+    <value>生活</value>
+  </data>
+  <data name="MaleDuo" xml:space="preserve">
+    <value>男雙核</value>
+  </data>
+  <data name="MusicVideo" xml:space="preserve">
+    <value>音樂視頻</value>
+  </data>
+  <data name="Raw" xml:space="preserve">
+    <value>原</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>顯示</value>
+  </data>
+  <data name="FootageType" xml:space="preserve">
+    <value>影片類型</value>
+  </data>
+  <data name="Random" xml:space="preserve">
+    <value>隨機</value>
+  </data>
+  <data name="NewestAtTop" xml:space="preserve">
+    <value>最新頂部</value>
+  </data>
+  <data name="MostCommentedOnThisWeek" xml:space="preserve">
+    <value>多數在本週發表評論</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>或</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>主題</value>
+  </data>
+  <data name="Contests" xml:space="preserve">
+    <value>競賽</value>
+  </data>
+  <data name="FullScreen" xml:space="preserve">
+    <value>全屏幕</value>
+  </data>
+  <data name="AgeFrom" xml:space="preserve">
+    <value>年齡</value>
+  </data>
+  <data name="AgeTo" xml:space="preserve">
+    <value>時代到</value>
+  </data>
+  <data name="TheyAre" xml:space="preserve">
+    <value>他們是</value>
+  </data>
+  <data name="SortedByActivity" xml:space="preserve">
+    <value>排序的活動</value>
+  </data>
+  <data name="SortedByDistance" xml:space="preserve">
+    <value>按距離排序</value>
+  </data>
+  <data name="InvalidLink" xml:space="preserve">
+    <value>無效的鏈接</value>
+  </data>
+  <data name="VideoRejected" xml:space="preserve">
+    <value>視頻被拒絕</value>
+  </data>
+  <data name="WaitingToBeReviewed" xml:space="preserve">
+    <value>視頻正在等待審查</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>圖像</value>
+  </data>
+  <data name="Tutorial" xml:space="preserve">
+    <value>教程</value>
+  </data>
+  <data name="Polish" xml:space="preserve">
+    <value>波蘭語 (polski)</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>小時</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>會議紀要</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="ContestDetails" xml:space="preserve">
+    <value>比賽詳情</value>
+  </data>
+  <data name="CurentContestEntries" xml:space="preserve">
+    <value>目前的參賽作品</value>
+  </data>
+  <data name="TimeRemainingInContest" xml:space="preserve">
+    <value>在比賽的剩餘時間</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>下載</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>法國人 (français)</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>葡萄牙 (português)</value>
+  </data>
+  <data name="ClaimYouUploadedThisVideo" xml:space="preserve">
+    <value>要求時，您上傳了此視頻</value>
+  </data>
+  <data name="Italian" xml:space="preserve">
+    <value>意大利的 (italiano)</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>荷蘭人 (Nederlands)</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>城市</value>
+  </data>
+  <data name="RegionState" xml:space="preserve">
+    <value>地區/國家</value>
+  </data>
+  <data name="StreetAddress" xml:space="preserve">
+    <value>街道地址</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>前</value>
+  </data>
+  <data name="Japanese" xml:space="preserve">
+    <value>日本 (日本の)</value>
+  </data>
+  <data name="Greek" xml:space="preserve">
+    <value>希臘的 (ελληνικά)</value>
+  </data>
+  <data name="Korean" xml:space="preserve">
+    <value>韓國 (한국의)</value>
+  </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>芬蘭 (suomi)</value>
+  </data>
+  <data name="Czech" xml:space="preserve">
+    <value>捷克的 (český)</value>
+  </data>
+  <data name="Hungarian" xml:space="preserve">
+    <value>匈牙利 (magyar)</value>
+  </data>
+  <data name="Danish" xml:space="preserve">
+    <value>丹麥的 (dansk)</value>
+  </data>
+  <data name="Iran" xml:space="preserve">
+    <value>伊朗</value>
+  </data>
+  <data name="Iraq" xml:space="preserve">
+    <value>伊拉克</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>謝謝您</value>
+  </data>
+  <data name="VoteFor" xml:space="preserve">
+    <value>投票支持</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>報告</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>中國的</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>存儲</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>阿拉伯語 (العربية)</value>
+  </data>
+  <data name="Turkish" xml:space="preserve">
+    <value>土耳其 (Türk)</value>
+  </data>
+  <data name="Contest" xml:space="preserve">
+    <value>比賽</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="Philippines" xml:space="preserve">
+    <value>菲律賓</value>
+  </data>
+  <data name="YearAgo" xml:space="preserve">
+    <value>{0} 一年前</value>
+  </data>
+  <data name="Percentage" xml:space="preserve">
+    <value>百分比</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>結果</value>
+  </data>
+  <data name="Votes" xml:space="preserve">
+    <value>投票</value>
+  </data>
+</root>

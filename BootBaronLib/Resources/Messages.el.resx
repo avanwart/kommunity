@@ -1,0 +1,1687 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>λογαριασμός</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>όλα</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="CannotUnencodeAHashedPassword" xml:space="preserve">
+    <value>Δεν είναι δυνατή η unencode μια κατακερματισμένη κωδικό πρόσβασης.</value>
+  </data>
+  <data name="ChangePasswordCancel" xml:space="preserve">
+    <value>Αλλαγή κωδικού ακυρώθηκε λόγω νέα αποτυχία επικύρωσης κωδικού πρόσβασης.</value>
+  </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>κάντε κλικ εδώ</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>κοντά</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>σχόλιο</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Επιβεβαίωση κωδικού πρόσβασης</value>
+  </data>
+  <data name="ConnectionStringCannotBeBlank" xml:space="preserve">
+    <value>Συμβολοσειρά σύνδεσης δεν μπορεί να είναι κενό.</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Συνεχίστε</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Μετρήστε</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Τρέχουσα Κωδικός</value>
+  </data>
+  <data name="DefaultLanguage" xml:space="preserve">
+    <value>Προεπιλογή γλώσσας</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>περιγραφή</value>
+  </data>
+  <data name="DoNotRespondToThisEmail" xml:space="preserve">
+    <value>Μην απαντάτε σε αυτό το email</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="EMail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Αγγλικά (English)</value>
+  </data>
+  <data name="EnterTheEmailAddress" xml:space="preserve">
+    <value>Εισάγετε τη διεύθυνση ηλεκτρονικού ταχυδρομείου</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>σφάλμα</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptCount" xml:space="preserve">
+    <value>Αποτυχία Απάντηση Κωδικός Count Προσπάθεια</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptWindowStart" xml:space="preserve">
+    <value>Αποτυχία Απάντηση Κωδικός Απόπειρα Έναρξη Παράθυρο</value>
+  </data>
+  <data name="FailedPasswordAttemptCount" xml:space="preserve">
+    <value>Αποτυχία Count Απόπειρα Κωδικός</value>
+  </data>
+  <data name="FailedPasswordAttemptWindowStart" xml:space="preserve">
+    <value>Αποτυχημένη απόπειρα Κωδικός Έναρξη Παράθυρο</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>αρχείο</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>όνομα</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>Απαγορευμένη</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Ξεχάσατε τον κωδικό σας;</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>από</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>γερμανικά (Deutsch)</value>
+  </data>
+  <data name="GetPasswordFailedNoUnique" xml:space="preserve">
+    <value>Πάρτε τον κωδικό πρόσβασης απέτυχε. Δεν βρέθηκαν μοναδικό χρήστη.</value>
+  </data>
+  <data name="Go" xml:space="preserve">
+    <value>πάω</value>
+    <comment>Used to start a search</comment>
+  </data>
+  <data name="HashedOrEncryptedPasswords" xml:space="preserve">
+    <value>Κατακερματίζεται ή κρυπτογραφημένους κωδικούς πρόσβασης δεν υποστηρίζονται με δημιουργείται αυτόματα πλήκτρα.</value>
+  </data>
+  <data name="HasSentThisMessage" xml:space="preserve">
+    <value>Έχει σταλεί αυτό το μήνυμα</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Γεια σας</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>σπίτι</value>
+  </data>
+  <data name="IncorrectPasswordAnswer" xml:space="preserve">
+    <value>Λάθος απάντηση κωδικό πρόσβασης.</value>
+  </data>
+  <data name="IpAddress" xml:space="preserve">
+    <value>Η διεύθυνση IP</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>είναι ενεργός</value>
+  </data>
+  <data name="IsAdmin" xml:space="preserve">
+    <value>είναι admin</value>
+  </data>
+  <data name="IsApproved" xml:space="preserve">
+    <value>εγκρίνεται</value>
+  </data>
+  <data name="IsLockedOut" xml:space="preserve">
+    <value>Είναι κλειδωμένη</value>
+  </data>
+  <data name="IsOnline" xml:space="preserve">
+    <value>είναι Συνδεδεμένοι</value>
+  </data>
+  <data name="JustNow" xml:space="preserve">
+    <value>μόλις τώρα</value>
+  </data>
+  <data name="KeepMeLoggedIn" xml:space="preserve">
+    <value>Να με θυμάσαι σε</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>γλώσσα</value>
+  </data>
+  <data name="LastActivityDateTime" xml:space="preserve">
+    <value>Τελευταία Ημερομηνία Ώρα Δραστηριότητα</value>
+  </data>
+  <data name="LastLockoutDate" xml:space="preserve">
+    <value>Τελευταία Ημερομηνία κλειδώματος</value>
+  </data>
+  <data name="LastLoginDate" xml:space="preserve">
+    <value>Τελευταία Ημερομηνία Είσοδος</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Επώνυμο</value>
+  </data>
+  <data name="LastNameIsRequired" xml:space="preserve">
+    <value>Επώνυμο απαιτείται</value>
+  </data>
+  <data name="LastPasswordChangedDateTime" xml:space="preserve">
+    <value>Τελευταία Αλλαγή Κωδικού Ημερομηνία Ώρα</value>
+  </data>
+  <data name="SignInToYourAccountHere" xml:space="preserve">
+    <value>Είσοδος στο λογαριασμό σας εδώ</value>
+  </data>
+  <data name="SignOff" xml:space="preserve">
+    <value>Εγγραφείτε στα ανοικτά</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>όνομα</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Νέος κωδικός πρόσβασης</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Επόμενη</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>όχι</value>
+  </data>
+  <data name="Norweigen" xml:space="preserve">
+    <value>νορβηγική (Norge)</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>δεν Βρέθηκε</value>
+  </data>
+  <data name="NoVideoPlaybackCapabilities" xml:space="preserve">
+    <value>Δεν υπάρχουν δυνατότητες αναπαραγωγής βίντεο</value>
+  </data>
+  <data name="NumberOfViews" xml:space="preserve">
+    <value>Αριθμός εμφανίσεων</value>
+  </data>
+  <data name="OneHourAgo" xml:space="preserve">
+    <value>Μία ώρα πριν</value>
+  </data>
+  <data name="OneMinuteAgo" xml:space="preserve">
+    <value>Ένα λεπτό πριν</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Κωδικός</value>
+  </data>
+  <data name="PasswordAnswer" xml:space="preserve">
+    <value>Απάντηση Κωδικός</value>
+  </data>
+  <data name="PasswordFormat" xml:space="preserve">
+    <value>Μορφή κωδικού πρόσβασης</value>
+  </data>
+  <data name="PasswordFormatNotSupported" xml:space="preserve">
+    <value>Κωδικός μορφή δεν υποστηρίζεται.</value>
+  </data>
+  <data name="PasswordQuestion" xml:space="preserve">
+    <value>Ερώτηση κωδικού πρόσβασης</value>
+  </data>
+  <data name="PasswordReset" xml:space="preserve">
+    <value>Επαναφορά κωδικού πρόσβασης</value>
+  </data>
+  <data name="PasswordRetrievalNotEnabled" xml:space="preserve">
+    <value>Ανάκτηση κωδικού πρόσβασης δεν είναι ενεργοποιημένη.</value>
+  </data>
+  <data name="PasswordSalt" xml:space="preserve">
+    <value>Αλάτι Κωδικός</value>
+  </data>
+  <data name="PleaseConfirmYourNewPassword" xml:space="preserve">
+    <value>Επιβεβαιώστε το νέο κωδικό πρόσβασης</value>
+  </data>
+  <data name="PleaseEnterYourCurrentPassword" xml:space="preserve">
+    <value>Παρακαλώ εισάγετε τον τρέχοντα κωδικό σας</value>
+  </data>
+  <data name="PleaseEnterYourEmailAddress" xml:space="preserve">
+    <value>Παρακαλώ εισάγετε τη διεύθυνση email σας.</value>
+  </data>
+  <data name="PleaseEnterYourNewPassword" xml:space="preserve">
+    <value>Παρακαλώ εισάγετε το νέο κωδικό πρόσβασης</value>
+  </data>
+  <data name="PleaseProvideEmailAddress" xml:space="preserve">
+    <value>Παρακαλώ δώστε τη διεύθυνση ηλεκτρονικού ταχυδρομείου</value>
+  </data>
+  <data name="ProviderKey" xml:space="preserve">
+    <value>Βασικά πάροχος</value>
+  </data>
+  <data name="ProviderName" xml:space="preserve">
+    <value>ProviderName</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>εκτίμηση</value>
+  </data>
+  <data name="RetrieveYourPassword" xml:space="preserve">
+    <value>Ξέχασα τον κωδικό σας</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Ρόλοι</value>
+  </data>
+  <data name="Russia" xml:space="preserve">
+    <value>Ρωσία</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>Αποτελέσματα αναζήτησης</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Αποστολή</value>
+  </data>
+  <data name="SendEMailInvite" xml:space="preserve">
+    <value>Αποστολή Email Πρόσκληση</value>
+  </data>
+  <data name="SendMeMyPassword" xml:space="preserve">
+    <value>Στείλτε μου τον κωδικό μου</value>
+  </data>
+  <data name="SendPasswordResetEmail" xml:space="preserve">
+    <value>Αποστολή Email Κωδικός Επαναφορά</value>
+  </data>
+  <data name="SorryAnErrorOccurred" xml:space="preserve">
+    <value>Λυπούμαστε, ένα σφάλμα κατά την επεξεργασία του αιτήματός σας.</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>ισπανικά (Español)</value>
+  </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>σουηδικά (Svenska)</value>
+  </data>
+  <data name="ThePasswordsEnteredDoNotMatch" xml:space="preserve">
+    <value>Οι κωδικοί που πληκτρολογήσατε δεν ταιριάζουν</value>
+  </data>
+  <data name="TheSuppliedUserIsLockedOut" xml:space="preserve">
+    <value>Ο χρήστης που παρέχονται είναι κλειδωμένη.</value>
+  </data>
+  <data name="TheSuppliedUserNameIsNotFound" xml:space="preserve">
+    <value>Το παρεχόμενο όνομα χρήστη δεν βρέθηκε.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>τύπος</value>
+  </data>
+  <data name="TypeIsRequired" xml:space="preserve">
+    <value>Τύπος απαιτείται</value>
+  </data>
+  <data name="UnableToLockOutUser" xml:space="preserve">
+    <value>Αδύνατο το κλείδωμα από το χρήστη.</value>
+  </data>
+  <data name="UnableToUpdateFailureCount" xml:space="preserve">
+    <value>Αδύνατη η ενημέρωση καταμέτρηση αποτυχία.</value>
+  </data>
+  <data name="UnableToUpdateFailureCountAndWindowStart" xml:space="preserve">
+    <value>Αδύνατη η ενημέρωση της αποτυχίας και καταμέτρηση έναρξη παράθυρο.</value>
+  </data>
+  <data name="UnsupportedPasswordFormat" xml:space="preserve">
+    <value>Μη υποστηριζόμενη μορφή κωδικού.</value>
+  </data>
+  <data name="UpdateFailureCountFailedNoUniqueUserFound" xml:space="preserve">
+    <value>Ενημέρωση καταμέτρηση αποτυχία απέτυχε. Δεν βρέθηκαν μοναδικό χρήστη.</value>
+  </data>
+  <data name="UpdateUserFailedNoUniqueUserFound" xml:space="preserve">
+    <value>Ενημέρωση χρήστη απέτυχε. Δεν βρέθηκαν μοναδικό χρήστη.</value>
+  </data>
+  <data name="UserAccount" xml:space="preserve">
+    <value>Ο λογαριασμός χρήστη</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>όνομα χρήστη</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>ναί</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>χτες</value>
+  </data>
+  <data name="YourNewAccountIsReadyForUse" xml:space="preserve">
+    <value>Νέος λογαριασμός σας είναι έτοιμη για χρήση</value>
+  </data>
+  <data name="YourPasswordHasBeenReset" xml:space="preserve">
+    <value>Ο κωδικός πρόσβασης έχει Επαναφορά</value>
+  </data>
+  <data name="FindUsers" xml:space="preserve">
+    <value>Βρείτε Χρήστες</value>
+  </data>
+  <data name="DashSelect" xml:space="preserve">
+    <value>- Επιλέξτε -</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Επεξεργασία του προφίλ</value>
+  </data>
+  <data name="Failure" xml:space="preserve">
+    <value>αποτυχία</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>ταχυδρομείο</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>μου</value>
+  </data>
+  <data name="MyZone" xml:space="preserve">
+    <value>Ζώνη μου</value>
+  </data>
+  <data name="NameLength4To50" xml:space="preserve">
+    <value>Το μήκος του ονόματος πρέπει να είναι μεταξύ 4 και 50 χαρακτήρες</value>
+  </data>
+  <data name="PayPalEmail" xml:space="preserve">
+    <value>PayPal Email</value>
+  </data>
+  <data name="Photos" xml:space="preserve">
+    <value>Φωτογραφίες</value>
+  </data>
+  <data name="Playlist" xml:space="preserve">
+    <value>λίστας αναπαραγωγής βίντεο</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="StatusUpdate" xml:space="preserve">
+    <value>Ενημέρωση κατάστασης</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Υποβολή</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>επιτυχία</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>σύνδεσμος</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>χώρα</value>
+  </data>
+  <data name="IsDefault" xml:space="preserve">
+    <value>είναι Προεπιλογή</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Απαιτείται</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Να με θυμάσαι;</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Σχόλια</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>Δημοσίευση</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Διαβάστε περισσότερα</value>
+  </data>
+  <data name="Tagged" xml:space="preserve">
+    <value>Κολλημένος</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Ετικέτες</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>περίπου</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>διεύθυνση</value>
+  </data>
+  <data name="BasicDetails" xml:space="preserve">
+    <value>Βασικά Στοιχεία</value>
+  </data>
+  <data name="BlockIP" xml:space="preserve">
+    <value>Αποκλεισμός IP</value>
+  </data>
+  <data name="BriefDescription" xml:space="preserve">
+    <value>σύντομη Περιγραφή</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>Επιβεβαιώθηκε</value>
+  </data>
+  <data name="DashSeperatedLowercaseWords" xml:space="preserve">
+    <value>dash-seperated-lowercase-words</value>
+  </data>
+  <data name="EditArticle" xml:space="preserve">
+    <value>Επεξεργασία άρθρο</value>
+  </data>
+  <data name="EditArticleComment" xml:space="preserve">
+    <value>Επεξεργασία Σχόλιο άρθρο</value>
+  </data>
+  <data name="Editing" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="EmailWillNotBePublished" xml:space="preserve">
+    <value>Αποστολή δεν θα δημοσιευθεί</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>κλειδί</value>
+  </data>
+  <data name="LatestNews" xml:space="preserve">
+    <value>Τελευταίες ειδήσεις</value>
+  </data>
+  <data name="LeaveAComment" xml:space="preserve">
+    <value>Αφήστε ένα σχόλιο</value>
+  </data>
+  <data name="SignedInAs" xml:space="preserve">
+    <value>Υπεγράφη στην ως</value>
+  </data>
+  <data name="LoginUnsuccessfulPleaseCorrect" xml:space="preserve">
+    <value>Είσοδος ήταν ανεπιτυχής. Διορθώστε τα λάθη και προσπαθήστε ξανά.</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Σύνδεση</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>Αρχική Σελίδα</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>Περιγραφή Meta</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>ειδήσεις</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>φωτογραφία</value>
+  </data>
+  <data name="PhotoAndVideo" xml:space="preserve">
+    <value>Φωτογραφίες και βίντεο</value>
+  </data>
+  <data name="BusinessAddress" xml:space="preserve">
+    <value>Επαγγελματική διεύθυνση</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>μητρώο</value>
+  </data>
+  <data name="SeperateWithCommas" xml:space="preserve">
+    <value>Διαχωρισμός με κόμματα</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Κάντε κλικ εδώ</value>
+  </data>
+  <data name="TypeToSearch" xml:space="preserve">
+    <value>Πληκτρολογήστε για αναζήτηση...</value>
+  </data>
+  <data name="Unconfirmed" xml:space="preserve">
+    <value>ανεπιβεβαίωτες</value>
+  </data>
+  <data name="UseTheFormToCreateANewAccount" xml:space="preserve">
+    <value>Χρησιμοποιήστε την παρακάτω φόρμα για να δημιουργήσετε ένα νέο λογαριασμό.</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>βίντεο</value>
+  </data>
+  <data name="YouCommentWillBeReviewed" xml:space="preserve">
+    <value>Το σχόλιο σας θα κριτικές</value>
+  </data>
+  <data name="YourQuestionWillBeReviewed" xml:space="preserve">
+    <value>Ερώτηση σας θα αναθεωρηθεί</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>ημερομηνία Γέννησης</value>
+  </data>
+  <data name="YouAre" xml:space="preserve">
+    <value>Είστε</value>
+  </data>
+  <data name="PasswordBetween4and15Characters" xml:space="preserve">
+    <value>Κωδικός πρέπει να είναι μεταξύ 4 και 15 χαρακτήρες</value>
+  </data>
+  <data name="UserNameBetween4and15Characters" xml:space="preserve">
+    <value>Όνομα Χρήστη πρέπει να είναι μεταξύ 4 και 15 χαρακτήρες</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>τέλος</value>
+  </data>
+  <data name="LoadingDotDotDot" xml:space="preserve">
+    <value>φόρτωση...</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>Δεν υπάρχουν αποτελέσματα</value>
+  </data>
+  <data name="UploadingUsers" xml:space="preserve">
+    <value>Χρήστες Μεταφόρτωση</value>
+  </data>
+  <data name="VideoType" xml:space="preserve">
+    <value>Τύπος Βίντεο</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Φίλτρο</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Βίντεο</value>
+  </data>
+  <data name="AddToFavorites" xml:space="preserve">
+    <value>Προσθήκη στα αγαπημένα</value>
+  </data>
+  <data name="AddToPlaylist" xml:space="preserve">
+    <value>Προσθήκη στη λίστα αναπαραγωγής</value>
+  </data>
+  <data name="BringDown" xml:space="preserve">
+    <value>Φέρτε κάτω</value>
+  </data>
+  <data name="BringUp" xml:space="preserve">
+    <value>Φέρτε Μέχρι</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Κατάργηση από τη λίστα</value>
+  </data>
+  <data name="Uploader" xml:space="preserve">
+    <value>Αποστολέας</value>
+  </data>
+  <data name="BandsYouHaveSeenLive" xml:space="preserve">
+    <value>Συγκροτήματα που έχετε δει ζωντανά</value>
+  </data>
+  <data name="BandsYouWantToSeeLiveOrJustListenTo" xml:space="preserve">
+    <value>Μπάντες που θέλετε να δείτε ζωντανά ή απλά να ακούσετε</value>
+  </data>
+  <data name="CurrentCountry" xml:space="preserve">
+    <value>Τρέχουσα χώρα</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>Ταχυδρομικός κώδικας</value>
+  </data>
+  <data name="MessageToTheWorld" xml:space="preserve">
+    <value>Μήνυμα προς τον κόσμο</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>προαιρετικός</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>δικτυακός τόπος</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>επαφή</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>ραδιόφωνο</value>
+  </data>
+  <data name="Albania" xml:space="preserve">
+    <value>Αλβανία</value>
+  </data>
+  <data name="AllImagesAreConvertedToASquare" xml:space="preserve">
+    <value>Όλες οι εικόνες μετατρέπονται σε ένα τετράγωνο</value>
+  </data>
+  <data name="AmericanSamoa" xml:space="preserve">
+    <value>αμερικανική Σαμόα</value>
+  </data>
+  <data name="Andorra" xml:space="preserve">
+    <value>Ανδόρα</value>
+  </data>
+  <data name="Argentina" xml:space="preserve">
+    <value>Αργεντινή</value>
+  </data>
+  <data name="Armenia" xml:space="preserve">
+    <value>Αρμενία</value>
+  </data>
+  <data name="Australia" xml:space="preserve">
+    <value>Αυστραλία</value>
+  </data>
+  <data name="Austria" xml:space="preserve">
+    <value>Αυστρία</value>
+  </data>
+  <data name="Bangladesh" xml:space="preserve">
+    <value>Μπαγκλαντές</value>
+  </data>
+  <data name="Belarus" xml:space="preserve">
+    <value>Λευκορωσία</value>
+  </data>
+  <data name="Belgium" xml:space="preserve">
+    <value>Βέλγιο</value>
+  </data>
+  <data name="Belize" xml:space="preserve">
+    <value>Μπελίζ</value>
+  </data>
+  <data name="Brazil" xml:space="preserve">
+    <value>Βραζιλία</value>
+  </data>
+  <data name="Bulgaria" xml:space="preserve">
+    <value>Βουλγαρία</value>
+  </data>
+  <data name="Canada" xml:space="preserve">
+    <value>Καναδάς</value>
+  </data>
+  <data name="Chile" xml:space="preserve">
+    <value>Χιλή</value>
+  </data>
+  <data name="China" xml:space="preserve">
+    <value>Κίνα</value>
+  </data>
+  <data name="Colombia" xml:space="preserve">
+    <value>Κολομβία</value>
+  </data>
+  <data name="CostaRica" xml:space="preserve">
+    <value>Κόστα Ρίκα</value>
+  </data>
+  <data name="CurrentDefault" xml:space="preserve">
+    <value>Τρέχουσα Προεπιλογή</value>
+  </data>
+  <data name="Cyprus" xml:space="preserve">
+    <value>Κύπρος</value>
+  </data>
+  <data name="CzechRepublic" xml:space="preserve">
+    <value>Τσεχική Δημοκρατία</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>ημέρα</value>
+  </data>
+  <data name="Denmark" xml:space="preserve">
+    <value>Δανία</value>
+  </data>
+  <data name="DisplayMyAge" xml:space="preserve">
+    <value>Εμφάνιση ηλικία μου</value>
+  </data>
+  <data name="DominicanRepublic" xml:space="preserve">
+    <value>Δομινικανή Δημοκρατία</value>
+  </data>
+  <data name="Ecuador" xml:space="preserve">
+    <value>Εκουαδόρ</value>
+  </data>
+  <data name="ElSalvador" xml:space="preserve">
+    <value>Ελ Σαλβαδόρ</value>
+  </data>
+  <data name="Estonia" xml:space="preserve">
+    <value>Εσθονία</value>
+  </data>
+  <data name="FaroeIslands" xml:space="preserve">
+    <value>Νησιά Φερόε</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Γυναίκα</value>
+  </data>
+  <data name="Finland" xml:space="preserve">
+    <value>Φινλανδία</value>
+  </data>
+  <data name="France" xml:space="preserve">
+    <value>Γαλλία</value>
+  </data>
+  <data name="FrenchGuiana" xml:space="preserve">
+    <value>γαλλική Γουιάνα</value>
+  </data>
+  <data name="Georgia" xml:space="preserve">
+    <value>Γεωργία</value>
+  </data>
+  <data name="Germany" xml:space="preserve">
+    <value>Γερμανία</value>
+  </data>
+  <data name="Ghana" xml:space="preserve">
+    <value>Γκάνα</value>
+  </data>
+  <data name="Greece" xml:space="preserve">
+    <value>Ελλάδα</value>
+  </data>
+  <data name="Greenland" xml:space="preserve">
+    <value>Γροιλανδία</value>
+  </data>
+  <data name="Guadeloupe" xml:space="preserve">
+    <value>Γουαδελούπη</value>
+  </data>
+  <data name="Guam" xml:space="preserve">
+    <value>Γκουάμ</value>
+  </data>
+  <data name="Guatemala" xml:space="preserve">
+    <value>Γουατεμάλα</value>
+  </data>
+  <data name="Guernsey" xml:space="preserve">
+    <value>Γκέρνσεϊ</value>
+  </data>
+  <data name="Guyana" xml:space="preserve">
+    <value>Γουιάνα</value>
+  </data>
+  <data name="Honduras" xml:space="preserve">
+    <value>Ονδούρα</value>
+  </data>
+  <data name="Hungary" xml:space="preserve">
+    <value>Ουγγαρία</value>
+  </data>
+  <data name="Iceland" xml:space="preserve">
+    <value>Ισλανδία</value>
+  </data>
+  <data name="India" xml:space="preserve">
+    <value>Ινδία</value>
+  </data>
+  <data name="Ireland" xml:space="preserve">
+    <value>Ιρλανδία</value>
+  </data>
+  <data name="IsleOfMan" xml:space="preserve">
+    <value>Νήσος του Μαν</value>
+  </data>
+  <data name="Israel" xml:space="preserve">
+    <value>Ισραήλ</value>
+  </data>
+  <data name="Italy" xml:space="preserve">
+    <value>Ιταλία</value>
+  </data>
+  <data name="Japan" xml:space="preserve">
+    <value>Ιαπωνία</value>
+  </data>
+  <data name="Jersey" xml:space="preserve">
+    <value>φανέλα</value>
+  </data>
+  <data name="Latvia" xml:space="preserve">
+    <value>Λετονία</value>
+  </data>
+  <data name="Liechtenstein" xml:space="preserve">
+    <value>Λιχτενστάιν</value>
+  </data>
+  <data name="Lithuania" xml:space="preserve">
+    <value>Λιθουανία</value>
+  </data>
+  <data name="Luxembourg" xml:space="preserve">
+    <value>Λουξεμβούργο</value>
+  </data>
+  <data name="Macedonia" xml:space="preserve">
+    <value>Μακεδονίας</value>
+  </data>
+  <data name="MakeDefault" xml:space="preserve">
+    <value>Κάντε Προεπιλογή</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Άντρας</value>
+  </data>
+  <data name="Malta" xml:space="preserve">
+    <value>Μάλτα</value>
+  </data>
+  <data name="MarshallIslands" xml:space="preserve">
+    <value>Νησιά Μάρσαλ</value>
+  </data>
+  <data name="Martinique" xml:space="preserve">
+    <value>Μαρτινίκα</value>
+  </data>
+  <data name="Mayotte" xml:space="preserve">
+    <value>Μαγιότ</value>
+  </data>
+  <data name="Mexico" xml:space="preserve">
+    <value>Μεξικό</value>
+  </data>
+  <data name="Moldova" xml:space="preserve">
+    <value>Μολδαβία</value>
+  </data>
+  <data name="Monaco" xml:space="preserve">
+    <value>Μονακό</value>
+  </data>
+  <data name="Montenegro" xml:space="preserve">
+    <value>Μαυροβούνιο</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>μήνας</value>
+  </data>
+  <data name="Netherlands" xml:space="preserve">
+    <value>Ολλανδία</value>
+  </data>
+  <data name="NewZealand" xml:space="preserve">
+    <value>Νέα Ζηλανδία</value>
+  </data>
+  <data name="Nicaragua" xml:space="preserve">
+    <value>Νικαράγουα</value>
+  </data>
+  <data name="Norway" xml:space="preserve">
+    <value>Νορβηγία</value>
+  </data>
+  <data name="NowEditYourProfile" xml:space="preserve">
+    <value>Τώρα Επεξεργασία του προφίλ σας</value>
+  </data>
+  <data name="Pakistan" xml:space="preserve">
+    <value>Πακιστάν</value>
+  </data>
+  <data name="Panama" xml:space="preserve">
+    <value>Παναμάς</value>
+  </data>
+  <data name="Paraguay" xml:space="preserve">
+    <value>Παραγουάη</value>
+  </data>
+  <data name="Peru" xml:space="preserve">
+    <value>Περού</value>
+  </data>
+  <data name="PleaseCorrectTheErrors" xml:space="preserve">
+    <value>Διορθώστε τα λάθη</value>
+  </data>
+  <data name="Poland" xml:space="preserve">
+    <value>Πολωνία</value>
+  </data>
+  <data name="Portugal" xml:space="preserve">
+    <value>Πορτογαλία</value>
+  </data>
+  <data name="ProfilePhotos" xml:space="preserve">
+    <value>Φωτογραφίες Προφίλ</value>
+  </data>
+  <data name="PuertoRico" xml:space="preserve">
+    <value>Πουέρτο Ρίκο</value>
+  </data>
+  <data name="Reunion" xml:space="preserve">
+    <value>Ρεουνιόν</value>
+  </data>
+  <data name="Romania" xml:space="preserve">
+    <value>Ρουμανία</value>
+  </data>
+  <data name="SanMarino" xml:space="preserve">
+    <value>Σαν Μαρίνο</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Επιλεγμένα</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Επιλέξτε Αρχείο</value>
+  </data>
+  <data name="SelectThePhotoToReplace" xml:space="preserve">
+    <value>Επιλέξτε τη φωτογραφία για να αντικαταστήσει</value>
+  </data>
+  <data name="Serbia" xml:space="preserve">
+    <value>Σερβία</value>
+  </data>
+  <data name="ShowMyLocationOnTheMap" xml:space="preserve">
+    <value>Εμφάνιση θέση μου στο χάρτη</value>
+  </data>
+  <data name="Singapore" xml:space="preserve">
+    <value>Σιγκαπούρη</value>
+  </data>
+  <data name="Slovakia" xml:space="preserve">
+    <value>Σλοβακία</value>
+  </data>
+  <data name="Slovenia" xml:space="preserve">
+    <value>Σλοβενία</value>
+  </data>
+  <data name="SouthAfrica" xml:space="preserve">
+    <value>Νότια Αφρική</value>
+  </data>
+  <data name="Spain" xml:space="preserve">
+    <value>Ισπανία</value>
+  </data>
+  <data name="SriLanka" xml:space="preserve">
+    <value>Σρι Λάνκα</value>
+  </data>
+  <data name="Suriname" xml:space="preserve">
+    <value>Σουρινάμ</value>
+  </data>
+  <data name="Sweden" xml:space="preserve">
+    <value>Σουηδία</value>
+  </data>
+  <data name="Switzerland" xml:space="preserve">
+    <value>Ελβετία</value>
+  </data>
+  <data name="SyrianArabRepublic" xml:space="preserve">
+    <value>Αραβική Δημοκρατία της Συρίας</value>
+  </data>
+  <data name="Thailand" xml:space="preserve">
+    <value>Ταϊλάνδη</value>
+  </data>
+  <data name="Turkey" xml:space="preserve">
+    <value>Τουρκία</value>
+  </data>
+  <data name="Ukraine" xml:space="preserve">
+    <value>Ουκρανία</value>
+  </data>
+  <data name="UnitedKingdom" xml:space="preserve">
+    <value>Ηνωμένο Βασίλειο</value>
+  </data>
+  <data name="UnitedStates" xml:space="preserve">
+    <value>Ηνωμένες Πολιτείες</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>άγνωστος</value>
+  </data>
+  <data name="UploadPhoto" xml:space="preserve">
+    <value>Ανεβάστε Φωτογραφία</value>
+  </data>
+  <data name="Uruguay" xml:space="preserve">
+    <value>Ουρουγουάη</value>
+  </data>
+  <data name="VaticanCity" xml:space="preserve">
+    <value>Πόλη του Βατικανού</value>
+  </data>
+  <data name="Venezuela" xml:space="preserve">
+    <value>Βενεζουέλα</value>
+  </data>
+  <data name="VirginIslands" xml:space="preserve">
+    <value>Αμερικανικές Παρθένοι Νήσοι</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>έτος</value>
+  </data>
+  <data name="AccountInformation" xml:space="preserve">
+    <value>Πληροφορίες Λογαριασμού</value>
+  </data>
+  <data name="BySigningUpYouAgreeToTheTermsOfService" xml:space="preserve">
+    <value>Με την εγγραφή σας συμφωνείτε με τους όρους χρήσης της υπηρεσίας</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>εδώ</value>
+  </data>
+  <data name="AccountDeletionCannotBeUndone" xml:space="preserve">
+    <value>Διαγραφή λογαριασμού δεν μπορεί να αναιρεθεί</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>διαχειριστής</value>
+  </data>
+  <data name="Alien" xml:space="preserve">
+    <value>εξωγήινη</value>
+  </data>
+  <data name="Applaud" xml:space="preserve">
+    <value>Χαιρετίζουμε</value>
+  </data>
+  <data name="Audience" xml:space="preserve">
+    <value>ακροατήριο</value>
+  </data>
+  <data name="AutoPlayVideoInProfile" xml:space="preserve">
+    <value>Αυτόματο παιχνίδι βίντεο στο προφίλ</value>
+  </data>
+  <data name="BeatDown" xml:space="preserve">
+    <value>Χτυπάμε κάτω</value>
+  </data>
+  <data name="BlockedUsers" xml:space="preserve">
+    <value>Αποκλεισμένοι χρήστες</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Αλλαγή κωδικού πρόσβασης</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Κανάλι</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Επιβεβαίωση</value>
+  </data>
+  <data name="ContactRequest" xml:space="preserve">
+    <value>Επικοινωνήστε με αίτημα</value>
+  </data>
+  <data name="CopyrightAllRights" xml:space="preserve">
+    <value>Πνευματικά δικαιώματα {0} {1}. Όλα τα δικαιώματα διατηρούνται.</value>
+  </data>
+  <data name="CyberAssociates" xml:space="preserve">
+    <value>Cyber ​​συνεργάτες</value>
+  </data>
+  <data name="DanceGroup" xml:space="preserve">
+    <value>Ομάδα Χορού</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Διαγραφή λογαριασμού</value>
+  </data>
+  <data name="DeleteMyAccount" xml:space="preserve">
+    <value>Διαγραφή του λογαριασμού μου;</value>
+  </data>
+  <data name="HaveYouMetInRealLife" xml:space="preserve">
+    <value>Έχετε συναντήσει στην πραγματική ζωή;</value>
+  </data>
+  <data name="InterestedIn" xml:space="preserve">
+    <value>Ενδιαφέρεστε</value>
+  </data>
+  <data name="LookingForFriends" xml:space="preserve">
+    <value>Ψάχνετε για φίλους</value>
+  </data>
+  <data name="MaleAndFemale" xml:space="preserve">
+    <value>Άνδρας και Γυναίκα</value>
+  </data>
+  <data name="MessagesAreSentToYourEmail" xml:space="preserve">
+    <value>Όταν είναι ενεργοποιημένο, τα μηνύματα αποστέλλονται στη διεύθυνση ηλεκτρονικού ταχυδρομείου σας.</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>Σίγαση</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>Όχι τώρα</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Οι κωδικοί πρόσβασης δεν ταιριάζουν</value>
+  </data>
+  <data name="ProfileLogging" xml:space="preserve">
+    <value>καταγραφή Προφίλ</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>ανάγνωση</value>
+  </data>
+  <data name="RealLifeContacts" xml:space="preserve">
+    <value>Ρεάλ επαφές ζωής</value>
+  </data>
+  <data name="RelationshipStatus" xml:space="preserve">
+    <value>σχέση</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>απάντηση</value>
+  </data>
+  <data name="Robot" xml:space="preserve">
+    <value>ρομπότ</value>
+  </data>
+  <data name="SingleAndLooking" xml:space="preserve">
+    <value>Ενιαία και ψάχνει</value>
+  </data>
+  <data name="Song" xml:space="preserve">
+    <value>τραγούδι</value>
+  </data>
+  <data name="TakenOrNotInterested" xml:space="preserve">
+    <value>Που έχουν ληφθεί ή δεν ενδιαφέρονται</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>αδιάβαστος</value>
+  </data>
+  <data name="Venue" xml:space="preserve">
+    <value>τόπος συναντήσεως</value>
+  </data>
+  <data name="Visitors" xml:space="preserve">
+    <value>Επισκέπτες</value>
+  </data>
+  <data name="WouldYouLikeToBeCyberAssociates" xml:space="preserve">
+    <value>Θα θέλατε να είναι συνεργάτες στον κυβερνοχώρο;</value>
+  </data>
+  <data name="YouDoNotAppearOnTheMap" xml:space="preserve">
+    <value>Όταν αυτή είναι απενεργοποιημένη δεν εμφανίζονται στο χάρτη.</value>
+  </data>
+  <data name="YourAgeWillNotDisplay" xml:space="preserve">
+    <value>Εάν αυτό είναι απενεργοποιημένο, η ηλικία σας δεν θα εμφανίζεται στο προφίλ σας.</value>
+  </data>
+  <data name="YouResponded" xml:space="preserve">
+    <value>Μπορείτε ανταποκρίθηκαν</value>
+  </data>
+  <data name="YourProfileViewsWillNotBeRecorded" xml:space="preserve">
+    <value>Εάν αυτό είναι απενεργοποιημένο, τις απόψεις του προφίλ σας δεν θα καταγράφονται και δεν μπορείτε να δείτε ποιος βλέπει το προφίλ σας.</value>
+  </data>
+  <data name="DeleteThis" xml:space="preserve">
+    <value>Διαγράψτε αυτό;</value>
+  </data>
+  <data name="AboutOneMinuteAgo" xml:space="preserve">
+    <value>περίπου ένα λεπτό πριν</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>πίσω</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{0} μέρες πριν</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>{0} ώρες πριν</value>
+  </data>
+  <data name="MinutesAgo" xml:space="preserve">
+    <value>{0} λεπτά</value>
+  </data>
+  <data name="MonthsAgo" xml:space="preserve">
+    <value>{0} μήνες</value>
+  </data>
+  <data name="SecondsAgo" xml:space="preserve">
+    <value>{0} δευτερόλεπτα πριν</value>
+  </data>
+  <data name="WeeksAgo" xml:space="preserve">
+    <value>{0} εβδομάδες πριν</value>
+  </data>
+  <data name="YearsAgo" xml:space="preserve">
+    <value>{0} χρόνια</value>
+  </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>Λέξεις-κλειδιά</value>
+  </data>
+  <data name="Handed" xml:space="preserve">
+    <value>παραδόθηκε</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>άκυρος</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Αριστερά</value>
+  </data>
+  <data name="OnlineNow" xml:space="preserve">
+    <value>τώρα σε απευθείας σύνδεση</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>δικαίωμα</value>
+  </data>
+  <data name="AlreadyInUse" xml:space="preserve">
+    <value>Ήδη στη χρήση</value>
+  </data>
+  <data name="EditYourEmailSettings" xml:space="preserve">
+    <value>Επεξεργαστείτε τις ρυθμίσεις email</value>
+  </data>
+  <data name="IncorrectFormat" xml:space="preserve">
+    <value>Λανθασμένη μορφή</value>
+  </data>
+  <data name="SourceFile" xml:space="preserve">
+    <value>Πηγή αρχείου</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>Καταχωρήθηκε</value>
+  </data>
+  <data name="Cyborg" xml:space="preserve">
+    <value>Cyborg</value>
+  </data>
+  <data name="HardwareAndSoftwareSkills" xml:space="preserve">
+    <value>Υλικού και λογισμικού δεξιοτήτων</value>
+  </data>
+  <data name="Ambidextrous" xml:space="preserve">
+    <value>αμφιδέξιος</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>χάρτης</value>
+  </data>
+  <data name="FeaturedModel" xml:space="preserve">
+    <value>Προτεινόμενο μοντέλο</value>
+  </data>
+  <data name="Inbox" xml:space="preserve">
+    <value>Εισερχόμενα</value>
+  </data>
+  <data name="NewestUsers" xml:space="preserve">
+    <value>Νέος χρήστες</value>
+  </data>
+  <data name="NewestVideos" xml:space="preserve">
+    <value>Νέος βίντεο</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Κανένα σχόλιο</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Ειδοποιήσεις</value>
+  </data>
+  <data name="Outbox" xml:space="preserve">
+    <value>Εξερχόμενα</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>πολιτική Προστασίας Προσωπικών Δεδομένων</value>
+  </data>
+  <data name="SubmitYourYouTubeVideoLinkHere" xml:space="preserve">
+    <value>Καταχωρήστε το YouTube βίντεο σύνδεσμο σας εδώ</value>
+  </data>
+  <data name="TermsAndCondtions" xml:space="preserve">
+    <value>Όροι και προϋποθέσεις</value>
+  </data>
+  <data name="Applauded" xml:space="preserve">
+    <value>χειροκρότησαν</value>
+  </data>
+  <data name="BeatenDown" xml:space="preserve">
+    <value>Χτυπημένη κάτω</value>
+  </data>
+  <data name="Commented" xml:space="preserve">
+    <value>σχολίασε</value>
+  </data>
+  <data name="EMailMyMessages" xml:space="preserve">
+    <value>Στείλτε τα μηνύματά μου</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>λεπτομέρεια</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Λεπτομέρειες</value>
+  </data>
+  <data name="FilterNewsByTag" xml:space="preserve">
+    <value>Φίλτρο ειδήσεις από την ετικέτα</value>
+  </data>
+  <data name="ManageNews" xml:space="preserve">
+    <value>Διαχείριση Νέων</value>
+  </data>
+  <data name="ManageNewsComments" xml:space="preserve">
+    <value>Διαχειριστείτε Νέα Σχόλια</value>
+  </data>
+  <data name="Croatia" xml:space="preserve">
+    <value>Κροατία</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>ανάπηρος</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>μήνυμα</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>νέος</value>
+  </data>
+  <data name="NextVideo" xml:space="preserve">
+    <value>Επόμενο Βίντεο</value>
+  </data>
+  <data name="NoFile" xml:space="preserve">
+    <value>δεν αρχείου</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>τηλέφωνο</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Αφήστε Ημερομηνία</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Διαγράφηκε</value>
+  </data>
+  <data name="LoadMore" xml:space="preserve">
+    <value>Τοποθετήστε περισσότερα</value>
+  </data>
+  <data name="NextPhoto" xml:space="preserve">
+    <value>Επόμενη Φωτογραφία</value>
+  </data>
+  <data name="PreviousPhoto" xml:space="preserve">
+    <value>Προηγούμενη Φωτογραφία</value>
+  </data>
+  <data name="SeeMoreNews" xml:space="preserve">
+    <value>Δείτε περισσότερες ειδήσεις</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>προφίλ</value>
+  </data>
+  <data name="HappyBirthday" xml:space="preserve">
+    <value>Χρόνια πολλά</value>
+  </data>
+  <data name="AddAsCyberAssociate" xml:space="preserve">
+    <value>Προσθήκη ως συνεργάτης στον κυβερνοχώρο</value>
+  </data>
+  <data name="AddAsRealLifeContact" xml:space="preserve">
+    <value>Προσθήκη ως πραγματική επαφή ζωή (IRL)</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>μουσική</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Αποστολή μηνύματος</value>
+  </data>
+  <data name="SoundOn" xml:space="preserve">
+    <value>Ήχος σε</value>
+  </data>
+  <data name="Cuba" xml:space="preserve">
+    <value>Κούβα</value>
+  </data>
+  <data name="NorthKorea" xml:space="preserve">
+    <value>Βόρεια Κορέα</value>
+  </data>
+  <data name="SouthKorea" xml:space="preserve">
+    <value>Νότια Κορέα</value>
+  </data>
+  <data name="CheckYourEmailAndSpamFolder" xml:space="preserve">
+    <value>Ελέγξτε το email σας και το φάκελο ανεπιθύμητης αλληλογραφίας</value>
+  </data>
+  <data name="MorePhotos" xml:space="preserve">
+    <value>Περισσότερες φωτογραφίες</value>
+  </data>
+  <data name="NewestPhotos" xml:space="preserve">
+    <value>Νεότερες φωτογραφίες</value>
+  </data>
+  <data name="Band" xml:space="preserve">
+    <value>μπάντα</value>
+  </data>
+  <data name="CreateANewAccount" xml:space="preserve">
+    <value>Δημιουργήστε ένα νέο λογαριασμό</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>τίτλος</value>
+  </data>
+  <data name="CreatedOn" xml:space="preserve">
+    <value>Δημιουργήθηκε</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Δημιουργία νέου</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Ρωσική (русский)</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>ηλικία</value>
+  </data>
+  <data name="LastActive" xml:space="preserve">
+    <value>Τελευταία σύνδεση</value>
+  </data>
+  <data name="FavoriteVideos" xml:space="preserve">
+    <value>Αγαπημένα Βίντεο</value>
+  </data>
+  <data name="LatestUpdate" xml:space="preserve">
+    <value>Τελευταία Ενημέρωση</value>
+  </data>
+  <data name="UploadedVideos" xml:space="preserve">
+    <value>Καταχωρήθηκε Βίντεο</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>αναμονή</value>
+  </data>
+  <data name="MostApplaudedThisWeek" xml:space="preserve">
+    <value>Οι περισσότεροι χειροκρότησαν αυτή την εβδομάδα</value>
+  </data>
+  <data name="MostBeatenDownThisWeek" xml:space="preserve">
+    <value>Πιο κάτω ξυλοδαρμό αυτή την εβδομάδα</value>
+  </data>
+  <data name="ApproximateLocation" xml:space="preserve">
+    <value>Τοποθεσία κατά προσέγγιση</value>
+  </data>
+  <data name="FromDesktop" xml:space="preserve">
+    <value>από την επιφάνεια εργασίας</value>
+  </data>
+  <data name="FromMobile" xml:space="preserve">
+    <value>από το κινητό</value>
+  </data>
+  <data name="OnIPhoneEmailYourPhotoToWithYourMessageInTheBodyTo" xml:space="preserve">
+    <value>Στις Αποστολή iPhone φωτογραφία σας να με το μήνυμά σας στο σώμα</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Αποκλεισμός</value>
+  </data>
+  <data name="SendFromYourAccountEmail" xml:space="preserve">
+    <value>Αποστολή από το λογαριασμό email σας</value>
+  </data>
+  <data name="RotatePhoto" xml:space="preserve">
+    <value>Περιστροφή φωτογραφίας</value>
+  </data>
+  <data name="Latin" xml:space="preserve">
+    <value>λατινικά</value>
+  </data>
+  <data name="SoundOff" xml:space="preserve">
+    <value>Ήχος off</value>
+  </data>
+  <data name="TurnSoundOff" xml:space="preserve">
+    <value>Γυρίστε σημάνει</value>
+  </data>
+  <data name="TurnSoundOn" xml:space="preserve">
+    <value>Ενεργοποίηση ήχου</value>
+  </data>
+  <data name="MembersOnlyProfile" xml:space="preserve">
+    <value>Μέλη Μόνο Προφίλ</value>
+  </data>
+  <data name="OnlyMembersCanSeeYourProfile" xml:space="preserve">
+    <value>Όταν είναι ενεργοποιημένη μόνο τα μέλη μπορούν να δουν το προφίλ σας</value>
+  </data>
+  <data name="CreativeCommunity" xml:space="preserve">
+    <value>Δημιουργική Κοινότητα</value>
+  </data>
+  <data name="Featuring" xml:space="preserve">
+    <value>χαρακτηρίζοντας</value>
+  </data>
+  <data name="Dance" xml:space="preserve">
+    <value>Χορός</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Επιμέλεια</value>
+  </data>
+  <data name="FemaleDuo" xml:space="preserve">
+    <value>Γυναίκα Duo</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>ομάδα</value>
+  </data>
+  <data name="Interview" xml:space="preserve">
+    <value>συνέντευξη</value>
+  </data>
+  <data name="Live" xml:space="preserve">
+    <value>Ζωντανά</value>
+  </data>
+  <data name="MaleDuo" xml:space="preserve">
+    <value>Άντρας δίδυμο</value>
+  </data>
+  <data name="MusicVideo" xml:space="preserve">
+    <value>Βίντεο Μουσική</value>
+  </data>
+  <data name="Raw" xml:space="preserve">
+    <value>Πρώτες</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Εμφάνιση</value>
+  </data>
+  <data name="FootageType" xml:space="preserve">
+    <value>Πλάνα τύπου</value>
+  </data>
+  <data name="Random" xml:space="preserve">
+    <value>τυχαίος</value>
+  </data>
+  <data name="NewestAtTop" xml:space="preserve">
+    <value>Νέος στην κορυφή</value>
+  </data>
+  <data name="MostCommentedOnThisWeek" xml:space="preserve">
+    <value>Οι περισσότεροι σχολίασαν αυτή την εβδομάδα</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>ή</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>θέμα</value>
+  </data>
+  <data name="Contests" xml:space="preserve">
+    <value>Διαγωνισμοί</value>
+  </data>
+  <data name="FullScreen" xml:space="preserve">
+    <value>Πλήρης οθόνη</value>
+  </data>
+  <data name="AgeFrom" xml:space="preserve">
+    <value>Ηλικία από</value>
+  </data>
+  <data name="AgeTo" xml:space="preserve">
+    <value>Ηλικία σε</value>
+  </data>
+  <data name="TheyAre" xml:space="preserve">
+    <value>είναι</value>
+  </data>
+  <data name="SortedByActivity" xml:space="preserve">
+    <value>Είδος από τη δραστηριότητα</value>
+  </data>
+  <data name="SortedByDistance" xml:space="preserve">
+    <value>Είδος από απόσταση</value>
+  </data>
+  <data name="InvalidLink" xml:space="preserve">
+    <value>Άκυρα σύνδεσμο</value>
+  </data>
+  <data name="VideoRejected" xml:space="preserve">
+    <value>Βίντεο απορρίφθηκε</value>
+  </data>
+  <data name="WaitingToBeReviewed" xml:space="preserve">
+    <value>Αυτό το βίντεο είναι σε αναμονή για να αναθεωρηθεί</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Εικόνα</value>
+  </data>
+  <data name="Tutorial" xml:space="preserve">
+    <value>φροντιστήριο</value>
+  </data>
+  <data name="Polish" xml:space="preserve">
+    <value>στίλβωση (polski)</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Ημέρες</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>ώρες</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>πρακτικά</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Δευτερόλεπτα</value>
+  </data>
+  <data name="ContestDetails" xml:space="preserve">
+    <value>Διαγωνισμός λεπτομέρειες</value>
+  </data>
+  <data name="CurentContestEntries" xml:space="preserve">
+    <value>Τρέχουσα τις συμμετοχές του διαγωνισμού</value>
+  </data>
+  <data name="TimeRemainingInContest" xml:space="preserve">
+    <value>Χρόνος που απομένει στο διαγωνισμό</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>έγγραφο</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Λήψη</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>γαλλικά (français)</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>πορτογαλικά (português)</value>
+  </data>
+  <data name="ClaimYouUploadedThisVideo" xml:space="preserve">
+    <value>Απαίτηση φορτώθηκε αυτό το βίντεο</value>
+  </data>
+  <data name="Italian" xml:space="preserve">
+    <value>ιταλικά (italiano)</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>ολλανδικά (Nederlands)</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>πόλη</value>
+  </data>
+  <data name="RegionState" xml:space="preserve">
+    <value>Περιοχή / κράτος</value>
+  </data>
+  <data name="StreetAddress" xml:space="preserve">
+    <value>Οδός</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Προηγούμενη</value>
+  </data>
+  <data name="Japanese" xml:space="preserve">
+    <value>ιαπωνικά (日本の)</value>
+  </data>
+  <data name="Greek" xml:space="preserve">
+    <value>ελληνικά</value>
+  </data>
+  <data name="Korean" xml:space="preserve">
+    <value>Κορέας (한국의)</value>
+  </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>φινλανδική (suomi)</value>
+  </data>
+  <data name="Czech" xml:space="preserve">
+    <value>Τσεχική (český)</value>
+  </data>
+  <data name="Hungarian" xml:space="preserve">
+    <value>ουγγρικός (magyar)</value>
+  </data>
+  <data name="Danish" xml:space="preserve">
+    <value>δανική (dansk)</value>
+  </data>
+  <data name="Iran" xml:space="preserve">
+    <value>Ιράν</value>
+  </data>
+  <data name="Iraq" xml:space="preserve">
+    <value>Ιράκ</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>σας ευχαριστούμε</value>
+  </data>
+  <data name="VoteFor" xml:space="preserve">
+    <value>Επιλέξτε</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Αναφορά</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>κινέζικα (中國的)</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>κατάστημα</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>αραβικός (العربية)</value>
+  </data>
+  <data name="Turkish" xml:space="preserve">
+    <value>Τουρκικά (Türk)</value>
+  </data>
+  <data name="Contest" xml:space="preserve">
+    <value>διαγωνισμός</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="Philippines" xml:space="preserve">
+    <value>Φιλιππίνες</value>
+  </data>
+  <data name="YearAgo" xml:space="preserve">
+    <value>Πριν {0} χρόνο</value>
+  </data>
+  <data name="Percentage" xml:space="preserve">
+    <value>ποσοστό</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Αποτελέσματα</value>
+  </data>
+  <data name="Votes" xml:space="preserve">
+    <value>Ψηφοφορίες</value>
+  </data>
+</root>

@@ -1,0 +1,281 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/Site.cshtml";
+}
+
+@{Html.RenderPartial("_LoggedInControls"); }
+
+@if(ViewBag.IsJudge)
+{
+ 
+              
+
+ <br />
+ <h1>
+ <a href="/vote/judgeindividual.aspx">Judge Individual Contest</a></h1>
+
+
+ 
+ <br />
+ <h1>
+ <a href="/vote/judgegroup.aspx">Judge Group Contest</a></h1>
+
+    }
+
+   <div class="vid_filter_block">
+
+
+
+
+ <h2>Vote For The Best Contest Entries In These Categories Now!</h2>
+ <br />
+ <i>This is viewers choice award, different than the judge's choices</i>
+
+
+ <style type="text/css">
+ ul.filter_items li { padding: 14px;}
+ </style>
+
+
+
+ <ul class="filter_items">
+     @if (!ViewBag.Female)
+ {
+         <li><a href="/vote/bestgirl.aspx">
+             <br />
+             Best Female</a>
+             <br />
+             <a href="/vote/bestgirl.aspx">
+                 <img class="featuring_objects" src="../../Content/images/female.png" />
+             </a></li>
+
+ }
+ else
+ {
+
+         <li>
+             <br />
+             Best Female
+             <br />
+             <div style="background-image: url(../../Content/images/female.png); width: 100px;
+                 height: 100px; color: Green; font-size: 24px; font-weight: bold;">
+                 <br />
+                 <br />
+                 <div style="padding-left: 10px; background-color: #FFF;">
+                     DONE</div>
+             </div>
+         </li>
+ }
+
+
+
+
+
+      @if (!ViewBag.Male)
+ {
+         <li><a href="/vote/bestguy.aspx">
+             <br />
+             Best Male</a>
+             <br />
+             <a href="/vote/bestguy.aspx">
+                 <img class="featuring_objects" src="../../Content/images/male.png" />
+             </a></li>
+
+ }
+ else
+ {
+
+         <li>
+             <br />
+             Best Male
+             <br />
+             <div style="background-image: url(../../Content/images/male.png); width: 100px;
+                 height: 100px; color: Green; font-size: 24px; font-weight: bold;">
+                 <br />
+                 <br />
+                 <div style="padding-left: 10px; background-color: #FFF;">
+                     DONE</div>
+             </div>
+         </li>
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+      @if (!ViewBag.MaleFemale)
+ {
+         <li><a href="/vote/BestGuyAndGirl.aspx">
+           
+             Best  <br />  Male &amp; Female</a>
+             <br />
+             <a href="/vote/BestGuyAndGirl.aspx">
+                 <img class="featuring_objects" src="../../Content/images/male-female.png" />
+             </a></li>
+
+ }
+ else
+ {
+
+         <li>
+              
+             Best <br /> Male &amp; Female
+             <br />
+             <div style="background-image: url(../../Content/images/male-female.png); width: 100px;
+                 height: 100px; color: Green; font-size: 24px; font-weight: bold;">
+                 <br />
+                 <br />
+                 <div style="padding-left: 10px; background-color: #FFF;">
+                     DONE</div>
+             </div>
+         </li>
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+       @if (!ViewBag.FemaleFemale)
+ {
+         <li><a href="/vote/BestGirlAndGirl.aspx">
+            
+             Best   <br />  Female &amp; Female</a>
+             <br />
+             <a href="/vote/BestGirlAndGirl.aspx">
+                 <img class="featuring_objects" src="../../Content/images/female-female.png" />
+             </a></li>
+
+ }
+ else
+ {
+
+         <li>
+             
+             Best <br /> Female &amp; Female
+             <br />
+             <div style="background-image: url(../../Content/images/female-female.png); width: 100px;
+                 height: 100px; color: Green; font-size: 24px; font-weight: bold;">
+                 <br />
+                 <br />
+                 <div style="padding-left: 10px; background-color: #FFF;">
+                     DONE</div>
+             </div>
+         </li>
+ }
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+       @if (!ViewBag.MaleMale)
+ {
+         <li><a href="/vote/BestGuyAndGuy.aspx">
+             <br />
+             Best    Male &amp; Male</a>
+             <br />
+             <a href="/vote/BestGuyAndGuy.aspx">
+                 <img class="featuring_objects" src="../../Content/images/male-male.png" />
+             </a></li>
+
+ }
+ else
+ {
+
+         <li>
+             <br />
+             Best Male &amp; Male
+             <br />
+             <div style="background-image: url(../../Content/images/male-male.png); width: 100px;
+                 height: 100px; color: Green; font-size: 24px; font-weight: bold;">
+                 <br />
+                 <br />
+                 <div style="padding-left: 10px; background-color: #FFF;">
+                     DONE</div>
+             </div>
+         </li>
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+       @if (!ViewBag.Group)
+ {
+         <li><a href="/vote/BestGroup.aspx">
+             <br />
+             Best    Group</a>
+             <br />
+             <a href="/vote/BestGroup.aspx">
+                 <img class="featuring_objects" src="../../Content/images/group.png" />
+             </a></li>
+
+ }
+ else
+ {
+
+         <li>
+             <br />
+             Best Group
+             <br />
+             <div style="background-image: url(../../Content/images/group.png); width: 100px;
+                 height: 100px; color: Green; font-size: 24px; font-weight: bold;">
+                 <br />
+                 <br />
+                 <div style="padding-left: 10px; background-color: #FFF;">
+                     DONE</div>
+             </div>
+         </li>
+ }
+
+
+                           
+
+
+
+
+
+ 
+                        <div class="clear"></div>
+                        </div>

@@ -1,0 +1,50 @@
+﻿@using BootBaronLib.Resources;
+@{
+    ViewBag.Title = Messages.DeleteAccount;
+}
+<!-- TODO: ASK FOR PASSWORD -->
+<div class="row">
+    <div class="span8">
+        @{Html.RenderPartial("_AdBanner"); }
+        <script type="text/javascript">
+
+
+            function confirmDelete(form) {
+                var deleteAccount = confirm('@Html.Raw(Messages.DeleteMyAccount)');
+
+                if (deleteAccount) {
+                    $('#death_image').css('display', 'block');
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+
+        </script>
+        <h2>@Messages.DeleteAccount</h2>
+          <hr />
+        <p style="color: Red;">
+            @Messages.AccountDeletionCannotBeUndone</p>
+        <br />
+        <img src="@Url.Content("~/content/images/error/death_caution.png")" alt="@Messages.DeleteMyAccount" />
+        <img src="@Url.Content("~/content/images/loading/GearsGIF.gif")" alt="@Messages.DeleteMyAccount" />
+        <img src="@Url.Content("~/content/images/loading/gear1_w.gif")" alt="@Messages.DeleteMyAccount" />
+        <form onsubmit="return confirmDelete(this);"
+     action="@Url.Content("~/account/userdeletion")" method="post">
+        <img src="@Url.Content("~/content/images/loading/explode.gif")" title="@Messages.DeleteAccount" alt="@Messages.DeleteAccount"
+        id="death_image" style="display: none;" />
+        <iframe width="420" height="315" src="http://www.youtube.com/embed/TjBN8a9n4xI?rel=0&autoplay=1"
+            frameborder="0" allowfullscreen></iframe>
+        <br />
+        <br />
+        <br />
+        <input   class="btn btn-danger"
+      type="submit"
+        value="@Messages.DeleteMyAccount" />
+        </form>
+    </div>
+    <div class="span4">
+        @{Html.RenderPartial("_AdBanner2"); }
+    </div>
+</div>

@@ -1,0 +1,1687 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>アカウント</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CannotUnencodeAHashedPassword" xml:space="preserve">
+    <value>ハッシュ化されたパスワードをunencodeことはできません。</value>
+  </data>
+  <data name="ChangePasswordCancel" xml:space="preserve">
+    <value>パスワードの変更は、新パスワードの検証が失敗するキャンセルされました。</value>
+  </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>ここをクリック</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>パスワードの確認</value>
+  </data>
+  <data name="ConnectionStringCannotBeBlank" xml:space="preserve">
+    <value>接続文字列は空白にすることはできません。</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>続ける</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>カウント</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>現在のパスワード</value>
+  </data>
+  <data name="DefaultLanguage" xml:space="preserve">
+    <value>デフォルト言語</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>削除する</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="DoNotRespondToThisEmail" xml:space="preserve">
+    <value>この電子メールに応答しません。</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="EMail" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>英語 (English)</value>
+  </data>
+  <data name="EnterTheEmailAddress" xml:space="preserve">
+    <value>メールアドレスを入力してください</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptCount" xml:space="preserve">
+    <value>失敗したパスワードの解答の試行回数</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptWindowStart" xml:space="preserve">
+    <value>失敗したパスワードの解答の試行ウィンドウのスタート</value>
+  </data>
+  <data name="FailedPasswordAttemptCount" xml:space="preserve">
+    <value>失敗したパスワードの試行回数</value>
+  </data>
+  <data name="FailedPasswordAttemptWindowStart" xml:space="preserve">
+    <value>失敗したパスワード試行ウィンドウのスタート</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>ファーストネーム</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>禁断の</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>パスワードをお忘れですか？</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>ドイツ語 (Deutsch)</value>
+  </data>
+  <data name="GetPasswordFailedNoUnique" xml:space="preserve">
+    <value>パスワードが取得に失敗しました。一意のユーザーが見つかりませんでした。</value>
+  </data>
+  <data name="Go" xml:space="preserve">
+    <value>行く</value>
+    <comment>Used to start a search</comment>
+  </data>
+  <data name="HashedOrEncryptedPasswords" xml:space="preserve">
+    <value>ハッシュまたは暗号化されたパスワードは自動生成キーはサポートされていません。</value>
+  </data>
+  <data name="HasSentThisMessage" xml:space="preserve">
+    <value>このメッセージを送信しました</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>こんにちは</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>ホーム</value>
+  </data>
+  <data name="IncorrectPasswordAnswer" xml:space="preserve">
+    <value>間違ったパスワードの解答。</value>
+  </data>
+  <data name="IpAddress" xml:space="preserve">
+    <value>IPアドレス</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>アクティブです</value>
+  </data>
+  <data name="IsAdmin" xml:space="preserve">
+    <value>Adminです</value>
+  </data>
+  <data name="IsApproved" xml:space="preserve">
+    <value>承認されています</value>
+  </data>
+  <data name="IsLockedOut" xml:space="preserve">
+    <value>ロックアウトされている</value>
+  </data>
+  <data name="IsOnline" xml:space="preserve">
+    <value>オンラインです</value>
+  </data>
+  <data name="JustNow" xml:space="preserve">
+    <value>ちょうど今</value>
+  </data>
+  <data name="KeepMeLoggedIn" xml:space="preserve">
+    <value>私はログインしてください</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="LastActivityDateTime" xml:space="preserve">
+    <value>最後のアクティビティの日付時刻</value>
+  </data>
+  <data name="LastLockoutDate" xml:space="preserve">
+    <value>最後のロックアウト日</value>
+  </data>
+  <data name="LastLoginDate" xml:space="preserve">
+    <value>最終ログイン日</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="LastNameIsRequired" xml:space="preserve">
+    <value>姓が必要です</value>
+  </data>
+  <data name="LastPasswordChangedDateTime" xml:space="preserve">
+    <value>最後にパスワードが日付時刻を変更</value>
+  </data>
+  <data name="SignInToYourAccountHere" xml:space="preserve">
+    <value>ここでアカウントにログインする</value>
+  </data>
+  <data name="SignOff" xml:space="preserve">
+    <value>サインオフ</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>新しいパスワード</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>次の</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="Norweigen" xml:space="preserve">
+    <value>ノルウェーの (Norge)</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>が見つかりません</value>
+  </data>
+  <data name="NoVideoPlaybackCapabilities" xml:space="preserve">
+    <value>いいえビデオ再生機能なし</value>
+  </data>
+  <data name="NumberOfViews" xml:space="preserve">
+    <value>ビューの数</value>
+  </data>
+  <data name="OneHourAgo" xml:space="preserve">
+    <value>一時間前</value>
+  </data>
+  <data name="OneMinuteAgo" xml:space="preserve">
+    <value>1分前</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="PasswordAnswer" xml:space="preserve">
+    <value>パスワードの解答</value>
+  </data>
+  <data name="PasswordFormat" xml:space="preserve">
+    <value>パスワードのフォーマット</value>
+  </data>
+  <data name="PasswordFormatNotSupported" xml:space="preserve">
+    <value>パスワードのフォーマットはサポートされていません。</value>
+  </data>
+  <data name="PasswordQuestion" xml:space="preserve">
+    <value>パスワードの質問</value>
+  </data>
+  <data name="PasswordReset" xml:space="preserve">
+    <value>パスワードのリセット</value>
+  </data>
+  <data name="PasswordRetrievalNotEnabled" xml:space="preserve">
+    <value>パスワードの取得が有効になっていません。</value>
+  </data>
+  <data name="PasswordSalt" xml:space="preserve">
+    <value>パスワード塩</value>
+  </data>
+  <data name="PleaseConfirmYourNewPassword" xml:space="preserve">
+    <value>新しいパスワードを確認してください</value>
+  </data>
+  <data name="PleaseEnterYourCurrentPassword" xml:space="preserve">
+    <value>現在のパスワードを入力してください。</value>
+  </data>
+  <data name="PleaseEnterYourEmailAddress" xml:space="preserve">
+    <value>あなたのメールアドレスを入力してください。</value>
+  </data>
+  <data name="PleaseEnterYourNewPassword" xml:space="preserve">
+    <value>新しいパスワードを入力してください。</value>
+  </data>
+  <data name="PleaseProvideEmailAddress" xml:space="preserve">
+    <value>メールアドレスを入力してください</value>
+  </data>
+  <data name="ProviderKey" xml:space="preserve">
+    <value>プロバイダのキー</value>
+  </data>
+  <data name="ProviderName" xml:space="preserve">
+    <value>ProviderName</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>評価</value>
+  </data>
+  <data name="RetrieveYourPassword" xml:space="preserve">
+    <value>パスワードを取得します。</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>の役割</value>
+  </data>
+  <data name="Russia" xml:space="preserve">
+    <value>ロシア</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>検索結果</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>送信</value>
+  </data>
+  <data name="SendEMailInvite" xml:space="preserve">
+    <value>電子メールの招待を送信</value>
+  </data>
+  <data name="SendMeMyPassword" xml:space="preserve">
+    <value>私のパスワードを送って</value>
+  </data>
+  <data name="SendPasswordResetEmail" xml:space="preserve">
+    <value>パスワードリセットメールを送信</value>
+  </data>
+  <data name="SorryAnErrorOccurred" xml:space="preserve">
+    <value>リクエストの処理中に申し訳ありませんが、エラーが発生しました。</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>スペイン語 (Español)</value>
+  </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>スウェーデン語  (Svenska)</value>
+  </data>
+  <data name="ThePasswordsEnteredDoNotMatch" xml:space="preserve">
+    <value>パスワードが一致しません</value>
+  </data>
+  <data name="TheSuppliedUserIsLockedOut" xml:space="preserve">
+    <value>付属のユーザがロックアウトされます。</value>
+  </data>
+  <data name="TheSuppliedUserNameIsNotFound" xml:space="preserve">
+    <value>指定されたユーザー名が見つかりません。</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>タイプ</value>
+  </data>
+  <data name="TypeIsRequired" xml:space="preserve">
+    <value>型が必要です</value>
+  </data>
+  <data name="UnableToLockOutUser" xml:space="preserve">
+    <value>ユーザーをロックアウトすることができません。</value>
+  </data>
+  <data name="UnableToUpdateFailureCount" xml:space="preserve">
+    <value>失敗回数を更新できません。</value>
+  </data>
+  <data name="UnableToUpdateFailureCountAndWindowStart" xml:space="preserve">
+    <value>失敗数とウィンドウの開始を更新できません。</value>
+  </data>
+  <data name="UnsupportedPasswordFormat" xml:space="preserve">
+    <value>サポートされていないパスワードの形式。</value>
+  </data>
+  <data name="UpdateFailureCountFailedNoUniqueUserFound" xml:space="preserve">
+    <value>更新失敗回数に失敗しました。一意のユーザーが見つかりませんでした。</value>
+  </data>
+  <data name="UpdateUserFailedNoUniqueUserFound" xml:space="preserve">
+    <value>Updateユーザーに失敗しました。一意のユーザーが見つかりませんでした。</value>
+  </data>
+  <data name="UserAccount" xml:space="preserve">
+    <value>ユーザーアカウント</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>ユーザ名</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>昨日</value>
+  </data>
+  <data name="YourNewAccountIsReadyForUse" xml:space="preserve">
+    <value>新しいアカウントを使用する準備ができている</value>
+  </data>
+  <data name="YourPasswordHasBeenReset" xml:space="preserve">
+    <value>パスワードがリセットされました</value>
+  </data>
+  <data name="FindUsers" xml:space="preserve">
+    <value>ユーザーを探す</value>
+  </data>
+  <data name="DashSelect" xml:space="preserve">
+    <value>- 選択する -</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>プロファイルの編集</value>
+  </data>
+  <data name="Failure" xml:space="preserve">
+    <value>失敗</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>電子メール</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>私を</value>
+  </data>
+  <data name="MyZone" xml:space="preserve">
+    <value>私のゾーン</value>
+  </data>
+  <data name="NameLength4To50" xml:space="preserve">
+    <value>名前の長さは4〜50文字でなければなりません</value>
+  </data>
+  <data name="PayPalEmail" xml:space="preserve">
+    <value>Paypalのメール</value>
+  </data>
+  <data name="Photos" xml:space="preserve">
+    <value>写真</value>
+  </data>
+  <data name="Playlist" xml:space="preserve">
+    <value>プレイリスト</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="StatusUpdate" xml:space="preserve">
+    <value>状況更新</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>提出する</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>成功</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>リンク</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>国</value>
+  </data>
+  <data name="IsDefault" xml:space="preserve">
+    <value>デフォルト</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>必須</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>私を覚えていますか？</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>公開</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>続きを読む</value>
+  </data>
+  <data name="Tagged" xml:space="preserve">
+    <value>タグ付け</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>約</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>アドレス</value>
+  </data>
+  <data name="BasicDetails" xml:space="preserve">
+    <value>基本的な詳細</value>
+  </data>
+  <data name="BlockIP" xml:space="preserve">
+    <value>IPアドレスをブロックする</value>
+  </data>
+  <data name="BriefDescription" xml:space="preserve">
+    <value>簡単な説明</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="DashSeperatedLowercaseWords" xml:space="preserve">
+    <value>dash-seperated-lowercase-words</value>
+  </data>
+  <data name="EditArticle" xml:space="preserve">
+    <value>記事を編集</value>
+  </data>
+  <data name="EditArticleComment" xml:space="preserve">
+    <value>記事のコメントを編集</value>
+  </data>
+  <data name="Editing" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="EmailWillNotBePublished" xml:space="preserve">
+    <value>電子メールは公開されません</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>キー</value>
+  </data>
+  <data name="LatestNews" xml:space="preserve">
+    <value>最新ニュース</value>
+  </data>
+  <data name="LeaveAComment" xml:space="preserve">
+    <value>コメントを残す</value>
+  </data>
+  <data name="SignedInAs" xml:space="preserve">
+    <value>として署名</value>
+  </data>
+  <data name="LoginUnsuccessfulPleaseCorrect" xml:space="preserve">
+    <value>ログインに失敗しました。エラーを訂正して再試行してください。</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>サインイン</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>メインページ</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>メタ記述</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>ニュース</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>写真</value>
+  </data>
+  <data name="PhotoAndVideo" xml:space="preserve">
+    <value>写真とビデオ</value>
+  </data>
+  <data name="BusinessAddress" xml:space="preserve">
+    <value>勤務先の住所</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>登録</value>
+  </data>
+  <data name="SeperateWithCommas" xml:space="preserve">
+    <value>カンマで区切ります</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>ここでサインアップ</value>
+  </data>
+  <data name="TypeToSearch" xml:space="preserve">
+    <value>検索する入力...</value>
+  </data>
+  <data name="Unconfirmed" xml:space="preserve">
+    <value>未確認の</value>
+  </data>
+  <data name="UseTheFormToCreateANewAccount" xml:space="preserve">
+    <value>新しいアカウントを作成するには、以下のフォームを使用しています。</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>ビデオ</value>
+  </data>
+  <data name="YouCommentWillBeReviewed" xml:space="preserve">
+    <value>あなたのコメントが審査されます</value>
+  </data>
+  <data name="YourQuestionWillBeReviewed" xml:space="preserve">
+    <value>あなたの質問は検討され</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>生年月日</value>
+  </data>
+  <data name="YouAre" xml:space="preserve">
+    <value>あなたは</value>
+  </data>
+  <data name="PasswordBetween4and15Characters" xml:space="preserve">
+    <value>パスワードは4〜15文字でなければなりません</value>
+  </data>
+  <data name="UserNameBetween4and15Characters" xml:space="preserve">
+    <value>ユーザー名は4〜15文字でなければなりません</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>終わり</value>
+  </data>
+  <data name="LoadingDotDotDot" xml:space="preserve">
+    <value>負荷...</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>結果がありません</value>
+  </data>
+  <data name="UploadingUsers" xml:space="preserve">
+    <value>アップロードユーザー</value>
+  </data>
+  <data name="VideoType" xml:space="preserve">
+    <value>ビデオタイプ</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>フィルタリング</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>ビデオ</value>
+  </data>
+  <data name="AddToFavorites" xml:space="preserve">
+    <value>お気に入りに追加</value>
+  </data>
+  <data name="AddToPlaylist" xml:space="preserve">
+    <value>プレイリストに追加</value>
+  </data>
+  <data name="BringDown" xml:space="preserve">
+    <value>倒す</value>
+  </data>
+  <data name="BringUp" xml:space="preserve">
+    <value>持ち出す</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>リストから削除</value>
+  </data>
+  <data name="Uploader" xml:space="preserve">
+    <value>アップローダー</value>
+  </data>
+  <data name="BandsYouHaveSeenLive" xml:space="preserve">
+    <value>あなたが見たバンドは、ライブ</value>
+  </data>
+  <data name="BandsYouWantToSeeLiveOrJustListenTo" xml:space="preserve">
+    <value>あなたは、ライブまたはちょうど見たいバンドは耳を傾ける</value>
+  </data>
+  <data name="CurrentCountry" xml:space="preserve">
+    <value>現在の国</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>郵便番号</value>
+  </data>
+  <data name="MessageToTheWorld" xml:space="preserve">
+    <value>世界へのメッセージ</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>任意の</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>ウェブサイト</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>連絡</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>ラジオ</value>
+  </data>
+  <data name="Albania" xml:space="preserve">
+    <value>アルバニア</value>
+  </data>
+  <data name="AllImagesAreConvertedToASquare" xml:space="preserve">
+    <value>すべての画像は、広場に変換される</value>
+  </data>
+  <data name="AmericanSamoa" xml:space="preserve">
+    <value>米サモア</value>
+  </data>
+  <data name="Andorra" xml:space="preserve">
+    <value>アンドラ</value>
+  </data>
+  <data name="Argentina" xml:space="preserve">
+    <value>アルゼンチン</value>
+  </data>
+  <data name="Armenia" xml:space="preserve">
+    <value>アルメニア</value>
+  </data>
+  <data name="Australia" xml:space="preserve">
+    <value>オーストラリア</value>
+  </data>
+  <data name="Austria" xml:space="preserve">
+    <value>オーストリア</value>
+  </data>
+  <data name="Bangladesh" xml:space="preserve">
+    <value>バングラデシュ</value>
+  </data>
+  <data name="Belarus" xml:space="preserve">
+    <value>ベラルーシ</value>
+  </data>
+  <data name="Belgium" xml:space="preserve">
+    <value>ベルギー</value>
+  </data>
+  <data name="Belize" xml:space="preserve">
+    <value>ベリーズ</value>
+  </data>
+  <data name="Brazil" xml:space="preserve">
+    <value>ブラジル</value>
+  </data>
+  <data name="Bulgaria" xml:space="preserve">
+    <value>ブルガリア</value>
+  </data>
+  <data name="Canada" xml:space="preserve">
+    <value>カナダ</value>
+  </data>
+  <data name="Chile" xml:space="preserve">
+    <value>チリ</value>
+  </data>
+  <data name="China" xml:space="preserve">
+    <value>中国</value>
+  </data>
+  <data name="Colombia" xml:space="preserve">
+    <value>コロンビア</value>
+  </data>
+  <data name="CostaRica" xml:space="preserve">
+    <value>コスタリカ</value>
+  </data>
+  <data name="CurrentDefault" xml:space="preserve">
+    <value>現在のデフォルト</value>
+  </data>
+  <data name="Cyprus" xml:space="preserve">
+    <value>キプロス</value>
+  </data>
+  <data name="CzechRepublic" xml:space="preserve">
+    <value>チェコ共和国</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="Denmark" xml:space="preserve">
+    <value>デンマーク</value>
+  </data>
+  <data name="DisplayMyAge" xml:space="preserve">
+    <value>私の年齢を表示します。</value>
+  </data>
+  <data name="DominicanRepublic" xml:space="preserve">
+    <value>ドミニカ共和国</value>
+  </data>
+  <data name="Ecuador" xml:space="preserve">
+    <value>エクアドル</value>
+  </data>
+  <data name="ElSalvador" xml:space="preserve">
+    <value>エルサルバドル</value>
+  </data>
+  <data name="Estonia" xml:space="preserve">
+    <value>エストニア</value>
+  </data>
+  <data name="FaroeIslands" xml:space="preserve">
+    <value>フェロー諸島</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>女性</value>
+  </data>
+  <data name="Finland" xml:space="preserve">
+    <value>フィンランド</value>
+  </data>
+  <data name="France" xml:space="preserve">
+    <value>フランス</value>
+  </data>
+  <data name="FrenchGuiana" xml:space="preserve">
+    <value>仏領ギアナ</value>
+  </data>
+  <data name="Georgia" xml:space="preserve">
+    <value>ジョージア州</value>
+  </data>
+  <data name="Germany" xml:space="preserve">
+    <value>ドイツ</value>
+  </data>
+  <data name="Ghana" xml:space="preserve">
+    <value>ガーナ</value>
+  </data>
+  <data name="Greece" xml:space="preserve">
+    <value>ギリシャ</value>
+  </data>
+  <data name="Greenland" xml:space="preserve">
+    <value>グリーンランド</value>
+  </data>
+  <data name="Guadeloupe" xml:space="preserve">
+    <value>グアドループ島</value>
+  </data>
+  <data name="Guam" xml:space="preserve">
+    <value>グアム島</value>
+  </data>
+  <data name="Guatemala" xml:space="preserve">
+    <value>グアテマラ</value>
+  </data>
+  <data name="Guernsey" xml:space="preserve">
+    <value>ガーンジー島</value>
+  </data>
+  <data name="Guyana" xml:space="preserve">
+    <value>ガイアナ</value>
+  </data>
+  <data name="Honduras" xml:space="preserve">
+    <value>ホンジュラス</value>
+  </data>
+  <data name="Hungary" xml:space="preserve">
+    <value>ハンガリー</value>
+  </data>
+  <data name="Iceland" xml:space="preserve">
+    <value>アイスランド</value>
+  </data>
+  <data name="India" xml:space="preserve">
+    <value>インド</value>
+  </data>
+  <data name="Ireland" xml:space="preserve">
+    <value>アイルランド</value>
+  </data>
+  <data name="IsleOfMan" xml:space="preserve">
+    <value>マン島</value>
+  </data>
+  <data name="Israel" xml:space="preserve">
+    <value>イスラエル</value>
+  </data>
+  <data name="Italy" xml:space="preserve">
+    <value>イタリア</value>
+  </data>
+  <data name="Japan" xml:space="preserve">
+    <value>日本</value>
+  </data>
+  <data name="Jersey" xml:space="preserve">
+    <value>ジャージ</value>
+  </data>
+  <data name="Latvia" xml:space="preserve">
+    <value>ラトビア</value>
+  </data>
+  <data name="Liechtenstein" xml:space="preserve">
+    <value>リヒテンシュタイン</value>
+  </data>
+  <data name="Lithuania" xml:space="preserve">
+    <value>リトアニア</value>
+  </data>
+  <data name="Luxembourg" xml:space="preserve">
+    <value>ルクセンブルク</value>
+  </data>
+  <data name="Macedonia" xml:space="preserve">
+    <value>マケドニア</value>
+  </data>
+  <data name="MakeDefault" xml:space="preserve">
+    <value>デフォルトにする</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>男性</value>
+  </data>
+  <data name="Malta" xml:space="preserve">
+    <value>マルタ</value>
+  </data>
+  <data name="MarshallIslands" xml:space="preserve">
+    <value>マーシャル諸島共和国</value>
+  </data>
+  <data name="Martinique" xml:space="preserve">
+    <value>マルティニーク島</value>
+  </data>
+  <data name="Mayotte" xml:space="preserve">
+    <value>マヨット島</value>
+  </data>
+  <data name="Mexico" xml:space="preserve">
+    <value>メキシコ</value>
+  </data>
+  <data name="Moldova" xml:space="preserve">
+    <value>モルドバ</value>
+  </data>
+  <data name="Monaco" xml:space="preserve">
+    <value>モナコ</value>
+  </data>
+  <data name="Montenegro" xml:space="preserve">
+    <value>モンテネグロ</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="Netherlands" xml:space="preserve">
+    <value>オランダ</value>
+  </data>
+  <data name="NewZealand" xml:space="preserve">
+    <value>ニュージーランド</value>
+  </data>
+  <data name="Nicaragua" xml:space="preserve">
+    <value>ニカラグア</value>
+  </data>
+  <data name="Norway" xml:space="preserve">
+    <value>ノルウェー</value>
+  </data>
+  <data name="NowEditYourProfile" xml:space="preserve">
+    <value>今すぐプロフィールを編集</value>
+  </data>
+  <data name="Pakistan" xml:space="preserve">
+    <value>パキスタン</value>
+  </data>
+  <data name="Panama" xml:space="preserve">
+    <value>パナマ</value>
+  </data>
+  <data name="Paraguay" xml:space="preserve">
+    <value>パラグアイ</value>
+  </data>
+  <data name="Peru" xml:space="preserve">
+    <value>ペルー</value>
+  </data>
+  <data name="PleaseCorrectTheErrors" xml:space="preserve">
+    <value>エラーを修正してください</value>
+  </data>
+  <data name="Poland" xml:space="preserve">
+    <value>ポーランド</value>
+  </data>
+  <data name="Portugal" xml:space="preserve">
+    <value>ポルトガル</value>
+  </data>
+  <data name="ProfilePhotos" xml:space="preserve">
+    <value>プロフィール写真</value>
+  </data>
+  <data name="PuertoRico" xml:space="preserve">
+    <value>プエルトリコ</value>
+  </data>
+  <data name="Reunion" xml:space="preserve">
+    <value>再会</value>
+  </data>
+  <data name="Romania" xml:space="preserve">
+    <value>ルーマニア</value>
+  </data>
+  <data name="SanMarino" xml:space="preserve">
+    <value>サンマリノ</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>選択した</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>ファイルを選択します。</value>
+  </data>
+  <data name="SelectThePhotoToReplace" xml:space="preserve">
+    <value>交換する写真を選択し</value>
+  </data>
+  <data name="Serbia" xml:space="preserve">
+    <value>セルビア</value>
+  </data>
+  <data name="ShowMyLocationOnTheMap" xml:space="preserve">
+    <value>マップ上の私の位置を示す</value>
+  </data>
+  <data name="Singapore" xml:space="preserve">
+    <value>シンガポール</value>
+  </data>
+  <data name="Slovakia" xml:space="preserve">
+    <value>スロバキア</value>
+  </data>
+  <data name="Slovenia" xml:space="preserve">
+    <value>スロベニア</value>
+  </data>
+  <data name="SouthAfrica" xml:space="preserve">
+    <value>南アフリカ</value>
+  </data>
+  <data name="Spain" xml:space="preserve">
+    <value>スペイン</value>
+  </data>
+  <data name="SriLanka" xml:space="preserve">
+    <value>スリランカ</value>
+  </data>
+  <data name="Suriname" xml:space="preserve">
+    <value>スリナム</value>
+  </data>
+  <data name="Sweden" xml:space="preserve">
+    <value>スウェーデン</value>
+  </data>
+  <data name="Switzerland" xml:space="preserve">
+    <value>スイス</value>
+  </data>
+  <data name="SyrianArabRepublic" xml:space="preserve">
+    <value>シリアアラブ共和国</value>
+  </data>
+  <data name="Thailand" xml:space="preserve">
+    <value>タイ</value>
+  </data>
+  <data name="Turkey" xml:space="preserve">
+    <value>トルコ</value>
+  </data>
+  <data name="Ukraine" xml:space="preserve">
+    <value>ウクライナ</value>
+  </data>
+  <data name="UnitedKingdom" xml:space="preserve">
+    <value>イギリス</value>
+  </data>
+  <data name="UnitedStates" xml:space="preserve">
+    <value>米国</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>未知の</value>
+  </data>
+  <data name="UploadPhoto" xml:space="preserve">
+    <value>写真をアップロード</value>
+  </data>
+  <data name="Uruguay" xml:space="preserve">
+    <value>ウルグアイ</value>
+  </data>
+  <data name="VaticanCity" xml:space="preserve">
+    <value>バチカン市国</value>
+  </data>
+  <data name="Venezuela" xml:space="preserve">
+    <value>ベネズエラ</value>
+  </data>
+  <data name="VirginIslands" xml:space="preserve">
+    <value>米領バージン諸島</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="AccountInformation" xml:space="preserve">
+    <value>口座情報</value>
+  </data>
+  <data name="BySigningUpYouAgreeToTheTermsOfService" xml:space="preserve">
+    <value>サインアップすることによって、サービスの条項に同意する</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>ここで</value>
+  </data>
+  <data name="AccountDeletionCannotBeUndone" xml:space="preserve">
+    <value>アカウントの削除を取り消すことはできません</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>管理者</value>
+  </data>
+  <data name="Alien" xml:space="preserve">
+    <value>エイリアン</value>
+  </data>
+  <data name="Applaud" xml:space="preserve">
+    <value>拍手を送る</value>
+  </data>
+  <data name="Audience" xml:space="preserve">
+    <value>聴衆</value>
+  </data>
+  <data name="AutoPlayVideoInProfile" xml:space="preserve">
+    <value>プロファイルの自動再生ビデオ</value>
+  </data>
+  <data name="BeatDown" xml:space="preserve">
+    <value>打ち負かす</value>
+  </data>
+  <data name="BlockedUsers" xml:space="preserve">
+    <value>ブロックしたユーザ</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>パスワードを変更する</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>チャットルーム</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>確認する</value>
+  </data>
+  <data name="ContactRequest" xml:space="preserve">
+    <value>リクエストにお問い合わせください</value>
+  </data>
+  <data name="CopyrightAllRights" xml:space="preserve">
+    <value>著作権{0} {1}。すべての権利を保有。</value>
+  </data>
+  <data name="CyberAssociates" xml:space="preserve">
+    <value>サイバー·アソシエイツ</value>
+  </data>
+  <data name="DanceGroup" xml:space="preserve">
+    <value>ダンスグループ</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>アカウントを削除する</value>
+  </data>
+  <data name="DeleteMyAccount" xml:space="preserve">
+    <value>私のアカウントを削除しますか？</value>
+  </data>
+  <data name="HaveYouMetInRealLife" xml:space="preserve">
+    <value>あなたは、実際の生活の中で会いましたか？</value>
+  </data>
+  <data name="InterestedIn" xml:space="preserve">
+    <value>に興味がある</value>
+  </data>
+  <data name="LookingForFriends" xml:space="preserve">
+    <value>友達を探して</value>
+  </data>
+  <data name="MaleAndFemale" xml:space="preserve">
+    <value>男女</value>
+  </data>
+  <data name="MessagesAreSentToYourEmail" xml:space="preserve">
+    <value>有効にすると、メッセージがあなたの電子メールアドレスに送信されます。</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>ミュート</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>今じゃない</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>パスワードが一致しません</value>
+  </data>
+  <data name="ProfileLogging" xml:space="preserve">
+    <value>プロフィールログ</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>読む</value>
+  </data>
+  <data name="RealLifeContacts" xml:space="preserve">
+    <value>実生活の連絡先</value>
+  </data>
+  <data name="RelationshipStatus" xml:space="preserve">
+    <value>男女関係のステータス</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>返信</value>
+  </data>
+  <data name="Robot" xml:space="preserve">
+    <value>ロボット</value>
+  </data>
+  <data name="SingleAndLooking" xml:space="preserve">
+    <value>シングルおよび見</value>
+  </data>
+  <data name="Song" xml:space="preserve">
+    <value>歌</value>
+  </data>
+  <data name="TakenOrNotInterested" xml:space="preserve">
+    <value>撮影した、または興味がない</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>未読</value>
+  </data>
+  <data name="Venue" xml:space="preserve">
+    <value>会場</value>
+  </data>
+  <data name="Visitors" xml:space="preserve">
+    <value>訪問者</value>
+  </data>
+  <data name="WouldYouLikeToBeCyberAssociates" xml:space="preserve">
+    <value>あなたは、サイバー·アソシエイツになりたい？</value>
+  </data>
+  <data name="YouDoNotAppearOnTheMap" xml:space="preserve">
+    <value>これが無効になっているときには、地図上に表示されません。</value>
+  </data>
+  <data name="YourAgeWillNotDisplay" xml:space="preserve">
+    <value>これが無効になっている場合、あなたの年齢は、あなたのプロフィールに表示されません。</value>
+  </data>
+  <data name="YouResponded" xml:space="preserve">
+    <value>あなたは答えた</value>
+  </data>
+  <data name="YourProfileViewsWillNotBeRecorded" xml:space="preserve">
+    <value>これが無効になっている場合、あなたのプロファイルビューが記録されませんし、あなたのプロフィールを見て誰が見ることはできません。</value>
+  </data>
+  <data name="DeleteThis" xml:space="preserve">
+    <value>これを削除しますか？</value>
+  </data>
+  <data name="AboutOneMinuteAgo" xml:space="preserve">
+    <value>約1分前</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>バック</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{0}日前</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>{0}時間前</value>
+  </data>
+  <data name="MinutesAgo" xml:space="preserve">
+    <value>{0}分前</value>
+  </data>
+  <data name="MonthsAgo" xml:space="preserve">
+    <value>{0}ヶ月前</value>
+  </data>
+  <data name="SecondsAgo" xml:space="preserve">
+    <value>{0}秒前</value>
+  </data>
+  <data name="WeeksAgo" xml:space="preserve">
+    <value>{0}週間前</value>
+  </data>
+  <data name="YearsAgo" xml:space="preserve">
+    <value>{0}年前</value>
+  </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>キーワード</value>
+  </data>
+  <data name="Handed" xml:space="preserve">
+    <value>手渡し</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>無効</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>左</value>
+  </data>
+  <data name="OnlineNow" xml:space="preserve">
+    <value>今すぐオンライン</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>右</value>
+  </data>
+  <data name="AlreadyInUse" xml:space="preserve">
+    <value>既に使用中</value>
+  </data>
+  <data name="EditYourEmailSettings" xml:space="preserve">
+    <value>あなたの電子メール設定を編集する</value>
+  </data>
+  <data name="IncorrectFormat" xml:space="preserve">
+    <value>誤った形式</value>
+  </data>
+  <data name="SourceFile" xml:space="preserve">
+    <value>ソースファイル</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="Cyborg" xml:space="preserve">
+    <value>サイボーグ</value>
+  </data>
+  <data name="HardwareAndSoftwareSkills" xml:space="preserve">
+    <value>ハードウェアとソフトウェアのスキル</value>
+  </data>
+  <data name="Ambidextrous" xml:space="preserve">
+    <value>両手利きの</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>マップ</value>
+  </data>
+  <data name="FeaturedModel" xml:space="preserve">
+    <value>注目のモデル</value>
+  </data>
+  <data name="Inbox" xml:space="preserve">
+    <value>受信トレイ</value>
+  </data>
+  <data name="NewestUsers" xml:space="preserve">
+    <value>最新のユーザー</value>
+  </data>
+  <data name="NewestVideos" xml:space="preserve">
+    <value>最新のビデオ</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>コメントはありません</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>通知</value>
+  </data>
+  <data name="Outbox" xml:space="preserve">
+    <value>[送信トレイ]</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>個人情報保護方針</value>
+  </data>
+  <data name="SubmitYourYouTubeVideoLinkHere" xml:space="preserve">
+    <value>ここでYouTubeのビデオリンクを提出</value>
+  </data>
+  <data name="TermsAndCondtions" xml:space="preserve">
+    <value>諸条件</value>
+  </data>
+  <data name="Applauded" xml:space="preserve">
+    <value>拍手</value>
+  </data>
+  <data name="BeatenDown" xml:space="preserve">
+    <value>打ちのめさ</value>
+  </data>
+  <data name="Commented" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="EMailMyMessages" xml:space="preserve">
+    <value>私のメッセージを電子メールで送信</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>詳細</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>細部</value>
+  </data>
+  <data name="FilterNewsByTag" xml:space="preserve">
+    <value>タグによるフィルタニュース</value>
+  </data>
+  <data name="ManageNews" xml:space="preserve">
+    <value>ニュースを管理する</value>
+  </data>
+  <data name="ManageNewsComments" xml:space="preserve">
+    <value>ニュースのコメントを管理する</value>
+  </data>
+  <data name="Croatia" xml:space="preserve">
+    <value>クロアチア</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>無効にする</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>メッセージ</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>新しい</value>
+  </data>
+  <data name="NextVideo" xml:space="preserve">
+    <value>次のビデオ</value>
+  </data>
+  <data name="NoFile" xml:space="preserve">
+    <value>ファイルがありません</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>電話</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>発売日</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>削除された</value>
+  </data>
+  <data name="LoadMore" xml:space="preserve">
+    <value>続きを読み込む</value>
+  </data>
+  <data name="NextPhoto" xml:space="preserve">
+    <value>次の写真</value>
+  </data>
+  <data name="PreviousPhoto" xml:space="preserve">
+    <value>前の画像</value>
+  </data>
+  <data name="SeeMoreNews" xml:space="preserve">
+    <value>その他のニュースを参照してください。</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="HappyBirthday" xml:space="preserve">
+    <value>お誕生日おめでとうございます</value>
+  </data>
+  <data name="AddAsCyberAssociate" xml:space="preserve">
+    <value>サイバー助教授として追加</value>
+  </data>
+  <data name="AddAsRealLifeContact" xml:space="preserve">
+    <value>実際の生活の接点（IRL）として追加</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>音楽</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>メッセージを送る</value>
+  </data>
+  <data name="SoundOn" xml:space="preserve">
+    <value>に聞こえる</value>
+  </data>
+  <data name="Cuba" xml:space="preserve">
+    <value>キューバ</value>
+  </data>
+  <data name="NorthKorea" xml:space="preserve">
+    <value>北朝鮮</value>
+  </data>
+  <data name="SouthKorea" xml:space="preserve">
+    <value>韓国</value>
+  </data>
+  <data name="CheckYourEmailAndSpamFolder" xml:space="preserve">
+    <value>あなたの電子メールとスパムメールフォルダを確認</value>
+  </data>
+  <data name="MorePhotos" xml:space="preserve">
+    <value>他の写真</value>
+  </data>
+  <data name="NewestPhotos" xml:space="preserve">
+    <value>最新の写真</value>
+  </data>
+  <data name="Band" xml:space="preserve">
+    <value>バンド</value>
+  </data>
+  <data name="CreateANewAccount" xml:space="preserve">
+    <value>新しいアカウントを作成する</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="CreatedOn" xml:space="preserve">
+    <value>作成した</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>新規作成</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>ロシア (русский)</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>年齢</value>
+  </data>
+  <data name="LastActive" xml:space="preserve">
+    <value>最後に</value>
+  </data>
+  <data name="FavoriteVideos" xml:space="preserve">
+    <value>お気に入り動画</value>
+  </data>
+  <data name="LatestUpdate" xml:space="preserve">
+    <value>最新の更新プログラム</value>
+  </data>
+  <data name="UploadedVideos" xml:space="preserve">
+    <value>アップロードした動画</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>待っている</value>
+  </data>
+  <data name="MostApplaudedThisWeek" xml:space="preserve">
+    <value>ほとんどが今週拍手</value>
+  </data>
+  <data name="MostBeatenDownThisWeek" xml:space="preserve">
+    <value>ほとんどの今週打ちのめさ</value>
+  </data>
+  <data name="ApproximateLocation" xml:space="preserve">
+    <value>近似位置</value>
+  </data>
+  <data name="FromDesktop" xml:space="preserve">
+    <value>デスクトップから</value>
+  </data>
+  <data name="FromMobile" xml:space="preserve">
+    <value>携帯電話から</value>
+  </data>
+  <data name="OnIPhoneEmailYourPhotoToWithYourMessageInTheBodyTo" xml:space="preserve">
+    <value>bodyのあなたのメッセージを用いたTO IPhoneメールであなたの写真</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>ブロック</value>
+  </data>
+  <data name="SendFromYourAccountEmail" xml:space="preserve">
+    <value>アカウントのメールから送信</value>
+  </data>
+  <data name="RotatePhoto" xml:space="preserve">
+    <value>写真を回転させる</value>
+  </data>
+  <data name="Latin" xml:space="preserve">
+    <value>ラテン語</value>
+  </data>
+  <data name="SoundOff" xml:space="preserve">
+    <value>託つ</value>
+  </data>
+  <data name="TurnSoundOff" xml:space="preserve">
+    <value>音を鳴らす</value>
+  </data>
+  <data name="TurnSoundOn" xml:space="preserve">
+    <value>上のサウンドをオンにします</value>
+  </data>
+  <data name="MembersOnlyProfile" xml:space="preserve">
+    <value>メンバーだけのプロフィール</value>
+  </data>
+  <data name="OnlyMembersCanSeeYourProfile" xml:space="preserve">
+    <value>有効にするとメンバーだけがあなたのプロフィールを見ることができます</value>
+  </data>
+  <data name="CreativeCommunity" xml:space="preserve">
+    <value>クリエイティブコミュニティ</value>
+  </data>
+  <data name="Featuring" xml:space="preserve">
+    <value>特色</value>
+  </data>
+  <data name="Dance" xml:space="preserve">
+    <value>ダンス</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="FemaleDuo" xml:space="preserve">
+    <value>女性デュオ</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="Interview" xml:space="preserve">
+    <value>インタビュー</value>
+  </data>
+  <data name="Live" xml:space="preserve">
+    <value>生きる</value>
+  </data>
+  <data name="MaleDuo" xml:space="preserve">
+    <value>男性デュオ</value>
+  </data>
+  <data name="MusicVideo" xml:space="preserve">
+    <value>ミュージックビデオ</value>
+  </data>
+  <data name="Raw" xml:space="preserve">
+    <value>生</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>表示する</value>
+  </data>
+  <data name="FootageType" xml:space="preserve">
+    <value>映像の種類</value>
+  </data>
+  <data name="Random" xml:space="preserve">
+    <value>ランダム</value>
+  </data>
+  <data name="NewestAtTop" xml:space="preserve">
+    <value>上部の最新</value>
+  </data>
+  <data name="MostCommentedOnThisWeek" xml:space="preserve">
+    <value>ほとんどが今週にコメント</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>または</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>テーマ</value>
+  </data>
+  <data name="Contests" xml:space="preserve">
+    <value>コンテスト</value>
+  </data>
+  <data name="FullScreen" xml:space="preserve">
+    <value>フルスクリーン</value>
+  </data>
+  <data name="AgeFrom" xml:space="preserve">
+    <value>歳から</value>
+  </data>
+  <data name="AgeTo" xml:space="preserve">
+    <value>の年齢</value>
+  </data>
+  <data name="TheyAre" xml:space="preserve">
+    <value>それらは</value>
+  </data>
+  <data name="SortedByActivity" xml:space="preserve">
+    <value>活動でソート</value>
+  </data>
+  <data name="SortedByDistance" xml:space="preserve">
+    <value>距離によって並べ替え</value>
+  </data>
+  <data name="InvalidLink" xml:space="preserve">
+    <value>リンクが無効です。</value>
+  </data>
+  <data name="VideoRejected" xml:space="preserve">
+    <value>ビデオが拒否されました</value>
+  </data>
+  <data name="WaitingToBeReviewed" xml:space="preserve">
+    <value>このビデオでは、見直されるのを待っている</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>画像</value>
+  </data>
+  <data name="Tutorial" xml:space="preserve">
+    <value>チュートリアル</value>
+  </data>
+  <data name="Polish" xml:space="preserve">
+    <value>ポーランド語 (polski)</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>分</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="ContestDetails" xml:space="preserve">
+    <value>コンテストの詳細</value>
+  </data>
+  <data name="CurentContestEntries" xml:space="preserve">
+    <value>現在のコンテストエントリー</value>
+  </data>
+  <data name="TimeRemainingInContest" xml:space="preserve">
+    <value>時間がコンテストに残っている</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>ドキュメント</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>ダウンロード</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>フランス語 (français)</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>ポルトガル語 (português)</value>
+  </data>
+  <data name="ClaimYouUploadedThisVideo" xml:space="preserve">
+    <value>あなたはこのビデオをアップロード主張</value>
+  </data>
+  <data name="Italian" xml:space="preserve">
+    <value>イタリア語 (italiano)</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>オランダ語 (Nederlands)</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>シティ</value>
+  </data>
+  <data name="RegionState" xml:space="preserve">
+    <value>地域/州</value>
+  </data>
+  <data name="StreetAddress" xml:space="preserve">
+    <value>所在地住所</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>前</value>
+  </data>
+  <data name="Japanese" xml:space="preserve">
+    <value>日本の</value>
+  </data>
+  <data name="Greek" xml:space="preserve">
+    <value>ギリシャ語 (ελληνικά)</value>
+  </data>
+  <data name="Korean" xml:space="preserve">
+    <value>韓国語 (한국의)</value>
+  </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>フィンランド語 (suomi)</value>
+  </data>
+  <data name="Czech" xml:space="preserve">
+    <value>チェコ語 (český)</value>
+  </data>
+  <data name="Hungarian" xml:space="preserve">
+    <value>ハンガリー語 (magyar)</value>
+  </data>
+  <data name="Danish" xml:space="preserve">
+    <value>デンマーク語 (dansk)</value>
+  </data>
+  <data name="Iran" xml:space="preserve">
+    <value>イラン</value>
+  </data>
+  <data name="Iraq" xml:space="preserve">
+    <value>イラク</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>ありがとうございました</value>
+  </data>
+  <data name="VoteFor" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>レポート</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>中国人 (中國的)</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>店</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>アラビア語 (العربية)</value>
+  </data>
+  <data name="Turkish" xml:space="preserve">
+    <value>トルコ語 (Türk)</value>
+  </data>
+  <data name="Contest" xml:space="preserve">
+    <value>コンテスト</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="Philippines" xml:space="preserve">
+    <value>フィリピン</value>
+  </data>
+  <data name="YearAgo" xml:space="preserve">
+    <value>{0} 年前</value>
+  </data>
+  <data name="Percentage" xml:space="preserve">
+    <value>割合</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>結果</value>
+  </data>
+  <data name="Votes" xml:space="preserve">
+    <value>票</value>
+  </data>
+</root>

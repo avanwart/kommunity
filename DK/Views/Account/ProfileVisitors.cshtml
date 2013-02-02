@@ -1,0 +1,34 @@
+﻿@using BootBaronLib.Resources;
+
+@{
+    ViewBag.Title = Messages.Visitors;
+}
+<div class="row" >
+<div class="span8">
+@{Html.RenderPartial("_AdBanner"); }
+<h2>@Messages.Visitors</h2>
+ 
+  
+
+@if (ViewBag.EnableProfileLogging != null && !ViewBag.EnableProfileLogging)
+{
+    <i>
+@Messages.Disabled</i>
+}
+else
+{
+<img alt="@Messages.Visitors" title="@Messages.Visitors" src="@Url.Content("~/content/images/userstatus/eye_spy.png")" />
+<br />
+    if (ViewBag.TheViewers != null)
+    {
+   @Html.Raw(ViewBag.TheViewers)
+    }
+}      
+       </div>
+
+       <div class="span4">
+       @{Html.RenderPartial("_AdBanner2"); }
+       
+       </div>
+
+</div>

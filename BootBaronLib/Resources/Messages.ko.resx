@@ -1,0 +1,1687 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>계정</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>모든</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="CannotUnencodeAHashedPassword" xml:space="preserve">
+    <value>해쉬된 비밀 번호를 unencode 수 없습니다.</value>
+  </data>
+  <data name="ChangePasswordCancel" xml:space="preserve">
+    <value>비밀 번호 변경 인해 새로운 암호 유효성 검사 실패로 취소되었습니다.</value>
+  </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>여기를 클릭하십시오</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>가까운</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>논평</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>비밀 번호 확인</value>
+  </data>
+  <data name="ConnectionStringCannotBeBlank" xml:space="preserve">
+    <value>연결 문자열은 비워 둘 수 없습니다.</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>계속</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>계산</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>현재 비밀 번호</value>
+  </data>
+  <data name="DefaultLanguage" xml:space="preserve">
+    <value>기본 언어</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="DoNotRespondToThisEmail" xml:space="preserve">
+    <value>이 전자 메일에 응답하지 마십시오</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="EMail" xml:space="preserve">
+    <value>이메일</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>영어 (English)</value>
+  </data>
+  <data name="EnterTheEmailAddress" xml:space="preserve">
+    <value>이메일 주소를 입력</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptCount" xml:space="preserve">
+    <value>실패 암호 대답 시도 횟수</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptWindowStart" xml:space="preserve">
+    <value>실패 암호 대답 시도 윈도우 시작</value>
+  </data>
+  <data name="FailedPasswordAttemptCount" xml:space="preserve">
+    <value>실패 암호 시도 횟수</value>
+  </data>
+  <data name="FailedPasswordAttemptWindowStart" xml:space="preserve">
+    <value>실패 암호 시도 윈도우 시작</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>파일</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>금지된</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>비밀 번호를 잊으 셨나요?</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>부터</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>독일의 (Deutsch)</value>
+  </data>
+  <data name="GetPasswordFailedNoUnique" xml:space="preserve">
+    <value>비밀 번호를 가져오지 못했습니다. 고유 사용자를 찾을 수 없습니다.</value>
+  </data>
+  <data name="Go" xml:space="preserve">
+    <value>이동</value>
+    <comment>Used to start a search</comment>
+  </data>
+  <data name="HashedOrEncryptedPasswords" xml:space="preserve">
+    <value>해시하거나 암호화된 암호가 자동으로 생성되는 키를 사용하여 지원되지 않습니다.</value>
+  </data>
+  <data name="HasSentThisMessage" xml:space="preserve">
+    <value>이 메시지를 보냈습니다</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>여보세요</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>홈</value>
+  </data>
+  <data name="IncorrectPasswordAnswer" xml:space="preserve">
+    <value>잘못된 암호 대답.</value>
+  </data>
+  <data name="IpAddress" xml:space="preserve">
+    <value>IP 주소</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>활성인가</value>
+  </data>
+  <data name="IsAdmin" xml:space="preserve">
+    <value>관리자입니까</value>
+  </data>
+  <data name="IsApproved" xml:space="preserve">
+    <value>승인</value>
+  </data>
+  <data name="IsLockedOut" xml:space="preserve">
+    <value>밖으로 잠겨</value>
+  </data>
+  <data name="IsOnline" xml:space="preserve">
+    <value>온라인 상태입니다</value>
+  </data>
+  <data name="JustNow" xml:space="preserve">
+    <value>바로 지금</value>
+  </data>
+  <data name="KeepMeLoggedIn" xml:space="preserve">
+    <value>제가 로그인 유지</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>언어</value>
+  </data>
+  <data name="LastActivityDateTime" xml:space="preserve">
+    <value>마지막 작업 날짜 시간</value>
+  </data>
+  <data name="LastLockoutDate" xml:space="preserve">
+    <value>마지막 잠금 일자</value>
+  </data>
+  <data name="LastLoginDate" xml:space="preserve">
+    <value>마지막 로그인 날짜</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>성</value>
+  </data>
+  <data name="LastNameIsRequired" xml:space="preserve">
+    <value>마지막 이름이 필요합니다</value>
+  </data>
+  <data name="LastPasswordChangedDateTime" xml:space="preserve">
+    <value>마지막으로 비밀 번호 날짜 시간 변경</value>
+  </data>
+  <data name="SignInToYourAccountHere" xml:space="preserve">
+    <value>여기에 귀하의 계정에 로그인</value>
+  </data>
+  <data name="SignOff" xml:space="preserve">
+    <value>방영을 마치다</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>새 암호</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>다음</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>아니</value>
+  </data>
+  <data name="Norweigen" xml:space="preserve">
+    <value>노르웨이의 (Norge)</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>찾을 수 없음</value>
+  </data>
+  <data name="NoVideoPlaybackCapabilities" xml:space="preserve">
+    <value>어떤 비디오 재생 기능 없음</value>
+  </data>
+  <data name="NumberOfViews" xml:space="preserve">
+    <value>조회 수</value>
+  </data>
+  <data name="OneHourAgo" xml:space="preserve">
+    <value>한 시간 전에</value>
+  </data>
+  <data name="OneMinuteAgo" xml:space="preserve">
+    <value>한 분 전</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>암호</value>
+  </data>
+  <data name="PasswordAnswer" xml:space="preserve">
+    <value>비밀 번호 답변</value>
+  </data>
+  <data name="PasswordFormat" xml:space="preserve">
+    <value>비밀 번호 형식</value>
+  </data>
+  <data name="PasswordFormatNotSupported" xml:space="preserve">
+    <value>비밀 번호 형식은 지원되지 않습니다.</value>
+  </data>
+  <data name="PasswordQuestion" xml:space="preserve">
+    <value>비밀 번호 질문</value>
+  </data>
+  <data name="PasswordReset" xml:space="preserve">
+    <value>비밀 번호 재설정</value>
+  </data>
+  <data name="PasswordRetrievalNotEnabled" xml:space="preserve">
+    <value>비밀 번호 불러오기가 활성화되지 않음.</value>
+  </data>
+  <data name="PasswordSalt" xml:space="preserve">
+    <value>비밀 번호 소금</value>
+  </data>
+  <data name="PleaseConfirmYourNewPassword" xml:space="preserve">
+    <value>새 비밀 번호를 확인해주세요</value>
+  </data>
+  <data name="PleaseEnterYourCurrentPassword" xml:space="preserve">
+    <value>현재 비밀 번호를 입력하세요</value>
+  </data>
+  <data name="PleaseEnterYourEmailAddress" xml:space="preserve">
+    <value>귀하의 이메일 주소를 입력하세요.</value>
+  </data>
+  <data name="PleaseEnterYourNewPassword" xml:space="preserve">
+    <value>새로운 비밀 번호를 입력하세요</value>
+  </data>
+  <data name="PleaseProvideEmailAddress" xml:space="preserve">
+    <value>이메일 주소를 입력해주십시오</value>
+  </data>
+  <data name="ProviderKey" xml:space="preserve">
+    <value>Provider Key</value>
+  </data>
+  <data name="ProviderName" xml:space="preserve">
+    <value>ProviderName</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>평가</value>
+  </data>
+  <data name="RetrieveYourPassword" xml:space="preserve">
+    <value>비밀 번호를 검색</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>역할</value>
+  </data>
+  <data name="Russia" xml:space="preserve">
+    <value>러시아</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>검색</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>검색 결과</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>보내기</value>
+  </data>
+  <data name="SendEMailInvite" xml:space="preserve">
+    <value>전자 우편 초대 보내기</value>
+  </data>
+  <data name="SendMeMyPassword" xml:space="preserve">
+    <value>비밀 번호 저를 보내기</value>
+  </data>
+  <data name="SendPasswordResetEmail" xml:space="preserve">
+    <value>비밀 번호 재설정 이메일 보내기</value>
+  </data>
+  <data name="SorryAnErrorOccurred" xml:space="preserve">
+    <value>귀하의 요청을 처리하는 동안 죄송합니다 오류가 발생했습니다.</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>스페인의 (Español)</value>
+  </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>스웨덴어 (Svenska)</value>
+  </data>
+  <data name="ThePasswordsEnteredDoNotMatch" xml:space="preserve">
+    <value>비밀 번호가 일치하지 않습니다 입력</value>
+  </data>
+  <data name="TheSuppliedUserIsLockedOut" xml:space="preserve">
+    <value>제공된 사용자가 밖으로 잠겨 있습니다.</value>
+  </data>
+  <data name="TheSuppliedUserNameIsNotFound" xml:space="preserve">
+    <value>제공된 사용자 이름을 찾을 수 없습니다.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>유형</value>
+  </data>
+  <data name="TypeIsRequired" xml:space="preserve">
+    <value>유형이 필요합니다</value>
+  </data>
+  <data name="UnableToLockOutUser" xml:space="preserve">
+    <value>사용자를 잠글 수 없습니다.</value>
+  </data>
+  <data name="UnableToUpdateFailureCount" xml:space="preserve">
+    <value>실패 횟수를 업데이트할 수 없습니다.</value>
+  </data>
+  <data name="UnableToUpdateFailureCountAndWindowStart" xml:space="preserve">
+    <value>오류 개수 및 윈도우 시작을 업데이트할 수 없습니다.</value>
+  </data>
+  <data name="UnsupportedPasswordFormat" xml:space="preserve">
+    <value>지원되지 않는 암호 형식입니다.</value>
+  </data>
+  <data name="UpdateFailureCountFailedNoUniqueUserFound" xml:space="preserve">
+    <value>업데이트 실패 카운트하지 못했습니다. 고유 사용자를 찾을 수 없습니다.</value>
+  </data>
+  <data name="UpdateUserFailedNoUniqueUserFound" xml:space="preserve">
+    <value>업데이트 사용자가 실패했습니다. 고유 사용자를 찾을 수 없습니다.</value>
+  </data>
+  <data name="UserAccount" xml:space="preserve">
+    <value>사용자 계정</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>아이디</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>예</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>어제</value>
+  </data>
+  <data name="YourNewAccountIsReadyForUse" xml:space="preserve">
+    <value>새로운 계정을 사용할 준비가</value>
+  </data>
+  <data name="YourPasswordHasBeenReset" xml:space="preserve">
+    <value>비밀 번호를 재설정되었습니다</value>
+  </data>
+  <data name="FindUsers" xml:space="preserve">
+    <value>사용자 찾기</value>
+  </data>
+  <data name="DashSelect" xml:space="preserve">
+    <value>- 선택 -</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>프로필 수정</value>
+  </data>
+  <data name="Failure" xml:space="preserve">
+    <value>실패</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>우편</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>나를</value>
+  </data>
+  <data name="MyZone" xml:space="preserve">
+    <value>내 구역</value>
+  </data>
+  <data name="NameLength4To50" xml:space="preserve">
+    <value>이름 길이는 4 사이 50 자합니다</value>
+  </data>
+  <data name="PayPalEmail" xml:space="preserve">
+    <value>페이팔 이메일</value>
+  </data>
+  <data name="Photos" xml:space="preserve">
+    <value>사진</value>
+  </data>
+  <data name="Playlist" xml:space="preserve">
+    <value>재생 목록</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="StatusUpdate" xml:space="preserve">
+    <value>상태 업데이트</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>제출</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>성공</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>링크</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>나라</value>
+  </data>
+  <data name="IsDefault" xml:space="preserve">
+    <value>가요 기본</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>필수</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>나 기억해?</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>댓글</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>게시</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>자세히보기</value>
+  </data>
+  <data name="Tagged" xml:space="preserve">
+    <value>태그가 지정된</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>태그</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>약</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>주소</value>
+  </data>
+  <data name="BasicDetails" xml:space="preserve">
+    <value>기본 세부 정보</value>
+  </data>
+  <data name="BlockIP" xml:space="preserve">
+    <value>IP를 차단</value>
+  </data>
+  <data name="BriefDescription" xml:space="preserve">
+    <value>간략한 설명</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>확인된</value>
+  </data>
+  <data name="DashSeperatedLowercaseWords" xml:space="preserve">
+    <value>dash-seperated-lowercase-words</value>
+  </data>
+  <data name="EditArticle" xml:space="preserve">
+    <value>기사를 수정</value>
+  </data>
+  <data name="EditArticleComment" xml:space="preserve">
+    <value>제 코멘트를 편집</value>
+  </data>
+  <data name="Editing" xml:space="preserve">
+    <value>편집하기</value>
+  </data>
+  <data name="EmailWillNotBePublished" xml:space="preserve">
+    <value>이메일이 게시되지 않습니다</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>키</value>
+  </data>
+  <data name="LatestNews" xml:space="preserve">
+    <value>최신 뉴스</value>
+  </data>
+  <data name="LeaveAComment" xml:space="preserve">
+    <value>코멘트를 남겨주세요</value>
+  </data>
+  <data name="SignedInAs" xml:space="preserve">
+    <value>로 로그인</value>
+  </data>
+  <data name="LoginUnsuccessfulPleaseCorrect" xml:space="preserve">
+    <value>로그인되지 않았습니다.오류를 수정하고 다시 시도하십시오.</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>로그인</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>메인 페이지</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>메타 설명</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>뉴스</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>사진</value>
+  </data>
+  <data name="PhotoAndVideo" xml:space="preserve">
+    <value>사진 및 동영상</value>
+  </data>
+  <data name="BusinessAddress" xml:space="preserve">
+    <value>사업장 주소</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>레지스터</value>
+  </data>
+  <data name="SeperateWithCommas" xml:space="preserve">
+    <value>쉼표로 구분합니다</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>여기에 가입</value>
+  </data>
+  <data name="TypeToSearch" xml:space="preserve">
+    <value>검색 입력...</value>
+  </data>
+  <data name="Unconfirmed" xml:space="preserve">
+    <value>미확인</value>
+  </data>
+  <data name="UseTheFormToCreateANewAccount" xml:space="preserve">
+    <value>새 계정을 만들려면 아래의 양식을 사용하십시오.</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>비디오</value>
+  </data>
+  <data name="YouCommentWillBeReviewed" xml:space="preserve">
+    <value>귀하의 덧글이 검토 대상이됩니다</value>
+  </data>
+  <data name="YourQuestionWillBeReviewed" xml:space="preserve">
+    <value>질문하신 내용이 검토될 것입니다</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>생년월일</value>
+  </data>
+  <data name="YouAre" xml:space="preserve">
+    <value>당신은</value>
+  </data>
+  <data name="PasswordBetween4and15Characters" xml:space="preserve">
+    <value>비밀 번호는 4 ~ 15 자로되어야합니다</value>
+  </data>
+  <data name="UserNameBetween4and15Characters" xml:space="preserve">
+    <value>아이디는 4 ~ 15 자로되어야합니다</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>끝</value>
+  </data>
+  <data name="LoadingDotDotDot" xml:space="preserve">
+    <value>로드...</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>결과 없음</value>
+  </data>
+  <data name="UploadingUsers" xml:space="preserve">
+    <value>업로드 사용자</value>
+  </data>
+  <data name="VideoType" xml:space="preserve">
+    <value>비디오 유형</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>필터링</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>동영상</value>
+  </data>
+  <data name="AddToFavorites" xml:space="preserve">
+    <value>즐겨찾기에 추가</value>
+  </data>
+  <data name="AddToPlaylist" xml:space="preserve">
+    <value>재생 목록에 추가</value>
+  </data>
+  <data name="BringDown" xml:space="preserve">
+    <value>내리다</value>
+  </data>
+  <data name="BringUp" xml:space="preserve">
+    <value>기르다</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>목록에서 삭제</value>
+  </data>
+  <data name="Uploader" xml:space="preserve">
+    <value>업로더</value>
+  </data>
+  <data name="BandsYouHaveSeenLive" xml:space="preserve">
+    <value>당신이 본 밴드 살</value>
+  </data>
+  <data name="BandsYouWantToSeeLiveOrJustListenTo" xml:space="preserve">
+    <value>당신은 살아 있거나보고 싶은 밴드가 들어</value>
+  </data>
+  <data name="CurrentCountry" xml:space="preserve">
+    <value>현재 국가</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>우편 번호</value>
+  </data>
+  <data name="MessageToTheWorld" xml:space="preserve">
+    <value>세계를 향한 메시지</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>웹사이트</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>접촉</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>라디오</value>
+  </data>
+  <data name="Albania" xml:space="preserve">
+    <value>알바니아</value>
+  </data>
+  <data name="AllImagesAreConvertedToASquare" xml:space="preserve">
+    <value>모든 이미지는 스퀘어로 변환됩니다</value>
+  </data>
+  <data name="AmericanSamoa" xml:space="preserve">
+    <value>아메리칸 사모아</value>
+  </data>
+  <data name="Andorra" xml:space="preserve">
+    <value>안도라</value>
+  </data>
+  <data name="Argentina" xml:space="preserve">
+    <value>아르헨티나</value>
+  </data>
+  <data name="Armenia" xml:space="preserve">
+    <value>아르메니아</value>
+  </data>
+  <data name="Australia" xml:space="preserve">
+    <value>호주</value>
+  </data>
+  <data name="Austria" xml:space="preserve">
+    <value>오스트리아</value>
+  </data>
+  <data name="Bangladesh" xml:space="preserve">
+    <value>방글라데시</value>
+  </data>
+  <data name="Belarus" xml:space="preserve">
+    <value>벨라루스</value>
+  </data>
+  <data name="Belgium" xml:space="preserve">
+    <value>벨기에</value>
+  </data>
+  <data name="Belize" xml:space="preserve">
+    <value>벨리즈</value>
+  </data>
+  <data name="Brazil" xml:space="preserve">
+    <value>브라질</value>
+  </data>
+  <data name="Bulgaria" xml:space="preserve">
+    <value>불가리아</value>
+  </data>
+  <data name="Canada" xml:space="preserve">
+    <value>캐나다</value>
+  </data>
+  <data name="Chile" xml:space="preserve">
+    <value>칠레</value>
+  </data>
+  <data name="China" xml:space="preserve">
+    <value>중국</value>
+  </data>
+  <data name="Colombia" xml:space="preserve">
+    <value>콜롬비아</value>
+  </data>
+  <data name="CostaRica" xml:space="preserve">
+    <value>코스타리카</value>
+  </data>
+  <data name="CurrentDefault" xml:space="preserve">
+    <value>현재 기본</value>
+  </data>
+  <data name="Cyprus" xml:space="preserve">
+    <value>키프로스</value>
+  </data>
+  <data name="CzechRepublic" xml:space="preserve">
+    <value>체코 공화국</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>일</value>
+  </data>
+  <data name="Denmark" xml:space="preserve">
+    <value>덴마크</value>
+  </data>
+  <data name="DisplayMyAge" xml:space="preserve">
+    <value>내 나이를 표시합니다</value>
+  </data>
+  <data name="DominicanRepublic" xml:space="preserve">
+    <value>도미니카 공화국</value>
+  </data>
+  <data name="Ecuador" xml:space="preserve">
+    <value>에콰도르</value>
+  </data>
+  <data name="ElSalvador" xml:space="preserve">
+    <value>엘살바도르</value>
+  </data>
+  <data name="Estonia" xml:space="preserve">
+    <value>에스 토니아</value>
+  </data>
+  <data name="FaroeIslands" xml:space="preserve">
+    <value>페로 제도</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>여성</value>
+  </data>
+  <data name="Finland" xml:space="preserve">
+    <value>핀란드</value>
+  </data>
+  <data name="France" xml:space="preserve">
+    <value>프랑스</value>
+  </data>
+  <data name="FrenchGuiana" xml:space="preserve">
+    <value>프랑스령 기아나</value>
+  </data>
+  <data name="Georgia" xml:space="preserve">
+    <value>그루지야</value>
+  </data>
+  <data name="Germany" xml:space="preserve">
+    <value>독일</value>
+  </data>
+  <data name="Ghana" xml:space="preserve">
+    <value>아프리카 서부의 공화국</value>
+  </data>
+  <data name="Greece" xml:space="preserve">
+    <value>그리스</value>
+  </data>
+  <data name="Greenland" xml:space="preserve">
+    <value>그린란드</value>
+  </data>
+  <data name="Guadeloupe" xml:space="preserve">
+    <value>과들루프</value>
+  </data>
+  <data name="Guam" xml:space="preserve">
+    <value>괌</value>
+  </data>
+  <data name="Guatemala" xml:space="preserve">
+    <value>과테말라</value>
+  </data>
+  <data name="Guernsey" xml:space="preserve">
+    <value>영국 해협에있는 작은 섬</value>
+  </data>
+  <data name="Guyana" xml:space="preserve">
+    <value>가이아나</value>
+  </data>
+  <data name="Honduras" xml:space="preserve">
+    <value>온두라스</value>
+  </data>
+  <data name="Hungary" xml:space="preserve">
+    <value>헝가리</value>
+  </data>
+  <data name="Iceland" xml:space="preserve">
+    <value>아이슬란드</value>
+  </data>
+  <data name="India" xml:space="preserve">
+    <value>인도</value>
+  </data>
+  <data name="Ireland" xml:space="preserve">
+    <value>아일랜드</value>
+  </data>
+  <data name="IsleOfMan" xml:space="preserve">
+    <value>맨섬</value>
+  </data>
+  <data name="Israel" xml:space="preserve">
+    <value>이스라엘</value>
+  </data>
+  <data name="Italy" xml:space="preserve">
+    <value>이탈리아</value>
+  </data>
+  <data name="Japan" xml:space="preserve">
+    <value>일본</value>
+  </data>
+  <data name="Jersey" xml:space="preserve">
+    <value>저지</value>
+  </data>
+  <data name="Latvia" xml:space="preserve">
+    <value>라트비아</value>
+  </data>
+  <data name="Liechtenstein" xml:space="preserve">
+    <value>리히텐슈 타인</value>
+  </data>
+  <data name="Lithuania" xml:space="preserve">
+    <value>리투아니아</value>
+  </data>
+  <data name="Luxembourg" xml:space="preserve">
+    <value>룩셈부르크</value>
+  </data>
+  <data name="Macedonia" xml:space="preserve">
+    <value>마케도니아</value>
+  </data>
+  <data name="MakeDefault" xml:space="preserve">
+    <value>기본 만들기</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>남성</value>
+  </data>
+  <data name="Malta" xml:space="preserve">
+    <value>몰타</value>
+  </data>
+  <data name="MarshallIslands" xml:space="preserve">
+    <value>마샬 군도</value>
+  </data>
+  <data name="Martinique" xml:space="preserve">
+    <value>마티니크</value>
+  </data>
+  <data name="Mayotte" xml:space="preserve">
+    <value>마요티</value>
+  </data>
+  <data name="Mexico" xml:space="preserve">
+    <value>멕시코</value>
+  </data>
+  <data name="Moldova" xml:space="preserve">
+    <value>몰르더바</value>
+  </data>
+  <data name="Monaco" xml:space="preserve">
+    <value>모나코</value>
+  </data>
+  <data name="Montenegro" xml:space="preserve">
+    <value>몬테네그로</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>월</value>
+  </data>
+  <data name="Netherlands" xml:space="preserve">
+    <value>네덜란드</value>
+  </data>
+  <data name="NewZealand" xml:space="preserve">
+    <value>뉴질랜드</value>
+  </data>
+  <data name="Nicaragua" xml:space="preserve">
+    <value>니카라과</value>
+  </data>
+  <data name="Norway" xml:space="preserve">
+    <value>노르웨이</value>
+  </data>
+  <data name="NowEditYourProfile" xml:space="preserve">
+    <value>지금 프로필을 수정</value>
+  </data>
+  <data name="Pakistan" xml:space="preserve">
+    <value>파키스탄</value>
+  </data>
+  <data name="Panama" xml:space="preserve">
+    <value>파나마</value>
+  </data>
+  <data name="Paraguay" xml:space="preserve">
+    <value>파라과이</value>
+  </data>
+  <data name="Peru" xml:space="preserve">
+    <value>페루</value>
+  </data>
+  <data name="PleaseCorrectTheErrors" xml:space="preserve">
+    <value>오류를 수정하십시오</value>
+  </data>
+  <data name="Poland" xml:space="preserve">
+    <value>폴란드</value>
+  </data>
+  <data name="Portugal" xml:space="preserve">
+    <value>포르투갈</value>
+  </data>
+  <data name="ProfilePhotos" xml:space="preserve">
+    <value>프로필 사진</value>
+  </data>
+  <data name="PuertoRico" xml:space="preserve">
+    <value>푸에르 토리코</value>
+  </data>
+  <data name="Reunion" xml:space="preserve">
+    <value>재결합</value>
+  </data>
+  <data name="Romania" xml:space="preserve">
+    <value>루마니아</value>
+  </data>
+  <data name="SanMarino" xml:space="preserve">
+    <value>산마리노</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>선택된</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>파일 선택</value>
+  </data>
+  <data name="SelectThePhotoToReplace" xml:space="preserve">
+    <value>대체할 사진을 선택</value>
+  </data>
+  <data name="Serbia" xml:space="preserve">
+    <value>세르비아</value>
+  </data>
+  <data name="ShowMyLocationOnTheMap" xml:space="preserve">
+    <value>지도에 내 위치 표시</value>
+  </data>
+  <data name="Singapore" xml:space="preserve">
+    <value>싱가포르</value>
+  </data>
+  <data name="Slovakia" xml:space="preserve">
+    <value>슬로바키아</value>
+  </data>
+  <data name="Slovenia" xml:space="preserve">
+    <value>슬로베니아</value>
+  </data>
+  <data name="SouthAfrica" xml:space="preserve">
+    <value>남아 프리카 공화국</value>
+  </data>
+  <data name="Spain" xml:space="preserve">
+    <value>스페인</value>
+  </data>
+  <data name="SriLanka" xml:space="preserve">
+    <value>스리랑카</value>
+  </data>
+  <data name="Suriname" xml:space="preserve">
+    <value>수리남</value>
+  </data>
+  <data name="Sweden" xml:space="preserve">
+    <value>스웨덴</value>
+  </data>
+  <data name="Switzerland" xml:space="preserve">
+    <value>스위스</value>
+  </data>
+  <data name="SyrianArabRepublic" xml:space="preserve">
+    <value>시리아 아랍 공화국</value>
+  </data>
+  <data name="Thailand" xml:space="preserve">
+    <value>태국</value>
+  </data>
+  <data name="Turkey" xml:space="preserve">
+    <value>터키</value>
+  </data>
+  <data name="Ukraine" xml:space="preserve">
+    <value>우크라이나</value>
+  </data>
+  <data name="UnitedKingdom" xml:space="preserve">
+    <value>연합 왕국</value>
+  </data>
+  <data name="UnitedStates" xml:space="preserve">
+    <value>미국</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>알 수없는</value>
+  </data>
+  <data name="UploadPhoto" xml:space="preserve">
+    <value>사진 올리기</value>
+  </data>
+  <data name="Uruguay" xml:space="preserve">
+    <value>우루과이</value>
+  </data>
+  <data name="VaticanCity" xml:space="preserve">
+    <value>바티칸 시티</value>
+  </data>
+  <data name="Venezuela" xml:space="preserve">
+    <value>베네수엘라</value>
+  </data>
+  <data name="VirginIslands" xml:space="preserve">
+    <value>버진 군도, 미국</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>년</value>
+  </data>
+  <data name="AccountInformation" xml:space="preserve">
+    <value>계정 정보</value>
+  </data>
+  <data name="BySigningUpYouAgreeToTheTermsOfService" xml:space="preserve">
+    <value>가입하면이 서비스 약관에 동의</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>여기에</value>
+  </data>
+  <data name="AccountDeletionCannotBeUndone" xml:space="preserve">
+    <value>계정 삭제는 취소할 수 없습니다</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>관리자</value>
+  </data>
+  <data name="Alien" xml:space="preserve">
+    <value>외계</value>
+  </data>
+  <data name="Applaud" xml:space="preserve">
+    <value>박수 갈채하다</value>
+  </data>
+  <data name="Audience" xml:space="preserve">
+    <value>청중</value>
+  </data>
+  <data name="AutoPlayVideoInProfile" xml:space="preserve">
+    <value>프로필에서 자동 재생 동영상</value>
+  </data>
+  <data name="BeatDown" xml:space="preserve">
+    <value>깎다</value>
+  </data>
+  <data name="BlockedUsers" xml:space="preserve">
+    <value>차단된 사용자</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>암호 변경</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>대화방</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="ContactRequest" xml:space="preserve">
+    <value>요청 연락처</value>
+  </data>
+  <data name="CopyrightAllRights" xml:space="preserve">
+    <value>저작권 {0} {1}. 모든 권리 보유.</value>
+  </data>
+  <data name="CyberAssociates" xml:space="preserve">
+    <value>사이버 동료</value>
+  </data>
+  <data name="DanceGroup" xml:space="preserve">
+    <value>댄스 그룹</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>계정 삭제</value>
+  </data>
+  <data name="DeleteMyAccount" xml:space="preserve">
+    <value>내 계정을 삭제하시겠습니까?</value>
+  </data>
+  <data name="HaveYouMetInRealLife" xml:space="preserve">
+    <value>당신이 인생에서 만난 적이 있나?</value>
+  </data>
+  <data name="InterestedIn" xml:space="preserve">
+    <value>관심이</value>
+  </data>
+  <data name="LookingForFriends" xml:space="preserve">
+    <value>친구를 찾아요</value>
+  </data>
+  <data name="MaleAndFemale" xml:space="preserve">
+    <value>남성과 여성</value>
+  </data>
+  <data name="MessagesAreSentToYourEmail" xml:space="preserve">
+    <value>활성화되면, 메시지는 귀하의 이메일 주소로 보내집니다.</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>음소거</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>지금은 아니</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>비밀 번호가 일치하지 않습니다</value>
+  </data>
+  <data name="ProfileLogging" xml:space="preserve">
+    <value>프로필 로깅</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>읽기</value>
+  </data>
+  <data name="RealLifeContacts" xml:space="preserve">
+    <value>실제 생활 주소록</value>
+  </data>
+  <data name="RelationshipStatus" xml:space="preserve">
+    <value>관계 현황</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>대답</value>
+  </data>
+  <data name="Robot" xml:space="preserve">
+    <value>로봇</value>
+  </data>
+  <data name="SingleAndLooking" xml:space="preserve">
+    <value>단일 및보고</value>
+  </data>
+  <data name="Song" xml:space="preserve">
+    <value>노래</value>
+  </data>
+  <data name="TakenOrNotInterested" xml:space="preserve">
+    <value>촬영이나 관심 없다</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>읽지</value>
+  </data>
+  <data name="Venue" xml:space="preserve">
+    <value>장소</value>
+  </data>
+  <data name="Visitors" xml:space="preserve">
+    <value>방문자</value>
+  </data>
+  <data name="WouldYouLikeToBeCyberAssociates" xml:space="preserve">
+    <value>당신은 사이버 동료가되고 싶으세요?</value>
+  </data>
+  <data name="YouDoNotAppearOnTheMap" xml:space="preserve">
+    <value>이것이 해제되었을 때이지도에 표시되지 않습니다.</value>
+  </data>
+  <data name="YourAgeWillNotDisplay" xml:space="preserve">
+    <value>이것이 비활성화되어있는 경우, 귀하의 나이가 프로필에 표시되지 않습니다.</value>
+  </data>
+  <data name="YouResponded" xml:space="preserve">
+    <value>당신은 응답</value>
+  </data>
+  <data name="YourProfileViewsWillNotBeRecorded" xml:space="preserve">
+    <value>이것이 비활성화되어 있으면 사용자의 프로필보기는 기록되지 않습니다 당신은 자신의 프로필을보고 누가 볼 수 없습니다.</value>
+  </data>
+  <data name="DeleteThis" xml:space="preserve">
+    <value>이것을 삭제하시겠습니까?</value>
+  </data>
+  <data name="AboutOneMinuteAgo" xml:space="preserve">
+    <value>에 대해 한 분 전</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>뒤로</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{0} 일 전</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>{0} 시간 전</value>
+  </data>
+  <data name="MinutesAgo" xml:space="preserve">
+    <value>{0} 분 전</value>
+  </data>
+  <data name="MonthsAgo" xml:space="preserve">
+    <value>{0} 달 전</value>
+  </data>
+  <data name="SecondsAgo" xml:space="preserve">
+    <value>{0} 초 전</value>
+  </data>
+  <data name="WeeksAgo" xml:space="preserve">
+    <value>{0} 주 전</value>
+  </data>
+  <data name="YearsAgo" xml:space="preserve">
+    <value>{0} 년 전</value>
+  </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>키워드</value>
+  </data>
+  <data name="Handed" xml:space="preserve">
+    <value>넘겨</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>잘못된</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>왼쪽</value>
+  </data>
+  <data name="OnlineNow" xml:space="preserve">
+    <value>현재 온라인 상태</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>권리</value>
+  </data>
+  <data name="AlreadyInUse" xml:space="preserve">
+    <value>이미 사용중인</value>
+  </data>
+  <data name="EditYourEmailSettings" xml:space="preserve">
+    <value>이메일 설정을 편집합니다</value>
+  </data>
+  <data name="IncorrectFormat" xml:space="preserve">
+    <value>잘못된 형식</value>
+  </data>
+  <data name="SourceFile" xml:space="preserve">
+    <value>소스 파일</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>업로드됨</value>
+  </data>
+  <data name="Cyborg" xml:space="preserve">
+    <value>사이보그</value>
+  </data>
+  <data name="HardwareAndSoftwareSkills" xml:space="preserve">
+    <value>하드웨어 및 소프트웨어 기술</value>
+  </data>
+  <data name="Ambidextrous" xml:space="preserve">
+    <value>두 마음을 품은</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>지도</value>
+  </data>
+  <data name="FeaturedModel" xml:space="preserve">
+    <value>추천 모델</value>
+  </data>
+  <data name="Inbox" xml:space="preserve">
+    <value>받은 편지함</value>
+  </data>
+  <data name="NewestUsers" xml:space="preserve">
+    <value>최근 사용자</value>
+  </data>
+  <data name="NewestVideos" xml:space="preserve">
+    <value>최근 동영상</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>코멘트가 없습니다</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>알림</value>
+  </data>
+  <data name="Outbox" xml:space="preserve">
+    <value>보낼 편지함</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>개인 정보 보호 정책</value>
+  </data>
+  <data name="SubmitYourYouTubeVideoLinkHere" xml:space="preserve">
+    <value>여기에 유튜브 동영상 링크를 제출</value>
+  </data>
+  <data name="TermsAndCondtions" xml:space="preserve">
+    <value>약관과 조건</value>
+  </data>
+  <data name="Applauded" xml:space="preserve">
+    <value>갈채</value>
+  </data>
+  <data name="BeatenDown" xml:space="preserve">
+    <value>아래로 구타</value>
+  </data>
+  <data name="Commented" xml:space="preserve">
+    <value>댓글</value>
+  </data>
+  <data name="EMailMyMessages" xml:space="preserve">
+    <value>내 메시지를 이메일로 보내기</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>상세</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>세부</value>
+  </data>
+  <data name="FilterNewsByTag" xml:space="preserve">
+    <value>태그에 의해 필터링 뉴스</value>
+  </data>
+  <data name="ManageNews" xml:space="preserve">
+    <value>뉴스 관리</value>
+  </data>
+  <data name="ManageNewsComments" xml:space="preserve">
+    <value>뉴스 댓글을 관리</value>
+  </data>
+  <data name="Croatia" xml:space="preserve">
+    <value>크로아티아</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>메시지</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>새로운</value>
+  </data>
+  <data name="NextVideo" xml:space="preserve">
+    <value>다음 동영상</value>
+  </data>
+  <data name="NoFile" xml:space="preserve">
+    <value>파일이 없습니다</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>전화</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>날짜를 풀어</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="LoadMore" xml:space="preserve">
+    <value>더로드</value>
+  </data>
+  <data name="NextPhoto" xml:space="preserve">
+    <value>다음 사진</value>
+  </data>
+  <data name="PreviousPhoto" xml:space="preserve">
+    <value>이전 사진</value>
+  </data>
+  <data name="SeeMoreNews" xml:space="preserve">
+    <value>더 많은 뉴스보기</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>프로필</value>
+  </data>
+  <data name="HappyBirthday" xml:space="preserve">
+    <value>생일 축하합니다</value>
+  </data>
+  <data name="AddAsCyberAssociate" xml:space="preserve">
+    <value>사이버 동료로 추가</value>
+  </data>
+  <data name="AddAsRealLifeContact" xml:space="preserve">
+    <value>실제 접촉 (IRL)로 추가</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>음악</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>메시지 보내기</value>
+  </data>
+  <data name="SoundOn" xml:space="preserve">
+    <value>에 사운드</value>
+  </data>
+  <data name="Cuba" xml:space="preserve">
+    <value>쿠바</value>
+  </data>
+  <data name="NorthKorea" xml:space="preserve">
+    <value>북한</value>
+  </data>
+  <data name="SouthKorea" xml:space="preserve">
+    <value>대한민국</value>
+  </data>
+  <data name="CheckYourEmailAndSpamFolder" xml:space="preserve">
+    <value>이메일 및 스팸 폴더를 확인합니다</value>
+  </data>
+  <data name="MorePhotos" xml:space="preserve">
+    <value>사진 더보기</value>
+  </data>
+  <data name="NewestPhotos" xml:space="preserve">
+    <value>최근 사진</value>
+  </data>
+  <data name="Band" xml:space="preserve">
+    <value>밴드</value>
+  </data>
+  <data name="CreateANewAccount" xml:space="preserve">
+    <value>새 계정 만들기</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="CreatedOn" xml:space="preserve">
+    <value>생성됨</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>새로 만들기</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>러시아의 (русский)</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>나이</value>
+  </data>
+  <data name="LastActive" xml:space="preserve">
+    <value>활성 마지막</value>
+  </data>
+  <data name="FavoriteVideos" xml:space="preserve">
+    <value>좋아하는 비디오</value>
+  </data>
+  <data name="LatestUpdate" xml:space="preserve">
+    <value>최근 업데이트</value>
+  </data>
+  <data name="UploadedVideos" xml:space="preserve">
+    <value>올린 동영상</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>기다리는</value>
+  </data>
+  <data name="MostApplaudedThisWeek" xml:space="preserve">
+    <value>대부분은 이번 주 갈채</value>
+  </data>
+  <data name="MostBeatenDownThisWeek" xml:space="preserve">
+    <value>대부분 이번 주 다운 구타</value>
+  </data>
+  <data name="ApproximateLocation" xml:space="preserve">
+    <value>대략적인 위치</value>
+  </data>
+  <data name="FromDesktop" xml:space="preserve">
+    <value>바탕 화면에서</value>
+  </data>
+  <data name="FromMobile" xml:space="preserve">
+    <value>모바일에서</value>
+  </data>
+  <data name="OnIPhoneEmailYourPhotoToWithYourMessageInTheBodyTo" xml:space="preserve">
+    <value>받는 사람 몸에 메시지로받는 아이폰 이메일에서는 사진</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>블록</value>
+  </data>
+  <data name="SendFromYourAccountEmail" xml:space="preserve">
+    <value>귀하의 계정에서 이메일 보내기</value>
+  </data>
+  <data name="RotatePhoto" xml:space="preserve">
+    <value>사진 회전</value>
+  </data>
+  <data name="Latin" xml:space="preserve">
+    <value>라틴어 (Latin)</value>
+  </data>
+  <data name="SoundOff" xml:space="preserve">
+    <value>큰소리로 말하다</value>
+  </data>
+  <data name="TurnSoundOff" xml:space="preserve">
+    <value>오프 소리 켭니다</value>
+  </data>
+  <data name="TurnSoundOn" xml:space="preserve">
+    <value>에서 사운드를 켜고</value>
+  </data>
+  <data name="MembersOnlyProfile" xml:space="preserve">
+    <value>회원만 프로필</value>
+  </data>
+  <data name="OnlyMembersCanSeeYourProfile" xml:space="preserve">
+    <value>활성화되면 회원만 프로필을 볼 수 있습니다</value>
+  </data>
+  <data name="CreativeCommunity" xml:space="preserve">
+    <value>크리에이 티브 커뮤니티</value>
+  </data>
+  <data name="Featuring" xml:space="preserve">
+    <value>특색</value>
+  </data>
+  <data name="Dance" xml:space="preserve">
+    <value>댄스</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>수정됨</value>
+  </data>
+  <data name="FemaleDuo" xml:space="preserve">
+    <value>여성 듀오</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>그룹</value>
+  </data>
+  <data name="Interview" xml:space="preserve">
+    <value>인터뷰</value>
+  </data>
+  <data name="Live" xml:space="preserve">
+    <value>살다</value>
+  </data>
+  <data name="MaleDuo" xml:space="preserve">
+    <value>남성 듀오</value>
+  </data>
+  <data name="MusicVideo" xml:space="preserve">
+    <value>뮤직 비디오</value>
+  </data>
+  <data name="Raw" xml:space="preserve">
+    <value>생</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>표시</value>
+  </data>
+  <data name="FootageType" xml:space="preserve">
+    <value>영상 유형</value>
+  </data>
+  <data name="Random" xml:space="preserve">
+    <value>랜덤</value>
+  </data>
+  <data name="NewestAtTop" xml:space="preserve">
+    <value>상단에있는 최근</value>
+  </data>
+  <data name="MostCommentedOnThisWeek" xml:space="preserve">
+    <value>대부분은 이번주에 댓글</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>또는</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="Contests" xml:space="preserve">
+    <value>컨테스트</value>
+  </data>
+  <data name="FullScreen" xml:space="preserve">
+    <value>전체 화면</value>
+  </data>
+  <data name="AgeFrom" xml:space="preserve">
+    <value>에서 연령</value>
+  </data>
+  <data name="AgeTo" xml:space="preserve">
+    <value>에 대한 연령</value>
+  </data>
+  <data name="TheyAre" xml:space="preserve">
+    <value>그들은</value>
+  </data>
+  <data name="SortedByActivity" xml:space="preserve">
+    <value>활동에 의해 정렬</value>
+  </data>
+  <data name="SortedByDistance" xml:space="preserve">
+    <value>거리에 정렬</value>
+  </data>
+  <data name="InvalidLink" xml:space="preserve">
+    <value>링크가 잘못되었습니다</value>
+  </data>
+  <data name="VideoRejected" xml:space="preserve">
+    <value>비디오 거부</value>
+  </data>
+  <data name="WaitingToBeReviewed" xml:space="preserve">
+    <value>이 비디오는 검토를 위해 대기하고 있습니다</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>영상</value>
+  </data>
+  <data name="Tutorial" xml:space="preserve">
+    <value>자습서</value>
+  </data>
+  <data name="Polish" xml:space="preserve">
+    <value>폴란드의 (polski)</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>일</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>분</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>초</value>
+  </data>
+  <data name="ContestDetails" xml:space="preserve">
+    <value>대회 세부 사항</value>
+  </data>
+  <data name="CurentContestEntries" xml:space="preserve">
+    <value>현재 콘테스트 항목</value>
+  </data>
+  <data name="TimeRemainingInContest" xml:space="preserve">
+    <value>시간이 콘테스트에 남아</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>다운로드</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>프랑스의 (français)</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>포르투갈어 (português)</value>
+  </data>
+  <data name="ClaimYouUploadedThisVideo" xml:space="preserve">
+    <value>이 동영상을 올린 주장</value>
+  </data>
+  <data name="Italian" xml:space="preserve">
+    <value>이탈리아의 (italiano)</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>네덜란드 (Nederlands)</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>도시</value>
+  </data>
+  <data name="RegionState" xml:space="preserve">
+    <value>지역 / 국가</value>
+  </data>
+  <data name="StreetAddress" xml:space="preserve">
+    <value>번지</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>이전</value>
+  </data>
+  <data name="Japanese" xml:space="preserve">
+    <value>일본어 (日本の)</value>
+  </data>
+  <data name="Greek" xml:space="preserve">
+    <value>그리스의 (ελληνικά)</value>
+  </data>
+  <data name="Korean" xml:space="preserve">
+    <value>한국의</value>
+  </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>핀란드의 (suomi)</value>
+  </data>
+  <data name="Czech" xml:space="preserve">
+    <value>체코어 (český)</value>
+  </data>
+  <data name="Hungarian" xml:space="preserve">
+    <value>헝가리어 (magyar)</value>
+  </data>
+  <data name="Danish" xml:space="preserve">
+    <value>덴마크의 (dansk)</value>
+  </data>
+  <data name="Iran" xml:space="preserve">
+    <value>이란</value>
+  </data>
+  <data name="Iraq" xml:space="preserve">
+    <value>이라크</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>감사합니다</value>
+  </data>
+  <data name="VoteFor" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>신고</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>중국의 (中國的)</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>가게</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>아라비아 말 (العربية)</value>
+  </data>
+  <data name="Turkish" xml:space="preserve">
+    <value>터키의 (Türk)</value>
+  </data>
+  <data name="Contest" xml:space="preserve">
+    <value>경쟁</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="Philippines" xml:space="preserve">
+    <value>필리핀 제도</value>
+  </data>
+  <data name="YearAgo" xml:space="preserve">
+    <value>{0} 년 전</value>
+  </data>
+  <data name="Percentage" xml:space="preserve">
+    <value>백분율</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>결과</value>
+  </data>
+  <data name="Votes" xml:space="preserve">
+    <value>투표 수</value>
+  </data>
+</root>

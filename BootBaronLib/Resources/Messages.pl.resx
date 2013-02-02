@@ -1,0 +1,1687 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>konto</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>wszystko</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>anulować</value>
+  </data>
+  <data name="CannotUnencodeAHashedPassword" xml:space="preserve">
+    <value>Nie można unencode się haszowanej hasło.</value>
+  </data>
+  <data name="ChangePasswordCancel" xml:space="preserve">
+    <value>Zmień hasło odwołane z powodu nowej awarii walidacji haseł.</value>
+  </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>kliknij tutaj</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>zamknąć</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>komentarz</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Potwierdź hasło</value>
+  </data>
+  <data name="ConnectionStringCannotBeBlank" xml:space="preserve">
+    <value>Ciąg połączenia nie może być puste.</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>kontynuować</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>liczyć</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Aktualne hasło</value>
+  </data>
+  <data name="DefaultLanguage" xml:space="preserve">
+    <value>domyślny język</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>usunąć</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>opis</value>
+  </data>
+  <data name="DoNotRespondToThisEmail" xml:space="preserve">
+    <value>Nie odpowiadaj na e-maila</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
+  <data name="EMail" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>angielski (English)</value>
+  </data>
+  <data name="EnterTheEmailAddress" xml:space="preserve">
+    <value>Wpisz adres e-mail</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>błąd</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptCount" xml:space="preserve">
+    <value>Nie udało Odpowiedź Hasło Hrabia próba</value>
+  </data>
+  <data name="FailedPasswordAnswerAttemptWindowStart" xml:space="preserve">
+    <value>Nie udało Odpowiedź Hasło próba rozpoczęcia okno</value>
+  </data>
+  <data name="FailedPasswordAttemptCount" xml:space="preserve">
+    <value>Nie udało Hrabia Próba Hasło</value>
+  </data>
+  <data name="FailedPasswordAttemptWindowStart" xml:space="preserve">
+    <value>Nieudana próba Hasło Okno startowe</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>plik</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>imię</value>
+  </data>
+  <data name="Forbidden" xml:space="preserve">
+    <value>zabroniony</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Nie pamiętasz hasła?</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>z</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>germański (Deutsch)</value>
+  </data>
+  <data name="GetPasswordFailedNoUnique" xml:space="preserve">
+    <value>Pierwsze hasło nie powiodło się. Brak unikatowego użytkownika znaleziono.</value>
+  </data>
+  <data name="Go" xml:space="preserve">
+    <value>iść</value>
+    <comment>Used to start a search</comment>
+  </data>
+  <data name="HashedOrEncryptedPasswords" xml:space="preserve">
+    <value>Haszowanej lub Szyfrowane hasła nie są obsługiwane za pomocą klawiszy automatycznie wygenerowane.</value>
+  </data>
+  <data name="HasSentThisMessage" xml:space="preserve">
+    <value>Wysłał tę wiadomość</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Halo</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>dom</value>
+  </data>
+  <data name="IncorrectPasswordAnswer" xml:space="preserve">
+    <value>Niepoprawna odpowiedź hasło.</value>
+  </data>
+  <data name="IpAddress" xml:space="preserve">
+    <value>Adres IP</value>
+  </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>jest aktywny</value>
+  </data>
+  <data name="IsAdmin" xml:space="preserve">
+    <value>Czy Admin</value>
+  </data>
+  <data name="IsApproved" xml:space="preserve">
+    <value>jest zatwierdzony</value>
+  </data>
+  <data name="IsLockedOut" xml:space="preserve">
+    <value>Jest zablokowany</value>
+  </data>
+  <data name="IsOnline" xml:space="preserve">
+    <value>jest Online</value>
+  </data>
+  <data name="JustNow" xml:space="preserve">
+    <value>właśnie</value>
+  </data>
+  <data name="KeepMeLoggedIn" xml:space="preserve">
+    <value>Zapamiętaj mnie</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>język</value>
+  </data>
+  <data name="LastActivityDateTime" xml:space="preserve">
+    <value>Ostatni raz data aktywny</value>
+  </data>
+  <data name="LastLockoutDate" xml:space="preserve">
+    <value>Data ostatniego Lockout</value>
+  </data>
+  <data name="LastLoginDate" xml:space="preserve">
+    <value>Daty ostatniego logowania</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>nazwisko</value>
+  </data>
+  <data name="LastNameIsRequired" xml:space="preserve">
+    <value>Nazwisko jest wymagane</value>
+  </data>
+  <data name="LastPasswordChangedDateTime" xml:space="preserve">
+    <value>Ostatnio Hasło zostało zmienione czasu daty</value>
+  </data>
+  <data name="SignInToYourAccountHere" xml:space="preserve">
+    <value>Zaloguj się na swoje konto tutaj</value>
+  </data>
+  <data name="SignOff" xml:space="preserve">
+    <value>Zarejestruj się</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>nazwa</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nowe hasło</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>następny</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>nie</value>
+  </data>
+  <data name="Norweigen" xml:space="preserve">
+    <value>Norweigen (Norge)</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>nie znaleziono</value>
+  </data>
+  <data name="NoVideoPlaybackCapabilities" xml:space="preserve">
+    <value>Brak możliwości odtwarzania wideo</value>
+  </data>
+  <data name="NumberOfViews" xml:space="preserve">
+    <value>Liczba wyświetleń</value>
+  </data>
+  <data name="OneHourAgo" xml:space="preserve">
+    <value>Jedna godzina temu</value>
+  </data>
+  <data name="OneMinuteAgo" xml:space="preserve">
+    <value>Jedna minuta temu</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>hasło</value>
+  </data>
+  <data name="PasswordAnswer" xml:space="preserve">
+    <value>Odpowiedź hasło</value>
+  </data>
+  <data name="PasswordFormat" xml:space="preserve">
+    <value>Format hasło</value>
+  </data>
+  <data name="PasswordFormatNotSupported" xml:space="preserve">
+    <value>Format Hasło nie są obsługiwane.</value>
+  </data>
+  <data name="PasswordQuestion" xml:space="preserve">
+    <value>Pytanie hasło</value>
+  </data>
+  <data name="PasswordReset" xml:space="preserve">
+    <value>Resetowanie hasła</value>
+  </data>
+  <data name="PasswordRetrievalNotEnabled" xml:space="preserve">
+    <value>Przypomnienie hasła Nie uaktywnione.</value>
+  </data>
+  <data name="PasswordSalt" xml:space="preserve">
+    <value>Sól hasło</value>
+  </data>
+  <data name="PleaseConfirmYourNewPassword" xml:space="preserve">
+    <value>Proszę potwierdzić nowe hasło</value>
+  </data>
+  <data name="PleaseEnterYourCurrentPassword" xml:space="preserve">
+    <value>Proszę wpisać swoje hasło</value>
+  </data>
+  <data name="PleaseEnterYourEmailAddress" xml:space="preserve">
+    <value>Wpisz swój adres e-mail.</value>
+  </data>
+  <data name="PleaseEnterYourNewPassword" xml:space="preserve">
+    <value>Proszę wpisać swoje nowe hasło</value>
+  </data>
+  <data name="PleaseProvideEmailAddress" xml:space="preserve">
+    <value>Proszę podać adres e-mail</value>
+  </data>
+  <data name="ProviderKey" xml:space="preserve">
+    <value>kluczowym dostawcą</value>
+  </data>
+  <data name="ProviderName" xml:space="preserve">
+    <value>ProviderName</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>ocena</value>
+  </data>
+  <data name="RetrieveYourPassword" xml:space="preserve">
+    <value>Odzyskaj swoje hasło</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Russia" xml:space="preserve">
+    <value>Rosja</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Szukaj</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>Wyniki wyszukiwania</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Wyślij</value>
+  </data>
+  <data name="SendEMailInvite" xml:space="preserve">
+    <value>Wyślij e-mail zaproszenie</value>
+  </data>
+  <data name="SendMeMyPassword" xml:space="preserve">
+    <value>Wyślij mi moje hasło</value>
+  </data>
+  <data name="SendPasswordResetEmail" xml:space="preserve">
+    <value>Wyślij e-mail resetowania hasła</value>
+  </data>
+  <data name="SorryAnErrorOccurred" xml:space="preserve">
+    <value>Przepraszamy, wystąpił błąd podczas przetwarzania żądania.</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>hiszpański (Español)</value>
+  </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>szwedzki (Svenska)</value>
+  </data>
+  <data name="ThePasswordsEnteredDoNotMatch" xml:space="preserve">
+    <value>Hasła nie są identyczne</value>
+  </data>
+  <data name="TheSuppliedUserIsLockedOut" xml:space="preserve">
+    <value>Dostarczane użytkownik jest zablokowany.</value>
+  </data>
+  <data name="TheSuppliedUserNameIsNotFound" xml:space="preserve">
+    <value>Podana nazwa użytkownika nie została znaleziona.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>typ</value>
+  </data>
+  <data name="TypeIsRequired" xml:space="preserve">
+    <value>Typ jest wymagane</value>
+  </data>
+  <data name="UnableToLockOutUser" xml:space="preserve">
+    <value>Nie można zablokować użytkownika.</value>
+  </data>
+  <data name="UnableToUpdateFailureCount" xml:space="preserve">
+    <value>Nie można zaktualizować liczbę awarii.</value>
+  </data>
+  <data name="UnableToUpdateFailureCountAndWindowStart" xml:space="preserve">
+    <value>Nie można zaktualizować liczbę awarii i Windows Start.</value>
+  </data>
+  <data name="UnsupportedPasswordFormat" xml:space="preserve">
+    <value>Nieobsługiwany format hasło.</value>
+  </data>
+  <data name="UpdateFailureCountFailedNoUniqueUserFound" xml:space="preserve">
+    <value>Aktualizacja Ilość brak nie powiodło się. Brak unikatowego użytkownika znaleziono.</value>
+  </data>
+  <data name="UpdateUserFailedNoUniqueUserFound" xml:space="preserve">
+    <value>Użytkownik aktualizacja nie powiodła się. Brak unikatowego użytkownika znaleziono.</value>
+  </data>
+  <data name="UserAccount" xml:space="preserve">
+    <value>konto użytkownika</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>tak</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>wczoraj</value>
+  </data>
+  <data name="YourNewAccountIsReadyForUse" xml:space="preserve">
+    <value>Nowe konto jest gotowy do użycia</value>
+  </data>
+  <data name="YourPasswordHasBeenReset" xml:space="preserve">
+    <value>Twoje hasło zostało zresetowane</value>
+  </data>
+  <data name="FindUsers" xml:space="preserve">
+    <value>Znajdź Użytkowników</value>
+  </data>
+  <data name="DashSelect" xml:space="preserve">
+    <value>- wybierz -</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Edytuj profil</value>
+  </data>
+  <data name="Failure" xml:space="preserve">
+    <value>brak</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>Poczta</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>mnie</value>
+  </data>
+  <data name="MyZone" xml:space="preserve">
+    <value>Moja strefa</value>
+  </data>
+  <data name="NameLength4To50" xml:space="preserve">
+    <value>Długość nazwa musi zawierać od 4 do 50 znaków</value>
+  </data>
+  <data name="PayPalEmail" xml:space="preserve">
+    <value>PayPal Email</value>
+  </data>
+  <data name="Photos" xml:space="preserve">
+    <value>Zdjęcia</value>
+  </data>
+  <data name="Playlist" xml:space="preserve">
+    <value>Playlista</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="StatusUpdate" xml:space="preserve">
+    <value>Aktualizacja stanu</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Prześlij</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>sukces</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>połączenie</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>kraj</value>
+  </data>
+  <data name="IsDefault" xml:space="preserve">
+    <value>Domyślnie jest</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>wymagany</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Zapamiętaj mnie?</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentarze</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>opublikowany</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Czytaj więcej</value>
+  </data>
+  <data name="Tagged" xml:space="preserve">
+    <value>Tagged</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tagi</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>o</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>adres</value>
+  </data>
+  <data name="BasicDetails" xml:space="preserve">
+    <value>podstawowe dane</value>
+  </data>
+  <data name="BlockIP" xml:space="preserve">
+    <value>blokowanie IP</value>
+  </data>
+  <data name="BriefDescription" xml:space="preserve">
+    <value>krótki opis</value>
+  </data>
+  <data name="Confirmed" xml:space="preserve">
+    <value>potwierdzone</value>
+  </data>
+  <data name="DashSeperatedLowercaseWords" xml:space="preserve">
+    <value>dash-seperated-lowercase-words</value>
+  </data>
+  <data name="EditArticle" xml:space="preserve">
+    <value>Edytuj artykuł</value>
+  </data>
+  <data name="EditArticleComment" xml:space="preserve">
+    <value>Edytuj komentarz Artykuł</value>
+  </data>
+  <data name="Editing" xml:space="preserve">
+    <value>Edycja</value>
+  </data>
+  <data name="EmailWillNotBePublished" xml:space="preserve">
+    <value>Email nie będzie opublikowany</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>klucz</value>
+  </data>
+  <data name="LatestNews" xml:space="preserve">
+    <value>najnowsze wiadomości</value>
+  </data>
+  <data name="LeaveAComment" xml:space="preserve">
+    <value>Zostaw komentarz</value>
+  </data>
+  <data name="SignedInAs" xml:space="preserve">
+    <value>Podpisano w jak</value>
+  </data>
+  <data name="LoginUnsuccessfulPleaseCorrect" xml:space="preserve">
+    <value>Zaloguj się niepowodzeniem. Proszę poprawić błędy i spróbować ponownie.</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Zaloguj się</value>
+  </data>
+  <data name="MainPage" xml:space="preserve">
+    <value>Strona główna</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>Meta Description</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Aktualności</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>zdjęcie</value>
+  </data>
+  <data name="PhotoAndVideo" xml:space="preserve">
+    <value>Zdjęcia i wideo</value>
+  </data>
+  <data name="BusinessAddress" xml:space="preserve">
+    <value>adres firmy</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>zarejestrować</value>
+  </data>
+  <data name="SeperateWithCommas" xml:space="preserve">
+    <value>Oddzielenia przecinkami</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Zarejestruj się tutaj</value>
+  </data>
+  <data name="TypeToSearch" xml:space="preserve">
+    <value>Wpisz do wyszukiwarki...</value>
+  </data>
+  <data name="Unconfirmed" xml:space="preserve">
+    <value>Niepotwierdzone</value>
+  </data>
+  <data name="UseTheFormToCreateANewAccount" xml:space="preserve">
+    <value>Skorzystaj z poniższego formularza, aby utworzyć nowe konto.</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Wideo</value>
+  </data>
+  <data name="YouCommentWillBeReviewed" xml:space="preserve">
+    <value>Jesteś Komentarz zostanie poddane przeglądowi</value>
+  </data>
+  <data name="YourQuestionWillBeReviewed" xml:space="preserve">
+    <value>Twoje pytanie zostanie poddane przeglądowi</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Data urodzenia</value>
+  </data>
+  <data name="YouAre" xml:space="preserve">
+    <value>Jesteś</value>
+  </data>
+  <data name="PasswordBetween4and15Characters" xml:space="preserve">
+    <value>Hasło musi zawierać od 4 do 15 znaków</value>
+  </data>
+  <data name="UserNameBetween4and15Characters" xml:space="preserve">
+    <value>Login musi mieć od 4 do 15 znaków</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>koniec</value>
+  </data>
+  <data name="LoadingDotDotDot" xml:space="preserve">
+    <value>Ładowanie...</value>
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>Brak wyników</value>
+  </data>
+  <data name="UploadingUsers" xml:space="preserve">
+    <value>Użytkownicy Przesyłanie</value>
+  </data>
+  <data name="VideoType" xml:space="preserve">
+    <value>Typ Wideo</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>filtrowanie</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Filmy</value>
+  </data>
+  <data name="AddToFavorites" xml:space="preserve">
+    <value>Dodaj do ulubionych</value>
+  </data>
+  <data name="AddToPlaylist" xml:space="preserve">
+    <value>Dodaj do listy odtwarzania</value>
+  </data>
+  <data name="BringDown" xml:space="preserve">
+    <value>obniżyć</value>
+  </data>
+  <data name="BringUp" xml:space="preserve">
+    <value>wychować</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Usuń z listy</value>
+  </data>
+  <data name="Uploader" xml:space="preserve">
+    <value>Udostępniający</value>
+  </data>
+  <data name="BandsYouHaveSeenLive" xml:space="preserve">
+    <value>zespoły, które widziałeś na żywo</value>
+  </data>
+  <data name="BandsYouWantToSeeLiveOrJustListenTo" xml:space="preserve">
+    <value>Zespoły, które chcesz zobaczyć na żywo lub po prostu słuchać</value>
+  </data>
+  <data name="CurrentCountry" xml:space="preserve">
+    <value>Aktualny kraj</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>Kod pocztowy</value>
+  </data>
+  <data name="MessageToTheWorld" xml:space="preserve">
+    <value>Wiadomość do świata</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>opcjonalne</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>witryna internetowa</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>kontakt</value>
+  </data>
+  <data name="Radio" xml:space="preserve">
+    <value>Radio</value>
+  </data>
+  <data name="Albania" xml:space="preserve">
+    <value>Albania</value>
+  </data>
+  <data name="AllImagesAreConvertedToASquare" xml:space="preserve">
+    <value>Wszystkie obrazy są konwertowane na placu</value>
+  </data>
+  <data name="AmericanSamoa" xml:space="preserve">
+    <value>Samoa Amerykańskie</value>
+  </data>
+  <data name="Andorra" xml:space="preserve">
+    <value>Andora</value>
+  </data>
+  <data name="Argentina" xml:space="preserve">
+    <value>Argentyna</value>
+  </data>
+  <data name="Armenia" xml:space="preserve">
+    <value>Armenia</value>
+  </data>
+  <data name="Australia" xml:space="preserve">
+    <value>Australia</value>
+  </data>
+  <data name="Austria" xml:space="preserve">
+    <value>Austria</value>
+  </data>
+  <data name="Bangladesh" xml:space="preserve">
+    <value>Bangladesz</value>
+  </data>
+  <data name="Belarus" xml:space="preserve">
+    <value>Białoruś</value>
+  </data>
+  <data name="Belgium" xml:space="preserve">
+    <value>Belgia</value>
+  </data>
+  <data name="Belize" xml:space="preserve">
+    <value>Belize</value>
+  </data>
+  <data name="Brazil" xml:space="preserve">
+    <value>Brazylia</value>
+  </data>
+  <data name="Bulgaria" xml:space="preserve">
+    <value>Bułgaria</value>
+  </data>
+  <data name="Canada" xml:space="preserve">
+    <value>Kanada</value>
+  </data>
+  <data name="Chile" xml:space="preserve">
+    <value>Chile</value>
+  </data>
+  <data name="China" xml:space="preserve">
+    <value>Chiny</value>
+  </data>
+  <data name="Colombia" xml:space="preserve">
+    <value>Kolumbia</value>
+  </data>
+  <data name="CostaRica" xml:space="preserve">
+    <value>Kostaryka</value>
+  </data>
+  <data name="CurrentDefault" xml:space="preserve">
+    <value>Aktualny Domyślnie</value>
+  </data>
+  <data name="Cyprus" xml:space="preserve">
+    <value>Cypr</value>
+  </data>
+  <data name="CzechRepublic" xml:space="preserve">
+    <value>Czechy</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>dzień</value>
+  </data>
+  <data name="Denmark" xml:space="preserve">
+    <value>Dania</value>
+  </data>
+  <data name="DisplayMyAge" xml:space="preserve">
+    <value>Wyświetl mój wiek</value>
+  </data>
+  <data name="DominicanRepublic" xml:space="preserve">
+    <value>Dominikana</value>
+  </data>
+  <data name="Ecuador" xml:space="preserve">
+    <value>Ekwador</value>
+  </data>
+  <data name="ElSalvador" xml:space="preserve">
+    <value>Salwador</value>
+  </data>
+  <data name="Estonia" xml:space="preserve">
+    <value>Estonia</value>
+  </data>
+  <data name="FaroeIslands" xml:space="preserve">
+    <value>Wyspy Owcze</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>kobieta</value>
+  </data>
+  <data name="Finland" xml:space="preserve">
+    <value>Finlandia</value>
+  </data>
+  <data name="France" xml:space="preserve">
+    <value>Francja</value>
+  </data>
+  <data name="FrenchGuiana" xml:space="preserve">
+    <value>Gujana Francuska</value>
+  </data>
+  <data name="Georgia" xml:space="preserve">
+    <value>Gruzja</value>
+  </data>
+  <data name="Germany" xml:space="preserve">
+    <value>Niemcy</value>
+  </data>
+  <data name="Ghana" xml:space="preserve">
+    <value>Ghana</value>
+  </data>
+  <data name="Greece" xml:space="preserve">
+    <value>Grecja</value>
+  </data>
+  <data name="Greenland" xml:space="preserve">
+    <value>Grenlandia</value>
+  </data>
+  <data name="Guadeloupe" xml:space="preserve">
+    <value>Gwadelupa</value>
+  </data>
+  <data name="Guam" xml:space="preserve">
+    <value>Guam</value>
+  </data>
+  <data name="Guatemala" xml:space="preserve">
+    <value>Gwatemala</value>
+  </data>
+  <data name="Guernsey" xml:space="preserve">
+    <value>wyspie Guernsey</value>
+  </data>
+  <data name="Guyana" xml:space="preserve">
+    <value>Gujana</value>
+  </data>
+  <data name="Honduras" xml:space="preserve">
+    <value>Honduras</value>
+  </data>
+  <data name="Hungary" xml:space="preserve">
+    <value>Węgry</value>
+  </data>
+  <data name="Iceland" xml:space="preserve">
+    <value>Islandia</value>
+  </data>
+  <data name="India" xml:space="preserve">
+    <value>Indie</value>
+  </data>
+  <data name="Ireland" xml:space="preserve">
+    <value>Irlandia</value>
+  </data>
+  <data name="IsleOfMan" xml:space="preserve">
+    <value>Isle of Man</value>
+  </data>
+  <data name="Israel" xml:space="preserve">
+    <value>Izrael</value>
+  </data>
+  <data name="Italy" xml:space="preserve">
+    <value>Włochy</value>
+  </data>
+  <data name="Japan" xml:space="preserve">
+    <value>Japonia</value>
+  </data>
+  <data name="Jersey" xml:space="preserve">
+    <value>Jersey</value>
+  </data>
+  <data name="Latvia" xml:space="preserve">
+    <value>Łotwa</value>
+  </data>
+  <data name="Liechtenstein" xml:space="preserve">
+    <value>Liechtenstein</value>
+  </data>
+  <data name="Lithuania" xml:space="preserve">
+    <value>Litwa</value>
+  </data>
+  <data name="Luxembourg" xml:space="preserve">
+    <value>Luksemburg</value>
+  </data>
+  <data name="Macedonia" xml:space="preserve">
+    <value>Macedonia</value>
+  </data>
+  <data name="MakeDefault" xml:space="preserve">
+    <value>Ustaw jako domyślny</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>mężczyzna</value>
+  </data>
+  <data name="Malta" xml:space="preserve">
+    <value>Malta</value>
+  </data>
+  <data name="MarshallIslands" xml:space="preserve">
+    <value>Wyspy Marshalla</value>
+  </data>
+  <data name="Martinique" xml:space="preserve">
+    <value>Martynika</value>
+  </data>
+  <data name="Mayotte" xml:space="preserve">
+    <value>Majotta</value>
+  </data>
+  <data name="Mexico" xml:space="preserve">
+    <value>Meksyk</value>
+  </data>
+  <data name="Moldova" xml:space="preserve">
+    <value>Mołdawia</value>
+  </data>
+  <data name="Monaco" xml:space="preserve">
+    <value>Monako</value>
+  </data>
+  <data name="Montenegro" xml:space="preserve">
+    <value>Czarnogóra</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>miesiąc</value>
+  </data>
+  <data name="Netherlands" xml:space="preserve">
+    <value>Niderlandy</value>
+  </data>
+  <data name="NewZealand" xml:space="preserve">
+    <value>Nowa Zelandia</value>
+  </data>
+  <data name="Nicaragua" xml:space="preserve">
+    <value>Nikaragua</value>
+  </data>
+  <data name="Norway" xml:space="preserve">
+    <value>Norwegia</value>
+  </data>
+  <data name="NowEditYourProfile" xml:space="preserve">
+    <value>Teraz Edytuj swój profil</value>
+  </data>
+  <data name="Pakistan" xml:space="preserve">
+    <value>Pakistan</value>
+  </data>
+  <data name="Panama" xml:space="preserve">
+    <value>Panama</value>
+  </data>
+  <data name="Paraguay" xml:space="preserve">
+    <value>Paragwaj</value>
+  </data>
+  <data name="Peru" xml:space="preserve">
+    <value>Peru</value>
+  </data>
+  <data name="PleaseCorrectTheErrors" xml:space="preserve">
+    <value>Proszę poprawić błędy</value>
+  </data>
+  <data name="Poland" xml:space="preserve">
+    <value>Polska</value>
+  </data>
+  <data name="Portugal" xml:space="preserve">
+    <value>Portugalia</value>
+  </data>
+  <data name="ProfilePhotos" xml:space="preserve">
+    <value>Zdjęcia profilu</value>
+  </data>
+  <data name="PuertoRico" xml:space="preserve">
+    <value>Puerto Rico</value>
+  </data>
+  <data name="Reunion" xml:space="preserve">
+    <value>Reunion</value>
+  </data>
+  <data name="Romania" xml:space="preserve">
+    <value>Rumunia</value>
+  </data>
+  <data name="SanMarino" xml:space="preserve">
+    <value>San Marino</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>wybrany</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>wybierz Plik</value>
+  </data>
+  <data name="SelectThePhotoToReplace" xml:space="preserve">
+    <value>Wybierz zdjęcie, aby zastąpić</value>
+  </data>
+  <data name="Serbia" xml:space="preserve">
+    <value>Serbia</value>
+  </data>
+  <data name="ShowMyLocationOnTheMap" xml:space="preserve">
+    <value>Pokaż moją lokalizację na mapie</value>
+  </data>
+  <data name="Singapore" xml:space="preserve">
+    <value>Singapur</value>
+  </data>
+  <data name="Slovakia" xml:space="preserve">
+    <value>Słowacja</value>
+  </data>
+  <data name="Slovenia" xml:space="preserve">
+    <value>Słowenia</value>
+  </data>
+  <data name="SouthAfrica" xml:space="preserve">
+    <value>Republika Południowej Afryki</value>
+  </data>
+  <data name="Spain" xml:space="preserve">
+    <value>Hiszpania</value>
+  </data>
+  <data name="SriLanka" xml:space="preserve">
+    <value>Sri Lanka</value>
+  </data>
+  <data name="Suriname" xml:space="preserve">
+    <value>Surinam</value>
+  </data>
+  <data name="Sweden" xml:space="preserve">
+    <value>Szwecja</value>
+  </data>
+  <data name="Switzerland" xml:space="preserve">
+    <value>Szwajcaria</value>
+  </data>
+  <data name="SyrianArabRepublic" xml:space="preserve">
+    <value>Syryjska Republika Arabska</value>
+  </data>
+  <data name="Thailand" xml:space="preserve">
+    <value>Tajlandia</value>
+  </data>
+  <data name="Turkey" xml:space="preserve">
+    <value>Turcja</value>
+  </data>
+  <data name="Ukraine" xml:space="preserve">
+    <value>Ukraina</value>
+  </data>
+  <data name="UnitedKingdom" xml:space="preserve">
+    <value>Zjednoczone Królestwo</value>
+  </data>
+  <data name="UnitedStates" xml:space="preserve">
+    <value>Stany Zjednoczone</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>nieznany</value>
+  </data>
+  <data name="UploadPhoto" xml:space="preserve">
+    <value>Prześlij zdjęcie</value>
+  </data>
+  <data name="Uruguay" xml:space="preserve">
+    <value>Urugwaj</value>
+  </data>
+  <data name="VaticanCity" xml:space="preserve">
+    <value>Watykan</value>
+  </data>
+  <data name="Venezuela" xml:space="preserve">
+    <value>Wenezuela</value>
+  </data>
+  <data name="VirginIslands" xml:space="preserve">
+    <value>Wyspy Dziewicze Stanów Zjednoczonych</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>rok</value>
+  </data>
+  <data name="AccountInformation" xml:space="preserve">
+    <value>Informacje o koncie</value>
+  </data>
+  <data name="BySigningUpYouAgreeToTheTermsOfService" xml:space="preserve">
+    <value>Zapisując się zgadzasz się z warunkami służby</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>tutaj</value>
+  </data>
+  <data name="AccountDeletionCannotBeUndone" xml:space="preserve">
+    <value>Usunięcie konta nie można cofnąć</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>administrator</value>
+  </data>
+  <data name="Alien" xml:space="preserve">
+    <value>Pozaziemskie</value>
+  </data>
+  <data name="Applaud" xml:space="preserve">
+    <value>oklaskiwać</value>
+  </data>
+  <data name="Audience" xml:space="preserve">
+    <value>publiczność</value>
+  </data>
+  <data name="AutoPlayVideoInProfile" xml:space="preserve">
+    <value>Wideo Autoodtwarzanie w profilu</value>
+  </data>
+  <data name="BeatDown" xml:space="preserve">
+    <value>ubić</value>
+  </data>
+  <data name="BlockedUsers" xml:space="preserve">
+    <value>Zablokowani użytkownicy</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Zmień hasło</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Czat</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Potwierdź</value>
+  </data>
+  <data name="ContactRequest" xml:space="preserve">
+    <value>Kontakt wniosek</value>
+  </data>
+  <data name="CopyrightAllRights" xml:space="preserve">
+    <value>Prawa autorskie {0} {1}. Wszelkie prawa zastrzeżone.</value>
+  </data>
+  <data name="CyberAssociates" xml:space="preserve">
+    <value>cyber współpracownicy</value>
+  </data>
+  <data name="DanceGroup" xml:space="preserve">
+    <value>tańca</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Usuń konto</value>
+  </data>
+  <data name="DeleteMyAccount" xml:space="preserve">
+    <value>Usunąć moje konto?</value>
+  </data>
+  <data name="HaveYouMetInRealLife" xml:space="preserve">
+    <value>Czy spotkałeś w prawdziwym życiu?</value>
+  </data>
+  <data name="InterestedIn" xml:space="preserve">
+    <value>Interesuje go/ Interesuje ją</value>
+  </data>
+  <data name="LookingForFriends" xml:space="preserve">
+    <value>szuka przyjaciół</value>
+  </data>
+  <data name="MaleAndFemale" xml:space="preserve">
+    <value>Mężczyzna i Kobieta</value>
+  </data>
+  <data name="MessagesAreSentToYourEmail" xml:space="preserve">
+    <value>Gdy jest włączona, wiadomości są wysyłane na adres e-mail.</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>wyciszenie</value>
+  </data>
+  <data name="NotNow" xml:space="preserve">
+    <value>nie teraz</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Hasła nie pasują</value>
+  </data>
+  <data name="ProfileLogging" xml:space="preserve">
+    <value>rejestrowanie profil</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>Przeczytane</value>
+  </data>
+  <data name="RealLifeContacts" xml:space="preserve">
+    <value>Poznani osobiście</value>
+  </data>
+  <data name="RelationshipStatus" xml:space="preserve">
+    <value>stan cywilny</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Odpowiedz</value>
+  </data>
+  <data name="Robot" xml:space="preserve">
+    <value>automat</value>
+  </data>
+  <data name="SingleAndLooking" xml:space="preserve">
+    <value>Singiel/ szuka</value>
+  </data>
+  <data name="Song" xml:space="preserve">
+    <value>piosenka</value>
+  </data>
+  <data name="TakenOrNotInterested" xml:space="preserve">
+    <value>Zajęty/ta lub nie zainteresowany/na</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>nieprzeczytane</value>
+  </data>
+  <data name="Venue" xml:space="preserve">
+    <value>miejsce</value>
+  </data>
+  <data name="Visitors" xml:space="preserve">
+    <value>Odwiedzający</value>
+  </data>
+  <data name="WouldYouLikeToBeCyberAssociates" xml:space="preserve">
+    <value>Chcesz być cyber kojarzy?</value>
+  </data>
+  <data name="YouDoNotAppearOnTheMap" xml:space="preserve">
+    <value>Gdy jest wyłączony nie pojawiają się na mapie.</value>
+  </data>
+  <data name="YourAgeWillNotDisplay" xml:space="preserve">
+    <value>Jeśli jest wyłączona, w twoim wieku nie będą wyświetlane w Twoim profilu.</value>
+  </data>
+  <data name="YouResponded" xml:space="preserve">
+    <value>Ci odpowiedzieli</value>
+  </data>
+  <data name="YourProfileViewsWillNotBeRecorded" xml:space="preserve">
+    <value>Jeśli jest wyłączona, Twoje poglądy profil nie będą rejestrowane i nie można zobaczyć, kto widzi swój profil.</value>
+  </data>
+  <data name="DeleteThis" xml:space="preserve">
+    <value>Usunąć?</value>
+  </data>
+  <data name="AboutOneMinuteAgo" xml:space="preserve">
+    <value>o jeden minut temu</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>z powrotem</value>
+  </data>
+  <data name="DaysAgo" xml:space="preserve">
+    <value>{0} dni temu</value>
+  </data>
+  <data name="HoursAgo" xml:space="preserve">
+    <value>{0} godziny temu</value>
+  </data>
+  <data name="MinutesAgo" xml:space="preserve">
+    <value>{0} minuty temu</value>
+  </data>
+  <data name="MonthsAgo" xml:space="preserve">
+    <value>{0} miesiące temu</value>
+  </data>
+  <data name="SecondsAgo" xml:space="preserve">
+    <value>{0} sekundy temu</value>
+  </data>
+  <data name="WeeksAgo" xml:space="preserve">
+    <value>{0} tygodnie temu</value>
+  </data>
+  <data name="YearsAgo" xml:space="preserve">
+    <value>{0} lata temu</value>
+  </data>
+  <data name="Keywords" xml:space="preserve">
+    <value>Słowa kluczowe</value>
+  </data>
+  <data name="Handed" xml:space="preserve">
+    <value>wręczył</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>nieważny</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>w lewo</value>
+  </data>
+  <data name="OnlineNow" xml:space="preserve">
+    <value>Teraz online</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>prawo</value>
+  </data>
+  <data name="AlreadyInUse" xml:space="preserve">
+    <value>Już w użyciu</value>
+  </data>
+  <data name="EditYourEmailSettings" xml:space="preserve">
+    <value>Edytuj ustawienia e-mail</value>
+  </data>
+  <data name="IncorrectFormat" xml:space="preserve">
+    <value>nieprawidłowy format</value>
+  </data>
+  <data name="SourceFile" xml:space="preserve">
+    <value>Plik źródłowy</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>Przesłane</value>
+  </data>
+  <data name="Cyborg" xml:space="preserve">
+    <value>Cyborg</value>
+  </data>
+  <data name="HardwareAndSoftwareSkills" xml:space="preserve">
+    <value>Sprzęt i umiejętności programowe</value>
+  </data>
+  <data name="Ambidextrous" xml:space="preserve">
+    <value>oburęczny</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>mapa</value>
+  </data>
+  <data name="FeaturedModel" xml:space="preserve">
+    <value>Użyto modelu</value>
+  </data>
+  <data name="Inbox" xml:space="preserve">
+    <value>Skrzynka odbiorcza</value>
+  </data>
+  <data name="NewestUsers" xml:space="preserve">
+    <value>Najnowsze użytkownicy</value>
+  </data>
+  <data name="NewestVideos" xml:space="preserve">
+    <value>Najnowsze filmy</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Brak komentarzy</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Powiadomienia</value>
+  </data>
+  <data name="Outbox" xml:space="preserve">
+    <value>Skrzynka nadawcza</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Polityka prywatności</value>
+  </data>
+  <data name="SubmitYourYouTubeVideoLinkHere" xml:space="preserve">
+    <value>Przesłać link z filmem z YouTube tutaj</value>
+  </data>
+  <data name="TermsAndCondtions" xml:space="preserve">
+    <value>Warunki i condtions</value>
+  </data>
+  <data name="Applauded" xml:space="preserve">
+    <value>brawa</value>
+  </data>
+  <data name="BeatenDown" xml:space="preserve">
+    <value>pobity w dół</value>
+  </data>
+  <data name="Commented" xml:space="preserve">
+    <value>skomentowane</value>
+  </data>
+  <data name="EMailMyMessages" xml:space="preserve">
+    <value>Powiadom swoich wiadomości</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>detal</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Szczegóły</value>
+  </data>
+  <data name="FilterNewsByTag" xml:space="preserve">
+    <value>Filtr wiadomości przez tagu</value>
+  </data>
+  <data name="ManageNews" xml:space="preserve">
+    <value>zarządzanie Aktualności</value>
+  </data>
+  <data name="ManageNewsComments" xml:space="preserve">
+    <value>Zarządzanie Komentarze Aktualności</value>
+  </data>
+  <data name="Croatia" xml:space="preserve">
+    <value>Chorwacja</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>wyłączone</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>wiadomość</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>nowy</value>
+  </data>
+  <data name="NextVideo" xml:space="preserve">
+    <value>Następna Wideo</value>
+  </data>
+  <data name="NoFile" xml:space="preserve">
+    <value>Brak pliku</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>telefon</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Data wydania</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>usunięty</value>
+  </data>
+  <data name="LoadMore" xml:space="preserve">
+    <value>Załaduj więcej</value>
+  </data>
+  <data name="NextPhoto" xml:space="preserve">
+    <value>następne zdjęcie</value>
+  </data>
+  <data name="PreviousPhoto" xml:space="preserve">
+    <value>Poprzedni obrazek</value>
+  </data>
+  <data name="SeeMoreNews" xml:space="preserve">
+    <value>Zobacz więcej nowości</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>profil</value>
+  </data>
+  <data name="HappyBirthday" xml:space="preserve">
+    <value>Wszystkiego najlepszego</value>
+  </data>
+  <data name="AddAsCyberAssociate" xml:space="preserve">
+    <value>Dodaj jako cyber stowarzyszonej</value>
+  </data>
+  <data name="AddAsRealLifeContact" xml:space="preserve">
+    <value>Dodaj jako realnego kontaktu życia (IRL)</value>
+  </data>
+  <data name="Music" xml:space="preserve">
+    <value>muzyka</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Wyślij wiadomość</value>
+  </data>
+  <data name="SoundOn" xml:space="preserve">
+    <value>Dźwięk włączony</value>
+  </data>
+  <data name="Cuba" xml:space="preserve">
+    <value>Kuba</value>
+  </data>
+  <data name="NorthKorea" xml:space="preserve">
+    <value>Korea Północna</value>
+  </data>
+  <data name="SouthKorea" xml:space="preserve">
+    <value>Korea Południowa</value>
+  </data>
+  <data name="CheckYourEmailAndSpamFolder" xml:space="preserve">
+    <value>Sprawdź pocztę i folder spamu</value>
+  </data>
+  <data name="MorePhotos" xml:space="preserve">
+    <value>więcej zdjęć</value>
+  </data>
+  <data name="NewestPhotos" xml:space="preserve">
+    <value>Najnowsze zdjęcia</value>
+  </data>
+  <data name="Band" xml:space="preserve">
+    <value>Zespół</value>
+  </data>
+  <data name="CreateANewAccount" xml:space="preserve">
+    <value>Utwórz nowe konto</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>tytuł</value>
+  </data>
+  <data name="CreatedOn" xml:space="preserve">
+    <value>Utworzono</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Utwórz nowy</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>rosyjski (русский)</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>wiek</value>
+  </data>
+  <data name="LastActive" xml:space="preserve">
+    <value>Ostatnio aktywny</value>
+  </data>
+  <data name="FavoriteVideos" xml:space="preserve">
+    <value>Ulubione filmy</value>
+  </data>
+  <data name="LatestUpdate" xml:space="preserve">
+    <value>najnowsza aktualizacja</value>
+  </data>
+  <data name="UploadedVideos" xml:space="preserve">
+    <value>Przesłane filmy</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>czekanie</value>
+  </data>
+  <data name="MostApplaudedThisWeek" xml:space="preserve">
+    <value>Najbardziej oklaskiwany w tym tygodniu</value>
+  </data>
+  <data name="MostBeatenDownThisWeek" xml:space="preserve">
+    <value>Większość pobici w tym tygodniu</value>
+  </data>
+  <data name="ApproximateLocation" xml:space="preserve">
+    <value>Przybliżona lokalizacja</value>
+  </data>
+  <data name="FromDesktop" xml:space="preserve">
+    <value>z pulpitu</value>
+  </data>
+  <data name="FromMobile" xml:space="preserve">
+    <value>od mobile</value>
+  </data>
+  <data name="OnIPhoneEmailYourPhotoToWithYourMessageInTheBodyTo" xml:space="preserve">
+    <value>Na e-mail IPhone swoje zdjęcie z wiadomością w organizmie</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>blokować</value>
+  </data>
+  <data name="SendFromYourAccountEmail" xml:space="preserve">
+    <value>Wyślij z konta e-mail</value>
+  </data>
+  <data name="RotatePhoto" xml:space="preserve">
+    <value>Obróć zdjęcie</value>
+  </data>
+  <data name="Latin" xml:space="preserve">
+    <value>łacina (Latin)</value>
+  </data>
+  <data name="SoundOff" xml:space="preserve">
+    <value>zabierać głos</value>
+  </data>
+  <data name="TurnSoundOff" xml:space="preserve">
+    <value>Włącz brzmieć off</value>
+  </data>
+  <data name="TurnSoundOn" xml:space="preserve">
+    <value>Wyłącz dźwięk</value>
+  </data>
+  <data name="MembersOnlyProfile" xml:space="preserve">
+    <value>Użytkownicy tylko profil</value>
+  </data>
+  <data name="OnlyMembersCanSeeYourProfile" xml:space="preserve">
+    <value>Po włączeniu tylko członkowie mogą zobaczyć swój profil</value>
+  </data>
+  <data name="CreativeCommunity" xml:space="preserve">
+    <value>Kreatywne Społeczność</value>
+  </data>
+  <data name="Featuring" xml:space="preserve">
+    <value>zawiera</value>
+  </data>
+  <data name="Dance" xml:space="preserve">
+    <value>taniec</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>edytowane</value>
+  </data>
+  <data name="FemaleDuo" xml:space="preserve">
+    <value>Kobieta duet</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>grupa</value>
+  </data>
+  <data name="Interview" xml:space="preserve">
+    <value>wywiad</value>
+  </data>
+  <data name="Live" xml:space="preserve">
+    <value>na żywo</value>
+  </data>
+  <data name="MaleDuo" xml:space="preserve">
+    <value>Mężczyzna duet</value>
+  </data>
+  <data name="MusicVideo" xml:space="preserve">
+    <value>teledysk</value>
+  </data>
+  <data name="Raw" xml:space="preserve">
+    <value>nieedytowane</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>pokazać</value>
+  </data>
+  <data name="FootageType" xml:space="preserve">
+    <value>Rodzaj klipu</value>
+  </data>
+  <data name="Random" xml:space="preserve">
+    <value>przypadkowy</value>
+  </data>
+  <data name="NewestAtTop" xml:space="preserve">
+    <value>Ostatnio na górze</value>
+  </data>
+  <data name="MostCommentedOnThisWeek" xml:space="preserve">
+    <value>Najczęściej komentowane w tym tygodniu</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>lub</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>temat</value>
+  </data>
+  <data name="Contests" xml:space="preserve">
+    <value>konkursy</value>
+  </data>
+  <data name="FullScreen" xml:space="preserve">
+    <value>Pełny ekran</value>
+  </data>
+  <data name="AgeFrom" xml:space="preserve">
+    <value>Wiek od</value>
+  </data>
+  <data name="AgeTo" xml:space="preserve">
+    <value>Wiek do</value>
+  </data>
+  <data name="TheyAre" xml:space="preserve">
+    <value>są</value>
+  </data>
+  <data name="SortedByActivity" xml:space="preserve">
+    <value>Posortowane wg aktywności</value>
+  </data>
+  <data name="SortedByDistance" xml:space="preserve">
+    <value>Według odległości</value>
+  </data>
+  <data name="InvalidLink" xml:space="preserve">
+    <value>Błędny Link</value>
+  </data>
+  <data name="VideoRejected" xml:space="preserve">
+    <value>Wideo odrzucone</value>
+  </data>
+  <data name="WaitingToBeReviewed" xml:space="preserve">
+    <value>Ten film czeka na recenzja</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>obraz</value>
+  </data>
+  <data name="Tutorial" xml:space="preserve">
+    <value>tutorial</value>
+  </data>
+  <data name="Polish" xml:space="preserve">
+    <value>polski</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>dni</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>godziny</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minut</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>sekund</value>
+  </data>
+  <data name="ContestDetails" xml:space="preserve">
+    <value>Szczegóły konkursu</value>
+  </data>
+  <data name="CurentContestEntries" xml:space="preserve">
+    <value>Aktualne Prace konkursowe</value>
+  </data>
+  <data name="TimeRemainingInContest" xml:space="preserve">
+    <value>Pozostały czas w konkursie</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>dokument</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Pobierz</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>francuski (français)</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>portugalski (português)</value>
+  </data>
+  <data name="ClaimYouUploadedThisVideo" xml:space="preserve">
+    <value>Roszczenie Wysyłając ten film</value>
+  </data>
+  <data name="Italian" xml:space="preserve">
+    <value>włoski (italiano)</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>holenderski (Nederlands)</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>miasto</value>
+  </data>
+  <data name="RegionState" xml:space="preserve">
+    <value>region / państwo</value>
+  </data>
+  <data name="StreetAddress" xml:space="preserve">
+    <value>Ulica</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>poprzedni</value>
+  </data>
+  <data name="Japanese" xml:space="preserve">
+    <value>japoński (日本の)</value>
+  </data>
+  <data name="Greek" xml:space="preserve">
+    <value>grecki (ελληνικά)</value>
+  </data>
+  <data name="Korean" xml:space="preserve">
+    <value>koreański (한국의)</value>
+  </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>fiński (suomi)</value>
+  </data>
+  <data name="Czech" xml:space="preserve">
+    <value>czeski (český)</value>
+  </data>
+  <data name="Hungarian" xml:space="preserve">
+    <value>węgierski (magyar)</value>
+  </data>
+  <data name="Danish" xml:space="preserve">
+    <value>duński (dansk)</value>
+  </data>
+  <data name="Iran" xml:space="preserve">
+    <value>Iran</value>
+  </data>
+  <data name="Iraq" xml:space="preserve">
+    <value>Irak</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Dziękujemy</value>
+  </data>
+  <data name="VoteFor" xml:space="preserve">
+    <value>wybierać</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Zgłoś</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>chiński (中國的)</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>Sklep</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>arabski (العربية)</value>
+  </data>
+  <data name="Turkish" xml:space="preserve">
+    <value>turecki (Türk)</value>
+  </data>
+  <data name="Contest" xml:space="preserve">
+    <value>konkurs</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="Philippines" xml:space="preserve">
+    <value>Filipiny</value>
+  </data>
+  <data name="YearAgo" xml:space="preserve">
+    <value>{0} rok temu</value>
+  </data>
+  <data name="Percentage" xml:space="preserve">
+    <value>odsetek</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>wyniki</value>
+  </data>
+  <data name="Votes" xml:space="preserve">
+    <value>głosów</value>
+  </data>
+</root>

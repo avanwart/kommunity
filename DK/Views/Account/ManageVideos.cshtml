@@ -1,0 +1,34 @@
+﻿ @using BootBaronLib.Resources
+@{
+    ViewBag.Title = Messages.Videos;
+}
+  
+
+<div class="row" >
+<div class="span8">
+@{Html.RenderPartial("_AdBanner"); }
+<h2>@Messages.Videos</h2>
+      <hr />
+         @{Html.RenderPartial("_myZoneMenu"); }
+ 
+         <form method="post" action="@Url.Content("~/account/managevideos")">
+
+ <!-- put connected videos -->
+
+ @if (ViewBag.UserUploaded == null)
+ {
+ <i>@Messages.NoResults</i>
+ }
+ else
+ {
+ @Html.Raw(ViewBag.UserUploaded)
+ }
+ </form>
+</div>
+
+<div class="span4">
+@{Html.RenderPartial("_AdBanner2"); }
+
+</div>
+</div>
+

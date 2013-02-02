@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Wish List";
+}
+
+<div class="vid_filter_block" >
+ 
+<h1>@ViewBag.UserName's Wish List</h1>
+<i>This is your current wish list of items that are still in stock</i>
+<br />
+<br />
+<a href="/account/myusers">My Zone</a> > Wish List
+ <br />
+<img src="/content/images/shopping_cart.png" />
+ <br />
+
+
+ <style type="text/css">
+ #product_index_list .outer_item { height: 300px}
+ </style>
+ <form action="/account/WishListDelete" method="post">
+               <div class="list_products" id="product_index_list" style="padding-bottom:50px;">
+              
+            @Html.Raw(ViewBag.WishListProducts)
+            </div>
+        
+        </form>
+
+        <div class="clear"></div>
+        
+</div>

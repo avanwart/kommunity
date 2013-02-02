@@ -1,0 +1,39 @@
+﻿<div id="logged_in">
+ 
+        @if (Request.IsAuthenticated)
+        {
+        <a 
+        id="status_updates"
+        @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "home" &&
+            ViewContext.RouteData.Values["controller"].ToString().ToLower() == "account")
+        {
+            <text> 
+        class="btn-inverse btn active" 
+        </text>
+        }
+        else 
+        {   <text>
+          class="btn-inverse btn"        </text>
+        }
+        href="@Url.Content("~/account/home")">@BootBaronLib.Resources.Messages.StatusUpdate</a>
+        
+        }
+        else
+        {
+        @:[ @Html.ActionLink(BootBaronLib.Resources.Messages.SignIn, "LogOn", "Account") | @Html.ActionLink(BootBaronLib.Resources.Messages.Register, "Register", "Account") ]
+        }
+   
+  <a     @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "online" &&
+            ViewContext.RouteData.Values["controller"].ToString().ToLower() == "findusers")
+        {
+            <text>
+        class="btn-inverse btn active" 
+        </text>
+        }
+        else 
+        {   <text>
+          class="btn-inverse btn"        </text>
+        } id="logged_in_user" href="@Url.Content("~/findusers/online")">@BootBaronLib.Resources.Messages.OnlineNow</a>
+    <span id="logged_in_user_count" title="@BootBaronLib.Resources.Messages.OnlineNow"></span>&nbsp;
+
+</div>

@@ -1,0 +1,81 @@
+﻿@using BootBaronLib.Resources;
+@{
+    ViewBag.Title = BootBaronLib.Resources.Messages.Contact;
+}
+
+<div class="row">
+
+<div class="span8">
+    @{Html.RenderPartial("_AdBanner"); }    
+<h2>@BootBaronLib.Resources.Messages.Contact</h2>
+    <hr />
+<div class="span2">
+<h4>@Messages.EMail</h4>
+<p><a href="mailto:@BootBaronLib.Configs.GeneralConfigs.SendToErrorEmail">@BootBaronLib.Configs.GeneralConfigs.SendToErrorEmail  </a></p>
+
+    <hr />
+       
+ 
+ @if (!string.IsNullOrEmpty(BootBaronLib.Configs.GeneralConfigs.FacebookLink))
+ {
+
+<p><a target="_blank" href="@BootBaronLib.Configs.GeneralConfigs.FacebookLink">Facebook</a></p>
+ }
+ 
+
+
+
+
+
+  @if (!string.IsNullOrEmpty(BootBaronLib.Configs.GeneralConfigs.YoutubeLink))
+ {
+
+<p><a target="_blank" href="@BootBaronLib.Configs.GeneralConfigs.YoutubeLink">YouTube</a></p>
+ }
+ 
+ 
+
+ 
+
+  @if (!string.IsNullOrEmpty(BootBaronLib.Configs.GeneralConfigs.TwitterLink))
+ {
+
+<p><a target="_blank" href="@BootBaronLib.Configs.GeneralConfigs.TwitterLink">Twitter</a></p>
+ }
+ 
+    <hr />
+  
+
+<h4>@Messages.BusinessAddress</h4>
+<p><address>
+
+
+                  @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                            BootBaronLib.Enums.SiteEnums.SiteBrandType.ADDRS, 
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+
+
+
+</address></p>
+@*<h4>@BootBaronLib.Resources.Messages.Administrator</h4>
+
+
+<p>
+<a href="@Url.Content("~/DasKlub")">DasKlub</a>
+</p>*@
+
+</div>
+
+<div class="span4">
+ 
+                  <h3>@BootBaronLib.Configs.GeneralConfigs.SiteName</h3>
+</div>
+
+ 
+</div>
+
+
+<div class="span4">
+    @{Html.RenderPartial("_AdBanner2"); }
+</div>
+</div>

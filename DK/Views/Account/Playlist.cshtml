@@ -1,0 +1,150 @@
+﻿    @using BootBaronLib.Resources
+@{
+    ViewBag.Title = Messages.Playlist;
+}
+
+ @section _javascriptHead {
+
+    
+    @{Html.RenderPartial("_toggleSound"); }
+    }
+
+<div class="row">
+
+@if (string.IsNullOrEmpty(ViewBag.PlaylistVideos))
+{
+  <div class="span8">
+                          @{Html.RenderPartial("_AdBanner"); }
+        <h2>@Messages.Playlist</h2>
+          <hr />
+
+        <span>@Messages.NoResults <a href="@Url.Content("~/video")">@Messages.Videos</a></span>
+  </div>
+}
+else
+{
+
+    <div class="span8">
+                    @{Html.RenderPartial("_AdBanner"); }
+        <h2>@Messages.Playlist</h2>
+          <hr />
+
+        <div id="player">
+        </div>
+        <style type="text/css">
+            #player
+            {
+                width: 100%;
+                height: 450px;
+            }
+        </style>
+       
+
+ 
+                                        <div class="row">
+        <div class="span2">
+                          <img src="@Url.Content("~/content/images/icons/speaker_on.png")"
+                                     alt="on" id="speaker_sound" onclick="toggleSound()"
+                                        title="@Messages.TurnSoundOff" />
+                                         <span id="speaker_words">@Messages.SoundOn</span>
+        </div>
+        <div class="span2">
+            
+        <div class="next_video" src="@Url.Content("~/content/images/forward_arrow.png")" alt="@Messages.NextVideo" onclick="goForwardNewVideo()"
+                                id="new_vid_forward" title="@Messages.NextVideo"></div>
+        <span>@Messages.NextVideo</span>
+        
+                                   
+        </div>             </div>    
+                   
+                        
+                                    <b>@Messages.Song</b>
+                                    <div id="current_song">
+                                    </div>
+                                    <br />
+                                    <div id="buy_link">
+                                    </div>
+                                    <br />
+                                    <b>@Messages.Uploader</b>
+                                    <div id="user_account">
+                                    </div>
+                       
+
+                   
+        <form method="post" action="@Url.Content("~/account/playlist")">
+        <fieldset>
+           
+            <div class="editor-field">
+                <label class="checkbox">
+                @{ 
+          bool play = @ViewBag.AutoPlay;
+              
+                    <input type="checkbox" name="selected_autoplay" @if (play)
+                                                                    {<text>checked="checked"</text>} />
+
+                    }
+
+                       @Messages.AutoPlayVideoInProfile
+                </label>
+            </div>
+            <br />
+            <button class="btn btn-success" name="auto_play">
+                @Messages.Submit</button>
+        </fieldset>
+        </form>
+        <div class="vid_filter_block">
+          
+            <div class="clear">
+            </div>
+
+@section _javascript {
+<script src="http://www.youtube.com/player_api" type="text/javascript"></script>
+<script type="text/javascript">
+ 
+    $(document).ready(function() {
+    
+             playlistID = @Html.Raw(Convert.ToString(ViewBag.UserPlaylistID));
+             youtubeVideoHeight = '@ViewBag.VideoHeight';
+             youtubeVideoWidth ='@ViewBag.VideoWidth',
+             loadFromHash = false;
+             autoPlay = @ViewBag.AutoPlayNumber;
+
+                var urlToFetch;
+
+                if ( loadFromHash )
+                {
+                    urlToFetch = $rootUrl +  "io/operation.ashx?param_type=video&vid=" + hashkey;
+                }
+                else 
+                {
+                    urlToFetch = $rootUrl +  "io/operation.ashx?param_type=begin_playlist&playlist=" + @Html.Raw(Convert.ToString(ViewBag.UserPlaylistID)) +"";
+                }
+
+                vidDefault = null;
+
+                
+                $.getJSON(urlToFetch, function (data) {
+                
+                    vidDefault = data;
+                    
+                    loadJSONVideo(vidDefault);
+                });
+
+    });
+
+</script>
+            }
+        </div>
+    </div>
+}
+    <div class="span4">
+        @{Html.RenderPartial("_AdBanner2"); }
+            <hr />
+          <b>@Messages.Videos</b>
+            <div class="gallery">
+                <form method="post" action="@Url.Content("~/account/playlist")">
+                @Html.Raw(HttpUtility.HtmlDecode(ViewBag.PlaylistVideos))
+                </form>
+            </div>
+    </div>
+</div>

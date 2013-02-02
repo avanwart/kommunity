@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html> 
+<html> 
+<head> 
+	@Html.Partial("HeadContainer")
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+	<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+	@Html.Script("~/scripts/mobile.js")
+	@Html.Stylesheet("~/styles/mobile.css")
+	@RenderSection("Head", required: false)
+</head> 
+<body> 
+<div data-role="page">
+	<div data-role="header" data-add-back-btn="true">
+		<h1>@ViewBag.Title</h1>
+		<a href="/" data-icon="home">Home</a>
+		<div data-role="navbar">@Html.Partial("UserMenu")</div>
+	</div>
+	<div data-role="content">		
+		@RenderBody()
+	</div>
+
+	<div data-role="footer">
+		<h4>Powered by <a href="http://www.nearforums.com" rel="external">nearforums</a></h4>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL.ProductItem;
+
+<div class="side_market_nav">
+<i style="font-size:10px">Market is under construction</i>
+    <ul id="market_menu">
+
+        @{
+            string currentDept = ViewBag.CurrentDept;
+
+            Departments depts = new Departments();
+
+            depts.GetAll();
+
+            Category catg = new BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Category();
+            Categories catgs = null;
+
+            foreach (BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Department d1 in depts)
+            {
+            <li>@*<a href="#">@d1.Name</a>*@
+
+            <a href="@d1.UrlTo">@d1.DisplayName</a>
+
+
+                <ul@if ( d1.DepartmentKey == currentDept) {<text> class="current_dept"</text>}>
+
+                    @{catgs = new BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Categories();
+                      catgs.GetCategoriesForDepartment(d1.DepartmentID);}
+                    @{foreach (BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Category c1 in catgs)
+                      {
+                        <li@if ( ViewBag.CurrentCat == c1.CategoryKey) {<text> class="current_cat"</text>}><a href="@c1.UrlTo.ToString()">@c1.DisplayName</a></li>
+                      }
+                    }
+                </ul>
+            </li>    
+         
+          }
+     
+        }
+    </ul>
+    <br />
+
+   
+   @* <h3>Brands</h3>*@
+
+
+
+@*
+ 
+    <span class="side_sections">Categories</span>
+    <ul class="category_items">
+        @{SortedDictionary<string, int> myCollection =
+                        (SortedDictionary<string, int>)ViewData["product_categories"];
+
+
+          int catID = 0;
+
+          if (!string.IsNullOrEmpty(
+              Request.QueryString[BootBaronLib.Enums.SiteEnums.QueryStringNames.cat.ToString()]))
+          {
+              catID = Convert.ToInt32(
+                  Request.QueryString[BootBaronLib.Enums.SiteEnums.QueryStringNames.cat.ToString()]);
+          }
+                    
+                    
+        }
+        @if (catID == 0)
+        {
+            <li class="selected_category">- All - </li>
+        }
+        else
+        {
+            <li><a href="/market/">- All -</a> </li>
+                
+               
+
+        }
+        @{foreach (KeyValuePair<string, int> st in myCollection)
+          {
+            <li @if (st.Value == catID)
+                { <text> class="selected_category" </text> } >
+                @if (st.Value != catID)
+                {
+                    <a href="#" onclick="categoryFilter(@st.Value)">
+                        @st.Key</a> }
+                else
+                {
+                    @st.Key
+                }
+            </li>
+          }
+        }
+    </ul>*@
+    <div style="margin-left: auto;margin-right: auto;width: 150px">
+     <button type="button" onclick="window.location='/market/brandlist'"
+      class="sh_blue" href="/market/brandlist">Brand List</button>
+     </div>
+</div>
+
+

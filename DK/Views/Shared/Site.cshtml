@@ -1,0 +1,428 @@
+﻿@using BootBaronLib.Resources;
+@using BootBaronLib.Enums;
+<!DOCTYPE html>
+
+@{string langName = string.Empty;
+  if (ViewBag.SpecLang != null)
+  {
+      langName = ViewBag.SpecLang.ToLower();
+  }
+  else
+  {
+      langName = BootBaronLib.Operational.Utilities.GetCurrentLanguageCode().ToLower();
+  }
+}
+<html  lang="@langName" @if (langName == SiteEnums.SiteLanguages.AR.ToString().ToLower())
+                        {<text>dir="rtl"</text>}
+                        else
+                        {<text>dir="ltr"</text>}>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="@Url.Content("~/content/images/brand/favicon.ico")" />
+    <title>@ViewBag.Title : [@BootBaronLib.Configs.GeneralConfigs.SiteName]</title>
+ 
+
+        @System.Web.Optimization.Styles.Render("~/Content/css_head1")
+
+    
+
+    <style type="text/css">
+      body 
+      {
+          @if (HttpContext.Current.Request.IsAuthenticated)
+          {
+              <text>
+        padding-top: 90px;
+        </text>
+          }
+          else
+          {
+              <text>
+              padding-top: 50px;
+        </text>
+          }
+        padding-bottom: 50px;
+      
+      }
+
+    </style>
+ 
+
+
+@System.Web.Optimization.Styles.Render("~/Content/style/css_head2")
+
+
+
+
+@System.Web.Optimization.Styles.Render("~/Content/mediaelement/css_mediaelement")
+
+         @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                   @BootBaronLib.Enums.SiteEnums.SiteBrandType.STYLE,
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+    
+
+    @RenderSection("_css", false)
+    <meta name="description" @if (!string.IsNullOrEmpty(ViewBag.MetaDescription))
+                             {<text>content="@Html.Raw(ViewBag.MetaDescription)"</text> }
+                             else
+                             {<text>content="@Messages.CreativeCommunity"</text>} />
+    <meta property="og:title"     @if (!string.IsNullOrEmpty(ViewBag.Title))
+                                  { <text>content="@Html.Raw(ViewBag.Title)"</text> }
+                                  else
+                                  { <text>content="@Messages.CreativeCommunity"</text>} />
+    <meta property="og:description"     @if (!string.IsNullOrEmpty(ViewBag.MetaDescription))
+                                        {  <text>content="@Html.Raw(ViewBag.MetaDescription)"</text>  }
+                                        else
+                                        {  <text>content="@Messages.CreativeCommunity"</text>} />
+    <link rel="image_src"  @if (!string.IsNullOrEmpty(ViewBag.ThumbIcon))
+                           {<text>href="</text>@Html.Raw(ViewBag.ThumbIcon)<text>"</text> }
+                           else
+                           { <text>href="@Url.Content("~/content/images/brand/logo.png")"</text>} />
+    <meta id="thumb_icon" property="og:image"  @if (!string.IsNullOrEmpty(ViewBag.ThumbIcon))
+                                               {<text>content="</text>@Html.Raw(ViewBag.ThumbIcon)<text>"</text> }
+                                               else
+                                               {  <text>content="@Url.Content("~/content/images/brand/logo.png")"</text> } />
+
+
+    <script type="text/javascript">
+        var $rootUrl = '/';
+
+    </script>
+
+
+    @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                   BootBaronLib.Enums.SiteEnums.SiteBrandType.GOOGH,
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+    @RenderSection("_javascriptHead", false)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
+                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </a><a href="@Url.Content("~/")" class="brand">
+                    <img style=" height:39px;" alt="@BootBaronLib.Configs.GeneralConfigs.SiteName"
+                 src="@Url.Content("~/Content/images/brand/smalllogo.png")" />
+                </a>
+                <div class="nav-collapse">
+                    <ul class="nav the-icons">
+                        <li><a href="@Url.Content("~/")" class="site_name">@BootBaronLib.Configs.GeneralConfigs.SiteName</a></li>
+
+                                       @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "store" &&
+                            ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
+                        {
+                            <li class="active"><a class="current_page_item" href="@Url.Content("~/store")">
+                                <i class="icon-tag"></i> @Messages.Store</a> </li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Content("~/store")">
+                            <i class="icon-tag"></i> @Messages.Store</a> </li>
+                        }
+
+                        @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "video" &&
+                            ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
+                        {
+                            <li class="active"><a class="current_page_item" href="@Url.Content("~/video")">
+                                <i class="icon-film"></i> @Messages.Video</a> </li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Content("~/video")">
+                                <i class="icon-film"></i> @Messages.Video</a> </li>
+                        }
+                        @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "radio")
+                        {
+                            <li class="active"><a class="current_page_item " href="@Url.Content("~/radio")">
+                                <i class="icon-music"></i> @Messages.Radio</a> </li>
+                        }
+                        else
+                        {
+                            <li><a class="current_page_item " href="@Url.Content("~/radio")">
+                                <i class="icon-music"></i> @Messages.Radio</a> </li>
+                        }
+                        @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "photos" &&
+                           ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
+                        {
+                            <li class="active"><a class="current_page_item" href="@Url.Content("~/photos")">
+                                <i class="icon-camera"></i> @Messages.Photos</a> </li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Content("~/photos")">
+                                <i class="icon-camera"></i> @Messages.Photos</a> </li>
+                        }
+                        <li
+                  
+               @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "findusers" &&
+                    ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
+               {
+          <text>class="active" </text>
+               }
+           ><a href="@Url.Content("~/findusers")">
+               <i class="icon-search"></i>
+               @Messages.FindUsers</a> </li>
+                        @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "news" &&
+                        ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
+                        {
+                            <li class="active"><a  
+                            
+                            
+                            href="@Url.Content("~/news")">
+                                <i class="icon-th-list"></i> @Messages.News</a> </li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Content("~/news")">
+                                <i class="icon-th-list"></i> @Messages.News</a> </li>
+                        }
+                        @*   @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "map")
+                        {
+                            <li class="active"><a  href="@Url.Content("~/map")">
+                          <i class="icon-map-marker"></i>  
+                            @Messages.Map</a> </li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Content("~/map")">
+                            <i class="icon-map-marker"></i>    @Messages.Map</a> </li>
+                        }*@
+                        @*                        @if (!string.IsNullOrEmpty(BootBaronLib.Configs.GeneralConfigs.YoutubeLink))
+                        {
+                            <li><a style="padding-bottom: 0; margin-bottom: 0; padding-left: 0; padding-right: 0"
+                            target="_blank" href="@BootBaronLib.Configs.GeneralConfigs.YoutubeLink">
+                                <img   alt="You Tube" 
+                        src="@Url.Content("~/content/images/social/yt_logo.png")" /></a> </li>
+                        }
+                        @if (!string.IsNullOrEmpty(BootBaronLib.Configs.GeneralConfigs.FacebookLink))
+                        {
+                            <li><a style="padding-bottom: 0; margin-bottom: 0; padding-left: 0; padding-right: 0"
+                            target="_blank" href="@BootBaronLib.Configs.GeneralConfigs.FacebookLink">
+                                <img   alt="Facebook" 
+                        src="@Url.Content("~/content/images/social/fb_logo.png")" /></a> </li>
+                        }
+                        @if (!string.IsNullOrEmpty(BootBaronLib.Configs.GeneralConfigs.TwitterLink))
+                        {
+                            <li><a style="padding-bottom: 0; margin-bottom: 0; padding-left: 0; padding-right: 0"
+                            target="_blank" href="@BootBaronLib.Configs.GeneralConfigs.TwitterLink">
+                                <img   alt="Twitter" 
+                        src="@Url.Content("~/content/images/social/tw_logo.png")" /></a> </li>
+                        }*@
+                        <li>
+                            <select id="langugue_option" class="span1" style="margin-left: 3px;">
+
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "AR")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.AR.ToString()">@SiteEnums.SiteLanguages.AR.ToString()</option>
+
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "CS")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.CS.ToString()">@SiteEnums.SiteLanguages.CS.ToString()</option>
+
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "DA")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.DA.ToString()">@SiteEnums.SiteLanguages.DA.ToString()</option>
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "DE")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.DE.ToString()">@SiteEnums.SiteLanguages.DE.ToString()</option>
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "EL")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.EL.ToString()">@SiteEnums.SiteLanguages.EL.ToString()</option>
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "EN")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.EN.ToString()">@SiteEnums.SiteLanguages.EN.ToString()</option>
+
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "ES")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.ES.ToString()">@SiteEnums.SiteLanguages.ES.ToString()</option>
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "FI")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.FI.ToString()">@SiteEnums.SiteLanguages.FI.ToString()</option>
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "FR")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.FR.ToString()">@SiteEnums.SiteLanguages.FR.ToString()</option>
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "HU")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.HU.ToString()">@SiteEnums.SiteLanguages.HU.ToString()</option>
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "IT")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.IT.ToString()">@SiteEnums.SiteLanguages.IT.ToString()</option>
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "JA")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.JA.ToString()">@SiteEnums.SiteLanguages.JA.ToString()</option>
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "KO")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.KO.ToString()">@SiteEnums.SiteLanguages.KO.ToString()</option>
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "NL")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.NL.ToString()">@SiteEnums.SiteLanguages.NL.ToString()</option>
+
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "PL")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.PL.ToString()">@SiteEnums.SiteLanguages.PL.ToString()</option>
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "PT")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.PT.ToString()">@SiteEnums.SiteLanguages.PT.ToString()</option>
+
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "RU")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.RU.ToString()">@SiteEnums.SiteLanguages.RU.ToString()</option>
+
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "SV")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.SV.ToString()">@SiteEnums.SiteLanguages.SV.ToString()</option>
+
+                                @*        <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "TR")
+        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.TR.ToString()">@SiteEnums.SiteLanguages.TR.ToString()</option>
+*@
+                                <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "ZH")
+                                        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.ZH.ToString()">@SiteEnums.SiteLanguages.ZH.ToString()</option>
+
+                            </select>
+                        </li>
+            
+                    </ul>
+                    @{Html.RenderPartial("_LoggedInControls"); }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='container'>
+        @{Html.RenderPartial("_LogOnPartial"); }
+        @RenderBody()
+        <footer>
+            <hr />
+            &copy; @string.Format(BootBaronLib.Resources.Messages.CopyrightAllRights, DateTime.UtcNow.Year, BootBaronLib.Configs.GeneralConfigs.SiteDomain) | 
+
+            @Html.Raw(@"<a href=""" + BootBaronLib.Configs.GeneralConfigs.SiteDomain + @""">" + BootBaronLib.Configs.GeneralConfigs.SiteName + @"</a>" )  |  
+
+
+              <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.ABOUT.ToString())">@Messages.About</a>  | <a href="@Url.Content("~/contact")">@Messages.Contact</a>  |
+               <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS.ToString())">@Messages.TermsAndCondtions</a> |  
+                 <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.PRIPL.ToString())">@Messages.PrivacyPolicy</a>
+
+        </footer>
+    </div>
+
+
+ 
+
+  
+ @if (!Request.Browser.IsMobileDevice)
+    {
+        @*
+        var js1MediaBundleUrl = System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/jsfooter_desktop", true) + ".js";
+
+        <script type="text/javascript" src="@js1MediaBundleUrl" ></script>*@
+       
+             @System.Web.Optimization.Scripts.Render("~/bundles/jsfooter_desktop")
+
+    }
+    else
+    {
+        @*
+        var js1MediaBundleUrl = System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/jsfooter_mobile", true) + ".js";
+
+        <script type="text/javascript" src="@js1MediaBundleUrl" ></script>*@
+        
+           @System.Web.Optimization.Scripts.Render("~/bundles/jsfooter_mobile")
+
+    }
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+            $().UItoTop({ easingType: 'easeOutQuart' });
+             
+        });
+
+        $.ajaxSetup({ cache: false });
+
+         
+        function timedLoader() {
+            // do some stuff...
+            // no need to recall the function (it's an interval, it'll loop forever)
+
+     
+
+            $.getJSON($rootUrl + "io/operation.ashx?param_type=menu&time=" + new Date().getTime(), function (data) {
+                // load meu
+                var showNotice = false;
+
+                if (data.UserCountChat > 0) {
+                    $("#video_room").html('<i class="icon-user"></i> @Html.Raw(BootBaronLib.Resources.Messages.ChatRoom) <span class="badge badge-info">' + data.UserCountChat + '</span>');
+                    $("#video_room").addClass('alert_blue');
+                }
+                else {
+                    $("#video_room").html('<i class="icon-user"></i> @Html.Raw(BootBaronLib.Resources.Messages.ChatRoom)');
+                    $("#video_room").removeClass('alert_blue');
+                }
+
+                if (data.UserMessages > 0) {
+                    $("#mail_inbox").html('<i class="icon-inbox"></i> @Html.Raw(BootBaronLib.Resources.Messages.Mail) <span class="badge badge-warning">' + data.UserMessages + '</span>');
+                    $("#mail_inbox").addClass('alert_yellow');
+                    showNotice = true;
+                }
+                else {
+                    $("#mail_inbox").html('<i class="icon-inbox"></i> @Html.Raw(BootBaronLib.Resources.Messages.Mail)');
+                    $("#mail_inbox").removeClass('alert_yellow');
+                }
+
+                if (data.OnlineUsers > 0) {
+
+                    $("#logged_in_user").css("visibility", "visible");
+                    $("#logged_in_user").text('@Html.Raw(BootBaronLib.Resources.Messages.OnlineNow)');
+                    $("#logged_in_user_count").text(data.OnlineUsers);
+                    $("#logged_in_user_count").addClass('bright_green');
+                }
+                else {
+                    $("#logged_in_user").css("visibility", "hidden");
+                    $("#logged_in_user_count").text('');
+                    $("#logged_in_user_count").removeClass('alert_yellow');
+                }
+
+                if (data.UnconfirmedUsers > 0) {
+                    $("#my_users").html('<i class="icon-ok-sign"></i> @Html.Raw(BootBaronLib.Resources.Messages.MyZone) <span class="badge badge-warning">' + data.UnconfirmedUsers + '</span>');
+                    $("#my_users").addClass('alert_yellow');
+                    showNotice = true;
+                }
+                else {
+                    $("#my_users").html('<i class="icon-ok-sign"></i> @Html.Raw(BootBaronLib.Resources.Messages.MyZone)');
+                    $("#my_users").removeClass('alert_yellow');
+                }
+
+
+                if (data.Notifications > 0) {
+                    $("#status_updates").html('@Html.Raw(BootBaronLib.Resources.Messages.StatusUpdate) <span class="badge badge-warning">' + data.Notifications + '</span>');
+                    $("#status_updates").removeClass('btn-inverse');
+                    $("#status_updates").addClass('btn-warning');
+                    showNotice = true;
+                }
+                else {
+                    $("#status_updates").text('@Html.Raw(BootBaronLib.Resources.Messages.StatusUpdate)');
+                    $("#status_updates").removeClass('btn-warning');
+                    $("#status_updates").addClass('btn-inverse');
+                }
+
+                if (showNotice) {
+                    $(".navbar .btn-navbar").attr("style", "border: 2px solid #f89406");
+                    $("#toTopHover").attr("id", "toTopHover2");
+                    $("#toTop").attr("id", "toTop2");
+
+                    showNotice = false;
+                }
+                else {
+                    $(".navbar .btn-navbar").attr("style", "border: inherit");
+                    $("#toTopHover2").attr("id", "toTopHover");
+                    $("#toTop2").attr("id", "toTop");
+                }
+
+            });
+
+        }
+        timedLoader();
+        // set interval
+        var tid = setInterval(timedLoader, 15000);
+
+        function abortTimer() { // to be called when you want to stop the timer
+            clearInterval(tid);
+        }
+
+        $('#langugue_option').change(function () {
+            window.location = window.location.href.split('?')[0] + '?language=' + $(this).val();
+        });
+
+
+
+    </script>
+    <!-- end #page -->
+    @RenderSection("_javascript", false)
+    <!-- end #footer -->
+
+</body>
+</html>

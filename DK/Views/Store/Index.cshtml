@@ -1,0 +1,33 @@
+﻿@using BootBaronLib.Resources;
+@{
+    ViewBag.Title = Messages.Store;
+}
+@{Html.RenderPartial("_AdBanner"); }
+
+<h2>
+    @Messages.Store</h2>
+  <hr />
+
+<div class="row">
+
+
+    <div class="span8">
+                @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                            BootBaronLib.Enums.SiteEnums.SiteBrandType.STORE,
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+
+
+    </div>
+
+    <div class="span4">
+        @*    @{Html.RenderPartial("_AdBanner2"); }*@
+
+         @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                            BootBaronLib.Enums.SiteEnums.SiteBrandType.STRSD,
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+
+    </div>
+
+
+
+</div>

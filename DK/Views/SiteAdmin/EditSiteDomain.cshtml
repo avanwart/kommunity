@@ -1,0 +1,192 @@
+﻿@model DasKlub.Models.SiteDomainModel
+@using  BootBaronLib.Resources
+@using Web.Helpers
+
+@{
+    ViewBag.Title = "EditSiteDomain";
+}
+
+<div class="row">
+<div class="span8">
+
+<h2>@Messages.Website: @Messages.Settings</h2>
+    <hr />
+   @{Html.RenderPartial("_adminMenu"); }
+
+
+
+
+@using (Html.BeginForm("EditSiteDomain", "SiteAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+            
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_siteBrandForm");
+
+
+    <button style="margin-right:100px;" type="submit" value="save" class="btn btn-success">@BootBaronLib.Resources.Messages.Submit</button>
+            
+
+
+    @Html.ActionLink(@BootBaronLib.Resources.Messages.Delete,
+                           "DeleteSiteDomain", new { siteDomainID = Model.SiteDomainID },
+                  new
+                  {
+                      @class = "btn btn-danger",
+                      onclick = "return confirm('" +
+                      BootBaronLib.Resources.Messages.Delete + "?')"
+                  })
+
+}
+
+</div>
+
+<div class="span4">
+    
+    <pre>
+      public enum SiteBrandType
+        {
+            
+            /// <summary>
+            /// Script at the bottom of the homepage
+            /// </summary>
+            HOMEB,
+            /// <summary>
+            /// Business address
+            /// </summary>
+            ADDRS,
+            /// <summary>
+            /// Status update side message
+            /// </summary>
+            STATU,
+            /// <summary>
+            /// homepage script
+            /// </summary>
+            HOMES,
+            /// <summary>
+            /// Terms and condtions
+            /// </summary>
+            TERMS,
+            /// <summary>
+            /// Privacy policy
+            /// </summary>
+            PRIPL,
+            /// <summary>
+            /// About us
+            /// </summary>
+            ABOUT,
+            /// <summary>
+            /// Home featured user
+            /// </summary>
+            HOMEF,
+            /// <summary>
+            /// Home center/ canvas
+            /// </summary>
+            HOMEC,
+            /// <summary>
+            /// Radio stations -desktop
+            /// </summary>
+            RADIO,
+            /// <summary>
+            /// Radio stations mobile
+            /// </summary>
+            RADIM,
+            /// <summary>
+            /// Site tag line
+            /// </summary>
+            TAGLN,
+            /// <summary>
+            /// CSS style
+            /// </summary>
+            STYLE,
+            /// <summary>
+            /// Main store
+            /// </summary>
+            STORE,
+            /// <summary>
+            /// To the side of the store
+            /// </summary>
+            STRSD,
+            /// <summary>
+            /// Google analytics script head
+            /// </summary>
+            GOOGH,
+            /// <summary>
+            /// Google analytics script body
+            /// </summary>
+            GOOGB,
+            /// <summary>
+            /// Google search
+            /// </summary>
+            GOOGS,
+            /// <summary>
+            /// 486 x 60 ad 1/3
+            /// </summary>
+            A4861,
+            /// <summary>
+            /// 486 x 60 ad 1/3
+            /// </summary>
+            A4862,
+            /// <summary>
+            /// 486 x 60 ad 1/3
+            /// </summary>
+            A4863,
+            /// <summary>
+            ///  160 x 600 ad 1/3
+            /// </summary>
+            A1601,
+            /// <summary>
+            ///  160 x 600 ad 2/3
+            /// </summary>
+            A1602,
+            /// <summary>
+            ///  160 x 600 ad 3/2
+            /// </summary>
+            A1603,
+            /// <summary>
+            ///  120 x 60 ad 1/3
+            /// </summary>
+            A1201,
+            /// <summary>
+            ///   120 x 60 ad 2/3
+            /// </summary>
+            A1202,
+            /// <summary>
+            ///   120 x 60 ad 3/2
+            /// </summary>
+            A1203,
+            /// <summary>
+            ///  234 x 60 ad 1/3
+            /// </summary>
+            A2341,
+            /// <summary>
+            ///   234 x 60 ad 2/3
+            /// </summary>
+            A2342,
+            /// <summary>
+            ///   234 x 60 ad 3/2
+            /// </summary>
+            A2343,
+            /// <summary>
+            ///   728x90 ad 3/2
+            /// </summary>
+            A7281,
+            /// <summary>
+            ///  728x90 ad 2/3
+            /// </summary>
+            A7282,
+            /// <summary>
+            ///  728x90 ad 3/2
+            /// </summary>
+            A7283,
+
+            
+        }
+
+
+            
+  
+    </pre>
+</div>
+</div>

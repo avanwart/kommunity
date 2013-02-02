@@ -1,0 +1,219 @@
+﻿@using BootBaronLib.Resources;
+@{
+    ViewBag.Title = Messages.VoteFor + " " + ViewBag.Contest.Name;
+}
+<div class="vid_filter_block">
+
+    <h2>@ViewBag.Contest.Name</h2>
+    @if (ViewBag.ContestVideos == null)
+    {
+    
+        <i>@Messages.YouResponded</i>
+
+    }
+    <br />
+
+                  
+<script>
+    TargetDate = "@String.Format(new System.Globalization.CultureInfo("en-US"), "{0:MM/dd/yyyy} 12:00 AM", ViewBag.Contest.DeadLine.AddHours(72))";
+    BackColor = "YELLOW";
+    ForeColor = "#000000";
+    CountActive = true;
+    CountStepper = -1;
+    LeadingZero = true;
+    DisplayFormat ="%%D%% @Messages.Days, %%H%% @Messages.Hours, %%M%% @Messages.Minutes, %%S%% @Messages.Seconds", FinishMessage = "@Messages.End";
+
+</script>
+<script type="text/javascript">
+
+
+    function calcage(secs, num1, num2) {
+        s = ((Math.floor(secs / num1)) % num2).toString();
+        if (LeadingZero && s.length < 2)
+            s = "0" + s;
+        return "<b>" + s + "</b>";
+    }
+
+    function CountBack(secs) {
+        if (secs < 0) {
+            document.getElementById("cntdwn").innerHTML = FinishMessage;
+            return;
+        }
+        DisplayStr = DisplayFormat.replace(/%%D%%/g, calcage(secs, 86400, 100000));
+        DisplayStr = DisplayStr.replace(/%%H%%/g, calcage(secs, 3600, 24));
+        DisplayStr = DisplayStr.replace(/%%M%%/g, calcage(secs, 60, 60));
+        DisplayStr = DisplayStr.replace(/%%S%%/g, calcage(secs, 1, 60));
+
+        document.getElementById("cntdwn").innerHTML = DisplayStr;
+        if (CountActive)
+            setTimeout("CountBack(" + (secs + CountStepper) + ")", SetTimeOutPeriod);
+    }
+
+    function putspan(backcolor, forecolor) {
+        document.write("<span id='cntdwn' style='font-size:16px; background-color:" + backcolor +
+                "; color:" + forecolor + "'></span>");
+    }
+
+    if (typeof (BackColor) == "undefined")
+        BackColor = "white";
+    if (typeof (ForeColor) == "undefined")
+        ForeColor = "black";
+    if (typeof (TargetDate) == "undefined")
+        TargetDate = "12/31/2020 12:00 AM";
+    if (typeof (DisplayFormat) == "undefined")
+        DisplayFormat = " %%D%% @Messages.Days, %%H%% @Messages.Hours, %%M%% @Messages.Minutes, %%S%% @Messages.Seconds";
+if (typeof (CountActive) == "undefined")
+    CountActive = true;
+if (typeof (FinishMessage) == "undefined")
+    FinishMessage = "@Messages.End";
+if (typeof (CountStepper) != "number")
+    CountStepper = -1;
+if (typeof (LeadingZero) == "undefined")
+    LeadingZero = true;
+
+
+CountStepper = Math.ceil(CountStepper);
+if (CountStepper == 0)
+    CountActive = false;
+var SetTimeOutPeriod = (Math.abs(CountStepper) - 1) * 1000 + 990;
+putspan(BackColor, ForeColor);
+var dthen = new Date(TargetDate);
+
+
+var dnow = new Date();
+
+var now_utc = new Date(dnow.getUTCFullYear(), dnow.getUTCMonth(), dnow.getUTCDate(), dnow.getUTCHours(), dnow.getUTCMinutes(), dnow.getUTCSeconds());
+
+dnow = now_utc;
+
+if (CountStepper > 0)
+    ddiff = new Date(dnow - dthen);
+else
+    ddiff = new Date(dthen - dnow);
+gsecs = Math.floor(ddiff.valueOf() / 1000);
+CountBack(gsecs);
+
+
+
+
+
+
+
+</script>
+
+    <br />
+    
+    <div class="top_detail_profile">
+        @if (ViewBag.ContestVideos != null)
+        {
+  
+            <i style="color: YELLOW; font-size: 18px"> @ViewBag.Contest.Description</i>
+                <br />
+            <br />
+            <text> @Messages.Video - @Messages.Count:</text> @ViewBag.ContestVideos.Count.ToString()
+            <br /><br />
+            <form action="@Url.Content("~/account/videovote")" method="post">
+            <table>
+                @foreach (BootBaronLib.AppSpec.DasKlub.BOL.Video v1 in ViewBag.ContestVideos)
+                {
+
+                    //string vidSRC = "http://www.youtube.com/embed/" + @v1.ProviderKey + "?rel=0";
+                    string vidSRC = "http://img.youtube.com/vi/" + @v1.ProviderKey + "/0.jpg";
+                    
+                    <tr style="border-top:3px dashed #808080;padding-bottom:10px;" >
+                        <td  >
+                           <b>@Messages.UserName:  @v1.ProviderUserKey</b>
+                            <br />
+                               @Messages.Published: @v1.PublishDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'")
+                               <br />
+                       
+                              <i>@{BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent.SongRecord sr = new BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent.SongRecord(v1);}
+                           @Messages.Song:      @Html.Raw(sr.SongDisplayNoLink2)
+                            </i>
+                            <br />
+                            <a class="m_over" href="@v1.VideoURL.ToString()" target="_blank">
+                            @Messages.Video
+                                </a>
+                               <br />
+                         @*   <iframe  width="600" height="400" src="@vidSRC" frameborder="0" allowfullscreen></iframe>*@
+                         <a class="m_over" href="@v1.VideoURL.ToString()" target="_blank">
+                         <img src="@vidSRC" title="Watch this video" /></a>
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<button title="@BootBaronLib.Resources.Messages.VoteFor: @v1.ProviderUserKey" name="video_vote" class="btn btn-success" value="@v1.VideoID">
+                               @BootBaronLib.Resources.Messages.VoteFor: @v1.ProviderUserKey</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+            </form>
+        }
+        else
+        {
+               <h4>Current Standings</h4> <i>Top 10 are green, in the case of a tie, the video published first wins (results are only final when timer ends)</i>
+    <br />
+            @Messages.Votes <text>:</text> @ViewBag.ContestResults.TotalVotes
+        <table>
+            <thead>
+                <tr>
+                    <td style="width:175px;text-align:center"><b>@Messages.Votes</b></td>
+                    <td style="width:225px"><b>@Messages.UserName</b></td>
+                    <td style="width:175px"><b>@Messages.Link</b></td>
+                    <td style="width:175px"><b>@Messages.Percentage</b></td>
+                </tr>
+                </thead>
+               
+            @{int i = 0;
+        }
+                
+           @foreach (BootBaronLib.AppSpec.DasKlub.BOL.VideoContest.ContestResult rslt in ViewBag.ContestResults)
+           {
+                if (i < 10)
+                {
+                      <tr style="background-color:#00ff1e;color:black;border:1px solid black ">
+
+
+           <td style="text-align:center">@rslt.TotalCount</td>
+           <td>@rslt.UserName</td>
+           <td>
+               <a class="m_over" href="http://youtu.be/@rslt.UrlTo" target="_blank">
+               <img src="http://i3.ytimg.com/vi/@rslt.UrlTo/0.jpg" style="width:75px;" />
+                   </a>
+              </td>
+   <td>@{decimal perc = Convert.ToDecimal(rslt.TotalCount) / Convert.ToDecimal(ViewBag.ContestResults.TotalVotes);}
+                 @perc.ToString("#.0000") %</td>
+</tr>
+
+                }
+           else 
+           {
+                    <tr style="background-color: red;border:1px solid black    ">
+
+
+           <td style="text-align:center">@rslt.TotalCount</td>
+           <td>@rslt.UserName</td>
+           <td>
+               <a class="m_over" href="http://youtu.be/@rslt.UrlTo" target="_blank">
+               <img src="http://i3.ytimg.com/vi/@rslt.UrlTo/0.jpg" style="width:75px;" />
+                   </a>
+              </td>
+   <td>@{decimal perc = Convert.ToDecimal(rslt.TotalCount) / Convert.ToDecimal(ViewBag.ContestResults.TotalVotes);}
+                 @perc.ToString("#.0000") %</td>
+</tr>
+                }
+
+
+               i++;
+               
+           
+           }
+ 
+            </table>
+
+           
+
+        }
+    </div>
+    <div class="clear">
+    </div>
+</div>

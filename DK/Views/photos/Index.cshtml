@@ -1,0 +1,121 @@
+ @{
+    ViewBag.Title = BootBaronLib.Resources.Messages.Photos;
+    
+}
+<div class="row" style="margin-left:0;padding-left:0">
+
+    <div class="span12" style="margin-left:0;padding-left:0;text-align:left;">
+    @{Html.RenderPartial("_AdBanner"); }
+        <h2>@BootBaronLib.Resources.Messages.Photos</h2>
+        <hr />
+    
+        @Html.Raw(Model.ToUnorderdList)
+
+        @if ( Convert.ToInt32(ViewBag.TotalPhotos) > 25)
+        {
+                  <div class="clear"></div>
+                if (Request.Browser.IsMobileDevice)
+                {
+                  
+   <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@BootBaronLib.Resources.Messages.LoadMore</button> 
+                }
+      
+        }
+          <div class="clear"></div>
+           @{Html.RenderPartial("_bottomLoadingMessage"); }
+ 
+           </div>
+            
+</div>
+
+   
+   @section _css {
+@if (Request.Browser.IsMobileDevice)
+{
+
+
+<style type="text/css">
+.photo_item_list li img {width: 55px;height:55px;}
+
+ 
+  .photo_item_list img { margin: 0; padding:0;}
+</style>
+}
+<style type="text/css">
+ 
+
+   ul.photo_item_list { margin: 0; padding: 0;}
+   
+</style>
+ 
+}
+ 
+ 
+ 
+
+
+@section _javascript {
+
+
+    
+        @if (Request.Browser.IsMobileDevice)
+        {
+
+            <script type="text/javascript">
+
+
+                $('#load_more').click(function () {
+                    $('#loading').fadeIn();
+
+                    $.post($rootUrl + 'photos/photoitems?time=' + new Date().getTime(), { pageNumber: pageNumber },
+                           function (data) {
+
+                               pageNumber++;
+                               $('.photo_item_list').append(data.ListItems);
+                               $('#loading').fadeOut();
+                           });
+
+                });
+
+                     </script>
+        }
+        else
+        {
+                <script type="text/javascript">
+                    $(function () {
+                        $('.photo_item_list').scrollPagination({
+                            'contentPage': $rootUrl + 'photos/photoitems', // the page where you are searching for results
+                            'contentData': {}, // you can pass the children().size() to know where is the pagination
+                            'scrollTarget': $(window), // who gonna scroll? in this example, the full window
+                            'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please
+                            'beforeLoad': function () { // before load, some function, maybe display a preloader div
+                                $('#loading').fadeIn();
+                            },
+                            'afterLoad': function (elementsLoaded) { // after loading, some function to animate results and hide a preloader div
+                                $('#loading').fadeOut();
+                                pageNumber++;
+                                var i = 0;
+                                $(elementsLoaded).fadeInWithDelay();
+                                if ($('.photo_item_list').children().size() > 10000) { // if more than 100 results loaded stop pagination (only for test)
+                                    $('#nomoreresults').fadeIn();
+                                    $('.photo_item_list').stopScrollPagination();
+                                }
+                            }
+                        });
+
+                        // code for fade in element by element with delay
+                        $.fn.fadeInWithDelay = function () {
+                            var delay = 0;
+                            return this.each(function () {
+                                $(this).delay(delay).animate({ opacity: 1 }, 200);
+                                delay += 100;
+                            });
+                        };
+
+                    });
+
+    </script>
+        }
+}
+
+

@@ -1,0 +1,181 @@
+﻿@using BootBaronLib.Resources
+@{
+    ViewBag.Title = Messages.EditProfile + ": " + Messages.ProfilePhotos;
+}
+<div class="row">
+    <div class="span8">
+        @{Html.RenderPartial("_AdBanner"); }
+
+
+        <h2>@Messages.EditProfile</h2>
+        <hr />
+        @{Html.RenderPartial("_editProfileMenu"); }
+        @if (ViewBag.NextStep != null)
+        {   
+            @Html.Raw(ViewBag.NextStep)
+            <br />
+        }
+        <i>@Messages.SelectThePhotoToReplace</i>
+        <br />
+        <span class="alert_yellow">@Messages.Selected:</span> <span id="current_edit"></span>
+        <br />
+        @if (ViewBag.IsValid != null && !ViewBag.IsValid)
+        {
+            @Html.ValidationSummary(true, Messages.PleaseCorrectTheErrors)
+        }
+        <div class="span3" style="margin: 0;">
+            <img id="largeImg" src="@Model.FullProfilePicURL" style="width:100%;" />
+        </div>
+        <div class="span1">
+            <a id="photo_edit_1" title="@Messages.CurrentDefault"  style="border: none;"
+                                          href="@Model.FullProfilePicURL"  
+               class="current_view_profile_pic thumbnail m_over">
+                <img src="@Model.FullProfilePicThumbURL"    />
+            </a>
+            <br />
+            <button disabled="disabled" type="submit" class="btn">
+                @Messages.CurrentDefault</button>
+            <br />
+            @if (
+
+                                                    !Model.FullProfilePicThumbURL.ToLower().Contains("default"))
+            {
+ 
+                <form action="@Url.Content("~/account/EditPhotoDelete")" method="post">
+                    <br />
+                    <button type="submit" name="delete_photo" 
+ value="1"  class="btn btn-danger" 
+ onClick="return confirm(
+  '@Messages.DeleteThis');">@Messages.Delete</button>
+                </form>
+            }
+        </div>
+        <div class="span1">
+            <a  id="photo_edit_2"  title="2" style="border: none;"
+                                        href="@ViewBag.SecondUserPhotoFull"   class="thumbnail m_over">
+                <img   src="@ViewBag.SecondUserPhotoThumb"    />
+            </a>
+            <br />
+            <form action="@Url.Content("~/account/editphoto")" method="post">
+                @if (ViewBag.SecondUserPhotoID != null &&
+                                        ViewBag.SecondUserPhotoID != 0)
+                {
+                    <button type="submit" id="second_default" class="btn"
+                                        name="new_default" value="@ViewBag.SecondUserPhotoID">
+                        @Messages.MakeDefault</button>
+                }
+            </form>
+            @if (ViewBag.SecondUserPhotoID != null &&
+                                        ViewBag.SecondUserPhotoID != 0)
+            {
+                
+                
+                <form action="@Url.Content("~/account/EditPhotoDelete")" method="post">
+                    <button type="submit" name="delete_photo" 
+ value="2"  class="btn btn-danger" 
+ onClick="return confirm(
+  '@Messages.DeleteThis');">@Messages.Delete</button>
+                </form>
+               
+            }
+        </div>
+        <div class="span1">
+            <a  id="photo_edit_3"  title="3"  style="border: none;"
+                href="@ViewBag.ThirdUserPhotoFull"
+                
+                class="thumbnail m_over">
+                <img   src="@ViewBag.ThirdUserPhotoThumb"  />
+            </a>
+            <br />
+            <form action="@Url.Content("~/account/editphoto")" method="post">
+                @if (ViewBag.ThirdUserPhotoID != null &&
+                                        ViewBag.ThirdUserPhotoID != 0)
+                {
+                    <button type="submit" id="third_default"   class="btn"
+                                        name="new_default" value="@ViewBag.ThirdUserPhotoID">
+                        @Messages.MakeDefault</button>
+                }
+            </form>
+            @if (ViewBag.ThirdUserPhotoID != null &&
+                                        ViewBag.ThirdUserPhotoID != 0)
+            {
+                <form action="@Url.Content("~/account/EditPhotoDelete")" method="post">
+                    <button type="submit" name="delete_photo" 
+ value="3"  class="btn btn-danger" 
+ onClick="return confirm(
+  '@Messages.DeleteThis');">@Messages.Delete</button>
+                </form>
+                
+            }
+        </div>
+        <div class="clear">
+        </div>
+        <div class="span4">
+            <p style="color: Yellow">@Messages.AllImagesAreConvertedToASquare</p>
+            <div id="dialog" title="@Messages.UploadPhoto">
+                @Messages.SelectFile
+                @using (Html.BeginForm("EditPhoto", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+
+
+ 
+                    <input type="file" id="fileUpload" name="file" size="15" />
+                    <input class="btn btn-success" type="submit" value="@Messages.UploadPhoto" />
+                
+                    <input type="hidden" id="photo_edit" name="photo_edit" />
+                }
+
+
+            </div>
+            @section _javascript {
+                <script type="text/javascript">
+
+
+
+
+
+                    var lastImgSelect = $('.current_view_profile_pic');
+                    $('#current_edit').text($(lastImgSelect).attr('title'));
+                    $('#photo_edit').attr('value', 'photo_edit_1');
+
+                    function AfterClick(theCl) {
+                        $(lastImgSelect).removeClass('current_view_profile_pic');
+                        $(theCl).addClass('current_view_profile_pic');
+                        $('#current_edit').text($(theCl).attr('title'));
+                        $('#photo_edit').attr('value', $(theCl).attr('id'));
+
+                    }
+
+                    $('a.thumbnail').click(function () {
+                        var src = $(this).attr('href');
+
+
+                        if (src != $('img#largeImg').attr('src').replace(/\?(.*)/, '')) {
+                            $('img#largeImg').stop().animate({
+                                opacity: '0'
+                            }, function () {
+                                $(this).attr('src', src + '?' + Math.floor(Math.random() * (10 * 100)));
+                            }).load(function () {
+                                $(this).stop().animate({
+                                    opacity: '1'
+                                });
+                            });
+
+
+                        }
+
+                        AfterClick(this);
+                        lastImgSelect = $(this);
+                        return false;
+
+                    });
+
+
+                </script>}
+        </div>
+    </div>
+    <div class="row4">
+        @{Html.RenderPartial("_AdBanner2"); }
+    </div>
+</div>

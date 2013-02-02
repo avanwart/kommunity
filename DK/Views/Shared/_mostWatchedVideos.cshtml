@@ -1,0 +1,29 @@
+﻿
+
+
+            @using BootBaronLib.AppSpec.DasKlub.BOL;
+            @using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
+
+   <h3>Popular This Week</h3>
+  
+@{
+    SongRecords sngrcds2 = new SongRecords();
+    SongRecord sng1 = new SongRecord();
+
+    /// most watched video
+
+    Videos vids = new Videos();
+
+    vids.GetMostWatchedVideos(7);
+
+
+    foreach (Video v1 in vids)
+    {
+        sng1 = new SongRecord(v1);
+        sngrcds2.Add(sng1);
+    }
+    @Html.Raw(sngrcds2.VideosList())
+            }
+
+
+          

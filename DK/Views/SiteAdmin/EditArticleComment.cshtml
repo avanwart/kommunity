@@ -1,0 +1,128 @@
+﻿@using BootBaronLib.Resources;
+@using Web.Helpers;
+@using BootBaronLib.Operational;
+@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment
+@{
+    ViewBag.Title = Messages.EditArticleComment;
+}
+@{Html.RenderPartial("_adminMenu"); }
+<h2>@Messages.EditArticleComment</h2>
+<br />
+@Html.Label(BootBaronLib.Resources.Messages.Link)
+<a target="_blank" href="@Model.UrlTo" rel="#">@Model.UrlTo</a>
+<br />
+<br />
+@using (Html.BeginForm("EditArticleComment", "SiteAdmin", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+     
+    
+    
+    
+    
+    
+    @Html.HiddenFor(model => model.ContentCommentID)
+    <div>
+        <fieldset>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.StatusType)
+            </div>
+            <div class="editor-field">
+                @{
+    var listItems = Enum.GetValues(typeof(BootBaronLib.Enums.SiteEnums.CommentStatus)).OfType<Enum>().Select(e =>
+new SelectListItem()
+{
+    Text = Utilities.ResourceValue(Utilities.GetEnumDescription(e)),
+    Value = e.ToString(),
+    Selected = e.Equals(Model)
+});
+    string prefix = "StatusType";
+    int index = 0;
+
+    foreach (var li in listItems)
+    {
+        string fieldName = string.Format(System.Globalization.CultureInfo.InvariantCulture,
+            "{0}_{1}", prefix, index++);
+
+        if (Model.StatusType.ToString() == li.Value)
+        {
+            li.Selected = true;
+        }
+                    <div style="float: left; padding-right: 25px;">
+                        @Html.RadioButton(prefix, li.Value, li.Selected, new { @id = fieldName })
+                        @Html.Label(fieldName, li.Text)</div>
+    
+    }
+
+                    <div class="clear">
+                    </div>
+                }
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.FromName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.FromName, new { @style = "width:500px" })
+                @Html.CSSClassValidationMessageFor(m => m.FromName)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.FromEmail)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.FromEmail, new { @style = "width:500px" })
+                @Html.CSSClassValidationMessageFor(m => m.FromEmail)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Detail)
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(m => m.Detail, new { @style = "width:500px;height:100px" })
+                @Html.CSSClassValidationMessageFor(m => m.Detail)
+            </div>
+        </fieldset>
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <button style="margin-right: 100px;"
+     type="submit" value="save" class="btn btn-success">@BootBaronLib.Resources.Messages.Save</button>
+
+    @Html.ActionLink(@BootBaronLib.Resources.Messages.Delete,
+                   "DeleteComment", new { id = Model.ContentCommentID },
+                  new
+                  {
+                      @style = "margin-right: 100px;",
+                      @class = "red",
+                      onclick = "return confirm('" +
+                      BootBaronLib.Resources.Messages.Delete + "?')"
+                  })
+
+    
+      @Html.ActionLink(@BootBaronLib.Resources.Messages.BlockIP,
+                   "BlockIP", new { id = Model.ContentCommentID },
+                  new
+                  {
+                      @class = "red",
+                      onclick = "return confirm('" +
+                      BootBaronLib.Resources.Messages.BlockIP + "?')"
+                  })
+}

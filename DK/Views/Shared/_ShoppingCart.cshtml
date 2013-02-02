@@ -1,0 +1,13 @@
+﻿ @using BootBaronLib.AppSpec.DasKlub.BOL.ProductItem;
+ @{
+     
+     ShoppingCartManager shoppingCart = new ShoppingCartManager(ShoppingCartManager.GetSessionGUID());
+     shoppingCart.GetCart();
+     <text>Items in cart:</text> if ( shoppingCart.CartItems != null){@shoppingCart.CartItems.Count
+          <br />
+     <a href="/market/shoppingcart">Check Out</a>
+                                }
+                                else
+                                {<text>0</text>}
+
+ }

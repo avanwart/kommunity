@@ -1,0 +1,72 @@
+﻿@using BootBaronLib.Resources
+@{
+    ViewBag.Title = Messages.MyZone;
+}
+<div class="row">
+    <div class="span8">
+        @{Html.RenderPartial("_AdBanner"); }
+        <h2>@Messages.MyZone</h2>
+        @{Html.RenderPartial("_myZoneMenu"); }
+        <i>@Messages.FriendsAndVisitors</i>
+        @Html.Raw(ViewBag.ApprovalList)
+        <div class="span2">
+            <a  class="m_over"
+href="@Url.Content(string.Format("~/account/irlcontacts/{0}", @ViewBag.CurrentUserName))"
+ >
+                @Messages.RealLifeContacts
+            </a>
+            <br />
+            <a  class="m_over"
+href="@Url.Content(string.Format("~/account/irlcontacts/{0}", @ViewBag.CurrentUserName))"
+ >
+                <img alt="@Messages.RealLifeContacts" title="@Messages.RealLifeContacts"
+src="@Url.Content("~/content/images/userstatus/handprint.png")" /></a>
+        </div>
+        <div class="span2">
+            <a  class="m_over" 
+href="@Url.Content(string.Format("~/account/CyberAssociates/{0}", @ViewBag.CurrentUserName))">
+                @Messages.CyberAssociates
+            </a>
+            <br />
+            <a  class="m_over" 
+href="@Url.Content(string.Format("~/account/CyberAssociates/{0}", @ViewBag.CurrentUserName))">
+                <img 
+alt="@Messages.CyberAssociates" title="@Messages.CyberAssociates"
+src="@Url.Content("~/content/images/userstatus/keyboard.png")" /></a>
+        </div>
+        <div class="span2">
+            @if (ViewBag.EnableProfileLogging)
+            {
+                <a class="m_over" 
+ href="@Url.Content(string.Format("~/account/visitors/{0}", @ViewBag.CurrentUserName))"
+  >
+                    @Messages.Visitors
+                </a>
+                <br />
+                <a class="m_over" 
+ href="@Url.Content(string.Format("~/account/visitors/{0}", @ViewBag.CurrentUserName))"
+  >
+                    <img alt="@Messages.Visitors" title="@Messages.Visitors"
+  src="@Url.Content("~/content/images/userstatus/eye_spy.png")" /></a>
+            }
+        </div>
+        <div class="span2">
+            @if (ViewBag.BlockedUsers)
+            {
+                <a class="m_over"  href="@Url.Content("~/account/blockedusers")">
+                    @Messages.BlockedUsers
+                </a>
+                <br />
+                <a class="m_over"  href="@Url.Content("~/account/blockedusers")">
+                    <img 
+ alt="@Messages.BlockedUsers" title="@Messages.BlockedUsers"
+ src="@Url.Content("~/content/images/blocked_users.png")" /></a>
+            }
+        </div>
+    </div>
+    <div class="span4">
+        @{Html.RenderPartial("_AdBanner2"); }
+
+        
+    </div>
+</div>

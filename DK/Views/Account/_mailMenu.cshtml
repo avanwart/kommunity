@@ -1,0 +1,27 @@
+﻿ @using BootBaronLib.Resources;
+ <div class="row">
+ <div class="span2">
+ <ul class="nav nav-pills nav-stacked">
+                    <li
+              
+          @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "inbox")
+          {
+          <text>class="active" </text>
+          }
+                 ><a href="@Url.Content("~/account/inbox")">@Messages.Inbox</a>
+            </li>
+          
+
+                              <li
+              
+          @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "outbox")
+          {
+          <text>class="active" </text>
+          }
+                 ><a href="@Url.Content("~/account/outbox")">@Messages.Outbox</a>
+            </li>
+          
+       
+        </ul>
+        </div>
+        </div>

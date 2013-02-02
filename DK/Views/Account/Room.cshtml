@@ -1,0 +1,749 @@
+﻿@using BootBaronLib.Resources;
+@{
+    ViewBag.Title = Messages.ChatRoom;
+}
+
+
+  @if(Request.Browser.IsMobileDevice)
+    {
+      
+<style type="text/css">
+    .sc_chat_box
+    {
+        border: solid 1px #FFF;
+        height: 220px;
+    }
+    </style>
+     
+    }
+    else 
+    {
+   
+   <style type="text/css">
+    .sc_chat_box
+    {
+        border: solid 1px #FFF;
+        height: 520px;
+        
+    }
+    </style>
+  } 
+   
+    
+
+<style type="text/css">
+       
+    .sc_chat_box
+    {
+        /*height: 160px;*/
+        
+      
+      
+        padding: 1px;
+      
+        background-color: #000;
+        
+        text-align: left;
+    }
+    
+    .sc_chat_container input
+    {
+        margin: 0px;
+ 
+    }
+
+    
+    .sc_options_box
+    {
+      /*  padding-left: 15px;*/
+        height: 35px;
+    }
+        
+    .sc_msg
+    {
+        padding-left: 2px;
+        padding-right: 2px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }    
+    
+    .sc_alt
+    {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        background-color: #1f1f1f;
+    }    
+    
+    .sc_Author
+    {
+        font-weight: bold;
+    }  
+       
+    .sc_chat_message
+    {
+        width: 440px;
+        margin:0px;
+        background-color: #000; 
+        color: #FFF;
+        border:  solid 1px #FFF;
+    }    
+    
+     
+    .sc_chat_send
+    {
+        /*width: 45px;
+        text-align:center;*/
+    }    
+    #chat { color: #00FF1E;}
+    
+    
+    .user_list { border-radius: 5px 5px 5px 5px; 
+                 border: 1px solid #FFF; 
+                 height: 315px;
+                 background: #000000 url(../content/images/background/repeating_gears2.jpg) repeat fixed top;
+                 }
+                 
+                   .user_list li { list-style-type: none;}
+    
+    .user_list li a { color: #FFF; float: left;}
+    .user_list li a:hover { text-decoration: none;}
+    .user_list ul {  padding: 0; margin: 0;}
+    #username { font-size: 10px;  visibility: hidden; display: none;}
+    
+    input.exit_btn { background-color:Red; color:  #FFF;}
+    input.botonSudoku { background-color: Green; color: #FFF}
+
+    .msg_txt
+    {
+        font-family: Lucida Console, verdana, Arial;
+    }
+     #message {  font-family: Lucida Console, verdana, Arial;}
+
+    #messages  
+    {
+        padding: 0;
+        margin: 0;
+    }
+    #messages li { 
+          padding: 0;
+        margin: 0;
+        clear: both;
+        list-style-type: none;
+    }
+        .msg_txt
+        {
+            
+            margin-left: 40px;
+        }
+    .user_face
+    {
+        float: left;
+    }
+    .user_face img
+    {
+        width: 35px;
+    }
+    .sc_chat_box
+    {
+        overflow-x: hidden;
+    }
+</style>
+<div class="row">
+       <div class="span8">
+        @{Html.RenderPartial("_AdBanner"); }
+        <h2>@Messages.ChatRoom</h2>
+             <hr />
+        <div class="sc_chat_container" style="margin-left: auto; margin-right: auto; ">
+            <div class="chat_wrapper">
+                <div class="sc_chat_box"  id="chat">
+                    <ul id="messages"></ul>
+
+                </div>
+                </div>
+                <br />
+                <input maxlength="666" style="width: 63%;" id="msg" autocomplete="off" />
+                <input id="broadcast" type="button" class="btn btn-success" value="@Messages.Send" />
+                <br /><br />
+        
+                   <span id="utc_time"></span>
+            </div>
+           </div>
+               <div class="span4">
+         
+                <div id="chatting_users_list" style="padding-left:10px;">
+                    <h5>@Messages.OnlineNow</h5>
+                    <ul id="user_list" class="user_list" style="overflow: auto;">
+                    </ul>
+                    <br />
+                    
+                @{Html.RenderPartial("_AdBanner3"); } 
+
+  @*@if(!Request.Browser.IsMobileDevice)
+    {
+                <embed src="http://www.shoutcast.com/media/popupPlayer_V19.swf?stationid=http://yp.shoutcast.com/sbin/tunein-station.pls?id=59174&amp;play_status=0"
+                     quality="high" bgcolor="#000000" width="315" height="117" 
+                    name="popupPlayer_V19" align="middle" allowscriptaccess="always" allowfullscreen="true" type="application/x-shockwave-flash" 
+                    pluginspage="http://www.adobe.com/go/getflashplayer">
+  }*@
+                </div>
+
+            
+        </div>
+      
+
+
+
+
+    <span id="playSound"></span>
+
+
+ 
+        
+    </div>
+    <div class="span4">
+       @* @{Html.RenderPartial("_AdBanner2"); }*@
+    </div>
+ 
+@{ MembershipUser mu = Membership.GetUser();  
+   if(mu != null)
+   {
+   ViewBag.UserAccountID = Convert.ToInt32(mu.ProviderUserKey);
+   }
+    }
+         
+
+  @if (Request.Browser.IsMobileDevice)
+  {
+      @section _javascript {
+    <script src="~/Scripts/jquery.signalR-0.5.3.js"></script>
+
+        <script src="~/signalr/hubs" type="text/javascript"></script>
+
+
+   <script type="text/javascript">
+
+       function scrollToChatBottom()
+       {
+           var objDiv1 = document.getElementById("chat");
+           objDiv1.scrollTop = objDiv1.scrollHeight;
+       }
+
+   
+
+       //setInterval(showTime, 1000);
+
+       // start clock
+      // $('#utc_time').hide();
+       //$('#utc_time').fadeIn("slow");
+      // var now = new Date();
+      // $('#utc_time').html( now.format("isoUtcDateTime").replace('T', ' '));
+
+
+       $(function () {
+           var connection = $.connection('echo');
+
+           connection.received(function (data) {
+               $('#messages').append('<li>' + data + '</li>');
+               scrollToChatBottom();
+           });
+
+           connection.start();
+
+       });
+    
+
+       $(function () {
+           // Proxy created on the fly
+           var chat = $.connection.chat;
+
+           // Declare a function on the chat hub so the server can invoke it
+           chat.addMessage = function (message) {
+
+               if ($.trim(message) != '') {
+                   var messageCount = $('#messages > li').length;
+
+                   var max_listCount = 50;
+
+                   if (messageCount > max_listCount) {
+
+                       var tree_ul = $('#messages').children();
+
+                       tree_ul.each(function (n, item) {
+ 
+                           if (n == 0)
+                               $(item).remove();
+                       });
+
+                   }
+
+                   $('#messages').append('<li>' + message + '</li>');
+                         
+                   scrollToChatBottom();
+               }
+
+           };
+
+
+
+
+           $('#msg').keypress(function (e) {
+               // Enter pressed?
+               if (e.which == 10 || e.which == 13) {
+                   // Call the chat method on the server
+                   chat.send($('#msg').val(), @ViewBag.UserAccountID);
+                           $('#msg').val('');
+                       }
+                   });
+
+
+                   $("#broadcast").click(function () {
+                       chat.send($('#msg').val(), @ViewBag.UserAccountID);
+                       $('#msg').val('');
+                   });
+
+
+                   // Start the connection
+                   $.connection.hub.start();
+               });
+
+               $('#msg').focus();
+
+               var userListInner ;
+
+               function getChattingUsers()
+               {
+                   $.post($rootUrl + 'chat/GetChattingUsers' ,
+                     function(data) {
+                         
+                         if ( userListInner != data.ChattingUsers)
+                         { 
+                             $('#user_list').html(data.ChattingUsers);
+                             userListInner = data.ChattingUsers;
+                            // $('#user_list').fadeIn("slow");
+                         }
+                     });
+
+
+ 
+
+               }
+ 
+
+               var lastMessagesName ;
+
+               function firstLoadChat()
+               {
+                   //$("#user_list").empty();
+                   //scrollToChatBottom();
+                   //getChattingUsers();
+                   // timedLoader();
+
+                   //$.post($rootUrl + 'chat/RecentChatMessages' ,
+                   //     function(data) {
+                           
+                   //         $('#messages').append(data.ListItems);
+                   //         // scrollToChatBottom();
+
+                   //     });
+
+                   $("#messages").empty();
+
+                   //$.post($rootUrl + 'chat/RecentChatMessages',
+                   // function(data) {
+
+                   //     if( lastMessagesName != data.ListItems)
+                   //     {
+                   //         $('#messages').append(data.ListItems);
+                   //         scrollToChatBottom();
+                   //     }
+                        
+                        
+                   // });
+
+               }
+       
+
+
+               $(window).load(function() {
+
+                   //  $('#user_list').hide();
+
+                   //getChattingUsers();
+
+                   //  $('#user_list').fadeIn("slow");
+
+                   //$('#messages').hide();
+                   //$('#messages').fadeIn("slow");
+ 
+
+                   //$.post($rootUrl + 'chat/RecentChatMessages' ,
+                   //      function(data) {
+                           
+                   //          $('#messages').append(data.ListItems);
+
+                   //          scrollToChatBottom();
+
+                   //      });
+
+               });
+
+               //setTimeout(firstLoadChat, 500) ;
+
+               setTimeout(firstLoadChat, 4000) ;// still try to page down, it doesn't always go there
+
+               setInterval(getChattingUsers, 5000);
+                    
+                 </script>
+    }
+  }
+  else
+  {
+              <script type="text/javascript">
+                  /*
+       * Date Format 1.2.3
+       * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
+       * MIT license
+       *
+       * Includes enhancements by Scott Trenda <scott.trenda.net>
+       * and Kris Kowal <cixar.com/~kris.kowal/>
+       *
+       * Accepts a date, a mask, or a date and a mask.
+       * Returns a formatted version of the given date.
+       * The date defaults to the current date/time.
+       * The mask defaults to dateFormat.masks.default.
+       */
+
+                  var dateFormat = function () {
+                      var	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
+                          timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
+                          timezoneClip = /[^-+\dA-Z]/g,
+                          pad = function (val, len) {
+                              val = String(val);
+                              len = len || 2;
+                              while (val.length < len) val = "0" + val;
+                              return val;
+                          };
+
+                      // Regexes and supporting functions are cached through closure
+                      return function (date, mask, utc) {
+                          var dF = dateFormat;
+
+                          // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
+                          if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
+                              mask = date;
+                              date = undefined;
+                          }
+
+                          // Passing date through Date applies Date.parse, if necessary
+                          date = date ? new Date(date) : new Date;
+                          if (isNaN(date)) throw SyntaxError("invalid date");
+
+                          mask = String(dF.masks[mask] || mask || dF.masks["default"]);
+
+                          // Allow setting the utc argument via the mask
+                          if (mask.slice(0, 4) == "UTC:") {
+                              mask = mask.slice(4);
+                              utc = true;
+                          }
+
+                          var	_ = utc ? "getUTC" : "get",
+                              d = date[_ + "Date"](),
+                              D = date[_ + "Day"](),
+                              m = date[_ + "Month"](),
+                              y = date[_ + "FullYear"](),
+                              H = date[_ + "Hours"](),
+                              M = date[_ + "Minutes"](),
+                              s = date[_ + "Seconds"](),
+                              L = date[_ + "Milliseconds"](),
+                              o = utc ? 0 : date.getTimezoneOffset(),
+                              flags = {
+                                  d:    d,
+                                  dd:   pad(d),
+                                  ddd:  dF.i18n.dayNames[D],
+                                  dddd: dF.i18n.dayNames[D + 7],
+                                  m:    m + 1,
+                                  mm:   pad(m + 1),
+                                  mmm:  dF.i18n.monthNames[m],
+                                  mmmm: dF.i18n.monthNames[m + 12],
+                                  yy:   String(y).slice(2),
+                                  yyyy: y,
+                                  h:    H % 12 || 12,
+                                  hh:   pad(H % 12 || 12),
+                                  H:    H,
+                                  HH:   pad(H),
+                                  M:    M,
+                                  MM:   pad(M),
+                                  s:    s,
+                                  ss:   pad(s),
+                                  l:    pad(L, 3),
+                                  L:    pad(L > 99 ? Math.round(L / 10) : L),
+                                  t:    H < 12 ? "a"  : "p",
+                                  tt:   H < 12 ? "am" : "pm",
+                                  T:    H < 12 ? "A"  : "P",
+                                  TT:   H < 12 ? "AM" : "PM",
+                                  Z:    utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
+                                  o:    (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
+                                  S:    ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
+                              };
+
+                          return mask.replace(token, function ($0) {
+                              return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
+                          });
+                      };
+                  }();
+
+                  // Some common format strings
+                  dateFormat.masks = {
+                      "default":      "ddd mmm dd yyyy HH:MM:ss",
+                      shortDate:      "m/d/yy",
+                      mediumDate:     "mmm d, yyyy",
+                      longDate:       "mmmm d, yyyy",
+                      fullDate:       "dddd, mmmm d, yyyy",
+                      shortTime:      "h:MM TT",
+                      mediumTime:     "h:MM:ss TT",
+                      longTime:       "h:MM:ss TT Z",
+                      isoDate:        "yyyy-mm-dd",
+                      isoTime:        "HH:MM:ss",
+                      isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
+                      isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+                  };
+
+                  // Internationalization strings
+                  dateFormat.i18n = {
+                      dayNames: [
+                          "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
+                          "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+                      ],
+                      monthNames: [
+                          "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+                          "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+                      ]
+                  };
+
+                  // For convenience...
+                  Date.prototype.format = function (mask, utc) {
+                      return dateFormat(this, mask, utc);
+                  };
+
+
+        </script>
+@section _javascript {
+ 
+
+    <script type="text/javascript">
+
+ 
+
+
+        var isWindowActive = true;
+
+
+        (function() {
+            var hidden, change, vis = {
+                hidden: "visibilitychange",
+                mozHidden: "mozvisibilitychange",
+                webkitHidden: "webkitvisibilitychange",
+                msHidden: "msvisibilitychange",
+                oHidden: "ovisibilitychange" /* not currently supported */
+            };             
+            for (hidden in vis) {
+                if (vis.hasOwnProperty(hidden) && hidden in document) {
+                    change = vis[hidden];
+                    break;
+                }
+            }
+            if (change)
+                document.addEventListener(change, onchange);
+            else if (false) // IE 9 and lower
+        document.onfocusin = document.onfocusout = onchange
+    else
+        window.onfocus = window.onblur = onchange;
+
+   
+
+            function onchange (evt) {
+
+                 isWindowActive =  !isWindowActive;
+            
+        //var body = document.body;
+        //evt = evt || window.event;
+
+        //if (evt.type == "focus" || evt.type == "focusin")
+        ////    //body.className = "visible";
+        //    isWindowActive = true;
+        //else //if (evt.type == "blur" || evt.type == "focusout")
+        ////    //body.className = "hidden";
+        //    isWindowActive = false;
+        //else        
+        //    isWindowActive = this[hidden] ? false : true;
+
+        //alert(isWindowActive);
+
+    }
+})();
+
+    </script>
+
+    <script src="~/Scripts/jquery.signalR-0.5.3.js"></script>
+
+        <script src="~/signalr/hubs" type="text/javascript"></script>
+
+
+   <script type="text/javascript">
+
+       function scrollToChatBottom()
+       {
+           var objDiv1 = document.getElementById("chat");
+           objDiv1.scrollTop = objDiv1.scrollHeight;
+           if( !isWindowActive)
+           {
+               var soundfile = $rootUrl + 'content/sound/laser_1.mp3';
+               document.getElementById("playSound").innerHTML=
+ "<embed src=\""+soundfile+"\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
+           }
+       }
+
+       function showTime ()
+       {
+           var now = new Date();
+
+           $('#utc_time').html( now.format("isoUtcDateTime").replace('T', ' '));
+       }
+
+       setInterval(showTime, 1000);
+
+       // start clock
+       $('#utc_time').hide();
+       $('#utc_time').fadeIn("slow");
+       var now = new Date();
+       $('#utc_time').html( now.format("isoUtcDateTime").replace('T', ' '));
+
+
+       $(function () {
+           var connection = $.connection('echo');
+
+           connection.received(function (data) {
+               $('#messages').append('<li>' + data + '</li>');
+               scrollToChatBottom();
+           });
+
+           connection.start();
+
+       });
+    
+
+               $(function () {
+                   // Proxy created on the fly
+                   var chat = $.connection.chat;
+
+                   // Declare a function on the chat hub so the server can invoke it
+                   chat.addMessage = function (message) {
+
+                       if ($.trim(message) != '') {
+                           var messageCount = $('#messages > li').length;
+
+                           var max_listCount = 50;
+
+                           if (messageCount > max_listCount) {
+
+                               var tree_ul = $('#messages').children();
+
+                               tree_ul.each(function (n, item) {
+ 
+                                   if (n == 0)
+                                       $(item).remove();
+                               });
+
+                           }
+
+                           $('#messages').append('<li>' + message + '</li>');
+                         
+                           scrollToChatBottom();
+                       }
+
+                   };
+
+
+
+
+                   $('#msg').keypress(function (e) {
+                       // Enter pressed?
+                       if (e.which == 10 || e.which == 13) {
+                           // Call the chat method on the server
+                           chat.send($('#msg').val(), @ViewBag.UserAccountID);
+                           $('#msg').val('');
+                       }
+                   });
+
+
+                   $("#broadcast").click(function () {
+                       chat.send($('#msg').val(), @ViewBag.UserAccountID);
+                       $('#msg').val('');
+                   });
+
+
+                   // Start the connection
+                   $.connection.hub.start();
+               });
+
+       $('#msg').focus();
+
+       var userListInner ;
+
+       function getChattingUsers()
+       {
+
+
+           $.post($rootUrl + 'chat/GetChattingUsers' ,
+             function(data) {
+                         
+                 if ( userListInner != data.ChattingUsers)
+                 { 
+                     $('#user_list').html(data.ChattingUsers);
+                     userListInner = data.ChattingUsers;
+                     $('#user_list').fadeIn("slow");
+                 }
+             });
+
+       }
+               $(document).ready(function() {
+
+                   $('#user_list').hide();
+
+                   getChattingUsers();
+
+                   $('#user_list').fadeIn("slow");
+
+
+                   $('#messages').hide();
+                   $('#messages').fadeIn("slow");
+
+                   $.post($rootUrl + 'chat/RecentChatMessages' ,
+                         function(data) {
+                           
+                             $('#messages').append(data.ListItems);
+
+                             scrollToChatBottom();
+
+                         });
+               });
+
+               function firstLoadChat()
+               {
+                   scrollToChatBottom();
+                   getChattingUsers();
+                   timedLoader();
+               }
+       
+               
+
+               setTimeout(firstLoadChat, 500) ;
+
+               setTimeout(scrollToChatBottom, 1000) ;// still try to page down, it doesn't always go there
+
+               setTimeout(scrollToChatBottom, 5000) ;// and again
+               
+               setInterval(getChattingUsers, 5000);
+                 </script>
+    }
+  }

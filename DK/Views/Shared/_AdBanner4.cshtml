@@ -1,0 +1,26 @@
+﻿     
+<!-- 234 x 60 -->
+ 
+ 
+ @{int randomID = BootBaronLib.Operational.Utilities.RandomNumber(1, 4);
+
+   switch (randomID)
+   {
+       case 1:
+                  @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                            BootBaronLib.Enums.SiteEnums.SiteBrandType.A2341,
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+           break;
+           case 2:
+             @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                            BootBaronLib.Enums.SiteEnums.SiteBrandType.A2342,
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+           break;
+           default:
+             @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                            BootBaronLib.Enums.SiteEnums.SiteBrandType.A2343,
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+           break;
+                      
+                         }
+ }

@@ -1,0 +1,21 @@
+﻿@using BootBaronLib.Resources;
+@{
+    ViewBag.Title = Messages.Contests;
+}
+<div class="row">
+<div class="span8">
+<h2>@Messages.Contests</h2>
+    <hr />
+<ul>
+@foreach (BootBaronLib.AppSpec.DasKlub.BOL.VideoContest.Contest c1 in Model)
+{
+    <li>
+<a href="@Url.Content("~/video/contest/" + c1.ContestKey)">@c1.Name</a></li>
+}
+</ul>
+</div>
+
+<div class="span4"></div>
+
+</div>
+

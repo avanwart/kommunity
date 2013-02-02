@@ -1,0 +1,236 @@
+﻿@model BootBaronLib.AppSpec.DasKlub.BOL.UserAccountDetail
+@using BootBaronLib.Resources;
+@using BootBaronLib.Enums;
+@using BootBaronLib.Operational;
+@{
+    ViewBag.Title = Messages.EditProfile + ": "+ Messages.Details;
+    Layout = "~/Views/Shared/Site.cshtml";
+}
+<div class="row">
+    <div class="span8">
+        @{Html.RenderPartial("_AdBanner"); }
+        <h2>@Messages.EditProfile</h2>
+
+         <hr />
+               @if (BootBaronLib.Configs.GeneralConfigs.IsGiveAway &&
+                   BootBaronLib.AppSpec.DasKlub.BOL.UserAddress.IsBlank(Convert.ToInt32(Membership.GetUser().ProviderUserKey)))
+        {
+                  
+               
+            <a class="m_over" href="@Url.Content("~/account/useraddress")">
+                  <img  src="@Url.Content("~/Content/images/stills/giveaway.jpg")" /></a>
+                   }
+
+                @{Html.RenderPartial("_editProfileMenu"); }
+
+        @if (ViewBag.ProfileUpdated != null && ViewBag.ProfileUpdated)
+        {
+            <div class="alert alert-success">@Messages.Success</div>
+          
+        }
+        @using (Html.BeginForm("editprofile", "account"))
+        {
+ 
+            @Html.ValidationSummary(false, Messages.PleaseCorrectTheErrors)
+        
+            <input type="hidden" name="UserAccountDetailID" value="@Model.UserAccountDetailID" />
+            
+            
+         
+            <fieldset>
+
+                <div class="editor-label">
+                    @Html.Label(BootBaronLib.Resources.Messages.YouAre)
+                </div>
+                    <div class="editor-field">
+
+                                @Html.DropDownList("YouAreID", new SelectList(
+ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model.YouAreID), Messages.DashSelect)
+
+      
+                </div>
+                                                <div class="editor-label">
+                    @Html.Label(BootBaronLib.Resources.Messages.BirthDate)
+                </div>
+                <div class="editor-field">
+                    <select name="birthyear" class="span1">
+                        @if (Model.BirthDate == DateTime.MinValue)
+                        {
+                            <option selected="selected" value="">@Messages.Year</option>
+                        }
+ @for (int i = DateTime.UtcNow.Year - 16; i >= DateTime.UtcNow.Year - 100; i--)
+                        {
+                            if (Model.BirthDate.Year == i && Model.BirthDate != DateTime.MinValue)
+                            {
+                            <option selected="selected" value="@i">@i</option>
+                            }
+                            else
+                            {
+                            <option value="@i">@i</option>
+                            }
+                        }
+                    </select>
+                    -
+                    <select name="birthmonth" class="span1">
+                        @if (Model.BirthDate == DateTime.MinValue)
+                        {
+                            <option selected="selected" value="">@Messages.Month</option>
+                        }
+                        @for (int i = 1; i <= 12; i++)
+                        {
+                            if (Model.BirthDate.Month == i && Model.BirthDate != DateTime.MinValue)
+                            {
+                            <option selected="selected" value="@i">@i.ToString("00")</option>
+                            }
+                            else
+                            {
+                            <option value="@i">@i.ToString("00")</option>
+                            }
+                        }
+                    </select>
+                    -
+                    <select name="birthday" class="span1">
+                        @if (Model.BirthDate == DateTime.MinValue)
+                        {
+                            <option selected="selected" value="">@Messages.Day</option>
+                        }
+                        @for (int i = 1; i <= 31; i++)
+                        {
+                            if (Model.BirthDate.Day == i && Model.BirthDate != DateTime.MinValue)
+                            {
+                            <option selected="selected" value="@i">@i.ToString("00")</option>
+                            }
+                            else
+                            {
+                            <option value="@i">@i.ToString("00")</option>
+                            }
+                        }
+                    </select>
+                </div>
+            
+                <div class="editor-label">
+                    @Html.Label(BootBaronLib.Resources.Messages.RelationshipStatus)
+                </div>
+                <div class="editor-field">
+
+                                                @Html.DropDownList("RelationshipStatusID", new SelectList(
+ViewBag.RelationshipStatuses, "RelationshipStatusID", "LocalizedName", Model.RelationshipStatusID == null ? 0 : Model.RelationshipStatusID), Messages.DashSelect)
+
+      
+                </div>
+
+                <div class="editor-label">
+                    @Html.Label(BootBaronLib.Resources.Messages.InterestedIn)
+                </div>
+                <div class="editor-field">
+
+                                   @Html.DropDownList("InterestedInID", new SelectList(
+ViewBag.InterestedIns, "InterestedInID", "LocalizedName", Model.InterestedInID == null ? 0 : Model.InterestedInID), Messages.DashSelect)
+
+
+ 
+                </div>
+               
+                <div class="editor-label">
+                    @Html.Label(BootBaronLib.Resources.Messages.Country)
+                </div>
+                <div class="editor-field">
+                    <select name="country">
+                        @if (string.IsNullOrEmpty(Model.Country) || Model.Country == SiteEnums.CountryCodeISO.U0.ToString())
+                        {
+                            <option value="@SiteEnums.CountryCodeISO.U0.ToString()">@Messages.DashSelect</option>
+                        }
+                        @foreach (string country in ViewBag.CountryOptions)
+                        {
+                            SiteEnums.CountryCodeISO countryCode =
+                            (SiteEnums.CountryCodeISO)Enum.Parse(
+                           typeof(SiteEnums.CountryCodeISO), country);
+
+                            if (countryCode != SiteEnums.CountryCodeISO.U0 &&
+                                 countryCode != SiteEnums.CountryCodeISO.RD)
+                            {
+                                if (countryCode.ToString() != Model.Country)
+                                {
+                            <option value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
+                                }
+                                else
+                                {
+                            <option selected="selected" value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="editor-label">
+                    @Html.Label(BootBaronLib.Resources.Messages.PostalCode)
+                </div>
+                <div class="editor-field">
+                    <input type="text" name="postalcode" value="@Model.PostalCode" class="input-small" />
+                </div>
+                <div class="editor-label">
+                    @Html.Label(BootBaronLib.Resources.Messages.Website) <i>(@BootBaronLib.Resources.Messages.Optional)</i>
+                </div>
+                <div class="editor-field">
+                    <input title="http://website.com" name="externalURL" type="text" 
+                            value="@Model.ExternalURL" class="input-xlarge"  />
+                </div>
+                <div class="editor-label">
+                    @Html.Label(BootBaronLib.Resources.Messages.MessageToTheWorld) <i>(@BootBaronLib.Resources.Messages.Optional)</i>
+                </div>
+                <div class="editor-field">
+                    <textarea rows="4" name="aboutdesc" class="input-xlarge expand50-200">@Model.AboutDesc</textarea>
+                </div>
+                <div class="editor-label">
+                    @Html.Label(BootBaronLib.Resources.Messages.BandsYouWantToSeeLiveOrJustListenTo)
+                    [@BootBaronLib.Resources.Messages.SeperateWithCommas] <i>(@BootBaronLib.Resources.Messages.Optional)</i>
+                </div>
+                <div class="editor-field">
+                    <textarea rows="4" name="bandstosee" class="input-xlarge expand50-200">@Model.BandsToSee</textarea>
+                </div>
+                <div class="editor-label">
+                    @Html.Label(BootBaronLib.Resources.Messages.BandsYouHaveSeenLive)
+                    [@BootBaronLib.Resources.Messages.SeperateWithCommas] <i>(@BootBaronLib.Resources.Messages.Optional)</i>
+                </div>
+                <div class="editor-field">
+                    <textarea rows="4" name="bandsseen" class="input-xlarge expand50-200">@Model.BandsSeen</textarea>
+                </div>
+                <div class="editor-label">
+                    @BootBaronLib.Resources.Messages.HardwareAndSoftwareSkills
+                    <i>(@BootBaronLib.Resources.Messages.Optional)</i>
+                </div>
+                <div class="editor-field">
+                    <textarea rows="4f" name="hardwareSoftware" class="input-xlarge expand50-200">@Model.HardwareSoftware</textarea>
+                </div>
+            </fieldset>
+            <input class="btn btn-success" type="submit" value="@BootBaronLib.Resources.Messages.Submit" />
+              
+        }
+    </div>
+    <div class="span4">
+        @{Html.RenderPartial("_AdBanner2"); }
+    </div>
+</div>
+<style type="text/css">
+    .editor-field
+    {
+        padding-bottom: 10px;
+    }
+</style>
+<!-- Google Code for lead_submit Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 969487364;
+var google_conversion_language = "en";
+var google_conversion_format = "3";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "-SyvCNSOkAMQhOikzgM";
+var google_conversion_value = 0;
+/* ]]> */
+</script>
+<script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/969487364/?value=0&amp;label=-SyvCNSOkAMQhOikzgM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
