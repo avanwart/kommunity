@@ -1045,6 +1045,21 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
 
 
+        public string Country 
+        {
+            get
+            {
+                UserAccountDetail uad = new UserAccountDetail();
+
+                uad.GetUserAccountDeailForUser(this.UserAccountID);
+
+                return uad.Country;
+
+            }
+
+        }
+
+
         
 
         public string ToUnorderdListItem

@@ -35,7 +35,17 @@
                        
 
                                  <div class="status_count_applaud">
-                                       <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a> <img src="@ua.FlagIcon" title="@ua.CountryName" alt="@ua.CountryName" />
+                                       <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
+
+
+                                        @{string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", ua.Country);
+                }
+             
+              
+              @Html.Raw(coName)
+                  
+
+
                                      <i>
                         @BootBaronLib.AppSpec.DasKlub.BOL.Acknowledgements.GetAcknowledgementCount(s1.StatusUpdateID, 
                           Convert.ToChar(BootBaronLib.Enums.SiteEnums.AcknowledgementType.A.ToString()))</i>
@@ -74,7 +84,14 @@
                      @{BootBaronLib.AppSpec.DasKlub.BOL.UserAccount ua = new BootBaronLib.AppSpec.DasKlub.BOL.UserAccount(
    Convert.ToInt32(ViewBag.MostCommented.UserAccountID));
         }
-                   <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a> <img src="@ua.FlagIcon" title="@ua.CountryName" alt="@ua.CountryName" />
+                   <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
+                  
+                                        @{string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", ua.Country);
+                }
+             
+              
+              @Html.Raw(coName)
+                   
                   <i>
                     @BootBaronLib.AppSpec.DasKlub.BOL.StatusComments.GetStatusCommentCount(ViewBag.MostCommented.StatusUpdateID)
                </i>   </div>
@@ -106,7 +123,14 @@
                                       @{BootBaronLib.AppSpec.DasKlub.BOL.UserAccount ua = new BootBaronLib.AppSpec.DasKlub.BOL.UserAccount(
 Convert.ToInt32(ViewBag.MostBeatDown.UserAccountID));
         }
-                 <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a> <img src="@ua.FlagIcon" title="@ua.CountryName" alt="@ua.CountryName" />
+                 <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
+                                     
+                                        @{string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", ua.Country);
+                }
+             
+              
+              @Html.Raw(coName)
+                               
                                      <i>
                         @BootBaronLib.AppSpec.DasKlub.BOL.Acknowledgements.GetAcknowledgementCount(ViewBag.MostBeatDown.StatusUpdateID,
                           Convert.ToChar(BootBaronLib.Enums.SiteEnums.AcknowledgementType.B.ToString()))</i>
