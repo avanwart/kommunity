@@ -38,7 +38,7 @@
                                        <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
 
 
-                                        @{string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", ua.Country);
+                                         @{string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName);
                 }
              
               
@@ -86,8 +86,8 @@
         }
                    <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
                   
-                                        @{string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", ua.Country);
-                }
+                                         @{string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName);
+                                           }
              
               
               @Html.Raw(coName)
@@ -125,7 +125,7 @@ Convert.ToInt32(ViewBag.MostBeatDown.UserAccountID));
         }
                  <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
                                      
-                                        @{string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", ua.Country);
+                                        @{string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName);
                 }
              
               
