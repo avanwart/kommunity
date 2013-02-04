@@ -708,6 +708,7 @@
     <Content Include="Content\script\jquery.ui.widget.js" />
     <Content Include="Content\script\jquery.unobtrusive-ajax.js" />
     <Content Include="Content\script\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Content\images\countries\flags_small.zip" />
     <None Include="Content\script\jquery.validate-vsdoc.js" />
     <Content Include="Content\script\jquery.validate.js" />
     <Content Include="Content\script\jquery.validate.min.js" />
@@ -761,6 +762,7 @@
     <Content Include="Content\style\jquery.ui.all.css" />
     <Content Include="Content\style\jquery_ui.css" />
     <Content Include="Content\style\site_spec_01.css" />
+    <Content Include="Content\style\flag_sprites.css" />
     <Content Include="Content\style\ui-darkness\images\ui-bg_flat_30_cccccc_40x100.png" />
     <Content Include="Content\style\ui-darkness\images\ui-bg_flat_50_5c5c5c_40x100.png" />
     <Content Include="Content\style\ui-darkness\images\ui-bg_glass_20_555555_1x400.png" />

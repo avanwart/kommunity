@@ -47,10 +47,13 @@
                     @ua.UserName</a>     <a href="@ua.UrlTo.ToString()">
                     @Html.Raw(ua.TinyUserIcon)</a></span>
                 
-                 @Html.Raw(string.Format(@"<img src=""{0}"" alt=""{1}"" title=""{1}"" class=""no_border"" />", uad.CountryFlagThumb,
-                         uad.CountryName))
-               
+                        string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
+             
+              
+              @Html.Raw(coName)
+                  
               }
+                  
             <br />  
         </div>
         <hr />

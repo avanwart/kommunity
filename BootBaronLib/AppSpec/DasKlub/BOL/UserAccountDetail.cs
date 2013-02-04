@@ -698,7 +698,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 }
                 else
                 {
-                    return System.Web.VirtualPathUtility.ToAbsolute( string.Format( "~/content/images/countries/{0}_small.png",  this.Country ));
+                    return System.Web.VirtualPathUtility.ToAbsolute( "~/content/images/countries/flag_sprite.png" );
+                    //return System.Web.VirtualPathUtility.ToAbsolute( string.Format( "~/content/images/countries/{0}_small.png",  this.Country ));
+                    //images/countries/
                 }
             }
         }
@@ -1516,7 +1518,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" />", this.Sex,
                         VirtualPathUtility.ToAbsolute("~/content/images/sex/" + this.SexLetter.ToString() + ".png"));
 
-                sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" />", this.CountryName, this.CountryFlagThumb);
+               // sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" class=""flag_bg sprite-{2}_small"" />", this.CountryName, this.CountryFlagThumb, this.Country);
+
+                sb.AppendFormat(@"<div title=""{0}"" class=""sprites sprite-{1}_small""></div>", this.CountryName,   this.Country);
+ 
+
 
                 // hack: latin isn't supported
                 sb.AppendFormat(@"<span title=""{1}"" class=""default_lang"">{0}</span>", ( this.DefaultLanguage == "FO") ? "LA" :this.DefaultLanguage, 

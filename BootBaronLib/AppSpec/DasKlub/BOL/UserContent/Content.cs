@@ -646,7 +646,10 @@ ErrorMessageResourceType = typeof(Resources.Messages))]
                     sb.Append(@": ");
 
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a> &nbsp;", ua.UrlTo.ToString(), ua.UserName);
-                    sb.AppendFormat(@"<img src=""{0}"" alt=""{1}"" title=""{1}"" class=""no_border"" />", uad.CountryFlagThumb, uad.CountryName);
+                   
+
+                    sb.AppendFormat(@"<div title=""{0}"" class=""sprites sprite-{1}_small""></div>", uad.CountryName, uad.Country);
+              
  
                     sb.Append(@"<br />");
                 }

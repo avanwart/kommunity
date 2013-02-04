@@ -57,6 +57,7 @@ namespace DasKlub
                "~/content/bootstrap-responsive.css",
                "~/content/style/darkstrap.css",
                "~/content/style/jquery-ui-{version}.custom.css",
+               "~/content/style/flag_sprites.css",
                "~/content/style/site_spec_01.css"
                 ));
 
