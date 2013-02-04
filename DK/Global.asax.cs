@@ -29,9 +29,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
-
 using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.AppSpec.DasKlub.BOL;
+using BootBaronLib.AppSpec.DasKlub.BOL.Logging;
 using BootBaronLib.Configs;
 using BootBaronLib.Enums;
 using BootBaronLib.Operational;

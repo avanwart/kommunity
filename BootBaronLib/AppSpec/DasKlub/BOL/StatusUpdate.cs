@@ -692,15 +692,21 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
 
 
-                MembershipUser mu = Membership.GetUser();
-                UserAccount ua1 = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
+          
 
                 sb.Append(@"</div>");
 
-                if (isUsersPost || (ua != null && ua1.IsAdmin))
+                MembershipUser mu = Membership.GetUser();
+
+                if (mu != null)
                 {
-                    sb.AppendFormat(@"<button title=""{0}"" name=""delete_status_id"" 
+                    UserAccount ua1 = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
+
+                    if (isUsersPost || (ua != null && ua1.IsAdmin))
+                    {
+                        sb.AppendFormat(@"<button title=""{0}"" name=""delete_status_id"" 
                     class=""delete_icon btn btn-danger btn-mini"" type=""button"" value=""{1}"">{0}</button>", Messages.Delete, StatusUpdateID);
+                    }
                 }
 
            
