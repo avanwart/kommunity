@@ -44,3 +44,16 @@ Update-Database -ProjectName Migrations -StartUpProjectName Migrations -Connecti
 This will update the database to the newest state. 
 
 From here the Up and Down methods are generated. In there the migration can be added with raw SQL. When completed, the migration can be run with the previous Update-Database call. 
+
+
+It's best to wrap the SQL in a snippet like this:
+
+    Sql(@"
+    
+          EXEC sp_executesql N'
+            
+            --THE_SQL_CODE
+            
+          ';
+
+    ");
