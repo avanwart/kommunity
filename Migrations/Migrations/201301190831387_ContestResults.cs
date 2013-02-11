@@ -9,8 +9,13 @@ namespace Migrations
         {
             Sql(@"
 
+
+
+ 
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'up_GetContestResults')
+
 EXEC sp_executesql N'
-  
+
   create proc [dbo].[up_GetContestResults]
   
   @contestID int

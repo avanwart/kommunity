@@ -71,6 +71,11 @@ namespace DasKlub
 
             RouteTable.Routes.MapConnection<MyConnection>("echo", "echo/{*operation}");
 
+
+            routes.IgnoreRoute("{*favicon}", new { favicon = "(.*/)?favicon.ico(/.*)" });
+ 
+
+
             #region store
 
             routes.MapRoute(
