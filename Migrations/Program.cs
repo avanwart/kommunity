@@ -19,8 +19,14 @@ using System.Data.Entity.Migrations;
 
 namespace Migrations
 {
+
     class Program
     {
+        public static bool RunSeed = false;
+        public static int exitCode = -1;
+
+
+
         public static string dbName = "SQLDatabaseConnection";
 
         static void Main(string[] args)
@@ -30,47 +36,9 @@ namespace Migrations
             if (!Database.Exists(dbName))
             {
                 Console.WriteLine("DATABASE DOES NOT EXIST, RUN 'dk_script.sql.sql' ON SQL SERVER 2012");
+                Environment.Exit(exitCode);
                 Console.Read();
                 return;
-                //string dk_script = Console.ReadLine();
-
-                //using (var myContext = new DasKlubContext())
-                //{
-                //    string line = null;
-
-
-                //    try
-                //    {
-                       
-                //        using (StreamReader sr = new StreamReader(dk_script))
-                //        {
-                //            line = sr.ReadToEnd();
-
-                //            if (string.IsNullOrWhiteSpace(line))
-                //            {
-                //                Console.WriteLine("NO FILE CONTENTS");
-                //            }
-                //        }
-
-                //        Console.WriteLine("STARTING DB CREATION...");
-
-                //        line = @"EXEC sp_executesql N' " + line.Replace(@"'", @"''") + @" ';";
-
-                //        myContext.Database.Initialize(true);
-                //        myContext.Database.Create();
-
-                //        int outrslt = myContext.Database.ExecuteSqlCommand(line);
-
-                //        Console.WriteLine("DATABASE CREATED, " + outrslt.ToString());
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        Console.WriteLine("EXCEPTION:");
-                //        Console.WriteLine(ex.Message);
-                //        Console.WriteLine(line);
-                //        Console.WriteLine("FAILURE!");
-                //    }
-                //}
             }
 
             RunUpdate(dbName);
@@ -78,6 +46,7 @@ namespace Migrations
 
         private static void RunUpdate(string connectionName)
         {
+
             Console.WriteLine("RUNNING MIGRATIONS FOR CONNECTION NAME: " + connectionName);
 
             var configuration = new Configuration();
@@ -92,6 +61,7 @@ namespace Migrations
 
                 migrator.Update();
                 Console.WriteLine("SUCCESS!");
+                exitCode = 1;
             }
             catch (Exception ex)
             {
@@ -100,8 +70,8 @@ namespace Migrations
                 Console.WriteLine("FAILURE!");
             }
 
-            Console.Write("DONE!");
-            Console.ReadKey();
+            Console.WriteLine("DONE!");
+            Environment.Exit(exitCode);
         }
     }
 }

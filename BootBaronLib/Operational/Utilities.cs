@@ -59,6 +59,9 @@ namespace BootBaronLib.Operational
     /// </summary>
     public class Utilities
     {
+        //Here is the once-per-class call to initialize the log object
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 
         #region spam filter
 
@@ -678,124 +681,7 @@ namespace BootBaronLib.Operational
 
         #endregion
 
-        #region bad words filter
-
-        /// <summary>
-        /// method for loading banned words from an
-        /// XML document into a generic list (List(T)
-        /// </summary>
-        /// <param name="file">the file that holds the banned words</param>
-        /// <returns></returns>
-        private static List<string> BadWordList(ref string file)
-        {
-            //create a new List(T) for holding the words
-            List<string> words = new List<string>();
-
-            //create a new XmlDocument, this will read our XML file
-            XmlDocument xmlDoc = new XmlDocument();
-
-            //here is where XPath comes into play, when we use
-            //SelectNodes we will pass this XPath query into it
-            //so we can navigate straight to the nodes we want
-            string query = "/WordList/word";
-
-            try
-            {
-                //now load the XML document
-                xmlDoc.Load(file);
-            }
-            catch (Exception ex)
-            {
-                Utilities.LogError("COULD NOT LOAD XML:", ex);
-                return null;
-            }
-
-            //loop through all the XmlNodes that meet our XPath criteria
-            foreach (XmlNode node in xmlDoc.SelectNodes(query))
-            {
-                //add the InnerText of each ChildNodes we find
-                words.Add(node.ChildNodes[0].InnerText);
-            }
-
-            //return the populated List(T)
-            return words;
-        }
-
-        /// <summary>
-        /// Method for determining if the provided word is in
-        /// the banned word list
-        /// </summary>
-        /// <param name="word">the word we are looking for</param>
-        /// <param name="file">file name containing the words we're to search against</param>
-        /// <returns></returns>
-        /// <see>http://www.dreamincode.net/forums/showtopic67129.htm</see>
-        public static bool IsBadWord( string word)
-        {
-            word = word.Trim();
-
-            string file =HttpContext.Current.Server.MapPath("~/doc/badwords.xml");
-
-            //create a new List(T) to hold the words. Then populate the list
-            //by calling the BadWordList method in the IOManager class
-            List<string> badWords = BadWordList(ref file);
-
-            if (badWords == null) return false;
-
-            //now we need a loop as long as the words count
-            for (int i = 0; i < badWords.Count; i++)
-            {
-                //on each iteration we compare the two (1 provided, 1 from the List(T))
-                //to see if they match. If they do then return true and exit the loop
-                if (word.ToLower() == badWords[i].ToLower()) return true;
-            }
-
-            //we made it through the entire list and no match found
-            //so we return false as this word isnt a banned word
-            return false;
-        }
-
-
-        /// <summary>
-        /// Check an array of words, if one of them is bad then return true
-        /// otherwise none of them are bad and return false
-        /// </summary>
-        /// <param name="words"></param>
-        /// <returns></returns>
-        public static bool IsBadWord(string[] words, out string badWord)
-        { 
-            badWord = string.Empty;
-
-            string file = HttpContext.Current.Server.MapPath("~/doc/badwords.xml");
-
-            //create a new List(T) to hold the words. Then populate the list
-            //by calling the BadWordList method in the IOManager class
-            List<string> badWords = BadWordList(ref file);
-
-            if (badWords == null) return false;
-
-            foreach (string word in words)
-            { 
-                //now we need a loop as long as the words count
-                for (int i = 0; i < badWords.Count; i++)
-                {
-                    //on each iteration we compare the two (1 provided, 1 from the List(T))
-                    //to see if they match. If they do then return true and exit the loop
-                    if (word.ToLower() == badWords[i].ToLower().Trim()) 
-                    {
-                        badWord = word.ToLower();
-                        return true;
-                    }
-                }
-            }
-
-            //we made it through the entire list and no match found
-            //so we return false as this word isnt a banned word
-            return false;
-        }
-
-        #endregion
-
-
+   
         public static string URLAuthority()
         {
             return "http://" +  HttpContext.Current.Request.Url.Authority;
@@ -1219,7 +1105,8 @@ namespace BootBaronLib.Operational
         /// <param name="sendMail"></param>
         public static void LogError(string msg, Exception ex, bool sendMail)
         {
-
+            log.Error(msg, ex);
+           
             StringBuilder exMessage = new StringBuilder();
 
             HttpContext context = HttpContext.Current;
@@ -1241,7 +1128,6 @@ namespace BootBaronLib.Operational
                 {
                     if (ex.Message.Contains("A potentially dangerous Request.Path value was detected from the client (&)")) return; // probably a bot
                 }
-
 
                 if (ex != null &&
                     ex.Message != null &&
@@ -1271,9 +1157,15 @@ namespace BootBaronLib.Operational
                         context.Application[SiteEnums.ApplicationVariableNames.logError.ToString()] = false;
                     }
 
-                    return;// do not log
-                }
 
+                    log.Fatal("Error logging everything");
+
+                    return;// do not log more
+                }
+                else
+                {
+                    log.Debug("EXCEPTION", ex );
+                }
             }
 
             try
@@ -2790,23 +2682,7 @@ namespace BootBaronLib.Operational
             
             return Utilities.ResourceValue(langKey);
         }
-
-        public static void LogError(HttpException httpException, int p)
-        {
-            if( httpException == null) return ;
-
-            ErrorLog el = new ErrorLog();
-
-            el.ResponseCode = p;
-            el.Message = httpException.Message.ToString();
-            el.Url = (HttpContext.Current != null) ? HttpContext.Current.Request.Url.ToString() : string.Empty;
-
-            if(Membership.GetUser() != null)
-            {
-                el.CreatedByUserID = Convert.ToInt32( Membership.GetUser().ProviderUserKey);
-            }
-            el.Create();
-        }
+ 
     }
      
 }

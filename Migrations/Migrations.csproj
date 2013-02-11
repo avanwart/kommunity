@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201301190831387_ContestResults.Designer.cs">
       <DependentUpon>201301190831387_ContestResults.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201302100728285_Log4NetTable.cs" />
+    <Compile Include="Migrations\201302100728285_Log4NetTable.Designer.cs">
+      <DependentUpon>201302100728285_Log4NetTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201301190831387_ContestResults.resx">
       <DependentUpon>201301190831387_ContestResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201302100728285_Log4NetTable.resx">
+      <DependentUpon>201302100728285_Log4NetTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

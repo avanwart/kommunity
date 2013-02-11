@@ -47,6 +47,10 @@ namespace DasKlub
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        //Here is the once-per-class call to initialize the log object
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
         public class MyConnection : PersistentConnection
         {
             protected Task OnReceivedAsync(string clientId, string data)
@@ -962,6 +966,10 @@ new
        
         protected void Application_Start()
         {
+            log4net.Config.XmlConfigurator.Configure();
+
+            log.Info("Application Started");
+          
             if (GeneralConfigs.EnableVideoCheck)
             {
                 ClearBadVideos();
@@ -1086,9 +1094,9 @@ new
             var exception = Server.GetLastError();
             var httpException = exception as HttpException;
 
-            if (exception != null && exception.ToString().ToLower().Contains("illegal")) return;
-
             Utilities.LogError(httpException);
+
+            log.Error("Application Error", httpException);
 
             Response.Clear();
             Server.ClearError();
@@ -1110,18 +1118,12 @@ new
                         routeData.Values["action"] = "Http404";
                         break;
                     default:
-                        Utilities.LogError(httpException, httpException.GetHttpCode());
-
-                        //ErrorLog elog = new ErrorLog();
-                        //elog.Message = "ERROR";
-                        //elog.ResponseCode = httpException.GetHttpCode();
-                        //elog.Create();
+                     
                         break;
                 }
-
-
-               
             }
+
+
             // Avoid IIS7 getting in the middle
             Response.TrySkipIisCustomErrors = true;
             IController errorsController = new ErrorsController();

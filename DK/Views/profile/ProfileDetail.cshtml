@@ -11,7 +11,14 @@
     <div class="row">
         <div class="span5">
             <div class="span3" style="margin: 0;">
-                <img src="@Url.Content("~/content/images/countries/" + Model.CountryCode + "_small.png")" alt="@Model.CountryName" title="@Model.CountryName" />
+                 
+                
+                        @{string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small"" alt=""{1}"" title=""{1}""></div> ", Model.CountryCode, Model.CountryName);
+}
+             
+              @Html.Raw(coName)
+              
+
                 <span title="@Utilities.GetLanguageNameForCode(Model.DefaultLanguage)">@Model.DefaultLanguage</span>
                 @Html.Raw(Model.RoleIcon)
                 @if (ViewBag.UserAccount != null &&
@@ -117,10 +124,10 @@
  
         
                 <iframe width="63%" height="@ViewBag.VideoHeight"
-     src="@BootBaronLib.Configs.GeneralConfigs.DefaultVideo" frameborder="0" allowfullscreen>
+     src="@BootBaronLib.Configs.GeneralConfigs.DefaultVideo?autoplay=1" frameborder="0" allowfullscreen>
                 </iframe>
                 <br />
-                <i>@Messages.CurrentDefault</i>
+                <i>To replace default video, add a video to your playlist</i>
             }
             else
             {

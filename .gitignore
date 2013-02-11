@@ -146,3 +146,10 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
+
+
+# =========================
+# Custom
+# =========================
+
+Web.Release.config

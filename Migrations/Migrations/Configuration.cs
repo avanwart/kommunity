@@ -44,6 +44,12 @@ namespace Migrations
 
         protected override void Seed(DasKlubContext context)
         {
+            if (!Program.RunSeed)
+            {
+                Console.WriteLine("SEED OFF");
+                return;
+            }
+
             Console.WriteLine("RUNNING SEED METHOD");
 
             // inserts mandatory values

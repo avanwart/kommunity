@@ -295,10 +295,10 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
 
 
         <hr />
-        @{Html.RenderPartial("_AdBanner2"); }
+      @*  @{Html.RenderPartial("_AdBanner2"); }
 
-        <hr />
-        <a href="@Url.Content("~/map")">@Messages.Map
+        <hr />*@
+        <a class="m_over" href="@Url.Content("~/map")"><img src="~/Content/images/map/worldmap.jpg" />
         </a>
 
 
