@@ -26,12 +26,14 @@ namespace DasKlub
             conts.GetAll();
 
             int count = 0;
+            int totalVids = 0;
 
             foreach (Contest c1 in conts)
             {
                 ContestVideo cv = new ContestVideo();
                 ContestVideos cvs = new ContestVideos();
                 cvs.GetContestVideosForContest(c1.ContestID);
+                totalVids += cvs.Count;
                 foreach (ContestVideo cv2 in cvs)
                 {
                     Video v1 = new Video(cv2.VideoID);

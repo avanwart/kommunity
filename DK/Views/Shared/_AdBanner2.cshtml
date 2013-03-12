@@ -1,5 +1,5 @@
 ﻿ <!-- 160 x 600 -->
-  @{int randomID = BootBaronLib.Operational.Utilities.RandomNumber(1, 8);
+  @{int randomID = BootBaronLib.Operational.Utilities.RandomNumber(1, 4);
 
    switch (randomID)
    {
@@ -22,22 +22,9 @@
            break;
            default:
   
- 
-  
-         
-               <b>Top This Month</b>
-        <br />
-           @Html.Raw(BootBaronLib.Operational.Utilities.RandomAdvertisement())
-  <br />
-           
-  @Html.Raw(BootBaronLib.Operational.Utilities.RandomAdvertisement())
-  <br />
-  @Html.Raw(BootBaronLib.Operational.Utilities.RandomAdvertisement())
-  <br />
-  @Html.Raw(BootBaronLib.Operational.Utilities.RandomAdvertisement())
-  
-  <br />
-  @Html.Raw(BootBaronLib.Operational.Utilities.RandomAdvertisement())
+       @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                            BootBaronLib.Enums.SiteEnums.SiteBrandType.A1603,
+                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
            break;
                       
                          }

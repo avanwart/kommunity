@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Account" xml:space="preserve">
-    <value>rekening</value>
+    <value>Rekening</value>
   </data>
   <data name="All" xml:space="preserve">
-    <value>alle</value>
+    <value>Alle</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>annuleren</value>
+    <value>Annuleren</value>
   </data>
   <data name="CannotUnencodeAHashedPassword" xml:space="preserve">
-    <value>Kan niet unencode een hashed wachtwoord.</value>
+    <value>Kan het hashed wachtwoord niet de-activeren</value>
   </data>
   <data name="ChangePasswordCancel" xml:space="preserve">
-    <value>Wachtwoord wijzigen geannuleerd als gevolg van een nieuw wachtwoord mislukte validatie.</value>
+    <value>Er is een fout opgetreden bij het verwerken van uw verzoek.</value>
   </data>
   <data name="ClickHere" xml:space="preserve">
-    <value>klik hier</value>
+    <value>Klik hier</value>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>sluiten</value>
+    <value>Sluiten</value>
   </data>
   <data name="Comment" xml:space="preserve">
-    <value>commentaar</value>
+    <value>Reactie</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Wachtwoord bevestigen</value>
@@ -148,7 +148,7 @@
     <value>Connection string kan niet leeg zijn.</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>voortzetten</value>
+    <value>Doorgaan</value>
   </data>
   <data name="Count" xml:space="preserve">
     <value>tellen</value>
@@ -181,7 +181,7 @@
     <value>Voer het e-mailadres</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>fout</value>
+    <value>Error</value>
   </data>
   <data name="FailedPasswordAnswerAttemptCount" xml:space="preserve">
     <value>Mislukte Wachtwoord Antwoord Poging Count</value>
@@ -245,16 +245,16 @@
     <value>Is Admin</value>
   </data>
   <data name="IsApproved" xml:space="preserve">
-    <value>is goedgekeurd</value>
+    <value>Goedgekeurd</value>
   </data>
   <data name="IsLockedOut" xml:space="preserve">
     <value>Is vergrendeld</value>
   </data>
   <data name="IsOnline" xml:space="preserve">
-    <value>Is Online</value>
+    <value>is Online</value>
   </data>
   <data name="JustNow" xml:space="preserve">
-    <value>daarnet</value>
+    <value>Zojuist</value>
   </data>
   <data name="KeepMeLoggedIn" xml:space="preserve">
     <value>Ik wil ingelogd blijven</value>
@@ -278,10 +278,10 @@
     <value>Achternaam is een verplicht</value>
   </data>
   <data name="LastPasswordChangedDateTime" xml:space="preserve">
-    <value>Laatste Wachtwoord Gewijzigd Datum Tijd</value>
+    <value>Laatst gebruikt Wachtwoord Gewijzigd Datum Tijd</value>
   </data>
   <data name="SignInToYourAccountHere" xml:space="preserve">
-    <value>Meld je aan om je account Hier</value>
+    <value>Meld je hier aan op uw account</value>
   </data>
   <data name="SignOff" xml:space="preserve">
     <value>Afmelden</value>
@@ -416,7 +416,7 @@
     <value>Type vereist</value>
   </data>
   <data name="UnableToLockOutUser" xml:space="preserve">
-    <value>Kan uit te sluiten gebruiker.</value>
+    <value>Kan gebruiker niet uit sluiten.</value>
   </data>
   <data name="UnableToUpdateFailureCount" xml:space="preserve">
     <value>Kan niet tellen bij te werken.</value>
@@ -443,13 +443,13 @@
     <value>ja</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
-    <value>gisteren</value>
+    <value>Gisteren</value>
   </data>
   <data name="YourNewAccountIsReadyForUse" xml:space="preserve">
     <value>Uw account is klaar voor gebruik</value>
   </data>
   <data name="YourPasswordHasBeenReset" xml:space="preserve">
-    <value>Uw wachtwoord is Reset</value>
+    <value>Uw wachtwoord is gereset</value>
   </data>
   <data name="FindUsers" xml:space="preserve">
     <value>Zoek gebruikers</value>
@@ -461,7 +461,7 @@
     <value>Profiel bewerken</value>
   </data>
   <data name="Failure" xml:space="preserve">
-    <value>storing</value>
+    <value>Storing</value>
   </data>
   <data name="Mail" xml:space="preserve">
     <value>Mail</value>
@@ -530,7 +530,7 @@
     <value>over</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value>adres</value>
+    <value>Adres</value>
   </data>
   <data name="BasicDetails" xml:space="preserve">
     <value>basis Details</value>
@@ -539,7 +539,7 @@
     <value>blokkeren van IP</value>
   </data>
   <data name="BriefDescription" xml:space="preserve">
-    <value>korte beschrijving</value>
+    <value>Korte beschrijving</value>
   </data>
   <data name="Confirmed" xml:space="preserve">
     <value>bevestigde</value>
@@ -584,7 +584,7 @@
     <value>Meta Description</value>
   </data>
   <data name="News" xml:space="preserve">
-    <value>nieuws</value>
+    <value>Nieuws</value>
   </data>
   <data name="Photo" xml:space="preserve">
     <value>foto</value>
@@ -626,7 +626,7 @@
     <value>Geboortedatum</value>
   </data>
   <data name="YouAre" xml:space="preserve">
-    <value>U bent</value>
+    <value>Jij bent</value>
   </data>
   <data name="PasswordBetween4and15Characters" xml:space="preserve">
     <value>Wachtwoord moet tussen de 4 en 15 tekens</value>
@@ -662,10 +662,10 @@
     <value>Toevoegen aan afspeellijst</value>
   </data>
   <data name="BringDown" xml:space="preserve">
-    <value>brengen</value>
+    <value>Naar beneden</value>
   </data>
   <data name="BringUp" xml:space="preserve">
-    <value>naar boven</value>
+    <value>Naar boven</value>
   </data>
   <data name="RemoveFromList" xml:space="preserve">
     <value>Verwijder uit lijst</value>
@@ -674,10 +674,10 @@
     <value>Uploader</value>
   </data>
   <data name="BandsYouHaveSeenLive" xml:space="preserve">
-    <value>Bands je hebt gezien woont</value>
+    <value>Bands die je al hebt bezocht</value>
   </data>
   <data name="BandsYouWantToSeeLiveOrJustListenTo" xml:space="preserve">
-    <value>Bands u wilt wonen of gewoon te zien luisteren naar</value>
+    <value>Bands die je nog graag live zou willen zien, of waar je veel naar luisterd</value>
   </data>
   <data name="CurrentCountry" xml:space="preserve">
     <value>De huidige land</value>
@@ -773,7 +773,7 @@
     <value>Denemarken</value>
   </data>
   <data name="DisplayMyAge" xml:space="preserve">
-    <value>Geef mijn leeftijd</value>
+    <value>Geef mijn leeftijd weer</value>
   </data>
   <data name="DominicanRepublic" xml:space="preserve">
     <value>Dominicaanse Republiek</value>
@@ -791,7 +791,7 @@
     <value>Faeröer</value>
   </data>
   <data name="Female" xml:space="preserve">
-    <value>vrouw</value>
+    <value>Vrouwelijk</value>
   </data>
   <data name="Finland" xml:space="preserve">
     <value>Finland</value>
@@ -1046,31 +1046,31 @@
     <value>Account informatie</value>
   </data>
   <data name="BySigningUpYouAgreeToTheTermsOfService" xml:space="preserve">
-    <value>Met de ondertekening gaat u akkoord met de algemene voorwaarden</value>
+    <value>Met deze ondertekening gaat u akkoord met de algemene voorwaarden</value>
   </data>
   <data name="Here" xml:space="preserve">
     <value>hier</value>
   </data>
   <data name="AccountDeletionCannotBeUndone" xml:space="preserve">
-    <value>Account verwijderen kan niet ongedaan gemaakt</value>
+    <value>Account verwijderen kan niet ongedaan gemaakt worden</value>
   </data>
   <data name="Administrator" xml:space="preserve">
-    <value>beheerder</value>
+    <value>Beheerder</value>
   </data>
   <data name="Alien" xml:space="preserve">
-    <value>buitenaards</value>
+    <value>Buitenaards</value>
   </data>
   <data name="Applaud" xml:space="preserve">
-    <value>applaudisseren</value>
+    <value>Toejuigen</value>
   </data>
   <data name="Audience" xml:space="preserve">
-    <value>gehoor</value>
+    <value>Plubliek</value>
   </data>
   <data name="AutoPlayVideoInProfile" xml:space="preserve">
     <value>Automatisch afspelen video in het profiel</value>
   </data>
   <data name="BeatDown" xml:space="preserve">
-    <value>Beat naar beneden</value>
+    <value>Naar beneden halen</value>
   </data>
   <data name="BlockedUsers" xml:space="preserve">
     <value>geblokkeerde gebruikers</value>
@@ -1115,7 +1115,7 @@
     <value>Man en Vrouw</value>
   </data>
   <data name="MessagesAreSentToYourEmail" xml:space="preserve">
-    <value>Wanneer ingeschakeld, worden berichten verzonden naar uw e-mail adres.</value>
+    <value>Wanneer ingeschakeld zullen er berichten verzonden naar uw e-mail adres.</value>
   </data>
   <data name="Mute" xml:space="preserve">
     <value>Mute</value>
@@ -1133,7 +1133,7 @@
     <value>lezen</value>
   </data>
   <data name="RealLifeContacts" xml:space="preserve">
-    <value>Het echte leven contacten</value>
+    <value>Contacten die je echt kent</value>
   </data>
   <data name="RelationshipStatus" xml:space="preserve">
     <value>Burgelijke staat</value>
@@ -1145,13 +1145,13 @@
     <value>Robot</value>
   </data>
   <data name="SingleAndLooking" xml:space="preserve">
-    <value>enkele uit</value>
+    <value>Single en zoekend</value>
   </data>
   <data name="Song" xml:space="preserve">
     <value>lied</value>
   </data>
   <data name="TakenOrNotInterested" xml:space="preserve">
-    <value>Genomen of niet geïnteresseerd</value>
+    <value>Bezet of niet geïnteresseerd</value>
   </data>
   <data name="Unread" xml:space="preserve">
     <value>ongelezen</value>
@@ -1163,7 +1163,7 @@
     <value>Bezoekers</value>
   </data>
   <data name="WouldYouLikeToBeCyberAssociates" xml:space="preserve">
-    <value>Wilt u als cyber omgaat?</value>
+    <value>Wilt u als Cyber associé toetreden?</value>
   </data>
   <data name="YouDoNotAppearOnTheMap" xml:space="preserve">
     <value>Als dit is uitgeschakeld u niet op de kaart.</value>
@@ -1172,19 +1172,19 @@
     <value>Indien dit is uitgeschakeld, zal uw leeftijd niet weergegeven in uw profiel.</value>
   </data>
   <data name="YouResponded" xml:space="preserve">
-    <value>U antwoordde</value>
+    <value>U antwoordde met</value>
   </data>
   <data name="YourProfileViewsWillNotBeRecorded" xml:space="preserve">
-    <value>Indien dit is uitgeschakeld, wordt je profiel bekeken niet worden opgenomen en je kunt niet zien wie uw profiel.</value>
+    <value>Indien dit is uitgeschakeld, worden uw profiel vieuws niet opgenomen en kunt u niet zien wie uw profiel ziet.</value>
   </data>
   <data name="DeleteThis" xml:space="preserve">
     <value>Verwijder deze?</value>
   </data>
   <data name="AboutOneMinuteAgo" xml:space="preserve">
-    <value>ongeveer een minuut geleden</value>
+    <value>Ongeveer een minuut geleden</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>terug</value>
+    <value>Terug</value>
   </data>
   <data name="DaysAgo" xml:space="preserve">
     <value>{0} dagen geleden</value>
@@ -1283,13 +1283,13 @@
     <value>Algemene voorwaarden</value>
   </data>
   <data name="Applauded" xml:space="preserve">
-    <value>toegejuicht</value>
+    <value>Toegejuicht</value>
   </data>
   <data name="BeatenDown" xml:space="preserve">
-    <value>geslagen</value>
+    <value>Neer gehaald</value>
   </data>
   <data name="Commented" xml:space="preserve">
-    <value>commentaar</value>
+    <value>Reactie gegeven</value>
   </data>
   <data name="EMailMyMessages" xml:space="preserve">
     <value>E-mail mijn berichten</value>
@@ -1355,10 +1355,10 @@
     <value>Hartelijk gefeliciteerd</value>
   </data>
   <data name="AddAsCyberAssociate" xml:space="preserve">
-    <value>Voeg toe als cyber associate</value>
+    <value>Voeg toe als Virtueel Contact</value>
   </data>
   <data name="AddAsRealLifeContact" xml:space="preserve">
-    <value>Voeg als het echte leven contact (IRL)</value>
+    <value>Voeg toe als Contact in het echte leven (IRL)</value>
   </data>
   <data name="Music" xml:space="preserve">
     <value>muziek</value>
@@ -1391,7 +1391,7 @@
     <value>Band</value>
   </data>
   <data name="CreateANewAccount" xml:space="preserve">
-    <value>Maak een nieuwe account</value>
+    <value>Start een nieuw account</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>titel</value>
@@ -1400,13 +1400,13 @@
     <value>gemaakt op</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
-    <value>Nieuwe</value>
+    <value>Nieuw</value>
   </data>
   <data name="Russian" xml:space="preserve">
     <value>Russisch (русский)</value>
   </data>
   <data name="Age" xml:space="preserve">
-    <value>leeftijd</value>
+    <value>Leeftijd</value>
   </data>
   <data name="LastActive" xml:space="preserve">
     <value>Laatst actief</value>
@@ -1424,10 +1424,10 @@
     <value>wachten</value>
   </data>
   <data name="MostApplaudedThisWeek" xml:space="preserve">
-    <value>De meeste applaus deze week</value>
+    <value>Het leukst gevonden deze week</value>
   </data>
   <data name="MostBeatenDownThisWeek" xml:space="preserve">
-    <value>De meeste geslagen deze week</value>
+    <value>Het minst leuk gevonden deze week</value>
   </data>
   <data name="ApproximateLocation" xml:space="preserve">
     <value>De ligging ruwweg</value>
@@ -1442,7 +1442,7 @@
     <value>Op de iPhone E-mail uw foto naar met uw bericht in het lichaam om</value>
   </data>
   <data name="Block" xml:space="preserve">
-    <value>blokkeren</value>
+    <value>Blokkeren</value>
   </data>
   <data name="SendFromYourAccountEmail" xml:space="preserve">
     <value>Verzenden vanaf uw account E-mail</value>
@@ -1472,7 +1472,7 @@
     <value>Creative Gemeenschap</value>
   </data>
   <data name="Featuring" xml:space="preserve">
-    <value>met</value>
+    <value>Featuring</value>
   </data>
   <data name="Dance" xml:space="preserve">
     <value>dansen</value>
@@ -1481,7 +1481,7 @@
     <value>bewerkt</value>
   </data>
   <data name="FemaleDuo" xml:space="preserve">
-    <value>Vrouw Duo</value>
+    <value>Vrouwelijk Duo</value>
   </data>
   <data name="Group" xml:space="preserve">
     <value>groep</value>
@@ -1514,7 +1514,7 @@
     <value>Nieuwste boven</value>
   </data>
   <data name="MostCommentedOnThisWeek" xml:space="preserve">
-    <value>Meest bekeken deze week</value>
+    <value>Het meest bekeken deze week</value>
   </data>
   <data name="Or" xml:space="preserve">
     <value>of</value>
@@ -1550,7 +1550,7 @@
     <value>Video afgewezen</value>
   </data>
   <data name="WaitingToBeReviewed" xml:space="preserve">
-    <value>Deze video is klaar om te worden beoordeeld</value>
+    <value>Deze video is klaar om beoordeeld te worden</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>afbeelding</value>
@@ -1580,7 +1580,7 @@
     <value>De huidige inzendingen</value>
   </data>
   <data name="TimeRemainingInContest" xml:space="preserve">
-    <value>De tijd die nog in wedstrijd</value>
+    <value>Wedstrijd tijd duurt nog</value>
   </data>
   <data name="Document" xml:space="preserve">
     <value>Document</value>
@@ -1595,7 +1595,7 @@
     <value>Portugees (português)</value>
   </data>
   <data name="ClaimYouUploadedThisVideo" xml:space="preserve">
-    <value>Wijsmaken dat je geupload deze video</value>
+    <value>Claim dat je deze video hebt upgeload</value>
   </data>
   <data name="Italian" xml:space="preserve">
     <value>Italiaans (italiano)</value>
@@ -1604,7 +1604,7 @@
     <value>Nederlands</value>
   </data>
   <data name="City" xml:space="preserve">
-    <value>stad</value>
+    <value>Stad</value>
   </data>
   <data name="RegionState" xml:space="preserve">
     <value>Regio / Staat</value>
@@ -1655,7 +1655,7 @@
     <value>Chinees (中國的)</value>
   </data>
   <data name="Store" xml:space="preserve">
-    <value>winkel</value>
+    <value>Winkel</value>
   </data>
   <data name="Arabic" xml:space="preserve">
     <value>Arabisch (العربية)</value>
@@ -1664,7 +1664,7 @@
     <value>Turks (Türk)</value>
   </data>
   <data name="Contest" xml:space="preserve">
-    <value>wedstrijd</value>
+    <value>Wedstrijd</value>
   </data>
   <data name="UserManagement" xml:space="preserve">
     <value>User Management</value>

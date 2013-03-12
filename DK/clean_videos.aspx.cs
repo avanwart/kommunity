@@ -28,6 +28,7 @@ namespace DasKlub
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            int removed = 0;
             Videos vids = new Videos();
 
             vids.GetAll();
@@ -45,10 +46,13 @@ namespace DasKlub
                     if (!Convert.ToBoolean(sss))
                     {
                         vv1.IsEnabled = false;
+                        removed++;
                         vv1.Update();
                     }
                 }
             }
+
+            Response.Write(removed);
         }
     }
 }
