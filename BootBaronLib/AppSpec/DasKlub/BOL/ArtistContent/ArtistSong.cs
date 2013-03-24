@@ -708,13 +708,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
 
                 sb.AppendFormat(
-@"<a href=""{0}/{1}#!{1}"">", VirtualPathUtility.ToAbsolute("~/video"), v.ProviderCode, v.ProviderKey);
+@"<a href=""{0}/{1}#!{2}"">", VirtualPathUtility.ToAbsolute("~/video"), v.ProviderCode, v.ProviderKey);
 
 
 
 
-                sb.AppendFormat(@"<img longdesc=""{0}"" alt=""{1}/{2}#!"" class=""preview_thmb mini"" style=""width: 100px;height: 75px;"" 
-   src=""http://i3.ytimg.com/vi/{2}/2.jpg""    />", v.SongDisplayNoLink, VirtualPathUtility.ToAbsolute("~/video"), v.ProviderKey, v.ProviderCode);
+                sb.AppendFormat(@"<img longdesc=""{0}"" alt=""{1}/{2}#!{3}"" class=""preview_thmb mini"" style=""width: 100px;height: 75px;"" 
+   src=""http://i3.ytimg.com/vi/{3}/2.jpg""    />", v.SongDisplayNoLink, VirtualPathUtility.ToAbsolute("~/video"), v.ProviderCode,  v.ProviderKey);
 
                 sb.Append(@"</a>");
 
