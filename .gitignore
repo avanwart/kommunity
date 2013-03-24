@@ -153,3 +153,5 @@ $RECYCLE.BIN/
 # =========================
 
 Web.Release.config
+buildartifacts/
+configs.ps1
