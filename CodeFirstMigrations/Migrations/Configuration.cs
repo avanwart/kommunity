@@ -16,7 +16,7 @@
 //   limitations under the License.
 
 
-namespace Migrations
+namespace CodeFirstMigrations
 {
     using System;
     using System.Data.Entity;
@@ -44,7 +44,7 @@ namespace Migrations
 
         protected override void Seed(DasKlubContext context)
         {
-            if (!Program.RunSeed)
+            if (!Configuration.RunSeed)
             {
                 Console.WriteLine("SEED OFF");
                 return;
@@ -432,7 +432,9 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
             #endregion
 
         }
-    
+
+
+        public static bool RunSeed = false;
     }  
 
     public class DropCreateDatabaseTables : IDatabaseInitializer<DasKlubContext>

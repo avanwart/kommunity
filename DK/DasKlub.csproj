@@ -649,6 +649,8 @@
     <Content Include="m\auth\VideoInput.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Content\resources\logo.ai" />
+    <None Include="Properties\PublishProfiles\dasklub.com - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\dasklub.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\das_klub.pubxml" />
     <None Include="Properties\PublishProfiles\das_klub_production.pubxml" />
     <None Include="Properties\PublishProfiles\Das_Kub_local.pubxml" />
@@ -904,6 +906,7 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <AutoParameterizationWebConfigConnectionStrings>False</AutoParameterizationWebConfigConnectionStrings>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
