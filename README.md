@@ -35,7 +35,9 @@ To add a database migration, the first thing that needs to be done is to ensure 
 
 Next, open up Package Manager Console in Visual Studio and run: 
 
-Add-Migration -Name NAMEOFMIGRATION -ProjectName Migrations -StartUpProjectName Migrations -ConnectionStringName SQLDatabaseConnection
+<pre>
+Add-Migration -Name NAMEOFMIGRATION -ProjectName DBMigrator -StartUpProjectName DBMigrator -ConnectionStringName DasKlubContext
+</pre>
 
 If the message: 'Unable to generate an explicit migration because the following explicit migrations are pending:' comes up then the previous migrations were not run. To run those:
 
