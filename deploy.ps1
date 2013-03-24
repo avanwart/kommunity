@@ -1,0 +1,1 @@
+﻿ Invoke-psake .\default.ps1 deploy
