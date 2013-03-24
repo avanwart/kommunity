@@ -254,6 +254,7 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
 
 
         <div class="filtered_list">
+               <br />
             @if (string.IsNullOrEmpty(ViewBag.FilteredUsers))
             {
                 <i>@Messages.NoResults</i>
@@ -269,8 +270,8 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
                 {
                 <i>@Messages.SortedByActivity</i>
                 }
-              
-              
+              <br />
+              <br />
                 @Html.Raw(ViewBag.FilteredUsers)
             }
         </div>
