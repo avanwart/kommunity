@@ -16,7 +16,7 @@
 //   limitations under the License.
 
 
-namespace CodeFirstMigrations
+namespace Migrations
 {
     using System;
     using System.Data.Entity;
@@ -32,7 +32,12 @@ namespace CodeFirstMigrations
     /// </summary>
     public class DasKlubContext : DbContext
     {
+        static DasKlubContext()
+        {
+            Database.SetInitializer<DasKlubContext>(null);
+        }
 
+      
     }
 
     internal sealed class Configuration : DbMigrationsConfiguration<DasKlubContext>
@@ -53,7 +58,7 @@ namespace CodeFirstMigrations
             Console.WriteLine("RUNNING SEED METHOD");
 
             // inserts mandatory values
-            #region sql 
+            #region sql
             try
             {
                 context.Database.ExecuteSqlCommand(@"EXEC sp_executesql N'
@@ -105,7 +110,7 @@ IF NOT EXISTS(SELECT * FROM [Role] WHERE roleName = ''admin'')
 ';
             ");
 
-                   context.Database.ExecuteSqlCommand(@"EXEC sp_executesql N'
+                context.Database.ExecuteSqlCommand(@"EXEC sp_executesql N'
  
 IF NOT EXISTS(SELECT * FROM [PropertyType] WHERE propertyTypeCode = ''HUMAN'')
   BEGIN
@@ -159,7 +164,7 @@ IF NOT EXISTS(SELECT * FROM [PropertyType] WHERE propertyTypeCode = ''FOOTG'')
   ';
             ");
 
-                   context.Database.ExecuteSqlCommand(@"EXEC sp_executesql N'
+                context.Database.ExecuteSqlCommand(@"EXEC sp_executesql N'
  
 
 IF NOT EXISTS(SELECT * FROM [MultiProperty] WHERE name = ''Male'')
@@ -435,11 +440,11 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
 
 
         public static bool RunSeed = false;
-    }  
+    }
 
     public class DropCreateDatabaseTables : IDatabaseInitializer<DasKlubContext>
     {
-         #region IDatabaseInitializer<Context> Members
+        #region IDatabaseInitializer<Context> Members
 
         public void InitializeDatabase(DasKlubContext context)
         {
@@ -486,9 +491,8 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
         {
             /// TODO: put here your seed creation
         }
- 
+
 
         #endregion
     }
 }
-

@@ -441,6 +441,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _referringUserID = value; }
         }
 
+
+        private string _findUserFilter = string.Empty;
+
+        public string FindUserFilter
+        {
+            get { return _findUserFilter; }
+            set { _findUserFilter = value; }
+        }
+
         #endregion
 
         #region non-db properties
@@ -1066,7 +1075,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.DefaultLanguage), DefaultLanguage);
             ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Latitude), Latitude);
             ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Longitude), Longitude);
- 
+            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FindUserFilter), FindUserFilter);
 
             // the result is their ID
             string result = string.Empty;
@@ -1199,6 +1208,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             this.Latitude = FromObj.DecimalNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Latitude)]);
             this.Longitude = FromObj.DecimalNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Longitude)]);
+            this.FindUserFilter = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.FindUserFilter)]);
         }
 
         public override bool Update()
@@ -1250,7 +1260,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.DefaultLanguage), DefaultLanguage);
             ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Latitude), Latitude);
             ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Longitude), Longitude);
-      
+            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FindUserFilter), FindUserFilter);
             
             int result = -1;
 

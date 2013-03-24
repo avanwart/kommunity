@@ -10,10 +10,11 @@
         @{Html.RenderPartial("_AdBanner"); }
         <h2>@Messages.FindUsers</h2>
         <hr />
+        
+@*
            <div id="cse-search-form" style="float: right; width: 370px; margin-left: 3px;">
                                 @BootBaronLib.Resources.Messages.LoadingDotDotDot
                             </div>
-
 
 
 
@@ -42,8 +43,10 @@
 
 
                             </script>
-        <div class="clear"></div>
+          <div class="clear"></div>
               <hr />
+        *@
+      
 
         <div id="loading_message" style="visibility: hidden;">
             @Messages.LoadingDotDotDot
@@ -330,6 +333,12 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
 
 
         function searchUsers() {
+            if ( $('#postalcode').val() != '' && $('#country').val() == '' ) {
+                alert("You must select a country to filter by postal code"); // TODO: localize
+                return;
+            }
+
+
             $('#loading_message').css({ opacity: 0.0, visibility: "visible" }).animate({ opacity: 1.0 });
 
 

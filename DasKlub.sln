@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4107BE
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeFirstMigrations", "CodeFirstMigrations\CodeFirstMigrations.csproj", "{34856055-A573-471D-ABA5-60CF4D9DA998}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBMigrator", "DBMigrator\DBMigrator.csproj", "{17A189C2-EF59-4DA1-A6A7-04FD1E8805D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,10 +46,10 @@ Global
 		{1B19D53D-9A58-4C2C-9B61-0F893FF037B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B19D53D-9A58-4C2C-9B61-0F893FF037B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B19D53D-9A58-4C2C-9B61-0F893FF037B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34856055-A573-471D-ABA5-60CF4D9DA998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34856055-A573-471D-ABA5-60CF4D9DA998}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34856055-A573-471D-ABA5-60CF4D9DA998}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34856055-A573-471D-ABA5-60CF4D9DA998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17A189C2-EF59-4DA1-A6A7-04FD1E8805D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17A189C2-EF59-4DA1-A6A7-04FD1E8805D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17A189C2-EF59-4DA1-A6A7-04FD1E8805D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17A189C2-EF59-4DA1-A6A7-04FD1E8805D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

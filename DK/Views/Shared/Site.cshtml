@@ -111,17 +111,19 @@
                     <ul class="nav the-icons">
                         <li><a href="@Url.Content("~/")" class="site_name">@BootBaronLib.Configs.GeneralConfigs.SiteName</a></li>
 
-                                       @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "store" &&
-                            ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
-                        {
-                            <li class="active"><a class="current_page_item" href="@Url.Content("~/store")">
-                                <i class="icon-tag"></i> @Messages.Store</a> </li>
-                        }
-                        else
-                        {
-                            <li><a href="@Url.Content("~/store")">
-                            <i class="icon-tag"></i> @Messages.Store</a> </li>
-                        }
+
+                                                <li
+                  
+               @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "findusers" &&
+                    ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
+               {
+          <text>class="active" </text>
+               }
+           ><a href="@Url.Content("~/findusers")">
+               <i class="icon-search"></i>
+               @Messages.FindUsers</a> </li>
+
+                               
 
                         @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "video" &&
                             ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
@@ -155,16 +157,7 @@
                             <li><a href="@Url.Content("~/photos")">
                                 <i class="icon-camera"></i> @Messages.Photos</a> </li>
                         }
-                        <li
-                  
-               @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "findusers" &&
-                    ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
-               {
-          <text>class="active" </text>
-               }
-           ><a href="@Url.Content("~/findusers")">
-               <i class="icon-search"></i>
-               @Messages.FindUsers</a> </li>
+
                         @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "news" &&
                         ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
                         {
@@ -178,6 +171,18 @@
                         {
                             <li><a href="@Url.Content("~/news")">
                                 <i class="icon-th-list"></i> @Messages.News</a> </li>
+                        }
+
+                                @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "store" &&
+                            ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
+                        {
+                            <li class="active"><a class="current_page_item" href="@Url.Content("~/store")">
+                                <i class="icon-tag"></i> @Messages.Store</a> </li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Content("~/store")">
+                            <i class="icon-tag"></i> @Messages.Store</a> </li>
                         }
                         @*   @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "map")
                         {

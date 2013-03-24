@@ -896,9 +896,6 @@
     <Content Include="Views\Account\Articles.cshtml" />
     <Content Include="Views\Account\CreateArticle.cshtml" />
     <Content Include="Views\Account\EditArticle.cshtml" />
-    <Content Include="appSettings.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Views\Account\NotAllowed.cshtml" />
     <Content Include="Views\Account\ManageVideos.cshtml" />
     <Content Include="Views\News\Lang.cshtml" />

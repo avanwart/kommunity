@@ -289,11 +289,12 @@ namespace DasKlub.Controllers
 
         private void LoadFilteredUsers(bool isAjax, FindUsersModel model)
         {
+            mu = Membership.GetUser();
 
             model.AgeFrom = (!string.IsNullOrWhiteSpace(Request.QueryString["AgeFrom"])) ? Convert.ToInt32(Request.QueryString["AgeFrom"]) : model.AgeFrom;
             model.AgeTo = (!string.IsNullOrWhiteSpace(Request.QueryString["AgeTo"])) ? Convert.ToInt32(Request.QueryString["AgeTo"]) : model.AgeTo;
 
-            mu = Membership.GetUser();
+
 
             if (mu != null)
             {
@@ -316,7 +317,28 @@ namespace DasKlub.Controllers
                 //    model.AgeFrom = 30;
                 //    model.AgeTo = 69;
                 //}
+
+                if (!isAjax)
+                {
+                    UserAccountDetail uad = new UserAccountDetail();
+                    uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+
+
+                    if (!string.IsNullOrWhiteSpace(Request.QueryString.ToString()))
+                    {
+                        uad.FindUserFilter = Request.QueryString.ToString();
+                        uad.Update();
+                    }
+                    else if ( !string.IsNullOrWhiteSpace(uad.FindUserFilter))
+                    {
+                        Response.Redirect(string.Format("~/findusers?{0}", uad.FindUserFilter));
+                    }
+
+
+
+                }
             }
+
 
             model.InterestedInID =
                     (Request.QueryString["InterestedInID"] != null && Request.QueryString["InterestedInID"] == string.Empty) ? null :
@@ -362,6 +384,20 @@ namespace DasKlub.Controllers
             if (!isAjax)
             {
                 ViewBag.SortByDistance = sortByDistance;
+            }
+
+            if (mu != null && !isAjax)
+            {
+
+                if (!string.IsNullOrWhiteSpace(Request.QueryString.ToString()))
+                {
+                    UserAccountDetail uad = new UserAccountDetail();
+                    uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+
+                    uad.FindUserFilter = Request.QueryString.ToString();
+                    uad.Update();
+                }
+
             }
         }
 

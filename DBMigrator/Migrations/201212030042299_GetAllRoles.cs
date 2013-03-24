@@ -1,4 +1,4 @@
-namespace CodeFirstMigrations
+namespace Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
