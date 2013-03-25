@@ -318,8 +318,7 @@ namespace DasKlub.Controllers
                 //    model.AgeTo = 69;
                 //}
 
-                if (!isAjax)
-                {
+                 
                     UserAccountDetail uad = new UserAccountDetail();
                     uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
 
@@ -333,10 +332,7 @@ namespace DasKlub.Controllers
                     {
                         Response.Redirect(string.Format("~/findusers?{0}", uad.FindUserFilter));
                     }
-
-
-
-                }
+                 
             }
 
 

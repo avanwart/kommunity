@@ -285,7 +285,18 @@ namespace DasKlub.Controllers
                     return View(model);
                 }
 
-                model.Reply.Create();
+                bool hasBeenSaid = false;
+
+                foreach (ContentComment cmt in model.Comments)
+                {
+                    if (cmt.CreatedByUserID == model.Reply.CreatedByUserID &&
+                        cmt.Detail == model.Reply.Detail)
+                    {
+                        hasBeenSaid = true;
+                    }
+                }
+                
+                if (!hasBeenSaid) model.Reply.Create();
 
                 return View(model);
             }
