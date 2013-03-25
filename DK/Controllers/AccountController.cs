@@ -2527,6 +2527,38 @@ namespace DasKlub.Controllers
                     }
 
 
+                    DirectMessage dm = new DirectMessage();
+                    dm.IsRead = false;
+
+                    UserAccount admin = new UserAccount(  GeneralConfigs.AdminUserName);
+
+                    dm.FromUserAccountID = admin.UserAccountID;
+                    dm.ToUserAccountID = ua.UserAccountID;
+
+                    sb = new StringBuilder();
+
+                    sb.AppendLine("Welcome to the klub!");
+                    sb.AppendLine();
+                    sb.AppendLine("I am the site creator/ admin");
+                    sb.AppendLine();
+                    sb.AppendLine("Useful member links:");
+                    sb.AppendLine(string.Format("Status Updates (where most of the action happens): {0}/account/home", GeneralConfigs.SiteDomain));
+                    sb.AppendLine(string.Format("Who's online now: {0}/findusers/online", GeneralConfigs.SiteDomain));
+                    sb.AppendLine();
+                    sb.AppendLine("Send mail if you have questions.");
+                    sb.AppendLine();
+                    sb.AppendLine("- RMW");
+                    sb.AppendLine();
+                    sb.AppendLine("[ automatic e-mail ]");
+                    dm.Message = sb.ToString();
+
+                    if (admin.UserAccountID != 0)
+                    {
+                        dm.CreatedByUserID = admin.UserAccountID;
+                    }
+
+                    dm.Create();
+
                     return RedirectToAction("editprofile", "Account");
                 }
                 else

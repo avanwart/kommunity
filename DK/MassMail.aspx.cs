@@ -21,6 +21,8 @@ namespace DasKlub
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             Videos vids = new Videos();
             Contests conts = new Contests();
             conts.GetAll();
