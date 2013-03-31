@@ -31,24 +31,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="@Url.Content("~/content/images/brand/favicon.ico")" />
         <title>@ViewBag.Title : [@GeneralConfigs.SiteName]</title>
- 
-
+  
         @Styles.Render("~/Content/css_head1")
-
-        <link rel="stylesheet" href="http://bootswatch.com/cyborg/bootstrap.min.css" />
 
         <style type="text/css">
             body {
                 @if (HttpContext.Current.Request.IsAuthenticated)
                 {
                     <text>
-        padding-top: 120px;
+        padding-top: 90px;
         </text>
                 }
                 else
                 {
                     <text>
-              padding-top: 70px;
+              padding-top: 60px;
         </text>
                 }
                 
@@ -60,12 +57,10 @@
 
         </style>
  
-
-
         @Styles.Render("~/Content/style/css_head2")
 
-
-
+    
+        
 
         @Styles.Render("~/Content/mediaelement/css_mediaelement")
 
@@ -73,10 +68,14 @@
             SiteEnums.SiteBrandType.STYLE,
             Utilities.GetCurrentLanguageCode()))
         
-   
+        
     
 
         @RenderSection("_css", false)
+        
+        
+            
+
         <meta name="description" @if (!string.IsNullOrEmpty(ViewBag.MetaDescription))
                                  {
                                      <text>content="@Html.Raw(ViewBag.MetaDescription)"</text>
