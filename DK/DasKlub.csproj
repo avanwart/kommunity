@@ -526,6 +526,7 @@
     <Content Include="Content\script\textarea_expander.js" />
     <Content Include="Content\sound\laser_1.mp3" />
     <Content Include="Content\style\content.css" />
+    <Content Include="Content\style\cyborg_theme.css" />
     <Content Include="Content\style\images\ui-bg_highlight-hard_20_0972a5_1x100.png" />
     <Content Include="Content\style\images\ui-bg_highlight-soft_33_003147_1x100.png" />
     <Content Include="Content\style\images\ui-bg_highlight-soft_35_222222_1x100.png" />

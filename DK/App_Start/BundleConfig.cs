@@ -49,13 +49,14 @@ namespace DasKlub.App_Start
             //            "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css_head1").Include(
-                "~/content/bootstrap.css"
+              "~/content/bootstrap.css",
+                "~/content/style/cyborg_theme.css"
                             //"~/content/style/docs.css",
                             //"~/content/style/prettify.css",
                             ));
 
             bundles.Add(new StyleBundle("~/Content/style/css_head2").Include(
-                "~/content/bootstrap-responsive.css",
+               "~/content/bootstrap-responsive.css",
                 "~/content/style/darkstrap.css",
                 "~/content/style/jquery-ui-{version}.custom.css",
                 "~/content/style/flag_sprites.css",

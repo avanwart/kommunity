@@ -35,20 +35,20 @@
 
         @Styles.Render("~/Content/css_head1")
 
-    
+        <link rel="stylesheet" href="http://bootswatch.com/cyborg/bootstrap.min.css" />
 
         <style type="text/css">
             body {
                 @if (HttpContext.Current.Request.IsAuthenticated)
                 {
                     <text>
-        padding-top: 90px;
+        padding-top: 120px;
         </text>
                 }
                 else
                 {
                     <text>
-              padding-top: 50px;
+              padding-top: 70px;
         </text>
                 }
                 
@@ -72,6 +72,8 @@
         @Html.Raw(SiteDomain.GetSiteDomainValue(
             SiteEnums.SiteBrandType.STYLE,
             Utilities.GetCurrentLanguageCode()))
+        
+   
     
 
         @RenderSection("_css", false)
@@ -124,7 +126,7 @@
         @RenderSection("_javascriptHead", false)
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar  navbar-fixed-top navbar-inverse">
             <div class="navbar-inner">
                 <div class="container">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
