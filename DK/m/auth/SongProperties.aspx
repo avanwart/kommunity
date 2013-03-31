@@ -32,7 +32,7 @@
                 </td>
                 <td>
                     <asp:DropDownList ID="ddlArtistSongs1" runat="server" AutoPostBack="True" 
-                        onselectedindexchanged="ddlArtistSongs1_SelectedIndexChanged">
+                                      onselectedindexchanged="ddlArtistSongs1_SelectedIndexChanged">
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -41,18 +41,18 @@
                     iTunes Link:
                 </td>
                 <td>     
-                     <asp:TextBox ID="txtiTunesLink" runat="server" Width="577px" Height="64px" 
-                        TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="txtiTunesLink" runat="server" Width="577px" Height="64px" 
+                                 TextMode="MultiLine"></asp:TextBox>
                 </td>
             </tr>
 
-               <tr>
+            <tr>
                 <td>
                     Amazon Link:
                 </td>
                 <td>
                     <asp:TextBox ID="txtAmazonLink" runat="server" Width="577px" Height="64px" 
-                        TextMode="MultiLine"></asp:TextBox>
+                                 TextMode="MultiLine"></asp:TextBox>
                 </td>
             </tr>
 
@@ -66,4 +66,4 @@
         </table>
     </div>
  
- </asp:Content>
+</asp:Content>

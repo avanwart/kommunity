@@ -1,37 +1,39 @@
-﻿@using BootBaronLib.Values
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL.UserContent
+@using BootBaronLib.Resources
+@using BootBaronLib.Values
 @model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComments
 @{
-    ViewBag.Title = BootBaronLib.Resources.Messages.ManageNewsComments;
+    ViewBag.Title = Messages.ManageNewsComments;
 }
-@{Html.RenderPartial("_adminMenu"); }
-<h2>@BootBaronLib.Resources.Messages.ManageNewsComments</h2>
+@{ Html.RenderPartial("_adminMenu"); }
+<h2>@Messages.ManageNewsComments</h2>
  
 <table>
     <tr>
-        <th>@BootBaronLib.Resources.Messages.Name
+        <th>@Messages.Name
         </th>
 
-                <th>@BootBaronLib.Resources.Messages.IpAddress
+        <th>@Messages.IpAddress
         </th>
        
-        <th>@BootBaronLib.Resources.Messages.CreatedOn
+        <th>@Messages.CreatedOn
         </th>
 
-                <th>@BootBaronLib.Resources.Messages.Status
+        <th>@Messages.Status
         </th>
 
 
         <th>
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (ContentComment item in Model)
     {
         <tr>
             <td>
                 @item.FromName
-                </td>
+            </td>
 
-                    <td>
+            <td>
                 @item.IpAddress
             </td>
            
@@ -39,14 +41,14 @@
                 @item.CreateDate
             </td>
 
-                        <td>
+            <td>
                 @item.StatusTypeName
             </td>
 
 
             <td>
-                @Html.ActionLink(BootBaronLib.Resources.Messages.Edit, 
-                "EditArticleComment", new { id = item.ContentCommentID })
+                @Html.ActionLink(Messages.Edit,
+                                 "EditArticleComment", new {id = item.ContentCommentID})
             </td>
         </tr>
     }
@@ -57,26 +59,25 @@
     for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
     {
         if (string.IsNullOrEmpty(Request.QueryString[
-            SiteEnums.QueryStringNames.pg.ToString()]) && 
+            SiteEnums.QueryStringNames.pg.ToString()]) &&
             pageNumber == 1)
         {
-    @pageNumber     
+            @pageNumber
         }
         else if (!string.IsNullOrEmpty(Request.QueryString[
             SiteEnums.QueryStringNames.pg.ToString()]) &&
-            pageNumber ==
-            Convert.ToInt32(Request.QueryString[
-            SiteEnums.QueryStringNames.pg.ToString()])
+                 pageNumber ==
+                 Convert.ToInt32(Request.QueryString[
+                     SiteEnums.QueryStringNames.pg.ToString()])
             )
         {
-    @pageNumber 
+            @pageNumber
         }
         else
         {
-    <a href="@Url.Content("~/account/articlecomments/?" +
-                          SiteEnums.QueryStringNames.pg.ToString() +
-                          "=" + pageNumber.ToString())">@pageNumber.ToString()</a>  
+            <a href="@Url.Content("~/account/articlecomments/?" +
+                                  SiteEnums.QueryStringNames.pg.ToString() +
+                                  "=" + pageNumber.ToString())">@pageNumber.ToString()</a>
         }
     }
-    
 }

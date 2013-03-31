@@ -15,55 +15,44 @@
 //   limitations under the License.
 
 using System;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using BootBaronLib.Configs;
 
 namespace DasKlub.Helpers
 {
-    public static partial class HtmlHelpers
+    public static class HtmlHelpers
     {
         public static MvcHtmlString CSSClassValidationMessageFor<TModel, TProperty>
-        (this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+            (this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
         {
-            return helper.ValidationMessageFor(expression, null, new { @class = "error" });
+            if (helper == null) throw new ArgumentNullException("helper");
+            if (expression == null) throw new ArgumentNullException("expression");
+            return helper.ValidationMessageFor(expression, null, new {@class = "error"});
         }
-
 
 
         public static MvcHtmlString QueryAsHiddenFields(this HtmlHelper htmlHelper)
         {
             var result = new StringBuilder();
             var query = htmlHelper.ViewContext.HttpContext.Request.QueryString;
-            foreach (string key in query.Keys)
+            foreach (var key in query.Keys.Cast<string>().Where(key => key != null))
             {
-                if (key == null) continue;
                 result.Append(htmlHelper.Hidden(key, query[key]).ToHtmlString());
             }
             return MvcHtmlString.Create(result.ToString());
         }
 
 
-
-
         public static MvcHtmlString S3ContentPath(this HtmlHelper helper, string filePath)
         {
-            var bucket = BootBaronLib.Configs.AmazonCloudConfigs.AmazonBucketName;
-            var url = string.Format(BootBaronLib.Configs.AmazonCloudConfigs.AmazonCloudDomain, bucket, filePath);
+            var bucket = AmazonCloudConfigs.AmazonBucketName;
+            var url = string.Format(AmazonCloudConfigs.AmazonCloudDomain, bucket, filePath);
             return new MvcHtmlString(url);
         }
-
-
-
-        public static MvcHtmlString SiteFilePathResolver(this HtmlHelper helper, string filePath)
-        {
-            string relativePath = System.Web.VirtualPathUtility.ToAbsolute(filePath);
-            return new MvcHtmlString(relativePath);
-        }
-
-
-
-
     }
 }

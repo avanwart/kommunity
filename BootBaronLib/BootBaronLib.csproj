@@ -182,8 +182,6 @@
     <Compile Include="Configs\AmazonCloudConfigs.cs" />
     <Compile Include="Configs\DataBaseConfigs.cs" />
     <Compile Include="Interfaces\ILocalizedName.cs" />
-    <Compile Include="Interfaces\IJSONResponse.cs" />
-    <Compile Include="Interfaces\ISiteDomain.cs" />
     <Compile Include="Interfaces\IGetAllForDomain.cs" />
     <Compile Include="Interfaces\IUnorderdListItem.cs" />
     <Compile Include="Interfaces\IUnorderdList.cs" />
@@ -191,39 +189,28 @@
     <Compile Include="Interfaces\IDatesInRange.cs" />
     <Compile Include="Interfaces\IGet.cs" />
     <Compile Include="Interfaces\IGetCachedDataRow.cs" />
-    <Compile Include="Interfaces\IGetFromSQL.cs" />
     <Compile Include="Interfaces\IIsHidden.cs" />
     <Compile Include="BaseTypes\BaseIUserLog.cs" />
     <Compile Include="Configs\GeneralConfigs.cs" />
     <Compile Include="DAL\DAL.cs" />
     <Compile Include="HttpModules\HttpHeaderCleanup.cs" />
-    <Compile Include="Interfaces\IFullResponse.cs" />
-    <Compile Include="Interfaces\IUniqueKey.cs" />
     <Compile Include="Interfaces\IUpdateAll.cs" />
     <Compile Include="Interfaces\IBaseCRUD.cs" />
     <Compile Include="Interfaces\IGetAll.cs" />
-    <Compile Include="Interfaces\ICRUDs.cs" />
-    <Compile Include="Interfaces\ICR.cs" />
     <Compile Include="Interfaces\ISet.cs" />
     <Compile Include="Interfaces\ISetReportingControls.cs" />
-    <Compile Include="Interfaces\ISubids.cs" />
     <Compile Include="Interfaces\IURLTo.cs" />
     <Compile Include="Interfaces\IUserLog.cs" />
     <Compile Include="Interfaces\ICRUD.cs" />
-    <Compile Include="Interfaces\IDirty.cs" />
     <Compile Include="Interfaces\IPixelLoadingPage.cs" />
     <Compile Include="Operational\ADOExtenstion.cs" />
-    <Compile Include="Operational\CopyObj.cs" />
     <Compile Include="Operational\ImageResize.cs" />
-    <Compile Include="Operational\Pop3Client.cs" />
     <Compile Include="Operational\StaticHelper.cs" />
     <Compile Include="Operational\StaticReflection.cs" />
-    <Compile Include="Operational\ZipStorer.cs" />
     <Compile Include="Operational\Converters.cs" />
     <Compile Include="Operational\Encryption.cs" />
     <Compile Include="Operational\FileReaders.cs" />
     <Compile Include="Operational\Utilities.cs" />
-    <Compile Include="Operational\XMLUtil.cs" />
     <Compile Include="Providers\MembershipProvider.cs" />
     <Compile Include="Providers\RolesProvider.cs" />
     <Compile Include="Resources\_Messages.tr.Designer.cs">
@@ -333,7 +320,6 @@
     </Compile>
     <Compile Include="Values\SiteStructs.cs" />
     <Compile Include="Values\SiteEnums.cs" />
-    <Compile Include="Values\Values.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

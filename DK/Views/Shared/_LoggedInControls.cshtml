@@ -1,38 +1,39 @@
-﻿@using BootBaronLib.Resources;
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL
+@using BootBaronLib.Resources
 @if (Membership.GetUser() != null)
 {
-
     <div id="menu_wrapper">
 
         
         <ul id="logged_in_menu" class="nav  the-icons" >
             <li
                   
-         @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "profiledetail" &&
-            ViewBag.DisplayName != null && Membership.GetUser() != null &&
-            Membership.GetUser().UserName == ViewBag.DisplayName)
-         {
-          <text>class="active" </text>
-         }
-             ><a href="@Url.Content(string.Format("~/{0}", HttpContext.Current.User.Identity.Name))"> 
-             @{BootBaronLib.AppSpec.DasKlub.BOL.UserAccount ua = new BootBaronLib.AppSpec.DasKlub.BOL.UserAccount(HttpContext.Current.User.Identity.Name);
-            
-             @Html.Raw(ua.TinyUserIcon)
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "profiledetail" &&
+                     ViewBag.DisplayName != null && Membership.GetUser() != null &&
+                     Membership.GetUser().UserName == ViewBag.DisplayName)
+                {
+                    <text>class="active" </text>
                 }
+                ><a href="@Url.Content(string.Format("~/{0}", HttpContext.Current.User.Identity.Name))"> 
+                     @{
+                         var ua = new UserAccount(HttpContext.Current.User.Identity.Name);
+
+                         @Html.Raw(ua.TinyUserIcon)
+                     }
              
-             </a>
+                 </a>
             </li>
             <li
                   
-            @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "room")
-            {
-          <text>class="active" </text>
-            }
-              ><a id="video_room" href="@Url.Content("~/account/room")">
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "room")
+                {
+                    <text>class="active" </text>
+                }
+                ><a id="video_room" href="@Url.Content("~/account/room")">
                      <i class="icon-user"></i>
-              @Html.Raw(Messages.ChatRoom)</a>
+                     @Html.Raw(Messages.ChatRoom)</a>
             </li>
-@*            <li
+            @*            <li
                   
 @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "home")
 {
@@ -41,43 +42,43 @@
             ><a id="status_updates" href="@Url.Content("~/account/home")">@Html.Raw(Messages.StatusUpdate)</a> </li>*@
             <li
                   
-                 @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "inbox" ||
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "inbox" ||
                      ViewContext.RouteData.Values["action"].ToString().ToLower() == "outbox")
-                 {
-          <text>class="active" </text>
-                 }
-            ><a id="mail_inbox" href="@Url.Content("~/account/inbox")"><i class="icon-inbox"></i> @Html.Raw(Messages.Mail)</a> </li>
+                {
+                    <text>class="active" </text>
+                }
+                ><a id="mail_inbox" href="@Url.Content("~/account/inbox")"><i class="icon-inbox"></i> @Html.Raw(Messages.Mail)</a> </li>
             <li
               
-          @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "editprofile" ||
-              ViewContext.RouteData.Values["action"].ToString().ToLower() == "editphoto" ||
-              ViewContext.RouteData.Values["action"].ToString().ToLower() == "settings")
-          {
-          <text>class="active" </text>
-          }
-                 ><a href="@Url.Content("~/account/editprofile")">
-                 <i class="icon-list-alt"></i>
-                 @Html.Raw(Messages.EditProfile)</a>
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "editprofile" ||
+                     ViewContext.RouteData.Values["action"].ToString().ToLower() == "editphoto" ||
+                     ViewContext.RouteData.Values["action"].ToString().ToLower() == "settings")
+                {
+                    <text>class="active" </text>
+                }
+                ><a href="@Url.Content("~/account/editprofile")">
+                     <i class="icon-list-alt"></i>
+                     @Html.Raw(Messages.EditProfile)</a>
             </li>
             <li
                   
-          @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "playlist")
-          {
-          <text>class="active" </text>
-          }
-            ><a href="@Url.Content("~/account/playlist")">
-            <i class="icon-list"></i>
-            @Html.Raw(Messages.Playlist)</a> </li>
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "playlist")
+                {
+                    <text>class="active" </text>
+                }
+                ><a href="@Url.Content("~/account/playlist")">
+                     <i class="icon-list"></i>
+                     @Html.Raw(Messages.Playlist)</a> </li>
             <li
                   
-          @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "visitors" ||
-              ViewContext.RouteData.Values["action"].ToString().ToLower() == "CyberAssociates" ||
-              ViewContext.RouteData.Values["action"].ToString().ToLower() == "irlcontacts"
-              )
-          {
-          <text>class="active" </text>
-          }
-             ><a id="my_users" href="@Url.Content("~/account/visitors")"> <i class="icon-ok-sign"></i> @Html.Raw(Messages.MyZone)</a>
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "visitors" ||
+                     ViewContext.RouteData.Values["action"].ToString().ToLower() == "CyberAssociates" ||
+                     ViewContext.RouteData.Values["action"].ToString().ToLower() == "irlcontacts"
+                    )
+                {
+                    <text>class="active" </text>
+                }
+                ><a id="my_users" href="@Url.Content("~/account/visitors")"> <i class="icon-ok-sign"></i> @Html.Raw(Messages.MyZone)</a>
             </li>
 
 
@@ -94,6 +95,4 @@
 
         </ul>
     </div>
-    
-   
 }

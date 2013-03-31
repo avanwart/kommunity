@@ -13,23 +13,23 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Web;
 
 namespace BootBaronLib.HttpModules
 {
     /// <summary>
-    /// For this to work,
-    /// make sure the application pool is configured to Integreated mode (which is the default)
+    ///     For this to work,
+    ///     make sure the application pool is configured to Integreated mode (which is the default)
     /// </summary>
     public class HttpHeaderCleanup : IHttpModule
     {
-        //  <add name="HttpHeaderClearnUp" type="FT.HttpModules.HttpHeaderCleanup" />
         #region IHttpModule Members
 
         public void Dispose()
         {
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
         public void Init(HttpApplication context)
@@ -37,7 +37,7 @@ namespace BootBaronLib.HttpModules
             context.PreSendRequestHeaders += OnPreSendRequestHeaders;
         }
 
-        void OnPreSendRequestHeaders(object sender, EventArgs e)
+        private static void OnPreSendRequestHeaders(object sender, EventArgs e)
         {
             try
             {
@@ -47,13 +47,11 @@ namespace BootBaronLib.HttpModules
             catch //(PlatformNotSupportedException ex)
             {
                 // cannot do anything
-
             }
         }
 
         #endregion
+
+        //  <add name="HttpHeaderClearnUp" type="FT.HttpModules.HttpHeaderCleanup" />
     }
-
-     
-
 }

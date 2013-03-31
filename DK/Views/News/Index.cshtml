@@ -1,131 +1,128 @@
-﻿@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL.UserContent
+@using BootBaronLib.Resources
+@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents
  
 @{
-    ViewBag.Title = BootBaronLib.Resources.Messages.News;
+    ViewBag.Title = Messages.News;
 }
  
 <div class="row">
-<div class="span8" >
-@{Html.RenderPartial("_AdBanner"); }
-<h2>@BootBaronLib.Resources.Messages.News</h2>
- <hr />
+    <div class="span8" >
+        @{ Html.RenderPartial("_AdBanner"); }
+        <h2>@Messages.News</h2>
+        <hr />
  
-<br />
-@BootBaronLib.Resources.Messages.Language:
-<select id="lang_change" name="lang">
-<option selected="selected">@BootBaronLib.Resources.Messages.All</option>
+        <br />
+        @Messages.Language:
+        <select id="lang_change" name="lang">
+            <option selected="selected">@Messages.All</option>
 
-@if(ViewBag.Langs != null){
-    foreach(KeyValuePair<string, string> lang in ViewBag.Langs)
-{
-    <option value="@lang.Key.ToLower()">@lang.Value</option>
-}
-}
-</select>
+            @if (ViewBag.Langs != null)
+            {
+                foreach (KeyValuePair<string, string> lang in ViewBag.Langs)
+                {
+                    <option value="@lang.Key.ToLower()">@lang.Value</option>
+                }
+            }
+        </select>
      
-    <hr />
+        <hr />
  
- <ul id="article_list">
-  @foreach (BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content cnt in Model)
-    {
-     @Html.Raw(cnt.ToUnorderdListItem)  
-    }
-    </ul>
+        <ul id="article_list">
+            @foreach (Content cnt in Model)
+            {
+                @Html.Raw(cnt.ToUnorderdListItem)
+            }
+        </ul>
 
     
-            @if (Request.Browser.IsMobileDevice)
+        @if (Request.Browser.IsMobileDevice)
         {
-
-            <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@BootBaronLib.Resources.Messages.LoadMore</button> 
+            <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@Messages.LoadMore</button>
         }
-              @{Html.RenderPartial("_bottomLoadingMessage"); }
-</div>
+        @{ Html.RenderPartial("_bottomLoadingMessage"); }
+    </div>
 
-<div class="span4" id="article_tags">
-     <h4 class="widget-title">@BootBaronLib.Resources.Messages.FilterNewsByTag</h4>
-    <p>
-                @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))</p>
-    <hr class="partial-bottom" />
+    <div class="span4" id="article_tags">
+        <h4 class="widget-title">@Messages.FilterNewsByTag</h4>
+        <p>
+            @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))</p>
+        <hr class="partial-bottom" />
  
-    <div class="span4">@{Html.RenderPartial("_AdBanner2"); }</div>
+        <div class="span4">@{ Html.RenderPartial("_AdBanner2"); }</div>
 
     </div>
- </div>
+</div>
  
 
 
 @section _javascript {
 
-<script type="text/javascript">
- 
+    <script type="text/javascript">
 
-
-    $(document).ready(function () {
-        $("#lang_change").change(function () {
-            window.location = $rootUrl + 'news/lang/' + this.value;
+        $(document).ready(function() {
+            $("#lang_change").change(function() {
+                window.location = $rootUrl + 'news/lang/' + this.value;
+            });
         });
-    });
 
-</script>
+    </script>
 
-  @if (Request.Browser.IsMobileDevice)
-  {
-
+    @if (Request.Browser.IsMobileDevice)
+    {
         <script type="text/javascript">
 
-
-            $('#load_more').click(function () {
+            $('#load_more').click(function() {
                 $('#loading').fadeIn();
 
                 $.post($rootUrl + 'news/Items?time=' + new Date().getTime(), { pageNumber: pageNumber },
-                           function (data) {
+                    function(data) {
 
-                               pageNumber++;
-                               $('#article_list').append(data.ListItems);
-                               $('#loading').fadeOut();
-                           });
+                        pageNumber++;
+                        $('#article_list').append(data.ListItems);
+                        $('#loading').fadeOut();
+                    });
 
             });
 
         </script>
-  }
-  else
-  {
-    
-    <script type="text/javascript">
+    }
+    else
+    {
+        <script type="text/javascript">
 
-        $(function () {
-            $('#article_list').scrollPagination({
-                'contentPage': $rootUrl + 'news/items', // the page where you are searching for results
-                'contentData': {}, // you can pass the children().size() to know where is the pagination
-                'scrollTarget': $(window), // who gonna scroll? in this example, the full window
-                'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please
-                'beforeLoad': function () { // before load, some function, maybe display a preloader div
-                    $('#loading').fadeIn();
-                },
-                'afterLoad': function (elementsLoaded) { // after loading, some function to animate results and hide a preloader div
-                    $('#loading').fadeOut();
-                    pageNumber++;
-                    var i = 0;
-                    $(elementsLoaded).fadeInWithDelay();
-                    if ($('#article_tags ul').children().size() > 10000) { // if more than 100 results loaded stop pagination (only for test)
-                        $('#nomoreresults').fadeIn();
-                        $('#article_tags ul').stopScrollPagination();
+            $(function() {
+                $('#article_list').scrollPagination({
+                    'contentPage': $rootUrl + 'news/items', // the page where you are searching for results
+                    'contentData': {}, // you can pass the children().size() to know where is the pagination
+                    'scrollTarget': $(window), // who gonna scroll? in this example, the full window
+                    'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please
+                    'beforeLoad': function() { // before load, some function, maybe display a preloader div
+                        $('#loading').fadeIn();
+                    },
+                    'afterLoad': function(elementsLoaded) { // after loading, some function to animate results and hide a preloader div
+                        $('#loading').fadeOut();
+                        pageNumber++;
+                        var i = 0;
+                        $(elementsLoaded).fadeInWithDelay();
+                        if ($('#article_tags ul').children().size() > 10000) { // if more than 100 results loaded stop pagination (only for test)
+                            $('#nomoreresults').fadeIn();
+                            $('#article_tags ul').stopScrollPagination();
+                        }
                     }
-                }
+                });
+
+                // code for fade in element by element with delay
+                $.fn.fadeInWithDelay = function() {
+                    var delay = 0;
+                    return this.each(function() {
+                        $(this).delay(delay).animate({ opacity: 1 }, 200);
+                        delay += 100;
+                    });
+                };
+
             });
 
-            // code for fade in element by element with delay
-            $.fn.fadeInWithDelay = function () {
-                var delay = 0;
-                return this.each(function () {
-                    $(this).delay(delay).animate({ opacity: 1 }, 200);
-                    delay += 100;
-                });
-            };
-
-        });
-
-    </script>
-      }
+        </script>
+    }
 }

@@ -21,7 +21,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -89,10 +88,10 @@ namespace BootBaronLib.Operational
 
         public static bool IsImageFile(string filePath)
         {
-            var extension = Path.GetExtension(filePath);
+            string extension = Path.GetExtension(filePath);
             return extension != null && (extension.ToLower() == ".jpg" ||
-                                                           extension.ToLower() == ".png" ||
-                                                           extension.ToLower() == ".gif");
+                                         extension.ToLower() == ".png" ||
+                                         extension.ToLower() == ".gif");
         }
 
         public static string UrlPathResolver(string filePath)
@@ -245,7 +244,8 @@ namespace BootBaronLib.Operational
             {
                 if (match.Value.Contains("http://www.youtube.com/watch?"))
                 {
-                    NameValueCollection nvcKey = HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
+                    NameValueCollection nvcKey =
+                        HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
 
                     return nvcKey["v"];
                 }
@@ -283,7 +283,7 @@ namespace BootBaronLib.Operational
             {
                 return false;
             }
-            var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
+            string userAgent = HttpContext.Current.Request.UserAgent.ToLower();
 
             return userAgent.Contains("iphone") || userAgent.Contains("ipad");
         }
@@ -291,7 +291,7 @@ namespace BootBaronLib.Operational
 
         public static string TimeElapsedMessage(DateTime occurance)
         {
-            var now = GetDataBaseTime();
+            DateTime now = GetDataBaseTime();
 
             return TimeElapsedMessage(occurance, now);
         }
@@ -300,7 +300,7 @@ namespace BootBaronLib.Operational
         {
             string timeElapsed;
 
-            var elapsed = now.Subtract(occurance);
+            TimeSpan elapsed = now.Subtract(occurance);
 
 
             if (elapsed.TotalSeconds <= 1)
@@ -450,7 +450,7 @@ namespace BootBaronLib.Operational
 
         public static string GetCurrentLanguage()
         {
-            var languages = HttpContext.Current.Request.UserLanguages;
+            string[] languages = HttpContext.Current.Request.UserLanguages;
 
             return languages != null ? languages[0].ToLowerInvariant().Trim() : string.Empty;
         }
@@ -542,8 +542,8 @@ namespace BootBaronLib.Operational
                 var message = new Message(title, bdy);
                 var ser = new SendEmailRequest(AmazonCloudConfigs.SendFromEmail, dest, message);
 
-                var seResponse = amzClient.SendEmail(ser);
-                var seResult = seResponse.SendEmailResult;
+                SendEmailResponse seResponse = amzClient.SendEmail(ser);
+                SendEmailResult seResult = seResponse.SendEmailResult;
 
                 return true;
             }
@@ -562,12 +562,12 @@ namespace BootBaronLib.Operational
                                                                AmazonCloudConfigs.AmazonAccessKey, amConfig);
             //LIST VERIFIED EMAILS/////////////////////////////////////////////////////////
             var lveReq = new ListVerifiedEmailAddressesRequest();
-            var lveResp = amzClient.ListVerifiedEmailAddresses(lveReq);
-            var lveResult = lveResp.ListVerifiedEmailAddressesResult;
+            ListVerifiedEmailAddressesResponse lveResp = amzClient.ListVerifiedEmailAddresses(lveReq);
+            ListVerifiedEmailAddressesResult lveResult = lveResp.ListVerifiedEmailAddressesResult;
 
             var allUsers = new ArrayList();
 
-            foreach (var email in lveResult.VerifiedEmailAddresses)
+            foreach (string email in lveResult.VerifiedEmailAddresses)
             {
                 allUsers.Add(email);
             }
@@ -645,7 +645,7 @@ namespace BootBaronLib.Operational
                     @"^(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}$",
                     RegexOptions.Compiled);
 
-            var isValid = false;
+            bool isValid = false;
 
             //  output = Guid.Empty;
 
@@ -1669,7 +1669,7 @@ namespace BootBaronLib.Operational
         /// <param name="msg"></param>
         /// <param name="ex"></param>
         /// <param name="sendMail"></param>
-        public static void LogError(string msg, Exception ex, bool sendMail)
+        private static void LogError(string msg, Exception ex, bool sendMail)
         {
             Log.Error(msg, ex);
 
@@ -1690,7 +1690,7 @@ namespace BootBaronLib.Operational
 
             if (context != null)
             {
-                if (ex != null && ex.Message != null)
+                if (ex != null)
                 {
                     if (
                         ex.Message.Contains(
@@ -1714,7 +1714,7 @@ namespace BootBaronLib.Operational
                     //System.Threading.Thread.Sleep(1000); // last time this was too long and crashed the site, hopefully this time that is not the case
 
                     if (
-                        Convert.ToInt32(context.Application[SiteEnums.ApplicationVariableNames.errorCount.ToString()]) ==
+                        Convert.ToInt32(context.Application[SiteEnums.ApplicationVariableNames.ErrorCount.ToString()]) ==
                         0)
                     {
                         //TODO: FIGURE THIS OUT, KEEPS EMAILING HUNDREDS OF TIMES
@@ -1722,7 +1722,7 @@ namespace BootBaronLib.Operational
                         //        Configs.GeneralConfigs.SendToErrorEmail,
                         //        Configs.AmazonCloudConfigs.SendFromEmail, "DB CON DOWN: " + serverName, ex.ToString());
 
-                        context.Application[SiteEnums.ApplicationVariableNames.logError.ToString()] = false;
+                        context.Application[SiteEnums.ApplicationVariableNames.LogError.ToString()] = false;
                     }
 
 
@@ -1848,90 +1848,26 @@ namespace BootBaronLib.Operational
                 }
             }
 
-            string serverErrorCode = string.Empty;
-            bool isException = false;
+            if (context == null) return;
 
-            if (context != null)
+           
+            var el = new ErrorLog {Message = exMessage.ToString()};
+
+            if (el.Message.Contains("Timeout expired.")) return;
+
+            var mu = Membership.GetUser();
+
+            if (mu != null)
             {
-                Exception ex3 = HttpContext.Current.Server.GetLastError();
-
-
-                // get the status code
-                if (ex3 is HttpException)
-                {
-                    isException = true;
-                    serverErrorCode = ((HttpException) (ex3)).GetHttpCode().ToString();
-                }
-                else
-                {
-                    serverErrorCode = HttpContext.Current.Response.StatusCode.ToString();
-                }
-
-
-                HttpCookie offerCookie =
-                    HttpContext.Current.Request.Cookies[SiteEnums.CookieName.usersetting.ToString()];
-
-
-                var el = new ErrorLog();
-
-                el.Message = exMessage.ToString();
-
-                if (el.Message.Contains("Timeout expired.")) return;
-
-                MembershipUser mu = Membership.GetUser();
-
-                if (mu != null)
-                {
-                    el.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
-                }
-
-                el.Url = HttpContext.Current.Request.Url.ToString();
-                if (!el.Message.ToLower().Contains("@transport-level") &&
-                    !el.Message.ToLower().Contains("@tcp-provider") &&
-                    !el.Message.ToLower().Contains("@network-related"))
-                {
-                    el.ResponseCode = -1; // not following 
-                    // hopeless database call else
-                    el.Create();
-                }
-
-                //    if (!ErrorLog.Create(
-                //        serverErrorCode,
-                //        isException,
-                //        sendMail,
-                //        exMessage.ToString(),
-                //        HttpContext.Current.Request.Url.ToString(),
-                //        contactUserID,
-                //        msg))
-                //    {
-                //        string fileLocation = context.Server.MapPath("~/ErrorLog/Errors.aspx");
-
-                //        if (!File.Exists(fileLocation)) return;
-
-                //        using (StreamWriter sw = new StreamWriter(fileLocation, true))
-                //        {
-                //            sw.WriteLine(
-                //                DateTime.Now.ToUniversalTime() +
-                //                Environment.NewLine + exMessage +
-                //                Environment.NewLine + Environment.NewLine);
-                //        }
-
-                //        if (Convert.ToInt32(context.Application[SiteEnums.ApplicationVariableNames.errorCount.ToString()]) == 0)
-                //        {
-                //            context.Application[SiteEnums.ApplicationVariableNames.errorCount.ToString()] = 1;
-
-                //            SendMail(
-                //              Configs.GeneralConfigs.SendToErrorEmail,
-                //              "error@" + Configs.GeneralConfigs.SiteURL,
-                //              "CANNOT LOG ERROR IN DB: " + serverName, exMessage.ToString());
-                //        }
-                //    }
-                //}
-                //else
-                //{
-                //    ErrorLog.LogMsg(msg);
-                //}
+                el.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
             }
+
+            el.Url = HttpContext.Current.Request.Url.ToString();
+            if (el.Message.ToLower().Contains("@transport-level") || el.Message.ToLower().Contains("@tcp-provider") ||
+                el.Message.ToLower().Contains("@network-related")) return;
+            el.ResponseCode = -1; // not following 
+            // hopeless database call else
+            el.Create();
         }
 
         private static void SendMail(bool p, string p_2, string p_3, string p_4)

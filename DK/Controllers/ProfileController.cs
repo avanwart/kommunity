@@ -13,11 +13,14 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BLL;
@@ -25,6 +28,7 @@ using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using BootBaronLib.Operational;
+using BootBaronLib.Resources;
 using BootBaronLib.Values;
 using DasKlub.Models;
 
@@ -32,22 +36,26 @@ namespace DasKlub.Controllers
 {
     public class ProfileController : Controller
     {
+        private const int Maxcountusers = 5000;
+        public static readonly int PageSize = 25;
+        private PhotoItem _pitm;
+        private UserAccount _ua;
+
         private void LoadCurrentImagesViewBag(int userAccountID)
         {
-            UserPhotos ups = new UserPhotos();
+            var ups = new UserPhotos();
             ups.GetUserPhotos(userAccountID);
 
             if (ups.Count == 0)
             {
-                UserPhoto up = new UserPhoto();
+                var up = new UserPhoto();
                 ups.Add(up);
                 up = new UserPhoto();
                 ups.Add(up);
             }
             else if (ups.Count == 1)
             {
-                UserPhoto up = new UserPhoto();
-                up.RankOrder = 2;
+                var up = new UserPhoto {RankOrder = 2};
                 ups.Add(up);
             }
 
@@ -64,78 +72,67 @@ namespace DasKlub.Controllers
             }
         }
 
-
-
-        
-        public static readonly int pageSize = 25;
-        PhotoItem pitm = null;
-        int maxcountusers = 5000;
-        UserAccount ua = null;
-
         [HttpGet]
         public ActionResult ProfileDetail(string userName)
         {
             ViewBag.VideoHeight = (Request.Browser.IsMobileDevice) ? 100 : 277;
             ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ? 225 : 400;
 
-            ua = new UserAccount(userName);
-            
-            UserAccountDetail uad = new UserAccountDetail();
-            uad.GetUserAccountDeailForUser(ua.UserAccountID);
+            _ua = new UserAccount(userName);
+
+            var uad = new UserAccountDetail();
+            uad.GetUserAccountDeailForUser(_ua.UserAccountID);
 
             uad.BandsSeen = ContentLinker.InsertBandLinks(uad.BandsSeen, false);
             uad.BandsToSee = ContentLinker.InsertBandLinks(uad.BandsToSee, false);
 
             MembershipUser mu = Membership.GetUser();
 
-            ProfileModel model = new ProfileModel();
+            var model = new ProfileModel();
 
-            if (ua.UserAccountID > 0)
+            if (_ua.UserAccountID > 0)
             {
-                model.UserAccountID = ua.UserAccountID;
-                model.PhotoCount = PhotoItems.GetPhotoItemCountForUser(ua.UserAccountID);
-                model.CreateDate = ua.CreateDate;
+                model.UserAccountID = _ua.UserAccountID;
+                model.PhotoCount = PhotoItems.GetPhotoItemCountForUser(_ua.UserAccountID);
+                model.CreateDate = _ua.CreateDate;
             }
 
             if (mu != null)
             {
-                ViewBag.IsBlocked = BlockedUser.IsBlockedUser(ua.UserAccountID, Convert.ToInt32(mu.ProviderUserKey));
-                ViewBag.IsBlocking = BlockedUser.IsBlockedUser(Convert.ToInt32(mu.ProviderUserKey), ua.UserAccountID);
+                ViewBag.IsBlocked = BlockedUser.IsBlockedUser(_ua.UserAccountID, Convert.ToInt32(mu.ProviderUserKey));
+                ViewBag.IsBlocking = BlockedUser.IsBlockedUser(Convert.ToInt32(mu.ProviderUserKey), _ua.UserAccountID);
 
-                if (ua.UserAccountID == Convert.ToInt32(mu.ProviderUserKey))
+                if (_ua.UserAccountID == Convert.ToInt32(mu.ProviderUserKey))
                 {
                     model.IsViewingSelf = true;
                 }
                 else
                 {
-                    UserConnection ucon = new UserConnection();
+                    var ucon = new UserConnection();
 
-                    ucon.GetUserToUserConnection(Convert.ToInt32(mu.ProviderUserKey), ua.UserAccountID);
+                    ucon.GetUserToUserConnection(Convert.ToInt32(mu.ProviderUserKey), _ua.UserAccountID);
 
                     model.UserConnectionID = ucon.UserConnectionID;
 
 
-                    if (BlockedUser.IsBlockedUser(Convert.ToInt32(mu.ProviderUserKey), ua.UserAccountID))
+                    if (BlockedUser.IsBlockedUser(Convert.ToInt32(mu.ProviderUserKey), _ua.UserAccountID))
                     {
                         return RedirectToAction("index", "home");
                     }
-
                 }
             }
             else
             {
-
                 if (uad.MembersOnlyProfile)
                 {
-                    return RedirectToAction( "LogOn", "Account");
+                    return RedirectToAction("LogOn", "Account");
                 }
-
             }
 
             //
-            model.UserName = ua.UserName;
-            model.CreateDate = ua.CreateDate;
-            model.LastActivityDate = ua.LastActivityDate;
+            model.UserName = _ua.UserName;
+            model.CreateDate = _ua.CreateDate;
+            model.LastActivityDate = _ua.LastActivityDate;
             //
             model.DisplayAge = uad.DisplayAge;
             model.Age = uad.YearsOld;
@@ -146,11 +143,11 @@ namespace DasKlub.Controllers
 
             model.YouAreFull = uad.Sex;
             model.InterestedInFull = uad.InterestedFull;
-            model.RelationshipStatusFull = uad.RelationshipStatusFull ;
+            model.RelationshipStatusFull = uad.RelationshipStatusFull;
             model.RelationshipStatus = uad.RelationshipStatus;
             model.InterestedIn = uad.InterestedIn;
             model.YouAre = uad.YouAre;
-            
+
             model.Website = uad.ExternalURL;
             model.CountryCode = uad.Country;
             model.CountryName = uad.CountryName;
@@ -163,10 +160,10 @@ namespace DasKlub.Controllers
             model.Handed = uad.HandedFull;
             model.RoleIcon = uad.SiteBages;
 
- 
+
             //
-            StatusUpdate su = new StatusUpdate();
-            su.GetMostRecentUserStatus(ua.UserAccountID);
+            var su = new StatusUpdate();
+            su.GetMostRecentUserStatus(_ua.UserAccountID);
 
             if (su.StatusUpdateID > 0)
             {
@@ -174,18 +171,18 @@ namespace DasKlub.Controllers
                 model.MostRecentStatusUpdate = su.Message;
             }
 
-            model.ProfileVisitorCount = ProfileLog.GetUniqueProfileVisitorCount(ua.UserAccountID);
+            model.ProfileVisitorCount = ProfileLog.GetUniqueProfileVisitorCount(_ua.UserAccountID);
 
-            PhotoItems ptiems = new PhotoItems();
-            ptiems.GetUserPhotos(ua.UserAccountID);
+            var ptiems = new PhotoItems();
+            ptiems.GetUserPhotos(_ua.UserAccountID);
 
             if (ptiems.Count > 0)
             {
-                ptiems.Sort((PhotoItem x, PhotoItem y) => (y.CreateDate.CompareTo(x.CreateDate)));
+                ptiems.Sort((x, y) => (y.CreateDate.CompareTo(x.CreateDate)));
 
-                PhotoItems ptiemsDisplay = new PhotoItems();
+                var ptiemsDisplay = new PhotoItems();
 
-                int maxPhotos = 8;
+                const int maxPhotos = 8;
 
                 foreach (PhotoItem pitm1 in ptiems)
                 {
@@ -199,24 +196,24 @@ namespace DasKlub.Controllers
 
                 ptiemsDisplay.UseThumb = true;
                 ptiemsDisplay.ShowTitle = false;
-                
+
                 model.HasMoreThanMaxPhotos = (ptiems.Count > maxPhotos);
                 ptiemsDisplay.IsUserPhoto = true;
                 model.PhotoItems = ptiemsDisplay.ToUnorderdList;
             }
 
-            Contents conts = new Contents();
+            var conts = new Contents();
 
-            conts.GetContentForUser(ua.UserAccountID);
+            conts.GetContentForUser(_ua.UserAccountID);
 
             model.NewsCount = conts.Count;
 
             if (conts.Count > 0)
             {
-                conts.Sort((Content x, Content y) => (y.ReleaseDate.CompareTo(x.ReleaseDate)));
+                conts.Sort((x, y) => (y.ReleaseDate.CompareTo(x.ReleaseDate)));
 
-                Contents displayContents = new Contents();
-                int maxCont = 1;
+                var displayContents = new Contents();
+                const int maxCont = 1;
                 int currentCount = 0;
                 foreach (Content ccn1 in conts)
                 {
@@ -231,15 +228,15 @@ namespace DasKlub.Controllers
                 displayContents.IncludeStartAndEndTags = false;
 
                 model.NewsArticles = displayContents.ToUnorderdList;
-
             }
 
-            model.MetaDescription = ua.UserName + " " + BootBaronLib.Resources.Messages.Profile + " " + FromDate.DateToYYYY_MM_DD(ua.LastActivityDate);
+            model.MetaDescription = _ua.UserName + " " + Messages.Profile + " " +
+                                    FromDate.DateToYYYY_MM_DD(_ua.LastActivityDate);
 
             // playlist
-            BootBaronLib.AppSpec.DasKlub.BOL.Playlist plyst = new Playlist();
+            var plyst = new Playlist();
 
-            plyst.GetUserPlaylist(ua.UserAccountID);
+            plyst.GetUserPlaylist(_ua.UserAccountID);
 
             if (plyst.PlaylistID > 0 && PlaylistVideos.GetCountOfVideosInPlaylist(plyst.PlaylistID) > 0)
             {
@@ -248,7 +245,6 @@ namespace DasKlub.Controllers
                 ViewBag.UserPlaylistID = plyst.PlaylistID;
             }
 
-            
 
             if (uad.UserAccountID > 0)
             {
@@ -256,30 +252,28 @@ namespace DasKlub.Controllers
 
                 if (uad.ShowOnMapLegal)
                 {
-
-                    byte[] myarray2 = Encoding.Unicode.GetBytes(string.Empty);
-
                     // because of the foreign cultures, numbers need to stay in the English version unless a javascript encoding could be added
                     string currentLang = Utilities.GetCurrentLanguageCode();
 
-                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
-                    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
-
-                    Encoding iso = Encoding.GetEncoding("ISO-8859-1");
-                    Encoding utf8 = Encoding.UTF8;
+                    Thread.CurrentThread.CurrentUICulture =
+                        CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+                    Thread.CurrentThread.CurrentCulture =
+                        CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
 
 
                     model.DisplayOnMap = uad.ShowOnMapLegal;
 
-                    Random rnd = new Random();
+                    var rnd = new Random();
                     int offset = rnd.Next(10, 100);
 
                     SiteStructs.LatLong latlong = GeoData.GetLatLongForCountryPostal(uad.Country, uad.PostalCode);
 
                     if (latlong.latitude != 0 && latlong.longitude != 0)
                     {
-                        model.Latitude = Convert.ToDecimal(latlong.latitude + Convert.ToDouble("0.00" + offset)).ToString();
-                        model.Longitude = Convert.ToDecimal(latlong.longitude + Convert.ToDouble("0.00" + offset)).ToString();
+                        model.Latitude =
+                            Convert.ToDecimal(latlong.latitude + Convert.ToDouble("0.00" + offset)).ToString(CultureInfo.InvariantCulture);
+                        model.Longitude =
+                            Convert.ToDecimal(latlong.longitude + Convert.ToDouble("0.00" + offset)).ToString(CultureInfo.InvariantCulture);
                     }
                     else
                     {
@@ -297,51 +291,36 @@ namespace DasKlub.Controllers
             }
 
 
-
             ViewBag.UserAccountDetail = uad;
-            ViewBag.UserAccount = ua;
+            ViewBag.UserAccount = _ua;
 
-            UserConnections ucons = new UserConnections();
-            ucons.GetUserConnections(ua.UserAccountID);
+            var ucons = new UserConnections();
+            ucons.GetUserConnections(_ua.UserAccountID);
             ucons.Shuffle();
 
-            UserAccounts irlContacts = new UserAccounts();
-            UserAccounts CyberAssociates = new UserAccounts();
-            UserAccount userCon = null;
+            var irlContacts = new UserAccounts();
+            var cyberAssociates = new UserAccounts();
 
-            foreach (UserConnection uc1 in ucons)
+            foreach (UserConnection uc1 in ucons.Where(uc1 => uc1.IsConfirmed))
             {
-                if (!uc1.IsConfirmed) continue;
-
+                UserAccount userCon;
                 switch (uc1.StatusType)
                 {
                     case 'C':
-                        if (CyberAssociates.Count >= maxcountusers) continue;
+                        if (cyberAssociates.Count >= Maxcountusers) continue;
 
-                        if (uc1.ToUserAccountID != ua.UserAccountID)
-                        {
-                            userCon = new UserAccount(uc1.ToUserAccountID);
-                        }
-                        else
-                        {
-                            userCon = new UserAccount(uc1.FromUserAccountID);
-                        }
-                        CyberAssociates.Add(userCon);
+                        userCon = uc1.ToUserAccountID != _ua.UserAccountID
+                                      ? new UserAccount(uc1.ToUserAccountID)
+                                      : new UserAccount(uc1.FromUserAccountID);
+                        cyberAssociates.Add(userCon);
                         break;
                     case 'R':
-                        if (irlContacts.Count >= maxcountusers) continue;
+                        if (irlContacts.Count >= Maxcountusers) continue;
 
-                        if (uc1.ToUserAccountID != ua.UserAccountID)
-                        {
-                            userCon = new UserAccount(uc1.ToUserAccountID);
-                        }
-                        else
-                        {
-                            userCon = new UserAccount(uc1.FromUserAccountID);
-                        }
+                        userCon = uc1.ToUserAccountID != _ua.UserAccountID
+                                      ? new UserAccount(uc1.ToUserAccountID)
+                                      : new UserAccount(uc1.FromUserAccountID);
                         irlContacts.Add(userCon);
-                        break;
-                    default:
                         break;
                 }
             }
@@ -351,10 +330,10 @@ namespace DasKlub.Controllers
                 model.IRLFriendCount = irlContacts.Count;
             }
 
-            if (CyberAssociates.Count > 0)
+            if (cyberAssociates.Count > 0)
             {
                 // ViewBag.CyberAssociatesCount = Convert.ToString( CyberAssociates.Count );
-                model.CyberFriendCount = CyberAssociates.Count;
+                model.CyberFriendCount = cyberAssociates.Count;
             }
 
             mu = Membership.GetUser();
@@ -366,77 +345,61 @@ namespace DasKlub.Controllers
                 uadLooker.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
             }
 
-            if (mu != null && ua.UserAccountID > 0 &&
+            if (mu != null && _ua.UserAccountID > 0 &&
                 uadLooker.EnableProfileLogging && uad.EnableProfileLogging)
             {
-                ProfileLog pl = new ProfileLog();
-
-                pl.LookedAtUserAccountID = ua.UserAccountID;
-                pl.LookingUserAccountID = Convert.ToInt32(mu.ProviderUserKey);
+                var pl = new ProfileLog
+                    {
+                        LookedAtUserAccountID = _ua.UserAccountID,
+                        LookingUserAccountID = Convert.ToInt32(mu.ProviderUserKey)
+                    };
 
                 if (pl.LookingUserAccountID != pl.LookedAtUserAccountID) pl.Create();
 
 
-                ArrayList al = ProfileLog.GetRecentProfileViews(ua.UserAccountID);
+                ArrayList al = ProfileLog.GetRecentProfileViews(_ua.UserAccountID);
 
                 if (al != null && al.Count > 0)
                 {
-                    UserAccounts uas = new UserAccounts();
+                    var uas = new UserAccounts();
 
-                    UserAccount viewwer = null;
-
-                    foreach (int ID in al)
+                    foreach (UserAccount viewwer in al.Cast<int>().Select(ID =>
+                                                                          new UserAccount(ID))
+                                                      .Where(viewwer => !viewwer.IsLockedOut && viewwer.IsApproved)
+                                                      .TakeWhile(viewwer => uas.Count < Maxcountusers))
                     {
-                        viewwer = new UserAccount(ID);
-                        if (!viewwer.IsLockedOut && viewwer.IsApproved)
-                        {
-                            if (uas.Count >= maxcountusers) break;
-
-                            uas.Add(viewwer);
-                        }
+                        uas.Add(viewwer);
                     }
 
-                   // model.ViewingUsers = uas.ToUnorderdList;
+                    // model.ViewingUsers = uas.ToUnorderdList;
                 }
             }
 
             UserAccountVideos uavs = null;
 
-            if (ua.UserAccountID > 0)
+            if (_ua.UserAccountID > 0)
             {
                 uavs = new UserAccountVideos();
 
-                uavs.GetRecentUserAccountVideos(ua.UserAccountID, 'F');
+                uavs.GetRecentUserAccountVideos(_ua.UserAccountID, 'F');
 
                 if (uavs.Count > 0)
                 {
-                    Videos favvids = new Videos();
-                    Video f1 = new Video();
+                    var favvids = new Videos();
+                    favvids.AddRange(uavs.Select(uav1 => new Video(uav1.VideoID)).Where(f1 => f1.IsEnabled));
 
-                    foreach (UserAccountVideo uav1 in uavs)
-                    {
-                        f1 = new Video(uav1.VideoID);
-                        if (f1.IsEnabled) favvids.Add(f1);
-                    }
-
-                    SongRecord sng1 = null;
-                    SongRecords sngrcds2 = new SongRecords();
-
-                    foreach (Video v1 in favvids)
-                    {
-                        sng1 = new SongRecord(v1);
-                        sngrcds2.Add(sng1);
-                    }
+                    var sngrcds2 = new SongRecords();
+                    sngrcds2.AddRange(favvids.Select(v1 => new SongRecord(v1)));
 
                     sngrcds2.IsUserSelected = true;
 
-                    ViewBag.UserFavorites = sngrcds2.VideosList();//.ListOfVideos();
+                    ViewBag.UserFavorites = sngrcds2.VideosList(); //.ListOfVideos();
                 }
             }
 
-            
+
             // this is either a youtube user or this is a band
-            Artist art = new Artist(  );
+            var art = new Artist();
             art.GetArtistByAltname(userName);
 
             if (art.ArtistID > 0)
@@ -445,40 +408,35 @@ namespace DasKlub.Controllers
                 model.UserName = art.Name;
             }
 
-            Videos vids = new Videos();
-            SongRecords sngrs = new SongRecords();
+            var vids = new Videos();
+            var sngrs = new SongRecords();
 
             if (art.ArtistID == 0)
             {
                 vids.GetAllVideosByUser(userName);
 
                 uavs = new UserAccountVideos();
-                uavs.GetRecentUserAccountVideos(ua.UserAccountID, 'U');
+                uavs.GetRecentUserAccountVideos(_ua.UserAccountID, 'U');
 
-                Video f2 = null;
-
-                foreach (UserAccountVideo uav1 in uavs)
+                foreach (Video f2 in uavs.Select(uav1 => new Video(uav1.VideoID)).Where(f2 => !vids.Contains(f2)))
                 {
-                    f2 = new Video(uav1.VideoID);
-
-                    if (!vids.Contains(f2)) vids.Add(f2);
+                    vids.Add(f2);
                 }
 
-                vids.Sort((Video x, Video y) => (y.PublishDate.CompareTo(x.PublishDate)));
+                vids.Sort((x, y) => (y.PublishDate.CompareTo(x.PublishDate)));
 
                 model.UserName = userName;
-                
             }
             else
             {
                 // photo
-                ArtistProperty aprop = new ArtistProperty();
+                var aprop = new ArtistProperty();
                 aprop.GetArtistPropertyForTypeArtist(art.ArtistID, SiteEnums.ArtistPropertyType.PH.ToString());
 
                 if (!string.IsNullOrEmpty(aprop.PropertyContent))
                 {
-                    ViewBag.ArtistPhoto = System.Web.VirtualPathUtility.ToAbsolute(aprop.PropertyContent);
-                    ViewBag.ThumbIcon = System.Web.VirtualPathUtility.ToAbsolute(aprop.PropertyContent);
+                    ViewBag.ArtistPhoto = VirtualPathUtility.ToAbsolute(aprop.PropertyContent);
+                    ViewBag.ThumbIcon = VirtualPathUtility.ToAbsolute(aprop.PropertyContent);
                 }
 
                 // meta descriptione
@@ -489,9 +447,11 @@ namespace DasKlub.Controllers
                 // description
                 aprop = new ArtistProperty();
                 aprop.GetArtistPropertyForTypeArtist(art.ArtistID, SiteEnums.ArtistPropertyType.LD.ToString());
-                if (!string.IsNullOrEmpty(aprop.PropertyContent)) ViewBag.ArtistDescription = ContentLinker.InsertBandLinks(aprop.PropertyContent, false);
+                if (!string.IsNullOrEmpty(aprop.PropertyContent))
+                    ViewBag.ArtistDescription = ContentLinker.InsertBandLinks(aprop.PropertyContent, false);
 
                 #region rss
+
                 ///// rss 
                 //RssResources rssrs = new RssResources();
 
@@ -526,13 +486,14 @@ namespace DasKlub.Controllers
                 //}
 
                 //ViewBag.DisplayName = art.DisplayName;
+
                 #endregion
 
-                Songs sngss = new Songs();
+                var sngss = new Songs();
 
                 sngss.GetSongsForArtist(art.ArtistID);
 
-                SongRecord snrcd = new SongRecord();
+                var snrcd = new SongRecord();
 
                 foreach (Song sn1 in sngss)
                 {
@@ -541,26 +502,19 @@ namespace DasKlub.Controllers
             }
 
 
-            vids.Sort(delegate(Video p1, Video p2)
+            vids.Sort((p1, p2) => p2.PublishDate.CompareTo(p1.PublishDate));
+
+
+            sngrs.AddRange(vids.Select(v1 => new SongRecord(v1)));
+
+            if (mu != null && _ua.UserAccountID != Convert.ToInt32(mu.ProviderUserKey))
             {
-                return p2.PublishDate.CompareTo(p1.PublishDate);
-            });
+                var uc1 = new UserConnection();
 
-
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.Video v1 in vids)
-            {
-                sngrs.Add(new SongRecord(v1));
-            }
-
-            if (mu != null && ua.UserAccountID != Convert.ToInt32(mu.ProviderUserKey))
-            {
-                UserConnection uc1 = new UserConnection();
-
-                uc1.GetUserToUserConnection(ua.UserAccountID, Convert.ToInt32(mu.ProviderUserKey));
+                uc1.GetUserToUserConnection(_ua.UserAccountID, Convert.ToInt32(mu.ProviderUserKey));
 
                 if (uc1.UserConnectionID > 0)
                 {
-
                     switch (uc1.StatusType)
                     {
                         case 'C':
@@ -592,28 +546,18 @@ namespace DasKlub.Controllers
             }
 
 
-            if (sngrs == null || sngrs.Count == 0 && art.ArtistID == 0 && ua.UserAccountID == 0)
+            if (sngrs.Count == 0 && art.ArtistID == 0 && _ua.UserAccountID == 0)
             {
                 // no longer exists
                 Response.RedirectPermanent("/");
                 return new EmptyResult();
             }
 
-            //sngrs.Sort((SongRecord x, SongRecord y) => (y.cre.CompareTo(x.CreateDate)));
-
-            SongRecords sngDisplay = new SongRecords();
-
-            Video vidToShow = null;
-
-            foreach (SongRecord sr1 in sngrs)
-            {
-                vidToShow = new Video(sr1.VideoID);
-
-                if (vidToShow.IsEnabled)
-                {
-                    sngDisplay.Add(sr1);
-                }
-            }
+            var sngDisplay = new SongRecords();
+            sngDisplay.AddRange(from sr1 in sngrs
+                                let vidToShow = new Video(sr1.VideoID)
+                                where vidToShow.IsEnabled
+                                select sr1);
 
             model.SongRecords = sngDisplay.VideosList();
 
@@ -624,83 +568,88 @@ namespace DasKlub.Controllers
         [Authorize]
         public ActionResult DeleteWallItem(int wallItemID)
         {
-            WallMessage wallItem = new WallMessage();
+            var wallItem = new WallMessage();
 
             wallItem.WallMessageID = wallItemID;
             wallItem.Delete();
 
-            return RedirectToAction("Visitors", "Account"); 
+            return RedirectToAction("Visitors", "Account");
         }
 
         public JsonResult WallMessages(int pageNumber)
         {
-            string referrring = Request.UrlReferrer.ToString();
-            string[] partsOfreferring = referrring.Split('/');
-            UserAccount ua = new UserAccount(partsOfreferring[partsOfreferring.Length - 1]);
+            var sb = new StringBuilder();
 
-            WallMessages wallItems = new WallMessages();
-
-            wallItems.GetWallMessagessPageWise(pageNumber, 5, ua.UserAccountID);
-
-            MembershipUser mu = Membership.GetUser();
-
-            if (mu != null && Convert.ToInt32(mu.ProviderUserKey) == ua.UserAccountID)
+            if (Request.UrlReferrer != null)
             {
-                wallItems.IsUsersWall = true;
-            }
+                string referrring = Request.UrlReferrer.ToString();
+                string[] partsOfreferring = referrring.Split('/');
+                var ua = new UserAccount(partsOfreferring[partsOfreferring.Length - 1]);
 
-            StringBuilder sb = new StringBuilder();
+                var wallItems = new WallMessages();
 
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.WallMessage cnt in wallItems)
-            {
-                cnt.IsUsersWall = wallItems.IsUsersWall;
-                sb.Append(cnt.ToUnorderdListItem);
+                wallItems.GetWallMessagessPageWise(pageNumber, 5, ua.UserAccountID);
+
+                MembershipUser mu = Membership.GetUser();
+
+                if (mu != null && Convert.ToInt32(mu.ProviderUserKey) == ua.UserAccountID)
+                {
+                    wallItems.IsUsersWall = true;
+                }
+
+                foreach (WallMessage cnt in wallItems)
+                {
+                    cnt.IsUsersWall = wallItems.IsUsersWall;
+                    sb.Append(cnt.ToUnorderdListItem);
+                }
             }
 
             return Json(new
-            {
-                ListItems = sb.ToString()
-            });
+                {
+                    ListItems = sb.ToString()
+                });
         }
 
         [Authorize]
         public ActionResult WriteWallMessage(string message, int toUserAccountID)
         {
-            ua = new UserAccount(toUserAccountID);
+            _ua = new UserAccount(toUserAccountID);
 
-            if (ua.UserAccountID != 0 && !string.IsNullOrWhiteSpace(message))
+            if (_ua.UserAccountID != 0 && !string.IsNullOrWhiteSpace(message))
             {
                 MembershipUser mu = Membership.GetUser();
 
-                WallMessage comment = new WallMessage();
+                var comment = new WallMessage
+                    {
+                        Message = Server.HtmlEncode(message),
+                        ToUserAccountID = toUserAccountID,
+                        FromUserAccountID = Convert.ToInt32(mu.ProviderUserKey),
+                        CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey)
+                    };
 
-                comment.Message = Server.HtmlEncode(message);
-                comment.ToUserAccountID = toUserAccountID;
-                comment.FromUserAccountID = Convert.ToInt32(mu.ProviderUserKey);
-                comment.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
                 comment.Create();
             }
 
-            return RedirectToAction("ProfileDetail", new { @userName = ua.UserName });
+            return RedirectToAction("ProfileDetail", new {@userName = _ua.UserName});
         }
-       
+
 
         [HttpGet]
         public ActionResult UserPhotos(string userName)
         {
-            ua = new UserAccount(userName);
+            _ua = new UserAccount(userName);
 
-            ViewBag.UserName = ua.UserName;
+            ViewBag.UserName = _ua.UserName;
 
-            PhotoItems ptiems = new PhotoItems();
-            ptiems.GetUserPhotos(ua.UserAccountID);
+            var ptiems = new PhotoItems();
+            ptiems.GetUserPhotos(_ua.UserAccountID);
 
-            ptiems.Sort((PhotoItem x, PhotoItem y) => (y.CreateDate.CompareTo(x.CreateDate)));
+            ptiems.Sort((x, y) => (y.CreateDate.CompareTo(x.CreateDate)));
 
             ptiems.ShowTitle = false;
             ptiems.UseThumb = true;
 
-            ViewBag.PhotoCount = PhotoItems.GetPhotoItemCountForUser(ua.UserAccountID);
+            ViewBag.PhotoCount = PhotoItems.GetPhotoItemCountForUser(_ua.UserAccountID);
 
             return View(ptiems);
         }
@@ -708,17 +657,17 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult UserNews(string userName)
         {
-            ua = new UserAccount(userName);
+            _ua = new UserAccount(userName);
 
-            ViewBag.UserName = ua.UserName;
+            ViewBag.UserName = _ua.UserName;
 
-            Contents conts = new Contents();
+            var conts = new Contents();
 
-            conts.GetContentForUser(ua.UserAccountID);
+            conts.GetContentForUser(_ua.UserAccountID);
 
             conts.IncludeStartAndEndTags = false;
 
-            conts.Sort((Content x, Content y) => (y.ReleaseDate.CompareTo(x.ReleaseDate)));
+            conts.Sort((x, y) => (y.ReleaseDate.CompareTo(x.ReleaseDate)));
 
             ViewBag.NewsCount = conts.Count;
 
@@ -727,32 +676,32 @@ namespace DasKlub.Controllers
 
         public ActionResult UserPhoto(string userName, int photoItemID)
         {
-            ua = new UserAccount(userName);
+            _ua = new UserAccount(userName);
 
-            ViewBag.UserName = ua.UserName;
+            ViewBag.UserName = _ua.UserName;
 
-            pitm = new PhotoItem(photoItemID);
+            _pitm = new PhotoItem(photoItemID);
 
-            StatusUpdates sus = new StatusUpdates();
+            var sus = new StatusUpdates();
 
-            StatusUpdate su = new StatusUpdate();
+            var su = new StatusUpdate();
 
             su.GetStatusUpdateByPhotoID(photoItemID);
 
             su.PhotoDisplay = true;
             sus.Add(su);
 
-            if (string.IsNullOrWhiteSpace(pitm.Title))
+            if (string.IsNullOrWhiteSpace(_pitm.Title))
             {
-                pitm.Title = String.Format("{0:u}", pitm.CreateDate);
+                _pitm.Title = String.Format("{0:u}", _pitm.CreateDate);
             }
 
             sus.IncludeStartAndEndTags = false;
             ViewBag.StatusUpdateList = @"<ul id=""status_update_list_items"">" + sus.ToUnorderdList + @"</ul>";
 
-            PhotoItem pitm2 = new PhotoItem();
+            var pitm2 = new PhotoItem();
 
-            pitm2.GetPreviousPhotoForUser(pitm.CreateDate, ua.UserAccountID);
+            pitm2.GetPreviousPhotoForUser(_pitm.CreateDate, _ua.UserAccountID);
             if (pitm2.PhotoItemID > 0)
             {
                 pitm2.IsUserPhoto = true;
@@ -762,7 +711,7 @@ namespace DasKlub.Controllers
             }
 
             pitm2 = new PhotoItem();
-            pitm2.GetNextPhotoForUser(pitm.CreateDate, ua.UserAccountID);
+            pitm2.GetNextPhotoForUser(_pitm.CreateDate, _ua.UserAccountID);
 
             if (pitm2.PhotoItemID > 0)
             {
@@ -772,12 +721,7 @@ namespace DasKlub.Controllers
                 ViewBag.NextPhoto = pitm2;
             }
 
-            return View(pitm);
+            return View(_pitm);
         }
- 
- 
-
- 
     }
- 
 }

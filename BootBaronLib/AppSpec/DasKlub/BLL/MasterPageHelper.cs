@@ -13,36 +13,33 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-
 namespace BootBaronLib.AppSpec.DasKlub.BLL
 {
-     
     public class MasterPageHelper
     {
-
         #region Master page
 
         /// <summary>
-        /// Set the master page literal text
+        ///     Set the master page literal text
         /// </summary>
         /// <param name="currentPage"></param>
         /// <param name="message"></param>
         public static void SetMainMasterPageMessageText(Page currentPage, string message)
         {
-
             //Control crtt = this.Page.Master.FindControl("litMessage");
 
-            Literal myTextBox = (Literal)currentPage.Master.FindControl("litMessage");
+            var myTextBox = (Literal) currentPage.Master.FindControl("litMessage");
             myTextBox.Text = message;
         }
 
 
         public static void SetMainMasterPageMessageText(Page currentPage, string message, bool isGood)
         {
-            Literal myTextBox = (Literal)currentPage.Master.FindControl("litMessage");
+            var myTextBox = (Literal) currentPage.Master.FindControl("litMessage");
 
             if (isGood)
             {
@@ -53,7 +50,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
                 myTextBox.Text = @"<span style=""color: Red; font-weight: bold;"">" + message + "</span>";
             }
         }
-
 
         #endregion
     }

@@ -1,4 +1,3 @@
-
 //  Copyright 2013 
 //  Name: Ryan Williams
 //  URL: http://ryanmichaelwilliams.com | http://dasklub.com
@@ -24,7 +23,7 @@ using System.Transactions;
 namespace DBMigrator.Migrations
 {
     /// <summary>
-    /// Does nothing
+    ///     Does nothing
     /// </summary>
     public class DasKlubContext : DbContext
     {
@@ -32,12 +31,12 @@ namespace DBMigrator.Migrations
         {
             Database.SetInitializer<DasKlubContext>(null);
         }
-
-      
     }
 
     internal sealed class Configuration : DbMigrationsConfiguration<DasKlubContext>
     {
+        public static bool RunSeed = false;
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
@@ -45,7 +44,7 @@ namespace DBMigrator.Migrations
 
         protected override void Seed(DasKlubContext context)
         {
-            if (!Configuration.RunSeed)
+            if (!RunSeed)
             {
                 Console.WriteLine("SEED OFF");
                 return;
@@ -54,7 +53,9 @@ namespace DBMigrator.Migrations
             Console.WriteLine("RUNNING SEED METHOD");
 
             // inserts mandatory values
+
             #region sql
+
             try
             {
                 context.Database.ExecuteSqlCommand(@"EXEC sp_executesql N'
@@ -430,12 +431,9 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
             {
                 Console.WriteLine(ex.Message);
             }
+
             #endregion
-
         }
-
-
-        public static bool RunSeed = false;
     }
 
     public class DropCreateDatabaseTables : IDatabaseInitializer<DasKlubContext>
@@ -454,7 +452,6 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
 
             if (dbExists)
             {
-
                 // remove all tables
                 //context.Database.ExecuteSqlCommand("EXEC sp_MSforeachtable @command1 = \"DROP TABLE ?\"");
 
@@ -487,7 +484,6 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
         {
             /// TODO: put here your seed creation
         }
-
 
         #endregion
     }

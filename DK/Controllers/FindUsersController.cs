@@ -32,8 +32,8 @@ namespace DasKlub.Controllers
     {
         #region variables
 
-        private MembershipUser _mu;
         private const int PageSize = 25;
+        private MembershipUser _mu;
         private UserAccounts _uas;
         private int _userPageNumber = 1;
 
@@ -68,10 +68,16 @@ namespace DasKlub.Controllers
             var countries = UserAccountDetail.GetDistinctUserCountries();
             if (countries != null)
             {
-                var countryOptions = countries.Where(value => value != SiteEnums.CountryCodeISO.U0 && value 
-                    != SiteEnums.CountryCodeISO.RD).ToDictionary(value => value.ToString(), value => Utilities.ResourceValue(Utilities.GetEnumDescription(value)));
+                var countryOptions = countries.Where(
+                    value => value != SiteEnums.CountryCodeISO.U0 && value
+                             != SiteEnums.CountryCodeISO.RD)
+                                                                     .ToDictionary(value => value.ToString(),
+                                                                                   value =>
+                                                                                   Utilities.ResourceValue(
+                                                                                       Utilities.GetEnumDescription(
+                                                                                           value)));
 
-                var items = from k in countryOptions.Keys
+                IOrderedEnumerable<string> items = from k in countryOptions.Keys
                                                    orderby countryOptions[k] ascending
                                                    select k;
 
@@ -82,7 +88,10 @@ namespace DasKlub.Controllers
 
             var languages = UserAccountDetail.GetDistinctUserLanguages();
             if (languages == null) return;
-            var languageOptions = languages.ToDictionary(value => value.ToString(), value => Utilities.ResourceValue(Utilities.GetEnumDescription(value)));
+            var languageOptions = languages.ToDictionary(value => value.ToString(),
+                                                                                value =>
+                                                                                Utilities.ResourceValue(
+                                                                                    Utilities.GetEnumDescription(value)));
 
             var languagesitems = from k in languageOptions.Keys
                                                         orderby languageOptions[k] ascending
@@ -109,20 +118,20 @@ namespace DasKlub.Controllers
             // random
             var rle = new Role(SiteEnums.RoleTypes.cyber_girl.ToString());
 
-            UserAccounts girlModels = UserAccountRole.GetUsersInRole(rle.RoleID);
+            var girlModels = UserAccountRole.GetUsersInRole(rle.RoleID);
 
             if (girlModels != null && girlModels.Count > 0)
             {
                 girlModels.Shuffle();
 
-                UserAccount featuredModel = girlModels[0];
+                var featuredModel = girlModels[0];
 
                 var featuredPhoto = new UserAccountDetail();
                 featuredPhoto.GetUserAccountDeailForUser(featuredModel.UserAccountID);
 
-                int photoNumber = Utilities.RandomNumber(1, 4);
+                var photoNumber = Utilities.RandomNumber(1, 4);
 
-                string photoPath = featuredPhoto.FullProfilePicURL;
+                var photoPath = featuredPhoto.FullProfilePicURL;
 
                 if (photoNumber > 1)
                 {
@@ -132,13 +141,10 @@ namespace DasKlub.Controllers
 
                     if (ups.Count > 0)
                     {
-                        foreach (UserPhoto up1 in ups)
+                        foreach (var up1 in ups.Where(up1 => (up1.RankOrder + 1) == photoNumber))
                         {
-                            if ((up1.RankOrder + 1) == photoNumber)
-                            {
-                                photoPath = up1.FullProfilePicURL;
-                                break;
-                            }
+                            photoPath = up1.FullProfilePicURL;
+                            break;
                         }
                     }
                 }
@@ -303,8 +309,8 @@ namespace DasKlub.Controllers
             bool sortByDistance;
 
             _uas.GetListUsers(_userPageNumber, PageSize, model.AgeFrom, model.AgeTo, model.InterestedInID,
-                             model.RelationshipStatusID,
-                             model.YouAreID, model.Country, model.PostalCode, model.Lang, out sortByDistance);
+                              model.RelationshipStatusID,
+                              model.YouAreID, model.Country, model.PostalCode, model.Lang, out sortByDistance);
 
             if (!isAjax)
             {

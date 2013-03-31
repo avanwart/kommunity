@@ -13,7 +13,9 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System.Collections.Generic;
+using System.Data;
 using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
@@ -24,32 +26,31 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         private string _city = string.Empty;
 
+        private string _countryCode = string.Empty;
+        private string _region = string.Empty;
+
+
+        public CityRegionCountry()
+        {
+        }
+
+        public CityRegionCountry(DataRow dr)
+        {
+            CountryCode = FromObj.StringFromObj(dr["countryISO"]);
+            Region = FromObj.StringFromObj(dr["region"]);
+            City = FromObj.StringFromObj(dr["city"]);
+        }
+
         public string City
         {
             get { return _city; }
             set { _city = value; }
         }
 
-        private string _region = string.Empty;
-
         public string Region
         {
             get { return _region; }
             set { _region = value; }
-        }
-
-        private string _countryCode = string.Empty;
-
-
-        public CityRegionCountry() { }
-
-        public CityRegionCountry(System.Data.DataRow dr)
-        {
-        
-            this.CountryCode = FromObj.StringFromObj(dr["countryISO"]);
-            this.Region = FromObj.StringFromObj(dr["region"]);
-            this.City = FromObj.StringFromObj(dr["city"]);
-
         }
 
         public string CountryCode
@@ -63,6 +64,5 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
     public class CityRegionCountries : List<CityRegionCountry>
     {
-        public CityRegionCountries() { }
     }
 }

@@ -21,6 +21,7 @@ using System.Data;
 using System.Data.Common;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web;
@@ -485,16 +486,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _username = value; }
         }
 
-        public int UserAccountID { get; set; }
+        public int UserAccountID { get; private set; }
 
         public string Comment
         {
-            get
-            {
-                if (_comment == null) _comment = string.Empty;
-
-                return _comment;
-            }
+            get { return _comment ?? (_comment = string.Empty); }
             set { _comment = value; }
         }
 
@@ -515,7 +511,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             comm.AddParameter("eMail", eMail.Trim());
 
-            var username = DbAct.ExecuteScalar(comm);
+            string username = DbAct.ExecuteScalar(comm);
             return username;
         }
 
@@ -703,11 +699,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             {
                 string[] roles = GetRolesForUser(UserName);
 
-                foreach (string role in roles)
-                {
-                    if (role.ToLower() == SiteEnums.RoleTypes.admin.ToString()) return true;
-                }
-                return false;
+                return roles.Any(role => role.ToLower() == SiteEnums.RoleTypes.admin.ToString());
             }
         }
 
@@ -775,63 +767,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 {
                     sb.Append(uad.SmallUserIcon);
                 }
-                //sb.Append(@"<div class=""user_item_thumb"">");
 
-
-                //if (this.IsOnLine)
-                //{
-                //    sb.AppendFormat(
-                //    @"<img style=""height: 12px; width: 12px;"" alt=""{0}"" title=""{0}""", BootBaronLib.Resources.Messages.IsOnline);
-                //    sb.Append(@" src=""");
-                //    sb.Append(System.Web.VirtualPathUtility.ToAbsolute("~/content/images/status/abutton2_e0.gif"));
-                //    sb.Append(@""" />&nbsp;");
-                //}
-
-                //sb.Append(@"<a ");
-
-                //if (this.IsProfileLinkNewWindow)
-                //{
-                //    sb.Append(@" target=""_blank""");
-                //}
-
-                //sb.Append(@" href=""/");
-                //sb.Append(this.UserName);
-                //sb.Append(@""">");
-                //sb.Append(this.UserName);
-                //sb.Append(@"</a>");
-
-
-                //sb.Append(@"<br />");
-
-
-                //sb.Append(@"<div class=""user_photo_thumb"">");
-
-                //sb.Append(@"<a class=""m_over""");
-
-                //if (this.IsProfileLinkNewWindow)
-                //{
-                //    sb.Append(@" target=""_blank""");
-                //}
-                //sb.Append(@" href=""/");
-                //sb.Append(this.UserName);
-                //sb.Append(@""">");
-                //sb.Append(@"<img src=""");
-                //sb.Append(uad.FullProfilePicThumbURL);
-                //sb.Append(@""" title=""");
-                //sb.Append(this.UserName);
-                //sb.Append(@"""");
-                //sb.Append(@" alt=""");
-                //sb.Append(uad.Sex);
-                //sb.Append(@""" />");
-                //sb.Append(@"</a>");
-                //sb.Append(@" ");
-                //sb.AppendLine(uad.SiteBagesSmall);
-
-
-                //sb.Append(@"</div>");
-
-
-                //sb.Append(@"</div>");
                 sb.Append(@"</li>");
 
 
@@ -857,10 +793,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             if (!deleteAllRelatedData) return Delete();
 
-            var s3 = new S3Service();
-
-            s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
-            s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
+            var s3 = new S3Service
+                {
+                    AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                    SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+                };
 
 
             var uad = new UserAccountDetail();
@@ -887,8 +824,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 }
             }
 
-            var usc = new UserConnection();
-            usc.UserAccountID = UserAccountID;
+            var usc = new UserConnection {UserAccountID = UserAccountID};
             usc.Delete(true);
 
             var conComs = new ContentComments();
@@ -903,8 +839,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // user wall
             WallMessages.DeleteUserWall(UserAccountID);
 
-            var uaddress = new UserAddress();
-            uaddress.UserAccountID = UserAccountID;
+            var uaddress = new UserAddress {UserAccountID = UserAccountID};
             uaddress.Delete();
 
             var uphos = new UserPhotos();
@@ -1133,7 +1068,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     public class UserAccounts : List<UserAccount>, IGetAll, ICacheName, IUnorderdList
     {
         private bool _includeStartAndEndTags = true;
-        public int LookedAtCount { get; set; }
+        private int LookedAtCount { get; set; }
 
         public bool IncludeStartAndEndTags
         {
@@ -1250,14 +1185,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 {
                     i++;
 
-                    if (i == alFilters.Count)
-                    {
-                        whereCondition.AppendFormat(" {0} ", filter);
-                    }
-                    else
-                    {
-                        whereCondition.AppendFormat(" {0} AND ", filter);
-                    }
+                    whereCondition.AppendFormat(i == alFilters.Count ? " {0} " : " {0} AND ", filter);
                 }
             }
 
@@ -1297,7 +1225,7 @@ WHERE RowNumber BETWEEN(@PageIndex -1)
 
 DROP TABLE #Results
 
- ", pageNumber, resultSize, longLat.latitude.ToString(), longLat.longitude.ToString(), whereCondition);
+ ", pageNumber, resultSize, longLat.latitude, longLat.longitude, whereCondition);
             }
             else
             {
@@ -1383,15 +1311,11 @@ DROP TABLE #Results
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                UserAccount ua = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    ua = new UserAccount(dr);
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-                    Add(ua);
-                }
+            foreach (UserAccount ua in from DataRow dr in dt.Rows select new UserAccount(dr))
+            {
+                Add(ua);
             }
         }
 
@@ -1421,7 +1345,7 @@ DROP TABLE #Results
         }
 
 
-        public static void GetWhoIsOffline()
+        private static void GetWhoIsOffline()
         {
             var uas = new UserAccounts();
 
@@ -1450,15 +1374,13 @@ DROP TABLE #Results
 
             // execute the stored procedure
 
-            string rslt = DbAct.ExecuteScalar(comm);
+            var rslt = DbAct.ExecuteScalar(comm);
 
-            if (string.IsNullOrWhiteSpace(rslt)) return 0;
-            else
-                return Convert.ToInt32(rslt);
+            return string.IsNullOrWhiteSpace(rslt) ? 0 : Convert.ToInt32(rslt);
         }
 
 
-        public void GetMostLookedAtUsersDays(int daysBack, int total)
+        private void GetMostLookedAtUsersDays(int daysBack, int total)
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -1472,16 +1394,13 @@ DROP TABLE #Results
 
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+            foreach (DataRow dr in dt.Rows)
             {
-                UserAccount user = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    user = new UserAccount(FromObj.IntFromObj(dr["lookedAtUserAccountID"]));
-                    LookedAtCount = FromObj.IntFromObj(dr["count"]);
-                    if (Count == total) break;
-                    Add(user);
-                }
+                var user = new UserAccount(FromObj.IntFromObj(dr["lookedAtUserAccountID"]));
+                LookedAtCount = FromObj.IntFromObj(dr["count"]);
+                if (Count == total) break;
+                Add(user);
             }
         }
 
@@ -1597,10 +1516,8 @@ DROP TABLE #Results
                 // was something returned?
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    UserAccount art = null;
-                    foreach (DataRow dr in dt.Rows)
+                    foreach (var art in from DataRow dr in dt.Rows select new UserAccount(dr))
                     {
-                        art = new UserAccount(dr);
                         Add(art);
                     }
 

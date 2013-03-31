@@ -13,16 +13,15 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BootBaronLib.Interfaces;
-using BootBaronLib.BaseTypes;
-using System.Data.Common;
-using BootBaronLib.DAL;
 using System.Data;
+using System.Data.Common;
+using System.Text;
 using System.Web;
+using BootBaronLib.BaseTypes;
+using BootBaronLib.DAL;
+using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
@@ -31,32 +30,18 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
     {
         #region properties
 
-        private int _songPropertyID = 0;
-
-        public int SongPropertyID
-        {
-            get { return _songPropertyID; }
-            set { _songPropertyID = value; }
-        }
-
-        private int _songID = 0;
-
-        public int SongID
-        {
-            get { return _songID; }
-            set { _songID = value; }
-        }
- 
-
         private string _propertyContent = string.Empty;
+        private string _propertyType = string.Empty;
+        public int SongPropertyID { get; set; }
+
+        public int SongID { get; set; }
+
 
         public string PropertyContent
         {
             get { return _propertyContent; }
             set { _propertyContent = value; }
         }
-
-        private string _propertyType = string.Empty;
 
         public string PropertyType
         {
@@ -75,10 +60,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             // set the stored procedure name
             comm.CommandText = "up_AddSongProperty";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID", CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "songID", SongID);
-            ADOExtenstion.AddParameter(comm, "propertyContent", PropertyContent);
-            ADOExtenstion.AddParameter(comm, "propertyType", PropertyType);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("songID", SongID);
+            comm.AddParameter("propertyContent", PropertyContent);
+            comm.AddParameter("propertyType", PropertyType);
 
             // the result is their ID
             string result = string.Empty;
@@ -91,25 +76,25 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             }
             else
             {
-                this.SongPropertyID = Convert.ToInt32(result);
+                SongPropertyID = Convert.ToInt32(result);
 
-                return this.SongPropertyID;
+                return SongPropertyID;
             }
         }
 
 
         public void GetSongPropertySongIDTypeID(int songID, string propertyType)
         {
-            this.SongID = songID;
-            this.PropertyType = propertyType;
+            SongID = songID;
+            PropertyType = propertyType;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored up_GetSongPropertySongIDTypeID name
             comm.CommandText = "up_GetSongPropertySongIDTypeID";
 
-            ADOExtenstion.AddParameter(comm, "propertyType", PropertyType);
-            ADOExtenstion.AddParameter(comm, "songID", SongID);
+            comm.AddParameter("propertyType", PropertyType);
+            comm.AddParameter("songID", SongID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -117,9 +102,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
             {
-                Get(dt.Rows[0]);// should only be 1
+                Get(dt.Rows[0]); // should only be 1
             }
-
         }
 
 
@@ -129,12 +113,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             {
                 base.Get(dr);
 
-                this.SongPropertyID = FromObj.IntFromObj(dr["songPropertyID"]);
-                this.SongID = FromObj.IntFromObj(dr["songID"]);
-                this.PropertyContent = FromObj.StringFromObj(dr["propertyContent"]);
-                this.PropertyType = FromObj.StringFromObj(dr["propertyType"]);
+                SongPropertyID = FromObj.IntFromObj(dr["songPropertyID"]);
+                SongID = FromObj.IntFromObj(dr["songID"]);
+                PropertyContent = FromObj.StringFromObj(dr["propertyContent"]);
+                PropertyType = FromObj.StringFromObj(dr["propertyType"]);
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         #endregion
@@ -162,19 +148,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public static string GetPropertyTypeLink(int vidID)
         {
-             Songs sngs = new  Songs();
+            var sngs = new Songs();
 
             sngs.GetSongsForVideo(vidID);
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            SongProperty sp = new SongProperty();
+            var sp = new SongProperty();
 
             foreach (Song sng in sngs)
             {
                 sp = new SongProperty();
 
-                sp.GetSongPropertySongIDTypeID(sng.SongID, SongProperty.SPropType.IT.ToString());
+                sp.GetSongPropertySongIDTypeID(sng.SongID, SPropType.IT.ToString());
 
                 if (!string.IsNullOrEmpty(sp.PropertyContent))
                 {

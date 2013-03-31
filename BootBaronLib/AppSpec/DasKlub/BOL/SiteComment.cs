@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Data.Common;
 using BootBaronLib.BaseTypes;
@@ -25,15 +26,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties 
 
-        private int _siteCommentID = 0;
-
-        public int SiteCommentID
-        {
-            get { return _siteCommentID; }
-            set { _siteCommentID = value; }
-        }
-
         private string _detail = string.Empty;
+        public int SiteCommentID { get; set; }
 
         public string Detail
         {
@@ -45,7 +39,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #region methods
 
-
         public override int Create()
         {
             // get a configured DbCommand object
@@ -54,8 +47,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddSiteComment";
 
-            ADOExtenstion.AddParameter(comm, "detail", this.Detail);
-            ADOExtenstion.AddParameter(comm, "createdByUserID", this.CreatedByUserID);
+            comm.AddParameter("detail", Detail);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
 
             // the result is their ID
             string result = string.Empty;
@@ -64,9 +57,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             if (string.IsNullOrEmpty(result)) return 0;
 
-            this.SiteCommentID = Convert.ToInt32(result);
+            SiteCommentID = Convert.ToInt32(result);
 
-            return this.SiteCommentID;
+            return SiteCommentID;
         }
 
         #endregion

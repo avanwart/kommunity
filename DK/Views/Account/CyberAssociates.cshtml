@@ -1,47 +1,46 @@
-﻿ 
+﻿@using BootBaronLib.Resources
 
 
-@using BootBaronLib.Resources;
 
 @{
     ViewBag.Title = Messages.CyberAssociates;
 }
 <div class="row" >
-<div class="span8">
-@{Html.RenderPartial("_AdBanner"); }
-<h2>@ViewBag.UserName: @Messages.CyberAssociates</h2>
-      <hr />
- @if (ViewBag.UserName.ToLower() == User.Identity.Name.ToLower())
- {
-          Html.RenderPartial("_myZoneMenu"); 
- }
-<img src="@Url.Content("~/content/images/userstatus/keyboard.png")"
- />
+    <div class="span8">
+        @{ Html.RenderPartial("_AdBanner"); }
+        <h2>@ViewBag.UserName: @Messages.CyberAssociates</h2>
+        <hr />
+        @if (ViewBag.UserName.ToLower() == User.Identity.Name.ToLower())
+        {
+            Html.RenderPartial("_myZoneMenu");
+        }
+        <img src="@Url.Content("~/content/images/userstatus/keyboard.png")"
+            />
 
-<br />
+        <br />
 
  
-@if (ViewBag.CyberCount != null && Convert.ToInt32(ViewBag.ContactsCount) > 0)
-{
-   @Html.Raw(ViewBag.ContactsCount)  
-}
-else
-{
-    <i>
-@Messages.NoResults</i>
-}
+        @if (ViewBag.CyberCount != null && Convert.ToInt32(ViewBag.ContactsCount) > 0)
+        {
+            @Html.Raw(ViewBag.ContactsCount)
+        }
+        else
+        {
+            <i>
+                @Messages.NoResults</i>
+        }
 
 
-@if (ViewBag.Contacts != null)
-{
-        @Html.Raw(ViewBag.Contacts)
-}
+        @if (ViewBag.Contacts != null)
+        {
+            @Html.Raw(ViewBag.Contacts)
+        }
        
-       </div>
+    </div>
 
-       <div class="span4">
-       @{Html.RenderPartial("_AdBanner2"); }
+    <div class="span4">
+        @{ Html.RenderPartial("_AdBanner2"); }
        
-       </div>
+    </div>
 
 </div>

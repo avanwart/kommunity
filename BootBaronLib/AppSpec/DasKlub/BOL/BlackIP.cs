@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System.Collections.Generic;
 using System.Data.Common;
 using BootBaronLib.BaseTypes;
@@ -25,14 +26,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties 
 
-        public int BlackIPID { get; set; }
-
         private string _ipAddress = string.Empty;
 
         public BlackIP()
         {
             BlackIPID = 0;
         }
+
+        public int BlackIPID { get; set; }
 
         public string IpAddress
         {
@@ -59,7 +60,5 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // execute the stored procedure
             return DbAct.ExecuteScalar(comm) == "1";
         }
-
-
     }
 }

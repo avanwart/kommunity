@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System.Configuration;
 
 namespace BootBaronLib.Configs
@@ -25,9 +26,9 @@ namespace BootBaronLib.Configs
         {
             // database
             _dbConnectionString =
-                ConfigurationManager.ConnectionStrings["SQLDatabaseConnection"].ConnectionString.ToString();
+                ConfigurationManager.ConnectionStrings["SQLDatabaseConnection"].ConnectionString;
             _dbProviderName =
-                ConfigurationManager.ConnectionStrings["SQLDatabaseConnection"].ProviderName.ToString();
+                ConfigurationManager.ConnectionStrings["SQLDatabaseConnection"].ProviderName;
         }
 
         #endregion
@@ -36,34 +37,25 @@ namespace BootBaronLib.Configs
 
         // database
         private static string _dbConnectionString = string.Empty;
-        private readonly static string _dbProviderName = string.Empty;
+        private static readonly string _dbProviderName = string.Empty;
 
         #endregion
 
         #region database
 
         /// <summary>
-        /// The connectin string to the database
+        ///     The connectin string to the database
         /// </summary>
         public static string DbConnectionString
         {
-            set
-            {
-                _dbConnectionString = value;
-            }
+            set { _dbConnectionString = value; }
 
-            get
-            {
-                return _dbConnectionString;
-            }
+            get { return _dbConnectionString; }
         }
 
         public static string DbProviderName
         {
-            get
-            {
-                return _dbProviderName;
-            }
+            get { return _dbProviderName; }
         }
 
         #endregion

@@ -13,13 +13,14 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
-using System.Collections.Generic;
 using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
@@ -30,7 +31,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public override int Create()
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
@@ -40,25 +40,25 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             param = comm.CreateParameter();
             param.ParameterName = "@createdByUserID";
-            param.Value = this.CreatedByUserID;
+            param.Value = CreatedByUserID;
             param.DbType = DbType.Int32;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@requestURL";
-            param.Value = this.RequestURL;
+            param.Value = RequestURL;
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@statusType";
-            param.Value = this.StatusType;
+            param.Value = StatusType;
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@videoKey";
-            param.Value = this.VideoKey;
+            param.Value = VideoKey;
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
 
@@ -73,16 +73,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                this.VideoRequestID = Convert.ToInt32(result);
+                VideoRequestID = Convert.ToInt32(result);
 
                 return VideoRequestID;
             }
-
-
-
         }
 
-        public  void GetVideoRequest()
+        public void GetVideoRequest()
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -91,7 +88,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // create a new parameter
             DbParameter param = comm.CreateParameter();
             param.ParameterName = "@videoKey";
-            param.Value = this.VideoKey;
+            param.Value = VideoKey;
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
 
@@ -106,18 +103,18 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
         public override bool Update()
-        { 
+        {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_UpdateVideoRequest";
 
 
-            ADOExtenstion.AddParameter(comm, "updatedByUserID", UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, "requestURL", RequestURL);
-            ADOExtenstion.AddParameter(comm, "statusType", StatusType);
-            ADOExtenstion.AddParameter(comm, "videoKey", VideoKey);
-            ADOExtenstion.AddParameter(comm, "videoRequestID", VideoRequestID);
+            comm.AddParameter("updatedByUserID", UpdatedByUserID);
+            comm.AddParameter("requestURL", RequestURL);
+            comm.AddParameter("statusType", StatusType);
+            comm.AddParameter("videoKey", VideoKey);
+            comm.AddParameter("videoRequestID", VideoRequestID);
 
             int result = -1;
 
@@ -131,24 +128,26 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             try
             {
                 base.Get(dr);
-                this.RequestURL = FromObj.StringFromObj(dr["requestURL"]);
-                this.StatusType = FromObj.CharFromObj(dr["statusType"]);
-                this.VideoKey = FromObj.StringFromObj(dr["videoKey"]);
-                this.VideoRequestID = FromObj.IntFromObj(dr["videoRequestID"]);
+                RequestURL = FromObj.StringFromObj(dr["requestURL"]);
+                StatusType = FromObj.CharFromObj(dr["statusType"]);
+                VideoKey = FromObj.StringFromObj(dr["videoKey"]);
+                VideoRequestID = FromObj.IntFromObj(dr["videoRequestID"]);
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         public override void Get(int videoRequestID)
         {
-            this.VideoRequestID = videoRequestID;
+            VideoRequestID = videoRequestID;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetVideoRequestByID";
-            
-            ADOExtenstion.AddParameter(comm, "videoRequestID",   VideoRequestID);
+
+            comm.AddParameter("videoRequestID", VideoRequestID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -164,17 +163,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #region properties
 
-        private int _videoRequestID = 0;
-
-        public int VideoRequestID
-        {
-            get { return _videoRequestID; }
-            set { _videoRequestID = value; }
-        }
-
-
-
         private string _requestURL = string.Empty;
+
+
+        private char _statusType = char.MinValue;
+
+        private string _videoKey = string.Empty;
+        public int VideoRequestID { get; set; }
 
         public string RequestURL
         {
@@ -182,22 +177,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _requestURL = value; }
         }
 
-
-        private char _statusType = char.MinValue;
-
         /// <summary>
-        /// W = waiting for review
-        /// R = rejected
-        /// I = invalid submission
-        /// A = approved
+        ///     W = waiting for review
+        ///     R = rejected
+        ///     I = invalid submission
+        ///     A = approved
         /// </summary>
         public char StatusType
         {
             get { return _statusType; }
             set { _statusType = value; }
         }
-
-        private string _videoKey = string.Empty;
 
         public string VideoKey
         {
@@ -221,16 +211,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #endregion
 
-        public VideoRequest() { }
+        public VideoRequest()
+        {
+        }
 
-        public VideoRequest(DataRow dr) { Get(dr); }
+        public VideoRequest(DataRow dr)
+        {
+            Get(dr);
+        }
 
         public VideoRequest(int videoRequestID)
         {
             Get(videoRequestID);
         }
-
-
     }
 
     public class VideoRequests : List<VideoRequest>
@@ -252,10 +245,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     vreq = new VideoRequest(dr);
-                    this.Add(vreq);
+                    Add(vreq);
                 }
             }
         }
-
     }
 }

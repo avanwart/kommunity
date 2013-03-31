@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -420,7 +421,7 @@ namespace DasKlub.Controllers
                                 {SiteEnums.CookieValue.language.ToString(), uad.DefaultLanguage}
                             };
 
-                        Utilities.CookieMaker(SiteEnums.CookieName.usersetting, nvc);
+                        Utilities.CookieMaker(SiteEnums.CookieName.Usersetting, nvc);
 
                         Thread.CurrentThread.CurrentUICulture =
                             CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
@@ -1250,13 +1251,15 @@ namespace DasKlub.Controllers
 
         private void LoadCountries()
         {
-            var countryOptions = Enum.GetValues(typeof (SiteEnums.CountryCodeISO))
+            Dictionary<string, string> countryOptions = Enum.GetValues(typeof (SiteEnums.CountryCodeISO))
                                                             .Cast<int>()
                                                             .Select(value => (SiteEnums.CountryCodeISO)
 // ReSharper disable AssignNullToNotNullAttribute
                                                                              Enum.Parse(
-                                                                                 typeof (SiteEnums.CountryCodeISO), Enum.GetName(typeof (
-                                                                                             SiteEnums.CountryCodeISO), value)))
+                                                                                 typeof (SiteEnums.CountryCodeISO),
+                                                                                 Enum.GetName(typeof (
+                                                                                                  SiteEnums.
+                                                                                                  CountryCodeISO), value)))
 // ReSharper restore AssignNullToNotNullAttribute
                                                             .Where(
                                                                 countryCode =>
@@ -1267,7 +1270,7 @@ namespace DasKlub.Controllers
                                                                           Utilities.ResourceValue(
                                                                               Utilities.GetEnumDescription(countryCode)));
 
-            var items = from k in countryOptions.Keys
+            IOrderedEnumerable<string> items = from k in countryOptions.Keys
                                                orderby countryOptions[k] ascending
                                                select k;
 
@@ -2730,8 +2733,8 @@ namespace DasKlub.Controllers
                 oppositeBottom = Math.Abs(Math.Cos(lockedTheta))*oldWidth;
             }
 
-            var newWidth = adjacentTop + oppositeBottom;
-            var newHeight = adjacentBottom + oppositeTop;
+            double newWidth = adjacentTop + oppositeBottom;
+            double newHeight = adjacentBottom + oppositeTop;
 
             var nWidth = (int) Math.Ceiling(newWidth);
             var nHeight = (int) Math.Ceiling(newHeight);

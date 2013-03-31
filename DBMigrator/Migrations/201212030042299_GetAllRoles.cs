@@ -21,7 +21,7 @@ SELECT  [roleID]
   FROM  [Role]
 ");
         }
-        
+
         public override void Down()
         {
             Sql(@"   drop proc up_GetAllRoles ");

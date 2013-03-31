@@ -13,9 +13,9 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
@@ -27,29 +27,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
     {
         #region properties
 
-        private int _contestVideoVoteID = 0;
+        public int ContestVideoVoteID { get; set; }
 
-        public int ContestVideoVoteID
-        {
-            get { return _contestVideoVoteID; }
-            set { _contestVideoVoteID = value; }
-        }
+        public int UserAccountID { get; set; }
 
-        private int _userAccountID = 0;
-
-        public int UserAccountID
-        {
-            get { return _userAccountID; }
-            set { _userAccountID = value; }
-        }
-
-        private int _contestVideoID = 0;
-
-        public int ContestVideoID
-        {
-            get { return _contestVideoID; }
-            set { _contestVideoID = value; }
-        }
+        public int ContestVideoID { get; set; }
 
         #endregion
 
@@ -59,9 +41,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             // set the stored procedure name
             comm.CommandText = "up_AddContestVideoVote";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID", CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "contestVideoID", ContestVideoID);
-            ADOExtenstion.AddParameter(comm, "userAccountID", UserAccountID);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("contestVideoID", ContestVideoID);
+            comm.AddParameter("userAccountID", UserAccountID);
 
             // the result is their ID
             string result = string.Empty;
@@ -70,25 +52,22 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
 
             if (string.IsNullOrEmpty(result)) return 0;
 
-            this.ContestVideoVoteID = Convert.ToInt32(result);
+            ContestVideoVoteID = Convert.ToInt32(result);
 
-            return this.ContestVideoVoteID;
+            return ContestVideoVoteID;
         }
-
     }
 
     public class ContestVideoVotes : List<ContestVideoVote>
     {
-        
         public static bool DeleteAllUserContestVotes(int userAccountID)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeleteAllUserContestVotes";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
+            comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;

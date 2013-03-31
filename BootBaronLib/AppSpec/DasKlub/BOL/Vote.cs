@@ -13,31 +13,58 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BootBaronLib.Interfaces;
+using System.Data;
 using System.Data.Common;
 using BootBaronLib.DAL;
-using System.Data;
+using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
     public class Vote
     {
+        private DateTime _createDate = DateTime.MinValue;
+
+        public Vote(DataRow dr)
+        {
+            VoteID = FromObj.IntFromObj(dr["voteID"]);
+            UserAccountID = FromObj.IntFromObj(dr["userAccountID"]);
+            CreateDate = FromObj.DateFromObj(dr["createDate"]);
+            VideoID = FromObj.IntFromObj(dr["videoID"]);
+            Score = FromObj.IntFromObj(dr["score"]);
+        }
+
+        public Vote()
+        {
+        }
+
+        public int VoteID { get; set; }
+
+        public int UserAccountID { get; set; }
+
+        public DateTime CreateDate
+        {
+            get { return _createDate; }
+            set { _createDate = value; }
+        }
+
+        public int VideoID { get; set; }
+
+        public int Score { get; set; }
 
         public static bool IsUserVideoVote(int videoID, int userAccountID)
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
-            
+
             // set the stored procedure name
             comm.CommandText = "up_IsUserVideoVote";
 
-            ADOExtenstion.AddParameter(comm, "videoID",  videoID);
-            ADOExtenstion.AddParameter(comm, "userAccountID",  userAccountID);
+            comm.AddParameter("videoID", videoID);
+            comm.AddParameter("userAccountID", userAccountID);
 
             // the result is their ID
             string result = string.Empty;
@@ -48,66 +75,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-        private int _voteID = 0;
-
-        public int VoteID
-        {
-            get { return _voteID; }
-            set { _voteID = value; }
-        }
-        private int _userAccountID = 0;
-
-        public int UserAccountID
-        {
-            get { return _userAccountID; }
-            set { _userAccountID = value; }
-        }
-        private DateTime _createDate = DateTime.MinValue;
-
-        public DateTime CreateDate
-        {
-            get { return _createDate; }
-            set { _createDate = value; }
-        }
-        private int _videoID = 0;
-
-        public int VideoID
-        {
-            get { return _videoID; }
-            set { _videoID = value; }
-        }
-        private int _score = 0;
-
-        public int Score
-        {
-            get { return _score; }
-            set { _score = value; }
-        }
-
-
-        public Vote(DataRow dr)
-        {
-            this.VoteID = FromObj.IntFromObj(dr["voteID"]);
-            this.UserAccountID = FromObj.IntFromObj(dr["userAccountID"]);
-            this.CreateDate = FromObj.DateFromObj(dr["createDate"]);
-            this.VideoID = FromObj.IntFromObj(dr["videoID"]);
-            this.Score = FromObj.IntFromObj(dr["score"]);
-        }
-
-        public Vote() { }
-
         public int Create()
         {
-            
-    
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddVote";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", UserAccountID);
-            ADOExtenstion.AddParameter(comm, "videoID",  VideoID);
-            ADOExtenstion.AddParameter(comm, "score", Score);
+            comm.AddParameter("userAccountID", UserAccountID);
+            comm.AddParameter("videoID", VideoID);
+            comm.AddParameter("score", Score);
 
 
             // the result is their ID
@@ -121,12 +98,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                this.VoteID = Convert.ToInt32(result);
+                VoteID = Convert.ToInt32(result);
 
-                return this.VoteID;
+                return VoteID;
             }
-
-
         }
     }
 
@@ -151,13 +126,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     art = new Vote(dr);
-                    this.Add(art);
+                    Add(art);
                 }
             }
         }
 
         #endregion
-
 
         public static bool DeleteUserAccountVideo(int userAccountID)
         {
@@ -166,11 +140,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteUserVotes";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID",   userAccountID);
+            comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
-
         }
     }
 }

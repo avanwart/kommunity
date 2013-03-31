@@ -13,23 +13,21 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Operational;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
+using BootBaronLib.Operational;
 
 namespace DasKlub.m.auth
 {
-    public partial class ArtistTD : System.Web.UI.Page
+    public partial class ArtistTD : Page
     {
         #region variables
 
-        const string unknownValue = "-UNKNOWN-";
+        private const string unknownValue = "-UNKNOWN-";
 
         #endregion
 
@@ -37,17 +35,17 @@ namespace DasKlub.m.auth
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (!IsPostBack)
             {
                 ddlTourDate.DataSource = Venues.GetDateVenues();
                 ddlTourDate.DataTextField = "datevenue";
                 ddlTourDate.DataValueField = "eventID";
                 ddlTourDate.DataBind();
                 ddlTourDate.Items.Insert(0, new ListItem(unknownValue));
-             //   Utilities.General.SortDropDownList(ddlTourDate);
+                //   Utilities.General.SortDropDownList(ddlTourDate);
 
                 ///
-                Artists arts = new Artists();
+                var arts = new Artists();
                 arts.GetAll();
 
                 // artists 1
@@ -78,13 +76,13 @@ namespace DasKlub.m.auth
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            ArtistEvent atd = new ArtistEvent();
+            var atd = new ArtistEvent();
 
-            atd.EventID = Convert.ToInt32( ddlTourDate.SelectedValue );
+            atd.EventID = Convert.ToInt32(ddlTourDate.SelectedValue);
 
-            Artist art = new Artist();
+            var art = new Artist();
 
-            if (ddlArtist1.SelectedValue != unknownValue && !string.IsNullOrEmpty( ddlArtist1.SelectedValue ))
+            if (ddlArtist1.SelectedValue != unknownValue && !string.IsNullOrEmpty(ddlArtist1.SelectedValue))
             {
                 art = new Artist(ddlArtist1.SelectedValue);
                 atd.ArtistID = art.ArtistID;
@@ -106,20 +104,14 @@ namespace DasKlub.m.auth
                         atd.RankOrder = 3;
                         atd.Create();
                     }
-
                 }
-            
             }
-
-
-
         }
 
         #endregion
 
         protected void gvwEvents_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

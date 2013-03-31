@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,23 +27,13 @@ using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
-
-
     public class RelationshipStatus : BaseIUserLogCRUD, ICacheName, ILocalizedName
     {
-
         #region properties
 
-        private int _relationshipStatusID = 0;
-
-        public int RelationshipStatusID
-        {
-            get { return _relationshipStatusID; }
-            set { _relationshipStatusID = value; }
-        }
-
-
+        private string _name = string.Empty;
         private char _typeLetter = char.MinValue;
+        public int RelationshipStatusID { get; set; }
 
         public char TypeLetter
         {
@@ -50,14 +41,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _typeLetter = value; }
         }
 
-        private string _name = string.Empty;
-
 
         public string Name
         {
             get
             {
-
                 if (string.IsNullOrWhiteSpace(_name)) return _name;
                 return _name.Trim();
             }
@@ -68,64 +56,28 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #region constructors
 
-        public RelationshipStatus() { }
+        public RelationshipStatus()
+        {
+        }
 
-        public RelationshipStatus(int relationshipStatusID) {
-
-            Get(relationshipStatusID); 
+        public RelationshipStatus(int relationshipStatusID)
+        {
+            Get(relationshipStatusID);
         }
 
         public RelationshipStatus(DataRow dr)
         {
             Get(dr);
         }
+
         #endregion
-
-        public override void Get(int uniqueID)
-        {
-            this.RelationshipStatusID = uniqueID;
-
-            if (HttpContext.Current == null || HttpContext.Current.Cache[this.CacheName] == null)
-            {
-                // get a configured DbCommand object
-                DbCommand comm = DbAct.CreateCommand();
-                // set the stored procedure name
-                comm.CommandText = "up_GetRelationshipStatus";
-                // create a new parameter
-                ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.RelationshipStatusID), RelationshipStatusID);
-
-                // execute the stored procedure
-                DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-                // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    if (HttpContext.Current != null) HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
-
-                    Get(dt.Rows[0]);
-                }
-            }
-            else
-            {
-                Get((DataRow)HttpContext.Current.Cache[this.CacheName]);
-            }
-        }
-
-        public override void Get(DataRow dr)
-        {
-            base.Get(dr);
-
-            this.RelationshipStatusID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.RelationshipStatusID)]);
-            this.Name = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Name)]);
-            this.TypeLetter = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => this.TypeLetter)]);
-        }
 
         public string CacheName
         {
             get
             {
-                return this.GetType().FullName +
-                    "-" + this.RelationshipStatusID.ToString();
+                return GetType().FullName +
+                       "-" + RelationshipStatusID.ToString();
             }
         }
 
@@ -137,20 +89,56 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string LocalizedName
         {
-            get
+            get { return Utilities.ResourceValue(Name); }
+        }
+
+        public override void Get(int uniqueID)
+        {
+            RelationshipStatusID = uniqueID;
+
+            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheName] == null)
             {
-                return Utilities.ResourceValue(this.Name);
+                // get a configured DbCommand object
+                DbCommand comm = DbAct.CreateCommand();
+                // set the stored procedure name
+                comm.CommandText = "up_GetRelationshipStatus";
+                // create a new parameter
+                comm.AddParameter(StaticReflection.GetMemberName<string>(x => RelationshipStatusID),
+                                  RelationshipStatusID);
+
+                // execute the stored procedure
+                DataTable dt = DbAct.ExecuteSelectCommand(comm);
+
+                // was something returned?
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    if (HttpContext.Current != null) HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+
+                    Get(dt.Rows[0]);
+                }
             }
+            else
+            {
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+            }
+        }
+
+        public override void Get(DataRow dr)
+        {
+            base.Get(dr);
+
+            RelationshipStatusID =
+                FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => RelationshipStatusID)]);
+            Name = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => Name)]);
+            TypeLetter = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => TypeLetter)]);
         }
     }
 
     public class RelationshipStatuses : List<RelationshipStatus>, IGetAll
     {
-
-
         public void GetAll()
         {
-            if (HttpContext.Current == null || HttpContext.Current.Cache[this.GetType().FullName] == null)
+            if (HttpContext.Current == null || HttpContext.Current.Cache[GetType().FullName] == null)
             {
                 DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
@@ -166,15 +154,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     foreach (DataRow dr in dt.Rows)
                     {
                         art = new RelationshipStatus(dr);
-                        this.Add(art);
+                        Add(art);
                     }
 
-                    HttpContext.Current.Cache.AddObjToCache(dt, this.GetType().FullName);
+                    HttpContext.Current.Cache.AddObjToCache(dt, GetType().FullName);
                 }
             }
             else
             {
-                DataTable dt = (DataTable)HttpContext.Current.Cache[this.GetType().FullName];
+                var dt = (DataTable) HttpContext.Current.Cache[GetType().FullName];
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
@@ -182,13 +170,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     foreach (DataRow dr in dt.Rows)
                     {
                         art = new RelationshipStatus(dr);
-                        this.Add(art);
+                        Add(art);
                     }
                 }
             }
         }
-
- 
     }
-
 }

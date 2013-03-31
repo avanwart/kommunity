@@ -13,19 +13,21 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 
 namespace DasKlub.m.auth
 {
-    public partial class NewTourDate : System.Web.UI.Page
+    public partial class NewTourDate : Page
     {
         #region variables
 
-        const string unknownValue = "-UNKNOWN-";
-        Event evnt = null;
-        Events evnts = null;
+        private const string unknownValue = "-UNKNOWN-";
+        private Event evnt;
+        private Events evnts;
 
         #endregion
 
@@ -33,8 +35,8 @@ namespace DasKlub.m.auth
 
         protected void btnDeleteEvent_Click(object sender, EventArgs e)
         {
-
-            if (gvwEvents.SelectedDataKey == null || string.IsNullOrEmpty(gvwEvents.SelectedDataKey.Value.ToString())) return;
+            if (gvwEvents.SelectedDataKey == null || string.IsNullOrEmpty(gvwEvents.SelectedDataKey.Value.ToString()))
+                return;
 
             evnt = new Event(Convert.ToInt32(gvwEvents.SelectedDataKey.Value));
 
@@ -45,11 +47,9 @@ namespace DasKlub.m.auth
         }
 
 
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (!IsPostBack)
             {
                 LoadVenueList();
                 LoadEventCycles();
@@ -79,7 +79,6 @@ namespace DasKlub.m.auth
             ddlDay.SelectedValue = evnt.LocalTimeBegin.Day.ToString();
             ddlVenues.SelectedValue = evnt.VenueID.ToString();
             ddlEventCycle.SelectedValue = evnt.EventCycleID.ToString();
-
         }
 
 
@@ -89,7 +88,7 @@ namespace DasKlub.m.auth
 
             evnt.Name = txtName.Text;
             evnt.LocalTimeBegin = Convert.ToDateTime(ddlYear.SelectedValue + "-" +
-                ddlMonth.SelectedValue + "-" + ddlDay.SelectedValue);
+                                                     ddlMonth.SelectedValue + "-" + ddlDay.SelectedValue);
             evnt.VenueID = Convert.ToInt32(ddlVenues.SelectedValue);
             evnt.EventDetailURL = txtEventDetailURL.Text;
             evnt.Notes = txtNotes.Text;
@@ -118,11 +117,11 @@ namespace DasKlub.m.auth
 
             evnt.Name = txtName.Text;
             evnt.LocalTimeBegin = Convert.ToDateTime(ddlYear.SelectedValue + "-" +
-                ddlMonth.SelectedValue + "-" +  ddlDay.SelectedValue );
+                                                     ddlMonth.SelectedValue + "-" + ddlDay.SelectedValue);
             evnt.VenueID = Convert.ToInt32(ddlVenues.SelectedValue);
             evnt.EventDetailURL = txtEventDetailURL.Text;
             evnt.Notes = txtNotes.Text;
-            evnt.RsvpURL  = txtRSVPURL.Text;
+            evnt.RsvpURL = txtRSVPURL.Text;
             evnt.TicketURL = txtTicketURL.Text;
             evnt.IsEnabled = chkIsEnabled.Checked;
             evnt.IsReoccuring = chkIsReoccuring.Checked;
@@ -139,14 +138,11 @@ namespace DasKlub.m.auth
 
         private void LoadVenueList()
         {
-            Venues vnues = new Venues();
+            var vnues = new Venues();
 
             vnues.GetAll();
 
-            vnues.Sort(delegate(Venue p1, Venue p2)
-            {
-                return p1.VenueName.CompareTo(p2.VenueName);
-            });
+            vnues.Sort(delegate(Venue p1, Venue p2) { return p1.VenueName.CompareTo(p2.VenueName); });
 
             ddlVenues.DataSource = vnues;
             ddlVenues.DataTextField = "venueName";
@@ -154,19 +150,15 @@ namespace DasKlub.m.auth
             ddlVenues.DataBind();
             ddlVenues.Items.Insert(0, new ListItem(unknownValue));
             // Utilities.General.SortDropDownList(ddlVenues);
-
         }
 
         private void LoadEventCycles()
         {
-            EventCycles envtcyc = new EventCycles();
+            var envtcyc = new EventCycles();
 
             envtcyc.GetAll();
 
-            envtcyc.Sort(delegate(EventCycle p1, EventCycle p2)
-            {
-                return p1.CycleName.CompareTo(p2.CycleName);
-            });
+            envtcyc.Sort(delegate(EventCycle p1, EventCycle p2) { return p1.CycleName.CompareTo(p2.CycleName); });
 
             ddlEventCycle.DataSource = envtcyc;
             ddlEventCycle.DataTextField = "cycleName";
@@ -174,7 +166,6 @@ namespace DasKlub.m.auth
             ddlEventCycle.DataBind();
             ddlEventCycle.Items.Insert(0, new ListItem(unknownValue));
             // Utilities.General.SortDropDownList(ddlVenues);
-
         }
 
 
@@ -191,12 +182,11 @@ namespace DasKlub.m.auth
 
         public void LoadGrid()
         {
-            evnts = new  Events();
+            evnts = new Events();
             evnts.GetAll();
             gvwEvents.DataSource = evnts;
             gvwEvents.DataBind();
         }
-
 
         #endregion
     }

@@ -20,28 +20,33 @@
 //   This program comes with ABSOLUTELY NO WARRANTY.
 
 using System;
-using System.Data;
-using System.Configuration;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 using System.Collections;
 using System.Drawing;
+using System.Web;
 
 namespace BootBaronLib.AppSpec.DasKlub.BLL
 {
-
-
     /// <summary>
-    /// Summary description for cGoogleMap
+    ///     Summary description for cGoogleMap
     /// </summary>
-    /// 
     [Serializable]
     public class GoogleObject
     {
+        private string _apikey = "";
+        private string _apiversion = "2";
+        private GooglePoint _centerpoint = new GooglePoint();
+        private GooglePoints _gpoints = new GooglePoints();
+        private GooglePolygons _gpolygons = new GooglePolygons();
+        private GooglePolylines _gpolylines = new GooglePolylines();
+        private string _height = "400px";
+        private string _maptype = "";
+        private bool _recentermap;
+        private bool _showmaptypescontrol = true;
+        private bool _showtraffic;
+        private bool _showzoomcontrol = true;
+        private string _width = "500px";
+        private int _zoomlevel = 3;
+
         public GoogleObject()
         {
         }
@@ -62,160 +67,107 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
             RecenterMap = prev.RecenterMap;
         }
 
-        GooglePoints _gpoints = new GooglePoints();
         public GooglePoints Points
         {
             get { return _gpoints; }
             set { _gpoints = value; }
         }
 
-        GooglePolylines _gpolylines = new GooglePolylines();
         public GooglePolylines Polylines
         {
             get { return _gpolylines; }
             set { _gpolylines = value; }
         }
 
-        GooglePolygons _gpolygons = new GooglePolygons();
         public GooglePolygons Polygons
         {
             get { return _gpolygons; }
             set { _gpolygons = value; }
         }
 
-        GooglePoint _centerpoint = new GooglePoint();
         public GooglePoint CenterPoint
         {
             get { return _centerpoint; }
             set { _centerpoint = value; }
         }
 
-        int _zoomlevel = 3;
         public int ZoomLevel
         {
             get { return _zoomlevel; }
             set { _zoomlevel = value; }
         }
 
-        bool _showzoomcontrol = true;
         public bool ShowZoomControl
         {
             get { return _showzoomcontrol; }
             set { _showzoomcontrol = value; }
         }
 
-        bool _recentermap = false;
         public bool RecenterMap
         {
             get { return _recentermap; }
             set { _recentermap = value; }
         }
 
-        bool _showtraffic = false;
         public bool ShowTraffic
         {
             get { return _showtraffic; }
             set { _showtraffic = value; }
         }
 
-        bool _showmaptypescontrol = true;
         public bool ShowMapTypesControl
         {
             get { return _showmaptypescontrol; }
             set { _showmaptypescontrol = value; }
         }
 
-        string _width = "500px";
         public string Width
         {
-            get
-            {
-                return _width;
-            }
-            set
-            {
-                _width = value;
-            }
+            get { return _width; }
+            set { _width = value; }
         }
 
-        string _height = "400px";
         public string Height
         {
-            get
-            {
-                return _height;
-            }
-            set
-            {
-                _height = value;
-            }
+            get { return _height; }
+            set { _height = value; }
         }
 
 
-        string _maptype = "";
-        public string MapType
+        private string MapType
         {
-            get
-            {
-                return _maptype;
-            }
-            set
-            {
-                _maptype = value;
-            }
+            get { return _maptype; }
+            set { _maptype = value; }
         }
 
-        string _apikey = "";
-        public string APIKey
+        private string APIKey
         {
-            get
-            {
-                return _apikey;
-            }
-            set
-            {
-                _apikey = value;
-            }
+            get { return _apikey; }
+            set { _apikey = value; }
         }
 
-        string _apiversion = "2";
         public string APIVersion
         {
-            get
-            {
-                return _apiversion;
-            }
-            set
-            {
-                _apiversion = value;
-            }
+            get { return _apiversion; }
+            set { _apiversion = value; }
         }
-
     }
 
     public class GooglePoint
     {
+        private string _icon = "";
+        private int _iconimageheight = 32;
+        private int _iconimagewidth = 32;
+        private string _id = "";
+        private string _infohtml = "";
+        private string _tooltip = "";
+
         public GooglePoint()
         {
         }
 
-        string _pointstatus = ""; //N-New, D-Deleted, C-Changed, ''-No Action
-        public string PointStatus
-        {
-            get { return _pointstatus; }
-            set { _pointstatus = value; }
-        }
-
-        public GooglePoint(string pID, double plat, double plon, string picon, string pinfohtml)
-        {
-            ID = pID;
-            Latitude = plat;
-            Longitude = plon;
-            IconImage = picon;
-            InfoHTML = pinfohtml;
-        }
-
-        public GooglePoint(string pID, double plat, double plon, string picon, string pinfohtml, string pTooltipText, bool pDraggable)
+        public GooglePoint(string pID, double plat, double plon, string picon, string pinfohtml, string pTooltipText,
+                           bool pDraggable)
         {
             ID = pID;
             Latitude = plat;
@@ -226,53 +178,26 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
             Draggable = pDraggable;
         }
 
-        public GooglePoint(string pID, double plat, double plon, string picon)
-        {
-            ID = pID;
-            Latitude = plat;
-            Longitude = plon;
-            IconImage = picon;
-        }
-
-        public GooglePoint(string pID, double plat, double plon)
-        {
-            ID = pID;
-            Latitude = plat;
-            Longitude = plon;
-        }
-
-        string _id = "";
         public string ID
         {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value;
-            }
+            get { return _id; }
+            private set { _id = value; }
         }
 
-        string _icon = "";
         public string IconImage
         {
-            get
+            get { return _icon; }
+            private set
             {
-                return _icon;
-            }
-            set
-            {
-
                 //Get physical path of icon image. Necessary for Bitmap object.
                 string sIconImage = value;
                 if (sIconImage == "")
                     return;
-                string ImageIconPhysicalPath = cCommon.GetLocalPath() + sIconImage.Replace("/", "\\");
+                string imageIconPhysicalPath = cCommon.GetLocalPath() + sIconImage.Replace("/", "\\");
                 //Find width and height of icon using Bitmap image.
 
 
-                using (System.Drawing.Image img = System.Drawing.Image.FromFile(ImageIconPhysicalPath))
+                using (Image img = Image.FromFile(imageIconPhysicalPath))
                 {
                     IconImageWidth = img.Width;
                     IconImageHeight = img.Height;
@@ -284,100 +209,42 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
             }
         }
 
-        int _iconimagewidth = 32;
-        public int IconImageWidth
+        private int IconImageWidth
         {
-            get
-            {
-                return _iconimagewidth;
-            }
-            set
-            {
-                _iconimagewidth = value;
-            }
+            get { return _iconimagewidth; }
+            set { _iconimagewidth = value; }
         }
 
-        bool _draggable = false;
-        public bool Draggable
+        public bool Draggable { get; set; }
+
+        private int IconImageHeight
         {
-            get
-            {
-                return _draggable;
-            }
-            set
-            {
-                _draggable = value;
-            }
+            get { return _iconimageheight; }
+            set { _iconimageheight = value; }
         }
 
-        int _iconimageheight = 32;
-        public int IconImageHeight
-        {
-            get
-            {
-                return _iconimageheight;
-            }
-            set
-            {
-                _iconimageheight = value;
-            }
-        }
+        public double Latitude { get; set; }
 
-        double _lat = 0.0;
-        public double Latitude
-        {
-            get
-            {
-                return _lat;
-            }
-            set
-            {
-                _lat = value;
-            }
-        }
+        public double Longitude { get; set; }
 
-        double _lon = 0.0;
-        public double Longitude
-        {
-            get
-            {
-                return _lon;
-            }
-            set
-            {
-                _lon = value;
-            }
-        }
-
-        string _infohtml = "";
         public string InfoHTML
         {
-            get
-            {
-                return _infohtml;
-            }
-            set
-            {
-                _infohtml = value;
-            }
+            get { return _infohtml; }
+            set { _infohtml = value; }
         }
 
-        string _tooltip = "";
         public string ToolTip
         {
-            get
-            {
-                return _tooltip;
-            }
-            set
-            {
-                _tooltip = value;
-            }
+            get { return _tooltip; }
+            set { _tooltip = value; }
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
 
-
-        public override bool Equals(System.Object obj)
+        public override bool Equals(Object obj)
         {
             // If parameter is null return false.
             if (obj == null)
@@ -386,94 +253,64 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
             }
 
             // If parameter cannot be cast to Point return false.
-            GooglePoint p = obj as GooglePoint;
-            if ((System.Object)p == null)
+            var p = obj as GooglePoint;
+            if (p == null)
             {
                 return false;
             }
 
             // Return true if the fields match:
-            return (InfoHTML == p.InfoHTML) && (IconImage == p.IconImage) && (p.ID == ID) && (p.Latitude == Latitude) && (p.Longitude == Longitude);
+            return (InfoHTML == p.InfoHTML) && (IconImage == p.IconImage) && (p.ID == ID) && (p.Latitude == Latitude) &&
+                   (p.Longitude == Longitude);
         }
     }
 
     public class GooglePoints : CollectionBase
     {
-
-        public GooglePoints()
+        private GooglePoint this[int pIndex]
         {
+            get { return (GooglePoint) List[pIndex]; }
         }
 
         public static GooglePoints CloneMe(GooglePoints prev)
         {
-            GooglePoints p = new GooglePoints();
+            var p = new GooglePoints();
             for (int i = 0; i < prev.Count; i++)
             {
-                p.Add(new GooglePoint(prev[i].ID, prev[i].Latitude, prev[i].Longitude, prev[i].IconImage, prev[i].InfoHTML, prev[i].ToolTip, prev[i].Draggable));
+                p.Add(new GooglePoint(prev[i].ID, prev[i].Latitude, prev[i].Longitude, prev[i].IconImage,
+                                      prev[i].InfoHTML, prev[i].ToolTip, prev[i].Draggable));
             }
             return p;
         }
 
-
-        public GooglePoint this[int pIndex]
+        private void Add(GooglePoint pPoint)
         {
-            get
-            {
-                return (GooglePoint)this.List[pIndex];
-            }
-            set
-            {
-                this.List[pIndex] = value;
-            }
+            List.Add(pPoint);
         }
 
-        public GooglePoint this[string pID]
-        {
-            get
-            {
-                for (int i = 0; i < Count; i++)
-                {
-                    if (this[i].ID == pID)
-                    {
-                        return (GooglePoint)this.List[i];
-                    }
-                }
-                return null;
-            }
-            set
-            {
-                for (int i = 0; i < Count; i++)
-                {
-                    if (this[i].ID == pID)
-                    {
-                        this.List[i] = value;
-                    }
-                }
-            }
-
-        }
-
-        public void Add(GooglePoint pPoint)
-        {
-            this.List.Add(pPoint);
-        }
         public void Remove(int pIndex)
         {
-            this.RemoveAt(pIndex);
+            RemoveAt(pIndex);
         }
+
         public void Remove(string pID)
         {
             for (int i = 0; i < Count; i++)
             {
                 if (this[i].ID == pID)
                 {
-                    this.List.RemoveAt(i);
+                    List.RemoveAt(i);
                     return;
                 }
             }
         }
 
-        public override bool Equals(System.Object obj)
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(Object obj)
         {
             // If parameter is null return false.
             if (obj == null)
@@ -482,8 +319,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
             }
 
             // If parameter cannot be cast to Point return false.
-            GooglePoints p = obj as GooglePoints;
-            if ((System.Object)p == null)
+            var p = obj as GooglePoints;
+            if (p == null)
             {
                 return false;
             }
@@ -504,82 +341,87 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
 
     public class GooglePolyline
     {
-        string _linestatus = ""; //N-New, D-Deleted, C-Changed, ''-No Action
+        private bool Equals(GooglePolyline other)
+        {
+            return string.Equals(_colorcode, other._colorcode) && Equals(_gpoints, other._gpoints) && string.Equals(_id, other._id) && string.Equals(_linestatus, other._linestatus) 
+                && _width == other._width && Geodesic.Equals(other.Geodesic);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = (_colorcode != null ? _colorcode.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_gpoints != null ? _gpoints.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_id != null ? _id.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_linestatus != null ? _linestatus.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ _width;
+                hashCode = (hashCode*397) ^ Geodesic.GetHashCode();
+                return hashCode;
+            }
+        }
+
+        private string _colorcode = "#66FF00";
+        private GooglePoints _gpoints = new GooglePoints();
+        private string _id = "";
+        private string _linestatus = ""; //N-New, D-Deleted, C-Changed, ''-No Action
+        private int _width = 10;
+
         public string LineStatus
         {
             get { return _linestatus; }
             set { _linestatus = value; }
         }
 
-        string _id = "";
         public string ID
         {
             get { return _id; }
             set { _id = value; }
         }
 
-        GooglePoints _gpoints = new GooglePoints();
         public GooglePoints Points
         {
             get { return _gpoints; }
             set { _gpoints = value; }
         }
 
-        string _colorcode = "#66FF00";
         public string ColorCode
         {
             get { return _colorcode; }
             set { _colorcode = value; }
         }
 
-        int _width = 10;
         public int Width
         {
             get { return _width; }
             set { _width = value; }
         }
 
-        bool _geodesic = false;
-        public bool Geodesic
+        public bool Geodesic { get; set; }
+
+        public override bool Equals(Object obj)
         {
-            get { return _geodesic; }
-            set { _geodesic = value; }
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((GooglePolyline) obj);
         }
-
-        public override bool Equals(System.Object obj)
-        {
-            // If parameter is null return false.
-            if (obj == null)
-            {
-                return false;
-            }
-
-            // If parameter cannot be cast to Point return false.
-            GooglePolyline p = obj as GooglePolyline;
-            if ((System.Object)p == null)
-            {
-                return false;
-            }
-
-            // Return true if the fields match:
-            return (Geodesic == p.Geodesic) && (Width == p.Width) && (p.ID == ID) && (p.ColorCode == ColorCode) && (p.Points.Equals(Points));
-        }
-
     }
 
     public class GooglePolylines : CollectionBase
     {
-
-        public GooglePolylines()
+        public GooglePolyline this[int pIndex]
         {
+            get { return (GooglePolyline) List[pIndex]; }
+            set { List[pIndex] = value; }
         }
 
         public static GooglePolylines CloneMe(GooglePolylines prev)
         {
-            GooglePolylines p = new GooglePolylines();
+            var p = new GooglePolylines();
             for (int i = 0; i < prev.Count; i++)
             {
-                GooglePolyline GPL = new GooglePolyline();
+                var GPL = new GooglePolyline();
                 GPL.ColorCode = prev[i].ColorCode;
                 GPL.Geodesic = prev[i].Geodesic;
                 GPL.ID = prev[i].ID;
@@ -590,86 +432,37 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
             return p;
         }
 
-        public GooglePolyline this[int pIndex]
-        {
-            get
-            {
-                return (GooglePolyline)this.List[pIndex];
-            }
-            set
-            {
-                this.List[pIndex] = value;
-            }
-        }
-
-        public GooglePolyline this[string pID]
-        {
-            get
-            {
-                for (int i = 0; i < Count; i++)
-                {
-                    if (this[i].ID == pID)
-                    {
-                        return (GooglePolyline)this.List[i];
-                    }
-                }
-                return null;
-            }
-            set
-            {
-                for (int i = 0; i < Count; i++)
-                {
-                    if (this[i].ID == pID)
-                    {
-                        this.List[i] = value;
-                    }
-                }
-            }
-        }
-
         public void Add(GooglePolyline pPolyline)
         {
-            this.List.Add(pPolyline);
+            List.Add(pPolyline);
         }
+
         public void Remove(int pIndex)
         {
-            this.RemoveAt(pIndex);
+            RemoveAt(pIndex);
         }
+
         public void Remove(string pID)
         {
             for (int i = 0; i < Count; i++)
             {
                 if (this[i].ID == pID)
                 {
-                    this.List.RemoveAt(i);
+                    List.RemoveAt(i);
                     return;
                 }
             }
         }
-
     }
 
-
-    public sealed class GoogleMapType
-    {
-        public const string NORMAL_MAP = "G_NORMAL_MAP";
-        public const string SATELLITE_MAP = "G_SATELLITE_MAP";
-        public const string HYBRID_MAP = "G_HYBRID_MAP";
-    }
 
     public class cCommon
     {
-        public cCommon()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
         public static Random random = new Random();
 
         public static string GetHttpURL()
         {
-            string[] s = System.Web.HttpContext.Current.Request.Url.AbsoluteUri.Split(new char[] { '/' });
+            string[] s = HttpContext.Current.Request.Url.AbsoluteUri.Split(new[] {'/'});
             string path = s[0] + "/";
             for (int i = 1; i < s.Length - 1; i++)
             {
@@ -680,9 +473,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
 
         public static string GetLocalPath()
         {
-            string[] s = System.Web.HttpContext.Current.Request.Url.AbsoluteUri.Split(new char[] { '/' });
+            string[] s = HttpContext.Current.Request.Url.AbsoluteUri.Split(new[] {'/'});
             string PageName = s[s.Length - 1];
-            s = System.Web.HttpContext.Current.Request.MapPath(PageName).Split(new char[] { '\\' });
+            s = HttpContext.Current.Request.MapPath(PageName).Split(new[] {'\\'});
             string path = s[0] + "\\";
             for (int i = 1; i < s.Length - 1; i++)
             {
@@ -694,144 +487,119 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         public static decimal RandomNumber(decimal min, decimal max)
         {
             decimal Fractions = 10000000;
-            int iMin = (int)GetIntegerPart(min * Fractions);
-            int iMax = (int)GetIntegerPart(max * Fractions);
+            var iMin = (int) GetIntegerPart(min*Fractions);
+            var iMax = (int) GetIntegerPart(max*Fractions);
             int iRand = random.Next(iMin, iMax);
 
-            decimal dRand = (decimal)iRand;
-            dRand = dRand / Fractions;
+            decimal dRand = iRand;
+            dRand = dRand/Fractions;
 
             return dRand;
         }
 
 
-        public static decimal GetFractional(decimal source)
-        {
-            return source % 1.0m;
-        }
-
         public static decimal GetIntegerPart(decimal source)
         {
             return decimal.Parse(source.ToString("#.00"));
         }
-
     }
 
     public class GooglePolygon
     {
-        string _status = ""; //N-New, D-Deleted, C-Changed, ''-No Action
+        private bool Equals(GooglePolygon other)
+        {
+            return string.Equals(_fillcolor, other._fillcolor) && _fillopacity.Equals(other._fillopacity) &&
+                Equals(_gpoints, other._gpoints) && string.Equals(_id, other._id) && string.Equals(_status, other._status) && string.Equals(_strokecolor, other._strokecolor) && _strokeopacity.Equals(other._strokeopacity) && _strokeweight == other._strokeweight;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = (_fillcolor != null ? _fillcolor.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ _fillopacity.GetHashCode();
+                hashCode = (hashCode*397) ^ (_gpoints != null ? _gpoints.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_id != null ? _id.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_status != null ? _status.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_strokecolor != null ? _strokecolor.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ _strokeopacity.GetHashCode();
+                hashCode = (hashCode*397) ^ _strokeweight;
+                return hashCode;
+            }
+        }
+
+        private string _fillcolor = "#66FF00";
+        private double _fillopacity = 0.2;
+        private GooglePoints _gpoints = new GooglePoints();
+        private string _id = "";
+        private string _status = ""; //N-New, D-Deleted, C-Changed, ''-No Action
+        private string _strokecolor = "#0000FF";
+        private double _strokeopacity = 1;
+        private int _strokeweight = 10;
+
         public string Status
         {
             get { return _status; }
             set { _status = value; }
         }
 
-        string _id = "";
         public string ID
         {
             get { return _id; }
             set { _id = value; }
         }
 
-        GooglePoints _gpoints = new GooglePoints();
         public GooglePoints Points
         {
             get { return _gpoints; }
             set { _gpoints = value; }
         }
 
-        string _strokecolor = "#0000FF";
         public string StrokeColor
         {
             get { return _strokecolor; }
             set { _strokecolor = value; }
         }
 
-        string _fillcolor = "#66FF00";
         public string FillColor
         {
             get { return _fillcolor; }
             set { _fillcolor = value; }
         }
 
-        int _strokeweight = 10;
         public int StrokeWeight
         {
             get { return _strokeweight; }
             set { _strokeweight = value; }
         }
 
-        double _strokeopacity = 1;
         public double StrokeOpacity
         {
             get { return _strokeopacity; }
             set { _strokeopacity = value; }
         }
 
-        double _fillopacity = 0.2;
         public double FillOpacity
         {
             get { return _fillopacity; }
             set { _fillopacity = value; }
         }
 
-        public override bool Equals(System.Object obj)
+        public override bool Equals(Object obj)
         {
-            // If parameter is null return false.
-            if (obj == null)
-            {
-                return false;
-            }
-
-            // If parameter cannot be cast to Point return false.
-            GooglePolygon p = obj as GooglePolygon;
-            if ((System.Object)p == null)
-            {
-                return false;
-            }
-
-            // Return true if the fields match:
-            return (FillColor == p.FillColor) && (FillOpacity == p.FillOpacity) && (p.ID == ID) && (p.Status == Status) && (p.StrokeColor == StrokeColor) && (p.StrokeOpacity == StrokeOpacity) && (p.StrokeWeight == StrokeWeight) && (p.Points.Equals(Points));
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((GooglePolygon) obj);
         }
-
     }
 
     public class GooglePolygons : CollectionBase
     {
-
-        public GooglePolygons()
-        {
-        }
-
-        public static GooglePolygons CloneMe(GooglePolygons prev)
-        {
-            GooglePolygons p = new GooglePolygons();
-            for (int i = 0; i < prev.Count; i++)
-            {
-                GooglePolygon GPL = new GooglePolygon();
-                GPL.FillColor = prev[i].FillColor;
-                GPL.FillOpacity = prev[i].FillOpacity;
-                GPL.ID = prev[i].ID;
-                GPL.Status = prev[i].Status;
-                GPL.StrokeColor = prev[i].StrokeColor;
-                GPL.StrokeOpacity = prev[i].StrokeOpacity;
-                GPL.StrokeWeight = prev[i].StrokeWeight;
-                GPL.Points = GooglePoints.CloneMe(prev[i].Points);
-                p.Add(GPL);
-            }
-            return p;
-        }
-
         public GooglePolygon this[int pIndex]
         {
-            get
-            {
-                return (GooglePolygon)this.List[pIndex];
-            }
-            set
-            {
-                this.List[pIndex] = value;
-            }
+            get { return (GooglePolygon) List[pIndex]; }
+            set { List[pIndex] = value; }
         }
 
         public GooglePolygon this[string pID]
@@ -842,7 +610,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
                 {
                     if (this[i].ID == pID)
                     {
-                        return (GooglePolygon)this.List[i];
+                        return (GooglePolygon) List[i];
                     }
                 }
                 return null;
@@ -853,32 +621,34 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
                 {
                     if (this[i].ID == pID)
                     {
-                        this.List[i] = value;
+                        List[i] = value;
                     }
                 }
             }
         }
 
-        public void Add(GooglePolygon pPolygon)
+        public static GooglePolygons CloneMe(GooglePolygons prev)
         {
-            this.List.Add(pPolygon);
-        }
-        public void Remove(int pIndex)
-        {
-            this.RemoveAt(pIndex);
-        }
-        public void Remove(string pID)
-        {
-            for (int i = 0; i < Count; i++)
+            var p = new GooglePolygons();
+            for (int i = 0; i < prev.Count; i++)
             {
-                if (this[i].ID == pID)
-                {
-                    this.List.RemoveAt(i);
-                    return;
-                }
+                var gpl = new GooglePolygon();
+                gpl.FillColor = prev[i].FillColor;
+                gpl.FillOpacity = prev[i].FillOpacity;
+                gpl.ID = prev[i].ID;
+                gpl.Status = prev[i].Status;
+                gpl.StrokeColor = prev[i].StrokeColor;
+                gpl.StrokeOpacity = prev[i].StrokeOpacity;
+                gpl.StrokeWeight = prev[i].StrokeWeight;
+                gpl.Points = GooglePoints.CloneMe(prev[i].Points);
+                p.Add(gpl);
             }
+            return p;
         }
 
+        private void Add(GooglePolygon pPolygon)
+        {
+            List.Add(pPolygon);
+        }
     }
-
 }

@@ -15,8 +15,9 @@
 //   limitations under the License.
 
 using System;
-using System.Web.Security;
 using System.Collections;
+using System.Linq;
+using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 
 namespace BootBaronLib.Providers
@@ -26,30 +27,7 @@ namespace BootBaronLib.Providers
         #region Public non static methods
 
         /// <summary>
-        /// Given the username(s) and role(s), add the user to the role,
-        /// if the role the user being added to doesn't exist, the role is created,
-        /// if the username doesn't exist, they are not created
-        /// </summary>
-        /// <param name="usernames"></param>
-        /// <param name="roleNames"></param>
-        public override void AddUsersToRoles(string[] usernames, string[] roleNames)
-        {
-            UserAccount eu;
-            for (int i = 0; i < usernames.Length; i++)
-            {
-                eu = new UserAccount(usernames[i]);
-                if (eu.UserAccountID > 0)
-                {
-                    for (int j = 0; j < roleNames.Length; j++)
-                    {
-                        UserAccount.AddUserToRole(eu.UserAccountID, roleNames[j]);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// TODO: FIND OUT WHY AND HOW THIS MUST BE IMPLEMENTED
+        ///     TODO: FIND OUT WHY AND HOW THIS MUST BE IMPLEMENTED
         /// </summary>
         public override string ApplicationName
         {
@@ -65,7 +43,27 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Make a new role by name, it will become lowercase
+        ///     Given the username(s) and role(s), add the user to the role,
+        ///     if the role the user being added to doesn't exist, the role is created,
+        ///     if the username doesn't exist, they are not created
+        /// </summary>
+        /// <param name="usernames"></param>
+        /// <param name="roleNames"></param>
+        public override void AddUsersToRoles(string[] usernames, string[] roleNames)
+        {
+            foreach (var t in usernames)
+            {
+                var eu = new UserAccount(t);
+                if (eu.UserAccountID <= 0) continue;
+                foreach (var t1 in roleNames)
+                {
+                    UserAccount.AddUserToRole(eu.UserAccountID, t1);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Make a new role by name, it will become lowercase
         /// </summary>
         /// <param name="roleName"></param>
         public override void CreateRole(string roleName)
@@ -84,7 +82,7 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Get all the roles in the site in the database
+        ///     Get all the roles in the site in the database
         /// </summary>
         /// <returns></returns>
         public override string[] GetAllRoles()
@@ -93,7 +91,7 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Get all the roles for the user
+        ///     Get all the roles for the user
         /// </summary>
         /// <param name="username"></param>
         /// <returns>an array of strings containing the roles</returns>
@@ -104,60 +102,55 @@ namespace BootBaronLib.Providers
 
         public override string[] GetUsersInRole(string roleName)
         {
-            Role rle = new Role(roleName);
+            var rle = new Role(roleName);
 
-            ArrayList allRoles = new ArrayList();
+            var allRoles = new ArrayList();
 
             UserAccounts uas = UserAccountRole.GetUsersInRole(rle.RoleID);
 
             foreach (UserAccount ua1 in uas) allRoles.Add(ua1.UserName);
 
-            string[] stringArray = (string[])allRoles.ToArray(typeof(string));
+            var stringArray = (string[]) allRoles.ToArray(typeof (string));
 
             return stringArray;
         }
 
         /// <summary>
-        /// Is this user in the specified role?
+        ///     Is this user in the specified role?
         /// </summary>
         /// <param name="username"></param>
         /// <param name="roleName"></param>
         /// <returns>true or false</returns>
         public override bool IsUserInRole(string username, string roleName)
         {
-            bool isUserInRole = false;
+            var isUserInRole = false;
 
-            string[] userRoles = GetRolesForUser(username);
-            foreach (string s in userRoles)
+            var userRoles = GetRolesForUser(username);
+            foreach (var s in userRoles.Where(s => roleName == s))
             {
-                if (roleName == s) { isUserInRole = true; }
+                isUserInRole = true;
             }
             return isUserInRole;
         }
 
         /// <summary>
-        /// Remove the user(s) from the role(s)
+        ///     Remove the user(s) from the role(s)
         /// </summary>
         /// <param name="usernames"></param>
         /// <param name="roleNames"></param>
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
         {
-            UserAccount eu;
-            for (int i = 0; i < usernames.Length; i++)
+            foreach (var eu in usernames.Select(t => new UserAccount(t)).Where(eu => eu.UserAccountID > 0))
             {
-                eu = new UserAccount(usernames[i]);
-                if (eu.UserAccountID > 0)
+                foreach (var t in roleNames)
                 {
-                    for (int j = 0; j < roleNames.Length; j++)
-                    {
-                        UserAccount.DeleteUserFromRole(eu.UserAccountID, roleNames[j]);
-                    }
+                    UserAccount.DeleteUserFromRole(eu.UserAccountID, t);
                 }
             }
         }
 
         /// <summary>
-        /// Is this a role in the site?
+        ///     Is this a role in the site?
         /// </summary>
         /// <param name="roleName"></param>
         /// <returns></returns>

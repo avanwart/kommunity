@@ -1,31 +1,33 @@
-﻿@using BootBaronLib.Values
+﻿
+@using BootBaronLib.AppSpec.DasKlub.BOL.UserContent
+@using BootBaronLib.Resources
+@using BootBaronLib.Values
 @using DasKlub.Helpers
-
 @model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents
 @{
-    ViewBag.Title = BootBaronLib.Resources.Messages.ManageNews;
+    ViewBag.Title = Messages.ManageNews;
 }
  
-<h2>@BootBaronLib.Resources.Messages.ManageNews</h2>
+<h2>@Messages.ManageNews</h2>
 <hr />
-@Html.ActionLink(BootBaronLib.Resources.Messages.CreateNew, "CreateArticle")
+@Html.ActionLink(Messages.CreateNew, "CreateArticle")
 <table>
     <tr>
-        <th>@BootBaronLib.Resources.Messages.Photo
+        <th>@Messages.Photo
         </th>
 
-                <th>@BootBaronLib.Resources.Messages.Language
+        <th>@Messages.Language
         </th>
-        <th>@BootBaronLib.Resources.Messages.Title
+        <th>@Messages.Title
         </th>
           
 
-        <th>@BootBaronLib.Resources.Messages.CreatedOn
+        <th>@Messages.CreatedOn
         </th>
         <th>
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (Content item in Model)
     {
         <tr>
             <td>
@@ -33,11 +35,11 @@
                 {
                     <a target="_blank" href="@item.UrlTo">
                         <img alt="@item.Title"  
-                         src="@Html.S3ContentPath(item.ContentPhotoThumbURL)" />
+                             src="@Html.S3ContentPath(item.ContentPhotoThumbURL)" />
                     </a>
                 }
             </td>
-                    <td>
+            <td>
                 @item.Language
             </td>
             <td>
@@ -48,8 +50,8 @@
                 @item.CreateDate
             </td>
             <td>
-                @Html.ActionLink(BootBaronLib.Resources.Messages.Edit, 
-                "EditArticle", new { id = item.ContentID })
+                @Html.ActionLink(Messages.Edit,
+                                 "EditArticle", new {id = item.ContentID})
             </td>
         </tr>
     }
@@ -62,23 +64,22 @@
         if (string.IsNullOrEmpty(Request.QueryString[
             SiteEnums.QueryStringNames.pg.ToString()]) && pageNumber == 1)
         {
-    @pageNumber     
+            @pageNumber
         }
         else if (!string.IsNullOrEmpty(Request.QueryString[
             SiteEnums.QueryStringNames.pg.ToString()]) &&
-            pageNumber ==
-            Convert.ToInt32(Request.QueryString[
-            SiteEnums.QueryStringNames.pg.ToString()])
+                 pageNumber ==
+                 Convert.ToInt32(Request.QueryString[
+                     SiteEnums.QueryStringNames.pg.ToString()])
             )
         {
-    @pageNumber 
+            @pageNumber
         }
         else
         {
-    <a href="@Url.Content("~/account/usercontent/?" +
-                          SiteEnums.QueryStringNames.pg.ToString() +
-                          "=" + pageNumber.ToString())">@pageNumber.ToString()</a>  
+            <a href="@Url.Content("~/account/usercontent/?" +
+                                  SiteEnums.QueryStringNames.pg.ToString() +
+                                  "=" + pageNumber.ToString())">@pageNumber.ToString()</a>
         }
     }
-    
 }

@@ -3,13 +3,12 @@
          function sortBy(input) {
 
 
-var url = location.href;
-var url_parts = url.split('?');
-var main_url = url_parts[0];
+             var url = location.href;
+             var url_parts = url.split('?');
+             var main_url = url_parts[0];
              //window.location = "/market/?srt=" + input + '&cat=' + getParameterByName('cat');
-window.location = main_url + "?srt=" + input;
+             window.location = main_url + "?srt=" + input;
          }
-
 
 //         function categoryFilter(input) {
 //             window.location = "/market/?srt=" + getParameterByName('srt') + '&cat=' + input;
@@ -20,44 +19,58 @@ window.location = main_url + "?srt=" + input;
     </script>
 
 
-  <table>
+<table>
     
     <tr>
-    <td><span class="side_sections">Sort By: </span></td>
-    <td>
+        <td><span class="side_sections">Sort By: </span></td>
+        <td>
     
     
-    <select name="sort_methods" onchange="sortBy(this.options[selectedIndex].value);">
+            <select name="sort_methods" onchange=" sortBy(this.options[selectedIndex].value); ">
 
-     @*   <option @if (Request.QueryString["srt"] == "3")
+                @*   <option @if (Request.QueryString["srt"] == "3")
                 { <text>  selected="selected" </text> }
                     value="3">Best Selling</option>*@
-        <option @if (Request.QueryString["srt"] == "5")
-                { <text> selected="selected" </text> }
+                <option @if (Request.QueryString["srt"] == "5")
+                        {
+                            <text> selected="selected" </text>
+                        }
                     value="5">Newest Additions</option>
-        <option @if (Request.QueryString["srt"] == "4")
-                { <text> selected="selected" </text> }
+                <option @if (Request.QueryString["srt"] == "4")
+                        {
+                            <text> selected="selected" </text>
+                        }
                     value="4">Highest Rating</option>
-        <option @if (Request.QueryString["srt"] == "2")
-                { <text> selected="selected" </text> } 
+                <option @if (Request.QueryString["srt"] == "2")
+                        {
+                            <text> selected="selected" </text>
+                        } 
                     value="2">Highest Price</option>
-        <option @if (Request.QueryString["srt"] == "1")
-                { <text> selected="selected" </text> } 
+                <option @if (Request.QueryString["srt"] == "1")
+                        {
+                            <text> selected="selected" </text>
+                        } 
                     value="1">Lowest Price</option>
-                            <option @if (Request.QueryString["srt"] == "6")
-                { <text> selected="selected" </text> } 
+                <option @if (Request.QueryString["srt"] == "6")
+                        {
+                            <text> selected="selected" </text>
+                        } 
                     value="6">Most Viewed</option>
-                            <option @if (Request.QueryString["srt"] == "7")
-                { <text> selected="selected" </text> } 
+                <option @if (Request.QueryString["srt"] == "7")
+                        {
+                            <text> selected="selected" </text>
+                        } 
                     value="7">Best Selling</option>
-                                                <option @if (Request.QueryString["srt"] == "8")
-                { <text> selected="selected" </text> } 
+                <option @if (Request.QueryString["srt"] == "8")
+                        {
+                            <text> selected="selected" </text>
+                        } 
                     value="8">Biggest Discount %</option>
-    </select>
+            </select>
     
     
     
-    </td>
+        </td>
     </tr>
     
-    </table>
+</table>

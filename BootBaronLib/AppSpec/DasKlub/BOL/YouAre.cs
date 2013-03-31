@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,24 +27,13 @@ using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
-
     public class YouAre : BaseIUserLogCRUD, ICacheName, ILocalizedName
     {
-
         #region properties
 
-        private int _youAreID = 0;
-
-        public int YouAreID
-        {
-            get { return _youAreID; }
-            set { _youAreID = value; }
-        }
-
-
-
-
+        private string _name = string.Empty;
         private char _typeLetter = char.MinValue;
+        public int YouAreID { get; set; }
 
         public char TypeLetter
         {
@@ -51,13 +41,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _typeLetter = value; }
         }
 
-        private string _name = string.Empty;
-
         public string Name
         {
             get
             {
-
                 if (string.IsNullOrWhiteSpace(_name)) return _name;
                 return _name.Trim();
             }
@@ -68,61 +55,25 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #region constructors
 
-        public YouAre() { }
+        public YouAre()
+        {
+        }
 
-        public YouAre(int youAreID) { Get(youAreID); }
+        public YouAre(int youAreID)
+        {
+            Get(youAreID);
+        }
 
         public YouAre(DataRow dr)
         {
             Get(dr);
         }
+
         #endregion
-
-        public override void Get(int uniqueID)
-        {
-            this.YouAreID = uniqueID;
-
-            if (HttpContext.Current == null || HttpContext.Current.Cache[this.CacheName] == null)
-            {
-                // get a configured DbCommand object
-                DbCommand comm = DbAct.CreateCommand();
-                // set the stored procedure name
-                comm.CommandText = "up_GetYouAre";
-                // create a new parameter
-                ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.YouAreID), YouAreID);
-
-                // execute the stored procedure
-                DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-                // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    if (HttpContext.Current != null) HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
-
-                    Get(dt.Rows[0]);
-                }
-            }
-            else
-            {
-                Get((DataRow)HttpContext.Current.Cache[this.CacheName]);
-            }
-        }
-
-        public override void Get(DataRow dr)
-        {
-            base.Get(dr);
-
-            this.YouAreID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.YouAreID)]);
-            this.Name = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Name)]);
-            this.TypeLetter = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => this.TypeLetter)]);
-        }
 
         public string CacheName
         {
-            get
-            {
-                return string.Format("{0}-{1}", this.GetType().FullName, this.YouAreID.ToString());
-            }
+            get { return string.Format("{0}-{1}", GetType().FullName, YouAreID.ToString()); }
         }
 
         public void RemoveCache()
@@ -132,20 +83,54 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string LocalizedName
         {
-            get
+            get { return Utilities.ResourceValue(Name); }
+        }
+
+        public override void Get(int uniqueID)
+        {
+            YouAreID = uniqueID;
+
+            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheName] == null)
             {
-                return Utilities.ResourceValue(this.Name);
+                // get a configured DbCommand object
+                DbCommand comm = DbAct.CreateCommand();
+                // set the stored procedure name
+                comm.CommandText = "up_GetYouAre";
+                // create a new parameter
+                comm.AddParameter(StaticReflection.GetMemberName<string>(x => YouAreID), YouAreID);
+
+                // execute the stored procedure
+                DataTable dt = DbAct.ExecuteSelectCommand(comm);
+
+                // was something returned?
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    if (HttpContext.Current != null) HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+
+                    Get(dt.Rows[0]);
+                }
             }
+            else
+            {
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+            }
+        }
+
+        public override void Get(DataRow dr)
+        {
+            base.Get(dr);
+
+            YouAreID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => YouAreID)]);
+            Name = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => Name)]);
+            TypeLetter = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => TypeLetter)]);
         }
     }
 
     public class YouAres : List<YouAre>, IGetAll
     {
-
-
         public void GetAll()
         {
-            if (HttpContext.Current == null || HttpContext.Current.Cache[this.GetType().FullName] == null)
+            if (HttpContext.Current == null || HttpContext.Current.Cache[GetType().FullName] == null)
             {
                 DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
@@ -161,15 +146,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     foreach (DataRow dr in dt.Rows)
                     {
                         art = new YouAre(dr);
-                        this.Add(art);
+                        Add(art);
                     }
 
-                    HttpContext.Current.Cache.AddObjToCache(dt, this.GetType().FullName);
+                    HttpContext.Current.Cache.AddObjToCache(dt, GetType().FullName);
                 }
             }
             else
             {
-                DataTable dt = (DataTable)HttpContext.Current.Cache[this.GetType().FullName];
+                var dt = (DataTable) HttpContext.Current.Cache[GetType().FullName];
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
@@ -177,13 +162,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     foreach (DataRow dr in dt.Rows)
                     {
                         art = new YouAre(dr);
-                        this.Add(art);
+                        Add(art);
                     }
                 }
             }
         }
-
-
-
     }
 }

@@ -14,638 +14,417 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace DasKlub.Controllers
 {
-
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
     [XmlRoot(Namespace = "http://www.w3.org/2005/Atom", IsNullable = false)]
-    public partial class entry
+    public class entry
     {
+        private rating _rating;
+        private entryAuthor[] authorField;
+        private entryCategory[] categoryField;
 
-        [XmlNamespaceDeclarations]
-        public XmlSerializerNamespaces xmlns = new XmlSerializerNamespaces();
+        private entryContent[] contentField;
+        private string idField;
+
+        private entryLink[] linkField;
+        private string publishedField;
+        private string titleField;
+        private string updatedField;
+        [XmlNamespaceDeclarations] public XmlSerializerNamespaces xmlns = new XmlSerializerNamespaces();
 
         public entry()
         {
-
             //xmlns.Add(@"msdata", @"urn:schemas-microsoft-com:xml-msdata");
             xmlns.Add("xmlns", "http://www.w3.org/2005/Atom");
             xmlns.Add("media", "http://search.yahoo.com/mrss/");
             xmlns.Add("gd", "http://schemas.google.com/g/2005");
             xmlns.Add("yt", "http://gdata.youtube.com/schemas/2007'");
- 
-         
-
         }
 
 
-        private string idField;
-
-        private string publishedField;
-
-        private string updatedField;
-
-        private string titleField;
-
-        private entryCategory[] categoryField;
-
-        private entryContent[] contentField;
-
-        private entryLink[] linkField;
-
-        private entryAuthor[] authorField;
-
-
-      
-
-        /// <remarks/>
+        /// <remarks />
         public string id
         {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
+            get { return idField; }
+            set { idField = value; }
         }
 
-        /// <remarks/>
+        /// <remarks />
         public string published
         {
-            get
-            {
-                return this.publishedField;
-            }
-            set
-            {
-                this.publishedField = value;
-            }
+            get { return publishedField; }
+            set { publishedField = value; }
         }
 
-        /// <remarks/>
+        /// <remarks />
         public string updated
         {
-            get
-            {
-                return this.updatedField;
-            }
-            set
-            {
-                this.updatedField = value;
-            }
+            get { return updatedField; }
+            set { updatedField = value; }
         }
 
-        /// <remarks/>
+        /// <remarks />
         public string title
         {
-            get
-            {
-                return this.titleField;
-            }
-            set
-            {
-                this.titleField = value;
-            }
+            get { return titleField; }
+            set { titleField = value; }
         }
 
-        /// <remarks/>
+        /// <remarks />
         [XmlElement("category")]
         public entryCategory[] category
         {
-            get
-            {
-                return this.categoryField;
-            }
-            set
-            {
-                this.categoryField = value;
-            }
+            get { return categoryField; }
+            set { categoryField = value; }
         }
 
-        /// <remarks/>
+        /// <remarks />
         [XmlElement("content")]
         public entryContent[] content
         {
-            get
-            {
-                return this.contentField;
-            }
-            set
-            {
-                this.contentField = value;
-            }
+            get { return contentField; }
+            set { contentField = value; }
         }
 
-        /// <remarks/>
+        /// <remarks />
         [XmlElement("link")]
         public entryLink[] link
         {
-            get
-            {
-                return this.linkField;
-            }
-            set
-            {
-                this.linkField = value;
-            }
+            get { return linkField; }
+            set { linkField = value; }
         }
 
-        /// <remarks/>
+        /// <remarks />
         [XmlElement("author")]
         public entryAuthor[] author
         {
-            get
-            {
-                return this.authorField;
-            }
-            set
-            {
-                this.authorField = value;
-            }
+            get { return authorField; }
+            set { authorField = value; }
         }
 
 
-
-
-        private rating _rating;
-
-        /// <remarks/>
+        /// <remarks />
         [XmlElement("rating")]
         public rating rating
         {
-            get
-            {
-                return this._rating;
-            }
-            set
-            {
-                this._rating = value;
-            }
+            get { return _rating; }
+            set { _rating = value; }
         }
     }
 
 
- 
-    [System.SerializableAttribute()]
+    [Serializable]
     [XmlType(AnonymousType = true, Namespace =
         "http://gdata.youtube.com/schemas/2007")]
-    [XmlRoot(Namespace = "http://gdata.youtube.com/schemas/2007", 
+    [XmlRoot(Namespace = "http://gdata.youtube.com/schemas/2007",
         IsNullable = false)]
-    public partial class rating
+    public class rating
     {
-
         private string numDislikesField;
 
         private string numLikesField;
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string numDislikes
         {
-            get
-            {
-                return this.numDislikesField;
-            }
-            set
-            {
-                this.numDislikesField = value;
-            }
+            get { return numDislikesField; }
+            set { numDislikesField = value; }
         }
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string numLikes
         {
-            get
-            {
-                return this.numLikesField;
-            }
-            set
-            {
-                this.numLikesField = value;
-            }
+            get { return numLikesField; }
+            set { numLikesField = value; }
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <remarks />
+    [GeneratedCode("xsd", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
-    public partial class entryCategory
+    public class entryCategory
     {
-
+        private string labelField;
         private string schemeField;
 
         private string termField;
 
-        private string labelField;
-
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string scheme
         {
-            get
-            {
-                return this.schemeField;
-            }
-            set
-            {
-                this.schemeField = value;
-            }
+            get { return schemeField; }
+            set { schemeField = value; }
         }
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string term
         {
-            get
-            {
-                return this.termField;
-            }
-            set
-            {
-                this.termField = value;
-            }
+            get { return termField; }
+            set { termField = value; }
         }
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string label
         {
-            get
-            {
-                return this.labelField;
-            }
-            set
-            {
-                this.labelField = value;
-            }
+            get { return labelField; }
+            set { labelField = value; }
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <remarks />
+    [GeneratedCode("xsd", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
-    public partial class entryContent
+    public class entryContent
     {
-
+        private string srcField;
         private string typeField;
 
-        private string srcField;
-
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string type
         {
-            get
-            {
-                return this.typeField;
-            }
-            set
-            {
-                this.typeField = value;
-            }
+            get { return typeField; }
+            set { typeField = value; }
         }
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string src
         {
-            get
-            {
-                return this.srcField;
-            }
-            set
-            {
-                this.srcField = value;
-            }
+            get { return srcField; }
+            set { srcField = value; }
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <remarks />
+    [GeneratedCode("xsd", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
-    public partial class entryLink
+    public class entryLink
     {
-
+        private string hrefField;
         private string relField;
 
         private string typeField;
 
-        private string hrefField;
-
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string rel
         {
-            get
-            {
-                return this.relField;
-            }
-            set
-            {
-                this.relField = value;
-            }
+            get { return relField; }
+            set { relField = value; }
         }
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string type
         {
-            get
-            {
-                return this.typeField;
-            }
-            set
-            {
-                this.typeField = value;
-            }
+            get { return typeField; }
+            set { typeField = value; }
         }
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string href
         {
-            get
-            {
-                return this.hrefField;
-            }
-            set
-            {
-                this.hrefField = value;
-            }
+            get { return hrefField; }
+            set { hrefField = value; }
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <remarks />
+    [GeneratedCode("xsd", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
-    public partial class entryAuthor
+    public class entryAuthor
     {
-
         private string nameField;
 
         private string uriField;
 
-        /// <remarks/>
+        /// <remarks />
         public string name
         {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
+            get { return nameField; }
+            set { nameField = value; }
         }
 
-        /// <remarks/>
+        /// <remarks />
         public string uri
         {
-            get
-            {
-                return this.uriField;
-            }
-            set
-            {
-                this.uriField = value;
-            }
+            get { return uriField; }
+            set { uriField = value; }
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <remarks />
+    [GeneratedCode("xsd", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
     [XmlRoot(Namespace = "http://www.w3.org/2005/Atom", IsNullable = false)]
-    public partial class NewDataSet
+    public class NewDataSet
     {
-
         private entry[] itemsField;
 
-        /// <remarks/>
+        /// <remarks />
         [XmlElement("entry")]
         public entry[] Items
         {
-            get
-            {
-                return this.itemsField;
-            }
-            set
-            {
-                this.itemsField = value;
-            }
+            get { return itemsField; }
+            set { itemsField = value; }
         }
     }
 
 
-     
-
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <remarks />
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://schemas.google.com/g/2005")]
     [XmlRoot(Namespace = "http://schemas.google.com/g/2005", IsNullable = false)]
-    public partial class comments
+    public class comments
     {
-
         private commentsFeedLink[] feedLinkField;
 
-        /// <remarks/>
+        /// <remarks />
         [XmlElement("feedLink")]
         public commentsFeedLink[] feedLink
         {
-            get
-            {
-                return this.feedLinkField;
-            }
-            set
-            {
-                this.feedLinkField = value;
-            }
+            get { return feedLinkField; }
+            set { feedLinkField = value; }
         }
     }
 
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <remarks />
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://schemas.google.com/g/2005")]
-    public partial class commentsFeedLink
+    public class commentsFeedLink
     {
-
+        private string countHintField;
         private string hrefField;
 
-        private string countHintField;
-
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string href
         {
-            get
-            {
-                return this.hrefField;
-            }
-            set
-            {
-                this.hrefField = value;
-            }
+            get { return hrefField; }
+            set { hrefField = value; }
         }
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string countHint
         {
-            get
-            {
-                return this.countHintField;
-            }
-            set
-            {
-                this.countHintField = value;
-            }
+            get { return countHintField; }
+            set { countHintField = value; }
         }
     }
 
 
-
-     
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <remarks />
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://gdata.youtube.com/schemas/2007")]
     [XmlRoot(Namespace = "http://gdata.youtube.com/schemas/2007", IsNullable = false)]
-    public partial class accessControl
+    public class accessControl
     {
-
         private string actionField;
 
         private string permissionField;
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string action
         {
-            get
-            {
-                return this.actionField;
-            }
-            set
-            {
-                this.actionField = value;
-            }
+            get { return actionField; }
+            set { actionField = value; }
         }
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string permission
         {
-            get
-            {
-                return this.permissionField;
-            }
-            set
-            {
-                this.permissionField = value;
-            }
+            get { return permissionField; }
+            set { permissionField = value; }
         }
     }
 
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <remarks />
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://gdata.youtube.com/schemas/2007")]
     [XmlRoot(Namespace = "http://gdata.youtube.com/schemas/2007", IsNullable = false)]
-    public partial class duration
+    public class duration
     {
-
         private string secondsField;
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string seconds
         {
-            get
-            {
-                return this.secondsField;
-            }
-            set
-            {
-                this.secondsField = value;
-            }
+            get { return secondsField; }
+            set { secondsField = value; }
         }
     }
 
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    /// <remarks />
+    [GeneratedCode("xsd", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
     [XmlType(AnonymousType = true, Namespace = "http://gdata.youtube.com/schemas/2007")]
     [XmlRoot(Namespace = "http://gdata.youtube.com/schemas/2007", IsNullable = false)]
-    public partial class statistics
+    public class statistics
     {
-
         private string favoriteCountField;
 
         private string viewCountField;
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string favoriteCount
         {
-            get
-            {
-                return this.favoriteCountField;
-            }
-            set
-            {
-                this.favoriteCountField = value;
-            }
+            get { return favoriteCountField; }
+            set { favoriteCountField = value; }
         }
 
-        /// <remarks/>
-        [XmlAttribute()]
+        /// <remarks />
+        [XmlAttribute]
         public string viewCount
         {
-            get
-            {
-                return this.viewCountField;
-            }
-            set
-            {
-                this.viewCountField = value;
-            }
+            get { return viewCountField; }
+            set { viewCountField = value; }
         }
     }
-
-
-
-
 }

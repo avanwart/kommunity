@@ -13,25 +13,17 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System.Data;
 
 namespace BootBaronLib.Interfaces
 {
-
     /// <summary>
-    /// Implementing this interface means you can take a datarow and 
-    /// assign it to properties of this object
+    ///     Implementing this interface means you can take a datarow and
+    ///     assign it to properties of this object
     /// </summary>
     public interface IGet
     {
-       
-
-        /// <summary>
-        /// Fill object
-        /// </summary>
-        /// <param name="dr">A single data row</param>
         void Get(DataRow dr);
-
-  
     }
 }

@@ -1,18 +1,18 @@
-﻿@model DasKlub.Models.FindUsersModel
-@using BootBaronLib.Resources;
- 
-@using BootBaronLib.Operational;
+﻿@using BootBaronLib.Configs
+@using BootBaronLib.Operational
+@using BootBaronLib.Resources
 @using BootBaronLib.Values
+@model DasKlub.Models.FindUsersModel
 @{
     ViewBag.Title = Messages.FindUsers;
 }
 <div class="row">
     <div class="span12">
-        @{Html.RenderPartial("_AdBanner"); }
+        @{ Html.RenderPartial("_AdBanner"); }
         <h2>@Messages.FindUsers</h2>
         <hr />
         
-@*
+        @*
            <div id="cse-search-form" style="float: right; width: 370px; margin-left: 3px;">
                                 @BootBaronLib.Resources.Messages.LoadingDotDotDot
                             </div>
@@ -69,7 +69,7 @@
                         @if (ViewBag.YouAres != null)
                         {
                             @Html.DropDownList("YouAreID", new SelectList(
-ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model.YouAreID), Messages.All)
+                                                               ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model.YouAreID), Messages.All)
                         }
                     </div>
                 </div>
@@ -83,8 +83,8 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
                         @if (ViewBag.RelationshipStatuses != null)
                         {
                             @Html.DropDownList("RelationshipStatusID", new SelectList(
-         ViewBag.RelationshipStatuses, "RelationshipStatusID", "LocalizedName",
-         Model.RelationshipStatusID == null ? 0 : Model.RelationshipStatusID), Messages.All)
+                                                                           ViewBag.RelationshipStatuses, "RelationshipStatusID", "LocalizedName",
+                                                                           Model.RelationshipStatusID == null ? 0 : Model.RelationshipStatusID), Messages.All)
                         }
                     </div>
                 </div>
@@ -98,7 +98,7 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
                         @if (ViewBag.InterestedIns != null)
                         {
                             @Html.DropDownList("InterestedInID", new SelectList(
-         ViewBag.InterestedIns, "InterestedInID", "LocalizedName", Model.InterestedInID == null ? 0 : Model.InterestedInID), Messages.All)
+                                                                     ViewBag.InterestedIns, "InterestedInID", "LocalizedName", Model.InterestedInID == null ? 0 : Model.InterestedInID), Messages.All)
                         }
                     </div>
                 </div>
@@ -115,18 +115,18 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
                             {
                                 foreach (string lang in ViewBag.Languages)
                                 {
-                                    SiteEnums.SiteLanguages langCode =
-                                    (SiteEnums.SiteLanguages)Enum.Parse(
-                                   typeof(SiteEnums.SiteLanguages), lang);
+                                    var langCode =
+                                        (SiteEnums.SiteLanguages) Enum.Parse(
+                                            typeof (SiteEnums.SiteLanguages), lang);
 
 
                                     if (langCode.ToString() != Model.Lang)
                                     {
-                                <option value="@langCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(langCode))</option>
+                                        <option value="@langCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(langCode))</option>
                                     }
                                     else
                                     {
-                                <option selected="selected" value="@langCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(langCode))</option>
+                                        <option selected="selected" value="@langCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(langCode))</option>
                                     }
                                 }
                             }
@@ -150,21 +150,20 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
                             {
                                 foreach (string country in ViewBag.CountryOptions)
                                 {
-
-                                    SiteEnums.CountryCodeISO countryCode =
-                                     (SiteEnums.CountryCodeISO)Enum.Parse(
-                                    typeof(SiteEnums.CountryCodeISO), country);
+                                    var countryCode =
+                                        (SiteEnums.CountryCodeISO) Enum.Parse(
+                                            typeof (SiteEnums.CountryCodeISO), country);
 
                                     if (countryCode != SiteEnums.CountryCodeISO.U0 &&
-                                         countryCode != SiteEnums.CountryCodeISO.RD)
+                                        countryCode != SiteEnums.CountryCodeISO.RD)
                                     {
                                         if (countryCode.ToString() == Model.Country)
                                         {
-                                <option selected="selected" value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
+                                            <option selected="selected" value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
                                         }
                                         else
                                         {
-                                <option value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
+                                            <option value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
                                         }
                                     }
                                 }
@@ -190,18 +189,17 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
                     </label>
                     <div class="controls">
                         <select id="ageFrom" class="span1">
-                            @for (int i = BootBaronLib.Configs.GeneralConfigs.MinimumAge; i < 99; i++)
+                            @for (int i = GeneralConfigs.MinimumAge; i < 99; i++)
                             {
                                 if (i == Model.AgeFrom)
                                 {
-                                <option selected="selected" value="@i">@i</option>
+                                    <option selected="selected" value="@i">@i</option>
                                 }
 
                                 else
                                 {
-                                <option value="@i">@i</option>
+                                    <option value="@i">@i</option>
                                 }
-
                             }
                         </select>
                     </div>
@@ -214,18 +212,16 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
                     </label>
                     <div class="controls">
                         <select id="ageTo" class="span1">
-                            @for (int i = BootBaronLib.Configs.GeneralConfigs.MinimumAge; i < 99; i++)
+                            @for (int i = GeneralConfigs.MinimumAge; i < 99; i++)
                             {
-
                                 if (i == Model.AgeTo)
                                 {
-                                <option selected="selected" value="@i">@i</option>
+                                    <option selected="selected" value="@i">@i</option>
                                 }
                                 else
                                 {
-                                <option value="@i">@i</option>
+                                    <option value="@i">@i</option>
                                 }
-
                             }
                         </select>
                     </div>
@@ -236,7 +232,7 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
                     <label class="control-label">
                         &nbsp;
                     </label>
-                    <button class="btn btn-success" onclick="searchUsers()">
+                    <button class="btn btn-success" onclick=" searchUsers() ">
                         @Messages.Search
                     </button>
                 </div>
@@ -255,24 +251,23 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
 
 
         <div class="filtered_list">
-               <br />
+            <br />
             @if (string.IsNullOrEmpty(ViewBag.FilteredUsers))
             {
                 <i>@Messages.NoResults</i>
             }
             else
             {
-
                 if (Convert.ToBoolean(ViewBag.SortByDistance))
                 {
-                <i>@Messages.SortedByDistance</i>
+                    <i>@Messages.SortedByDistance</i>
                 }
                 else
                 {
-                <i>@Messages.SortedByActivity</i>
+                    <i>@Messages.SortedByActivity</i>
                 }
-              <br />
-              <br />
+                <br />
+                <br />
                 @Html.Raw(ViewBag.FilteredUsers)
             }
         </div>
@@ -280,27 +275,24 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
         <div class="clear"></div>
         @if (!string.IsNullOrEmpty(ViewBag.FilteredUsers) && Request.Browser.IsMobileDevice)
         {
-
-            <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@BootBaronLib.Resources.Messages.LoadMore</button> 
+            <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@Messages.LoadMore</button>
         }
 
-        @{Html.RenderPartial("_bottomLoadingMessage"); }
+        @{ Html.RenderPartial("_bottomLoadingMessage"); }
 
     </div>
     <div class="span4">
         <hr />
         <b>100% @Messages.Random:
-                    @Messages.FeaturedModel</b>
+            @Messages.FeaturedModel</b>
         @if (ViewBag.FeaturedModel != null)
         {
             @Html.Raw(ViewBag.FeaturedModel)
-             
-              
         }
 
 
         <hr />
-      @*  @{Html.RenderPartial("_AdBanner2"); }
+        @*  @{Html.RenderPartial("_AdBanner2"); }
 
         <hr />*@
         <a class="m_over" href="@Url.Content("~/map")"><img src="~/Content/images/map/worldmap.jpg" />
@@ -317,12 +309,11 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
     @if (Request.Browser.IsMobileDevice)
     {
         <style type="text/css">
-            .video_page_list_item img
-            {
-                width: 55px;
+            .video_page_list_item img {
                 height: 41px;
+                width: 55px;
             }
-        </style>  
+        </style>
     }}
 <div class="clear">
 </div>
@@ -333,9 +324,8 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
 
     <script type="text/javascript">
 
-
         function searchUsers() {
-            if ( $('#postalcode').val() != '' && $('#country').val() == '' ) {
+            if ($('#postalcode').val() != '' && $('#country').val() == '') {
                 alert("You must select a country to filter by postal code"); // TODO: localize
                 return;
             }
@@ -345,10 +335,10 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
 
 
             window.location = window.location.href.split('?')[0] +
-           '?ageFrom=' + $('select#ageFrom').val() + '&ageTo=' + $('select#ageTo').val() +
-             '&postalcode=' + $('#postalcode').val() + '&country=' + $('select#country').val() +
-                 '&lang=' + $('select#lang').val() + '&RelationshipStatusID=' + $('select#RelationshipStatusID').val() +
-             '&YouAreID=' + $('select#YouAreID').val() + '&InterestedInID=' + $('select#InterestedInID').val();
+                '?ageFrom=' + $('select#ageFrom').val() + '&ageTo=' + $('select#ageTo').val() +
+                '&postalcode=' + $('#postalcode').val() + '&country=' + $('select#country').val() +
+                '&lang=' + $('select#lang').val() + '&RelationshipStatusID=' + $('select#RelationshipStatusID').val() +
+                '&YouAreID=' + $('select#YouAreID').val() + '&InterestedInID=' + $('select#InterestedInID').val();
 
 
         }
@@ -356,46 +346,39 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
 
     @if (Request.Browser.IsMobileDevice)
     {
-       
-       
         <script type="text/javascript">
 
-
-            $('#load_more').click(function () {
+            $('#load_more').click(function() {
                 $('#loading').fadeIn();
 
                 $.post($rootUrl + 'findusers/Items?time=' + new Date().getTime(), { pageNumber: pageNumber },
-                           function (data) {
+                    function(data) {
 
-                               pageNumber++;
-                               $('.filtered_list ul').append(data.ListItems);
-                               $('#loading').fadeOut();
-                           });
+                        pageNumber++;
+                        $('.filtered_list ul').append(data.ListItems);
+                        $('#loading').fadeOut();
+                    });
 
             });
 
         </script>
-       
-       
-        
     }
     else
     {
         <script type="text/javascript">
 
-
-            $(function () {
+            $(function() {
                 $('.filtered_list ul').scrollPagination({
                     'contentPage': $rootUrl + 'findusers/items', // the page where you are searching for results
                     'contentData': {}, // you can pass the children().size() to know where is the pagination
                     'scrollTarget': $(window), // who gonna scroll? in this example, the full window
                     'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please
-                    'beforeLoad': function () { // before load, some function, maybe display a preloader div
+                    'beforeLoad': function() { // before load, some function, maybe display a preloader div
                         $('#loading').fadeIn();
 
 
                     },
-                    'afterLoad': function (elementsLoaded) { // after loading, some function to animate results and hide a preloader div
+                    'afterLoad': function(elementsLoaded) { // after loading, some function to animate results and hide a preloader div
                         $('#loading').fadeOut();
                         $('#loading_message').fadeOut();
                         pageNumber++;
@@ -411,9 +394,9 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model
                 });
 
                 // code for fade in element by element with delay
-                $.fn.fadeInWithDelay = function () {
+                $.fn.fadeInWithDelay = function() {
                     var delay = 0;
-                    return this.each(function () {
+                    return this.each(function() {
                         $(this).delay(delay).animate({ opacity: 1 }, 200);
                         delay += 100;
                     });

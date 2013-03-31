@@ -13,21 +13,14 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
-using System.Data;
 
 namespace BootBaronLib.Interfaces
 {
     /// <summary>
-    /// Implementing this means that the object outputs a ul with li's 
+    ///     Implementing this means that the object outputs a ul with li's
     /// </summary>
-    public interface IUnorderdList 
+    public interface IUnorderdList
     {
-        /// <summary>
-        /// When this is set to true the items are completed with a ul open close
-        /// otherwise they are just li's
-        /// </summary>
-        bool IncludeStartAndEndTags { get; set; }
-
-        string ToUnorderdList {get;}
+        string ToUnorderdList { get; }
     }
 }

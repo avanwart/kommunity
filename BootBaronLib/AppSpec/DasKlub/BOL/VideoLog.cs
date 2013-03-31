@@ -13,8 +13,8 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Data;
 using System.Data.Common;
 using BootBaronLib.DAL;
 using BootBaronLib.Operational;
@@ -25,15 +25,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties 
 
-        private int _videoLogID = 0;
-
-        public int VideoLogID
-        {
-            get { return _videoLogID; }
-            set { _videoLogID = value; }
-        }
-
         private DateTime _createDate = DateTime.MinValue;
+        private string _ipAddress = string.Empty;
+        public int VideoLogID { get; set; }
 
         public DateTime CreateDate
         {
@@ -41,15 +35,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _createDate = value; }
         }
 
-        private int _videoID = 0;
-
-        public int VideoID
-        {
-            get { return _videoID; }
-            set { _videoID = value; }
-        }
-
-        private string _ipAddress = string.Empty;
+        public int VideoID { get; set; }
 
         public string IpAddress
         {
@@ -61,18 +47,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public static void AddVideoLog(int videoID, string ipAddress)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddVideoLog";
 
-            ADOExtenstion.AddParameter(comm, "videoID",   videoID);
-            ADOExtenstion.AddParameter(comm, "ipAddress",  ipAddress);
+            comm.AddParameter("videoID", videoID);
+            comm.AddParameter("ipAddress", ipAddress);
 
             DbAct.ExecuteNonQuery(comm);
-
         }
-
     }
 }

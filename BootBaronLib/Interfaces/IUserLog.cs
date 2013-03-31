@@ -13,20 +13,20 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
-using System.Data;
+
 using System;
 
 namespace BootBaronLib.Interfaces
 {
     /// <summary>
-    /// Represents ways to know when an action was taken
-    /// to create the data, update it, and who was responsible
+    ///     Represents ways to know when an action was taken
+    ///     to create the data, update it, and who was responsible
     /// </summary>
-    public interface IUserLog 
+    public interface IUserLog
     {
-       DateTime CreateDate {get;set;}
-       DateTime  UpdateDate	{get;set;}
-       int CreatedByUserID	{get;set;}
-       int UpdatedByUserID	{get;set;}
+        DateTime CreateDate { get; set; }
+        DateTime UpdateDate { get; set; }
+        int CreatedByUserID { get; set; }
+        int UpdatedByUserID { get; set; }
     }
 }

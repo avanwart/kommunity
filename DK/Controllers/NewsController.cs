@@ -13,19 +13,18 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using BootBaronLib.Operational;
-using System.Collections;
-using System.Collections.Generic;
 using BootBaronLib.Values;
 using IntrepidStudios;
 
@@ -33,59 +32,59 @@ namespace DasKlub.Controllers
 {
     public class NewsController : Controller
     {
-        int pageSize = 5;
+        private const int PageSize = 5;
 
         public JsonResult Items(int pageNumber)
         {
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents();
+            var model = new Contents();
 
-            model.GetContentPageWiseAll(pageNumber, pageSize );
+            model.GetContentPageWiseAll(pageNumber, PageSize);
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content cnt in model)
+            foreach (var cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
 
             return Json(new
-            {
-                ListItems = sb.ToString()
-            });
+                {
+                    ListItems = sb.ToString()
+                });
         }
 
-   
+
         public JsonResult LangItems(int pageNumber, string lang)
         {
             ViewBag.Lang = lang;
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents();
+            var model = new Contents();
 
-            model.GetContentPageWise(pageNumber, pageSize, lang);
+            model.GetContentPageWise(pageNumber, PageSize, lang);
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content cnt in model)
+            foreach (var cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
 
             return Json(new
-            {
-                ListItems = sb.ToString()
-            });
+                {
+                    ListItems = sb.ToString()
+                });
         }
 
         public JsonResult TagItems(int pageNumber, string key)
         {
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents();
+            var model = new Contents();
 
-            model.GetContentAllPageWiseKey(pageNumber, pageSize, key);
+            model.GetContentAllPageWiseKey(pageNumber, PageSize, key);
 
             if (model.Count == 0)
             {
                 // this might have had a dash in it
-                model.GetContentAllPageWiseKey(1, pageSize, ViewBag.KeyName);
+                model.GetContentAllPageWiseKey(1, PageSize, ViewBag.KeyName);
 
                 if (model.Count == 0)
                 {
@@ -94,45 +93,43 @@ namespace DasKlub.Controllers
             }
 
 
+            var sb = new StringBuilder();
 
-            StringBuilder sb = new StringBuilder();
-
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content cnt in model)
+            foreach (var cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
 
             return Json(new
-            {
-                ListItems = sb.ToString()
-            });
+                {
+                    ListItems = sb.ToString()
+                });
         }
 
- 
 
         public ActionResult Lang(string lang)
         {
             ViewBag.Lang = lang;
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents();
+            var model = new Contents();
 
-            model.GetContentPageWise(1, pageSize, lang);
+            model.GetContentPageWise(1, PageSize, lang);
 
             LoadTagCloud();
 
             LoadLang();
 
-            ViewBag.EnableLoadingMore = (model.Count >= pageSize);
+            ViewBag.EnableLoadingMore = (model.Count >= PageSize);
 
             return View(model);
         }
 
         public ActionResult Index()
         {
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents();
+            var model = new Contents();
 
             //model.GetContentPageWise(1, pageSize, Utilities.GetCurrentLanguageCode());
-            model.GetContentPageWiseAll(1, pageSize);
+            model.GetContentPageWiseAll(1, PageSize);
 
             LoadTagCloud();
 
@@ -147,29 +144,31 @@ namespace DasKlub.Controllers
 
             if (dict == null) return;
 
-            var sortedDict = (from entry in dict orderby entry.Value ascending select entry).ToDictionary(pair => pair.Key, pair => pair.Value);
+            Dictionary<string, string> sortedDict =
+                (from entry in dict orderby entry.Value ascending select entry).ToDictionary(pair => pair.Key,
+                                                                                             pair => pair.Value);
 
             ViewBag.Langs = sortedDict;
         }
 
         private void LoadTagCloud()
         {
-            string cacheName = "ArticleTagCloud";
-            string htmlCloud = string.Empty;
+            const string cacheName = "ArticleTagCloud";
+            string htmlCloud;
 
             if (HttpContext.Cache[cacheName] == null)
             {
-                Cloud cloud1 = new Cloud();
-                cloud1.DataIDField = "keyword_id";
-                cloud1.DataKeywordField = "keyword_value";
-                cloud1.DataCountField = "keyword_count";
-                cloud1.DataURLField = "keyword_url";
+                var cloud1 = new Cloud
+                    {
+                        DataIDField = "keyword_id",
+                        DataKeywordField = "keyword_value",
+                        DataCountField = "keyword_count",
+                        DataURLField = "keyword_url"
+                    };
 
-                DataSet theDS = new DataSet();
+                DataSet theDs = Contents.GetContentTagsAll();
 
-                theDS = Contents.GetContentTagsAll();
-
-                cloud1.DataSource = theDS;
+                cloud1.DataSource = theDs;
                 cloud1.MinFontSize = 14;
                 cloud1.MaxFontSize = 30;
                 cloud1.FontUnit = "px";
@@ -180,37 +179,37 @@ namespace DasKlub.Controllers
             }
             else
             {
-                htmlCloud = (string)HttpContext.Cache[cacheName];
+                htmlCloud = (string) HttpContext.Cache[cacheName];
             }
 
             ViewBag.CloudTags = htmlCloud;
-
         }
 
 
         public ActionResult VideoLog(int contentID)
         {
             // TODO: don't use referrer with HTTPS
-            HostedVideoLog.AddHostedVideoLog(Request.UrlReferrer.ToString(), Request.UserHostAddress, 0,  "NW");
+            if (Request.UrlReferrer != null)
+                HostedVideoLog.AddHostedVideoLog(Request.UrlReferrer.ToString(), Request.UserHostAddress, 0, "NW");
 
-            return new JsonResult()
-            {
-                Data = new
+            return new JsonResult
                 {
-                    Success = true,
-                    ContentID = contentID
-                }
-            };
+                    Data = new
+                        {
+                            Success = true,
+                            ContentID = contentID
+                        }
+                };
         }
 
-        
+
         [HttpGet]
         public ActionResult Detail(string key)
         {
             ViewBag.VideoHeight = (Request.Browser.IsMobileDevice) ? 190 : 400;
-            ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ?  285 : 600;
+            ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ? 285 : 600;
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content(key);
+            var model = new Content(key);
 
 
             ViewBag.ThumbIcon = Utilities.S3ContentPath(model.ContentPhotoThumbURL);
@@ -218,19 +217,17 @@ namespace DasKlub.Controllers
 
             LoadTagCloud();
 
-            ContentComment concom = new ContentComment();
 
+            var otherNews = new Content();
 
-            BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content otherNews = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content();
-
-            otherNews.GetPreviousNews(model.ReleaseDate );
-            if (otherNews.ContentID > 0 )
+            otherNews.GetPreviousNews(model.ReleaseDate);
+            if (otherNews.ContentID > 0)
             {
                 ViewBag.PreviousNews = otherNews.ToUnorderdListItem;
             }
 
-            otherNews = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content();
-            otherNews.GetNextNews(model.ReleaseDate );
+            otherNews = new Content();
+            otherNews.GetNextNews(model.ReleaseDate);
 
             if (otherNews.ContentID > 0)
             {
@@ -245,68 +242,59 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult DeleteComment(int commentID)
         {
-            MembershipUser mu = Membership.GetUser();
+            var mu = Membership.GetUser();
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment(commentID);
+            var model = new ContentComment(commentID);
 
-            Content content = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content(model.ContentID);
+            var content = new Content(model.ContentID);
 
             if (mu == null || model.CreatedByUserID != Convert.ToInt32(mu.ProviderUserKey)) return new EmptyResult();
 
             model.Delete();
 
-            return RedirectToAction("Detail", new { @key = content.ContentKey });
+            return RedirectToAction("Detail", new {@key = content.ContentKey});
         }
 
-        
 
         [Authorize]
         [HttpPost]
         public ActionResult Detail(FormCollection fc, int contentID)
         {
-            MembershipUser mu = Membership.GetUser();
+            var mu = Membership.GetUser();
 
             LoadTagCloud();
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content(contentID);
+            var model = new Content(contentID)
+                {
+                    Reply = new ContentComment {StatusType = Convert.ToChar(SiteEnums.CommentStatus.C.ToString())}
+                };
 
-            model.Reply = new ContentComment();
-
-            model.Reply.StatusType = Convert.ToChar(SiteEnums.CommentStatus.C.ToString());
-            model.Reply.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+            if (mu != null) model.Reply.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
             model.Reply.ContentID = contentID;
             model.Reply.IpAddress = Request.UserHostAddress;
 
             TryUpdateModel(model);
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                if (BlackIPs.IsIPBlocked(Request.UserHostAddress))
-                {
-                    return View(model);
-                }
-
-                bool hasBeenSaid = false;
-
-                foreach (ContentComment cmt in model.Comments)
-                {
-                    if (cmt.CreatedByUserID == model.Reply.CreatedByUserID &&
-                        cmt.Detail == model.Reply.Detail)
-                    {
-                        hasBeenSaid = true;
-                    }
-                }
-                
-                if (!hasBeenSaid) model.Reply.Create();
-
                 return View(model);
             }
-            else
+            if (BlackIPs.IsIPBlocked(Request.UserHostAddress))
             {
                 return View(model);
             }
 
+            var hasBeenSaid = false;
 
+            foreach (var cmt in model.Comments.Where(cmt => cmt.CreatedByUserID == model.Reply.CreatedByUserID &&
+                                                                       cmt.Detail == model.Reply.Detail))
+            {
+                hasBeenSaid = true;
+            }
+
+            if (!hasBeenSaid) model.Reply.Create();
+
+            return View(model);
         }
 
         public ActionResult Tag(string key)
@@ -317,14 +305,14 @@ namespace DasKlub.Controllers
 
             key = key.Replace("-", " ");
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents();
+            var model = new Contents();
 
-            model.GetContentAllPageWiseKey(1, pageSize, key);
+            model.GetContentAllPageWiseKey(1, PageSize, key);
 
             if (model.Count == 0)
             {
                 // this might have had a dash in it
-                model.GetContentAllPageWiseKey(1, pageSize, ViewBag.KeyName );
+                model.GetContentAllPageWiseKey(1, PageSize, ViewBag.KeyName);
 
                 if (model.Count == 0)
                 {
@@ -332,7 +320,7 @@ namespace DasKlub.Controllers
                 }
             }
 
-            ViewBag.EnableLoadingMore = (model.Count < pageSize);
+            ViewBag.EnableLoadingMore = (model.Count < PageSize);
 
             ViewBag.TagName = key;
 
@@ -340,7 +328,5 @@ namespace DasKlub.Controllers
 
             return View(model);
         }
-
-
     }
 }

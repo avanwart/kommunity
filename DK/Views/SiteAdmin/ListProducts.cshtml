@@ -1,19 +1,20 @@
-﻿@using BootBaronLib.Values
+﻿@using BootBaronLib.Resources
+@using BootBaronLib.Values
 @model BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Products
 @{
-    ViewBag.Title = BootBaronLib.Resources.Messages.ManageProducts;
+    ViewBag.Title = Messages.ManageProducts;
 }
-@{Html.RenderPartial("_adminMenu"); }
-<h2>@BootBaronLib.Resources.Messages.ManageProducts</h2>
-@Html.ActionLink(BootBaronLib.Resources.Messages.CreateANewProduct, "CreateProduct")
+@{ Html.RenderPartial("_adminMenu"); }
+<h2>@Messages.ManageProducts</h2>
+@Html.ActionLink(Messages.CreateANewProduct, "CreateProduct")
 <table>
     <tr>
-        <th>@BootBaronLib.Resources.Messages.Name
+        <th>@Messages.Name
         </th>
         <th>
-        @BootBaronLib.Resources.Messages.IsInStock
+            @Messages.IsInStock
         </th>
-        <th>@BootBaronLib.Resources.Messages.CreatedOn
+        <th>@Messages.CreatedOn
         </th>
        
         <th>
@@ -22,7 +23,7 @@
     @foreach (var item in Model)
     {
         <tr>
-           <td>
+            <td>
                 <a href="@item.UrlTo" target="_blank"> @item.Name</a>
             </td>
             <td>
@@ -33,8 +34,8 @@
             </td>
            
             <td>
-                @Html.ActionLink(BootBaronLib.Resources.Messages.Edit,
-                "EditProduct", new { id = item.ProductID })
+                @Html.ActionLink(Messages.Edit,
+                                 "EditProduct", new {id = item.ProductID})
             </td>
         </tr>
     }
@@ -48,23 +49,22 @@
             SiteEnums.QueryStringNames.pg.ToString()]) &&
             pageNumber == 1)
         {
-    @pageNumber     
+            @pageNumber
         }
         else if (!string.IsNullOrEmpty(Request.QueryString[
             SiteEnums.QueryStringNames.pg.ToString()]) &&
-            pageNumber ==
-            Convert.ToInt32(Request.QueryString[
-            SiteEnums.QueryStringNames.pg.ToString()])
+                 pageNumber ==
+                 Convert.ToInt32(Request.QueryString[
+                     SiteEnums.QueryStringNames.pg.ToString()])
             )
         {
-    @pageNumber 
+            @pageNumber
         }
         else
         {
-    <a href="@Url.Content("~/account/articlecomments/?" +
-                          SiteEnums.QueryStringNames.pg.ToString() +
-                          "=" + pageNumber.ToString())">@pageNumber.ToString()</a>  
+            <a href="@Url.Content("~/account/articlecomments/?" +
+                                  SiteEnums.QueryStringNames.pg.ToString() +
+                                  "=" + pageNumber.ToString())">@pageNumber.ToString()</a>
         }
     }
-    
 }

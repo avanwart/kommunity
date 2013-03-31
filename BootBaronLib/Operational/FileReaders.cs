@@ -23,51 +23,45 @@ using System.Text;
 
 namespace BootBaronLib.Operational
 {
+
     #region CSV
+
     /*http://www.codeproject.com/KB/cs/CsvReaderAndWriter.aspx */
 
     #region csv file
 
-
     /// <summary>
-    /// Class to hold csv data
+    ///     Class to hold csv data
     /// </summary>
     [Serializable]
     public sealed class CsvFile
     {
-
         #region Properties
 
         /// <summary>
-        /// Gets the file headers
+        ///     Gets the file headers
         /// </summary>
         public readonly List<string> Headers = new List<string>();
 
         /// <summary>
-        /// Gets the records in the file
+        ///     Gets the records in the file
         /// </summary>
         public readonly CsvRecords Records = new CsvRecords();
 
         /// <summary>
-        /// Gets the header count
+        ///     Gets the header count
         /// </summary>
         public int HeaderCount
         {
-            get
-            {
-                return Headers.Count;
-            }
+            get { return Headers.Count; }
         }
 
         /// <summary>
-        /// Gets the record count
+        ///     Gets the record count
         /// </summary>
         public int RecordCount
-        {   
-            get
-            {
-                return Records.Count;   
-            }
+        {
+            get { return Records.Count; }
         }
 
         #endregion Properties
@@ -75,7 +69,7 @@ namespace BootBaronLib.Operational
         #region Indexers
 
         /// <summary>
-        /// Gets a record at the specified index
+        ///     Gets a record at the specified index
         /// </summary>
         /// <param name="recordIndex">Record index</param>
         /// <returns>CsvRecord</returns>
@@ -91,7 +85,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Gets the field value at the specified record and field index
+        ///     Gets the field value at the specified record and field index
         /// </summary>
         /// <param name="recordIndex">Record index</param>
         /// <param name="fieldIndex">Field index</param>
@@ -105,7 +99,8 @@ namespace BootBaronLib.Operational
 
                 CsvRecord record = Records[recordIndex];
                 if (fieldIndex > (record.Fields.Count - 1))
-                    throw new IndexOutOfRangeException(string.Format("There is no field at index {0} in record {1}.", fieldIndex, recordIndex));
+                    throw new IndexOutOfRangeException(string.Format("There is no field at index {0} in record {1}.",
+                                                                     fieldIndex, recordIndex));
 
                 return record.Fields[fieldIndex];
             }
@@ -124,7 +119,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Gets the field value at the specified record index for the supplied field name
+        ///     Gets the field value at the specified record index for the supplied field name
         /// </summary>
         /// <param name="recordIndex">Record index</param>
         /// <param name="fieldName">Field name</param>
@@ -142,7 +137,7 @@ namespace BootBaronLib.Operational
 
                 for (int i = 0; i < Headers.Count; i++)
                 {
-                    if (string.Compare(Headers[i], fieldName) != 0) 
+                    if (string.Compare(Headers[i], fieldName) != 0)
                         continue;
 
                     fieldIndex = i;
@@ -153,7 +148,8 @@ namespace BootBaronLib.Operational
                     throw new ArgumentException(string.Format("There is no field header with the name '{0}'", fieldName));
 
                 if (fieldIndex > (record.Fields.Count - 1))
-                    throw new IndexOutOfRangeException(string.Format("There is no field at index {0} in record {1}.", fieldIndex, recordIndex));
+                    throw new IndexOutOfRangeException(string.Format("There is no field at index {0} in record {1}.",
+                                                                     fieldIndex, recordIndex));
 
                 return record.Fields[fieldIndex];
             }
@@ -179,7 +175,8 @@ namespace BootBaronLib.Operational
                     throw new ArgumentException(string.Format("There is no field header with the name '{0}'", fieldName));
 
                 if (fieldIndex > (record.Fields.Count - 1))
-                    throw new IndexOutOfRangeException(string.Format("There is no field at index {0} in record {1}.", fieldIndex, recordIndex));
+                    throw new IndexOutOfRangeException(string.Format("There is no field at index {0} in record {1}.",
+                                                                     fieldIndex, recordIndex));
 
                 record.Fields[fieldIndex] = value;
             }
@@ -190,7 +187,7 @@ namespace BootBaronLib.Operational
         #region Methods
 
         /// <summary>
-        /// Populates the current instance from the specified file
+        ///     Populates the current instance from the specified file
         /// </summary>
         /// <param name="filePath">File path</param>
         /// <param name="hasHeaderRow">True if the file has a header row, otherwise false</param>
@@ -200,7 +197,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Populates the current instance from the specified file
+        ///     Populates the current instance from the specified file
         /// </summary>
         /// <param name="filePath">File path</param>
         /// <param name="hasHeaderRow">True if the file has a header row, otherwise false</param>
@@ -211,7 +208,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Populates the current instance from the specified file
+        ///     Populates the current instance from the specified file
         /// </summary>
         /// <param name="filePath">File path</param>
         /// <param name="encoding">Encoding</param>
@@ -219,14 +216,15 @@ namespace BootBaronLib.Operational
         /// <param name="trimColumns">True if column values should be trimmed, otherwise false</param>
         public void Populate(string filePath, Encoding encoding, bool hasHeaderRow, bool trimColumns)
         {
-            using (CsvReader reader = new CsvReader(filePath, encoding){HasHeaderRow = hasHeaderRow, TrimColumns = trimColumns})
+            using (
+                var reader = new CsvReader(filePath, encoding) {HasHeaderRow = hasHeaderRow, TrimColumns = trimColumns})
             {
                 PopulateCsvFile(reader);
             }
         }
 
         /// <summary>
-        /// Populates the current instance from a stream
+        ///     Populates the current instance from a stream
         /// </summary>
         /// <param name="stream">Stream</param>
         /// <param name="hasHeaderRow">True if the file has a header row, otherwise false</param>
@@ -236,7 +234,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Populates the current instance from a stream
+        ///     Populates the current instance from a stream
         /// </summary>
         /// <param name="stream">Stream</param>
         /// <param name="hasHeaderRow">True if the file has a header row, otherwise false</param>
@@ -247,7 +245,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Populates the current instance from a stream
+        ///     Populates the current instance from a stream
         /// </summary>
         /// <param name="stream">Stream</param>
         /// <param name="encoding">Encoding</param>
@@ -255,14 +253,15 @@ namespace BootBaronLib.Operational
         /// <param name="trimColumns">True if column values should be trimmed, otherwise false</param>
         public void Populate(Stream stream, Encoding encoding, bool hasHeaderRow, bool trimColumns)
         {
-            using (CsvReader reader = new CsvReader(stream, encoding){HasHeaderRow = hasHeaderRow, TrimColumns = trimColumns})
+            using (var reader = new CsvReader(stream, encoding) {HasHeaderRow = hasHeaderRow, TrimColumns = trimColumns}
+                )
             {
                 PopulateCsvFile(reader);
             }
         }
 
         /// <summary>
-        /// Populates the current instance from a string
+        ///     Populates the current instance from a string
         /// </summary>
         /// <param name="hasHeaderRow">True if the file has a header row, otherwise false</param>
         /// <param name="csvContent">Csv text</param>
@@ -272,7 +271,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Populates the current instance from a string
+        ///     Populates the current instance from a string
         /// </summary>
         /// <param name="hasHeaderRow">True if the file has a header row, otherwise false</param>
         /// <param name="csvContent">Csv text</param>
@@ -283,7 +282,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Populates the current instance from a string
+        ///     Populates the current instance from a string
         /// </summary>
         /// <param name="hasHeaderRow">True if the file has a header row, otherwise false</param>
         /// <param name="csvContent">Csv text</param>
@@ -291,14 +290,19 @@ namespace BootBaronLib.Operational
         /// <param name="trimColumns">True if column values should be trimmed, otherwise false</param>
         public void Populate(bool hasHeaderRow, string csvContent, Encoding encoding, bool trimColumns)
         {
-            using (CsvReader reader = new CsvReader(encoding, csvContent){HasHeaderRow = hasHeaderRow, TrimColumns = trimColumns})
+            using (
+                var reader = new CsvReader(encoding, csvContent)
+                    {
+                        HasHeaderRow = hasHeaderRow,
+                        TrimColumns = trimColumns
+                    })
             {
                 PopulateCsvFile(reader);
             }
         }
 
         /// <summary>
-        /// Populates the current instance using the CsvReader object
+        ///     Populates the current instance using the CsvReader object
         /// </summary>
         /// <param name="reader">CsvReader</param>
         private void PopulateCsvFile(CsvReader reader)
@@ -317,26 +321,25 @@ namespace BootBaronLib.Operational
                     continue;
                 }
 
-                CsvRecord record = new CsvRecord();
+                var record = new CsvRecord();
                 reader.Fields.ForEach(field => record.Fields.Add(field));
                 Records.Add(record);
             }
         }
 
         #endregion Methods
-
     }
 
     /// <summary>
-    /// Class for a collection of CsvRecord objects
+    ///     Class for a collection of CsvRecord objects
     /// </summary>
     [Serializable]
     public sealed class CsvRecords : List<CsvRecord>
-    {  
+    {
     }
 
     /// <summary>
-    /// Csv record class
+    ///     Csv record class
     /// </summary>
     [Serializable]
     public sealed class CsvRecord
@@ -344,19 +347,16 @@ namespace BootBaronLib.Operational
         #region Properties
 
         /// <summary>
-        /// Gets the Fields in the record
+        ///     Gets the Fields in the record
         /// </summary>
         public readonly List<string> Fields = new List<string>();
 
         /// <summary>
-        /// Gets the number of fields in the record
+        ///     Gets the number of fields in the record
         /// </summary>
         public int FieldCount
         {
-            get
-            {
-                return Fields.Count;
-            }
+            get { return Fields.Count; }
         }
 
         #endregion Properties
@@ -366,52 +366,47 @@ namespace BootBaronLib.Operational
 
     #region csv reader
 
-
     /// <summary>
-    /// Class to read csv content from various sources
+    ///     Class to read csv content from various sources
     /// </summary>
     public sealed class CsvReader : IDisposable
     {
-
         #region Members
 
+        private readonly StringBuilder _columnBuilder = new StringBuilder(100);
+        private readonly Type _type = Type.File;
+        private Encoding _encoding;
         private FileStream _fileStream;
+        private Stream _memoryStream;
         private Stream _stream;
         private StreamReader _streamReader;
         private StreamWriter _streamWriter;
-        private Stream _memoryStream;
-        private Encoding _encoding;
-        private readonly StringBuilder _columnBuilder = new StringBuilder(100);
-        private readonly Type _type = Type.File;
 
         #endregion Members
 
         #region Properties
 
         /// <summary>
-        /// Gets or sets whether column values should be trimmed
+        ///     Gets or sets whether column values should be trimmed
         /// </summary>
         public bool TrimColumns { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the csv file has a header row
+        ///     Gets or sets whether the csv file has a header row
         /// </summary>
         public bool HasHeaderRow { get; set; }
 
         /// <summary>
-        /// Returns a collection of fields or null if no record has been read
+        ///     Returns a collection of fields or null if no record has been read
         /// </summary>
         public List<string> Fields { get; private set; }
 
         /// <summary>
-        /// Gets the field count or returns null if no fields have been read
+        ///     Gets the field count or returns null if no fields have been read
         /// </summary>
         public int? FieldCount
         {
-            get
-            {
-                return (Fields != null ? Fields.Count : (int?)null);
-            }
+            get { return (Fields != null ? Fields.Count : (int?) null); }
         }
 
         #endregion Properties
@@ -419,7 +414,7 @@ namespace BootBaronLib.Operational
         #region Enums
 
         /// <summary>
-        /// Type enum
+        ///     Type enum
         /// </summary>
         private enum Type
         {
@@ -433,7 +428,7 @@ namespace BootBaronLib.Operational
         #region Constructors
 
         /// <summary>
-        /// Initialises the reader to work from a file
+        ///     Initialises the reader to work from a file
         /// </summary>
         /// <param name="filePath">File path</param>
         public CsvReader(string filePath)
@@ -443,7 +438,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Initialises the reader to work from a file
+        ///     Initialises the reader to work from a file
         /// </summary>
         /// <param name="filePath">File path</param>
         /// <param name="encoding">Encoding</param>
@@ -453,10 +448,9 @@ namespace BootBaronLib.Operational
             Initialise(filePath, encoding);
         }
 
- 
 
         /// <summary>
-        /// Initialises the reader to work from an existing stream
+        ///     Initialises the reader to work from an existing stream
         /// </summary>
         /// <param name="stream">Stream</param>
         public CsvReader(Stream stream)
@@ -466,7 +460,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Initialises the reader to work from an existing stream
+        ///     Initialises the reader to work from an existing stream
         /// </summary>
         /// <param name="stream">Stream</param>
         /// <param name="encoding">Encoding</param>
@@ -477,7 +471,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Initialises the reader to work from a csv string
+        ///     Initialises the reader to work from a csv string
         /// </summary>
         /// <param name="encoding"></param>
         /// <param name="csvContent"></param>
@@ -492,7 +486,43 @@ namespace BootBaronLib.Operational
         #region Methods
 
         /// <summary>
-        /// Initialises the class to use a file
+        ///     Disposes of all unmanaged resources
+        /// </summary>
+        public void Dispose()
+        {
+            if (_streamReader != null)
+            {
+                _streamReader.Close();
+                _streamReader.Dispose();
+            }
+
+            if (_streamWriter != null)
+            {
+                _streamWriter.Close();
+                _streamWriter.Dispose();
+            }
+
+            if (_memoryStream != null)
+            {
+                _memoryStream.Close();
+                _memoryStream.Dispose();
+            }
+
+            if (_fileStream != null)
+            {
+                _fileStream.Close();
+                _fileStream.Dispose();
+            }
+
+            if ((_type == Type.String || _type == Type.File) && _stream != null)
+            {
+                _stream.Close();
+                _stream.Dispose();
+            }
+        }
+
+        /// <summary>
+        ///     Initialises the class to use a file
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="encoding"></param>
@@ -512,7 +542,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Initialises the class to use a stream
+        ///     Initialises the class to use a stream
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="encoding"></param>
@@ -528,7 +558,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Initialies the class to use a string
+        ///     Initialies the class to use a string
         /// </summary>
         /// <param name="encoding"></param>
         /// <param name="csvContent"></param>
@@ -547,7 +577,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Reads the next record
+        ///     Reads the next record
         /// </summary>
         /// <returns>True if a record was successfuly read, otherwise false</returns>
         public bool ReadNextRecord()
@@ -563,9 +593,8 @@ namespace BootBaronLib.Operational
         }
 
 
-
         /// <summary>
-        /// Read the row until the terminating string is found in the line
+        ///     Read the row until the terminating string is found in the line
         /// </summary>
         /// <param name="terminatingString"></param>
         /// <returns></returns>
@@ -582,26 +611,26 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Reads a csv file format into a data table.  This method
-        /// will always assume that the table has a header row as this will be used
-        /// to determine the columns.
+        ///     Reads a csv file format into a data table.  This method
+        ///     will always assume that the table has a header row as this will be used
+        ///     to determine the columns.
         /// </summary>
         /// <returns></returns>
         public DataTable ReadIntoDataTable()
         {
-            return ReadIntoDataTable(new System.Type[] { });
+            return ReadIntoDataTable(new System.Type[] {});
         }
 
         /// <summary>
-        /// Reads a csv file format into a data table.  This method
-        /// will always assume that the table has a header row as this will be used
-        /// to determine the columns.
+        ///     Reads a csv file format into a data table.  This method
+        ///     will always assume that the table has a header row as this will be used
+        ///     to determine the columns.
         /// </summary>
         /// <param name="columnTypes">Array of column types</param>
         /// <returns></returns>
         public DataTable ReadIntoDataTable(System.Type[] columnTypes)
         {
-            DataTable dataTable = new DataTable();
+            var dataTable = new DataTable();
             bool addedHeader = false;
             _stream.Position = 0;
 
@@ -610,7 +639,7 @@ namespace BootBaronLib.Operational
                 if (!addedHeader)
                 {
                     for (int i = 0; i < Fields.Count; i++)
-                        dataTable.Columns.Add(Fields[i], (columnTypes.Length > 0 ? columnTypes[i] : typeof(string)));
+                        dataTable.Columns.Add(Fields[i], (columnTypes.Length > 0 ? columnTypes[i] : typeof (string)));
 
                     addedHeader = true;
                     continue;
@@ -628,7 +657,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Parses a csv line
+        ///     Parses a csv line
         /// </summary>
         /// <param name="line">Line</param>
         private void ParseLine(string line)
@@ -681,7 +710,8 @@ namespace BootBaronLib.Operational
                     Fields.Add(TrimColumns ? _columnBuilder.ToString().Trim() : _columnBuilder.ToString());
                     _columnBuilder.Remove(0, _columnBuilder.Length);
 
-                    if ((line.Length >   i + 1 ) && line[i + 1] == ',') // if the next char is a comma, then it's an empty row value
+                    if ((line.Length > i + 1) && line[i + 1] == ',')
+                        // if the next char is a comma, then it's an empty row value
                     {
                         inColumn = true;
                     }
@@ -698,96 +728,45 @@ namespace BootBaronLib.Operational
                 Fields.Add(TrimColumns ? _columnBuilder.ToString().Trim() : _columnBuilder.ToString());
         }
 
-        /// <summary>
-        /// Disposes of all unmanaged resources
-        /// </summary>
-        public void Dispose()
-        {
-            if (_streamReader != null)
-            {
-                _streamReader.Close();
-                _streamReader.Dispose();
-            }
-
-            if (_streamWriter != null)
-            {
-                _streamWriter.Close();
-                _streamWriter.Dispose();
-            }
-
-            if (_memoryStream != null)
-            {
-                _memoryStream.Close();
-                _memoryStream.Dispose();
-            }
-
-            if (_fileStream != null)
-            {
-                _fileStream.Close();
-                _fileStream.Dispose();
-            }
-
-            if ((_type == Type.String || _type == Type.File) && _stream != null)
-            {
-                _stream.Close();
-                _stream.Dispose();
-            }
-        }
-
         #endregion Methods
-
     }
-
 
     #endregion
 
     #region csv writer
-    
+
     /// <summary>
-    /// Class to write data to a csv file
+    ///     Class to write data to a csv file
     /// </summary>
     public sealed class CsvWriter : IDisposable
     {
-
         #region Members
 
-        private StreamWriter _streamWriter;
-        private bool _replaceCarriageReturnsAndLineFeedsFromFieldValues = true;
         private string _carriageReturnAndLineFeedReplacement = ",";
+        private bool _replaceCarriageReturnsAndLineFeedsFromFieldValues = true;
+        private StreamWriter _streamWriter;
 
         #endregion Members
 
         #region Properties
 
         /// <summary>
-        /// Gets or sets whether carriage returns and line feeds should be removed from 
-        /// field values, the default is true 
+        ///     Gets or sets whether carriage returns and line feeds should be removed from
+        ///     field values, the default is true
         /// </summary>
         public bool ReplaceCarriageReturnsAndLineFeedsFromFieldValues
         {
-            get
-            {
-                return _replaceCarriageReturnsAndLineFeedsFromFieldValues;
-            }
-            set
-            {
-                _replaceCarriageReturnsAndLineFeedsFromFieldValues = value;
-            }
+            get { return _replaceCarriageReturnsAndLineFeedsFromFieldValues; }
+            set { _replaceCarriageReturnsAndLineFeedsFromFieldValues = value; }
         }
 
         /// <summary>
-        /// Gets or sets what the carriage return and line feed replacement characters should be
+        ///     Gets or sets what the carriage return and line feed replacement characters should be
         /// </summary>
         public string CarriageReturnAndLineFeedReplacement
         {
-            get
-            {
-                return _carriageReturnAndLineFeedReplacement;
-            }
-            set
-            {
-                _carriageReturnAndLineFeedReplacement = value;
-            }
+            get { return _carriageReturnAndLineFeedReplacement; }
+            set { _carriageReturnAndLineFeedReplacement = value; }
         }
 
         #endregion Properties
@@ -797,7 +776,7 @@ namespace BootBaronLib.Operational
         #region CsvFile write methods
 
         /// <summary>
-        /// Writes csv content to a file
+        ///     Writes csv content to a file
         /// </summary>
         /// <param name="csvFile">CsvFile</param>
         /// <param name="filePath">File path</param>
@@ -807,7 +786,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Writes csv content to a file
+        ///     Writes csv content to a file
         /// </summary>
         /// <param name="csvFile">CsvFile</param>
         /// <param name="filePath">File path</param>
@@ -817,7 +796,7 @@ namespace BootBaronLib.Operational
             if (File.Exists(filePath))
                 File.Delete(filePath);
 
-            using (StreamWriter writer = new StreamWriter(filePath, false, encoding ?? Encoding.Default))
+            using (var writer = new StreamWriter(filePath, false, encoding ?? Encoding.Default))
             {
                 WriteToStream(csvFile, writer);
                 writer.Flush();
@@ -826,7 +805,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Writes csv content to a stream
+        ///     Writes csv content to a stream
         /// </summary>
         /// <param name="csvFile">CsvFile</param>
         /// <param name="stream">Stream</param>
@@ -836,7 +815,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Writes csv content to a stream
+        ///     Writes csv content to a stream
         /// </summary>
         /// <param name="csvFile">CsvFile</param>
         /// <param name="stream">Stream</param>
@@ -851,7 +830,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Writes csv content to a string
+        ///     Writes csv content to a string
         /// </summary>
         /// <param name="csvFile">CsvFile</param>
         /// <param name="encoding">Encoding</param>
@@ -860,15 +839,15 @@ namespace BootBaronLib.Operational
         {
             string content = string.Empty;
 
-            using (MemoryStream memoryStream = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             {
-                using (StreamWriter writer = new StreamWriter(memoryStream, encoding ?? Encoding.Default))
+                using (var writer = new StreamWriter(memoryStream, encoding ?? Encoding.Default))
                 {
                     WriteToStream(csvFile, writer);
                     writer.Flush();
                     memoryStream.Position = 0;
 
-                    using (StreamReader reader = new StreamReader(memoryStream, encoding ?? Encoding.Default))
+                    using (var reader = new StreamReader(memoryStream, encoding ?? Encoding.Default))
                     {
                         content = reader.ReadToEnd();
                         writer.Close();
@@ -886,7 +865,7 @@ namespace BootBaronLib.Operational
         #region DataTable write methods
 
         /// <summary>
-        /// Writes a DataTable to a file
+        ///     Writes a DataTable to a file
         /// </summary>
         /// <param name="dataTable">DataTable</param>
         /// <param name="filePath">File path</param>
@@ -896,7 +875,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Writes a DataTable to a file
+        ///     Writes a DataTable to a file
         /// </summary>
         /// <param name="dataTable">DataTable</param>
         /// <param name="filePath">File path</param>
@@ -906,7 +885,7 @@ namespace BootBaronLib.Operational
             if (File.Exists(filePath))
                 File.Delete(filePath);
 
-            using (StreamWriter writer = new StreamWriter(filePath, false, encoding ?? Encoding.Default))
+            using (var writer = new StreamWriter(filePath, false, encoding ?? Encoding.Default))
             {
                 WriteToStream(dataTable, writer);
                 writer.Flush();
@@ -915,7 +894,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Writes a DataTable to a stream
+        ///     Writes a DataTable to a stream
         /// </summary>
         /// <param name="dataTable">DataTable</param>
         /// <param name="stream">Stream</param>
@@ -925,7 +904,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Writes a DataTable to a stream
+        ///     Writes a DataTable to a stream
         /// </summary>
         /// <param name="dataTable">DataTable</param>
         /// <param name="stream">Stream</param>
@@ -940,7 +919,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Writes the DataTable to a string
+        ///     Writes the DataTable to a string
         /// </summary>
         /// <param name="dataTable">DataTable</param>
         /// <param name="encoding">Encoding</param>
@@ -949,15 +928,15 @@ namespace BootBaronLib.Operational
         {
             string content = string.Empty;
 
-            using (MemoryStream memoryStream = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             {
-                using (StreamWriter writer = new StreamWriter(memoryStream, encoding ?? Encoding.Default))
+                using (var writer = new StreamWriter(memoryStream, encoding ?? Encoding.Default))
                 {
                     WriteToStream(dataTable, writer);
                     writer.Flush();
                     memoryStream.Position = 0;
 
-                    using (StreamReader reader = new StreamReader(memoryStream, encoding ?? Encoding.Default))
+                    using (var reader = new StreamReader(memoryStream, encoding ?? Encoding.Default))
                     {
                         content = reader.ReadToEnd();
                         writer.Close();
@@ -973,7 +952,19 @@ namespace BootBaronLib.Operational
         #endregion DataTable write methods
 
         /// <summary>
-        /// Writes the Csv File
+        ///     Disposes of all unmanaged resources
+        /// </summary>
+        public void Dispose()
+        {
+            if (_streamWriter == null)
+                return;
+
+            _streamWriter.Close();
+            _streamWriter.Dispose();
+        }
+
+        /// <summary>
+        ///     Writes the Csv File
         /// </summary>
         /// <param name="csvFile">CsvFile</param>
         /// <param name="writer">TextWriter</param>
@@ -986,7 +977,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Writes the Csv File
+        ///     Writes the Csv File
         /// </summary>
         /// <param name="dataTable">DataTable</param>
         /// <param name="writer">TextWriter</param>
@@ -1004,7 +995,7 @@ namespace BootBaronLib.Operational
         }
 
         /// <summary>
-        /// Writes the record to the underlying stream
+        ///     Writes the record to the underlying stream
         /// </summary>
         /// <param name="fields">Fields</param>
         /// <param name="writer">TextWriter</param>
@@ -1016,7 +1007,8 @@ namespace BootBaronLib.Operational
                 bool escapeQuotes = fields[i].Contains("\"");
                 string fieldValue = (escapeQuotes ? fields[i].Replace("\"", "\"\"") : fields[i]);
 
-                if (ReplaceCarriageReturnsAndLineFeedsFromFieldValues && (fieldValue.Contains("\r") || fieldValue.Contains("\n")))
+                if (ReplaceCarriageReturnsAndLineFeedsFromFieldValues &&
+                    (fieldValue.Contains("\r") || fieldValue.Contains("\n")))
                 {
                     quotesRequired = true;
                     fieldValue = fieldValue.Replace("\r\n", CarriageReturnAndLineFeedReplacement);
@@ -1025,32 +1017,18 @@ namespace BootBaronLib.Operational
                 }
 
                 writer.Write(string.Format("{0}{1}{0}{2}",
-                    (quotesRequired || escapeQuotes ? "\"" : string.Empty),
-                    fieldValue,
-                    (i < (fields.Count - 1) ? "," : string.Empty)));
+                                           (quotesRequired || escapeQuotes ? "\"" : string.Empty),
+                                           fieldValue,
+                                           (i < (fields.Count - 1) ? "," : string.Empty)));
             }
 
             writer.WriteLine();
         }
 
-        /// <summary>
-        /// Disposes of all unmanaged resources
-        /// </summary>
-        public void Dispose()
-        {
-            if (_streamWriter == null)
-                return;
-
-            _streamWriter.Close();
-            _streamWriter.Dispose();
-        }
-
         #endregion Methods
-
     }
-
-    #endregion 
 
     #endregion
 
+    #endregion
 }

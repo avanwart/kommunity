@@ -1,65 +1,66 @@
-﻿@using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
-@using BootBaronLib.Resources;
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
+@using BootBaronLib.Configs
+@using BootBaronLib.Operational
+@using BootBaronLib.Resources
 @using BootBaronLib.Values
 @{
-    ViewBag.Title =  BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                   SiteEnums.SiteBrandType.TAGLN, 
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode());
+    ViewBag.Title = SiteDomain.GetSiteDomainValue(
+        SiteEnums.SiteBrandType.TAGLN,
+        Utilities.GetCurrentLanguageCode());
 
     ViewBag.MetaDescription = "Das Klub is an international industrial dance community which connects artists, dancers and creative people.";
 }
 <div class="row">
-  <div class="span4">
-  @{Html.RenderPartial("_registerControls"); }
+    <div class="span4">
+        @{ Html.RenderPartial("_registerControls"); }
         
         <hr />
-          <h5>@Messages.NewestUsers</h5>
+        <h5>@Messages.NewestUsers</h5>
               
-                 @Html.Raw(ViewBag.NewestUsers)
-                  <div class="clear"></div>
- <hr />
+        @Html.Raw(ViewBag.NewestUsers)
+        <div class="clear"></div>
+        <hr />
         <h5>@Messages.NewestPhotos</h5>
         @Html.Raw(ViewBag.PhotoList)
           
         <div class="clear">
         </div>
-      <br />
+        <br />
 
  
       
-      @*  <a href="@Url.Content("~/account/home")" class="btn-inverse btn">@Messages.UploadPhoto</a>*@
+        @*  <a href="@Url.Content("~/account/home")" class="btn-inverse btn">@Messages.UploadPhoto</a>*@
         @*<a href="@Url.Content("~/photos")">@Messages.MorePhotos</a>*@
         <br />
-        @if (BootBaronLib.Configs.GeneralConfigs.IsGiveAway)
+        @if (GeneralConfigs.IsGiveAway)
         {
             <a class="m_over" href="@Url.Content("~/account/useraddress")">
-                  <img  src="@Url.Content("~/Content/images/stills/giveaway.jpg")" /></a>
+                <img  src="@Url.Content("~/Content/images/stills/giveaway.jpg")" /></a>
         }
     </div>
     <div class="span8">
         <div class="row">
       
-          <div class="span4">
+            <div class="span4">
              
 
-              @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                  SiteEnums.SiteBrandType.HOMEC, 
-                  BootBaronLib.Operational.Utilities.GetCurrentLanguageCode())) 
+                @Html.Raw(SiteDomain.GetSiteDomainValue(
+                    SiteEnums.SiteBrandType.HOMEC,
+                    Utilities.GetCurrentLanguageCode())) 
 
-              <hr />
+                <hr />
                 
-      @{Html.RenderPartial("_AdBanner"); }
+                @{ Html.RenderPartial("_AdBanner"); }
                 <hr /> 
-                 <h5>@Messages.NewestVideos</h5>  <div class="gallery">
-                 @Html.Raw(ViewBag.NewestVideos)</div>
-                 <div class="clear"></div>
+                <h5>@Messages.NewestVideos</h5>  <div class="gallery">
+                                                     @Html.Raw(ViewBag.NewestVideos)</div>
+                <div class="clear"></div>
                           
             
-             <a name="submit_video"></a>
+                <a name="submit_video"></a>
 
-                <div style="background-color: #000; border: 3px solid #FFF; border-radius: 15px;
-                    margin: 5px; padding: 5px;">
-                   @* <h5>@Messages.SubmitYourYouTubeVideoLinkHere</h5>
+                <div style="background-color: #000; border: 3px solid #FFF; border-radius: 15px; margin: 5px; padding: 5px;">
+                    @* <h5>@Messages.SubmitYourYouTubeVideoLinkHere</h5>
                     @using (Html.BeginForm("videosubmit", "Home", FormMethod.Post))
                     {
                          <div class="span3">
@@ -73,30 +74,30 @@
                     }*@
 
 
-                         @{Html.RenderPartial("_videoSubmit"); }
+                    @{ Html.RenderPartial("_videoSubmit"); }
                 </div>
 
 
   
-        </div>
+            </div>
      
 
-                  <div class="span4">
-                        @{Html.RenderPartial("_LoginControls"); }
+            <div class="span4">
+                @{ Html.RenderPartial("_LoginControls"); }
              
-     <hr />
-                             @{Html.RenderPartial("_AdBanner3"); } 
+                <hr />
+                @{ Html.RenderPartial("_AdBanner3"); } 
                   
-        <h4>@Messages.News</h4>
-        <hr style="padding-top:0;margin-top:0;" />
-        <div class="news_list" id="article_list">
-            @Html.Raw(ViewBag.RecentArticles)
-        </div>
-        <a href="@Url.Content("~/news")">@Messages.SeeMoreNews</a>
+                <h4>@Messages.News</h4>
+                <hr style="margin-top: 0; padding-top: 0;" />
+                <div class="news_list" id="article_list">
+                    @Html.Raw(ViewBag.RecentArticles)
+                </div>
+                <a href="@Url.Content("~/news")">@Messages.SeeMoreNews</a>
 
       
 
-@*            <a class="m_over" href="http://dasklub.com/news/centhron-s-das-klub-industrial-dance-top-10">
+                @*            <a class="m_over" href="http://dasklub.com/news/centhron-s-das-klub-industrial-dance-top-10">
               <img src="http://i.imgur.com/IJk6A.jpg" /></a>
             <br />
               [Processing Top 10 Winners Video]
@@ -106,7 +107,7 @@
 
 
 
-@*
+                @*
                 <br />
                 <i>
                    @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
@@ -119,7 +120,7 @@
      *@
    
             </div>
-@*      <div class="row">
+            @*      <div class="row">
           <div class="span4">
          
  <br />
@@ -128,7 +129,7 @@
             </div> 
         </div>*@
         
-  @*   <div class="row">
+            @*   <div class="row">
         <div class="span8">
  
 
@@ -141,47 +142,43 @@
         </div>*@
  
 
-        <div class="clear">
+            <div class="clear">
+            </div>
+
         </div>
-
-    </div>
   
-    @section _css {
-        @if (Request.Browser.IsMobileDevice)
-        {
-
-
-        <style type="text/css">
-            .photo_item_list li img
+        @section _css {
+            @if (Request.Browser.IsMobileDevice)
             {
-                width: 55px;
-                height: 55px;
+                <style type="text/css">
+                    .photo_item_list li img {
+                        height: 55px;
+                        width: 55px;
+                    }
+
+                    .photo_item_list img {
+                        margin: 0;
+                        padding: 0;
+                    }
+                </style>
             }
-            .photo_item_list img
-            {
-                margin: 0;
-                padding: 0;
-            }
-        </style>
+            <style type="text/css">
+                ul.photo_item_list {
+                    margin: 0;
+                    padding: 0;
+                }
+            </style>
         }
-        <style type="text/css">
-            ul.photo_item_list
-            {
-                margin: 0;
-                padding: 0;
-            }
-        </style>
-    }
-</div>
+    </div>
 </div>
 <div class="clear">
 </div>
 @section _javascriptHead {
 
   
-    @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+    @Html.Raw(SiteDomain.GetSiteDomainValue(
         SiteEnums.SiteBrandType.HOMES,
-        BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+        Utilities.GetCurrentLanguageCode()))
 
 
 }
@@ -191,38 +188,34 @@
 @section _javascript  {
 
 
-    @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-        SiteEnums.SiteBrandType.HOMEB, 
-        BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+    @Html.Raw(SiteDomain.GetSiteDomainValue(
+        SiteEnums.SiteBrandType.HOMEB,
+        Utilities.GetCurrentLanguageCode()))
 
     <script type="text/javascript">
-          $("#download1").click(function () {
+        $("#download1").click(function() {
 
 
-
-              $.post($rootUrl + 'home/download', { link: 'z' },
-                              function (data) {
-
-
-                              });
+            $.post($rootUrl + 'home/download', { link: 'z' },
+                function(data) {
 
 
-
-          });
-
-          $("#download2").click(function () {
+                });
 
 
+        });
 
-              $.post($rootUrl + 'home/download', { link: 'f' },
-                              function (data) {
-
-
-                              });
+        $("#download2").click(function() {
 
 
+            $.post($rootUrl + 'home/download', { link: 'f' },
+                function(data) {
 
-          });
-        </script>
 
- }
+                });
+
+
+        });
+    </script>
+
+}

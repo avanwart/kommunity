@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,29 +31,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
     {
         #region properties
 
-        private int _artistID = 0;
-
-        public int ArtistID
-        {
-            get { return _artistID; }
-            set { _artistID = value; }
-        }
-
-        private int _eventID = 0;
-
-        public int EventID
-        {
-            get { return _eventID; }
-            set { _eventID = value; }
-        }
-
-        private int _rankOrder = 0;
-        
         public ArtistEvent(DataRow dr)
         {
             Get(dr);
         }
-
 
 
         public ArtistEvent()
@@ -60,11 +42,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             // TODO: Complete member initialization
         }
 
-        public int RankOrder
-        {
-            get { return _rankOrder; }
-            set { _rankOrder = value; }
-        }
+        public int ArtistID { get; set; }
+
+        public int EventID { get; set; }
+
+        public int RankOrder { get; set; }
 
         #endregion
 
@@ -74,9 +56,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             {
                 base.Get(dr);
 
-                this.ArtistID = FromObj.IntFromObj(dr["artistID"]);
-                this.EventID = FromObj.IntFromObj(dr["eventID"]);
-                this.RankOrder = FromObj.IntFromObj(dr["rankOrder"]);
+                ArtistID = FromObj.IntFromObj(dr["artistID"]);
+                EventID = FromObj.IntFromObj(dr["eventID"]);
+                RankOrder = FromObj.IntFromObj(dr["rankOrder"]);
             }
             catch // (Exception ex)
             {
@@ -84,31 +66,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             }
         }
 
-
-        #region ICacheName Members
-
-        public string CacheName
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-
-        public void RemoveCache()
-        {
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
-        }
-
-        #endregion
-
-
         public override bool Delete()
         {
-
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeleteEventByID";
 
-            ADOExtenstion.AddParameter(comm, "eventID", EventID);
+            comm.AddParameter("eventID", EventID);
 
             return DbAct.ExecuteNonQuery(comm) > 0;
         }
@@ -122,13 +86,27 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             comm.CommandText = "up_AddArtistEvent";
 
 
-            ADOExtenstion.AddParameter(comm, "artistID", ArtistID);
-            ADOExtenstion.AddParameter(comm, "eventID", EventID);
-            ADOExtenstion.AddParameter(comm, "rankOrder", RankOrder);
+            comm.AddParameter("artistID", ArtistID);
+            comm.AddParameter("eventID", EventID);
+            comm.AddParameter("rankOrder", RankOrder);
 
             return DbAct.ExecuteNonQuery(comm);
         }
 
+        #region ICacheName Members
+
+        public string CacheName
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+
+        public void RemoveCache()
+        {
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+        }
+
+        #endregion
     }
 
 
@@ -136,13 +114,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
     {
         public void GetArtistsForEvent(int eventID)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetArtistsForEvent";
 
-            ADOExtenstion.AddParameter(comm, "eventID", eventID);
+            comm.AddParameter("eventID", eventID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -156,15 +133,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
                 {
                     atd = new ArtistEvent(dr);
 
-                    this.Add(atd);
+                    Add(atd);
                 }
             }
         }
 
-
-
         #region IGetAll Members
-
 
         public void GetAll()
         {
@@ -183,7 +157,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
                 foreach (DataRow dr in dt.Rows)
                 {
                     td = new ArtistEvent(dr);
-                    this.Add(td);
+                    Add(td);
                 }
             }
         }

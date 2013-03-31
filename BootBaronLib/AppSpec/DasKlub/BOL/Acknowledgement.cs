@@ -66,7 +66,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             if (AcknowledgementID == 0) return false;
 
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
 
             // set the stored procedure name
             comm.CommandText = "up_DeleteAcknowledgement";
@@ -94,7 +94,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             // the result is their ID
             // execute the stored procedure
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
@@ -166,7 +166,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public static int GetAcknowledgementCount(int statusUpdateID, char acknowledgementType)
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetAcknowledgementCount";
 
@@ -174,7 +174,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             comm.AddParameter("acknowledgementType", acknowledgementType);
 
             // execute the stored procedure
-            var str = DbAct.ExecuteScalar(comm);
+            string str = DbAct.ExecuteScalar(comm);
 
             return string.IsNullOrEmpty(str) ? 0 : Convert.ToInt32(str);
         }
@@ -183,7 +183,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public static bool DeleteStatusAcknowledgements(int statusUpdateID)
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeleteStatusAcknowledgements";
 
@@ -197,19 +197,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public void GetAcknowledgementsForStatus(int statusUpdateID)
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetAcknowledgementsForStatus";
 
             comm.AddParameter("statusUpdateID", statusUpdateID);
 
             // execute the stored procedure
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var art in from DataRow dr in dt.Rows select new Acknowledgement(dr))
+            foreach (Acknowledgement art in from DataRow dr in dt.Rows select new Acknowledgement(dr))
             {
                 Add(art);
             }

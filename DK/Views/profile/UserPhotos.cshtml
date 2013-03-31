@@ -1,16 +1,16 @@
-﻿  @{
-      ViewBag.Title = BootBaronLib.Resources.Messages.Photos + ": " + ViewBag.UserName;
-    
+﻿@using BootBaronLib.Resources
+@{
+    ViewBag.Title = Messages.Photos + ": " + ViewBag.UserName;
 }
-<div class="row" style="margin-left:0;padding-left:0">
+<div class="row" style="margin-left: 0; padding-left: 0">
 
-    <div class="span12" style="margin-left:0;padding-left:0;text-align:left;">
-    <h2>@ViewBag.UserName: @BootBaronLib.Resources.Messages.Photos (@ViewBag.PhotoCount)</h2>
-    @{Html.RenderPartial("_AdBanner"); }
-    <i><a href="@Url.Content("~/account/home")"> @BootBaronLib.Resources.Messages.UploadPhoto</a></i>
+    <div class="span12" style="margin-left: 0; padding-left: 0; text-align: left;">
+        <h2>@ViewBag.UserName: @Messages.Photos (@ViewBag.PhotoCount)</h2>
+        @{ Html.RenderPartial("_AdBanner"); }
+        <i><a href="@Url.Content("~/account/home")"> @Messages.UploadPhoto</a></i>
         @Html.Raw(Model.ToUnorderdList)
 
-                  <div class="clear"></div>
+        <div class="clear"></div>
                 
     </div>
 
@@ -19,26 +19,30 @@
 </div>
 
    
-   @section _css {
-@if (Request.Browser.IsMobileDevice)
-{
-
-
-<style type="text/css">
-.photo_item_list li img {width: 55px;height:55px;}
+@section _css {
+    @if (Request.Browser.IsMobileDevice)
+    {
+        <style type="text/css">
+            .photo_item_list li img {
+                height: 55px;
+                width: 55px;
+            }
 
  
-  .photo_item_list img { margin: 0; padding:0;}
-</style>
-}
-<style type="text/css">
+            .photo_item_list img {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    }
+    <style type="text/css">
  
 
-   ul.photo_item_list { margin: 0; padding: 0;}
+        ul.photo_item_list {
+            margin: 0;
+            padding: 0;
+        }
    
-</style>
+    </style>
  
 }
- 
- 
-  

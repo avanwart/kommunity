@@ -13,11 +13,13 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
+using System.Web;
 using System.Web.Security;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
@@ -31,51 +33,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties
 
-        private int _directMessageID = 0;
-
-        public int DirectMessageID
-        {
-            get { return _directMessageID; }
-            set { _directMessageID = value; }
-        }
-
-        private int _fromUserAccountID = 0;
-
-        public int FromUserAccountID
-        {
-            get { return _fromUserAccountID; }
-            set { _fromUserAccountID = value; }
-        }
-
-        private int _toUserAccountID = 0;
-
-        public int ToUserAccountID
-        {
-            get { return _toUserAccountID; }
-            set { _toUserAccountID = value; }
-        }
-
-        private bool _isRead = false;
-
-        public bool IsRead
-        {
-            get { return _isRead; }
-            set { _isRead = value; }
-        }
-
-        private string _message = string.Empty;
-
-        public string Message
-        {
-            get {
-                if (_message == null) return _message;
-                else  return _message.Trim(); 
-            
-            }
-            set { _message = value; }
-        }
-
         private bool _isEnabled = true;
+        private string _message = string.Empty;
 
         public DirectMessage(DataRow dr)
         {
@@ -87,14 +46,32 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // TODO: Complete member initialization
         }
 
+        public int DirectMessageID { get; set; }
+
+        public int FromUserAccountID { get; set; }
+
+        public int ToUserAccountID { get; set; }
+
+        public bool IsRead { get; set; }
+
+        public string Message
+        {
+            get
+            {
+                if (_message == null) return _message;
+                else return _message.Trim();
+            }
+            set { _message = value; }
+        }
+
         public bool IsEnabled
         {
             get { return _isEnabled; }
             set { _isEnabled = value; }
         }
-        
+
         #endregion
- 
+
         #region ICacheName Members
 
         public string CacheName
@@ -109,7 +86,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #endregion
 
-
         private bool _isInbox = true;
 
         public bool IsInbox
@@ -118,10 +94,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _isInbox = value; }
         }
 
+        public bool IsChat { get; set; }
 
         #region methods
-
-
 
         public override int Create()
         {
@@ -130,12 +105,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddDirectMessage";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID",  CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "fromUserAccountID",  FromUserAccountID);
-            ADOExtenstion.AddParameter(comm, "toUserAccountID",  ToUserAccountID);
-            ADOExtenstion.AddParameter(comm, "isRead",  IsRead);
-            ADOExtenstion.AddParameter(comm, "message",Message);
-            ADOExtenstion.AddParameter(comm, "isEnabled",  IsEnabled);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("fromUserAccountID", FromUserAccountID);
+            comm.AddParameter("toUserAccountID", ToUserAccountID);
+            comm.AddParameter("isRead", IsRead);
+            comm.AddParameter("message", Message);
+            comm.AddParameter("isEnabled", IsEnabled);
 
             // the result is their ID
             string result = string.Empty;
@@ -148,9 +123,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                this.DirectMessageID = Convert.ToInt32(result);
+                DirectMessageID = Convert.ToInt32(result);
 
-                return this.DirectMessageID;
+                return DirectMessageID;
             }
         }
 
@@ -161,15 +136,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_UpdateDirectMessage";
 
-            ADOExtenstion.AddParameter(comm, "directMessageID",  DirectMessageID);
-            ADOExtenstion.AddParameter(comm, "updatedByUserID",  UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, "fromUserAccountID",  FromUserAccountID);
-            ADOExtenstion.AddParameter(comm, "toUserAccountID",  ToUserAccountID);
-            ADOExtenstion.AddParameter(comm, "isRead",  IsRead);
-            ADOExtenstion.AddParameter(comm, "message",Message);
-            ADOExtenstion.AddParameter(comm, "isEnabled",  IsEnabled);
+            comm.AddParameter("directMessageID", DirectMessageID);
+            comm.AddParameter("updatedByUserID", UpdatedByUserID);
+            comm.AddParameter("fromUserAccountID", FromUserAccountID);
+            comm.AddParameter("toUserAccountID", ToUserAccountID);
+            comm.AddParameter("isRead", IsRead);
+            comm.AddParameter("message", Message);
+            comm.AddParameter("isEnabled", IsEnabled);
 
- 
 
             // result will represent the number of changed rows
             bool result = false;
@@ -178,24 +152,24 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             return result;
         }
 
-    
+
         public override void Get(DataRow dr)
         {
             try
             {
-                this.DirectMessageID = FromObj.IntFromObj(dr["directMessageID"]);
-                this.FromUserAccountID = FromObj.IntFromObj(dr["fromUserAccountID"]);
-                this.ToUserAccountID = FromObj.IntFromObj(dr["toUserAccountID"]);
-                this.IsRead = FromObj.BoolFromObj(dr["isRead"]);
-                this.Message = FromObj.StringFromObj(dr["message"]);
-                this.IsEnabled = FromObj.BoolFromObj(dr["isEnabled"]);
+                DirectMessageID = FromObj.IntFromObj(dr["directMessageID"]);
+                FromUserAccountID = FromObj.IntFromObj(dr["fromUserAccountID"]);
+                ToUserAccountID = FromObj.IntFromObj(dr["toUserAccountID"]);
+                IsRead = FromObj.BoolFromObj(dr["isRead"]);
+                Message = FromObj.StringFromObj(dr["message"]);
+                IsEnabled = FromObj.BoolFromObj(dr["isEnabled"]);
 
                 base.Get(dr);
             }
-            catch { }
+            catch
+            {
+            }
         }
-
-       
 
         #endregion
 
@@ -203,7 +177,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
 
                 sb.Append(@"<li class=""inbox_message"">");
 
@@ -211,23 +185,23 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                 if (IsInbox)
                 {
-                    ua = new UserAccount(this.FromUserAccountID);
+                    ua = new UserAccount(FromUserAccountID);
                 }
                 else
                 {
-                    ua = new UserAccount(this.ToUserAccountID);
+                    ua = new UserAccount(ToUserAccountID);
                 }
 
-                UserAccountDetail uad = new UserAccountDetail();
+                var uad = new UserAccountDetail();
                 uad.GetUserAccountDeailForUser(ua.UserAccountID);
 
                 sb.Append(uad.SmallUserIcon);
 
                 sb.Append(@"<div class=""content_message"">");
 
-                if (!this.IsRead)
+                if (!IsRead)
                 {
-                    if (this.IsInbox)
+                    if (IsInbox)
                         sb.AppendFormat(@" <span class=""label label-warning"">{0}</span> ", Messages.New);
                     else
                         sb.AppendFormat(@" <span class=""label label-warning"">{0}</span> ", Messages.Unread);
@@ -238,19 +212,21 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 }
 
                 sb.AppendFormat(@"<span title=""{0}"" class=""date_message"">", CreateDate.ToString("o"));
-                sb.Append(Utilities.TimeElapsedMessage(CreateDate)); ;
+                sb.Append(Utilities.TimeElapsedMessage(CreateDate));
+                ;
                 sb.Append(@"</span>");
 
-                if (UpdateDate != null && UpdateDate != DateTime.MinValue) 
+                if (UpdateDate != null && UpdateDate != DateTime.MinValue)
                 {
                     sb.AppendFormat(@"<span title=""{0}"" class=""date_message""> (", UpdateDate.ToString("o"));
-                    sb.Append(Utilities.TimeElapsedMessage(UpdateDate)); ;
+                    sb.Append(Utilities.TimeElapsedMessage(UpdateDate));
+                    ;
                     sb.Append(@")</span>");
                 }
 
                 sb.Append(@"<br />");
 
-                sb.Append(FromString.ReplaceNewLineWithHTML( Utilities.MakeLink(this.Message)));
+                sb.Append(FromString.ReplaceNewLineWithHTML(Utilities.MakeLink(Message)));
 
 
                 MembershipUser mu = Membership.GetUser();
@@ -258,10 +234,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 if (mu != null && Convert.ToInt32(mu.ProviderUserKey) != ua.UserAccountID)
                 {
                     // TODO: NO NEED FOR THIS WHEN VIEWING MESSAGES TO THE USER WHERE YOU REPLY
-                    sb.Append(@"<br />"); 
+                    sb.Append(@"<br />");
                     sb.Append(@"<br />");
                     sb.Append(@" <a class=""btn btn-success"" href=""");
-                    sb.AppendFormat(System.Web.VirtualPathUtility.ToAbsolute("~/account/reply/"));
+                    sb.AppendFormat(VirtualPathUtility.ToAbsolute("~/account/reply/"));
                     sb.Append(ua.UserName);
                     sb.Append(@""">");
                     sb.Append(Messages.Reply);
@@ -285,7 +261,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetMostRecentSentMessage";
 
-            ADOExtenstion.AddParameter(comm, "fromUserAccountID", fromUserAccountID);
+            comm.AddParameter("fromUserAccountID", fromUserAccountID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -297,30 +273,55 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 Get(dt.Rows[0]);
             }
         }
-
-        private bool _isChat = false;
-
-        public bool IsChat
-        {
-            get { return _isChat; }
-            set { _isChat = value; }
-        }
-
     }
 
     public class DirectMessages : List<DirectMessage>, IUnorderdList
     {
-        int messagereturncount = 20;
+        private bool _allInInbox = true;
+        private bool _includeStartAndEndTags = true;
+        private int messagereturncount = 20;
 
-        private bool _isChat = false;
+        public bool IsChat { get; set; }
 
-        public bool IsChat
+        public bool AllInInbox
         {
-            get { return _isChat; }
-            set { _isChat = value; }
+            get { return _allInInbox; }
+            set { _allInInbox = value; }
         }
 
-        public int  GetMailPageWiseToUser(int pageIndex, int pageSize, int toUserAccountID, int fromUserAccountID)
+        public bool IncludeStartAndEndTags
+        {
+            get { return _includeStartAndEndTags; }
+            set { _includeStartAndEndTags = value; }
+        }
+
+
+        public string ToUnorderdList
+        {
+            get
+            {
+                var sb = new StringBuilder(100);
+
+                if (IncludeStartAndEndTags) sb.Append(@"<ul id=""mail_items"">");
+
+                foreach (DirectMessage dm in this)
+                {
+                    if (!AllInInbox)
+                    {
+                        dm.IsInbox = false;
+                    }
+                    dm.IsChat = IsChat;
+
+                    sb.Append(dm.ToUnorderdListItem);
+                }
+
+                if (IncludeStartAndEndTags) sb.Append(@"</ul>");
+
+                return sb.ToString();
+            }
+        }
+
+        public int GetMailPageWiseToUser(int pageIndex, int pageSize, int toUserAccountID, int fromUserAccountID)
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -334,10 +335,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             param.Direction = ParameterDirection.Output;
             comm.Parameters.Add(param);
 
-            ADOExtenstion.AddParameter(comm, "PageIndex", pageIndex);
-            ADOExtenstion.AddParameter(comm, "PageSize", pageSize);
-            ADOExtenstion.AddParameter(comm, "toUserAccountID", toUserAccountID);
-            ADOExtenstion.AddParameter(comm, "fromUserAccountID", fromUserAccountID);
+            comm.AddParameter("PageIndex", pageIndex);
+            comm.AddParameter("PageSize", pageSize);
+            comm.AddParameter("toUserAccountID", toUserAccountID);
+            comm.AddParameter("fromUserAccountID", fromUserAccountID);
 
             DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
@@ -350,14 +351,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     content = new DirectMessage(dr);
-                    this.Add(content);
+                    Add(content);
                 }
             }
 
             return recordCount;
         }
 
-        public int GetMailPageWise(int pageIndex, int pageSize,  int toUserAccountID)
+        public int GetMailPageWise(int pageIndex, int pageSize, int toUserAccountID)
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -371,9 +372,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             param.Direction = ParameterDirection.Output;
             comm.Parameters.Add(param);
 
-            ADOExtenstion.AddParameter(comm, "PageIndex", pageIndex);
-            ADOExtenstion.AddParameter(comm, "PageSize", pageSize);
-            ADOExtenstion.AddParameter(comm, "toUserAccountID", toUserAccountID);
+            comm.AddParameter("PageIndex", pageIndex);
+            comm.AddParameter("PageSize", pageSize);
+            comm.AddParameter("toUserAccountID", toUserAccountID);
 
             DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
@@ -386,13 +387,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     content = new DirectMessage(dr);
-                    this.Add(content);
+                    Add(content);
                 }
             }
 
             return recordCount;
         }
-
 
 
         public int GetMailPageWiseFromUser(int pageIndex, int pageSize, int fromUserAccountID)
@@ -409,9 +409,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             param.Direction = ParameterDirection.Output;
             comm.Parameters.Add(param);
 
-            ADOExtenstion.AddParameter(comm, "PageIndex", pageIndex);
-            ADOExtenstion.AddParameter(comm, "PageSize", pageSize);
-            ADOExtenstion.AddParameter(comm, "fromUserAccountID", fromUserAccountID);
+            comm.AddParameter("PageIndex", pageIndex);
+            comm.AddParameter("PageSize", pageSize);
+            comm.AddParameter("fromUserAccountID", fromUserAccountID);
 
             DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
@@ -424,7 +424,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     content = new DirectMessage(dr);
-                    this.Add(content);
+                    Add(content);
                 }
             }
 
@@ -438,7 +438,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetDirectMessagesToUser";
 
-            ADOExtenstion.AddParameter(comm, "toUserAccountID",  toUserAccountID);
+            comm.AddParameter("toUserAccountID", toUserAccountID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -453,7 +453,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     if (messagereturncount > i)
                     {
                         dm = new DirectMessage(dr);
-                        this.Add(dm);
+                        Add(dm);
                         i++;
                     }
                 }
@@ -467,7 +467,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteAllDirectMessages";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID",  userAccountID);
+            comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
@@ -481,8 +481,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetDirectMessagesToFrom";
 
-            ADOExtenstion.AddParameter(comm, "fromUserAccountID",  fromUserAccountID);
-            ADOExtenstion.AddParameter(comm, "toUserAccountID",  toUserAccountID);
+            comm.AddParameter("fromUserAccountID", fromUserAccountID);
+            comm.AddParameter("toUserAccountID", toUserAccountID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -498,13 +498,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     if (messagereturncount > i)
                     {
                         dm = new DirectMessage(dr);
-                        this.Add(dm);
+                        Add(dm);
                         i++;
                     }
                 }
             }
         }
-
 
 
         public void GetDirectMessagesFromUser(int fromUserAccountID)
@@ -514,7 +513,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetDirectMessagesFromUser";
 
-            ADOExtenstion.AddParameter(comm, "fromUserAccountID",  fromUserAccountID);
+            comm.AddParameter("fromUserAccountID", fromUserAccountID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -531,13 +530,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     if (messagereturncount > i)
                     {
                         dm = new DirectMessage(dr);
-                        this.Add(dm);
+                        Add(dm);
                         i++;
                     }
                 }
             }
         }
-
 
 
         public static int GetDirectMessagesToUserCount(MembershipUser mu)
@@ -547,7 +545,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetDirectMessagesToUserCount";
 
-            ADOExtenstion.AddParameter(comm, "toUserAccountID",  Convert.ToInt32(mu.ProviderUserKey));
+            comm.AddParameter("toUserAccountID", Convert.ToInt32(mu.ProviderUserKey));
 
             // execute the stored procedure
             string rslt = DbAct.ExecuteScalar(comm);
@@ -555,57 +553,5 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             if (string.IsNullOrEmpty(rslt) && Convert.ToInt32(rslt) == 0) return 0;
             else return Convert.ToInt32(rslt);
         }
-
-
-
-
-
-       
-        private bool _allInInbox = true;
-
-        public bool AllInInbox
-        {
-            get { return _allInInbox; }
-            set { _allInInbox = value; }
-        }
-
-
-        private bool _includeStartAndEndTags = true;
-
-        public bool IncludeStartAndEndTags
-        {
-            get { return _includeStartAndEndTags; }
-            set { _includeStartAndEndTags = value; }
-        }
-
-
-
-        public string ToUnorderdList
-        {
-            get
-            {
-                StringBuilder sb = new StringBuilder(100);
-
-                if ( IncludeStartAndEndTags) sb.Append(@"<ul id=""mail_items"">");
-
-                foreach (DirectMessage dm in this)
-                {
-                    if (!AllInInbox)
-                    {
-                        dm.IsInbox = false;
-                    }
-                    dm.IsChat = this.IsChat;
-
-                    sb.Append(dm.ToUnorderdListItem);
-                }
-
-                if (IncludeStartAndEndTags)  sb.Append(@"</ul>");
-
-                return sb.ToString();
-            }
-        }
-
-
-     
     }
 }

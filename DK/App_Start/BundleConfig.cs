@@ -24,24 +24,24 @@ namespace DasKlub.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jsfooter_desktop").Include(
-                        "~/Scripts/jquery-{version}.js" ,
-                        "~/Scripts/jquery-ui-{version}.js",
-                        "~/Scripts/bootstrap.js",
-                        "~/Scripts/scrollpagination.js",
-                        //"~/Scripts/textarea_expander.js",
-                        "~/content/script/site_wide_13.js",
-                        "~/content/mediaelement/mediaelement-and-player.js"
-                        ));
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-{version}.js",
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/scrollpagination.js",
+                //"~/Scripts/textarea_expander.js",
+                "~/content/script/site_wide_13.js",
+                "~/content/mediaelement/mediaelement-and-player.js"
+                            ));
 
             bundles.Add(new ScriptBundle("~/bundles/jsfooter_mobile").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery-ui-{version}.js",
-                        "~/Scripts/bootstrap.js",
-                        "~/Scripts/scrollpagination.js",
-                        "~/content/script/site_wide_13.js",
-                        "~/content/mediaelement/mediaelement-and-player.js"
-            ));
- 
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-{version}.js",
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/scrollpagination.js",
+                "~/content/script/site_wide_13.js",
+                "~/content/mediaelement/mediaelement-and-player.js"
+                            ));
+
             //// Use the development version of Modernizr to develop with and learn from. Then, when you're
             //// ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             //bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -49,21 +49,21 @@ namespace DasKlub.App_Start
 
             bundles.Add(new StyleBundle("~/Content/css_head1").Include(
                 "~/content/bootstrap.css"
-                //"~/content/style/docs.css",
-                //"~/content/style/prettify.css",
-                ));
+                            //"~/content/style/docs.css",
+                            //"~/content/style/prettify.css",
+                            ));
 
             bundles.Add(new StyleBundle("~/Content/style/css_head2").Include(
-               "~/content/bootstrap-responsive.css",
-               "~/content/style/darkstrap.css",
-               "~/content/style/jquery-ui-{version}.custom.css",
-               "~/content/style/flag_sprites.css",
-               "~/content/style/site_spec_01.css"
-                ));
+                "~/content/bootstrap-responsive.css",
+                "~/content/style/darkstrap.css",
+                "~/content/style/jquery-ui-{version}.custom.css",
+                "~/content/style/flag_sprites.css",
+                "~/content/style/site_spec_01.css"
+                            ));
 
             bundles.Add(new StyleBundle("~/Content/mediaelement/css_mediaelement").Include(
-              "~/content/mediaelement/mediaelementplayer.css"
-                ));
+                "~/content/mediaelement/mediaelementplayer.css"
+                            ));
 
             BundleTable.EnableOptimizations = true;
         }

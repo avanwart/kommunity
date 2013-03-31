@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,13 +35,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetRecentProfileViews";
 
-            ADOExtenstion.AddParameter(comm, "lookedAtUserAccountID",  lookedAtUserAccountID);
+            comm.AddParameter("lookedAtUserAccountID", lookedAtUserAccountID);
 
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt != null)
             {
-                ArrayList theIDs = new ArrayList();
+                var theIDs = new ArrayList();
 
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -62,22 +63,20 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             //}
 
             return null;
-
         }
 
         public static int GetUniqueProfileVisitorCount(int lookedAtUserAccountID)
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
-            
+
             // set the stored procedure name
             comm.CommandText = "up_GetUniqueProfileVisitorCount";
 
-            ADOExtenstion.AddParameter(comm, "lookedAtUserAccountID", lookedAtUserAccountID);
+            comm.AddParameter("lookedAtUserAccountID", lookedAtUserAccountID);
 
             // execute the stored procedure
             return Convert.ToInt32(DbAct.ExecuteScalar(comm));
-
         }
 
         public override int Create()
@@ -87,9 +86,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddProfileLog";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID",   CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "lookingUserAccountID",  LookingUserAccountID);
-            ADOExtenstion.AddParameter(comm, "lookedAtUserAccountID", LookedAtUserAccountID);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("lookingUserAccountID", LookingUserAccountID);
+            comm.AddParameter("lookedAtUserAccountID", LookedAtUserAccountID);
 
             // the result is their ID
             string result = string.Empty;
@@ -102,39 +101,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                this.ProfileLogID = Convert.ToInt32(result);
+                ProfileLogID = Convert.ToInt32(result);
 
-                return this.ProfileLogID;
+                return ProfileLogID;
             }
-
         }
-
 
         #region properties
 
-        private int _profileLogID = 0;
+        public int ProfileLogID { get; set; }
 
-        public int ProfileLogID
-        {
-            get { return _profileLogID; }
-            set { _profileLogID = value; }
-        }
+        public int LookingUserAccountID { get; set; }
 
-        private int _lookingUserAccountID = 0;
-
-        public int LookingUserAccountID
-        {
-            get { return _lookingUserAccountID; }
-            set { _lookingUserAccountID = value; }
-        }
-
-        private int _lookedAtUserAccountID = 0;
-
-        public int LookedAtUserAccountID
-        {
-            get { return _lookedAtUserAccountID; }
-            set { _lookedAtUserAccountID = value; }
-        }
+        public int LookedAtUserAccountID { get; set; }
 
         #endregion
 
@@ -162,11 +141,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteProfileLog";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID",   userAccountID);
-            
+            comm.AddParameter("userAccountID", userAccountID);
+
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
         }
-
     }
 }

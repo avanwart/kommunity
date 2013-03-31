@@ -1,102 +1,103 @@
-﻿@model BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomains
-@using BootBaronLib.Resources;
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
+@using BootBaronLib.Resources
+@model BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomains
 @{
     ViewBag.Title = "SiteBranding";
 }
 <div class="row">
     <div class="span8">
 
-<h2>@Messages.Website: @Messages.Settings</h2>
+        <h2>@Messages.Website: @Messages.Settings</h2>
         <hr />
-            @Html.ActionLink(BootBaronLib.Resources.Messages.CreateNew, "EditSiteDomain")
+        @Html.ActionLink(Messages.CreateNew, "EditSiteDomain")
         <br />
         <table>
             <tr>
-                <th>@BootBaronLib.Resources.Messages.Name
+                <th>@Messages.Name
                 </th>
-                                <th>@BootBaronLib.Resources.Messages.Language
+                <th>@Messages.Language
                 </th>
                 <th>
                 </th>
             </tr>
-            @foreach (var item in Model)
+            @foreach (SiteDomain item in Model)
             {
                 <tr>
                     <td>
                         @item.PropertyType
                     </td>
                     <td>
-                    @item.Language
+                        @item.Language
                     </td>
                     <td>
-                        @Html.ActionLink(BootBaronLib.Resources.Messages.Edit,
-             "EditSiteDomain", new { siteDomainID = item.SiteDomainID })
+                        @Html.ActionLink(Messages.Edit,
+                                         "EditSiteDomain", new {siteDomainID = item.SiteDomainID})
                     </td>
                 </tr>
             }
         </table>
     </div>
     <div class="span4">
-         /// <summary>
-            /// Script at the bottom of the homepage
-            /// </summary>
-            HOMEB,
-            /// <summary>
-            /// Business address
-            /// </summary>
-            ADDRS,
-            /// <summary>
-            /// homepage script
-            /// </summary>
-            HOMES,
-            /// <summary>
-            /// Terms and condtions
-            /// </summary>
-            TERMS,
-            /// <summary>
-            /// Privacy policy
-            /// </summary>
-            PRIPL,
-            /// <summary>
-            /// About us
-            /// </summary>
-            ABOUT,
-            /// <summary>
-            /// Home featured user
-            /// </summary>
-            HOMEF,
-            /// <summary>
-            /// Home center/ canvas
-            /// </summary>
-            HOMEC,
-            /// <summary>
-            /// Radio stations -desktop
-            /// </summary>
-            RADIO,
-            /// <summary>
-            /// Radio stations mobile
-            /// </summary>
-            RADIM,
-            /// <summary>
-            /// Site tag line
-            /// </summary>
-            TAGLN,
-            /// <summary>
-            /// CSS style
-            /// </summary>
-            STYLE,
-
-            /// <summary>
-            /// Google analytics script head
-            /// </summary>
-            GOOGH,
-            /// <summary>
-            /// Google analytics script body
-            /// </summary>
-            GOOGB,
         /// <summary>
-        /// Google search
-        /// </summary>
+                /// Script at the bottom of the homepage
+                /// </summary>
+        HOMEB,
+        /// <summary>
+                /// Business address
+                /// </summary>
+        ADDRS,
+        /// <summary>
+                /// homepage script
+                /// </summary>
+        HOMES,
+        /// <summary>
+                /// Terms and condtions
+                /// </summary>
+        TERMS,
+        /// <summary>
+                /// Privacy policy
+                /// </summary>
+        PRIPL,
+        /// <summary>
+                /// About us
+                /// </summary>
+        ABOUT,
+        /// <summary>
+                /// Home featured user
+                /// </summary>
+        HOMEF,
+        /// <summary>
+                /// Home center/ canvas
+                /// </summary>
+        HOMEC,
+        /// <summary>
+                /// Radio stations -desktop
+                /// </summary>
+        RADIO,
+        /// <summary>
+                /// Radio stations mobile
+                /// </summary>
+        RADIM,
+        /// <summary>
+                /// Site tag line
+                /// </summary>
+        TAGLN,
+        /// <summary>
+                /// CSS style
+                /// </summary>
+        STYLE,
+
+        /// <summary>
+                /// Google analytics script head
+                /// </summary>
+        GOOGH,
+        /// <summary>
+                /// Google analytics script body
+                /// </summary>
+        GOOGB,
+        /// <summary>
+                /// Google search
+                /// </summary>
         GOOGS
     </div>
 </div>

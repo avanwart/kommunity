@@ -13,10 +13,11 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 namespace BootBaronLib.Interfaces
 {
     /// <summary>
-    /// Get all the rows for this table that are connected to the specified domain
+    ///     Get all the rows for this table that are connected to the specified domain
     /// </summary>
     public interface IGetAllForDomain
     {

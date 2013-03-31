@@ -1,94 +1,92 @@
-﻿@{
-    ViewBag.Title = BootBaronLib.Resources.Messages.UserManagement;
+﻿@using BootBaronLib.Operational
+@using BootBaronLib.Resources
+@{
+    ViewBag.Title = Messages.UserManagement;
 }
 
 <div class="row">
     <div class="span8">
-        <h2>@BootBaronLib.Resources.Messages.UserManagement</h2>
+        <h2>@Messages.UserManagement</h2>
 
 
         @if (ViewBag.SelectedUser != null)
         {
-
             <form action="@Url.Content("~/siteAdmin/updateroles")" method="post">
 
                 <fieldset>
                     <div class="editor-label">
-                        @BootBaronLib.Resources.Messages.UserName
+                        @Messages.UserName
                     </div>
                     <div class="editor-field">
                         <input type="hidden" name="userAccountID" value="@ViewBag.SelectedUser.UserAccountID" />
                         <b>
-                       @ViewBag.SelectedUser.UserName</b>
+                            @ViewBag.SelectedUser.UserName</b>
                     </div>
 
-                                       <div class="editor-label">
-                        @BootBaronLib.Resources.Messages.Age
+                    <div class="editor-label">
+                        @Messages.Age
                     </div>
                     <div class="editor-field">
                       
-                        <b>@BootBaronLib.Operational.Utilities.CalculateAge(ViewBag.UserAccountDetail.BirthDate)
-                       </b>
+                        <b>@Utilities.CalculateAge(ViewBag.UserAccountDetail.BirthDate)
+                        </b>
                     </div>
 
                     
-                                       <div class="editor-label">
-                        @BootBaronLib.Resources.Messages.IpAddress
+                    <div class="editor-label">
+                        @Messages.IpAddress
                     </div>
                     <div class="editor-field">
                       
                         <b> @ViewBag.SelectedUser.IpAddress
-                       </b>
+                        </b>
                     </div>
 
 
                            
-                                       <div class="editor-label">
-                        @BootBaronLib.Resources.Messages.EMail
+                    <div class="editor-label">
+                        @Messages.EMail
                     </div>
                     <div class="editor-field">
                       
                         <b> @ViewBag.SelectedUser.EMail
-                       </b>
+                        </b>
                     </div>
 
                     <div class="editor-label">
-                        @BootBaronLib.Resources.Messages.Roles
+                        @Messages.Roles
                     </div>
                     <div class="editor-field">
                         @if (ViewBag.AllRoles != null)
                         {
                             string[] rolesForUser = Roles.GetRolesForUser(ViewBag.SelectedUser.UserName);
-                           
+
                             <ul>
                                 @foreach (string role in ViewBag.AllRoles)
                                 {
-                              
                                     <li>@role
                                         <input type="checkbox" name="roleOption" value="@role"
-                                   @foreach (string userRole in rolesForUser)
-                                   {
-                                       if (userRole == role)
-                                       {
-                                        <text>
-                                             checked="checked"     
-                                         </text>
-                                           break;
-                                       }
-                                   }
-                                         />
+                                            @foreach (string userRole in rolesForUser)
+                                            {
+                                                if (userRole == role)
+                                                {
+                                                    <text>
+                                                        checked="checked"     
+                                                    </text>
+                                                    break;
+                                                }
+                                            }
+                                            />
                                     </li>
-
                                 }
                             </ul>
-
                         }
 
                     </div>
 
 
                 </fieldset>
-                <input class="btn btn-success" type="submit" value="@BootBaronLib.Resources.Messages.Submit" />
+                <input class="btn btn-success" type="submit" value="@Messages.Submit" />
             </form>
 
 
@@ -97,15 +95,15 @@
         <form action="@Url.Content("~/siteAdmin/FindByEmail")" method="post">
 
             <fieldset>
-                <legend>@BootBaronLib.Resources.Messages.Search</legend>
+                <legend>@Messages.Search</legend>
                 <div class="editor-label">
-                    @Html.Label(BootBaronLib.Resources.Messages.EMail)
+                    @Html.Label(Messages.EMail)
                 </div>
                 <div class="editor-field">
                     <input type="email" name="email" />
                 </div>
             </fieldset>
-            <input class="btn btn-success" type="submit" value="@BootBaronLib.Resources.Messages.Search" />
+            <input class="btn btn-success" type="submit" value="@Messages.Search" />
         </form>
 
         <br />
@@ -114,15 +112,15 @@
         <form action="@Url.Content("~/siteAdmin/FindByUsername")" method="post">
 
             <fieldset>
-                <legend>@BootBaronLib.Resources.Messages.Search</legend>
+                <legend>@Messages.Search</legend>
                 <div class="editor-label">
-                    @Html.Label(BootBaronLib.Resources.Messages.UserName)
+                    @Html.Label(Messages.UserName)
                 </div>
                 <div class="editor-field">
                     <input type="text" name="username" />
                 </div>
             </fieldset>
-            <input class="btn btn-success"  type="submit" value="@BootBaronLib.Resources.Messages.Search" />
+            <input class="btn btn-success"  type="submit" value="@Messages.Search" />
         </form>
 
 

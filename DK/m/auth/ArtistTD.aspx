@@ -1,13 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m/auth/Shared/Main.Master" AutoEventWireup="true"
-    CodeBehind="ArtistTD.aspx.cs" Inherits="DasKlub.m.auth.ArtistTD" %>
+         CodeBehind="ArtistTD.aspx.cs" Inherits="DasKlub.m.auth.ArtistTD" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
         <asp:GridView AutoGenerateColumns="False" DataKeyNames="eventID" ID="gvwEvents" runat="server"
-            BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px"
-            CellPadding="4" ForeColor="Black" GridLines="Vertical" AllowPaging="True" OnSelectedIndexChanged="gvwEvents_SelectedIndexChanged">
+                      BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px"
+                      CellPadding="4" ForeColor="Black" GridLines="Vertical" AllowPaging="True" OnSelectedIndexChanged="gvwEvents_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:CommandField ShowSelectButton="True" />

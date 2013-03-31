@@ -13,23 +13,20 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Operational;
 
 namespace DasKlub
 {
-    public partial class clean_videos : System.Web.UI.Page
+    public partial class clean_videos : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             int removed = 0;
-            Videos vids = new Videos();
+            var vids = new Videos();
 
             vids.GetAll();
 
@@ -38,8 +35,9 @@ namespace DasKlub
                 if (vv1.IsEnabled)
                 {
                     bool? sss = Utilities.GETRequest(new Uri(
-                        string.Format("http://i3.ytimg.com/vi/{0}/1.jpg", vv1.ProviderKey)),
-                        true);
+                                                         string.Format("http://i3.ytimg.com/vi/{0}/1.jpg",
+                                                                       vv1.ProviderKey)),
+                                                     true);
 
                     if (sss == null) continue;
 

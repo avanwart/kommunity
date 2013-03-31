@@ -1,4 +1,5 @@
-﻿//  Copyright 2013 
+﻿
+//  Copyright 2013 
 //  Name: Ryan Williams
 //  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
@@ -13,21 +14,14 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
-using System.Data;
 
 namespace BootBaronLib.Interfaces
 {
     /// <summary>
-    /// Represents basic actions for database operations on
-    /// an object with a unique ID integer
+    ///     Represents basic actions for database operations on
+    ///     an object with a unique ID integer
     /// </summary>
     public interface ICRUD : IBaseCRUD
     {
-       
-        /// <summary>
-        /// Get the object by id
-        /// </summary>
-        /// <param name="uniqueID">The primary key of the table</param>
-        void Get(int uniqueID);
     }
 }

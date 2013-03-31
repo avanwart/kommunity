@@ -1,27 +1,23 @@
 ﻿@using BootBaronLib.Resources
 @model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content
-@using  DasKlub.Helpers
 
 @{
-    ViewBag.Title =  Messages.CreateNew;
+    ViewBag.Title = Messages.CreateNew;
 }
 
  
-@{Html.RenderPartial("_adminMenu"); }
+@{ Html.RenderPartial("_adminMenu"); }
 
 <h2>@Messages.CreateNew</h2>
  
 
-@using (Html.BeginForm("EditArticle", "SiteAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditArticle", "SiteAdmin", FormMethod.Post, new {enctype = "multipart/form-data"}))
 {
-
-            
     @Html.ValidationSummary(true)
 
-    @Html.Partial("_contentForm");
+    @Html.Partial("_contentForm")
+    ;
     <br />
     <button type="submit" value="save"
-     class="btn btn-success">@BootBaronLib.Resources.Messages.CreateNew</button>
-            
-
+            class="btn btn-success">@Messages.CreateNew</button>
 }

@@ -1,5 +1,7 @@
-﻿@using BootBaronLib.Resources
-@using BootBaronLib.Operational;
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL
+@using BootBaronLib.Configs
+@using BootBaronLib.Operational
+@using BootBaronLib.Resources
 @model  DasKlub.Models.ProfileModel
 @{
     ViewBag.Title = Model.UserName;
@@ -13,30 +15,30 @@
             <div class="span3" style="margin: 0;">
                  
                 
-                        @{string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small"" alt=""{1}"" title=""{1}""></div> ", Model.CountryCode, Model.CountryName);
-}
+                @{ string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small"" alt=""{1}"" title=""{1}""></div> ", Model.CountryCode, Model.CountryName); }
              
-              @Html.Raw(coName)
+                @Html.Raw(coName)
               
 
                 <span title="@Utilities.GetLanguageNameForCode(Model.DefaultLanguage)">@Model.DefaultLanguage</span>
                 @Html.Raw(Model.RoleIcon)
                 @if (ViewBag.UserAccount != null &&
-                    BootBaronLib.AppSpec.DasKlub.BOL.UserAccount.IsUserOnline(
-                    Convert.ToInt32(ViewBag.UserAccount.UserAccountID)))
+                     UserAccount.IsUserOnline(
+                         Convert.ToInt32(ViewBag.UserAccount.UserAccountID)))
                 {
-                    <img style="height:10px; width: 10px; " alt="@ViewBag.DisplayName @Messages.IsOnline"
-                title="@ViewBag.DisplayName @Messages.IsOnline"
-                 src="@Url.Content("~/content/images/status/abutton2_e0.gif")" /> }
+                    <img style="height: 10px; width: 10px;" alt="@ViewBag.DisplayName @Messages.IsOnline"
+                         title="@ViewBag.DisplayName @Messages.IsOnline"
+                         src="@Url.Content("~/content/images/status/abutton2_e0.gif")" />
+                }
                 @if (ViewBag.UserAccountDetail.IsBirthdayToday)
                 {
-                    <img src="@Url.Content("~/content/images/icons/b_day_hat.png")" title="@Messages.HappyBirthday" alt="@Messages.HappyBirthday" />   
+                    <img src="@Url.Content("~/content/images/icons/b_day_hat.png")" title="@Messages.HappyBirthday" alt="@Messages.HappyBirthday" />
                 }
                 <img src="@Model.ProfilePhotoMain"
  
- style="display: none;border:none;"
-  alt="@Model.UserName"
-                          id="largeImg" />
+                     style="border: none; display: none;"
+                     alt="@Model.UserName"
+                     id="largeImg" />
                 <div id="rotator">
                     <ul>
                         <li class="show">
@@ -49,69 +51,66 @@
                     </ul>
                 </div>
 
-               <hr />
-                   <ul class="contact_options">
-                <li class="message_option"><a href="@Url.Content("~/account/reply/" + Model.UserName)" class="btn-inverse btn">@Messages.SendMessage</a>
-                </li>
-                @if (!Model.IsViewingSelf)
-                {
-                    if (Model.IsCyberFriend)
+                <hr />
+                <ul class="contact_options">
+                    <li class="message_option"><a href="@Url.Content("~/account/reply/" + Model.UserName)" class="btn-inverse btn">@Messages.SendMessage</a>
+                    </li>
+                    @if (!Model.IsViewingSelf)
                     {
-                    <li class="cyber_option_green"><i>@Messages.CyberAssociates</i></li>
-                    }
-                    else if (Model.IsWatingToBeCyberFriend)
-                    {
-                    <li class="cyber_option_orange"><i>@Messages.CyberAssociates: @Messages.Waiting</i></li>
-                    }
-                    else if (!Model.IsDeniedCyberFriend && !Model.IsDeniedRealFriend && !Model.IsRealFriend)
-                    {
-                    <li class="cyber_option"><a class="btn-inverse btn" href="@Url.Content("~/account/contactrequest/?contacttype=C&username=" + Model.UserName)">
-                        @Messages.AddAsCyberAssociate</a></li>
-                    }
+                        if (Model.IsCyberFriend)
+                        {
+                            <li class="cyber_option_green"><i>@Messages.CyberAssociates</i></li>
+                        }
+                        else if (Model.IsWatingToBeCyberFriend)
+                        {
+                            <li class="cyber_option_orange"><i>@Messages.CyberAssociates: @Messages.Waiting</i></li>
+                        }
+                        else if (!Model.IsDeniedCyberFriend && !Model.IsDeniedRealFriend && !Model.IsRealFriend)
+                        {
+                            <li class="cyber_option"><a class="btn-inverse btn" href="@Url.Content("~/account/contactrequest/?contacttype=C&username=" + Model.UserName)">
+                                                         @Messages.AddAsCyberAssociate</a></li>
+                        }
 
 
-
-
-
-                    if (Model.IsRealFriend)
-                    {
-                    <li class="irl_option_green"><i>@Messages.RealLifeContacts</i></li>
+                        if (Model.IsRealFriend)
+                        {
+                            <li class="irl_option_green"><i>@Messages.RealLifeContacts</i></li>
+                        }
+                        else if (Model.IsWatingToBeRealFriend)
+                        {
+                            <li class="irl_option_orange"><i>@Messages.RealLifeContacts: @Messages.Waiting</i></li>
+                        }
+                        else if (!Model.IsDeniedRealFriend)
+                        {
+                            <li class="irl_option"><a class="btn-inverse btn" href="@Url.Content("~/account/contactrequest/?contacttype=R&username=" + Model.UserName)">
+                                                       @Messages.AddAsRealLifeContact</a></li>
+                        }
                     }
-                    else if (Model.IsWatingToBeRealFriend)
-                    {
-                    <li class="irl_option_orange"><i>@Messages.RealLifeContacts: @Messages.Waiting</i></li>
-                    }
-                    else if (!Model.IsDeniedRealFriend)
-                    {
-                    <li class="irl_option"><a class="btn-inverse btn" href="@Url.Content("~/account/contactrequest/?contacttype=R&username=" + Model.UserName)">
-                        @Messages.AddAsRealLifeContact</a></li>
-                    }
-                }
-            </ul>
+                </ul>
             </div>
             <div class="span2 profile_group">
                 <div>
                     <ul class="profile_images">
                         <li><a id="photo_edit_1" title="@Messages.CurrentDefault"
-                                          href="@Model.ProfilePhotoMain"  
-               class="current_view_profile_pic profile_thumb m_over">
-                            <img src="@Model.ProfilePhotoMainThumb" alt="@Messages.CurrentDefault"  title="@Messages.CurrentDefault"   />
-                        </a></li>
+                               href="@Model.ProfilePhotoMain"  
+                               class="current_view_profile_pic profile_thumb m_over">
+                                <img src="@Model.ProfilePhotoMainThumb" alt="@Messages.CurrentDefault"  title="@Messages.CurrentDefault"   />
+                            </a></li>
                         @if (!string.IsNullOrWhiteSpace(ViewBag.SecondUserPhotoThumb))
                         {
                             <li><a  id="photo_edit_2"  title="2" 
-                                        href="@ViewBag.SecondUserPhotoFull"   class="profile_thumb m_over">
-                                <img   src="@ViewBag.SecondUserPhotoThumb"      />
-                            </a></li>
+                                    href="@ViewBag.SecondUserPhotoFull"   class="profile_thumb m_over">
+                                    <img   src="@ViewBag.SecondUserPhotoThumb"      />
+                                </a></li>
                         }
                         @if (!string.IsNullOrWhiteSpace(ViewBag.ThirdUserPhotoFull))
                         {
                             <li><a  id="photo_edit_3"  title="3" 
-                href="@ViewBag.ThirdUserPhotoFull"
+                                    href="@ViewBag.ThirdUserPhotoFull"
                 
-                class="profile_thumb m_over">
-                                <img   src="@ViewBag.ThirdUserPhotoThumb"     />
-                            </a></li>
+                                    class="profile_thumb m_over">
+                                    <img   src="@ViewBag.ThirdUserPhotoThumb"     />
+                                </a></li>
                         }
                     </ul>
                 </div>
@@ -120,11 +119,8 @@
         <div class="span7">
             @if (string.IsNullOrEmpty(Convert.ToString(ViewBag.UserPlaylistID)))
             {
-        
- 
-        
                 <iframe width="63%" height="@ViewBag.VideoHeight"
-     src="@BootBaronLib.Configs.GeneralConfigs.DefaultVideo?autoplay=1" frameborder="0" allowfullscreen>
+                        src="@GeneralConfigs.DefaultVideo?autoplay=1" frameborder="0" allowfullscreen>
                 </iframe>
                 <br />
                 <i>To replace default video, add a video to your playlist</i>
@@ -133,46 +129,41 @@
             {
                 <div id="player">
                 </div>
-        
+
                 <div class="row">
                     <div class="span2">
                         <img src="@Url.Content("~/content/images/icons/speaker_on.png")"
-                                     alt="on" id="speaker_sound" onclick="toggleSound()"
-                                        title="@Messages.TurnSoundOff" />
+                             alt="on" id="speaker_sound" onclick=" toggleSound() "
+                             title="@Messages.TurnSoundOff" />
                         <span id="speaker_words">@Messages.SoundOn</span>
                     </div>
                     <div class="span2">
-                        <div class="next_video" src="@Url.Content("~/content/images/forward_arrow.png")" alt="@Messages.NextVideo" onclick="goForwardNewVideo()"
-                                id="new_vid_forward" title="@Messages.NextVideo">
+                        <div class="next_video" src="@Url.Content("~/content/images/forward_arrow.png")" alt="@Messages.NextVideo" onclick=" goForwardNewVideo() "
+                             id="new_vid_forward" title="@Messages.NextVideo">
                         </div>
                         <span>@Messages.NextVideo</span>
                     </div>
-                </div>    
-                   
-                        
-     
-       
+                </div>
+
+
                 <b>@Messages.Music:</b>
                 <div id="current_song">
                 </div>
                 <b>@Messages.Uploader:</b>
                 <div id="user_account">
                 </div>
-        
-                <a class="btn btn-primary" id="add_to_playlist" href="#">@BootBaronLib.Resources.Messages.AddToPlaylist</a>
-                   
-                
+
+                <a class="btn btn-primary" id="add_to_playlist" href="#">@Messages.AddToPlaylist</a>
             }
         </div>
     </div>
 
-   
 
     <div class="row">
         <div class="span5">
-           <hr />
+            <hr />
             
-          @{Html.RenderPartial("_AdBanner4"); }
+            @{ Html.RenderPartial("_AdBanner4"); }
             @if (!string.IsNullOrWhiteSpace(Model.MostRecentStatusUpdate))
             {
                 <h5>@Messages.LatestUpdate</h5>
@@ -194,7 +185,7 @@
                         </td>
                     </tr>
                     @if (!string.IsNullOrWhiteSpace(Model.RelationshipStatusFull) &&
-                    Model.RelationshipStatusFull != Messages.Unknown)
+                         Model.RelationshipStatusFull != Messages.Unknown)
                     {
                         <tr>
                             <td>
@@ -202,13 +193,13 @@
                             </td>
                             <td>
                                 <img src="@Url.Content("~/content/images/relationshipstatus/" + @Model.RelationshipStatus + ".png")" alt="@Model.RelationshipStatusFull"
-                      title="@Model.RelationshipStatusFull" />
+                                     title="@Model.RelationshipStatusFull" />
                                 @Model.RelationshipStatusFull
                             </td>
                         </tr>
                     }
                     @if (!string.IsNullOrWhiteSpace(Model.InterestedInFull) &&
-                    Model.InterestedInFull != Messages.Unknown)
+                         Model.InterestedInFull != Messages.Unknown)
                     {
                         <tr>
                             <td>
@@ -227,8 +218,8 @@
                                 @Messages.Age
                             </td>
                             <td>
-                            <span title="@Model.Birthday.ToShortDateString()">
-                                @Model.Age</span>
+                                <span title="@Model.Birthday.ToShortDateString()">
+                                    @Model.Age</span>
                             </td>
                         </tr>
                     }
@@ -238,18 +229,18 @@
                         </td>
                         <td>
                             <span title="@Model.LastActivityDate.ToString("o")">
-                            @BootBaronLib.Operational.Utilities.TimeElapsedMessage(Model.LastActivityDate)
+                                @Utilities.TimeElapsedMessage(Model.LastActivityDate)
                             </span>
                         </td>
                     </tr>
 
-                     <tr>
+                    <tr>
                         <td>
                             @Messages.CreatedOn
                         </td>
                         <td>
-                           <span title="@Model.CreateDate.ToString("o")">
-                            @BootBaronLib.Operational.Utilities.TimeElapsedMessage(Model.CreateDate)
+                            <span title="@Model.CreateDate.ToString("o")">
+                                @Utilities.TimeElapsedMessage(Model.CreateDate)
                             </span>
                         </td>
                     </tr>
@@ -257,40 +248,36 @@
             </table>
             @if (Model.DisplayOnMap && !Utilities.IsiPhoneOriPad())
             {
-             <hr />
+                <hr />
                 <h5>@Messages.ApproximateLocation
                 </h5>
-                   
-                <div id="map_canvas" style="width: 100%; height: 250px;">
+
+                <div id="map_canvas" style="height: 250px; width: 100%;">
                 </div>
                 <br />
- 
             }
             
-            <div id="accordion" style="height:100% !important;">
+            <div id="accordion" style="height: 100% !important;">
                 @if (!string.IsNullOrWhiteSpace(Model.MessageToTheWorld))
                 {
-
                     <div>
-                      <h3 style="padding-left:15px;">
+                        <h3 style="padding-left: 15px;">
                             <a href="#">@Messages.MessageToTheWorld</a></h3>
                         <div>@Html.Raw(Model.MessageToTheWorld)</div>
                     </div>
                 }
                 @if (!string.IsNullOrWhiteSpace(Model.UploadedVideos))
                 {
-
                     <div>
-                              <h3 style="padding-left:15px;">
+                        <h3 style="padding-left: 15px;">
                             <a href="#">@Messages.UploadedVideos</a></h3>
                         <div>@Html.Raw(Model.UploadedVideos)</div>
                     </div>
                 }
                 @if (!string.IsNullOrWhiteSpace(Model.FavoriteVideos))
                 {
-
                     <div>
-                           <h3 style="padding-left:15px;">
+                        <h3 style="padding-left: 15px;">
                             <a href="#">@Messages.FavoriteVideos</a></h3>
                         <div>@Html.Raw(Model.FavoriteVideos)</div>
                     </div>
@@ -298,7 +285,7 @@
                 @if (!string.IsNullOrWhiteSpace(Model.BandsToSee))
                 {
                     <div>
-                             <h3 style="padding-left:15px;">
+                        <h3 style="padding-left: 15px;">
                             <a href="#">@Messages.BandsYouWantToSeeLiveOrJustListenTo</a></h3>
                         <div>@Html.Raw(Model.BandsToSee)</div>
                     </div>
@@ -306,25 +293,23 @@
                 @if (!string.IsNullOrWhiteSpace(Model.BandsSeen))
                 {
                     <div>
-                           <h3 style="padding-left:15px;">
+                        <h3 style="padding-left: 15px;">
                             <a href="#">@Messages.BandsYouHaveSeenLive</a></h3>
                         <div>@Html.Raw(Model.BandsSeen)</div>
                     </div>
                 }
                 @if (!string.IsNullOrWhiteSpace(Model.HardwareAndSoftwareSkills))
                 {
-
                     <div>
-                              <h3 style="padding-left:15px;">
+                        <h3 style="padding-left: 15px;">
                             <a href="#">@Messages.HardwareAndSoftwareSkills</a></h3>
                         <div>@Html.Raw(Model.HardwareAndSoftwareSkills)</div>
                     </div>
                 }
                 @if (!string.IsNullOrWhiteSpace(Model.Website))
                 {
-
                     <div>
-                            <h3 style="padding-left:15px;">
+                        <h3 style="padding-left: 15px;">
                             <a href="#">@Messages.Website</a></h3>
                         <div>
                             <a target="_blank" href="@Html.Raw(Model.Website)">@Html.Raw(Model.Website)</a></div>
@@ -332,7 +317,7 @@
                 }
             </div>
                
-           <br />
+            <br />
         </div>
        
         <div class="span7">
@@ -342,39 +327,39 @@
                 <h5>
                     <img src="@Url.Content("~/content/images/icons/icon_photo.png")" alt="@Messages.Photos" title="@Messages.Photos" />
                     @Messages.Photos: @Model.PhotoCount</h5>
-        
+
                 @Html.Raw(Model.PhotoItems)
 
                 if (Model.HasMoreThanMaxPhotos)
                 {
-                <div class="clear">
-                </div>
-            
-                <a href="@Url.Content("~/" + Model.UserName + "/userphotos")">@Messages.MorePhotos</a>
-                <br />
+                    <div class="clear">
+                    </div>
+
+                    <a href="@Url.Content("~/" + Model.UserName + "/userphotos")">@Messages.MorePhotos</a>
+                    <br />
                 }
             }
             
-                        @if (!string.IsNullOrWhiteSpace(Model.NewsArticles))
-                        {
-                                            <div class="clear">
+            @if (!string.IsNullOrWhiteSpace(Model.NewsArticles))
+            {
+                <div class="clear">
                 </div>
-            
-            <hr />
-                             <h5>
+
+                <hr />
+                <h5>
                     <img src="@Url.Content("~/content/images/icons/icon_doc.png")" alt="@Messages.News" title="@Messages.News" />
                     @Messages.News: @Model.NewsCount</h5>
 
-           <br />
-                            <ul id="article_list" class="no_mp">
-                             @Html.Raw(Model.NewsArticles)</ul>
-                           
-                            if (Model.NewsCount > 1)
-                            {
-                              <a href="@Url.Content("~/" + Model.UserName + "/news")">@Messages.ReadMore: @Messages.News</a>
                 <br />
-                            }
-                        }
+                <ul id="article_list" class="no_mp">
+                    @Html.Raw(Model.NewsArticles)</ul>
+
+                if (Model.NewsCount > 1)
+                {
+                    <a href="@Url.Content("~/" + Model.UserName + "/news")">@Messages.ReadMore: @Messages.News</a>
+                    <br />
+                }
+            }
 
         </div>
     </div>
@@ -385,7 +370,7 @@
         <div class="span12">
 
 
-<hr />
+            <hr />
             <b>@Messages.UploadedVideos</b>
             <div class="video_list">
                 @Html.Raw(Model.SongRecords)
@@ -401,7 +386,7 @@
         @if (Model.EnableProfileLogging)
         {
             <hr />
-        
+
             <div class="span3">
                 <h4>@Messages.Visitors: @Model.ProfileVisitorCount</h4>
                 <a class="m_over" href="@Url.Content("~/account/ProfileVisitors/" + Model.UserName)">
@@ -419,126 +404,115 @@
                 <img  alt="@Messages.RealLifeContacts" title="@Messages.RealLifeContacts"  src="@Url.Content("~/content/images/userstatus/handprint.png")" /></a>
         </div>
     </div>
-
-
 }
 @section _javascriptHead {
     @if (Model.DisplayOnMap && !Utilities.IsiPhoneOriPad())
     {
-            
-            
-
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&language=@BootBaronLib.Operational.Utilities.GetCurrentLanguageCode().ToLower()"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&language=@Utilities.GetCurrentLanguageCode().ToLower()"> </script>
         <script type="text/javascript">
-        var map;
-        function initialize() {
-            var myOptions = {
-                zoom: 11,
-                center: new google.maps.LatLng(@Model.Latitude, @Model.Longitude),
-                mapTypeId: google.maps.MapTypeId.HYBRID
-            };
-            map = new google.maps.Map(document.getElementById('map_canvas'),
-            myOptions);
-        }
+            var map;
 
-        google.maps.event.addDomListener(window, 'load', initialize);
+            function initialize() {
+                var myOptions = {
+                    zoom: 11,
+                    center: new google.maps.LatLng(@Model.Latitude, @Model.Longitude),
+                    mapTypeId: google.maps.MapTypeId.HYBRID
+                };
+                map = new google.maps.Map(document.getElementById('map_canvas'),
+                    myOptions);
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
         </script>
     }
-    @{Html.RenderPartial("_toggleSound"); }
+    @{ Html.RenderPartial("_toggleSound"); }
 }
 @section _javascript {
 
     @if (ViewBag.UserPlaylistID != null)
     {
-    <script src="http://www.youtube.com/player_api" type="text/javascript"></script>
-    <script type="text/javascript">
- 
-    $(document).ready(function() {
+        <script src="http://www.youtube.com/player_api" type="text/javascript"> </script>
+        <script type="text/javascript">
+
+            $(document).ready(function() {
 
 
-
-             playlistID = @Html.Raw(Convert.ToString(ViewBag.UserPlaylistID));
-             youtubeVideoHeight = '@ViewBag.VideoHeight';
-             youtubeVideoWidth = '63%',
-             loadFromHash = false;
-             autoPlay = @Html.Raw(Convert.ToString(ViewBag.AutoPlayNumber));
+                playlistID = @Html.Raw(Convert.ToString(ViewBag.UserPlaylistID));
+                youtubeVideoHeight = '@ViewBag.VideoHeight';
+                youtubeVideoWidth = '63%',
+                loadFromHash = false;
+                autoPlay = @Html.Raw(Convert.ToString(ViewBag.AutoPlayNumber));
 
                 var urlToFetch;
 
 
-                if ( loadFromHash )
-                {
+                if (loadFromHash) {
                     urlToFetch = $rootUrl + "io/operation.ashx?vid=" + hashkey;
-                }
-                else 
-                {
-                    urlToFetch = $rootUrl +"io/operation.ashx?param_type=begin_playlist&playlist=" + @Html.Raw(Convert.ToString(ViewBag.UserPlaylistID));
+                } else {
+                    urlToFetch = $rootUrl + "io/operation.ashx?param_type=begin_playlist&playlist=" + @Html.Raw(Convert.ToString(ViewBag.UserPlaylistID));
                 }
 
                 vidDefault = null;
 
                 //alert(hashkey);
-                $.getJSON(urlToFetch, function (data) {
+                $.getJSON(urlToFetch, function(data) {
 
                     vidDefault = data;
 
                     loadJSONVideo(vidDefault);
                 });
 
-    });
-        
-    </script>
+            });
+
+        </script>
     }
 
  
-        <script type="text/javascript">
+    <script type="text/javascript">
 
-            var lastImgSelect = $('.current_view_profile_pic');
-            $('#current_edit').text($(lastImgSelect).attr('title'));
-            $('#photo_edit').attr('value', 'photo_edit_1');
+        var lastImgSelect = $('.current_view_profile_pic');
+        $('#current_edit').text($(lastImgSelect).attr('title'));
+        $('#photo_edit').attr('value', 'photo_edit_1');
 
-            function AfterClick(theCl) {
-                $(lastImgSelect).removeClass('current_view_profile_pic');
-                $(theCl).addClass('current_view_profile_pic');
-                $('#current_edit').text($(theCl).attr('title'));
-                $('#photo_edit').attr('value', $(theCl).attr('id'));
+        function AfterClick(theCl) {
+            $(lastImgSelect).removeClass('current_view_profile_pic');
+            $(theCl).addClass('current_view_profile_pic');
+            $('#current_edit').text($(theCl).attr('title'));
+            $('#photo_edit').attr('value', $(theCl).attr('id'));
 
-            }
+        }
 
-            $('a.profile_thumb').click(function () {
-                var src = $(this).attr('href');
+        $('a.profile_thumb').click(function() {
+            var src = $(this).attr('href');
 
-                $('#largeImg').css('display', 'inherit');
-                $('#rotator').css('display', 'none');
+            $('#largeImg').css('display', 'inherit');
+            $('#rotator').css('display', 'none');
 
-                if (src != $('img#largeImg').attr('src').replace(/\?(.*)/, '')) {
-                    $('img#largeImg').stop().animate({
+            if (src != $('img#largeImg').attr('src').replace(/\?(.*)/, '')) {
+                $('img#largeImg').stop().animate({
                         opacity: '0'
-                    }, function () {
+                    }, function() {
                         $(this).attr('src', src + '?' + Math.floor(Math.random() * (10 * 100)));
-                    }).load(function () {
+                    }).load(function() {
                         $(this).stop().animate({
                             opacity: '1'
                         });
                     });
 
 
-                }
+            }
 
-                AfterClick(this);
-                lastImgSelect = $(this);
-                return false;
+            AfterClick(this);
+            lastImgSelect = $(this);
+            return false;
 
-            });
+        });
 
-
-
-            </script>
+    </script>
             
     @if (!string.IsNullOrWhiteSpace(ViewBag.SecondUserPhotoFull) &&
-       !string.IsNullOrWhiteSpace(ViewBag.ThirdUserPhotoFull))
+         !string.IsNullOrWhiteSpace(ViewBag.ThirdUserPhotoFull))
     {
-            
         <script type="text/javascript">
 
             function theRotator() {
@@ -559,40 +533,33 @@
 
                 //Get next image, when it reaches the end, rotate it back to the first image
                 var next = ((current.next().length) ? ((current.next().hasClass('show')) ? $('div#rotator ul li:first') :
-        current.next()) : $('div#rotator ul li:first'));
+                    current.next()) : $('div#rotator ul li:first'));
 
                 //Set the fade in effect for the next image, the show class has higher z-index
                 next.css({ opacity: 0.0 })
-	.addClass('show')
-	.animate({ opacity: 1.0 }, 1000);
+                    .addClass('show')
+                    .animate({ opacity: 1.0 }, 1000);
 
                 //Hide the current image
                 current.animate({ opacity: 0.0 }, 1000)
-	.removeClass('show');
+                    .removeClass('show');
 
-            };
+            }
 
-
-
-
+            ;
 
 
-
-            $(document).ready(function () {
+            $(document).ready(function() {
                 //Load the slideshow
                 theRotator();
             });
-
-
 
         </script>
     }
         
     <script type="text/javascript">
-        
 
- 
-        $(function () {
+        $(function() {
             $("#accordion").accordion({
                 header: "h3",
                 heightStyle: "content"
@@ -612,18 +579,18 @@
     {
         <script type="text/javascript">
 
-            $('#load_more_statuses').click(function () {
+            $('#load_more_statuses').click(function() {
 
                 $('#loading').fadeIn();
-                $.post($rootUrl +  '@Model.UserName' + '/WallMessages', { pageNumber: pageNumber  },
-                           function (data) {
+                $.post($rootUrl + '@Model.UserName' + '/WallMessages', { pageNumber: pageNumber },
+                    function(data) {
 
-                               pageNumber++;
-                               $('#status_update_list_items').append(data.ListItems);
+                        pageNumber++;
+                        $('#status_update_list_items').append(data.ListItems);
 
-                                
-                               $('#loading').fadeOut();
-                           });
+
+                        $('#loading').fadeOut();
+                    });
 
             });
 
@@ -632,20 +599,19 @@
     else
     {
         <script type="text/javascript">
-         
 
-            $(function () {
+            $(function() {
                 $('#status_update_list_items').scrollPagination({
-                    'contentPage': $rootUrl +  '@Model.UserName' + '/WallMessages', // the page where you are searching for results
+                    'contentPage': $rootUrl + '@Model.UserName' + '/WallMessages', // the page where you are searching for results
                     'contentData': {}, // you can pass the children().size() to know where is the pagination
                     'scrollTarget': $(window), // who gonna scroll? in this example, the full window
                     'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please
-                    'beforeLoad': function () { // before load, some function, maybe display a preloader div
+                    'beforeLoad': function() { // before load, some function, maybe display a preloader div
                         $('#loading').fadeIn();
                     },
-                    'afterLoad': function (elementsLoaded) { // after loading, some function to animate results and hide a preloader div
+                    'afterLoad': function(elementsLoaded) { // after loading, some function to animate results and hide a preloader div
                         $('#loading').fadeOut();
-                        
+
                         pageNumber++;
                         var i = 0;
                         $(elementsLoaded).fadeInWithDelay();
@@ -659,116 +625,108 @@
                 });
 
                 // code for fade in element by element with delay
-                $.fn.fadeInWithDelay = function () {
+                $.fn.fadeInWithDelay = function() {
                     var delay = 0;
-                    return this.each(function () {
+                    return this.each(function() {
                         $(this).delay(delay).animate({ opacity: 1 }, 600);
                         delay += 100;
                     });
                 };
 
             });
- 
+
         </script>
     }
     
-    }
+}
 @section _css {
     @if (Request.Browser.IsMobileDevice)
     {
-
-
         <style type="text/css">
               
  
 
-            .profile_images li img
-            {
-                width: 55px;
+            .profile_images li img {
                 height: 55px;
+                width: 55px;
             }
-            
-            .photo_item_list li img
-            {
-                width: 50px;
+
+            .photo_item_list li img {
                 height: 50px;
+                width: 50px;
             }
             
             
-            .photo_item_list img
-            {
+            .photo_item_list img {
                 margin: 0;
                 padding: 0;
             }
         </style>
     }
     <style type="text/css">
-        ul.photo_item_list
-        {
+        ul.photo_item_list {
             margin: 0;
             padding: 0;
         }
-        
-        div#accordion div
-        {
+
+        div#accordion div {
+            font-size: 14px;
             line-height: 1.7em;
             text-align: justify;
-            font-size: 14px;
         }
     </style>
 }
 
 <hr />
- <div class="row">
+<div class="row">
      
-        <div class="span5">
+    <div class="span5">
 
 
 
 
-               @{Html.RenderPartial("_AdBanner3"); }
+        @{ Html.RenderPartial("_AdBanner3"); }
 
-              <hr />
-            <h4>@Messages.Comments</h4>
+        <hr />
+        <h4>@Messages.Comments</h4>
 
-  @Html.Partial("_wallMessages", Model)
+        @Html.Partial("_wallMessages", Model)
 
-            <hr />
+        <hr />
             
                 
 
-          @{Html.RenderPartial("_AdBanner"); }
+        @{ Html.RenderPartial("_AdBanner"); }
     
-                 <hr />
-            <br />
-                                @if (Request.IsAuthenticated && !Model.IsViewingSelf)
-        {
-    <div class="row" style="padding-top: 20px">
-        @if (Model.UserConnectionID > 0)
-        {
-            @Html.ActionLink(Messages.Delete + ": " + Model.UserName,
-                "DeleteContact", "account",
-                    new { @userConnectionID = Model.UserConnectionID }, new { @onclick = "return confirm('" + Messages.Delete + ": " + Model.UserName + "')" }) 
-        }
+        <hr />
         <br />
-        @Html.ActionLink(Messages.Block + ": " + Model.UserName,
-                        "blockeduser", "account", new { @userAccountID = Model.UserAccountID },
-                    new { @onclick = "return confirm('" + Messages.Block + ": " + Model.UserName + "')" })
-                    <br />
-                     @Html.ActionLink(Messages.Report + ": " + Model.UserName,
-                        "reportuser", "account", new { @userAccountID = Model.UserAccountID },
-                new { @onclick = "return confirm('" + Messages.Report + ": " + Model.UserName + "')" })
-    </div>
-        }
-    
-            @if (Request.Browser.IsMobileDevice)
+        @if (Request.IsAuthenticated && !Model.IsViewingSelf)
         {
-
-            <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@BootBaronLib.Resources.Messages.LoadMore</button> 
-        }
-              @{Html.RenderPartial("_bottomLoadingMessage"); }
-    
-    
+            <div class="row" style="padding-top: 20px">
+                @if (Model.UserConnectionID > 0)
+                {
+                    @Html.ActionLink(Messages.Delete + ": " + Model.UserName,
+                                     "DeleteContact", "account",
+                                     new {@userConnectionID = Model.UserConnectionID}, new {@onclick = "return confirm('" + Messages.Delete + ": " + Model.UserName + "')"})
+                }
+                <br />
+                @Html.ActionLink(Messages.Block + ": " + Model.UserName,
+                                 "blockeduser", "account", new {@userAccountID = Model.UserAccountID},
+                                 new {@onclick = "return confirm('" + Messages.Block + ": " + Model.UserName + "')"})
+                <br />
+                @Html.ActionLink(Messages.Report + ": " + Model.UserName,
+                                 "reportuser", "account", new {@userAccountID = Model.UserAccountID},
+                                 new {@onclick = "return confirm('" + Messages.Report + ": " + Model.UserName + "')"})
             </div>
+        }
+    
+        @if (Request.Browser.IsMobileDevice)
+        {
+            <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@Messages.LoadMore</button>
+        }
+        @{ Html.RenderPartial("_bottomLoadingMessage"); }
+    
+    
+    </div>
 
-     </div>
+</div>

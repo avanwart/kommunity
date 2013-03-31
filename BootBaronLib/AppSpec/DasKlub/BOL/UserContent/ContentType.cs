@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,29 +23,13 @@ using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
 
-
 namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
 {
     public class ContentType : BaseIUserLogCRUD
     {
         #region properties
 
-        private int _contentTypeID = 0;
-
-        public int ContentTypeID
-        {
-            get { return _contentTypeID; }
-            set { _contentTypeID = value; }
-        }
-
         private string _contentName = string.Empty;
-
-        public string ContentName
-        {
-            get { return _contentName; }
-            set { _contentName = value; }
-        }
-
 
 
         public ContentType(DataRow dr)
@@ -64,8 +49,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             Get(p);
         }
 
-        #endregion
+        public int ContentTypeID { get; set; }
 
+        public string ContentName
+        {
+            get { return _contentName; }
+            set { _contentName = value; }
+        }
+
+        #endregion
 
         public override void Get(int contentTypeID)
         {
@@ -74,7 +66,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             // set the stored procedure name
             comm.CommandText = "up_GetContentTypeByID";
 
-            ADOExtenstion.AddParameter(comm, "contentTypeID",  contentTypeID);
+            comm.AddParameter("contentTypeID", contentTypeID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -85,8 +77,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
                 Get(dt.Rows[0]);
             }
             //   base.Get(dr);
-
-
         }
 
         //public void GetContentTypeByContentCode()
@@ -117,18 +107,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
 
         public override void Get(DataRow dr)
         {
-
-
             try
             {
-
-
                 base.Get(dr);
 
 
-
-
-                this.ContentTypeID = FromObj.IntFromObj(dr["contentTypeID"]);
+                ContentTypeID = FromObj.IntFromObj(dr["contentTypeID"]);
 
                 string contentCode = FromObj.StringFromObj(dr["contentCode"]);
 
@@ -140,34 +124,21 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
                 //        Enum.Parse(typeof(SiteEnums.ContentTypesForPages), contentCode);
 
 
-
-                this.ContentName = FromObj.StringFromObj(dr["contentName"]);
-
-
+                ContentName = FromObj.StringFromObj(dr["contentName"]);
             }
             catch (Exception ex)
             {
                 Utilities.LogError(ex);
             }
-
-
-
         }
     }
 
     public class ContentTypes : List<ContentType>, IGetAll
     {
-
-
-
-
         #region IGetAll Members
 
         public void GetAll()
         {
-
-
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
@@ -180,9 +151,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             if (dt != null && dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)
-                    this.Add(new ContentType(dr));
+                    Add(new ContentType(dr));
             }
         }
+
         #endregion
     }
 }

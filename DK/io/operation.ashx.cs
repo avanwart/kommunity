@@ -13,8 +13,10 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web;
@@ -28,62 +30,69 @@ using LitS3;
 
 namespace DasKlub.io
 {
-
     public class operation : IHttpHandler
     {
         public void ProcessRequest(HttpContext context)
         {
-    //        context.Response.ContentType = "text/plain";
+            //        context.Response.ContentType = "text/plain";
 
 
+            //    context.Response.CacheControl = "no-cache";
 
-   //    context.Response.CacheControl = "no-cache";
+            // context.Response.AddHeader("Pragma", "no-cache");
 
-   // context.Response.AddHeader("Pragma", "no-cache");
-        
-   // //context.Response.AddHeader("Pragma", "no-store");
+            // //context.Response.AddHeader("Pragma", "no-store");
 
-   // //context.Response.AddHeader("cache-control", "no-cache");
+            // //context.Response.AddHeader("cache-control", "no-cache");
 
-   //context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
-   // context.Response.Cache.SetNoServerCaching();
+            // context.Response.Cache.SetNoServerCaching();
 
-            if (string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.param_type.ToString()])) return;
+            if (string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.param_type.ToString()]))
+                return;
 
-            SiteEnums.QueryStringNames ptyc = (SiteEnums.QueryStringNames)Enum.Parse(typeof(SiteEnums.QueryStringNames),
-                context.Request.QueryString[SiteEnums.QueryStringNames.param_type.ToString()]);
+            var ptyc = (SiteEnums.QueryStringNames) Enum.Parse(typeof (SiteEnums.QueryStringNames),
+                                                               context.Request.QueryString[
+                                                                   SiteEnums.QueryStringNames.param_type.ToString()]);
 
-          //  Dictionary<string, Subgurim.Chat.Usuario> usrrs = null;
-            StringBuilder sb = null;
-            MembershipUser mu = null;
+            //  Dictionary<string, Subgurim.Chat.Usuario> usrrs = null;
+            StringBuilder sb;
+            MembershipUser mu;
 
             switch (ptyc)
             {
                 case SiteEnums.QueryStringNames.status_update:
+
                     #region status_update
 
-                    string key = context.Request.QueryString[SiteEnums.QueryStringNames.status_update_id.ToString()];
+                    var key = context.Request.QueryString[SiteEnums.QueryStringNames.status_update_id.ToString()];
 
                     if (string.IsNullOrEmpty(key))
                     {
-                        key = context.Request.QueryString[SiteEnums.QueryStringNames.most_applauded_status_update_id.ToString()];
+                        key =
+                            context.Request.QueryString[
+                                SiteEnums.QueryStringNames.most_applauded_status_update_id.ToString()];
                     }
 
-                    int statusUpdateID = Convert.ToInt32(key);
+                    var statusUpdateID = Convert.ToInt32(key);
 
-                    StatusUpdate statup = null;
+                    StatusUpdate statup;
 
-                    if (!string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.stat_update_rsp.ToString()]))
+                    if (
+                        !string.IsNullOrEmpty(
+                            context.Request.QueryString[SiteEnums.QueryStringNames.stat_update_rsp.ToString()]))
                     {
                         mu = Membership.GetUser();
 
-                        Acknowledgement ack = new Acknowledgement();
-
-                        ack.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
-                        ack.UserAccountID = Convert.ToInt32(mu.ProviderUserKey);
-                        ack.AcknowledgementType = Convert.ToChar(context.Request.QueryString[SiteEnums.QueryStringNames.stat_update_rsp.ToString()]);
-                        ack.StatusUpdateID = statusUpdateID;
+                        var ack = new Acknowledgement
+                            {
+                                CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
+                                UserAccountID = Convert.ToInt32(mu.ProviderUserKey),
+                                AcknowledgementType = Convert.ToChar(
+                                    context.Request.QueryString[SiteEnums.QueryStringNames.stat_update_rsp.ToString()]),
+                                StatusUpdateID = statusUpdateID
+                            };
 
                         statup = new StatusUpdate(statusUpdateID);
 
@@ -91,24 +100,26 @@ namespace DasKlub.io
                         {
                             ack.Create();
 
-                            StatusUpdateNotification sun = new StatusUpdateNotification();
+                            var sun = new StatusUpdateNotification();
 
                             if (ack.AcknowledgementType == Convert.ToChar(SiteEnums.ResponseType.A.ToString()))
                             {
                                 //  sun.GetStatusUpdateNotificationForUserStatus(Convert.ToInt32(mu.ProviderUserKey), statusUpdateID, SiteEnums.ResponseType.A);
-                                sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID, statusUpdateID, SiteEnums.ResponseType.A);
+                                sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID, statusUpdateID,
+                                                                             SiteEnums.ResponseType.A);
                             }
                             else if (ack.AcknowledgementType == Convert.ToChar(SiteEnums.ResponseType.B.ToString()))
                             {
                                 //sun.GetStatusUpdateNotificationForUserStatus(Convert.ToInt32(mu.ProviderUserKey), statusUpdateID, SiteEnums.ResponseType.B);
-                                sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID, statusUpdateID, SiteEnums.ResponseType.B);
+                                sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID, statusUpdateID,
+                                                                             SiteEnums.ResponseType.B);
                             }
 
                             if (Convert.ToInt32(mu.ProviderUserKey) != statup.UserAccountID)
                             {
                                 sun.UserAccountID = statup.UserAccountID;
 
-                                SiteEnums.ResponseType rspType = SiteEnums.ResponseType.U;
+                                SiteEnums.ResponseType rspType;
 
                                 if (ack.AcknowledgementType == Convert.ToChar(SiteEnums.ResponseType.A.ToString()))
                                 {
@@ -138,7 +149,8 @@ namespace DasKlub.io
                                 SendNotificationEmail(statup.UserAccountID, rspType, sun.StatusUpdateID);
                             }
 
-                            context.Response.Write(@"{""StatusAcks"": """ + HttpUtility.HtmlEncode(statup.StatusAcknowledgements) + @"""}");
+                            context.Response.Write(@"{""StatusAcks"": """ +
+                                                   HttpUtility.HtmlEncode(statup.StatusAcknowledgements) + @"""}");
                         }
                         else
                         {
@@ -150,44 +162,53 @@ namespace DasKlub.io
 
                             // TODO: DELETE NOTIFICATION
 
-                            context.Response.Write(@"{""StatusAcks"": """ + HttpUtility.HtmlEncode(statup.StatusAcknowledgements) + @"""}");
+                            context.Response.Write(@"{""StatusAcks"": """ +
+                                                   HttpUtility.HtmlEncode(statup.StatusAcknowledgements) + @"""}");
                         }
                     }
-                    else if (!string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.stat_update_comment_rsp.ToString()]))
+                    else if (
+                        !string.IsNullOrEmpty(
+                            context.Request.QueryString[
+                                SiteEnums.QueryStringNames.stat_update_comment_rsp.ToString()]))
                     {
                         mu = Membership.GetUser();
 
-                        StatusCommentAcknowledgement ack = new StatusCommentAcknowledgement();
+                        var ack = new StatusCommentAcknowledgement();
 
                         ack.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
                         ack.UserAccountID = Convert.ToInt32(mu.ProviderUserKey);
-                        ack.AcknowledgementType = Convert.ToChar(context.Request.QueryString[SiteEnums.QueryStringNames.stat_update_comment_rsp.ToString()]);
+                        ack.AcknowledgementType =
+                            Convert.ToChar(
+                                context.Request.QueryString[
+                                    SiteEnums.QueryStringNames.stat_update_comment_rsp.ToString()]);
                         ack.StatusCommentID = statusUpdateID; // this is really the commentID (or should be)
 
-                        StatusComment statcomup = new StatusComment(statusUpdateID);
+                        var statcomup = new StatusComment(statusUpdateID);
 
                         statup = new StatusUpdate(statcomup.StatusUpdateID);
 
-                        if (!StatusCommentAcknowledgement.IsUserCommentAcknowledgement(statcomup.StatusCommentID, Convert.ToInt32(mu.ProviderUserKey)))
+                        if (
+                            !StatusCommentAcknowledgement.IsUserCommentAcknowledgement(statcomup.StatusCommentID,
+                                                                                       Convert.ToInt32(
+                                                                                           mu.ProviderUserKey)))
                         {
                             ack.Create();
 
-                            StatusUpdateNotification sun = new StatusUpdateNotification();
+                            var sun = new StatusUpdateNotification();
 
-                            if (ack.AcknowledgementType == Convert.ToChar(SiteEnums.ResponseType.A.ToString()))
-                            {
-                                sun.GetStatusUpdateNotificationForUserStatus(statcomup.UserAccountID, statcomup.StatusUpdateID, SiteEnums.ResponseType.A);
-                            }
-                            else
-                            {
-                                sun.GetStatusUpdateNotificationForUserStatus(statcomup.UserAccountID, statcomup.StatusUpdateID, SiteEnums.ResponseType.B);
-                            }
+                            sun.GetStatusUpdateNotificationForUserStatus(statcomup.UserAccountID,
+                                                                         statcomup.StatusUpdateID,
+                                                                         ack.AcknowledgementType ==
+                                                                         Convert.ToChar(
+                                                                             SiteEnums.ResponseType.A.ToString())
+                                                                             ? SiteEnums.ResponseType.A
+                                                                             : SiteEnums.ResponseType.B);
 
                             if (Convert.ToInt32(mu.ProviderUserKey) != statcomup.UserAccountID)
                             {
                                 sun.UserAccountID = statcomup.UserAccountID;
 
-                                SiteEnums.ResponseType rspType = SiteEnums.ResponseType.U;
+                                SiteEnums.ResponseType rspType;
 
                                 if (ack.AcknowledgementType == Convert.ToChar(SiteEnums.ResponseType.A.ToString()))
                                 {
@@ -217,7 +238,9 @@ namespace DasKlub.io
                                 SendNotificationEmail(statup.UserAccountID, rspType, sun.StatusUpdateID);
                             }
 
-                            context.Response.Write(@"{""StatusAcks"": """ + HttpUtility.HtmlEncode(statcomup.StatusCommentAcknowledgementsOptions) + @"""}");
+                            context.Response.Write(@"{""StatusAcks"": """ +
+                                                   HttpUtility.HtmlEncode(
+                                                       statcomup.StatusCommentAcknowledgementsOptions) + @"""}");
                         }
                         else
                         {
@@ -228,22 +251,30 @@ namespace DasKlub.io
                             ack.Delete();
                             // TODO: DELETE NOTIFICATION
 
-                            context.Response.Write(@"{""StatusAcks"": """ + HttpUtility.HtmlEncode(statcomup.StatusCommentAcknowledgementsOptions) + @"""}");
+                            context.Response.Write(@"{""StatusAcks"": """ +
+                                                   HttpUtility.HtmlEncode(
+                                                       statcomup.StatusCommentAcknowledgementsOptions) + @"""}");
                         }
                     }
-                    else if (!string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.comment_msg.ToString()]) &&
-                        !string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.comment_msg.ToString()])
+                    else if (
+                        !string.IsNullOrEmpty(
+                            context.Request.QueryString[SiteEnums.QueryStringNames.comment_msg.ToString()]) &&
+                        !string.IsNullOrEmpty(
+                            context.Request.QueryString[SiteEnums.QueryStringNames.comment_msg.ToString()])
                         )
                     {
                         mu = Membership.GetUser();
 
                         if (mu == null) return;
 
-                        StatusComment statCom = new StatusComment();
-                        statCom.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
-                        statCom.Message = HttpUtility.HtmlEncode(context.Request.QueryString[SiteEnums.QueryStringNames.comment_msg.ToString()]);
-                        statCom.StatusUpdateID = statusUpdateID;
-                        statCom.UserAccountID = Convert.ToInt32(mu.ProviderUserKey);
+                        var statCom = new StatusComment
+                            {
+                                CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
+                                Message = HttpUtility.HtmlEncode(
+                                    context.Request.QueryString[SiteEnums.QueryStringNames.comment_msg.ToString()]),
+                                StatusUpdateID = statusUpdateID,
+                                UserAccountID = Convert.ToInt32(mu.ProviderUserKey)
+                            };
 
                         //statCom.GetStatusCommentMessage(); // ? ignore this duplicate now
 
@@ -251,10 +282,12 @@ namespace DasKlub.io
                         if (statCom.StatusCommentID == 0)
                         {
                             //BUG: THERE IS AN EVENT HANDLER THAT HAS QUEUED UP TOO MANY
-                            StatusUpdate suLast = new StatusUpdate();
+                            var suLast = new StatusUpdate();
                             suLast.GetMostRecentUserStatus(Convert.ToInt32(mu.ProviderUserKey));
 
-                            if (suLast.Message.Trim() != statCom.Message.Trim() || (suLast.Message.Trim() == statCom.Message.Trim() && suLast.StatusUpdateID != statCom.StatusUpdateID))
+                            if (suLast.Message.Trim() != statCom.Message.Trim() ||
+                                (suLast.Message.Trim() == statCom.Message.Trim() &&
+                                 suLast.StatusUpdateID != statCom.StatusUpdateID))
                             {
                                 statCom.Create();
                             }
@@ -268,7 +301,9 @@ namespace DasKlub.io
                             {
                                 sun = new StatusUpdateNotification();
 
-                                sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID, statusUpdateID, SiteEnums.ResponseType.C);
+                                sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID,
+                                                                             statusUpdateID,
+                                                                             SiteEnums.ResponseType.C);
 
                                 if (sun.StatusUpdateNotificationID == 0)
                                 {
@@ -286,18 +321,21 @@ namespace DasKlub.io
                                     sun.Update();
                                 }
 
-                                SendNotificationEmail(statup.UserAccountID, SiteEnums.ResponseType.C, sun.StatusUpdateID);
+                                SendNotificationEmail(statup.UserAccountID, SiteEnums.ResponseType.C,
+                                                      sun.StatusUpdateID);
                             }
 
-                            StatusComments statComs = new StatusComments();
+                            var statComs = new StatusComments();
 
                             statComs.GetAllStatusCommentsForUpdate(statusUpdateID);
 
-                            foreach (StatusComment sc1 in statComs)
+                            foreach (var sc1 in statComs)
                             {
                                 sun = new StatusUpdateNotification();
 
-                                sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID, statusUpdateID, SiteEnums.ResponseType.C);
+                                sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID,
+                                                                             statusUpdateID,
+                                                                             SiteEnums.ResponseType.C);
 
                                 if (Convert.ToInt32(mu.ProviderUserKey) == sc1.UserAccountID ||
                                     Convert.ToInt32(mu.ProviderUserKey) == statup.UserAccountID) continue;
@@ -315,11 +353,13 @@ namespace DasKlub.io
                                     sun.Update();
                                 }
                             }
-                            context.Response.Write(@"{""StatusAcks"": """ +  @"""}");
+                            context.Response.Write(@"{""StatusAcks"": """ + @"""}");
                         }
                     }
-                    else if (!string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.act_type.ToString()]) &&
-                         context.Request.QueryString[SiteEnums.QueryStringNames.act_type.ToString()] == "P"
+                    else if (
+                        !string.IsNullOrEmpty(
+                            context.Request.QueryString[SiteEnums.QueryStringNames.act_type.ToString()]) &&
+                        context.Request.QueryString[SiteEnums.QueryStringNames.act_type.ToString()] == "P"
                         )
                     {
                         // delete post
@@ -328,12 +368,13 @@ namespace DasKlub.io
                         StatusUpdateNotifications.DeleteNotificationsForStatusUpdate(statup.StatusUpdateID);
                         Acknowledgements.DeleteStatusAcknowledgements(statup.StatusUpdateID);
 
-                        StatusComments statComs = new StatusComments();
+                        var statComs = new StatusComments();
                         statComs.GetAllStatusCommentsForUpdate(statup.StatusUpdateID);
 
                         foreach (StatusComment sc1 in statComs)
                         {
-                            StatusCommentAcknowledgements.DeleteStatusCommentAcknowledgements(sc1.StatusCommentID);
+                            StatusCommentAcknowledgements.DeleteStatusCommentAcknowledgements(
+                                sc1.StatusCommentID);
                         }
                         StatusComments.DeleteStatusComments(statup.StatusUpdateID);
 
@@ -341,12 +382,13 @@ namespace DasKlub.io
 
                         if (statup.PhotoItemID != null)
                         {
-                            PhotoItem pitm = new PhotoItem(Convert.ToInt32(statup.PhotoItemID));
+                            var pitm = new PhotoItem(Convert.ToInt32(statup.PhotoItemID));
 
-                            S3Service s3 = new S3Service();
-
-                            s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
-                            s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
+                            var s3 = new S3Service
+                                {
+                                    AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                                    SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+                                };
 
                             if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, pitm.FilePathRaw))
                             {
@@ -367,20 +409,27 @@ namespace DasKlub.io
                         }
                         context.Response.Write(@"{""StatusAcks"": """ + @"""}");
                     }
-                    else if (!string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.act_type.ToString()]) &&
-                             context.Request.QueryString[SiteEnums.QueryStringNames.act_type.ToString()] == "C"
-                            )
+                    else if (
+                        !string.IsNullOrEmpty(
+                            context.Request.QueryString[SiteEnums.QueryStringNames.act_type.ToString()]) &&
+                        context.Request.QueryString[SiteEnums.QueryStringNames.act_type.ToString()] ==
+                        "C"
+                        )
                     {
                         // delete comment
 
-                        StatusComment statCom = new StatusComment(
-                            Convert.ToInt32(context.Request.QueryString[SiteEnums.QueryStringNames.status_com_id.ToString()]));
+                        var statCom = new StatusComment(
+                            Convert.ToInt32(
+                                context.Request.QueryString[
+                                    SiteEnums.QueryStringNames.status_com_id.ToString()]));
 
-                        StatusCommentAcknowledgements.DeleteStatusCommentAcknowledgements(statCom.StatusCommentID);
+                        StatusCommentAcknowledgements.DeleteStatusCommentAcknowledgements(
+                            statCom.StatusCommentID);
 
                         statCom.Delete();
 
-                        context.Response.Write(@"{""StatusUpdateID"": """ + statCom.StatusUpdateID.ToString() + @"""}");
+                        context.Response.Write(@"{""StatusUpdateID"": """ +
+                                               statCom.StatusUpdateID.ToString() + @"""}");
                     }
                     else if (!string.IsNullOrEmpty(
                         context.Request.QueryString[SiteEnums.QueryStringNames.all_comments.ToString()]))
@@ -389,19 +438,12 @@ namespace DasKlub.io
 
                         if (mu == null) return;
 
-                        StatusComments preFilter = new StatusComments();
+                        var preFilter = new StatusComments();
 
                         preFilter.GetAllStatusCommentsForUpdate(statusUpdateID);
 
-                        StatusComments statComs = new StatusComments();
-
-                        foreach (BootBaronLib.AppSpec.DasKlub.BOL.StatusComment su1 in preFilter)
-                        {
-                            if (!BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID))
-                            {
-                                statComs.Add(su1);
-                            }
-                        }
+                        var statComs = new StatusComments();
+                        statComs.AddRange(preFilter.Where(su1 => !BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID)));
 
                         statComs.IncludeStartAndEndTags = true;
 
@@ -409,49 +451,52 @@ namespace DasKlub.io
 
                         sb.Append(statComs.ToUnorderdList);
 
-                        context.Response.Write(@"{""StatusComs"": """ + HttpUtility.HtmlEncode(sb.ToString()) + @"""}");
+                        context.Response.Write(@"{""StatusComs"": """ +
+                                               HttpUtility.HtmlEncode(sb.ToString()) + @"""}");
                     }
                     else if (!string.IsNullOrEmpty(
-                            context.Request.QueryString[SiteEnums.QueryStringNames.comment_page.ToString()]))
+                        context.Request.QueryString[SiteEnums.QueryStringNames.comment_page.ToString()]))
                     {
-                        int pcount = Convert.ToInt32(context.Request.QueryString[SiteEnums.QueryStringNames.comment_page.ToString()]);
+                        var pcount =
+                            Convert.ToInt32(
+                                context.Request.QueryString[
+                                    SiteEnums.QueryStringNames.comment_page.ToString()]);
 
-                        StatusUpdates statups = new StatusUpdates();
+                        var statups = new StatusUpdates();
 
                         pcount = pcount + 10;
 
-                        StatusUpdates preFilter = new StatusUpdates();
+                        var preFilter = new StatusUpdates();
 
                         preFilter.GetStatusUpdatesPageWise(pcount, 1);
 
-                        StatusUpdates sus = new StatusUpdates();
-
+ 
                         mu = Membership.GetUser();
 
-                        foreach (BootBaronLib.AppSpec.DasKlub.BOL.StatusUpdate su1
-                            in preFilter)
-                        {
-                            if (!BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID))
-                            {
-                                statups.Add(su1);
-                            }
-                        }
+                        statups.AddRange(preFilter.Where(su1 => !BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID)));
 
                         statups.IncludeStartAndEndTags = false;
 
-                        context.Response.Write(@"{""StatusUpdates"": """ + HttpUtility.HtmlEncode(statups.ToUnorderdList) + @"""}");
+                        context.Response.Write(@"{""StatusUpdates"": """ +
+                                               HttpUtility.HtmlEncode(statups.ToUnorderdList) + @"""}");
                     }
 
                     #endregion
+
                     break;
                 case SiteEnums.QueryStringNames.begin_playlist:
+
                     #region begin_playlist
+
                     context.Response.Write(
-                       PlaylistVideo.GetFirstVideo(Convert.ToInt32(context.Request.QueryString[
-                       SiteEnums.QueryStringNames.playlist.ToString()])));
+                        PlaylistVideo.GetFirstVideo(Convert.ToInt32(context.Request.QueryString[
+                            SiteEnums.QueryStringNames.playlist.ToString()])));
+
                     #endregion
+
                     break;
                 case SiteEnums.QueryStringNames.menu:
+
                     #region menu
 
                     mu = Membership.GetUser();
@@ -474,14 +519,14 @@ namespace DasKlub.io
                     {
                         // log off users who are offline
 
-                        UserAccounts uasOffline = new UserAccounts();
+                        var uasOffline = new UserAccounts();
                         uasOffline.GetWhoIsOffline(true);
 
                         UserAccount offlineUser = null;
 
                         foreach (UserAccount uaoff1 in uasOffline)
                         {
-                            ChatRoomUser cru = new ChatRoomUser();
+                            var cru = new ChatRoomUser();
                             cru.GetChatRoomUserByUserAccountID(uaoff1.UserAccountID);
 
                             if (cru.ChatRoomUserID > 0)
@@ -496,8 +541,9 @@ namespace DasKlub.io
 
                         userCountChat = ChatRoomUsers.GetChattingUserCount();
 
-                        userMessages = BootBaronLib.AppSpec.DasKlub.BOL.DirectMessages.GetDirectMessagesToUserCount(mu);
-                        unconfirmedUsers = BootBaronLib.AppSpec.DasKlub.BOL.UserConnections.GetCountUnconfirmedConnections(Convert.ToInt32(mu.ProviderUserKey));
+                        userMessages = DirectMessages.GetDirectMessagesToUserCount(mu);
+                        unconfirmedUsers =
+                            UserConnections.GetCountUnconfirmedConnections(Convert.ToInt32(mu.ProviderUserKey));
                     }
 
                     // get users online
@@ -505,23 +551,31 @@ namespace DasKlub.io
 
                     if (mu != null)
                     {
-                        notifications = StatusUpdateNotifications.GetStatusUpdateNotificationCountForUser(Convert.ToInt32(mu.ProviderUserKey));
+                        notifications =
+                            StatusUpdateNotifications.GetStatusUpdateNotificationCountForUser(
+                                Convert.ToInt32(mu.ProviderUserKey));
                     }
 
-                    string timedMessge = string.Format( 
-            @"{{""UserCountChat"": ""{0}"",
+                    string timedMessge = string.Format(
+                        @"{{""UserCountChat"": ""{0}"",
                ""UserMessages"": ""{1}"", 
                ""OnlineUsers"": ""{2}"",
                ""Notifications"": ""{3}"",
-               ""UnconfirmedUsers"": ""{4}""}}",userCountChat,userMessages,onlineUsers,notifications,unconfirmedUsers);
-                     
+               ""UnconfirmedUsers"": ""{4}""}}", userCountChat, userMessages, onlineUsers, notifications,
+                        unconfirmedUsers);
+
                     context.Response.Write(timedMessge);
 
                     #endregion
+
                     break;
                 case SiteEnums.QueryStringNames.random:
+
                     #region random
-                    if (!string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.currentvidid.ToString()]))
+
+                    if (
+                        !string.IsNullOrEmpty(
+                            context.Request.QueryString[SiteEnums.QueryStringNames.currentvidid.ToString()]))
                     {
                         context.Response.Write(Video.GetRandomJSON(
                             context.Request.QueryString[SiteEnums.QueryStringNames.currentvidid.ToString()]));
@@ -532,40 +586,58 @@ namespace DasKlub.io
                     }
 
                     #endregion
+
                     break;
                 case SiteEnums.QueryStringNames.video_playlist:
+
                     #region video_playlist
+
                     if (!string.IsNullOrEmpty(
-               context.Request.QueryString[SiteEnums.QueryStringNames.currentvidid.ToString()]))
+                        context.Request.QueryString[SiteEnums.QueryStringNames.currentvidid.ToString()]))
                     {
                         context.Response.Write(
-                            PlaylistVideo.GetNextVideo(Convert.ToInt32(context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()]),
-                            context.Request.QueryString[SiteEnums.QueryStringNames.currentvidid.ToString()]));
+                            PlaylistVideo.GetNextVideo(
+                                Convert.ToInt32(
+                                    context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()]),
+                                context.Request.QueryString[SiteEnums.QueryStringNames.currentvidid.ToString()]));
                     }
-                    else if (!string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.begin_playlist.ToString()]))
+                    else if (
+                        !string.IsNullOrEmpty(
+                            context.Request.QueryString[SiteEnums.QueryStringNames.begin_playlist.ToString()]))
                     {
                         context.Response.Write(
-                          PlaylistVideo.GetFirstVideo(Convert.ToInt32(context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()])));
+                            PlaylistVideo.GetFirstVideo(
+                                Convert.ToInt32(
+                                    context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()])));
                     }
                     else
                     {
                         context.Response.Write(
                             PlaylistVideo.CurrentVideoInPlaylist(
-                            Convert.ToInt32(context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()])
-                            ));
+                                Convert.ToInt32(
+                                    context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()])
+                                ));
                     }
+
                     #endregion
+
                     break;
                 case SiteEnums.QueryStringNames.video:
+
                     #region video
-                    Video vid = new Video("YT", context.Request.QueryString[SiteEnums.QueryStringNames.vid.ToString()]);
+
+                    var vid = new Video("YT", context.Request.QueryString[SiteEnums.QueryStringNames.vid.ToString()]);
 
                     VideoLog.AddVideoLog(vid.VideoID, context.Request.UserHostAddress);
 
-                    context.Response.Write(Video.GetVideoJSON(context.Request.QueryString[SiteEnums.QueryStringNames.vid.ToString()]));
+                    context.Response.Write(
+                        Video.GetVideoJSON(context.Request.QueryString[SiteEnums.QueryStringNames.vid.ToString()]));
+
                     #endregion
+
                     break;
                 case SiteEnums.QueryStringNames.begindate:
+
                     #region begindate
 
                     //string[] dates = HttpUtility.UrlDecode(
@@ -573,18 +645,19 @@ namespace DasKlub.io
                     //    ).Split('G');
 
 
-                    DateTime dtBegin = Convert.ToDateTime(context.Request.QueryString[SiteEnums.QueryStringNames.begindate.ToString()]);
+                    DateTime dtBegin =
+                        Convert.ToDateTime(context.Request.QueryString[SiteEnums.QueryStringNames.begindate.ToString()]);
 
                     dtBegin = new DateTime(dtBegin.Year, dtBegin.Month, 1);
 
                     DateTime dtEnd = dtBegin.AddMonths(1).AddDays(-1);
-                    Events tds = new Events();
+                    var tds = new Events();
 
                     tds.GetEventsForLocation(
-                          dtBegin, dtEnd,
-                          context.Request.QueryString[SiteEnums.QueryStringNames.country_iso.ToString()],
-                          context.Request.QueryString[SiteEnums.QueryStringNames.region.ToString()],
-                          context.Request.QueryString[SiteEnums.QueryStringNames.city.ToString()]);
+                        dtBegin, dtEnd,
+                        context.Request.QueryString[SiteEnums.QueryStringNames.country_iso.ToString()],
+                        context.Request.QueryString[SiteEnums.QueryStringNames.region.ToString()],
+                        context.Request.QueryString[SiteEnums.QueryStringNames.city.ToString()]);
 
                     CalendarItems citms = GetCitms(tds, dtBegin, dtEnd, true);
 
@@ -613,53 +686,61 @@ namespace DasKlub.io
                     sb.Append("]");
 
                     context.Response.Write(sb.ToString());
+
                     #endregion
+
                     break;
                 case SiteEnums.QueryStringNames.playlist:
+
                     #region playlist
 
                     if (!string.IsNullOrEmpty(
-                    context.Request.QueryString[SiteEnums.QueryStringNames.currentvidid.ToString()]))
+                        context.Request.QueryString[SiteEnums.QueryStringNames.currentvidid.ToString()]))
                     {
                         context.Response.Write(
-                            PlaylistVideo.GetNextVideo(Convert.ToInt32(context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()]),
-                            context.Request.QueryString[SiteEnums.QueryStringNames.currentvidid.ToString()]));
+                            PlaylistVideo.GetNextVideo(
+                                Convert.ToInt32(
+                                    context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()]),
+                                context.Request.QueryString[SiteEnums.QueryStringNames.currentvidid.ToString()]));
                     }
-                    else if (!string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.begin_playlist.ToString()]))
+                    else if (
+                        !string.IsNullOrEmpty(
+                            context.Request.QueryString[SiteEnums.QueryStringNames.begin_playlist.ToString()]))
                     {
                         context.Response.Write(
-                          PlaylistVideo.GetFirstVideo(Convert.ToInt32(context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()])));
+                            PlaylistVideo.GetFirstVideo(
+                                Convert.ToInt32(
+                                    context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()])));
                     }
                     else
                     {
                         context.Response.Write(
                             PlaylistVideo.CurrentVideoInPlaylist(
-                            Convert.ToInt32(context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()])
-                            ));
+                                Convert.ToInt32(
+                                    context.Request.QueryString[SiteEnums.QueryStringNames.playlist.ToString()])
+                                ));
                     }
+
                     #endregion
+
                     break;
                 default:
                     // ?
                     break;
-
             }
         }
 
-       
+
         public bool IsReusable
         {
-            get
-            {
-                return false;
-            }
+            get { return false; }
         }
 
         private void SendNotificationEmail(int userTo, SiteEnums.ResponseType rsp, int statusUpdateID)
         {
-            UserAccount uaTo = new UserAccount(userTo);
+            var uaTo = new UserAccount(userTo);
 
-            UserAccountDetail uad = new UserAccountDetail();
+            var uad = new UserAccountDetail();
 
             uad.GetUserAccountDeailForUser(uaTo.UserAccountID);
 
@@ -688,14 +769,15 @@ namespace DasKlub.io
                 typeGiven = Messages.Unknown;
             }
 
-            string statupMess = typeGiven + Environment.NewLine + Environment.NewLine +  BootBaronLib.Configs.GeneralConfigs.SiteDomain +
-                System.Web.VirtualPathUtility.ToAbsolute("~/account/statusupdate/" + statusUpdateID.ToString() );
+            string statupMess = typeGiven + Environment.NewLine + Environment.NewLine + GeneralConfigs.SiteDomain +
+                                VirtualPathUtility.ToAbsolute("~/account/statusupdate/" + statusUpdateID.ToString());
 
             if (uad.EmailMessages)
             {
                 Utilities.SendMail(uaTo.EMail, Messages.New + ": " + Messages.Notifications,
-                    Messages.New + ": " + Messages.Notifications + Environment.NewLine + Environment.NewLine +
-                    statupMess  );
+                                   Messages.New + ": " + Messages.Notifications + Environment.NewLine +
+                                   Environment.NewLine +
+                                   statupMess);
             }
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(language);
@@ -705,12 +787,12 @@ namespace DasKlub.io
 
         public CalendarItems GetCitms(Events tds, DateTime dtBegin, DateTime dtEnd, bool isMonth)
         {
-            CalendarItems citms = new CalendarItems();
+            var citms = new CalendarItems();
             CalendarItem citm = null;
             EventCycle evcyc = null;
 
             // need to display the whole month so that it can get the reoccuring ones
-            DateTime dtBeginMonth = new DateTime(dtBegin.Year, dtBegin.Month, 1);
+            var dtBeginMonth = new DateTime(dtBegin.Year, dtBegin.Month, 1);
             DateTime dtEndMonth = dtBegin.AddMonths(1).AddDays(-1);
 
 
@@ -785,7 +867,6 @@ namespace DasKlub.io
 
                             for (DateTime date = dtBeginMonth; date <= dtEndMonth; date = date.AddDays(1))
                             {
-
                                 if (amt < 1 && date.DayOfWeek == DayOfWeek.Friday)
                                 {
                                     amt++;
@@ -808,12 +889,11 @@ namespace DasKlub.io
                                     }
                                     break;
                                 }
-
                             }
 
                             break;
 
-                        #region weekly
+                            #region weekly
 
                         case "MON":
 
@@ -989,14 +1069,12 @@ namespace DasKlub.io
 
                             break;
 
-                        #endregion
+                            #endregion
 
-
-                        default: break;
+                        default:
+                            break;
                     }
                 }
-
-
             }
 
             return citms;

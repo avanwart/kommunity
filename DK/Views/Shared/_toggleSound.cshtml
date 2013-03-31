@@ -1,4 +1,5 @@
-﻿
+﻿@using BootBaronLib.Resources
+
 <script type="text/javascript">
 
     function toggleSound() {
@@ -8,18 +9,17 @@
                 player.setVolume(0);
                 $("#speaker_sound").attr("src", $rootUrl + "content/images/speaker_off.png");
                 $("#speaker_sound").attr("alt", "off");
-                $("#speaker_sound").attr("title", '@Html.Raw(BootBaronLib.Resources.Messages.TurnSoundOn)');
-                $("#speaker_words").text('@Html.Raw(BootBaronLib.Resources.Messages.SoundOff)');
-            }
-            else {
+                $("#speaker_sound").attr("title", '@Html.Raw(Messages.TurnSoundOn)');
+                $("#speaker_words").text('@Html.Raw(Messages.SoundOff)');
+            } else {
                 player.setVolume(level);
                 $("#speaker_sound").attr("src", $rootUrl + "content/images/icons/speaker_on.png");
                 $("#speaker_sound").attr("alt", "on");
-                $("#speaker_sound").attr("title", '@Html.Raw(BootBaronLib.Resources.Messages.TurnSoundOff)');
-                $("#speaker_words").text('@Html.Raw(BootBaronLib.Resources.Messages.SoundOn)');
+                $("#speaker_sound").attr("title", '@Html.Raw(Messages.TurnSoundOff)');
+                $("#speaker_words").text('@Html.Raw(Messages.SoundOn)');
             }
 
         }
     }
 
-        </script>
+</script>

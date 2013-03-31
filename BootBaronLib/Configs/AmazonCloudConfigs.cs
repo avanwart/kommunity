@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System.Configuration;
 
 namespace BootBaronLib.Configs
@@ -20,18 +21,17 @@ namespace BootBaronLib.Configs
     public class AmazonCloudConfigs
     {
         #region variables
-        private readonly static string _amazonAccessKey = string.Empty;
-        private readonly static string _amazonSecretKey = string.Empty;
-        private readonly static string _amazonCloudDomain = string.Empty;
-        private readonly static string _amazonBucketName = string.Empty;
-        private readonly static string _sendFromEmail = string.Empty;
 
-
-
+        private static readonly string _amazonAccessKey = string.Empty;
+        private static readonly string _amazonSecretKey = string.Empty;
+        private static readonly string _amazonCloudDomain = string.Empty;
+        private static readonly string _amazonBucketName = string.Empty;
+        private static readonly string _sendFromEmail = string.Empty;
 
         #endregion
 
         #region static constructor
+
         static AmazonCloudConfigs()
         {
             _sendFromEmail = ConfigurationManager.AppSettings["SendFromEmail"];
@@ -40,36 +40,38 @@ namespace BootBaronLib.Configs
             _amazonCloudDomain = ConfigurationManager.AppSettings["AmazonCloudDomain"];
             _amazonBucketName = ConfigurationManager.AppSettings["AmazonBucketName"];
         }
+
         #endregion
 
         #region properties
 
         public static string SendFromEmail
         {
-            get { return AmazonCloudConfigs._sendFromEmail; }
+            get { return _sendFromEmail; }
         }
 
 
         public static string AmazonBucketName
         {
-            get { return AmazonCloudConfigs._amazonBucketName; }
+            get { return _amazonBucketName; }
         }
 
         public static string AmazonCloudDomain
         {
-            get { return AmazonCloudConfigs._amazonCloudDomain; }
+            get { return _amazonCloudDomain; }
         }
 
         public static string AmazonSecretKey
         {
-            get { return AmazonCloudConfigs._amazonSecretKey; }
+            get { return _amazonSecretKey; }
         }
 
 
         public static string AmazonAccessKey
         {
-            get { return AmazonCloudConfigs._amazonAccessKey; }
+            get { return _amazonAccessKey; }
         }
+
         #endregion
     }
 }

@@ -1,29 +1,32 @@
-﻿@using BootBaronLib.Values
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
+@using BootBaronLib.Operational
+@using BootBaronLib.Resources
+@using BootBaronLib.Values
 @{
-    ViewBag.Title = BootBaronLib.Resources.Messages.Radio;
+    ViewBag.Title = Messages.Radio;
 }
  
 <div class="row">
     <div class="span8">
-        @{Html.RenderPartial("_AdBanner"); }
-        <h2>@BootBaronLib.Resources.Messages.Radio
+        @{ Html.RenderPartial("_AdBanner"); }
+        <h2>@Messages.Radio
         </h2>
- <hr />
+        <hr />
 
         @if (!Request.Browser.IsMobileDevice)
         {
-            @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
                 SiteEnums.SiteBrandType.RADIO,
-                BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+                Utilities.GetCurrentLanguageCode()))
         }
         else
         {
-            @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
                 SiteEnums.SiteBrandType.RADIM,
-                BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+                Utilities.GetCurrentLanguageCode()))
         }
     </div>
     <div class="span4">
-        @{Html.RenderPartial("_AdBanner2"); }
+        @{ Html.RenderPartial("_AdBanner2"); }
     </div>
 </div>

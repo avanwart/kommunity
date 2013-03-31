@@ -13,18 +13,16 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.Security;
+using System.Web.UI;
 using BootBaronLib.AppSpec.DasKlub.BOL;
+using BootBaronLib.Configs;
 
 namespace DasKlub
 {
-    public partial class AddVideo : System.Web.UI.Page
+    public partial class AddVideo : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,16 +37,16 @@ namespace DasKlub
 
             char vtypeAction = Convert.ToChar(vtype);
 
-            Video vid = new Video(vidid.Substring(0, 2), vidid.Substring(3, vidid.Length - 3));
+            var vid = new Video(vidid.Substring(0, 2), vidid.Substring(3, vidid.Length - 3));
 
             switch (vtypeAction)
             {
                 case 'P':
                     // adding to playlist 
-                    Playlist plylst = new Playlist();
+                    var plylst = new Playlist();
                     plylst.GetUserPlaylist(Convert.ToInt32(mu.ProviderUserKey));
 
-                    PlaylistVideo plyvid = new PlaylistVideo();
+                    var plyvid = new PlaylistVideo();
 
                     if (plylst.PlaylistID == 0)
                     {
@@ -59,17 +57,17 @@ namespace DasKlub
                     }
                     else
                     {
-                        PlaylistVideos plyvids = new PlaylistVideos();
+                        var plyvids = new PlaylistVideos();
                         plyvids.GetPlaylistVideosForPlaylist(plylst.PlaylistID);
 
-                        if (mu.UserName.ToLower() != BootBaronLib.Configs.GeneralConfigs.AdminUserName.ToLower()
-                             && plyvids.Count >= 25)
+                        if (mu.UserName.ToLower() != GeneralConfigs.AdminUserName.ToLower()
+                            && plyvids.Count >= 25)
                         {
                             // cannot have not than 10
                             Response.Redirect("~/account/playlist/" + mu.UserName);
                         }
 
-                        plyvid.RankOrder = plyvids.Count + 1 ;
+                        plyvid.RankOrder = plyvids.Count + 1;
                     }
 
                     plyvid.PlaylistID = plylst.PlaylistID;
@@ -86,7 +84,7 @@ namespace DasKlub
                     break;
                 default:
 
-                    UserAccountVideo uav = new UserAccountVideo();
+                    var uav = new UserAccountVideo();
 
                     uav.UserAccountID = Convert.ToInt32(mu.ProviderUserKey);
                     uav.VideoID = vid.VideoID;

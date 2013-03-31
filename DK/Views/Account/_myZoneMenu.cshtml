@@ -1,53 +1,54 @@
-﻿ @using BootBaronLib.Resources;
- <div class="row">
- <div class="span2">
- <ul class="nav nav-pills nav-stacked">
-                    <li
+﻿@using BootBaronLib.Resources
+
+<div class="row">
+    <div class="span2">
+        <ul class="nav nav-pills nav-stacked">
+            <li
               
-          @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "visitors")
-          {
-          <text>class="active" </text>
-          }
-                 ><a href="@Url.Content("~/account/visitors")">@Messages.Visitors</a>
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "visitors")
+                {
+                    <text>class="active" </text>
+                }
+                ><a href="@Url.Content("~/account/visitors")">@Messages.Visitors</a>
             </li>
           
 
           
-<li
+            <li
               
-          @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "cyberassociates")
-          {
-          <text>class="active" </text>
-          }
-                 ><a href="@Url.Content("~/account/CyberAssociates")">@Messages.CyberAssociates</a>
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "cyberassociates")
+                {
+                    <text>class="active" </text>
+                }
+                ><a href="@Url.Content("~/account/CyberAssociates")">@Messages.CyberAssociates</a>
             </li>
           
 
 
 
-<li
+            <li
               
-          @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "irlcontacts")
-          {
-          <text>class="active" </text>
-          }
-                 ><a href="@Url.Content("~/account/irlcontacts")">@Messages.RealLifeContacts</a>
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "irlcontacts")
+                {
+                    <text>class="active" </text>
+                }
+                ><a href="@Url.Content("~/account/irlcontacts")">@Messages.RealLifeContacts</a>
             </li>
           
 
           
-<li
+            <li
               
-          @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "managevideos")
-          {
-          <text>class="active" </text>
-          }
-                 ><a href="@Url.Content("~/account/managevideos")">@Messages.Videos</a>
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "managevideos")
+                {
+                    <text>class="active" </text>
+                }
+                ><a href="@Url.Content("~/account/managevideos")">@Messages.Videos</a>
             </li>
           
             
             
        
         </ul>
-        </div>
-        </div>
+    </div>
+</div>

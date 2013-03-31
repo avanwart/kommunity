@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,11 +21,9 @@ using System.Data.Common;
 using System.Web;
 using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.BaseTypes;
-using BootBaronLib.Configs;
 using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
-
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 {
@@ -32,63 +31,52 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
     {
         #region properties
 
-        private int _artistID = 0;
-
-        public int ArtistID
-        {
-            get { return _artistID; }
-            set { _artistID = value; }
-        }
-
-
         private string _altName = string.Empty;
+        private string _name = string.Empty;
+        public int ArtistID { get; set; }
 
         public string AltName
         {
-            get {
+            get
+            {
                 if (_altName == null) return string.Empty;
-                
-                return _altName.Trim(); }
+
+                return _altName.Trim();
+            }
             set { _altName = value; }
         }
 
-        private bool _isHidden = false;
-
-        public bool IsHidden
-        {
-            get { return _isHidden; }
-            set { _isHidden = value; }
-        }
-        private string _name = string.Empty;
+        public bool IsHidden { get; set; }
 
 
         public string Name
         {
-            get {
+            get
+            {
                 if (_name == null) return string.Empty;
-                
-                return _name.Trim(); }
+
+                return _name.Trim();
+            }
             set { _name = value; }
         }
 
 
         public string URLOfArtist
         {
-            get { return this.Name.Replace(" ", "-").ToLower(); }
+            get { return Name.Replace(" ", "-").ToLower(); }
         }
 
 
         public string FullURLOfArtist
         {
-            get { return  Utilities.URLAuthority() + "/" + this.AltName.ToLower(); }
+            get { return Utilities.URLAuthority() + "/" + AltName.ToLower(); }
         }
 
         public string HyperLinkToArtist
         {
             get
             {
-
-                return @"<a href=""" + FullURLOfArtist + @""">" + this.Name + @"</a>";
+                return @"<a href=""" + FullURLOfArtist + @""">" + Name + @"</a>";
                 //if (string.IsNullOrEmpty(this.AltName))
                 //{
                 //    return @"<a href=""" + FullURLOfArtist + @""">" + this.Name + @"</a>";
@@ -100,25 +88,25 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             }
         }
 
-
         #endregion
 
-      
         #region contructors
 
-        public Artist() { }
+        public Artist()
+        {
+        }
 
         public Artist(string artistName)
         {
-            this.Name = artistName.Trim();
+            Name = artistName.Trim();
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetArtistByName";
-            
+
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, "name", Name);
+            comm.AddParameter("name", Name);
 
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
@@ -130,9 +118,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public Artist(int artistID)
         {
-            this.ArtistID = artistID;
+            ArtistID = artistID;
 
-            if (HttpContext.Current.Cache[this.CacheName] == null)
+            if (HttpContext.Current.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -140,19 +128,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
                 comm.CommandText = "up_GetArtistByID";
                 // create a new parameter
 
-                ADOExtenstion.AddParameter(comm, "artistID", ArtistID);
+                comm.AddParameter("artistID", ArtistID);
 
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 if (dt.Rows.Count == 1)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
+                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow)HttpContext.Current.Cache[this.CacheName]);
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
             }
         }
 
@@ -161,13 +149,25 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             Get(dr);
         }
 
-
         #endregion
 
-
-        public   void GetArtistByAltname(string altName)
+        public string DisplayName
         {
-            this.AltName = altName;
+            get
+            {
+                if (!string.IsNullOrEmpty(AltName)) return AltName;
+                else return Name;
+            }
+        }
+
+        public Uri UrlTo
+        {
+            get { return new Uri(Utilities.URLAuthority() + "/" + AltName); }
+        }
+
+        public void GetArtistByAltname(string altName)
+        {
+            AltName = altName;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -175,7 +175,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             comm.CommandText = "up_GetArtistByAltname";
 
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, "altName", altName);
+            comm.AddParameter("altName", altName);
 
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
@@ -183,7 +183,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             {
                 Get(dt.Rows[0]);
             }
-
         }
 
         public override void Get(DataRow dr)
@@ -192,11 +191,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             {
                 base.Get(dr);
 
-                this.ArtistID = FromObj.IntFromObj(dr["artistID"]);
-                this.Name = FromObj.StringFromObj(dr["name"]);
-                this.AltName = FromObj.StringFromObj(dr["altName"]);
-                this.IsHidden = FromObj.BoolFromObj(dr["isHidden"]);
-                
+                ArtistID = FromObj.IntFromObj(dr["artistID"]);
+                Name = FromObj.StringFromObj(dr["name"]);
+                AltName = FromObj.StringFromObj(dr["altName"]);
+                IsHidden = FromObj.BoolFromObj(dr["isHidden"]);
             }
             catch
             {
@@ -206,17 +204,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public override int Create()
         {
-            if (string.IsNullOrEmpty(this.Name)) return 0;
+            if (string.IsNullOrEmpty(Name)) return 0;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddArtist";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID",  CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "isHidden",  IsHidden);
-            ADOExtenstion.AddParameter(comm, "name",  Name);
-            ADOExtenstion.AddParameter(comm, "altName", AltName);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("isHidden", IsHidden);
+            comm.AddParameter("name", Name);
+            comm.AddParameter("altName", AltName);
 
             // the result is their ID
             string result = string.Empty;
@@ -229,27 +227,23 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             }
             else
             {
-                this.ArtistID = Convert.ToInt32(result);
+                ArtistID = Convert.ToInt32(result);
 
-                return this.ArtistID;
+                return ArtistID;
             }
-
-
-
         }
 
         public override bool Update()
         {
-
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_UpdateArtist";
 
-            ADOExtenstion.AddParameter(comm, "updatedByUserID",  UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, "isHidden",  IsHidden);
-            ADOExtenstion.AddParameter(comm, "name",   Name);
-            ADOExtenstion.AddParameter(comm, "artistID",  ArtistID);
-            ADOExtenstion.AddParameter(comm, "altName", AltName);
+            comm.AddParameter("updatedByUserID", UpdatedByUserID);
+            comm.AddParameter("isHidden", IsHidden);
+            comm.AddParameter("name", Name);
+            comm.AddParameter("artistID", ArtistID);
+            comm.AddParameter("altName", AltName);
 
 
             int result = -1;
@@ -265,55 +259,49 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public string CacheName
         {
-            get { return string.Format("{0}-{1}", this.GetType().FullName, this.ArtistID.ToString()); }
+            get { return string.Format("{0}-{1}", GetType().FullName, ArtistID.ToString()); }
         }
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
         }
 
         #endregion
-
-        public Uri UrlTo
-        {
-            get { return new  Uri( Utilities.URLAuthority() + "/" +  this.AltName ); }
-        }
-
-        public string DisplayName
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(this.AltName)) return this.AltName;
-                else return this.Name;
-            }
-        }
     }
 
     public class Artists : List<Artist>, IGetAll, ICacheName
     {
+        public string CacheName
+        {
+            get { return string.Format("{0}all", GetType().FullName); }
+        }
+
+        public void RemoveCache()
+        {
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+        }
+
         public static DataSet GetArtistCloudByLetter(string letter)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetArtistCloudByLetter";
-            
-            ADOExtenstion.AddParameter(comm, "firstLetter",  letter);
-            
+
+            comm.AddParameter("firstLetter", letter);
+
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
-            DataSet ds = new DataSet();
+            var ds = new DataSet();
 
             ds.Tables.Add(dt);
 
             return ds;
         }
 
-        public static DataSet  GetArtistCloudByNonLetter( )
+        public static DataSet GetArtistCloudByNonLetter()
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
@@ -321,59 +309,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             //
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
-            DataSet ds = new DataSet();
+            var ds = new DataSet();
 
             ds.Tables.Add(dt);
 
             return ds;
-        }
-
-        #region IGetAll Members
-
-        public void GetAll()
-        {
-            if (HttpContext.Current.Cache[this.CacheName] == null)
-            {
-                // get a configured DbCommand object
-                DbCommand comm = DbAct.CreateCommand();
-                // set the stored procedure name
-                comm.CommandText = "up_GetAllArtists";
-
-                // execute the stored procedure
-                DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-                // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    Artist art = null;
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        art = new Artist(dr);
-                        this.Add(art);
-                    }
-
-                    HttpContext.Current.Cache.AddObjToCache(this, this.CacheName);
-                }
-            }
-            else
-            {
-                Artists arts = (Artists)HttpContext.Current.Cache[this.CacheName];
-
-                foreach (Artist uad in arts) this.Add(uad);
-            }
-        }
-
-        #endregion
-
-
-        public string CacheName
-        {
-            get { return string.Format("{0}all", this.GetType().FullName); }
-        }
-
-        public void RemoveCache()
-        {
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
         }
 
         public int GetArtistsPageWise(int pageIndex, int pageSize)
@@ -390,8 +330,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             param.Direction = ParameterDirection.Output;
             comm.Parameters.Add(param);
 
-            ADOExtenstion.AddParameter(comm, "PageIndex", pageIndex);
-            ADOExtenstion.AddParameter(comm, "PageSize", pageSize);
+            comm.AddParameter("PageIndex", pageIndex);
+            comm.AddParameter("PageSize", pageSize);
 
             DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
@@ -404,12 +344,48 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     art = new Artist(dr);
-                    this.Add(art);
+                    Add(art);
                 }
             }
 
             return recordCount;
         }
-    }
 
+        #region IGetAll Members
+
+        public void GetAll()
+        {
+            if (HttpContext.Current.Cache[CacheName] == null)
+            {
+                // get a configured DbCommand object
+                DbCommand comm = DbAct.CreateCommand();
+                // set the stored procedure name
+                comm.CommandText = "up_GetAllArtists";
+
+                // execute the stored procedure
+                DataTable dt = DbAct.ExecuteSelectCommand(comm);
+
+                // was something returned?
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    Artist art = null;
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        art = new Artist(dr);
+                        Add(art);
+                    }
+
+                    HttpContext.Current.Cache.AddObjToCache(this, CacheName);
+                }
+            }
+            else
+            {
+                var arts = (Artists) HttpContext.Current.Cache[CacheName];
+
+                foreach (Artist uad in arts) Add(uad);
+            }
+        }
+
+        #endregion
+    }
 }

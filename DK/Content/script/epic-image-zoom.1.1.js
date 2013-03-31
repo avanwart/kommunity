@@ -5,23 +5,23 @@ http://www.webfactoryltd.com/
 Sold exclusively on CodeCanyon
 **/
 
-(function ($) {
-    $.fn.epicZoom = function (options) {
+(function($) {
+    $.fn.epicZoom = function(options) {
 
         // cache body DOM element
         var body_el = $('body');
 
         // let's try not to clutter the $.fn namespace
         var methods = {
-            isInBounds: function (event, offset, size, padding) {
+            isInBounds: function(event, offset, size, padding) {
                 if (event.pageX < (offset.left + padding.left) || event.pageX > (offset.left + size.width + padding.left) ||
-            event.pageY < (offset.top + padding.top) || event.pageY > (offset.top + size.height + padding.top)) {
+                    event.pageY < (offset.top + padding.top) || event.pageY > (offset.top + size.height + padding.top)) {
                     return false;
                 } else {
                     return true;
                 }
             }, // isInBounds
-            isDebug: function () {
+            isDebug: function() {
                 if (options.debug && typeof console !== 'undefined') {
                     return true;
                 } else {
@@ -72,7 +72,7 @@ Sold exclusively on CodeCanyon
         }
 
         // process images
-        return this.each(function () {
+        return this.each(function() {
             var img = $(this);
 
             // plugin only works on images
@@ -92,7 +92,7 @@ Sold exclusively on CodeCanyon
             }
 
             // wait for image to load
-            preloadImg.load(function () {
+            preloadImg.load(function() {
                 if (preloadImg.hasInit) {
                     return false;
                 }
@@ -101,7 +101,7 @@ Sold exclusively on CodeCanyon
 
                 // global counter
                 //if (typeof body_el.data('epicZoom-nb') === 'undefined') {
-                    body_el.data('epicZoom-nb', 0); //NOTE: this has to be done or it's not going to load the other image
+                body_el.data('epicZoom-nb', 0); //NOTE: this has to be done or it's not going to load the other image
                 //}
 
                 body_el.data('epicZoom-nb', body_el.data('epicZoom-nb') + 1);
@@ -113,25 +113,25 @@ Sold exclusively on CodeCanyon
 
                 img.wrap('<span id="eiz-' + eiz_nb + '" class="eiz-container"></span>');
                 var container = $('#eiz-' + eiz_nb).css('margin', 0)
-                                         .css('padding', 0)
-                                         .css('border', 0);
+                    .css('padding', 0)
+                    .css('border', 0);
 
                 container.append('<span class="eiz-magnifier"></span>');
                 var magnifier = $('.eiz-magnifier', container).css('position', 'absolute')
-                                                    .css('margin', 0)
-                                                    .css('padding', 0)
-                                                    .css('border', options.border)
-                                                    .css('-moz-box-shadow', '0 0 5px #777, 0 0 10px #aaa inset')
-                                                    .css('-webkit-box-shadow', '0 0 5px #777')
-                                                    .css('box-shadow', '0 0 5px #777, 0 0 10px #aaa inset')
-                                                    .css('overflow', 'hidden')
-                                                    .css('z-index', 20)
-                                                    .css('width', options.size + 'px')
-                                                    .css('height', options.size + 'px');
+                    .css('margin', 0)
+                    .css('padding', 0)
+                    .css('border', options.border)
+                    .css('-moz-box-shadow', '0 0 5px #777, 0 0 10px #aaa inset')
+                    .css('-webkit-box-shadow', '0 0 5px #777')
+                    .css('box-shadow', '0 0 5px #777, 0 0 10px #aaa inset')
+                    .css('overflow', 'hidden')
+                    .css('z-index', 20)
+                    .css('width', options.size + 'px')
+                    .css('height', options.size + 'px');
                 magnifier.append('<div><img alt="" title="" /></div>');
                 var magnifierImg2 = $('img', magnifier).css('margin', 0)
-                                             .css('padding', 0)
-                                             .css('border', 0);
+                    .css('padding', 0)
+                    .css('border', 0);
                 if (options.largeImage) {
                     magnifierImg2.attr('src', options.largeImage);
                 } else {
@@ -140,28 +140,31 @@ Sold exclusively on CodeCanyon
 
                 if (options.hideCursor) {
                     magnifierImg2.css('cursor', 'none')
-                     .css('cursor', 'url(' + options.blankCursor + '),none !important;');
+                        .css('cursor', 'url(' + options.blankCursor + '),none !important;');
                 }
 
                 var magnifierImg = $('div', magnifier).css('position', 'absolute')
-                                            .css('margin', 0)
-                                            .css('padding', 0)
-                                            .css('border', 0)
-                                            .css('z-index', 1)
-                                            .css('overflow', 'hidden');
+                    .css('margin', 0)
+                    .css('padding', 0)
+                    .css('border', 0)
+                    .css('z-index', 1)
+                    .css('overflow', 'hidden');
 
                 // calculate positions and sizes
                 magnifierImg2.width(magnifierImg2.width() * options.magnification);
                 var ratio = magnifierImg2.width() / img.width();
                 var offset = { left: img.offset().left, top: img.offset().top };
                 var size = { width: img.width(), height: img.height() };
-                var padding = { top: parseInt(img.css('padding-top'), 10), right: parseInt(img.css('padding-right'), 10),
-                    bottom: parseInt(img.css('padding-bottom'), 10), left: parseInt(img.css('padding-left'), 10)
+                var padding = {
+                    top: parseInt(img.css('padding-top'), 10),
+                    right: parseInt(img.css('padding-right'), 10),
+                    bottom: parseInt(img.css('padding-bottom'), 10),
+                    left: parseInt(img.css('padding-left'), 10)
                 };
                 magnifier.hide();
 
                 // recalculate positions on window resize
-                $(window).resize(function () {
+                $(window).resize(function() {
                     offset = { left: img.offset().left, top: img.offset().top };
                     size = { width: img.width(), height: img.height() };
 
@@ -170,7 +173,7 @@ Sold exclusively on CodeCanyon
                     }
                 });
 
-                container.mousemove(function (event) {
+                container.mousemove(function(event) {
                     if (!methods.isInBounds(event, offset, size, padding)) {
                         if (!magnifier.is(':animated')) {
                             if (methods.isDebug()) {
@@ -197,9 +200,9 @@ Sold exclusively on CodeCanyon
                         magnifierImg.css('left', -1 * (event.pageX - padding.left - offset.left) * ratio + options.size / 2);
                         magnifierImg.css('top', -1 * (event.pageY - padding.top - offset.top) * ratio + options.size / 2);
                     }
-                }).mouseleave(function () {
+                }).mouseleave(function() {
                     magnifier.stop(true, true).hide();
-                }).mouseenter(function (event) {
+                }).mouseenter(function(event) {
                     if (methods.isDebug()) {
                         console.log('EIZ #' + eiz_nb + ': mouse enter container');
                     }
@@ -216,4 +219,4 @@ Sold exclusively on CodeCanyon
             }
         }); // each
     }; // fn.epicZoom
-} (jQuery));
+}(jQuery));

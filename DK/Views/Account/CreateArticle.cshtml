@@ -2,24 +2,22 @@
 @model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content
 
 @{
-    ViewBag.Title =  Messages.CreateNew;
+    ViewBag.Title = Messages.CreateNew;
 }
 
  
 <h2>@Messages.CreateNew</h2>
- <hr />
+<hr />
 
-@using (Html.BeginForm("EditArticle", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditArticle", "Account", FormMethod.Post, new {enctype = "multipart/form-data"}))
 {
-
 @*            
     @Html.ValidationSummary(true)*@
 
-    @Html.Partial("_contentForm");
-                                 <br />
+    @Html.Partial("_contentForm")
+    ;
+    <br />
 
     <button type="submit" value="save"
-     class="btn btn-success">@BootBaronLib.Resources.Messages.CreateNew</button>
-            
-
+            class="btn btn-success">@Messages.CreateNew</button>
 }

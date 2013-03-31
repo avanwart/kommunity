@@ -8,31 +8,32 @@
 
 //       http://www.apache.org/licenses/LICENSE-2.0
 
- 
+
 //   Unless required by applicable law or agreed to in writing, software
 //   distributed under the License is distributed on an "AS IS" BASIS,
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
+using DBMigrator.Migrations;
 
 namespace DBMigrator
 {
-
-    class Program
+    internal class Program
     {
         public static bool RunSeed = false;
         public static int exitCode = -1;
 
 
-
         public static string dbName = "DasKlubContext";
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Database.SetInitializer<Migrations.DasKlubContext>(new Migrations.DropCreateDatabaseTables());
+            Database.SetInitializer(new DropCreateDatabaseTables());
 
             if (!Database.Exists(dbName))
             {
@@ -47,13 +48,12 @@ namespace DBMigrator
 
         private static void RunUpdate(string connectionName)
         {
-
             Console.WriteLine("RUNNING MIGRATIONS FOR CONNECTION NAME: " + connectionName);
 
-            var configuration = new Migrations.Configuration();
+            var configuration = new Configuration();
 
             configuration.TargetDatabase =
-                     new System.Data.Entity.Infrastructure.DbConnectionInfo(connectionName);
+                new DbConnectionInfo(connectionName);
 
             try
             {

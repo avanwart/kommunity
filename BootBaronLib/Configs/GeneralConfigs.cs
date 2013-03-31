@@ -13,7 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
-using System;
+
 using System.Configuration;
 
 namespace BootBaronLib.Configs
@@ -66,7 +66,6 @@ namespace BootBaronLib.Configs
             _userChatRoomSessionTimeout = int.Parse(ConfigurationManager.AppSettings["UserChatRoomSessionTimeout"]);
 
 
-
             _randomColors = ConfigurationManager.AppSettings["RandomColors"];
 
             _adminUserName = ConfigurationManager.AppSettings["AdminUserName"];
@@ -74,268 +73,226 @@ namespace BootBaronLib.Configs
             _isGiveAway = bool.Parse(ConfigurationManager.AppSettings["IsGiveAway"]);
 
             _enableSameIP = bool.Parse(ConfigurationManager.AppSettings["EnableSameIP"]);
-        
+
 
             _youTubeDevKey = ConfigurationManager.AppSettings["YouTubeDevKey"];
             _youTubeDevUser = ConfigurationManager.AppSettings["YouTubeDevUser"];
             _youTubeDevPass = ConfigurationManager.AppSettings["YouTubeDevPass"];
-
         }
 
         #region readonly variables 
 
-
-        private readonly static bool _isGiveAway = false;
-
-     
-
-        private readonly static int _userChatRoomSessionTimeout = 0;
+        private static readonly bool _isGiveAway;
 
 
+        private static readonly int _userChatRoomSessionTimeout;
 
 
-        private readonly static bool _enableSameIP = false;
+        private static readonly bool _enableSameIP;
 
 
-
-        private readonly static string _adminUserName = string.Empty;
-
-     
-        private readonly static int _minimumAge = 0;
-
-        private readonly static string _defaultVideo = string.Empty;
+        private static readonly string _adminUserName = string.Empty;
 
 
-        private readonly static string _siteName = string.Empty;
+        private static readonly int _minimumAge;
+
+        private static readonly string _defaultVideo = string.Empty;
 
 
-
-        private readonly static string _googleAPIKey = string.Empty;
-
-
-        private readonly static string _photoToEmail = string.Empty;
-
- 
-
-        
-        private readonly static string _nonWebFilePath = string.Empty;
-        private readonly static string _mailServer = string.Empty;
-        private readonly static bool _enableErrorLogEmail = false;
-        private readonly static string _errorLogFilename = string.Empty;
- 
- 
-        private readonly static bool _useNetworkForMail = false;
-  
-        private readonly static int _postInterval = 0;
-
-       
-
-        private readonly static string _siteDomain = string.Empty;
-        private readonly static string _payPalPDTKey = string.Empty;
-        private readonly static string _payPalURL = string.Empty;
- 
-        private readonly static string _emailSettingsURL = string.Empty;
-
-        private readonly static string _sendToErrorEmail = string.Empty;
+        private static readonly string _siteName = string.Empty;
 
 
-        private readonly static string _defaultLanguage = string.Empty;
+        private static readonly string _googleAPIKey = string.Empty;
 
 
-        private readonly static bool _enableVideoCheck = false;
+        private static readonly string _photoToEmail = string.Empty;
 
 
-        private readonly static int _photoMailPort = 995;
+        private static readonly string _nonWebFilePath = string.Empty;
+        private static readonly string _mailServer = string.Empty;
+        private static readonly bool _enableErrorLogEmail;
+        private static readonly string _errorLogFilename = string.Empty;
 
 
+        private static readonly bool _useNetworkForMail;
 
-        private readonly static string _facebookLink = string.Empty;
-        private readonly static string _twitterLink = string.Empty;
-        private readonly static string _youtubeLink = string.Empty;
-
-        private readonly static string _randomColors = string.Empty;
+        private static readonly int _postInterval;
 
 
-        private readonly static string _youTubeDevKey = string.Empty;
+        private static readonly string _siteDomain = string.Empty;
+        private static readonly string _payPalPDTKey = string.Empty;
+        private static readonly string _payPalURL = string.Empty;
+
+        private static readonly string _emailSettingsURL = string.Empty;
+
+        private static readonly string _sendToErrorEmail = string.Empty;
 
 
-
-        private readonly static string _youTubeDevUser = string.Empty;
-
+        private static readonly string _defaultLanguage = string.Empty;
 
 
-        private readonly static string _youTubeDevPass = string.Empty;
+        private static readonly bool _enableVideoCheck;
+
+
+        private static readonly int _photoMailPort = 995;
+
+
+        private static readonly string _facebookLink = string.Empty;
+        private static readonly string _twitterLink = string.Empty;
+        private static readonly string _youtubeLink = string.Empty;
+
+        private static readonly string _randomColors = string.Empty;
+
+
+        private static readonly string _youTubeDevKey = string.Empty;
+
+
+        private static readonly string _youTubeDevUser = string.Empty;
+
+
+        private static readonly string _youTubeDevPass = string.Empty;
 
         #endregion
 
-
-
-
-
         #region properties
 
+        private static readonly string _photoToPassword = string.Empty;
 
         public static bool EnableSameIP
         {
-            get { return GeneralConfigs._enableSameIP; }
-           
+            get { return _enableSameIP; }
         }
 
 
         public static bool IsGiveAway
         {
-            get { return GeneralConfigs._isGiveAway; }
-        } 
+            get { return _isGiveAway; }
+        }
 
- 
- 
 
         public static int UserChatRoomSessionTimeout
         {
-            get { return GeneralConfigs._userChatRoomSessionTimeout; }
-        } 
+            get { return _userChatRoomSessionTimeout; }
+        }
 
         public static string AdminUserName
         {
-            get { return GeneralConfigs._adminUserName; }
-        } 
-
+            get { return _adminUserName; }
+        }
 
 
         public static string RandomColors
         {
-            get { return GeneralConfigs._randomColors; }
-        } 
-
+            get { return _randomColors; }
+        }
 
 
         public static int MinimumAge
         {
-            get { return GeneralConfigs._minimumAge; }
-        } 
+            get { return _minimumAge; }
+        }
 
 
         public static string FacebookLink
         {
-            get { return GeneralConfigs._facebookLink; }
+            get { return _facebookLink; }
         }
 
         public static string TwitterLink
         {
-            get { return GeneralConfigs._twitterLink; }
+            get { return _twitterLink; }
         }
 
         public static string YoutubeLink
         {
-            get { return GeneralConfigs._youtubeLink; }
-        } 
+            get { return _youtubeLink; }
+        }
 
         public static int PhotoMailPort
         {
-            get { return GeneralConfigs._photoMailPort; }
+            get { return _photoMailPort; }
         }
 
         public static string DefaultVideo
         {
-            get { return GeneralConfigs._defaultVideo; }
-        } 
+            get { return _defaultVideo; }
+        }
 
 
         public static int PostInterval
         {
-            get { return GeneralConfigs._postInterval; }
-        } 
+            get { return _postInterval; }
+        }
 
         public static bool EnableVideoCheck
         {
-            get { return GeneralConfigs._enableVideoCheck; }
-        } 
+            get { return _enableVideoCheck; }
+        }
 
 
         public static string SiteName
         {
-            get { return GeneralConfigs._siteName; }
-        } 
+            get { return _siteName; }
+        }
 
 
         public static string DefaultLanguage
         {
-            get { return GeneralConfigs._defaultLanguage; }
-        } 
+            get { return _defaultLanguage; }
+        }
 
         public static string PhotoToEmail
         {
-            get { return GeneralConfigs._photoToEmail; }
+            get { return _photoToEmail; }
         }
-
-        private readonly static string _photoToPassword = string.Empty;
 
         public static string PhotoToPassword
         {
-            get { return GeneralConfigs._photoToPassword; }
-        } 
-
+            get { return _photoToPassword; }
+        }
 
 
         public static string GoogleAPIKey
         {
-            get { return GeneralConfigs._googleAPIKey; }
-        } 
-
+            get { return _googleAPIKey; }
+        }
 
 
         public static string SendToErrorEmail
         {
-            get { return GeneralConfigs._sendToErrorEmail; }
-        } 
+            get { return _sendToErrorEmail; }
+        }
 
 
         public static string EmailSettingsURL
         {
-            get { return GeneralConfigs._emailSettingsURL; }
-        } 
+            get { return _emailSettingsURL; }
+        }
 
-        
 
         public static string PayPalURL
         {
-            get { return GeneralConfigs._payPalURL; }
-        } 
+            get { return _payPalURL; }
+        }
 
 
         public static string PayPalPDTKey
         {
-            get { return GeneralConfigs._payPalPDTKey; }
-        } 
+            get { return _payPalPDTKey; }
+        }
 
-
-      
-
- 
 
         public static string SiteDomain
         {
-            get
-            {
-                return GeneralConfigs._siteDomain;
-            }
-        } 
- 
-
-      
- 
- 
+            get { return _siteDomain; }
+        }
 
 
         public static bool UseNetworkForMail
         {
-            get { return GeneralConfigs._useNetworkForMail; }
-        } 
+            get { return _useNetworkForMail; }
+        }
 
-
- 
-       
- 
 
         public static string ErrorLogFilename
         {
@@ -347,10 +304,12 @@ namespace BootBaronLib.Configs
         {
             get { return _enableErrorLogEmail; }
         }
+
         public static string MailServer
         {
             get { return _mailServer; }
         }
+
         public static string NonWebFilePath
         {
             get { return _nonWebFilePath; }
@@ -358,23 +317,19 @@ namespace BootBaronLib.Configs
 
         public static string YouTubeDevKey
         {
-            get { return GeneralConfigs._youTubeDevKey; }
+            get { return _youTubeDevKey; }
         }
+
         public static string YouTubeDevUser
         {
-            get { return GeneralConfigs._youTubeDevUser; }
+            get { return _youTubeDevUser; }
         }
+
         public static string YouTubeDevPass
         {
-            get { return GeneralConfigs._youTubeDevPass; }
-        } 
- 
+            get { return _youTubeDevPass; }
+        }
+
         #endregion
-
-
-
-
-
-
     }
 }

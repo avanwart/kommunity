@@ -4,30 +4,25 @@
         @Html.ValidationSummary(true, "Please correct the errors and try again.")
     </div>
 }
-@using (Html.BeginForm("photoupdate", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("photoupdate", "Account", FormMethod.Post, new {enctype = "multipart/form-data"}))
 {
-             
-             <div>
-  
-                Title:
-            
-                <input type="text" name="title" maxlength="50" style="width:275px;"  />
-       </div>
-    
-    <br />
-    
-    
     <div>
-          Your Photo:
+  
+        Title:
+            
+        <input type="text" name="title" maxlength="50" style="width: 275px;"  />
+    </div>
+
+    <br />
+
+
+    <div>
+        Your Photo:
            
-                <input type="file" id="fileUpload" name="file" size="23" />
+        <input type="file" id="fileUpload" name="file" size="23" />
      
     </div>
- 
-                <button class="btn btn-success">
-                    Upload Photo To World</button>
-           
-         
-        
 
+    <button class="btn btn-success">
+        Upload Photo To World</button>
 }

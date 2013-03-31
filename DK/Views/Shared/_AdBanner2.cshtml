@@ -1,33 +1,34 @@
-﻿@using BootBaronLib.Values
- <!-- 160 x 600 -->
-  @{int randomID = BootBaronLib.Operational.Utilities.RandomNumber(1, 4);
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
+@using BootBaronLib.Operational
+@using BootBaronLib.Values
+<!-- 160 x 600 -->
+@{
+    int randomID = Utilities.RandomNumber(1, 4);
 
-   switch (randomID)
-   {
-       case 1:
-           @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-               SiteEnums.SiteBrandType.A1601,
-               BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
-           break;
-           case 2:
-           @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-               SiteEnums.SiteBrandType.A1602,
-               BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
-           break;
-           case 3:
+    switch (randomID)
+    {
+        case 1:
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A1601,
+                Utilities.GetCurrentLanguageCode()))
+            break;
+        case 2:
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A1602,
+                Utilities.GetCurrentLanguageCode()))
+            break;
+        case 3:
 
-           @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-               SiteEnums.SiteBrandType.A1603,
-               BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A1603,
+                Utilities.GetCurrentLanguageCode()))
 
-           break;
-           default:
+            break;
+        default:
 
-           @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-               SiteEnums.SiteBrandType.A1603,
-               BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
-           break;
-                      
-                         }
-      }
-                         
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A1603,
+                Utilities.GetCurrentLanguageCode()))
+            break;
+    }
+}

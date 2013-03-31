@@ -13,50 +13,48 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
 
 namespace DasKlub.m.auth
 {
-    public partial class UserAddress : System.Web.UI.Page
+    public partial class UserAddress : Page
     {
-        UserAccount ua = null;
-        BootBaronLib.AppSpec.DasKlub.BOL.UserAddress uadd = null;
+        private UserAccount ua;
+        private BootBaronLib.AppSpec.DasKlub.BOL.UserAddress uadd;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (!IsPostBack)
             {
                 // load grid
-                UserAddresses uadds = new UserAddresses();
+                var uadds = new UserAddresses();
                 uadds.GetUserAddressesByStatus('U');
 
-                uadds.Sort(delegate(BootBaronLib.AppSpec.DasKlub.BOL.UserAddress p1, 
-                    BootBaronLib.AppSpec.DasKlub.BOL.UserAddress p2)
-                {
-                    return p2.CreateDate.CompareTo(p1.CreateDate);
-                });
+                uadds.Sort((p1, p2) => p2.CreateDate.CompareTo(p1.CreateDate));
 
                 gvwUserAddresses.DataSource = uadds;
                 gvwUserAddresses.DataBind();
 
-                Array lstProvider = System.Enum.GetValues( typeof( SiteEnums.CountryCodeISO));
+                Array lstProvider = Enum.GetValues(typeof (SiteEnums.CountryCodeISO));
 
                 foreach (SiteEnums.CountryCodeISO enProvider in lstProvider)
                 {
-                    ddlCountry.Items.Add(new System.Web.UI.WebControls.ListItem(Utilities.GetEnumDescription(enProvider), enProvider.ToString()));
+                    ddlCountry.Items.Add(new ListItem(Utilities.GetEnumDescription(enProvider), enProvider.ToString()));
                 }
-
-                
             }
         }
 
         protected void gvwUserAddresses_SelectedIndexChanged(object sender, EventArgs e)
         {
             // load address
-            uadd = new BootBaronLib.AppSpec.DasKlub.BOL.UserAddress(Convert.ToInt32(gvwUserAddresses.SelectedDataKey.Value));
+            uadd =
+                new BootBaronLib.AppSpec.DasKlub.BOL.UserAddress(Convert.ToInt32(gvwUserAddresses.SelectedDataKey.Value));
 
             LoadUserAddress(uadd.UserAccountID);
         }
@@ -70,13 +68,13 @@ namespace DasKlub.m.auth
             uadd.AddressLine1 = txtAddressLine1.Text;
             uadd.AddressLine2 = txtAddressLine2.Text;
             uadd.AddressLine3 = txtAddressLine3.Text;
-            uadd.City = txtCity.Text ;
-            uadd.FirstName = txtFirstName.Text ;
+            uadd.City = txtCity.Text;
+            uadd.FirstName = txtFirstName.Text;
             uadd.LastName = txtLastName.Text;
             uadd.PostalCode = txtPostalCode.Text;
             uadd.Region = txtRegion.Text;
-            uadd.CountryISO = ddlCountry.SelectedValue ;
-            uadd.UserAccountID  = Convert.ToInt32(txtUserID.Text);
+            uadd.CountryISO = ddlCountry.SelectedValue;
+            uadd.UserAccountID = Convert.ToInt32(txtUserID.Text);
 
             if (!string.IsNullOrEmpty(ddlAddressStatus.SelectedValue))
             {
@@ -102,9 +100,7 @@ namespace DasKlub.m.auth
             {
                 litStatus.Text = "FAILED TO UPDATE: " + uadd.UserAddressID.ToString();
             }
-
         }
- 
 
 
         private void LoadUserAddress(int userAccountID)
@@ -113,7 +109,7 @@ namespace DasKlub.m.auth
 
             if (uadd == null)
             {
-                uadd = new BootBaronLib.AppSpec.DasKlub.BOL.UserAddress( );
+                uadd = new BootBaronLib.AppSpec.DasKlub.BOL.UserAddress();
                 uadd.GetUserAddress(ua.UserAccountID);
             }
 
@@ -138,7 +134,7 @@ namespace DasKlub.m.auth
             {
                 ddlCountry.SelectedValue = uadd.CountryISO;
             }
- 
+
 
             litChoice1.Text = "blank";
             litChoice2.Text = "blank";
@@ -158,7 +154,6 @@ namespace DasKlub.m.auth
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-
             if (!string.IsNullOrEmpty(txtSearch.Text))
             {
                 ua = new UserAccount(txtSearch.Text);

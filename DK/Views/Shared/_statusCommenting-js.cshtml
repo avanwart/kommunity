@@ -1,272 +1,257 @@
-﻿     <script type="text/javascript">
+﻿@using BootBaronLib.Resources
+<script type="text/javascript">
 
-         var selected_msg_id = 0;
+    var selected_msg_id = 0;
 
-         function AttachToCommentDelete() {
+    function AttachToCommentDelete() {
 
-             $('.delete_icon_small').unbind('click');
+        $('.delete_icon_small').unbind('click');
 
-             $('.delete_icon_small').click(function () {
-             
-                 if (confirm('@Html.Raw(BootBaronLib.Resources.Messages.DeleteThis)')) {
-                     selected_msg_id = $(this).attr('value');
+        $('.delete_icon_small').click(function() {
 
-                     $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&act_type=C&status_com_id=' + selected_msg_id, function (data) {
+            if (confirm('@Html.Raw(Messages.DeleteThis)')) {
+                selected_msg_id = $(this).attr('value');
 
-                         $('#status_com_id_' + selected_msg_id).remove();
+                $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&act_type=C&status_com_id=' + selected_msg_id, function(data) {
 
-                         var com_count = $('#status_comments_count_' + data.StatusUpdateID).text();
+                    $('#status_com_id_' + selected_msg_id).remove();
 
-                         $('#status_comments_count_' + data.StatusUpdateID).text(parseInt(com_count) - 1);
+                    var com_count = $('#status_comments_count_' + data.StatusUpdateID).text();
 
-                     });
-                 }
-             });
+                    $('#status_comments_count_' + data.StatusUpdateID).text(parseInt(com_count) - 1);
 
-             bindReverseOptionsComment();
-         }
+                });
+            }
+        });
 
+        bindReverseOptionsComment();
+    }
 
 
-         function bindReverseOptions() {
+    function bindReverseOptions() {
 
-             $('.applaud_status_complete').unbind('click');
-             $('.beat_status_complete').unbind('click');
+        $('.applaud_status_complete').unbind('click');
+        $('.beat_status_complete').unbind('click');
 
-             // reverse
-             $('.applaud_status_complete').click(function () {
-                 selected_msg_id = $(this).attr('value');
-                 $('#status_ack_' + selected_msg_id).fadeOut('slow');
-                 //$.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=A&status_update_id=' + selected_msg_id, function (data) {
-                 $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=D&status_update_id=' + selected_msg_id, function (data) {
-                     $('#status_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
-                     $('#status_ack_' + selected_msg_id).fadeIn('fast');
-                     bindToOptions();
-                 });
-             });
+        // reverse
+        $('.applaud_status_complete').click(function() {
+            selected_msg_id = $(this).attr('value');
+            $('#status_ack_' + selected_msg_id).fadeOut('slow');
+            //$.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=A&status_update_id=' + selected_msg_id, function (data) {
+            $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=D&status_update_id=' + selected_msg_id, function(data) {
+                $('#status_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
+                $('#status_ack_' + selected_msg_id).fadeIn('fast');
+                bindToOptions();
+            });
+        });
 
-             $('.beat_status_complete').click(function () {
-                 selected_msg_id = $(this).attr('value');
-                 $('#status_ack_' + selected_msg_id).fadeOut('slow');
-                 //$.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=B&status_update_id=' + selected_msg_id, function (data) {
-                 $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=E&status_update_id=' + selected_msg_id, function (data) {
-                     $('#status_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
-                     $('#status_ack_' + selected_msg_id).fadeIn('fast');
-                     bindToOptions();
-                 });
-             });
+        $('.beat_status_complete').click(function() {
+            selected_msg_id = $(this).attr('value');
+            $('#status_ack_' + selected_msg_id).fadeOut('slow');
+            //$.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=B&status_update_id=' + selected_msg_id, function (data) {
+            $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=E&status_update_id=' + selected_msg_id, function(data) {
+                $('#status_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
+                $('#status_ack_' + selected_msg_id).fadeIn('fast');
+                bindToOptions();
+            });
+        });
 
 
-         }
+    }
 
 
-         function bindReverseOptionsComment() {
+    function bindReverseOptionsComment() {
 
 
-             $('.applaud_status_comment_complete').unbind('click');
-             $('.beat_status_comment_complete').unbind('click');
+        $('.applaud_status_comment_complete').unbind('click');
+        $('.beat_status_comment_complete').unbind('click');
 
-             // reverse
-             $('.applaud_status_comment_complete').click(function () {
-                 selected_msg_id = $(this).attr('value');
-                 $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
-                 //$.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=A&status_update_id=' + selected_msg_id, function (data) {
-                 $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=D&status_update_id=' + selected_msg_id, function (data) {
-                     $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
-                     $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
-                     bindToOptions();
-                 });
-             });
+        // reverse
+        $('.applaud_status_comment_complete').click(function() {
+            selected_msg_id = $(this).attr('value');
+            $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
+            //$.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=A&status_update_id=' + selected_msg_id, function (data) {
+            $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=D&status_update_id=' + selected_msg_id, function(data) {
+                $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
+                $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
+                bindToOptions();
+            });
+        });
 
-             $('.beat_status_comment_complete').click(function () {
-                 selected_msg_id = $(this).attr('value');
-                 $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
-                 //$.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=B&status_update_id=' + selected_msg_id, function (data) {
-                 $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=E&status_update_id=' + selected_msg_id, function (data) {
-                     $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
-                     $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
-                     bindToOptions();
-                 });
-             });
+        $('.beat_status_comment_complete').click(function() {
+            selected_msg_id = $(this).attr('value');
+            $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
+            //$.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=B&status_update_id=' + selected_msg_id, function (data) {
+            $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=E&status_update_id=' + selected_msg_id, function(data) {
+                $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
+                $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
+                bindToOptions();
+            });
+        });
 
 
- 
+    }
 
-         }
 
+    function bindToOptions() {
 
+        $('.delete_icon').unbind('click');
 
+        // statuses
+        $('.applaud_status').click(function() {
+            selected_msg_id = $(this).attr('value');
+            $('#status_ack_' + selected_msg_id).fadeOut('slow');
+            $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=A&status_update_id=' + selected_msg_id, function(data) {
+                $('#status_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
+                $('#status_ack_' + selected_msg_id).fadeIn('fast');
+                bindReverseOptions();
+            });
+        });
 
-         function bindToOptions() {
+        $('.beat_status').click(function() {
+            selected_msg_id = $(this).attr('value');
+            $('#status_ack_' + selected_msg_id).fadeOut('slow');
+            $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=B&status_update_id=' + selected_msg_id, function(data) {
+                $('#status_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
+                $('#status_ack_' + selected_msg_id).fadeIn('fast');
+                bindReverseOptions();
+            });
+        });
 
-             $('.delete_icon').unbind('click');
 
-             // statuses
-             $('.applaud_status').click(function () {
-                 selected_msg_id = $(this).attr('value');
-                 $('#status_ack_' + selected_msg_id).fadeOut('slow');
-                 $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=A&status_update_id=' + selected_msg_id, function (data) {
-                     $('#status_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
-                     $('#status_ack_' + selected_msg_id).fadeIn('fast');
-                     bindReverseOptions();
-                 });
-             });
+        // status comments
+        $('.applaud_status_comment').click(function() {
+            selected_msg_id = $(this).attr('value');
+            $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
+            $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=A&status_update_id=' + selected_msg_id, function(data) {
+                $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
+                $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
+                bindReverseOptionsComment();
+            });
+        });
 
-             $('.beat_status').click(function () {
-                 selected_msg_id = $(this).attr('value');
-                 $('#status_ack_' + selected_msg_id).fadeOut('slow');
-                 $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_rsp=B&status_update_id=' + selected_msg_id, function (data) {
-                     $('#status_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
-                     $('#status_ack_' + selected_msg_id).fadeIn('fast');
-                     bindReverseOptions();
-                 });
-             });
+        $('.beat_status_comment').click(function() {
+            selected_msg_id = $(this).attr('value');
+            $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
+            $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=B&status_update_id=' + selected_msg_id, function(data) {
+                $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
+                $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
+                bindReverseOptionsComment();
+            });
+        });
 
-          
 
-             // status comments
-             $('.applaud_status_comment').click(function () {
-                 selected_msg_id = $(this).attr('value');
-                 $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
-                 $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=A&status_update_id=' + selected_msg_id, function (data) {
-                     $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
-                     $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
-                     bindReverseOptionsComment();
-                 });
-             });
+        $('.delete_icon').click(function() {
 
-             $('.beat_status_comment').click(function () {
-                 selected_msg_id = $(this).attr('value');
-                 $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
-                 $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=B&status_update_id=' + selected_msg_id, function (data) {
-                     $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
-                     $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
-                     bindReverseOptionsComment();
-                 });
-             });
+            if (confirm('@Html.Raw(Messages.DeleteThis)')) {
+                selected_msg_id = $(this).attr('value');
 
+                $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&act_type=P&status_update_id=' + selected_msg_id, function(data) {
 
+                    $('#status_update_id_' + selected_msg_id).remove();
 
+                });
+            }
+        });
 
-             $('.delete_icon').click(function () {
 
-                 if (confirm('@Html.Raw(BootBaronLib.Resources.Messages.DeleteThis)')) {
-                     selected_msg_id = $(this).attr('value');
+        var comm_msg;
 
-                     $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&act_type=P&status_update_id=' + selected_msg_id, function (data) {
 
-                         $('#status_update_id_' + selected_msg_id).remove();
+        $('.comment_on_status').unbind('click');
 
-                     });
-                 }
-             });
 
+        $('.comment_on_status').click(function() {
 
-             var comm_msg;
+            $(this).attr("disabled", true);
 
+            selected_msg_id = $(this).attr('value');
 
-             $('.comment_on_status').unbind('click');
+            if (comm_msg == $('#status_comment_' + selected_msg_id).val()) {
+                // try to prevent duplicates by checking this
 
+                $(this).attr("disabled", false);
+                return;
+            }
 
-             $('.comment_on_status').click(function () {
+            comm_msg = $('#status_comment_' + selected_msg_id).val();
 
-                 $(this).attr("disabled", true);
+            comm_msg = encodeURIComponent(comm_msg);
 
-                 selected_msg_id = $(this).attr('value');
+            $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&comment_msg=' + comm_msg + '&status_update_id=' + selected_msg_id, function(data) {
 
-                 if (comm_msg == $('#status_comment_' + selected_msg_id).val()) {
-                     // try to prevent duplicates by checking this
+                // load all the comments
+                $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&all_comments=1&status_update_id=' + selected_msg_id, function(data) {
 
-                     $(this).attr("disabled", false);
-                     return;
-                 }
+                    $('#status_comments_' + selected_msg_id).html(htmlDecode(data.StatusComs));
 
-                 comm_msg = $('#status_comment_' + selected_msg_id).val();
+                    AttachToCommentDelete();
+                    $('#status_comment_' + selected_msg_id).val('');
 
-                 comm_msg = encodeURIComponent(comm_msg);
+                    var com_count = $('#status_comments_count_' + selected_msg_id).text();
 
-                 $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&comment_msg=' + comm_msg + '&status_update_id=' + selected_msg_id, function (data) {
+                    $('#status_comments_count_' + selected_msg_id).text(parseInt(com_count) + 1);
 
-                          // load all the comments
-                          $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&all_comments=1&status_update_id=' + selected_msg_id, function (data) {
-                                
-                                $('#status_comments_' + selected_msg_id).html(htmlDecode(data.StatusComs));
 
-                                AttachToCommentDelete();
-                                $('#status_comment_' + selected_msg_id).val('');
+                    $('.applaud_status_comment').unbind('click');
+                    $('.beat_status_comment').unbind('click');
 
-                                var com_count = $('#status_comments_count_' + selected_msg_id).text();
+                    // status comments
+                    $('.applaud_status_comment').click(function() {
+                        selected_msg_id = $(this).attr('value');
+                        $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
+                        $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=A&status_update_id=' + selected_msg_id, function(data) {
+                            $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
+                            $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
+                        });
+                    });
 
-                                $('#status_comments_count_' + selected_msg_id).text(parseInt(com_count) + 1);
+                    $('.beat_status_comment').click(function() {
+                        selected_msg_id = $(this).attr('value');
+                        $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
+                        $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=B&status_update_id=' + selected_msg_id, function(data) {
+                            $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
+                            $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
+                        });
+                    });
 
 
-                                $('.applaud_status_comment').unbind('click');
-                                $('.beat_status_comment').unbind('click');
+                });
+            });
 
-                                // status comments
-                                $('.applaud_status_comment').click(function () {
-                                    selected_msg_id = $(this).attr('value');
-                                    $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
-                                    $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=A&status_update_id=' + selected_msg_id, function (data) {
-                                        $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
-                                        $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
-                                    });
-                                });
+            $(this).attr("disabled", false);
+        });
 
-                                $('.beat_status_comment').click(function () {
-                                    selected_msg_id = $(this).attr('value');
-                                    $('#status_comment_ack_' + selected_msg_id).fadeOut('slow');
-                                    $.getJSON($rootUrl + 'io/operation.ashx?param_type=status_update&stat_update_comment_rsp=B&status_update_id=' + selected_msg_id, function (data) {
-                                        $('#status_comment_ack_' + selected_msg_id).html(htmlDecode(data.StatusAcks));
-                                        $('#status_comment_ack_' + selected_msg_id).fadeIn('fast');
-                                    });
-                                });
 
-                       
+        $(".status_comment_outer").hide();
 
-                            });
-                      });
 
-                 $(this).attr("disabled", false);
-             });
+        $(".status_accordion_child .status_comment_content").hide();
+        $(".status_accordion_child:first .content").show();
+        $(".status_accordion_child").click(function() {
+            $(this).css('width', '100%');
+            $(this).siblings().find(".status_comment_content").slideUp();
+            $(this).find(".status_comment_content").slideDown();
 
+            $(this).find(".status_comment_outer").show();
 
-            $(".status_comment_outer").hide();
-             
 
-             $(".status_accordion_child .status_comment_content").hide();
-             $(".status_accordion_child:first .content").show();
-             $(".status_accordion_child").click(function () {
-                 $(this).css('width', '100%');
-                 $(this).siblings().find(".status_comment_content").slideUp();
-                 $(this).find(".status_comment_content").slideDown();
+        });
 
-                 $(this).find(".status_comment_outer").show();
+        AttachToCommentDelete();
 
+    }
 
-              
-             });
 
-             AttachToCommentDelete();
+    $(document).ready(function() {
 
-         }
+        //             $("#message_text").focus();
 
+        AttachToCommentDelete();
+        bindToOptions();
+        bindReverseOptions();
+        bindReverseOptionsComment();
 
+    });
 
-
-         $(document).ready(function () {
-
-             //             $("#message_text").focus();
-
-             AttachToCommentDelete();
-             bindToOptions();
-             bindReverseOptions();
-             bindReverseOptionsComment();
-
-         });
-
- 
-
- 
-
-    </script>
+</script>

@@ -13,46 +13,21 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
-using System;
 using BootBaronLib.Operational;
-using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
-    public class PlaylistVideo: BaseIUserLogCRUD
+    public class PlaylistVideo : BaseIUserLogCRUD
     {
         #region properties 
-
-        private int _playlistVideoID = 0;
-
-        public int PlaylistVideoID
-        {
-            get { return _playlistVideoID; }
-            set { _playlistVideoID = value; }
-        }
-
-        private int _playlistID = 0;
-
-        public int PlaylistID
-        {
-            get { return _playlistID; }
-            set { _playlistID = value; }
-        }
-
-        private int _videoID = 0;
-
-        public int VideoID
-        {
-            get { return _videoID; }
-            set { _videoID = value; }
-        }
-
-        private int _rankOrder = 0;
 
         public PlaylistVideo(DataRow dr)
         {
@@ -64,20 +39,22 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // TODO: Complete member initialization
         }
 
-        public int RankOrder
-        {
-            get { return _rankOrder; }
-            set { _rankOrder = value; }
-        }
+        public int PlaylistVideoID { get; set; }
+
+        public int PlaylistID { get; set; }
+
+        public int VideoID { get; set; }
+
+        public int RankOrder { get; set; }
 
         #endregion
 
-  
-
-        public PlaylistVideo(int playlistVideoID) { Get(playlistVideoID); }
+        public PlaylistVideo(int playlistVideoID)
+        {
+            Get(playlistVideoID);
+        }
 
         #region methods
-
 
         public void Get(int playlistID, int videoID)
         {
@@ -86,8 +63,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetPlaylistVideoByIDs";
 
-            ADOExtenstion.AddParameter(comm, "playlistID",  playlistID);
-            ADOExtenstion.AddParameter(comm, "videoID",  videoID);
+            comm.AddParameter("playlistID", playlistID);
+            comm.AddParameter("videoID", videoID);
 
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
@@ -104,7 +81,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetPlaylistVideoByID";
 
-            ADOExtenstion.AddParameter(comm, "playlistVideoID",  playlistVideoID);
+            comm.AddParameter("playlistVideoID", playlistVideoID);
 
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
@@ -120,21 +97,20 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             {
                 base.Get(dr);
 
-                this.PlaylistID = FromObj.IntFromObj(dr["playlistID"]);
-                this.PlaylistVideoID = FromObj.IntFromObj(dr["playlistVideoID"]);
-                this.RankOrder = FromObj.IntFromObj(dr["rankOrder"]);
-                this.VideoID = FromObj.IntFromObj(dr["videoID"]);
+                PlaylistID = FromObj.IntFromObj(dr["playlistID"]);
+                PlaylistVideoID = FromObj.IntFromObj(dr["playlistVideoID"]);
+                RankOrder = FromObj.IntFromObj(dr["rankOrder"]);
+                VideoID = FromObj.IntFromObj(dr["videoID"]);
             }
             catch
             {
-
             }
         }
 
         public static string CurrentVideoInPlaylist(int playlistID)
         {
-            Playlist ply = new Playlist(playlistID);
-            PlaylistVideos plvids = new PlaylistVideos();
+            var ply = new Playlist(playlistID);
+            var plvids = new PlaylistVideos();
 
             plvids.GetPlaylistVideosForPlaylist(ply.PlaylistID);
 
@@ -145,7 +121,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             //Videos vids = new Videos();
 
-            DateTime now = BootBaronLib.Operational.Utilities.GetDataBaseTime();
+            DateTime now = Utilities.GetDataBaseTime();
             TimeSpan elapsedTime = now - ply.PlaylistBegin;
             int totalSecondsElapsed = Convert.ToInt32(elapsedTime.TotalSeconds);
 
@@ -165,26 +141,25 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                 if (totalSecondsElapsed <= v1.ClipLength)
                 {
-                    v1.Intro += totalSecondsElapsed;// +(secondsElapsed - totalSecondsElapsed);
+                    v1.Intro += totalSecondsElapsed; // +(secondsElapsed - totalSecondsElapsed);
                     sngr = new SongRecord(v1);
                     sngr.GetRelatedVideos = false;
                     return sngr.JSONResponse;
                 }
-                else if ( totalSecondsElapsed <= (secondsElapsed + v1.ClipLength) )
+                else if (totalSecondsElapsed <= (secondsElapsed + v1.ClipLength))
                 {
-                    v1.Intro +=  (totalSecondsElapsed - secondsElapsed);
+                    v1.Intro += (totalSecondsElapsed - secondsElapsed);
                     sngr = new SongRecord(v1);
                     sngr.GetRelatedVideos = false;
                     return sngr.JSONResponse;
                 }
 
                 secondsElapsed += cliplength;
-
             }
 
 
             // just do it over
-            ply.PlaylistBegin = BootBaronLib.Operational.Utilities.GetDataBaseTime();
+            ply.PlaylistBegin = Utilities.GetDataBaseTime();
             ply.Update();
             return CurrentVideoInPlaylist(1);
 
@@ -194,8 +169,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public static string GetFirstVideo(int playlistID)
         {
-            Playlist ply = new Playlist(playlistID);
-            PlaylistVideos plvids = new PlaylistVideos();
+            var ply = new Playlist(playlistID);
+            var plvids = new PlaylistVideos();
 
             plvids.GetPlaylistVideosForPlaylist(ply.PlaylistID);
 
@@ -214,21 +189,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     sngr.GetRelatedVideos = false;
                     return sngr.JSONResponse;
                 }
-
             }
 
             return string.Empty;
         }
 
 
-
         public static string GetNextVideo(int playlistID, string currentVideo)
         {
-            Playlist ply = new Playlist(playlistID);
-            PlaylistVideos plvids = new PlaylistVideos();
+            var ply = new Playlist(playlistID);
+            var plvids = new PlaylistVideos();
 
             plvids.GetPlaylistVideosForPlaylist(ply.PlaylistID);
- 
+
             Video v1 = null;
             SongRecord sngr = null;
             int indx = 0;
@@ -250,9 +223,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                         sngr.GetRelatedVideos = false;
                         return sngr.JSONResponse;
                     }
-                    else  
+                    else
                     {
-                        ply.PlaylistBegin = BootBaronLib.Operational.Utilities.GetDataBaseTime();
+                        ply.PlaylistBegin = Utilities.GetDataBaseTime();
                         ply.Update();
                         v1 = new Video(plvids[0].VideoID);
                         sngr = new SongRecord(v1);
@@ -260,8 +233,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                         return sngr.JSONResponse;
                     }
                 }
- 
-                
             }
 
             return string.Empty;
@@ -269,14 +240,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public static bool IsPlaylistVideo(int playlistID, int videoID)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_IsPlaylistVideo";
 
-            ADOExtenstion.AddParameter(comm, "playlistID",   playlistID);
-            ADOExtenstion.AddParameter(comm, "videoID", videoID);
+            comm.AddParameter("playlistID", playlistID);
+            comm.AddParameter("videoID", videoID);
 
             // execute the stored procedure
             return DbAct.ExecuteScalar(comm) == "1";
@@ -284,16 +254,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public override bool Update()
         {
-
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_UpdatePlaylistVideo";
 
-            ADOExtenstion.AddParameter(comm, "updatedByUserID",   UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, "playlistID",  PlaylistID);
-            ADOExtenstion.AddParameter(comm, "videoID",   this.VideoID);
-            ADOExtenstion.AddParameter(comm, "rankOrder",  RankOrder);
-            ADOExtenstion.AddParameter(comm, "playlistVideoID",  PlaylistVideoID);
+            comm.AddParameter("updatedByUserID", UpdatedByUserID);
+            comm.AddParameter("playlistID", PlaylistID);
+            comm.AddParameter("videoID", VideoID);
+            comm.AddParameter("rankOrder", RankOrder);
+            comm.AddParameter("playlistVideoID", PlaylistVideoID);
 
             int result = -1;
 
@@ -310,13 +279,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeletePlaylistVideoByID";
 
-            ADOExtenstion.AddParameter(comm, "playlistVideoID",  PlaylistVideoID);
+            comm.AddParameter("playlistVideoID", PlaylistVideoID);
 
             //RemoveCache();
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
-
         }
 
         public static bool Delete(int playlistID, int videoID)
@@ -326,8 +294,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeletePlaylistVideo";
 
-            ADOExtenstion.AddParameter(comm, "playlistID",  playlistID);
-            ADOExtenstion.AddParameter(comm, "videoID",   videoID);
+            comm.AddParameter("playlistID", playlistID);
+            comm.AddParameter("videoID", videoID);
 
             //RemoveCache();
 
@@ -341,10 +309,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddPlaylistVideo";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID",   CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "videoID",  VideoID);
-            ADOExtenstion.AddParameter(comm, "playlistID",  PlaylistID);
-            ADOExtenstion.AddParameter(comm, "rankOrder",  RankOrder);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("videoID", VideoID);
+            comm.AddParameter("playlistID", PlaylistID);
+            comm.AddParameter("rankOrder", RankOrder);
 
             // the result is their ID
             string result = string.Empty;
@@ -353,24 +321,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             if (string.IsNullOrEmpty(result)) return 0;
 
-            this.PlaylistVideoID = Convert.ToInt32(result);
+            PlaylistVideoID = Convert.ToInt32(result);
 
-            return this.PlaylistVideoID;
+            return PlaylistVideoID;
         }
 
         #endregion
-
-
     }
 
     public class PlaylistVideos : List<PlaylistVideo>
     {
         #region constructors 
 
-        public PlaylistVideos() { }
-
         #endregion
-
 
         public static int GetCountOfVideosInPlaylist(int playlistID)
         {
@@ -379,7 +342,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetCountOfVideosInPlaylist";
 
-            ADOExtenstion.AddParameter(comm, "playlistID", playlistID);
+            comm.AddParameter("playlistID", playlistID);
 
             string str = DbAct.ExecuteScalar(comm);
 
@@ -393,7 +356,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetPlaylistVideosForPlaylist";
 
-            ADOExtenstion.AddParameter(comm, "playlistID",  playlistID);
+            comm.AddParameter("playlistID", playlistID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -409,20 +372,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     plv = new PlaylistVideo(dr);
                     vid = new Video(plv.VideoID);
 
-                    if (vid.IsEnabled) this.Add(plv);
+                    if (vid.IsEnabled) Add(plv);
                 }
             }
 
 
             // sort by order rank
-            this.Sort(delegate(PlaylistVideo p1, PlaylistVideo p2)
-            {
-                return p1.RankOrder.CompareTo(p2.RankOrder);
-            });
+            Sort(delegate(PlaylistVideo p1, PlaylistVideo p2) { return p1.RankOrder.CompareTo(p2.RankOrder); });
         }
 
         /// <summary>
-        /// same thing as GetPlaylistVideosForPlaylist but adds to list regardless
+        ///     same thing as GetPlaylistVideosForPlaylist but adds to list regardless
         /// </summary>
         /// <param name="playlistID"></param>
         public void GetPlaylistVideosForPlaylistAll(int playlistID)
@@ -431,7 +391,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetPlaylistVideosForPlaylist";
 
-            ADOExtenstion.AddParameter(comm, "playlistID", playlistID);
+            comm.AddParameter("playlistID", playlistID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -447,17 +407,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     plv = new PlaylistVideo(dr);
                     vid = new Video(plv.VideoID);
 
-                     this.Add(plv);
+                    Add(plv);
                 }
             }
 
 
             // sort by order rank
-            this.Sort(delegate(PlaylistVideo p1, PlaylistVideo p2)
-            {
-                return p1.RankOrder.CompareTo(p2.RankOrder);
-            });
+            Sort(delegate(PlaylistVideo p1, PlaylistVideo p2) { return p1.RankOrder.CompareTo(p2.RankOrder); });
         }
-
     }
 }

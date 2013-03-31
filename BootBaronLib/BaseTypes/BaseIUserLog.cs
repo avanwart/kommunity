@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Data;
 using BootBaronLib.Interfaces;
@@ -21,17 +22,14 @@ using BootBaronLib.Operational;
 namespace BootBaronLib.BaseTypes
 {
     /// <summary>
-    /// This is used so that all the CRUD and logging actions
-    /// can be performed through inheritance
+    ///     This is used so that all the CRUD and logging actions
+    ///     can be performed through inheritance
     /// </summary>
     public abstract class BaseIUserLogCRUD : BaseExistance, ICRUD, IUserLog
     {
         #region properties
 
         #region IUserLog Members
-
-
-
 
         private DateTime _updateDate = DateTime.MinValue;
 
@@ -43,27 +41,11 @@ namespace BootBaronLib.BaseTypes
 
                 return _updateDate;
             }
-            set
-            {
-                _updateDate = value;
-            }
+            set { _updateDate = value; }
         }
 
 
-
-        private int _updatedByUserID = 0;
-
-        public int UpdatedByUserID
-        {
-            get
-            {
-                return _updatedByUserID;
-            }
-            set
-            {
-                _updatedByUserID = value;
-            }
-        }
+        public int UpdatedByUserID { get; set; }
 
         #endregion
 
@@ -73,22 +55,20 @@ namespace BootBaronLib.BaseTypes
 
         #region IBaseCRUD Members
 
-
         public virtual void Get(DataRow dr)
         {
             try
             {
                 //IUserLog
-                this.CreateDate = FromDataRow.DateTimeFromDataRow(dr, "createDate");
-                this.UpdateDate = FromDataRow.DateTimeFromDataRow(dr, "updateDate");
-                this.CreatedByUserID = FromDataRow.IntFromDataRow(dr, "createdByUserID");
-                this.UpdatedByUserID = FromDataRow.IntFromDataRow(dr, "updatedByUserID");
+                CreateDate = FromDataRow.DateTimeFromDataRow(dr, "createDate");
+                UpdateDate = FromDataRow.DateTimeFromDataRow(dr, "updateDate");
+                CreatedByUserID = FromDataRow.IntFromDataRow(dr, "createdByUserID");
+                UpdatedByUserID = FromDataRow.IntFromDataRow(dr, "updatedByUserID");
             }
             catch (Exception ex)
             {
                 Utilities.LogError(ex);
             }
-
         }
 
         public virtual bool Update()
@@ -103,12 +83,7 @@ namespace BootBaronLib.BaseTypes
 
         #endregion
 
-
-
         #region ICRUD Members
-
-
-
 
         public virtual void Get(int uniqueID)
         {
@@ -119,7 +94,4 @@ namespace BootBaronLib.BaseTypes
 
         #endregion
     }
-
-
-
 }

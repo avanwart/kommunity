@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -31,23 +32,21 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region constructors
 
-        public WallMessage() { }
+        public WallMessage()
+        {
+        }
 
-        public WallMessage(DataRow dr) { Get(dr); }
+        public WallMessage(DataRow dr)
+        {
+            Get(dr);
+        }
 
         #endregion
 
         #region properties
 
-        private int _wallMessageID = 0;
-
-        public int WallMessageID
-        {
-            get { return _wallMessageID; }
-            set { _wallMessageID = value; }
-        }
-
         private string _message = string.Empty;
+        public int WallMessageID { get; set; }
 
         public string Message
         {
@@ -55,29 +54,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _message = value; }
         }
 
-        private bool _isRead = false;
+        public bool IsRead { get; set; }
 
-        public bool IsRead
-        {
-            get { return _isRead; }
-            set { _isRead = value; }
-        }
+        public int FromUserAccountID { get; set; }
 
-        private int _fromUserAccountID = 0;
-
-        public int FromUserAccountID
-        {
-            get { return _fromUserAccountID; }
-            set { _fromUserAccountID = value; }
-        }
-
-        private int _toUserAccountID = 0;
-
-        public int ToUserAccountID
-        {
-            get { return _toUserAccountID; }
-            set { _toUserAccountID = value; }
-        }
+        public int ToUserAccountID { get; set; }
 
         #endregion
 
@@ -87,11 +68,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             base.Get(dr);
 
-            this.FromUserAccountID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.FromUserAccountID)]);
-            this.IsRead = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => this.IsRead)]);
-            this.Message = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Message)]);
-            this.ToUserAccountID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ToUserAccountID)]);
-            this.WallMessageID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.WallMessageID)]);
+            FromUserAccountID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => FromUserAccountID)]);
+            IsRead = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => IsRead)]);
+            Message = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => Message)]);
+            ToUserAccountID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => ToUserAccountID)]);
+            WallMessageID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => WallMessageID)]);
         }
 
         public override int Create()
@@ -101,11 +82,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddWallMessage";
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.CreatedByUserID), CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Message), Message);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.IsRead), IsRead);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ToUserAccountID), ToUserAccountID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FromUserAccountID), FromUserAccountID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => CreatedByUserID), CreatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Message), Message);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsRead), IsRead);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ToUserAccountID), ToUserAccountID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FromUserAccountID), FromUserAccountID);
 
             // the result is their ID
             string result = string.Empty;
@@ -119,9 +100,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                this.WallMessageID = Convert.ToInt32(result);
+                WallMessageID = Convert.ToInt32(result);
 
-                return this.WallMessageID;
+                return WallMessageID;
             }
         }
 
@@ -133,7 +114,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteWallMessage";
 
-            ADOExtenstion.AddParameter(comm, "wallMessageID", this.WallMessageID);
+            comm.AddParameter("wallMessageID", WallMessageID);
 
             //RemoveCache();
 
@@ -143,28 +124,29 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #endregion
 
+        public bool IsUsersWall { get; set; }
 
         public string ToUnorderdListItem
         {
             get
             {
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
 
-                UserAccount ua = new UserAccount(this.FromUserAccountID);
+                var ua = new UserAccount(FromUserAccountID);
                 bool isUsersPost = false;
 
                 if (HttpContext.Current.Request.IsAuthenticated)
                 {
-                    UserAccount currentUser = new UserAccount(HttpContext.Current.User.Identity.Name);
+                    var currentUser = new UserAccount(HttpContext.Current.User.Identity.Name);
 
-                    if (this.ToUserAccountID == currentUser.UserAccountID || this.FromUserAccountID == currentUser.UserAccountID)
+                    if (ToUserAccountID == currentUser.UserAccountID || FromUserAccountID == currentUser.UserAccountID)
                     {
                         isUsersPost = true;
                     }
                 }
 
 
-                UserAccountDetail uad = new UserAccountDetail();
+                var uad = new UserAccountDetail();
                 uad.GetUserAccountDeailForUser(ua.UserAccountID);
 
                 sb.Append(@"<li class=""status_post"">");
@@ -178,23 +160,24 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 sb.AppendFormat(@"<i title=""{1}"">{0}</i>", timeElapsed, CreateDate.ToString("o"));
 
 
-                if (!string.IsNullOrWhiteSpace(this.Message))
+                if (!string.IsNullOrWhiteSpace(Message))
                 {
                     sb.Append("<br />");
                 }
                 sb.Append("<br />");
 
 
-                sb.Append(this.Message);
+                sb.Append(Message);
 
                 sb.Append("<br />");
                 sb.Append(@"<div class=""clear""></div>");
 
-                if (isUsersPost || this.IsUsersWall)
+                if (isUsersPost || IsUsersWall)
                 {
-                    sb.AppendFormat(@"<a class=""delete_icon btn btn-danger btn-mini"" href=""{0}"">{1}</a>", 
-                        System.Web.VirtualPathUtility.ToAbsolute("~/" + ua.UserName + "/deletewallitem/" + this.WallMessageID.ToString()), 
-                        Messages.Delete); 
+                    sb.AppendFormat(@"<a class=""delete_icon btn btn-danger btn-mini"" href=""{0}"">{1}</a>",
+                                    VirtualPathUtility.ToAbsolute("~/" + ua.UserName + "/deletewallitem/" +
+                                                                  WallMessageID.ToString()),
+                                    Messages.Delete);
                 }
 
                 sb.Append(@"<div class=""clear""></div>");
@@ -202,43 +185,22 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 sb.Append("</li>");
 
                 return sb.ToString();
-
             }
-        }
-
-        private bool _isUsersWall = false;
-
-        public bool IsUsersWall
-        {
-            get { return _isUsersWall; }
-            set { _isUsersWall = value; }
         }
     }
 
     public class WallMessages : List<WallMessage>, IUnorderdList
     {
-        public WallMessages() { }
-
-        public static bool DeleteUserWall(int userAccountID)
-        {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
-            comm.CommandText = "up_DeleteUserWall";
-
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
-
-            // execute the stored procedure
-            return DbAct.ExecuteNonQuery(comm) > 0;
-        }
+        private bool _includeStartAndEndTags = true;
+        public bool IsUsersWall { get; set; }
 
         public string ToUnorderdList
         {
             get
             {
-                if (this.Count == 0) return string.Empty;
+                if (Count == 0) return string.Empty;
 
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
 
                 if (IncludeStartAndEndTags) sb.Append(@"<ul id=""status_update_list_items"">");
 
@@ -250,10 +212,27 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 if (IncludeStartAndEndTags) sb.Append(@"</ul>");
 
                 return sb.ToString();
-
             }
         }
 
+        public bool IncludeStartAndEndTags
+        {
+            get { return _includeStartAndEndTags; }
+            set { _includeStartAndEndTags = value; }
+        }
+
+        public static bool DeleteUserWall(int userAccountID)
+        {
+            // get a configured DbCommand object
+            DbCommand comm = DbAct.CreateCommand();
+            // set the stored procedure name
+            comm.CommandText = "up_DeleteUserWall";
+
+            comm.AddParameter("userAccountID", userAccountID);
+
+            // execute the stored procedure
+            return DbAct.ExecuteNonQuery(comm) > 0;
+        }
 
 
         public int GetWallMessagessPageWise(int pageIndex, int pageSize, int toUserAccountID)
@@ -270,9 +249,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             param.Direction = ParameterDirection.Output;
             comm.Parameters.Add(param);
 
-            ADOExtenstion.AddParameter(comm, "PageIndex", pageIndex);
-            ADOExtenstion.AddParameter(comm, "PageSize", pageSize);
-            ADOExtenstion.AddParameter(comm, "toUserAccountID", toUserAccountID);
+            comm.AddParameter("PageIndex", pageIndex);
+            comm.AddParameter("PageSize", pageSize);
+            comm.AddParameter("toUserAccountID", toUserAccountID);
 
             DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
@@ -285,7 +264,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     statup = new WallMessage(dr);
-                    this.Add(statup);
+                    Add(statup);
                 }
             }
 
@@ -295,7 +274,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public int GetWallMessagesUserCountUnread(int toUserAccountID)
         {
-           
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
 
@@ -303,7 +281,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             comm.CommandText = "up_GetWallMessagesUserCountUnread";
             // this is a union on the reverse of this as well
 
-            ADOExtenstion.AddParameter(comm, "toUserAccountID", toUserAccountID);
+            comm.AddParameter("toUserAccountID", toUserAccountID);
 
             // execute the stored procedure
             string rslt = DbAct.ExecuteScalar(comm);
@@ -314,27 +292,5 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else return 0;
         }
-
-
-        private bool _includeStartAndEndTags = true;
-
-        public bool IncludeStartAndEndTags
-        {
-            get { return _includeStartAndEndTags; }
-            set { _includeStartAndEndTags = value; }
-        }
-
-
-        private bool _isUsersWall = false;
-
-        public bool IsUsersWall
-        {
-            get { return _isUsersWall; }
-            set { _isUsersWall = value; }
-        }
-
-    
-
-       
     }
 }

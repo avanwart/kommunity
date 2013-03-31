@@ -13,26 +13,15 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using BootBaronLib.BaseTypes;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
-    public class Zone: BaseIUserLogCRUD
+    public class Zone : BaseIUserLogCRUD
     {
-
-        private int _zoneID = 0;
-
-        public int ZoneID
-        {
-            get { return _zoneID; }
-            set { _zoneID = value; }
-        }
-
         private string _name = string.Empty;
+        public int ZoneID { get; set; }
 
         public string Name
         {

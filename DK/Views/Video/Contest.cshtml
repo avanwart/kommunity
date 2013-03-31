@@ -2,13 +2,13 @@
     ViewBag.Title = ViewBag.ContestName;
 }
 
-   <div class="vid_filter_block">
+<div class="vid_filter_block">
 
-<h2>@ViewBag.ContestName</h2>
-       <hr />
-<br />
+    <h2>@ViewBag.ContestName</h2>
+    <hr />
+    <br />
     <div class="gallery" >
-     @Html.Raw(Model.VideosList())
-     </div>
-<div class="clear"></div>
+        @Html.Raw(Model.VideosList())
+    </div>
+    <div class="clear"></div>
 </div>

@@ -1,27 +1,28 @@
-﻿ @using BootBaronLib.Resources;
- <div class="row">
- <div class="span2">
- <ul class="nav nav-pills nav-stacked">
-                    <li
+﻿@using BootBaronLib.Resources
+
+<div class="row">
+    <div class="span2">
+        <ul class="nav nav-pills nav-stacked">
+            <li
               
-          @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "editprofile")
-          {
-          <text>class="active" </text>
-          }
-                 ><a href="@Url.Content("~/account/editprofile")">@Messages.Details</a>
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "editprofile")
+                {
+                    <text>class="active" </text>
+                }
+                ><a href="@Url.Content("~/account/editprofile")">@Messages.Details</a>
             </li>
             <li
                   
-          @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "editphoto")
-          {
-          <text>class="active" </text>
-          }
-            ><a href="@Url.Content("~/account/editphoto")">@Messages.ProfilePhotos</a> </li>
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "editphoto")
+                {
+                    <text>class="active" </text>
+                }
+                ><a href="@Url.Content("~/account/editphoto")">@Messages.ProfilePhotos</a> </li>
             <li
                 @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "settings")
                 {
-          <text>class="active" </text>
+                    <text>class="active" </text>
                 }
-            ><a href="@Url.Content("~/account/settings")">@Messages.Settings</a> </li>
+                ><a href="@Url.Content("~/account/settings")">@Messages.Settings</a> </li>
         </ul>
-        </div></div>
+    </div></div>

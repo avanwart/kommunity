@@ -13,9 +13,9 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using BootBaronLib.BaseTypes;
@@ -25,30 +25,19 @@ using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
-
-
     public class Role : BaseIUserLogCRUD, ICacheName
     {
-
         #region properties 
 
-        private int _roleID = 0;
-
-        public int RoleID
-        {
-            get { return _roleID; }
-            set { _roleID = value; }
-        }
-
+        private string _description = string.Empty;
         private string _roleName = string.Empty;
+        public int RoleID { get; set; }
 
         public string RoleName
         {
             get { return _roleName; }
             set { _roleName = value; }
         }
-
-        private string _description = string.Empty;
 
         public string Description
         {
@@ -58,24 +47,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #endregion
 
-        public override void Get(DataRow dr)
-        {
-
-            base.Get(dr);
-            this.RoleID = FromObj.IntFromObj(dr["roleID"]);
-            this.RoleName = FromObj.StringFromObj(dr["roleName"]);
-            this.Description = FromObj.StringFromObj(dr["description"]);
-        }
-
         public Role(string roleName)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetRoleByName";
 
-            ADOExtenstion.AddParameter(comm, "roleName", roleName);
+            comm.AddParameter("roleName", roleName);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -87,9 +66,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
         }
 
+        public override void Get(DataRow dr)
+        {
+            base.Get(dr);
+            RoleID = FromObj.IntFromObj(dr["roleID"]);
+            RoleName = FromObj.StringFromObj(dr["roleName"]);
+            Description = FromObj.StringFromObj(dr["description"]);
+        }
+
 
         /// <summary>
-        /// Make a new role if it doesn't exist
+        ///     Make a new role if it doesn't exist
         /// </summary>
         /// <param name="roleName"></param>
         /// <returns></returns>
@@ -98,42 +85,44 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
 
-            ADOExtenstion.AddParameter(comm, "roleName", roleName);
+            comm.AddParameter("roleName", roleName);
 
             // execute the stored procedure
             int result = Convert.ToInt32(DbAct.ExecuteScalar(comm));
 
             // was something returned?
-            if (result != 0) { return true; }
+            if (result != 0)
+            {
+                return true;
+            }
             else return false;
         }
 
         /// <summary>
-        /// Get all the roles in the site in the database
+        ///     Get all the roles in the site in the database
         /// </summary>
         /// <returns></returns>
         public static string[] GetAllRoles()
         {
-
-            ArrayList allRoles = new ArrayList();
+            var allRoles = new ArrayList();
             DataTable dt;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
-             comm.CommandText = "up_GetAllRoles";
+            comm.CommandText = "up_GetAllRoles";
             // exec
             dt = DbAct.ExecuteSelectCommand(comm);
             foreach (DataRow r in dt.Rows)
             {
                 allRoles.Add(FromObj.StringFromObj(r["RoleName"]));
             }
-            string[] stringArray = (string[])allRoles.ToArray(typeof(string));
+            var stringArray = (string[]) allRoles.ToArray(typeof (string));
             return stringArray;
         }
 
         /// <summary>
-        /// Does this role name exist?
+        ///     Does this role name exist?
         /// </summary>
         /// <param name="roleName"></param>
         /// <returns></returns>
@@ -159,7 +148,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // return result;
         }
 
-
         #region ICacheName Members
 
         public string CacheName
@@ -174,7 +162,4 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #endregion
     }
-
- 
-
 }

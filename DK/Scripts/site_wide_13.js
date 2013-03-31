@@ -1,15 +1,14 @@
 ﻿////////////////////////////////////////////// from layout
 
-$("document").ready
-        (
-            function () {
+$("document").ready(
+    function() {
 
-                if (window.location != $rootUrl) {
-                    CreateNewLikeButton(window.location);
-                }
+        if (window.location != $rootUrl) {
+            CreateNewLikeButton(window.location);
+        }
 
-            }
-        );
+    }
+);
 
 function CreateNewLikeButton(url) {
 
@@ -22,42 +21,35 @@ function CreateNewLikeButton(url) {
     elem.attr("layout", "button_count");
 
 
-
-
-
     //$("div#fb-root").empty().append(elem);
 
-    if ( jQuery.isReady ) {
-if ( typeof(FB) != 'undefined' && FB != undefined && FB != null)
-{
-   // FB.XFBML.parse($("div#fb-root").get(0));
-}
-}
+    if (jQuery.isReady) {
+        if (typeof(FB) != 'undefined' && FB != undefined && FB != null) {
+            // FB.XFBML.parse($("div#fb-root").get(0));
+        }
+    }
 
 }
-
-
 
 
 ////////////////////////////////////////////// fade in/ out
 
 
-
 /* plugin */
-jQuery.fn.dwFadingLinks = function (settings) {
+jQuery.fn.dwFadingLinks = function(settings) {
     settings = jQuery.extend({
         color: '#7e7e7e',
         duration: 500
     }, settings);
-    return this.each(function () {
+    return this.each(function() {
         var original = $(this).css('color');
-        $(this).mouseover(function () { $(this).animate({ color: settings.color }, settings.duration); });
-        $(this).mouseout(function () { $(this).animate({ color: original }, settings.duration); });
+        $(this).mouseover(function() { $(this).animate({ color: settings.color }, settings.duration); });
+        $(this).mouseout(function() { $(this).animate({ color: original }, settings.duration); });
     });
 };
 
 /* usage */
-$(document).ready(function () {
+$(document).ready(function() {
     $('.fade').dwFadingLinks({
         // color: '#FFFFFF',
         color: '#7e7e7e',
@@ -66,11 +58,9 @@ $(document).ready(function () {
 });
 
 
-
-
 ////////////////////////////////////////////// video image fade rollover
 
- /**
+/**
     * jquery.froll-0.1.js - Fancy Image Roll
     * ==========================================================
     * (C) 2011 José Ramón Díaz - jrdiazweb@gmail.com
@@ -128,13 +118,13 @@ $(document).ready(function () {
     *     Please, tell me if you find it useful. An email will be enough.
     *     If you enhance this code or correct a bug, please, tell me.
     */
-    (function ($) {
-        var imgcurrently;
-        ///////////////////////////////////////////////////////////////////////////////
-        // Private members
-        ///////////////////////////////////////////////////////////////////////////////
+(function($) {
+    var imgcurrently;
+    ///////////////////////////////////////////////////////////////////////////////
+    // Private members
+    ///////////////////////////////////////////////////////////////////////////////
 
-        var busy = false,
+    var busy = false,
         overlay = null,
         frames = [],
         frame = -1,
@@ -148,10 +138,10 @@ $(document).ready(function () {
 
         // ========================================================================
         // Starts the animation
-        _start = function () {
-        
+        _start = function() {
+
             _stop(); // Hides current animation (if any)
-            
+
             if (!target.attr('src')) return; // No image src
 
             // Gets the options and src transform
@@ -175,48 +165,43 @@ $(document).ready(function () {
             // Starts the frames preload chain loading first frame
             lframe = 0; // Frame being loaded
             if (!imgPreloader) imgPreloader = new Image();
-            imgPreloader.onerror = function () { _error(); };
+            imgPreloader.onerror = function() { _error(); };
             imgPreloader.onload = _preloadCompleted;
 
             imgPreloader.src = src.replace(/\{number\}/, "" + options.frames[lframe]);
             if (imgPreloader.complete) _preloadCompleted(); // Cached images don't fire onload events
         },
-
         // ========================================================================
         // Gracefully stops the animation
-        _stop = function () {
- 
+        _stop = function() {
+
             clearInterval(tickTimer); // Disables the timer
             imgPreloader.onerror = imgPreloader.onload = null;
             if (target && overlay.is(':visible'))
-                overlay.hide().empty();   // Hides the overlay and deletes the frames
-                
+                overlay.hide().empty(); // Hides the overlay and deletes the frames
+
             frames = [];
             frame = -1;
             //target = options = null;
             busy = false;
         },
-
         // ========================================================================
         // Frame image load error
-        _error = function () {
+        _error = function() {
             alert("Error loading image at " + src);
         },
-
         // ========================================================================
         // Function called on animation click
-        _click = function (e) {
+        _click = function(e) {
             if (typeof options.click !== 'undefined')
                 options.click(target);
         },
-
         // ========================================================================
         // Image preload complete event
-        _preloadCompleted = function () {
+        _preloadCompleted = function() {
             // Gets default image dimensions
-            if (!options.width) options.width = overlay.width();  //imgPreloader.width;
+            if (!options.width) options.width = overlay.width(); //imgPreloader.width;
             if (!options.height) options.height = overlay.height(); //imgPreloader.height;
-
              
 
             // Creates frame ima
@@ -225,7 +210,7 @@ $(document).ready(function () {
                 //   'class': 'froll-frame',
                 'src': imgPreloader.src
             }).css({
-            'cursor': 'pointer',
+                'cursor': 'pointer',
                 'position': 'absolute',
                 'display': 'block',
                 'left': '0px',
@@ -235,7 +220,6 @@ $(document).ready(function () {
                 'zIndex': lframe + 1,
                 'opacity': 0
                 //,'visibility': 'hidden'
-
             }).appendTo(overlay);
 
             // Shows first frame
@@ -250,14 +234,12 @@ $(document).ready(function () {
                 // Intermediate frame
                 imgPreloader.src = src.replace(/\{number\}/i, options.frames[lframe]);
                 if (imgPreloader.complete) _preloadCompleted(); // Cached images don't fire onload events
-            }
-            else
+            } else
                 imgPreloader.onerror = imgPreloader.onload = null; // Last frame
         },
-
         // ========================================================================
         // Shows next frame
-        _tick = function () {
+        _tick = function() {
 
             var l = options.frames.length - 1;
             var children = overlay.children();
@@ -267,30 +249,26 @@ $(document).ready(function () {
                 // First run
                 children.eq(0).css('opacity', 0).animate({ 'opacity': 1 }, options.speed);
                 frame = 0;
-            }
-            else if (frame == 0) {
+            } else if (frame == 0) {
                 // First frame (after a full run)
                 for (var i = 1; i < l; i++) children.eq(i).css('opacity', 0); // Hides all but first and last frames
                 children.eq(0).css('opacity', 1).show(); // Shows first frame (bellow last frame)
                 children.eq(l).animate({ 'opacity': 0 }, options.speed);
-            }
-            else if (frame <= l) {
+            } else if (frame <= l) {
                 // Intermediate frame
                 var next = children.eq(frame);
                 if (next)
                     next.css('opacity', 0).animate({ 'opacity': 1 }, options.speed);
-            }
-            else {
+            } else {
                 // The last frame. Resets animation to show first frame and hide the last one
                 children.eq(0).css('opacity', 1);
                 children.eq(l).animate({ 'opacity': 0 }, options.speed);
             }
             frame = (frame + 1) % (l + 1);
         },
-
         // ========================================================================
         // Helper function to get the exact obj position in the page
-        _getPos = function (obj) {
+        _getPos = function(obj) {
 
             var pos = obj.offset();
 
@@ -307,37 +285,36 @@ $(document).ready(function () {
         };
 
 
-        ///////////////////////////////////////////////////////////////////////////////
-        // Public members
-        ///////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
+    // Public members
+    ///////////////////////////////////////////////////////////////////////////////
 
-        // ========================================================================
-        // Instantiation. Called on every object of the supplied selector
-        $.fn.froll = function (obj) {
-            if (!$(this).length) {
-                return this;
-            }
+    // ========================================================================
+    // Instantiation. Called on every object of the supplied selector
+    $.fn.froll = function(obj) {
+        if (!$(this).length) {
+            return this;
+        }
 
-            if ($(this).data('froll')) {
-                // Object already initialized. Starts the animation over it simulating a click
-                
-                if ( loadFromHash) // for some reasons this is autoclicking
-                {
-                    if ($(this).click) $(this).click();
-                }
+        if ($(this).data('froll')) {
+            // Object already initialized. Starts the animation over it simulating a click
+
+            if (loadFromHash) // for some reasons this is autoclicking
+            {
+                if ($(this).click) $(this).click();
             }
-            else {
-                // Object not initialized. Sets data and binds events
-                $(this)
+        } else {
+            // Object not initialized. Sets data and binds events
+            $(this)
                 .data('froll', $.extend($.fn.froll.defaults, obj))
                 .unbind('mouseenter')
-                .bind('mouseenter', function (e) {
-                   
+                .bind('mouseenter', function(e) {
+
                     var self = $(this);
                     imgcurrently = $(this);
                     e.preventDefault();
-                    
-                    showTooltip( e, self.attr('longdesc'));
+
+                    showTooltip(e, self.attr('longdesc'));
 
                     if (busy && self !== target) _stop(); // Stops current animation
                     busy = true;
@@ -346,75 +323,74 @@ $(document).ready(function () {
                     _start(); // Starts the animation over target element
                     return;
                 });
-            }
+        }
 
-            return this;
-        };
+        return this;
+    };
 
 
-        // ========================================================================
-        // Container class for the public interface
-        $.froll = function (obj) { };
+    // ========================================================================
+    // Container class for the public interface
+    $.froll = function(obj) {
+    };
 
-        // ========================================================================
-        // Inits the components needed for the animation overlay
-        $.froll.init = function () {
-        
-            if ($('#froll-overlay').length) {
-                return;
-            }
-           
-            // Components
-            $('body').append(
+    // ========================================================================
+    // Inits the components needed for the animation overlay
+    $.froll.init = function() {
+
+        if ($('#froll-overlay').length) {
+            return;
+        }
+
+        // Components
+        $('body').append(
             overlay = $('<div id="froll-overlay"></div>')
         );
 
-            // Animation controls events
-            overlay.mouseleave(_stop);
-            overlay.mouseleave(hideTooltip);
-            overlay.click(_click);
+        // Animation controls events
+        overlay.mouseleave(_stop);
+        overlay.mouseleave(hideTooltip);
+        overlay.click(_click);
 
-            return this;
-        };
+        return this;
+    };
 
-        // ========================================================================
-        // Stops current animation and hides overlay
-        $.froll.stop = function () { _stop(); };
+    // ========================================================================
+    // Stops current animation and hides overlay
+    $.froll.stop = function() { _stop(); };
 
-        // ========================================================================
-        // Sample transformation arrays
-        $.froll.youtube = [/.*\/(.*)\/2\.(jpg|gif|png|bmp|jpeg)(.*)?/i, 'http://img.youtube.com/vi/$1/{number}.$2']; // Caption image is located in youtube (http://img.youtube.com/vi/<video_ID>/0.jpg)
-        $.froll.youtubeLocal = [/.*\/(.*)\.(jpg|gif|png|bmp|jpeg)(.*)?/i, 'http://img.youtube.com/vi/$1/{number}.$2']; // Caption image is located elsewhere but caption image name is the youtube video_ID
-        $.froll.local = [/(.*)\/(.*)\.(jpg|gif|png|bmp|jpeg)(.*)?/i, '$1/$2_{number}.$3$4'];                      // Caption image is located elsewhere and frames are in format "originalImage_<frame>.jpg" in the same directory
+    // ========================================================================
+    // Sample transformation arrays
+    $.froll.youtube = [/.*\/(.*)\/2\.(jpg|gif|png|bmp|jpeg)(.*)?/i, 'http://img.youtube.com/vi/$1/{number}.$2']; // Caption image is located in youtube (http://img.youtube.com/vi/<video_ID>/0.jpg)
+    $.froll.youtubeLocal = [/.*\/(.*)\.(jpg|gif|png|bmp|jpeg)(.*)?/i, 'http://img.youtube.com/vi/$1/{number}.$2']; // Caption image is located elsewhere but caption image name is the youtube video_ID
+    $.froll.local = [/(.*)\/(.*)\.(jpg|gif|png|bmp|jpeg)(.*)?/i, '$1/$2_{number}.$3$4']; // Caption image is located elsewhere and frames are in format "originalImage_<frame>.jpg" in the same directory
 
-        // ========================================================================
-        // Froll options defaults
-        $.fn.froll.defaults = {
-            transform: $.froll.youtube, // Array that defines [0] as the regex to apply to src and [1] as the resulting string with {number} placeholder for the animation images
-            frames: [1, 2, 3],       // Array with the {number} of each frame of the animation
-            width: null,            // Width of the animation frames.  Null = automatic frame image width
-            height: null,            // Height of the animation frames. Null = automatic frame image height
-            speed: 750,             // Fade animation speed
-            time: 1500,            // Time between frames
+    // ========================================================================
+    // Froll options defaults
+    $.fn.froll.defaults = {
+        transform: $.froll.youtube, // Array that defines [0] as the regex to apply to src and [1] as the resulting string with {number} placeholder for the animation images
+        frames: [1, 2, 3],       // Array with the {number} of each frame of the animation
+        width: null,            // Width of the animation frames.  Null = automatic frame image width
+        height: null,            // Height of the animation frames. Null = automatic frame image height
+        speed: 750,             // Fade animation speed
+        time: 1500,            // Time between frames
 
-            click: function (taget) { window.location = target.attr('alt'); /* $(target).closest('a').click();*/ } // Click callback function
-        };
+        click: function(taget) { window.location = target.attr('alt'); /* $(target).closest('a').click();*/ } // Click callback function
+    };
 
-        // ========================================================================
-        // Inits the animation overlay on DOM ready
-        $(document).ready(function () {
-            $.froll.init();
-        });
+    // ========================================================================
+    // Inits the animation overlay on DOM ready
+    $(document).ready(function() {
+        $.froll.init();
+    });
 
-    })(jQuery);
-
- 
+})(jQuery); 
 
   
 ////////////////////////////////////////////// tool tip
 
 
-      /************************************************************************************************************
+/************************************************************************************************************
     (C) www.dhtmlgoodies.com, October 2005
 	
     This is a script from www.dhtmlgoodies.com. You will find this and a lot of other scripts at our website.	
@@ -431,159 +407,140 @@ $(document).ready(function () {
     Alf Magne Kalleland
 	
     ************************************************************************************************************/
-    var dhtmlgoodies_tooltip = false;
-    var dhtmlgoodies_tooltipShadow = false;
-    var dhtmlgoodies_shadowSize = 4;
-    var dhtmlgoodies_tooltipMaxWidth = 200;
-    var dhtmlgoodies_tooltipMinWidth = 100;
-    var dhtmlgoodies_iframe = false;
-    var tooltip_is_msie = (navigator.userAgent.indexOf('MSIE') >= 0 &&
-     navigator.userAgent.indexOf('opera') == -1 && document.all) ? true : false;
-    function showTooltip(e, tooltipTxt) {
+var dhtmlgoodies_tooltip = false;
+var dhtmlgoodies_tooltipShadow = false;
+var dhtmlgoodies_shadowSize = 4;
+var dhtmlgoodies_tooltipMaxWidth = 200;
+var dhtmlgoodies_tooltipMinWidth = 100;
+var dhtmlgoodies_iframe = false;
+var tooltip_is_msie = (navigator.userAgent.indexOf('MSIE') >= 0 &&
+    navigator.userAgent.indexOf('opera') == -1 && document.all) ? true : false;
 
-        var bodyWidth = Math.max(document.body.clientWidth, document.documentElement.clientWidth) - 20;
+function showTooltip(e, tooltipTxt) {
 
-        if (!dhtmlgoodies_tooltip) {
-            dhtmlgoodies_tooltip = document.createElement('DIV');
-            dhtmlgoodies_tooltip.id = 'dhtmlgoodies_tooltip';
-            dhtmlgoodies_tooltipShadow = document.createElement('DIV');
-            dhtmlgoodies_tooltipShadow.id = 'dhtmlgoodies_tooltipShadow';
+    var bodyWidth = Math.max(document.body.clientWidth, document.documentElement.clientWidth) - 20;
 
-            document.body.appendChild(dhtmlgoodies_tooltip);
-            document.body.appendChild(dhtmlgoodies_tooltipShadow);
+    if (!dhtmlgoodies_tooltip) {
+        dhtmlgoodies_tooltip = document.createElement('DIV');
+        dhtmlgoodies_tooltip.id = 'dhtmlgoodies_tooltip';
+        dhtmlgoodies_tooltipShadow = document.createElement('DIV');
+        dhtmlgoodies_tooltipShadow.id = 'dhtmlgoodies_tooltipShadow';
 
-            if (tooltip_is_msie) {
-                dhtmlgoodies_iframe = document.createElement('IFRAME');
-                dhtmlgoodies_iframe.frameborder = '5';
-                dhtmlgoodies_iframe.style.backgroundColor = '#FFFFFF';
-                dhtmlgoodies_iframe.src = '#';
-                dhtmlgoodies_iframe.style.zIndex = 100;
-                dhtmlgoodies_iframe.style.position = 'absolute';
-                document.body.appendChild(dhtmlgoodies_iframe);
-            }
-
-        }
-
-        dhtmlgoodies_tooltip.style.display = 'block';
-        dhtmlgoodies_tooltipShadow.style.display = 'block';
-        if (tooltip_is_msie) dhtmlgoodies_iframe.style.display = 'block';
-
-        var st = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
-        if (navigator.userAgent.toLowerCase().indexOf('safari') >= 0) st = 0;
-        var leftPos = e.clientX + 10;
-
-        dhtmlgoodies_tooltip.style.width = null; // Reset style width if it's set 
-        dhtmlgoodies_tooltip.innerHTML = tooltipTxt;
-        dhtmlgoodies_tooltip.style.left = leftPos + 'px';
-        dhtmlgoodies_tooltip.style.top = e.clientY + 10 + st + 'px';
-
-        dhtmlgoodies_tooltipShadow.style.left = leftPos + dhtmlgoodies_shadowSize + 'px';
-        dhtmlgoodies_tooltipShadow.style.top = e.clientY + 10 + st + dhtmlgoodies_shadowSize + 'px';
-
-        if (dhtmlgoodies_tooltip.offsetWidth > dhtmlgoodies_tooltipMaxWidth) {	/* Exceeding max width of tooltip ? */
-            dhtmlgoodies_tooltip.style.width = dhtmlgoodies_tooltipMaxWidth + 'px';
-        }
-
-        var tooltipWidth = dhtmlgoodies_tooltip.offsetWidth;
-        if (tooltipWidth < dhtmlgoodies_tooltipMinWidth) tooltipWidth = dhtmlgoodies_tooltipMinWidth;
-
-
-        dhtmlgoodies_tooltip.style.width = tooltipWidth + 'px';
-        dhtmlgoodies_tooltipShadow.style.width = dhtmlgoodies_tooltip.offsetWidth + 'px';
-        dhtmlgoodies_tooltipShadow.style.height = dhtmlgoodies_tooltip.offsetJHeight + 'px';
-
-        if ((leftPos + tooltipWidth) > bodyWidth) {
-            dhtmlgoodies_tooltip.style.left = (dhtmlgoodies_tooltipShadow.style.left.replace('px', '') - ((leftPos + tooltipWidth) - bodyWidth)) + 'px';
-            dhtmlgoodies_tooltipShadow.style.left = (dhtmlgoodies_tooltipShadow.style.left.replace('px', '') - ((leftPos + tooltipWidth) - bodyWidth) + dhtmlgoodies_shadowSize) + 'px';
-        }
+        document.body.appendChild(dhtmlgoodies_tooltip);
+        document.body.appendChild(dhtmlgoodies_tooltipShadow);
 
         if (tooltip_is_msie) {
-            dhtmlgoodies_iframe.style.left = dhtmlgoodies_tooltip.style.left;
-            dhtmlgoodies_iframe.style.top = dhtmlgoodies_tooltip.style.top;
-            dhtmlgoodies_iframe.style.width = dhtmlgoodies_tooltip.offsetWidth + 'px';
-            dhtmlgoodies_iframe.style.height = dhtmlgoodies_tooltip.offsetHeight + 'px';
-
+            dhtmlgoodies_iframe = document.createElement('IFRAME');
+            dhtmlgoodies_iframe.frameborder = '5';
+            dhtmlgoodies_iframe.style.backgroundColor = '#FFFFFF';
+            dhtmlgoodies_iframe.src = '#';
+            dhtmlgoodies_iframe.style.zIndex = 100;
+            dhtmlgoodies_iframe.style.position = 'absolute';
+            document.body.appendChild(dhtmlgoodies_iframe);
         }
 
     }
 
-    function hideTooltip() {
-        dhtmlgoodies_tooltip.style.display = 'none';
-        dhtmlgoodies_tooltipShadow.style.display = 'none';
-        if (tooltip_is_msie) dhtmlgoodies_iframe.style.display = 'none';
+    dhtmlgoodies_tooltip.style.display = 'block';
+    dhtmlgoodies_tooltipShadow.style.display = 'block';
+    if (tooltip_is_msie) dhtmlgoodies_iframe.style.display = 'block';
+
+    var st = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+    if (navigator.userAgent.toLowerCase().indexOf('safari') >= 0) st = 0;
+    var leftPos = e.clientX + 10;
+
+    dhtmlgoodies_tooltip.style.width = null; // Reset style width if it's set 
+    dhtmlgoodies_tooltip.innerHTML = tooltipTxt;
+    dhtmlgoodies_tooltip.style.left = leftPos + 'px';
+    dhtmlgoodies_tooltip.style.top = e.clientY + 10 + st + 'px';
+
+    dhtmlgoodies_tooltipShadow.style.left = leftPos + dhtmlgoodies_shadowSize + 'px';
+    dhtmlgoodies_tooltipShadow.style.top = e.clientY + 10 + st + dhtmlgoodies_shadowSize + 'px';
+
+    if (dhtmlgoodies_tooltip.offsetWidth > dhtmlgoodies_tooltipMaxWidth) { /* Exceeding max width of tooltip ? */
+        dhtmlgoodies_tooltip.style.width = dhtmlgoodies_tooltipMaxWidth + 'px';
     }
 
+    var tooltipWidth = dhtmlgoodies_tooltip.offsetWidth;
+    if (tooltipWidth < dhtmlgoodies_tooltipMinWidth) tooltipWidth = dhtmlgoodies_tooltipMinWidth;
 
 
+    dhtmlgoodies_tooltip.style.width = tooltipWidth + 'px';
+    dhtmlgoodies_tooltipShadow.style.width = dhtmlgoodies_tooltip.offsetWidth + 'px';
+    dhtmlgoodies_tooltipShadow.style.height = dhtmlgoodies_tooltip.offsetJHeight + 'px';
 
+    if ((leftPos + tooltipWidth) > bodyWidth) {
+        dhtmlgoodies_tooltip.style.left = (dhtmlgoodies_tooltipShadow.style.left.replace('px', '') - ((leftPos + tooltipWidth) - bodyWidth)) + 'px';
+        dhtmlgoodies_tooltipShadow.style.left = (dhtmlgoodies_tooltipShadow.style.left.replace('px', '') - ((leftPos + tooltipWidth) - bodyWidth) + dhtmlgoodies_shadowSize) + 'px';
+    }
 
+    if (tooltip_is_msie) {
+        dhtmlgoodies_iframe.style.left = dhtmlgoodies_tooltip.style.left;
+        dhtmlgoodies_iframe.style.top = dhtmlgoodies_tooltip.style.top;
+        dhtmlgoodies_iframe.style.width = dhtmlgoodies_tooltip.offsetWidth + 'px';
+        dhtmlgoodies_iframe.style.height = dhtmlgoodies_tooltip.offsetHeight + 'px';
 
+    }
 
+}
 
-
-
-
-
-
-
-
-   
+function hideTooltip() {
+    dhtmlgoodies_tooltip.style.display = 'none';
+    dhtmlgoodies_tooltipShadow.style.display = 'none';
+    if (tooltip_is_msie) dhtmlgoodies_iframe.style.display = 'none';
+}   
 
 
 ////////////////////////////////////////////// video image roll preview
 
-$(window).ready(function () {
+$(window).ready(function() {
     $('img.preview_thmb').froll();
 });
 
 
+////////////////////////////////////////////// clock
 
+// Anytime Anywhere Web Page Clock Generator
+// Clock Script Generated at
+// http://www.rainbow.arch.scriptmania.com/tools/clock
 
+function tS() {
+    x = new Date(tN().getUTCFullYear(), tN().getUTCMonth(), tN().getUTCDate(), tN().getUTCHours(), tN().getUTCMinutes(), tN().getUTCSeconds());
+    x.setTime(x.getTime());
+    return x;
+}
 
- 
+function tN() { return new Date(); }
 
+function lZ(x) { return (x > 9) ? x : '0' + x; }
 
+function dT() {
 
-
-    ////////////////////////////////////////////// clock
-    
-            // Anytime Anywhere Web Page Clock Generator
-        // Clock Script Generated at
-        // http://www.rainbow.arch.scriptmania.com/tools/clock
-
-        function tS() { x = new Date(tN().getUTCFullYear(), tN().getUTCMonth(), tN().getUTCDate(), tN().getUTCHours(), tN().getUTCMinutes(), tN().getUTCSeconds()); x.setTime(x.getTime()); return x; }
-        function tN() { return new Date(); }
-        function lZ(x) { return (x > 9) ? x : '0' + x; }
-        function dT() {
-
-        if ( document.getElementById('current_running_time') != null)
-        {
-            if (fr == 0) {
-                fr = 1;
-                //document.write('<font size=2 face=Arial><b><span id="tP">' + eval(oT) + '</span></b></font>');
-                //$("#current_running_time").html(eval(oT));
-                document.getElementById('current_running_time').innerHTML = '<span id="tP">' + eval(oT) + '</span>';
-            } document.getElementById('current_running_time').innerHTML = eval(oT);
-
-            setTimeout('dT()', 1000);
-            
+    if (document.getElementById('current_running_time') != null) {
+        if (fr == 0) {
+            fr = 1;
+            //document.write('<font size=2 face=Arial><b><span id="tP">' + eval(oT) + '</span></b></font>');
+            //$("#current_running_time").html(eval(oT));
+            document.getElementById('current_running_time').innerHTML = '<span id="tP">' + eval(oT) + '</span>';
         }
+        document.getElementById('current_running_time').innerHTML = eval(oT);
 
-        }
-        function y4(x) { return (x < 500) ? x + 1900 : x; }
-        var fr = 0, oT = "y4(tS().getYear())+'-'+lZ((tS().getMonth()+1))+'-'+lZ(tS().getDate())+' '+lZ(tS().getHours())+':'+lZ(tS().getMinutes())+':'+lZ(tS().getSeconds())+' '+'U'+'T'+'C'";
-        
+        setTimeout('dT()', 1000);
 
-        dT(); // begin the clock
+    }
 
+}
 
+function y4(x) { return (x < 500) ? x + 1900 : x; }
 
-
-
-
+var fr = 0, oT = "y4(tS().getYear())+'-'+lZ((tS().getMonth()+1))+'-'+lZ(tS().getDate())+' '+lZ(tS().getHours())+':'+lZ(tS().getMinutes())+':'+lZ(tS().getSeconds())+' '+'U'+'T'+'C'";
 
 
-    ////////////////////////////////////////////// history
+dT();
+// begin the clock
+
+
+////////////////////////////////////////////// history
 
 
 /*
@@ -613,17 +570,16 @@ $(window).ready(function () {
 * THE SOFTWARE.
 */
 
-(function ($) {
+(function($) {
     var locationWrapper = {
-        put: function (hash, win) {
+        put: function(hash, win) {
             (win || window).location.hash = this.encoder(hash);
         },
-        get: function (win) {
+        get: function(win) {
             var hash = ((win || window).location.hash).replace(/^#/, '');
             try {
                 return $.browser.mozilla ? hash : decodeURIComponent(hash);
-            }
-            catch (error) {
+            } catch(error) {
                 return hash;
             }
         },
@@ -632,21 +588,21 @@ $(window).ready(function () {
 
     var iframeWrapper = {
         id: "__jQuery_history",
-        init: function () {
+        init: function() {
             var html = '<iframe id="' + this.id + '" style="display:none" src="javascript:false;" />';
             $("body").prepend(html);
             return this;
         },
-        _document: function () {
+        _document: function() {
             return $("#" + this.id)[0].contentWindow.document;
         },
-        put: function (hash) {
+        put: function(hash) {
             var doc = this._document();
             doc.open();
             doc.close();
             locationWrapper.put(hash, doc);
         },
-        get: function () {
+        get: function() {
             return locationWrapper.get(this._document());
         }
     };
@@ -660,19 +616,19 @@ $(window).ready(function () {
 
         function encoder(unescape_) {
             if (unescape_ === true) {
-                return function (hash) { return hash; };
+                return function(hash) { return hash; };
             }
             if (typeof unescape_ == "string" &&
-               (unescape_ = partialDecoder(unescape_.split("")))
-               || typeof unescape_ == "function") {
-                return function (hash) { return unescape_(encodeURIComponent(hash)); };
+                (unescape_ = partialDecoder(unescape_.split("")))
+                || typeof unescape_ == "function") {
+                return function(hash) { return unescape_(encodeURIComponent(hash)); };
             }
             return encodeURIComponent;
         }
 
         function partialDecoder(chars) {
             var re = new RegExp($.map(chars, encodeURIComponent).join("|"), "ig");
-            return function (enc) { return enc.replace(re, decodeURIComponent); };
+            return function(enc) { return enc.replace(re, decodeURIComponent); };
         }
     }
 
@@ -682,35 +638,38 @@ $(window).ready(function () {
         callback: undefined,
         type: undefined,
 
-        check: function () { },
-        load: function (hash) { },
-        init: function (callback, options) {
+        check: function() {
+        },
+        load: function(hash) {
+        },
+        init: function(callback, options) {
             initObjects(options);
             self.callback = callback;
             self._options = options;
             self._init();
         },
 
-        _init: function () { },
+        _init: function() {
+        },
         _options: {}
     };
 
     implementations.timer = {
         _appState: undefined,
-        _init: function () {
+        _init: function() {
             var current_hash = locationWrapper.get();
             self._appState = current_hash;
             self.callback(current_hash);
             setInterval(self.check, 100);
         },
-        check: function () {
+        check: function() {
             var current_hash = locationWrapper.get();
             if (current_hash != self._appState) {
                 self._appState = current_hash;
                 self.callback(current_hash);
             }
         },
-        load: function (hash) {
+        load: function(hash) {
             if (hash != self._appState) {
                 locationWrapper.put(hash);
                 self._appState = hash;
@@ -721,30 +680,30 @@ $(window).ready(function () {
 
     implementations.iframeTimer = {
         _appState: undefined,
-        _init: function () {
+        _init: function() {
             var current_hash = locationWrapper.get();
             self._appState = current_hash;
             iframeWrapper.init().put(current_hash);
             self.callback(current_hash);
             setInterval(self.check, 100);
         },
-        check: function () {
+        check: function() {
             var iframe_hash = iframeWrapper.get(),
                 location_hash = locationWrapper.get();
 
             if (location_hash != iframe_hash) {
-                if (location_hash == self._appState) {    // user used Back or Forward button
+                if (location_hash == self._appState) { // user used Back or Forward button
                     self._appState = iframe_hash;
                     locationWrapper.put(iframe_hash);
                     self.callback(iframe_hash);
-                } else {                              // user loaded new bookmark
+                } else { // user loaded new bookmark
                     self._appState = location_hash;
                     iframeWrapper.put(location_hash);
                     self.callback(location_hash);
                 }
             }
         },
-        load: function (hash) {
+        load: function(hash) {
             if (hash != self._appState) {
                 locationWrapper.put(hash);
                 iframeWrapper.put(hash);
@@ -755,14 +714,14 @@ $(window).ready(function () {
     };
 
     implementations.hashchangeEvent = {
-        _init: function () {
+        _init: function() {
             self.callback(locationWrapper.get());
             $(window).on('hashchange', self.check);
         },
-        check: function () {
+        check: function() {
             self.callback(locationWrapper.get());
         },
-        load: function (hash) {
+        load: function(hash) {
             locationWrapper.put(hash);
         }
     };
@@ -781,387 +740,319 @@ $(window).ready(function () {
     $.history = self;
 })(jQuery);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
-  ////////////////////////////////////////////// html helper
+////////////////////////////////////////////// html helper
 
-    function htmlEncode(value) {
-        return $('<div/>').text(value).html();
-    }
-
-
-    function htmlDecode(value) {
-        return $('<div/>').html(value).text();
-    }
+function htmlEncode(value) {
+    return $('<div/>').text(value).html();
+}
 
 
-
-
-
-     
-
-
-
-
-
-
-
-
-
-
+function htmlDecode(value) {
+    return $('<div/>').html(value).text();
+}
 
 
 ////////////////////////////////////////////// youtube player
 
 
-    var playlistVideos;
-    var eventData;
-    var playlistID = 1;
-    var vidDefault;
-    var done = false;
-    var player;
-    var hasStarted = false;
-    var optionTexts = [];
-    var hasPlaylistChanged = false;
-    var firstLoaded = true;
-    var videoArray;
-    var currentVideoID;
-    var endTime = 0;
-    var isFireFox = false;
-    var level = 50;
-    var youtubeVideoWidth = 300;
-    var youtubeVideoHeight = 300;
-    var loadFromHash = true;
-    var autoPlay = 1;
-
-
-
-
-
- 
+var playlistVideos;
+var eventData;
+var playlistID = 1;
+var vidDefault;
+var done = false;
+var player;
+var hasStarted = false;
+var optionTexts = [];
+var hasPlaylistChanged = false;
+var firstLoaded = true;
+var videoArray;
+var currentVideoID;
+var endTime = 0;
+var isFireFox = false;
+var level = 50;
+var youtubeVideoWidth = 300;
+var youtubeVideoHeight = 300;
+var loadFromHash = true;
+var autoPlay = 1; 
 
 
 // This function is called when an error is thrown by the player
+
 function onPlayerError(errorCode) {
-  alert("An error occured of type:" + errorCode);
-}//
+    alert("An error occured of type:" + errorCode);
+}
+
+//
 
 
-    /////// ////// video
+/////// ////// video
 
-    var isPlayerLoaded = false;
+var isPlayerLoaded = false;
 
-    function loadJSONVideo(jVid) {
+function loadJSONVideo(jVid) {
 
 
+    if (jVid == undefined || jVid == null) return;
 
-    if (jVid == undefined || jVid == null)  return;
-
-        currentKey = jVid.ProviderKey;
+    currentKey = jVid.ProviderKey;
 
     endTime = jVid.EndTime;
 
-    if (!isPlayerLoaded)
-    {
-            //if(player != undefined) {
-            player = new YT.Player('player',
-            { height: youtubeVideoHeight, width: youtubeVideoWidth, videoId: jVid.ProviderKey,
+    if (!isPlayerLoaded) {
+        //if(player != undefined) {
+        player = new YT.Player('player',
+            {
+                height: youtubeVideoHeight,
+                width: youtubeVideoWidth,
+                videoId: jVid.ProviderKey,
                 events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange },
-                playerVars: { 'autoplay': autoPlay, 'autohide': 1, 'showinfo': 0, 'rel': 0, 'start': jVid.StartTime
+                playerVars: {
+                    'autoplay': autoPlay,
+                    'autohide': 1,
+                    'showinfo': 0,
+                    'rel': 0,
+                    'start': jVid.StartTime
                 }
             }
-            );
-            isPlayerLoaded = true;
-      }
-      else 
-      {
-      
-            if (typeof player.loadVideoById == 'function') {
-      
-                player.loadVideoById(jVid.ProviderKey, jVid.StartTime, 'default');
-            }
-      }
-        
-
-        
-        vidDefault = jVid;
-        setInterval(updateytplayerInfo, 1000);
-
-
-        done = false;
-
-       if ( loadFromHash)
-       { 
-            window.location.hash = '!' + jVid.ProviderKey;
-       }
-
-       endTime = jVid.EndTime;
-       vidDefault = jVid;
-
-       $("#current_song").html(htmlDecode(jVid.SongDisplay));
-
-        $("#user_account").html(
-       '<a href="' + $rootUrl + jVid.UserAccount + '">' +
-        jVid.UserAccount
-         + '</a>'
         );
+        isPlayerLoaded = true;
+    } else {
 
-        //$("#make_favorite_video").attr("href", $rootUrl + 'addvideo.aspx?vtype=F&vidid=YT-' + jVid.ProviderKey);
+        if (typeof player.loadVideoById == 'function') {
 
-        $("#add_to_playlist").attr("href", $rootUrl + 'addvideo.aspx?vtype=P&vidid=YT-' + jVid.ProviderKey);
+            player.loadVideoById(jVid.ProviderKey, jVid.StartTime, 'default');
+        }
+    }        
+
+        
+    vidDefault = jVid;
+    setInterval(updateytplayerInfo, 1000);
 
 
-        $("#claim_video").attr("href", $rootUrl + 'addvideo.aspx?vtype=U&vidid=YT-' + jVid.ProviderKey);
+    done = false;
+
+    if (loadFromHash) {
+        window.location.hash = '!' + jVid.ProviderKey;
+    }
+
+    endTime = jVid.EndTime;
+    vidDefault = jVid;
+
+    $("#current_song").html(htmlDecode(jVid.SongDisplay));
+
+    $("#user_account").html(
+        '<a href="' + $rootUrl + jVid.UserAccount + '">' +
+            jVid.UserAccount
+            + '</a>'
+    );
+
+    //$("#make_favorite_video").attr("href", $rootUrl + 'addvideo.aspx?vtype=F&vidid=YT-' + jVid.ProviderKey);
+
+    $("#add_to_playlist").attr("href", $rootUrl + 'addvideo.aspx?vtype=P&vidid=YT-' + jVid.ProviderKey);
+
+
+    $("#claim_video").attr("href", $rootUrl + 'addvideo.aspx?vtype=U&vidid=YT-' + jVid.ProviderKey);
 
 //        $("#claim_video").html(
 //       '<a   href="/addvideo.aspx?vtype=U&vidid=YT-' + jVid.ProviderKey + 
 //       '">Claim You Uploaded This Video</a>'
 //        );
- 
+
 //        $("#buy_link").html(
 //            htmlDecode(jVid.ITunesLink)
 //        );
 
-        $("#related_videos").html(
-            htmlDecode(jVid.RelatedVids)
-        );
+    $("#related_videos").html(
+        htmlDecode(jVid.RelatedVids)
+    );
 
 
-        if ( jVid.RelatedVids != ''){
+    if (jVid.RelatedVids != '') {
 
 
-        $(window).ready(function () {
+        $(window).ready(function() {
             $('img.preview_thmb').froll();
         });
 
-         }
-
-         if ( loadFromHash)
-         {
-            CreateNewLikeButton(window.location);
-        }
     }
 
-
-    function getYouTubeInfo(vidID) {
-        //http://stackoverflow.com/questions/5194619/getting-youtube-video-information-using-javascript-jquery
-
-        $.ajax({
-            url: "http://gdata.youtube.com/feeds/api/videos/" + vidID + "?v=2&alt=json",
-            dataType: "jsonp",
-            success: function (data) { parseresults(data); }
-        });
+    if (loadFromHash) {
+        CreateNewLikeButton(window.location);
     }
+}
 
-    function parseresults(data) {
-        var title = data.entry.title.$t;
-        var description = data.entry.media$group.media$description.$t;
-        var viewcount = data.entry.yt$statistics.viewCount;
-        var author = data.entry.author[0].name.$t;
-        $('#title').html(title);
-      //  $('#description').html('<b>Description</b>: ' + description);
+
+function getYouTubeInfo(vidID) {
+    //http://stackoverflow.com/questions/5194619/getting-youtube-video-information-using-javascript-jquery
+
+    $.ajax({
+        url: "http://gdata.youtube.com/feeds/api/videos/" + vidID + "?v=2&alt=json",
+        dataType: "jsonp",
+        success: function(data) { parseresults(data); }
+    });
+}
+
+function parseresults(data) {
+    var title = data.entry.title.$t;
+    var description = data.entry.media$group.media$description.$t;
+    var viewcount = data.entry.yt$statistics.viewCount;
+    var author = data.entry.author[0].name.$t;
+    $('#title').html(title);
+    //  $('#description').html('<b>Description</b>: ' + description);
 //        $('#extrainfo').html('<b>Author</b>: ' + author + '<br/><b>Views</b>: ' + viewcount);
 
-        getComments(data.entry.gd$comments.gd$feedLink.href + '&max-results=50&alt=json', 1);
+    getComments(data.entry.gd$comments.gd$feedLink.href + '&max-results=50&alt=json', 1);
 
-    }
+}
 
-    function getComments(commentsURL, startIndex) {
+function getComments(commentsURL, startIndex) {
 
-        $.ajax({
-            url: commentsURL + '&start-index=' + startIndex,
-            dataType: "jsonp",
-            success: function (data) {
-                $.each(data.feed.entry, function (key, val) {
-                  //  $('#comments').append('<li>Author: ' + val.author[0].name.$t + ', Comment: ' + val.content.$t + '</li>');
-                });
-                if ($(data.feed.entry).size() == 50) { getComments(commentsURL, startIndex + 50); }
+    $.ajax({
+        url: commentsURL + '&start-index=' + startIndex,
+        dataType: "jsonp",
+        success: function(data) {
+            $.each(data.feed.entry, function(key, val) {
+                //  $('#comments').append('<li>Author: ' + val.author[0].name.$t + ', Comment: ' + val.content.$t + '</li>');
+            });
+            if ($(data.feed.entry).size() == 50) {
+                getComments(commentsURL, startIndex + 50);
             }
-        });
-    }
- 
-
-
-
-
-     
-
-    function beginTime(videoID) {
-
-        if (jSONgs == undefined) return;
-
-        var startTime = 0;
-
-        for (var i = 0; i < jSONgs.ArrayOfSongRecord.SongRecord.length; i++) {
-
-            if (jSONgs.ArrayOfSongRecord.SongRecord[i].ProviderKey == currentVideoID)
-                startTime = jSONgs.ArrayOfSongRecord.SongRecord[i].StartTime;
         }
+    });
+}
+     
 
-        return startTime;
+function beginTime(videoID) {
+
+    if (jSONgs == undefined) return;
+
+    var startTime = 0;
+
+    for (var i = 0; i < jSONgs.ArrayOfSongRecord.SongRecord.length; i++) {
+
+        if (jSONgs.ArrayOfSongRecord.SongRecord[i].ProviderKey == currentVideoID)
+            startTime = jSONgs.ArrayOfSongRecord.SongRecord[i].StartTime;
     }
 
-
+    return startTime;
+}
 
      
-    function updateytplayerInfo() {
+function updateytplayerInfo() {
 
-        if (typeof player.getCurrentTime != 'function') { return; }
- 
-            if (player != undefined && endTime != 0 && endTime <= player.getCurrentTime() && !done) {
-                
-                goForwardNewVideo();
-
-                
-            }
+    if (typeof player.getCurrentTime != 'function') {
+        return;
     }
 
+    if (player != undefined && endTime != 0 && endTime <= player.getCurrentTime() && !done) {
 
+        goForwardNewVideo();
 
-
-
-
-
-
-
-    function onPlayerPlaybackQualityChange() {
 
     }
+}
 
 
+function onPlayerPlaybackQualityChange() {
+
+}
  
 
-    function onPlayerReady(evt) {
-        if ( autoPlay == 1) evt.target.playVideo();
-    }
- 
+function onPlayerReady(evt) {
+    if (autoPlay == 1) evt.target.playVideo();
+}
 
 
+(function($) {
 
 
+    var origContent = "";
 
+    function loadContent(hash) {
 
-
-
-
-
-
-    (function ($) {
-
-    
-        var origContent = "";
-
-        function loadContent(hash) {
- 
 
         hash = hash.replace('!', '');
 
-            if (hash != "") {
-                if (origContent == "") {
-                    playNewVideo(hash);
-                }
-                
-            } else if (origContent != "") {
+        if (hash != "") {
+            if (origContent == "") {
                 playNewVideo(hash);
             }
-        }
 
-        $(document).ready(function () {
-        if ( $.history != "undefined" )
+        } else if (origContent != "") {
+            playNewVideo(hash);
+        }
+    }
+
+    $(document).ready(function() {
+        if ($.history != "undefined")
             $.history.init(loadContent);
-        });
-    
+    });
 
-    })(jQuery);
 
+})(jQuery);
      
 
-         function goForwardNewVideo(){
-
+function goForwardNewVideo() {
             
 
-               done = true;
+    done = true;
 
-                var urlToFetch;
+    var urlToFetch;
 
-                if ( loadFromHash )
-                {
+    if (loadFromHash) {
 
-                    urlToFetch = $rootUrl + "io/operation.ashx?param_type=random&currentvidid=" + vidDefault.ProviderKey;
-                }
-                else 
-                {
-                    if ( vidDefault == null) return;
+        urlToFetch = $rootUrl + "io/operation.ashx?param_type=random&currentvidid=" + vidDefault.ProviderKey;
+    } else {
+        if (vidDefault == null) return;
 
-                    urlToFetch = $rootUrl + "io/operation.ashx?param_type=video_playlist&playlist=" + playlistID + "&currentvidid=" + vidDefault.ProviderKey;
-                } 
-                
-                //var jsonVidata;
-         
-                $.getJSON(urlToFetch, function (data) {
-                    //jsonVidata = data;
-                    //loadJSONVideo(jsonVidata);   
-                    loadJSONVideo(data);   
-                });
+        urlToFetch = $rootUrl + "io/operation.ashx?param_type=video_playlist&playlist=" + playlistID + "&currentvidid=" + vidDefault.ProviderKey;
     }
 
+    //var jsonVidata;
 
-    function totalSeconds(videoID) {
-     
-        var startTime = 0;
+    $.getJSON(urlToFetch, function(data) {
+        //jsonVidata = data;
+        //loadJSONVideo(jsonVidata);   
+        loadJSONVideo(data);
+    });
+}
 
-        for (var i = 0; i < jSONgs.ArrayOfSongRecord.SongRecord.length; i++) {
 
-            if (jSONgs.ArrayOfSongRecord.SongRecord[i].ProviderKey == currentVideoID)
-                startTime = jSONgs.ArrayOfSongRecord.SongRecord[i].EndTime;
-        }
+function totalSeconds(videoID) {
 
-        return startTime;
+    var startTime = 0;
+
+    for (var i = 0; i < jSONgs.ArrayOfSongRecord.SongRecord.length; i++) {
+
+        if (jSONgs.ArrayOfSongRecord.SongRecord[i].ProviderKey == currentVideoID)
+            startTime = jSONgs.ArrayOfSongRecord.SongRecord[i].EndTime;
     }
 
+    return startTime;
+}
 
-    function onPlayerStateChange(evt) {
 
-        if (evt.data == YT.PlayerState.PLAYING && !done) {
-        
-        if ( vidDefault != null)
-        {
-                level = vidDefault.VolumeLevel * 10;
-         }
-            
-            if ( $("#speaker_sound").attr("alt") == "off") {
-               
-                evt.target.setVolume(0);
-            }
-            else 
-            {
- 
-                
-                evt.target.setVolume(level);
-            }
+function onPlayerStateChange(evt) {
+
+    if (evt.data == YT.PlayerState.PLAYING && !done) {
+
+        if (vidDefault != null) {
+            level = vidDefault.VolumeLevel * 10;
         }
-        else if (evt.data == YT.PlayerState.ENDED) {
+
+        if ($("#speaker_sound").attr("alt") == "off") {
+
+            evt.target.setVolume(0);
+        } else {
+
+
+            evt.target.setVolume(level);
+        }
+    } else if (evt.data == YT.PlayerState.ENDED) {
 
         goForwardNewVideo();
-         
+
 //         var urlToFetch;
 
 //         if ( loadFromHash)
@@ -1173,42 +1064,37 @@ function onPlayerError(errorCode) {
 //            urlToFetch = "/io/operation.ashx?playlist=1&currentvidid=" + vidDefault.ProviderKey;
 //         }
 
-          // $.getJSON("/io/operation.ashx?playlist=1&currentvidid=" + vidDefault.ProviderKey, function (data) {
-           // $.getJSON(urlToFetch, function (data) {
-         
-                //loadJSONVideo(data);
+        // $.getJSON("/io/operation.ashx?playlist=1&currentvidid=" + vidDefault.ProviderKey, function (data) {
+        // $.getJSON(urlToFetch, function (data) {
+
+        //loadJSONVideo(data);
 //                loadJSONVideo(vidDefault);
 
-              //  vidDefault = data;
-            //});
-        }
-        else {
-        }
+        //  vidDefault = data;
+        //});
+    } else {
     }
+}
 
 
+function stopVideo() {
+    player.stopVideo();
+}
 
 
+$("#playNextVideo").click(function() {
 
-    function stopVideo() {
-        player.stopVideo();
-    }
+    $.getJSON($rootUrl + "io/operation.ashx?param_type=random", function(data) {
 
-
-
-    $("#playNextVideo").click(function () {
-
-        $.getJSON($rootUrl + "io/operation.ashx?param_type=random", function (data) {
-          
-         //   loadJSONVideo(data);
-        });
+        //   loadJSONVideo(data);
     });
+});
 
 
-        var fetchVid = true;
-        var currentKey = '';
+var fetchVid = true;
+var currentKey = '';
 
-    function getJSONVideo(key) {
+function getJSONVideo(key) {
 
 //     if ( fetchVid && key != currentKey )
 //        {
@@ -1223,27 +1109,23 @@ function onPlayerError(errorCode) {
 //            });
 //        }
 
-        //getJSONVideo(key);
+    //getJSONVideo(key);
+}
+
+
+function playNewVideo(key) {
+
+    if (fetchVid && key != currentKey) {
+        currentKey = key;
+        fetchVid = false;
+
+        $.getJSON($rootUrl + "io/operation.ashx?param_type=video&vid=" + key, function(data) {
+
+            loadJSONVideo(data);
+            fetchVid = true;
+        });
+
     }
-
-
-
-    function playNewVideo(key) {
-
-      if ( fetchVid && key != currentKey)
-        {
-            currentKey = key;
-            fetchVid = false;
-
-            $.getJSON( $rootUrl + "io/operation.ashx?param_type=video&vid=" + key, function (data) {
-
-                loadJSONVideo(data);
-                fetchVid = true;
-            });
-
-        }
-
-
 
  
 //    loadJSONVideo(getJSONVideo(key));
@@ -1262,66 +1144,60 @@ function onPlayerError(errorCode) {
 //        {
 //           
 //        }
-    }     
+}
 
 
-    function getYouTubeInfo(vidID) {
-        
-        if (vidID != undefined) {
-            $.ajax({
-                url: "http://gdata.youtube.com/feeds/api/videos/" + vidID + "?v=2&alt=json",
-                dataType: "jsonp",
-                success: function (data) { parseresults(data); }
-            });
-        }
+function getYouTubeInfo(vidID) {
+
+    if (vidID != undefined) {
+        $.ajax({
+            url: "http://gdata.youtube.com/feeds/api/videos/" + vidID + "?v=2&alt=json",
+            dataType: "jsonp",
+            success: function(data) { parseresults(data); }
+        });
     }
+}
 
-            function parseresults(data) {
-                var title = data.entry.title.$t;
-                var description = data.entry.media$group.media$description.$t;
-                var viewcount = data.entry.yt$statistics.viewCount;
-                var author = data.entry.author[0].name.$t;
-                $('#title').html(title);
-                $('#description').html('<b>Description</b>: ' + description);
-                $('#extrainfo').html('<b>Author</b>: ' + author + '<br/><b>Views</b>: ' + viewcount);
-            
-                getComments(data.entry.gd$comments.gd$feedLink.href + '&max-results=50&alt=json', 1);
-              
-            }
+function parseresults(data) {
+    var title = data.entry.title.$t;
+    var description = data.entry.media$group.media$description.$t;
+    var viewcount = data.entry.yt$statistics.viewCount;
+    var author = data.entry.author[0].name.$t;
+    $('#title').html(title);
+    $('#description').html('<b>Description</b>: ' + description);
+    $('#extrainfo').html('<b>Author</b>: ' + author + '<br/><b>Views</b>: ' + viewcount);
 
-            function getComments(commentsURL, startIndex) {
+    getComments(data.entry.gd$comments.gd$feedLink.href + '&max-results=50&alt=json', 1);
 
-                $.ajax({
-                    url: commentsURL + '&start-index=' + startIndex,
-                    dataType: "jsonp",
-                    success: function (data) {
-                        $.each(data.feed.entry, function (key, val) {
-                            $('#comments').append('<li>Author: ' + val.author[0].name.$t + ', Comment: ' + val.content.$t + '</li>');
-                        });
-                        if ($(data.feed.entry).size() == 50) { getComments(commentsURL, startIndex + 50); }
+}
 
-                    }
-                });
+function getComments(commentsURL, startIndex) {
 
-            }
-
-            $(document).ready(function () {
-                getYouTubeInfo();
+    $.ajax({
+        url: commentsURL + '&start-index=' + startIndex,
+        dataType: "jsonp",
+        success: function(data) {
+            $.each(data.feed.entry, function(key, val) {
+                $('#comments').append('<li>Author: ' + val.author[0].name.$t + ', Comment: ' + val.content.$t + '</li>');
             });
+            if ($(data.feed.entry).size() == 50) {
+                getComments(commentsURL, startIndex + 50);
+            }
+
+        }
+    });
+
+}
+
+$(document).ready(function() {
+    getYouTubeInfo();
+});
 
 
-
-            var hashkey;
-
-        
+var hashkey;
 
 
-
-
-
-
-
-        function onYouTubePlayerAPIReady() {
+function onYouTubePlayerAPIReady() {
 
 //        
 //                hashkey = window.location.hash;
@@ -1346,19 +1222,10 @@ function onPlayerError(errorCode) {
 
 //                    loadJSONVideo(vidDefault);
 //                });
-            }
-    
-
+}
 
      
-
-
-
-
-
-
-     
-           ////////////////////////////////////////////// mute button  
+////////////////////////////////////////////// mute button  
 
 
 //            function toggleSound() {
@@ -1383,48 +1250,29 @@ function onPlayerError(errorCode) {
 //            }
 
 
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
 ////////////////////////////////////////////// tool tip
 
 
-
-var overTip = 
+var overTip =
 {
-	getMousePosition : function(e)
-	{
-		var posX = 0;
-		var posY = 0;
-		if (!e) var e = window.event;
-		if (e.pageX || e.pageY) 	{
-			posX = e.pageX;
-			posY = e.pageY;
-		}
-		else if (e.clientX || e.clientY) 	{
-			posX = e.clientX + document.body.scrollLeft
-				+ document.documentElement.scrollLeft;
-			posY = e.clientY + document.body.scrollTop
-				+ document.documentElement.scrollTop;
-		}
-		return {x:posX, y:posY};
-	}
-	,
-	exist : function(id)
-	{
-		return ($("#" + id).length > 0);
-	}
+    getMousePosition: function(e) {
+        var posX = 0;
+        var posY = 0;
+        if (!e) var e = window.event;
+        if (e.pageX || e.pageY) {
+            posX = e.pageX;
+            posY = e.pageY;
+        } else if (e.clientX || e.clientY) {
+            posX = e.clientX + document.body.scrollLeft
+                + document.documentElement.scrollLeft;
+            posY = e.clientY + document.body.scrollTop
+                + document.documentElement.scrollTop;
+        }
+        return { x: posX, y: posY };
+    },
+    exist: function(id) {
+        return ($("#" + id).length > 0);
+    }
 //	,
 //	showBegin : function(e,id)
 //	{
@@ -1453,83 +1301,56 @@ var overTip =
 //	{
 //		$("#" + id).empty().append($("div.value", content));
 //	}
-	,
-	show : function(e,id,content,width,persist)
-	{
-		var position = overTip.getMousePosition(e);
-	
-		if (!overTip.exist(id))
-		{
-			$(document.body).append("<div id=\"" + id + "\" class=\"overTip\" style=\"display:none;\"></div>");
-			$("#" + id).html(content);
-		}
-		else
-		{
-			if (!persist)
-			{
-				$("#" + id).html(content);
-			}
-		}
-		var tip = $("#" + id);
-		tip.css("left", position.x + "px").css("top", (position.y + 20) + "px");
-		
-		if (width)
-		{
-			tip.width(width);
-		}
+    ,
+    show: function(e, id, content, width, persist) {
+        var position = overTip.getMousePosition(e);
 
-		if (tip.is(":hidden"))
-		{
-			overTip.hideAll();
-			tip.fadeIn("fast");
-		}
+        if (!overTip.exist(id)) {
+            $(document.body).append("<div id=\"" + id + "\" class=\"overTip\" style=\"display:none;\"></div>");
+            $("#" + id).html(content);
+        } else {
+            if (!persist) {
+                $("#" + id).html(content);
+            }
+        }
+        var tip = $("#" + id);
+        tip.css("left", position.x + "px").css("top", (position.y + 20) + "px");
 
-		if (e.stopPropagation)
-		{
-			e.stopPropagation();
-		}
-		else
-		{
-			e.cancelBubble = true
-		}
-	}
-	,
-	hideAll : function()
-	{
-		$("div.overTip").hide();
-	}
+        if (width) {
+            tip.width(width);
+        }
+
+        if (tip.is(":hidden")) {
+            overTip.hideAll();
+            tip.fadeIn("fast");
+        }
+
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        } else {
+            e.cancelBubble = true;
+        }
+    },
+    hideAll: function() {
+        $("div.overTip").hide();
+    }
 };
-
- 
-  
-
-
-
-
-
-
-
-
-
-
-
 
 
 ////////////////////////////////////////// text hint
 
-jQuery.fn.hint = function (blurClass) {
+jQuery.fn.hint = function(blurClass) {
     if (!blurClass) {
         blurClass = 'blur';
     }
 
-    return this.each(function () {
+    return this.each(function() {
         // get jQuery version of 'this'
         var $input = jQuery(this),
-
-        // capture the rest of the variable to allow for reuse
-      title = $input.attr('title'),
-      $form = jQuery(this.form),
-      $win = jQuery(window);
+            // capture the rest of the variable to allow for reuse
+            title = $input.attr('title'),
+            $form = jQuery(this.form),
+            $win = jQuery(window);
 
         function remove() {
             if ($input.val() === title && $input.hasClass(blurClass)) {
@@ -1540,7 +1361,7 @@ jQuery.fn.hint = function (blurClass) {
         // only apply logic if the element has the attribute
         if (title) {
             // on blur, set value to title attr if text is blank
-            $input.blur(function () {
+            $input.blur(function() {
                 if (this.value === '') {
                     $input.val(title).addClass(blurClass);
                 }
@@ -1554,84 +1375,30 @@ jQuery.fn.hint = function (blurClass) {
 };
 
 
-
-$(function () {
+$(function() {
     // find all the input elements with title attributes
     $('input[title!=""]').hint();
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
- ////////////////////////////////////////////// specific pages
-                    $('#red_submit').click(function () {
-                        $('#video_form').submit();
-                    });
-
+////////////////////////////////////////////// specific pages
+$('#red_submit').click(function() {
+    $('#video_form').submit();
+});
                      
 
-                         $("#Password").keyup(function (event) {
-        if (event.keyCode == 13) {
-            //document.login_form.submit();
-        }
-    });
-
-
-
-
+$("#Password").keyup(function(event) {
+    if (event.keyCode == 13) {
+        //document.login_form.submit();
+    }
+});
 
     
-    //Button disable when Click
-    $(".disable_when_clicked").click(function() {
-        $(this).attr("disabled", true);
-        $(this).val("Processing...");
-    });
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//Button disable when Click
+$(".disable_when_clicked").click(function() {
+    $(this).attr("disabled", true);
+    $(this).val("Processing...");
+});
 
 
 /*
@@ -1647,149 +1414,151 @@ $(function () {
 
 // t: current time, b: begInnIng value, c: change In value, d: duration
 
-jQuery.extend( jQuery.easing,
-{
-	easeInQuad: function (x, t, b, c, d) {
-		return c*(t/=d)*t + b;
-	},
-	easeOutQuad: function (x, t, b, c, d) {
-		return -c *(t/=d)*(t-2) + b;
-	},
-	easeInOutQuad: function (x, t, b, c, d) {
-		if ((t/=d/2) < 1) return c/2*t*t + b;
-		return -c/2 * ((--t)*(t-2) - 1) + b;
-	},
-	easeInCubic: function (x, t, b, c, d) {
-		return c*(t/=d)*t*t + b;
-	},
-	easeOutCubic: function (x, t, b, c, d) {
-		return c*((t=t/d-1)*t*t + 1) + b;
-	},
-	easeInOutCubic: function (x, t, b, c, d) {
-		if ((t/=d/2) < 1) return c/2*t*t*t + b;
-		return c/2*((t-=2)*t*t + 2) + b;
-	},
-	easeInQuart: function (x, t, b, c, d) {
-		return c*(t/=d)*t*t*t + b;
-	},
-	easeOutQuart: function (x, t, b, c, d) {
-		return -c * ((t=t/d-1)*t*t*t - 1) + b;
-	},
-	easeInOutQuart: function (x, t, b, c, d) {
-		if ((t/=d/2) < 1) return c/2*t*t*t*t + b;
-		return -c/2 * ((t-=2)*t*t*t - 2) + b;
-	},
-	easeInQuint: function (x, t, b, c, d) {
-		return c*(t/=d)*t*t*t*t + b;
-	},
-	easeOutQuint: function (x, t, b, c, d) {
-		return c*((t=t/d-1)*t*t*t*t + 1) + b;
-	},
-	easeInOutQuint: function (x, t, b, c, d) {
-		if ((t/=d/2) < 1) return c/2*t*t*t*t*t + b;
-		return c/2*((t-=2)*t*t*t*t + 2) + b;
-	},
-	easeInSine: function (x, t, b, c, d) {
-		return -c * Math.cos(t/d * (Math.PI/2)) + c + b;
-	},
-	easeOutSine: function (x, t, b, c, d) {
-		return c * Math.sin(t/d * (Math.PI/2)) + b;
-	},
-	easeInOutSine: function (x, t, b, c, d) {
-		return -c/2 * (Math.cos(Math.PI*t/d) - 1) + b;
-	},
-	easeInExpo: function (x, t, b, c, d) {
-		return (t==0) ? b : c * Math.pow(2, 10 * (t/d - 1)) + b;
-	},
-	easeOutExpo: function (x, t, b, c, d) {
-		return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
-	},
-	easeInOutExpo: function (x, t, b, c, d) {
-		if (t==0) return b;
-		if (t==d) return b+c;
-		if ((t/=d/2) < 1) return c/2 * Math.pow(2, 10 * (t - 1)) + b;
-		return c/2 * (-Math.pow(2, -10 * --t) + 2) + b;
-	},
-	easeInCirc: function (x, t, b, c, d) {
-		return -c * (Math.sqrt(1 - (t/=d)*t) - 1) + b;
-	},
-	easeOutCirc: function (x, t, b, c, d) {
-		return c * Math.sqrt(1 - (t=t/d-1)*t) + b;
-	},
-	easeInOutCirc: function (x, t, b, c, d) {
-		if ((t/=d/2) < 1) return -c/2 * (Math.sqrt(1 - t*t) - 1) + b;
-		return c/2 * (Math.sqrt(1 - (t-=2)*t) + 1) + b;
-	},
-	easeInElastic: function (x, t, b, c, d) {
-		var s=1.70158;var p=0;var a=c;
-		if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
-		if (a < Math.abs(c)) { a=c; var s=p/4; }
-		else var s = p/(2*Math.PI) * Math.asin (c/a);
-		return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
-	},
-	easeOutElastic: function (x, t, b, c, d) {
-		var s=1.70158;var p=0;var a=c;
-		if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
-		if (a < Math.abs(c)) { a=c; var s=p/4; }
-		else var s = p/(2*Math.PI) * Math.asin (c/a);
-		return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
-	},
-	easeInOutElastic: function (x, t, b, c, d) {
-		var s=1.70158;var p=0;var a=c;
-		if (t==0) return b;  if ((t/=d/2)==2) return b+c;  if (!p) p=d*(.3*1.5);
-		if (a < Math.abs(c)) { a=c; var s=p/4; }
-		else var s = p/(2*Math.PI) * Math.asin (c/a);
-		if (t < 1) return -.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
-		return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )*.5 + c + b;
-	},
-	easeInBack: function (x, t, b, c, d, s) {
-		if (s == undefined) s = 1.70158;
-		return c*(t/=d)*t*((s+1)*t - s) + b;
-	},
-	easeOutBack: function (x, t, b, c, d, s) {
-		if (s == undefined) s = 1.70158;
-		return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
-	},
-	easeInOutBack: function (x, t, b, c, d, s) {
-		if (s == undefined) s = 1.70158; 
-		if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
-		return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
-	},
-	easeInBounce: function (x, t, b, c, d) {
-		return c - jQuery.easing.easeOutBounce (x, d-t, 0, c, d) + b;
-	},
-	easeOutBounce: function (x, t, b, c, d) {
-		if ((t/=d) < (1/2.75)) {
-			return c*(7.5625*t*t) + b;
-		} else if (t < (2/2.75)) {
-			return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
-		} else if (t < (2.5/2.75)) {
-			return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
-		} else {
-			return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
-		}
-	},
-	easeInOutBounce: function (x, t, b, c, d) {
-		if (t < d/2) return jQuery.easing.easeInBounce (x, t*2, 0, c, d) * .5 + b;
-		return jQuery.easing.easeOutBounce (x, t*2-d, 0, c, d) * .5 + c*.5 + b;
-	}
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+jQuery.extend(jQuery.easing,
+    {
+        easeInQuad: function(x, t, b, c, d) {
+            return c * (t /= d) * t + b;
+        },
+        easeOutQuad: function(x, t, b, c, d) {
+            return -c * (t /= d) * (t - 2) + b;
+        },
+        easeInOutQuad: function(x, t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+            return -c / 2 * ((--t) * (t - 2) - 1) + b;
+        },
+        easeInCubic: function(x, t, b, c, d) {
+            return c * (t /= d) * t * t + b;
+        },
+        easeOutCubic: function(x, t, b, c, d) {
+            return c * ((t = t / d - 1) * t * t + 1) + b;
+        },
+        easeInOutCubic: function(x, t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
+            return c / 2 * ((t -= 2) * t * t + 2) + b;
+        },
+        easeInQuart: function(x, t, b, c, d) {
+            return c * (t /= d) * t * t * t + b;
+        },
+        easeOutQuart: function(x, t, b, c, d) {
+            return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+        },
+        easeInOutQuart: function(x, t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
+            return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+        },
+        easeInQuint: function(x, t, b, c, d) {
+            return c * (t /= d) * t * t * t * t + b;
+        },
+        easeOutQuint: function(x, t, b, c, d) {
+            return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+        },
+        easeInOutQuint: function(x, t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
+            return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+        },
+        easeInSine: function(x, t, b, c, d) {
+            return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
+        },
+        easeOutSine: function(x, t, b, c, d) {
+            return c * Math.sin(t / d * (Math.PI / 2)) + b;
+        },
+        easeInOutSine: function(x, t, b, c, d) {
+            return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
+        },
+        easeInExpo: function(x, t, b, c, d) {
+            return (t == 0) ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
+        },
+        easeOutExpo: function(x, t, b, c, d) {
+            return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+        },
+        easeInOutExpo: function(x, t, b, c, d) {
+            if (t == 0) return b;
+            if (t == d) return b + c;
+            if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+            return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+        },
+        easeInCirc: function(x, t, b, c, d) {
+            return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
+        },
+        easeOutCirc: function(x, t, b, c, d) {
+            return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
+        },
+        easeInOutCirc: function(x, t, b, c, d) {
+            if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+            return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+        },
+        easeInElastic: function(x, t, b, c, d) {
+            var s = 1.70158;
+            var p = 0;
+            var a = c;
+            if (t == 0) return b;
+            if ((t /= d) == 1) return b + c;
+            if (!p) p = d * .3;
+            if (a < Math.abs(c)) {
+                a = c;
+                var s = p / 4;
+            } else var s = p / (2 * Math.PI) * Math.asin(c / a);
+            return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+        },
+        easeOutElastic: function(x, t, b, c, d) {
+            var s = 1.70158;
+            var p = 0;
+            var a = c;
+            if (t == 0) return b;
+            if ((t /= d) == 1) return b + c;
+            if (!p) p = d * .3;
+            if (a < Math.abs(c)) {
+                a = c;
+                var s = p / 4;
+            } else var s = p / (2 * Math.PI) * Math.asin(c / a);
+            return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
+        },
+        easeInOutElastic: function(x, t, b, c, d) {
+            var s = 1.70158;
+            var p = 0;
+            var a = c;
+            if (t == 0) return b;
+            if ((t /= d / 2) == 2) return b + c;
+            if (!p) p = d * (.3 * 1.5);
+            if (a < Math.abs(c)) {
+                a = c;
+                var s = p / 4;
+            } else var s = p / (2 * Math.PI) * Math.asin(c / a);
+            if (t < 1) return -.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+            return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
+        },
+        easeInBack: function(x, t, b, c, d, s) {
+            if (s == undefined) s = 1.70158;
+            return c * (t /= d) * t * ((s + 1) * t - s) + b;
+        },
+        easeOutBack: function(x, t, b, c, d, s) {
+            if (s == undefined) s = 1.70158;
+            return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+        },
+        easeInOutBack: function(x, t, b, c, d, s) {
+            if (s == undefined) s = 1.70158;
+            if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
+            return c / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
+        },
+        easeInBounce: function(x, t, b, c, d) {
+            return c - jQuery.easing.easeOutBounce(x, d - t, 0, c, d) + b;
+        },
+        easeOutBounce: function(x, t, b, c, d) {
+            if ((t /= d) < (1 / 2.75)) {
+                return c * (7.5625 * t * t) + b;
+            } else if (t < (2 / 2.75)) {
+                return c * (7.5625 * (t -= (1.5 / 2.75)) * t + .75) + b;
+            } else if (t < (2.5 / 2.75)) {
+                return c * (7.5625 * (t -= (2.25 / 2.75)) * t + .9375) + b;
+            } else {
+                return c * (7.5625 * (t -= (2.625 / 2.75)) * t + .984375) + b;
+            }
+        },
+        easeInOutBounce: function(x, t, b, c, d) {
+            if (t < d / 2) return jQuery.easing.easeInBounce(x, t * 2, 0, c, d) * .5 + b;
+            return jQuery.easing.easeOutBounce(x, t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+        }
+    });
 
 
 /*
@@ -1799,76 +1568,73 @@ jQuery.extend( jQuery.easing,
 |--------------------------------------------------------------------------
 */
 
-(function($){
-	$.fn.UItoTop = function(options) {
+(function($) {
+    $.fn.UItoTop = function(options) {
 
- 		var defaults = {
-			text: 'To Top',
-			min: 200,
-			inDelay:600,
-			outDelay:400,
-  			containerID: 'toTop',
-			containerHoverID: 'toTopHover',
-			scrollSpeed: 1200,
-			easingType: 'linear'
- 		};
+        var defaults = {
+            text: 'To Top',
+            min: 200,
+            inDelay: 600,
+            outDelay: 400,
+            containerID: 'toTop',
+            containerHoverID: 'toTopHover',
+            scrollSpeed: 1200,
+            easingType: 'linear'
+        };
 
- 		var settings = $.extend(defaults, options);
-		var containerIDhash = '#' + settings.containerID;
-		var containerHoverIDHash = '#'+settings.containerHoverID;
-		
-		$('body').append('<a href="#" id="'+settings.containerID+'">'+settings.text+'</a>');
-		$(containerIDhash).hide().click(function(){
-			$('html, body').animate({scrollTop:0}, settings.scrollSpeed, settings.easingType);
-			$('#'+settings.containerHoverID, this).stop().animate({'opacity': 0 }, settings.inDelay, settings.easingType);
-			return false;
-		})
-		.prepend('<span id="'+settings.containerHoverID+'"></span>')
-		.hover(function() {
-				$(containerHoverIDHash, this).stop().animate({
-					'opacity': 1
-				}, 600, 'linear');
-			}, function() { 
-				$(containerHoverIDHash, this).stop().animate({
-					'opacity': 0
-				}, 700, 'linear');
-			});
-					
-		$(window).scroll(function() {
-			var sd = $(window).scrollTop();
-			if(typeof document.body.style.maxHeight === "undefined") {
-				$(containerIDhash).css({
-					'position': 'absolute',
-					'top': $(window).scrollTop() + $(window).height() - 50
-				});
-			}
-			if ( sd > settings.min ) 
-				$(containerIDhash).fadeIn(settings.inDelay);
-			else 
-				$(containerIDhash).fadeOut(settings.Outdelay);
-		});
+        var settings = $.extend(defaults, options);
+        var containerIDhash = '#' + settings.containerID;
+        var containerHoverIDHash = '#' + settings.containerHoverID;
 
-};
+        $('body').append('<a href="#" id="' + settings.containerID + '">' + settings.text + '</a>');
+        $(containerIDhash).hide().click(function() {
+            $('html, body').animate({ scrollTop: 0 }, settings.scrollSpeed, settings.easingType);
+            $('#' + settings.containerHoverID, this).stop().animate({ 'opacity': 0 }, settings.inDelay, settings.easingType);
+            return false;
+        })
+            .prepend('<span id="' + settings.containerHoverID + '"></span>')
+            .hover(function() {
+                $(containerHoverIDHash, this).stop().animate({
+                    'opacity': 1
+                }, 600, 'linear');
+            }, function() {
+                $(containerHoverIDHash, this).stop().animate({
+                    'opacity': 0
+                }, 700, 'linear');
+            });
+
+        $(window).scroll(function() {
+            var sd = $(window).scrollTop();
+            if (typeof document.body.style.maxHeight === "undefined") {
+                $(containerIDhash).css({
+                    'position': 'absolute',
+                    'top': $(window).scrollTop() + $(window).height() - 50
+                });
+            }
+            if (sd > settings.min)
+                $(containerIDhash).fadeIn(settings.inDelay);
+            else
+                $(containerIDhash).fadeOut(settings.Outdelay);
+        });
+
+    };
 })(jQuery);
 
 
-
-
 //http://www.mediacollege.com/internet/javascript/form/limit-characters.html
+
 function limitText(limitField, limitCount, limitNum) {
-	if (limitField.value.length > limitNum) {
-		limitField.value = limitField.value.substring(0, limitNum);
-	} else {
-		limitCount.value = limitNum - limitField.value.length;
-	}
+    if (limitField.value.length > limitNum) {
+        limitField.value = limitField.value.substring(0, limitNum);
+    } else {
+        limitCount.value = limitNum - limitField.value.length;
+    }
 }
 
 
-
-
 function initMenu() {
-  $('#market_menu ul').hide();
-  $('#market_menu ul.current_dept').show(); // shows last sub list
+    $('#market_menu ul').hide();
+    $('#market_menu ul.current_dept').show(); // shows last sub list
 
 //  $('#market_menu li a').click(
 //    function() {
@@ -1884,39 +1650,18 @@ function initMenu() {
 //      }
 //    );
 
-  }
-$(document).ready(function() {initMenu();}); 
+}
+
+$(document).ready(function() { initMenu(); });
 
 
-
- function getParameterByName(name) {
-             name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-             var regexS = "[\\?&]" + name + "=([^&#]*)";
-             var regex = new RegExp(regexS);
-             var results = regex.exec(window.location.href);
-             if (results == null)
-                 return "";
-             else
-                 return decodeURIComponent(results[1].replace(/\+/g, " "));
-         }
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.href);
+    if (results == null)
+        return "";
+    else
+        return decodeURIComponent(results[1].replace(/\+/g, " "));
+}

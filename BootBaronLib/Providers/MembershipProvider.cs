@@ -31,16 +31,14 @@ using BootBaronLib.Values;
 namespace BootBaronLib.Providers
 {
     /// <summary>
-    /// The membership provider for the site
+    ///     The membership provider for the site
     /// </summary>
     /// <see>http://scottfindlater.blogspot.com/2008/07/asp-net-security-membership-forms.html</see>
     /// <see>http://www.asp.net/learn/videos/video-189.aspx</see>
-    class DKMembershipProvider : MembershipProvider
+    internal class DKMembershipProvider : MembershipProvider
     {
-
         #region members
-        private const int _newPasswordLength = 8;
-        private string _applicationName;
+
         private bool _enablePasswordReset;
         private bool _enablePasswordRetrieval;
         private MachineKeySection _machineKey; // Used when determining encryption key values.
@@ -52,14 +50,16 @@ namespace BootBaronLib.Providers
         private string _passwordStrengthRegularExpression;
         private bool _requiresQuestionAndAnswer;
         private bool _requiresUniqueEmail;
+
         #endregion
 
         #region properties
+
         /// <summary>
-        /// Indicates whether the membership provider is configured to allow users to retrieve their passwords.
+        ///     Indicates whether the membership provider is configured to allow users to retrieve their passwords.
         /// </summary>
         /// <returns>
-        /// true if the membership provider is configured to support password retrieval; otherwise, false. The default is false.
+        ///     true if the membership provider is configured to support password retrieval; otherwise, false. The default is false.
         /// </returns>
         public override bool EnablePasswordRetrieval
         {
@@ -67,10 +67,10 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Indicates whether the membership provider is configured to allow users to reset their passwords.
+        ///     Indicates whether the membership provider is configured to allow users to reset their passwords.
         /// </summary>
         /// <returns>
-        /// true if the membership provider supports password reset; otherwise, false. The default is true.
+        ///     true if the membership provider supports password reset; otherwise, false. The default is true.
         /// </returns>
         public override bool EnablePasswordReset
         {
@@ -78,10 +78,10 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Gets a value indicating whether the membership provider is configured to require the user to answer a password question for password reset and retrieval.
+        ///     Gets a value indicating whether the membership provider is configured to require the user to answer a password question for password reset and retrieval.
         /// </summary>
         /// <returns>
-        /// true if a password answer is required for password reset and retrieval; otherwise, false. The default is true.
+        ///     true if a password answer is required for password reset and retrieval; otherwise, false. The default is true.
         /// </returns>
         public override bool RequiresQuestionAndAnswer
         {
@@ -89,18 +89,18 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// The name of the application using the custom membership provider.
+        ///     The name of the application using the custom membership provider.
         /// </summary>
         /// <returns>
-        /// The name of the application using the custom membership provider.
+        ///     The name of the application using the custom membership provider.
         /// </returns>
         public override string ApplicationName { get; set; }
 
         /// <summary>
-        /// Gets the number of invalid password or password-answer attempts allowed before the membership user is locked out.
+        ///     Gets the number of invalid password or password-answer attempts allowed before the membership user is locked out.
         /// </summary>
         /// <returns>
-        /// The number of invalid password or password-answer attempts allowed before the membership user is locked out.
+        ///     The number of invalid password or password-answer attempts allowed before the membership user is locked out.
         /// </returns>
         public override int MaxInvalidPasswordAttempts
         {
@@ -108,10 +108,10 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Gets the number of minutes in which a maximum number of invalid password or password-answer attempts are allowed before the membership user is locked out.
+        ///     Gets the number of minutes in which a maximum number of invalid password or password-answer attempts are allowed before the membership user is locked out.
         /// </summary>
         /// <returns>
-        /// The number of minutes in which a maximum number of invalid password or password-answer attempts are allowed before the membership user is locked out.
+        ///     The number of minutes in which a maximum number of invalid password or password-answer attempts are allowed before the membership user is locked out.
         /// </returns>
         public override int PasswordAttemptWindow
         {
@@ -119,10 +119,10 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Gets a value indicating whether the membership provider is configured to require a unique e-mail address for each user name.
+        ///     Gets a value indicating whether the membership provider is configured to require a unique e-mail address for each user name.
         /// </summary>
         /// <returns>
-        /// true if the membership provider requires a unique e-mail address; otherwise, false. The default is true.
+        ///     true if the membership provider requires a unique e-mail address; otherwise, false. The default is true.
         /// </returns>
         public override bool RequiresUniqueEmail
         {
@@ -130,10 +130,10 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Gets a value indicating the format for storing passwords in the membership data store.
+        ///     Gets a value indicating the format for storing passwords in the membership data store.
         /// </summary>
         /// <returns>
-        /// One of the <see cref="T:System.Web.Security.MembershipPasswordFormat" /> values indicating the format for storing passwords in the data store.
+        ///     One of the <see cref="T:System.Web.Security.MembershipPasswordFormat" /> values indicating the format for storing passwords in the data store.
         /// </returns>
         public override MembershipPasswordFormat PasswordFormat
         {
@@ -141,10 +141,10 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Gets the minimum length required for a password.
+        ///     Gets the minimum length required for a password.
         /// </summary>
         /// <returns>
-        /// The minimum length required for a password. 
+        ///     The minimum length required for a password.
         /// </returns>
         public override int MinRequiredPasswordLength
         {
@@ -152,10 +152,10 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Gets the minimum number of special characters that must be present in a valid password.
+        ///     Gets the minimum number of special characters that must be present in a valid password.
         /// </summary>
         /// <returns>
-        /// The minimum number of special characters that must be present in a valid password.
+        ///     The minimum number of special characters that must be present in a valid password.
         /// </returns>
         public override int MinRequiredNonAlphanumericCharacters
         {
@@ -163,24 +163,24 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Gets the regular expression used to evaluate a password.
+        ///     Gets the regular expression used to evaluate a password.
         /// </summary>
         /// <returns>
-        /// A regular expression used to evaluate a password.
+        ///     A regular expression used to evaluate a password.
         /// </returns>
         public override string PasswordStrengthRegularExpression
         {
             get { return _passwordStrengthRegularExpression; }
         }
 
-        public string ConnectionString { get; set; }
+        private string ConnectionString { get; set; }
 
         #endregion
 
         #region public methods
 
         /// <summary>
-        /// Set the properties from the start
+        ///     Set the properties from the start
         /// </summary>
         /// <param name="name"></param>
         /// <param name="config"></param>
@@ -200,18 +200,19 @@ namespace BootBaronLib.Providers
             // Initialize the abstract base class.
             base.Initialize(name, config);
 
-            _applicationName = GetConfigValue(config["applicationName"], HostingEnvironment.ApplicationVirtualPath);
             _maxInvalidPasswordAttempts = Convert.ToInt32(GetConfigValue(config["maxInvalidPasswordAttempts"], "10"));
             _passwordAttemptWindow = Convert.ToInt32(GetConfigValue(config["passwordAttemptWindow"], "15"));
-            _minRequiredNonAlphanumericCharacters = Convert.ToInt32(GetConfigValue(config["minRequiredNonAlphanumericCharacters"], "0"));
+            _minRequiredNonAlphanumericCharacters =
+                Convert.ToInt32(GetConfigValue(config["minRequiredNonAlphanumericCharacters"], "0"));
             _minRequiredPasswordLength = Convert.ToInt32(GetConfigValue(config["minRequiredPasswordLength"], "6"));
-            _passwordStrengthRegularExpression = Convert.ToString(GetConfigValue(config["passwordStrengthRegularExpression"], ""));
+            _passwordStrengthRegularExpression =
+                Convert.ToString(GetConfigValue(config["passwordStrengthRegularExpression"], ""));
             _enablePasswordReset = Convert.ToBoolean(GetConfigValue(config["enablePasswordReset"], "true"));
             _enablePasswordRetrieval = Convert.ToBoolean(GetConfigValue(config["enablePasswordRetrieval"], "true"));
             _requiresQuestionAndAnswer = Convert.ToBoolean(GetConfigValue(config["requiresQuestionAndAnswer"], "false"));
             _requiresUniqueEmail = Convert.ToBoolean(GetConfigValue(config["requiresUniqueEmail"], "true"));
 
-            string temp_format = config["passwordFormat"] ?? "Hashed";
+            var temp_format = config["passwordFormat"] ?? "Hashed";
 
             switch (temp_format)
             {
@@ -229,24 +230,26 @@ namespace BootBaronLib.Providers
             }
 
             // Initialize SqlConnection.
-            ConnectionStringSettings ConnectionStringSettings = ConfigurationManager.ConnectionStrings[config["connectionStringName"]];
-            if (ConnectionStringSettings == null || ConnectionStringSettings.ConnectionString.Trim() == "")
+            ConnectionStringSettings connectionStringSettings =
+                ConfigurationManager.ConnectionStrings[config["connectionStringName"]];
+            if (connectionStringSettings == null || connectionStringSettings.ConnectionString.Trim() == "")
             {
                 throw new ProviderException("Connection string cannot be blank.");
             }
-            ConnectionString = ConnectionStringSettings.ConnectionString;
+            ConnectionString = connectionStringSettings.ConnectionString;
 
             // Get encryption and decryption key information from the configuration.
             Configuration cfg = WebConfigurationManager.OpenWebConfiguration(HostingEnvironment.ApplicationVirtualPath);
-            _machineKey = (MachineKeySection)cfg.GetSection("system.web/machineKey");
+            _machineKey = (MachineKeySection) cfg.GetSection("system.web/machineKey");
 
             if (_machineKey.ValidationKey.Contains("AutoGenerate"))
                 if (PasswordFormat != MembershipPasswordFormat.Clear)
-                    throw new ProviderException("Hashed or Encrypted passwords are not supported with auto-generated keys.");
+                    throw new ProviderException(
+                        "Hashed or Encrypted passwords are not supported with auto-generated keys.");
         }
 
         /// <summary>
-        /// Change the user's password
+        ///     Change the user's password
         /// </summary>
         /// <param name="username"></param>
         /// <param name="oldPassword"></param>
@@ -258,19 +261,19 @@ namespace BootBaronLib.Providers
             string newPassword)
         {
             //check if user is authenticated
-           // if (!ValidateUser(username, oldPassword)) return false; /TODO: MAYBE THIS MATTERS AT SOME POINT
+            // if (!ValidateUser(username, oldPassword)) return false; /TODO: MAYBE THIS MATTERS AT SOME POINT
 
             //notify that password is going to change
-            ValidatePasswordEventArgs args = new ValidatePasswordEventArgs(username, newPassword, true);
+            var args = new ValidatePasswordEventArgs(username, newPassword, true);
             OnValidatingPassword(args);
 
             if (args.Cancel)
             {
                 if (args.FailureInformation != null) throw args.FailureInformation;
-                throw new MembershipPasswordException( "Change password canceled due to new password validation failure.");
+                throw new MembershipPasswordException("Change password canceled due to new password validation failure.");
             }
 
-            UserAccount eu = new UserAccount(username);
+            var eu = new UserAccount(username);
 
             if (eu.UserAccountID < 1) throw new ProviderException("Change password failed. No unique user found.");
 
@@ -285,36 +288,28 @@ namespace BootBaronLib.Providers
 
             try
             {
-                if (eu.Update())
-                { return true; }
-                else return false;
+                return eu.Update();
             }
             catch
             {
                 return false;
             }
-
         }
 
 
-
-
-
-         
-
         public override bool ChangePasswordQuestionAndAnswer
             (
-                string username,
-                string password,
-                string newPasswordQuestion,
-                string newPasswordAnswer
+            string username,
+            string password,
+            string newPasswordQuestion,
+            string newPasswordAnswer
             )
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Make a new end user in the database
+        ///     Make a new end user in the database
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
@@ -327,14 +322,14 @@ namespace BootBaronLib.Providers
         /// <returns></returns>
         public override MembershipUser CreateUser
             (
-                string username,
-                string password,
-                string email,
-                string passwordQuestion,
-                string passwordAnswer,
-                bool isApproved,
-                object providerUserKey,
-                out MembershipCreateStatus status
+            string username,
+            string password,
+            string email,
+            string passwordQuestion,
+            string passwordAnswer,
+            bool isApproved,
+            object providerUserKey,
+            out MembershipCreateStatus status
             )
         {
             username = username.Trim();
@@ -351,7 +346,7 @@ namespace BootBaronLib.Providers
             }
 
             // Validate username/password
-            ValidatePasswordEventArgs args = new ValidatePasswordEventArgs(username, password, true);
+            var args = new ValidatePasswordEventArgs(username, password, true);
             OnValidatingPassword(args);
 
             if (args.Cancel)
@@ -367,37 +362,30 @@ namespace BootBaronLib.Providers
             }
 
             // Check whether user with passed username already exists
-            MembershipUser mu = GetUser(username, false);
+            var mu = GetUser(username, false);
 
             if (mu == null)
             {
-                UserAccount eu = new UserAccount
-                {
-                    UserName = username,
-                    EMail = email,
-                    Password = EncodePassword(password),
-                    PasswordFormat = MembershipPasswordFormat.Hashed.ToString(),
-                    PasswordSalt = string.Empty,
-                    PasswordQuestion = passwordQuestion,
-                    PasswordAnswer = EncodePassword(passwordAnswer),
-                    FailedPasswordAttemptCount = 0,
-                    IsOnLine = false,
-                    IsApproved = isApproved,
-                    Comment = string.Empty,
-                    IsLockedOut = false,
-                };
+                var eu = new UserAccount
+                    {
+                        UserName = username,
+                        EMail = email,
+                        Password = EncodePassword(password),
+                        PasswordFormat = MembershipPasswordFormat.Hashed.ToString(),
+                        PasswordSalt = string.Empty,
+                        PasswordQuestion = passwordQuestion,
+                        PasswordAnswer = EncodePassword(passwordAnswer),
+                        FailedPasswordAttemptCount = 0,
+                        IsOnLine = false,
+                        IsApproved = isApproved,
+                        Comment = string.Empty,
+                        IsLockedOut = false,
+                    };
                 try
                 {
                     eu.Create();
 
-                    if (eu.UserAccountID > 0)
-                    {
-                        status = MembershipCreateStatus.Success;
-                    }
-                    else
-                    {
-                        status = MembershipCreateStatus.UserRejected;
-                    }
+                    status = eu.UserAccountID > 0 ? MembershipCreateStatus.Success : MembershipCreateStatus.UserRejected;
                 }
                 catch
                 {
@@ -412,23 +400,25 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Delete the given user
+        ///     Delete the given user
         /// </summary>
         /// <param name="username"></param>
         /// <param name="deleteAllRelatedData"></param>
         /// <returns></returns>
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
         {
-            UserAccount eu = new UserAccount(username);
+            var eu = new UserAccount(username);
             return eu.Delete(deleteAllRelatedData);
         }
 
-        public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
+        public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize,
+                                                                  out int totalRecords)
         {
             throw new NotImplementedException();
         }
 
-        public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize, out int totalRecords)
+        public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize,
+                                                                 out int totalRecords)
         {
             throw new NotImplementedException();
         }
@@ -444,7 +434,7 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Gets the password for the specified user name from the data source.
+        ///     Gets the password for the specified user name from the data source.
         /// </summary>
         /// <returns>The password for the specified user name.</returns>
         /// <param name="username">The user to retrieve the password for.</param>
@@ -453,9 +443,9 @@ namespace BootBaronLib.Providers
         {
             if (!EnablePasswordRetrieval) throw new ProviderException("Password Retrieval Not Enabled.");
 
-            string password = string.Empty;
+            var password = string.Empty;
 
-            UserAccount eu = new UserAccount(username);
+            var eu = new UserAccount(username);
 
             if (eu.UserAccountID < 1)
                 throw new ProviderException("Get password failed. No unique user found.");
@@ -472,37 +462,38 @@ namespace BootBaronLib.Providers
                 UpdateFailureCount(username, SiteEnums.MembershipFailureTypes.passwordAnswer);
                 throw new MembershipPasswordException("Incorrect password answer.");
             }
-            else
+            if (PasswordFormat == MembershipPasswordFormat.Hashed)
             {
-                if (PasswordFormat == MembershipPasswordFormat.Hashed)
-                {
-                    //  reset the password
-                   // password = Utilities.RandomPassword.Generate();
-                    eu.Password = EncodePassword(password);
-                    eu.Update();
-                }
-
+                //  reset the password
+                // password = Utilities.RandomPassword.Generate();
+                eu.Password = EncodePassword(password);
+                eu.Update();
             }
 
             if (PasswordFormat == MembershipPasswordFormat.Encrypted)
-            { password = UnEncodePassword(eu.Password); }
+            {
+                password = UnEncodePassword(eu.Password);
+            }
 
             return password;
         }
 
         /// <summary>
-        /// Get the user by name and online status
+        ///     Get the user by name and online status
         /// </summary>
         /// <param name="username"></param>
         /// <param name="userIsOnline"></param>
         /// <returns></returns>
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            if (username == string.Empty) { return null; }
+            if (username == string.Empty)
+            {
+                return null;
+            }
 
             MembershipUser mu = null;
-            UserAccount eu = new UserAccount(username);
-            if (eu.UserAccountID != 0)// && eu.IsOnLine == userIsOnline)
+            var eu = new UserAccount(username);
+            if (eu.UserAccountID != 0) // && eu.IsOnLine == userIsOnline)
             {
                 eu.Update(); // updates the last activity date
                 // get the values for this end user
@@ -512,7 +503,7 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// get the user from their ID
+        ///     get the user from their ID
         /// </summary>
         /// <param name="providerUserKey"></param>
         /// <param name="userIsOnline"></param>
@@ -520,7 +511,7 @@ namespace BootBaronLib.Providers
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
         {
             MembershipUser mu = null;
-            UserAccount eu = new UserAccount(Convert.ToInt32(providerUserKey));
+            var eu = new UserAccount(Convert.ToInt32(providerUserKey));
             if (eu.UserAccountID != 0 && eu.IsOnLine == userIsOnline)
             {
                 // get the values for this end user
@@ -537,7 +528,7 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Get ther username from the e-mail address
+        ///     Get ther username from the e-mail address
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -547,7 +538,7 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Same thing as: GetPassword method here
+        ///     Same thing as: GetPassword method here
         /// </summary>
         /// <param name="username"></param>
         /// <param name="answer"></param>
@@ -556,9 +547,9 @@ namespace BootBaronLib.Providers
         {
             if (!EnablePasswordRetrieval) throw new ProviderException(Messages.PasswordRetrievalNotEnabled);
 
-            string password = RandomPassword.Generate(8, 10);// string.Empty;
+            string password = RandomPassword.Generate(8, 10); // string.Empty;
 
-            UserAccount eu = new UserAccount(username);
+            var eu = new UserAccount(username);
 
             if (eu.UserAccountID < 1)
                 throw new ProviderException(Messages.GetPasswordFailedNoUnique);
@@ -589,13 +580,15 @@ namespace BootBaronLib.Providers
             }
 
             if (PasswordFormat == MembershipPasswordFormat.Encrypted)
-            { password = UnEncodePassword(eu.Password); }
+            {
+                password = UnEncodePassword(eu.Password);
+            }
 
             return password;
         }
 
         /// <summary>
-        ///  Clears a lock so that the membership user can be validated.
+        ///     Clears a lock so that the membership user can be validated.
         /// </summary>
         /// <returns>true if the membership user was successfully unlocked; otherwise, false.</returns>
         /// <param name="userName">The membership user whose lock status you want to clear.</param>
@@ -603,7 +596,7 @@ namespace BootBaronLib.Providers
         {
             try
             {
-                UserAccount eu = new UserAccount(userName);
+                var eu = new UserAccount(userName);
 
                 if (eu.UserAccountID < 1 || eu.UserAccountID == 0) return false;
 
@@ -620,12 +613,12 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Update the underlying end user for this membership user
+        ///     Update the underlying end user for this membership user
         /// </summary>
         /// <param name="user"></param>
         public override void UpdateUser(MembershipUser user)
         {
-            UserAccount eu = new UserAccount(Convert.ToInt32(user.ProviderUserKey));
+            var eu = new UserAccount(Convert.ToInt32(user.ProviderUserKey));
 
             if (eu.UserAccountID < 1)
                 throw new ProviderException(Messages.UpdateUserFailedNoUniqueUserFound);
@@ -651,8 +644,8 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Confirms that this person can log in, 
-        /// they are approved and not locked out
+        ///     Confirms that this person can log in,
+        ///     they are approved and not locked out
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
@@ -664,9 +657,12 @@ namespace BootBaronLib.Providers
             username = username.Trim();
             password = password.Trim();
 
-            if (username == string.Empty || password == string.Empty) { return false; }
+            if (username == string.Empty || password == string.Empty)
+            {
+                return false;
+            }
 
-            UserAccount eu = new UserAccount(username);
+            var eu = new UserAccount(username);
 
             if (eu.UserAccountID == 0) return false;
 
@@ -693,12 +689,12 @@ namespace BootBaronLib.Providers
         #region private methods
 
         /// <summary>
-        /// A helper method that performs the checks and updates associated with password failure tracking.
+        ///     A helper method that performs the checks and updates associated with password failure tracking.
         /// </summary>
         /// <TODO>update the failure count for the user in the time window</TODO>
         private void UpdateFailureCount(string username, SiteEnums.MembershipFailureTypes failureType)
         {
-            UserAccount eu = new UserAccount(username);
+            var eu = new UserAccount(username);
             if (eu.UserAccountID == 0) throw new ProviderException(Messages.UnableToUpdateFailureCount);
 
             int failureCount = 0;
@@ -721,12 +717,12 @@ namespace BootBaronLib.Providers
                 if (failureType == SiteEnums.MembershipFailureTypes.password)
                 {
                     eu.FailedPasswordAttemptCount = 1;
-                  //  eu.FailedPasswordAttemptWindowStart = FromDB.GetUTCDate();
+                    //  eu.FailedPasswordAttemptWindowStart = FromDB.GetUTCDate();
                 }
                 if (failureType == SiteEnums.MembershipFailureTypes.passwordAnswer)
                 {
                     eu.FailedPasswordAnswerAttemptCount = 1;
-                  //  eu.FailedPasswordAnswerAttemptWindowStart = FromDB.GetUTCDate();
+                    //  eu.FailedPasswordAnswerAttemptWindowStart = FromDB.GetUTCDate();
                 }
 
                 try
@@ -744,7 +740,7 @@ namespace BootBaronLib.Providers
                 {
                     // Max password attempts have exceeded the failure threshold. Lock out the user.
                     eu.IsLockedOut = true;
-                  //  eu.LastLockoutDate = FromDB.GetUTCDate();
+                    //  eu.LastLockoutDate = FromDB.GetUTCDate();
 
                     try
                     {
@@ -774,14 +770,14 @@ namespace BootBaronLib.Providers
                     }
                     catch
                     {
-                        throw new ProviderException( Messages.UnableToUpdateFailureCount);
+                        throw new ProviderException(Messages.UnableToUpdateFailureCount);
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Decrypts or leaves the password clear based on the PasswordFormat.
+        ///     Decrypts or leaves the password clear based on the PasswordFormat.
         /// </summary>
         /// <param name="encodedPassword"></param>
         /// <returns></returns>
@@ -805,7 +801,7 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Compares password values based on the MembershipPasswordFormat.
+        ///     Compares password values based on the MembershipPasswordFormat.
         /// </summary>
         /// <param name="password">password</param>
         /// <param name="dbpassword">database password</param>
@@ -832,7 +828,7 @@ namespace BootBaronLib.Providers
 
 
         /// <summary>
-        /// Check the password anwser against the database
+        ///     Check the password anwser against the database
         /// </summary>
         /// <param name="passwordAnswer"></param>
         /// <param name="dbpasswordAnswer"></param>
@@ -859,11 +855,11 @@ namespace BootBaronLib.Providers
 
 
         /// <summary>
-        /// Encrypts, Hashes, or leaves the password clear based on the PasswordFormat.
+        ///     Encrypts, Hashes, or leaves the password clear based on the PasswordFormat.
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
-        public  string EncodePassword(string password)
+        public string EncodePassword(string password)
         {
             if (password == null) return string.Empty;
 
@@ -877,9 +873,9 @@ namespace BootBaronLib.Providers
                     encodedPassword = Convert.ToBase64String(EncryptPassword(Encoding.Unicode.GetBytes(password)));
                     break;
                 case MembershipPasswordFormat.Hashed:
-                    HMACSHA1 hash = new HMACSHA1 { Key = HexToByte(_machineKey.ValidationKey) };
+                    var hash = new HMACSHA1 {Key = HexToByte(_machineKey.ValidationKey)};
                     encodedPassword = Convert.ToBase64String(hash.ComputeHash(Encoding.Unicode.GetBytes(password)));
-                     
+
                     break;
                 default:
                     throw new ProviderException(Messages.UnsupportedPasswordFormat);
@@ -889,22 +885,22 @@ namespace BootBaronLib.Providers
         }
 
         /// <summary>
-        /// Converts a hexadecimal string to a byte array. Used to convert encryption key values from the configuration.
+        ///     Converts a hexadecimal string to a byte array. Used to convert encryption key values from the configuration.
         /// </summary>
         /// <param name="hexString"></param>
         /// <returns></returns>
         private static byte[] HexToByte(string hexString)
         {
-            byte[] returnBytes = new byte[hexString.Length / 2];
+            var returnBytes = new byte[hexString.Length/2];
             for (int i = 0; i < returnBytes.Length; i++)
             {
-                returnBytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
+                returnBytes[i] = Convert.ToByte(hexString.Substring(i*2, 2), 16);
             }
             return returnBytes;
         }
 
         /// <summary>
-        /// A helper function that takes the current persistent user and creates a MembershiUser from the values.
+        ///     A helper function that takes the current persistent user and creates a MembershiUser from the values.
         /// </summary>
         /// <param name="user">user object containing the user data retrieved from database</param>
         /// <returns>membership user object</returns>
@@ -912,24 +908,24 @@ namespace BootBaronLib.Providers
         {
             return new MembershipUser
                 (
-                    Name,
-                    eu.UserName,
-                    eu.UserAccountID,
-                    eu.EMail,
-                    eu.PasswordQuestion,
-                    eu.Comment,
-                    eu.IsApproved,
-                    eu.IsLockedOut,
-                    eu.CreateDate,
-                    eu.LastLoginDate,
-                    eu.LastActivityDate,
-                    eu.LastPasswordChangedDate,
-                    eu.LastLockoutDate
+                Name,
+                eu.UserName,
+                eu.UserAccountID,
+                eu.EMail,
+                eu.PasswordQuestion,
+                eu.Comment,
+                eu.IsApproved,
+                eu.IsLockedOut,
+                eu.CreateDate,
+                eu.LastLoginDate,
+                eu.LastActivityDate,
+                eu.LastPasswordChangedDate,
+                eu.LastLockoutDate
                 );
         }
 
         /// <summary>
-        /// A helper function to retrieve config values from the configuration file.
+        ///     A helper function to retrieve config values from the configuration file.
         /// </summary>
         /// <param name="configValue"></param>
         /// <param name="defaultValue"></param>
@@ -938,8 +934,7 @@ namespace BootBaronLib.Providers
         {
             return String.IsNullOrEmpty(configValue) ? defaultValue : configValue;
         }
-        #endregion
 
-     
+        #endregion
     }
 }

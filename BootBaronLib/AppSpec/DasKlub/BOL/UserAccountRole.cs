@@ -13,11 +13,11 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System.Data;
 using System.Data.Common;
 using BootBaronLib.DAL;
 using BootBaronLib.Operational;
-using System.Web;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
@@ -30,7 +30,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteUserRoles";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
+            comm.AddParameter("userAccountID", userAccountID);
 
 
             // execute the stored procedure
@@ -46,7 +46,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetUsersInRole";
 
-            ADOExtenstion.AddParameter(comm, "roleID", roleID);
+            comm.AddParameter("roleID", roleID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -71,16 +71,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
-            
+
             // set the stored procedure name
             comm.CommandText = "up_AddUserAccountRole";
-            
+
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
-            ADOExtenstion.AddParameter(comm, "roleID", roleID);
+            comm.AddParameter("userAccountID", userAccountID);
+            comm.AddParameter("roleID", roleID);
 
             return DbAct.ExecuteNonQuery(comm) > 0;
-          
         }
     }
 }

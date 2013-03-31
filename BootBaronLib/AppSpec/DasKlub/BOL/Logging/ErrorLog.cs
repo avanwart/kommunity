@@ -13,16 +13,13 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BootBaronLib.Interfaces;
-using BootBaronLib.BaseTypes;
 using System.Data.Common;
+using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
+using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
-using System.Data;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.Logging
 {
@@ -30,21 +27,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.Logging
     {
         #region properties
 
-        private int _errorLogID = 0;
-
-        public int ErrorLogID
-        {
-            get { return _errorLogID; }
-            set { _errorLogID = value; }
-        }
         private string _message = string.Empty;
+
+        private string _url = string.Empty;
+        public int ErrorLogID { get; set; }
 
         public string Message
         {
             get { return _message; }
             set { _message = value; }
         }
-        private string _url = string.Empty;
 
         public string Url
         {
@@ -54,30 +46,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.Logging
 
         #endregion
 
-        public override int Create()
-        {
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
-            comm.CommandText = "up_AddErrorLog";
-
-            ADOExtenstion.AddParameter(comm, "createdByUserID",  CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "message",  Message);
-            ADOExtenstion.AddParameter(comm, "url", Url);
-            ADOExtenstion.AddParameter(comm, "responseCode", ResponseCode);
-
-            // the result is their ID
-            string result = string.Empty;
-            // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
-
-            if (string.IsNullOrEmpty(result)) return 0;
-
-            this.ErrorLogID = Convert.ToInt32(result);
-
-            return this.ErrorLogID;
-
-
-        }
+        public int? ResponseCode { get; set; }
 
         public string CacheName
         {
@@ -89,6 +58,27 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.Logging
             throw new NotImplementedException();
         }
 
-        public int? ResponseCode { get; set; }
+        public override int Create()
+        {
+            DbCommand comm = DbAct.CreateCommand();
+            // set the stored procedure name
+            comm.CommandText = "up_AddErrorLog";
+
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("message", Message);
+            comm.AddParameter("url", Url);
+            comm.AddParameter("responseCode", ResponseCode);
+
+            // the result is their ID
+            string result = string.Empty;
+            // execute the stored procedure
+            result = DbAct.ExecuteScalar(comm);
+
+            if (string.IsNullOrEmpty(result)) return 0;
+
+            ErrorLogID = Convert.ToInt32(result);
+
+            return ErrorLogID;
+        }
     }
 }

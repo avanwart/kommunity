@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,15 +33,18 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties
 
-        private int _venueID = 0;
-
-        public int VenueID
-        {
-            get { return _venueID; }
-            set { _venueID = value; }
-        }
-
+        private string _addressLine1 = string.Empty;
+        private string _addressLine2 = string.Empty;
+        private string _city = string.Empty;
+        private string _countryISO = string.Empty;
         private string _description = string.Empty;
+        private string _phoneNumber = string.Empty;
+        private string _postalCode = string.Empty;
+        private string _region = string.Empty;
+        private string _venueName = string.Empty;
+        private char _venueType = char.MinValue;
+        private string _venueURL = string.Empty;
+        public int VenueID { get; set; }
 
         public string Description
         {
@@ -48,23 +52,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _description = value; }
         }
 
-        private decimal _latitude = 0;
+        public decimal Latitude { get; set; }
 
-        public decimal Latitude
-        {
-            get { return _latitude; }
-            set { _latitude = value; }
-        }
-
-        private decimal _longitude = 0;
-
-        public decimal Longitude
-        {
-            get { return _longitude; }
-            set { _longitude = value; }
-        }
-
-        private string _venueName = string.Empty;
+        public decimal Longitude { get; set; }
 
         public string VenueName
         {
@@ -72,15 +62,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _venueName = value; }
         }
 
-        private string _addressLine1 = string.Empty;
-
         public string AddressLine1
         {
             get { return _addressLine1; }
             set { _addressLine1 = value; }
         }
-
-        private string _addressLine2 = string.Empty;
 
         public string AddressLine2
         {
@@ -88,15 +74,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _addressLine2 = value; }
         }
 
-        private string _city = string.Empty;
-
         public string City
         {
             get { return _city; }
             set { _city = value; }
         }
-
-        private string _region = string.Empty;
 
         public string Region
         {
@@ -104,15 +86,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _region = value; }
         }
 
-        private string _postalCode = string.Empty;
-
         public string PostalCode
         {
             get { return _postalCode; }
             set { _postalCode = value; }
         }
-
-        private string _countryISO = string.Empty;
 
         public string CountryISO
         {
@@ -120,25 +98,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _countryISO = value; }
         }
 
-        private string _venueURL = string.Empty;
 
-    
         public string VenueURL
         {
             get { return _venueURL; }
             set { _venueURL = value; }
         }
 
-        private bool _isEnabled = false;
+        public bool IsEnabled { get; set; }
 
-        public bool IsEnabled
-        {
-            get { return _isEnabled; }
-            set { _isEnabled = value; }
-        }
-
-
-        private string _phoneNumber = string.Empty;
 
         public string PhoneNumber
         {
@@ -146,8 +114,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _phoneNumber = value; }
         }
 
-
-        private char _venueType = char.MinValue;
 
         public char VenueType
         {
@@ -161,7 +127,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
 
 
                 switch (VenueType)
@@ -171,11 +137,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     case 'S':
                     case 'V':
                     case 'W':
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(
+                        sb.Append(VirtualPathUtility.ToAbsolute(
                             string.Format("~/content/images/map/{0}.png", VenueType)));
                         break;
                     default:
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(
+                        sb.Append(VirtualPathUtility.ToAbsolute(
                             "~/content/images/map/U.png"));
                         break;
                 }
@@ -183,7 +149,48 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 return sb.ToString();
             }
         }
-        
+
+        public string MapText
+        {
+            get
+            {
+                var sb = new StringBuilder(100);
+
+                sb.Append(@"<div class=""venue_icon"">");
+                sb.Append(ToString());
+
+                if (!string.IsNullOrEmpty(VenueURL))
+                {
+                    sb.Append("<br />");
+                    sb.AppendFormat("{0}: ", Messages.Venue);
+                    var uri = new Uri(VenueURL);
+                    sb.Append(@"<a target=""_blank"" href=""");
+                    sb.Append(VenueURL);
+                    sb.Append(@""">");
+                    sb.Append(uri.Host);
+                    sb.Append("</a>");
+                }
+
+                if (!string.IsNullOrEmpty(PhoneNumber))
+                {
+                    sb.Append("<br />");
+                    sb.AppendFormat("{0}: ", Messages.Phone);
+                    sb.Append(PhoneNumber);
+                }
+
+                //if (!string.IsNullOrEmpty(this.Description))
+                //{
+                //    sb.Append("<br />");
+                //    sb.AppendFormat("{0}: ", Messages.Details);
+                //    sb.Append(Utilities.MakeLink(this.Description));
+                //}
+
+                sb.Append("</div>");
+
+                return sb.ToString();
+            }
+        }
+
         #region constructors
 
         public Venue(int venueID)
@@ -207,25 +214,21 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string CacheName
         {
-            get
-            {
-                return string.Format("{0}-{1}", this.GetType().FullName, this.VenueID.ToString());
-            }
+            get { return string.Format("{0}-{1}", GetType().FullName, VenueID.ToString()); }
         }
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
         }
 
         #endregion
 
-
         public override void Get(int venueID)
         {
-            this.VenueID = venueID;
+            VenueID = venueID;
 
-            if (HttpContext.Current.Cache[this.CacheName] == null)
+            if (HttpContext.Current.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -233,22 +236,20 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 // set the stored procedure name
                 comm.CommandText = "up_GetVenueByID";
 
-                ADOExtenstion.AddParameter(comm, "venueID", venueID);
-                
+                comm.AddParameter("venueID", venueID);
+
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 if (dt.Rows.Count == 1)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
+                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
-
                 }
             }
             else
             {
-                Get((DataRow)HttpContext.Current.Cache[this.CacheName]);
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
             }
-
         }
 
         public override int Create()
@@ -258,21 +259,21 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddVenue";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID",   CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "venueName", VenueName);
-            ADOExtenstion.AddParameter(comm, "addressLine1", AddressLine1);
-            ADOExtenstion.AddParameter(comm, "addressLine2", AddressLine2);
-            ADOExtenstion.AddParameter(comm, "city",  City);
-            ADOExtenstion.AddParameter(comm, "region",  Region);
-            ADOExtenstion.AddParameter(comm, "postalCode", PostalCode);
-            ADOExtenstion.AddParameter(comm, "countryISO",  CountryISO);
-            ADOExtenstion.AddParameter(comm, "venueURL",  VenueURL);
-            ADOExtenstion.AddParameter(comm, "isEnabled", IsEnabled);
-            ADOExtenstion.AddParameter(comm, "latitude", Latitude);
-            ADOExtenstion.AddParameter(comm, "longitude", Longitude);
-            ADOExtenstion.AddParameter(comm, "phoneNumber",  PhoneNumber);
-            ADOExtenstion.AddParameter(comm, "venueType",  VenueType);
-            ADOExtenstion.AddParameter(comm, "description", Description);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("venueName", VenueName);
+            comm.AddParameter("addressLine1", AddressLine1);
+            comm.AddParameter("addressLine2", AddressLine2);
+            comm.AddParameter("city", City);
+            comm.AddParameter("region", Region);
+            comm.AddParameter("postalCode", PostalCode);
+            comm.AddParameter("countryISO", CountryISO);
+            comm.AddParameter("venueURL", VenueURL);
+            comm.AddParameter("isEnabled", IsEnabled);
+            comm.AddParameter("latitude", Latitude);
+            comm.AddParameter("longitude", Longitude);
+            comm.AddParameter("phoneNumber", PhoneNumber);
+            comm.AddParameter("venueType", VenueType);
+            comm.AddParameter("description", Description);
 
             // the result is their ID
             string result = string.Empty;
@@ -285,40 +286,39 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                Venues venus = new Venues();
+                var venus = new Venues();
                 venus.RemoveCache();
 
-                this.VenueID = Convert.ToInt32(result);
+                VenueID = Convert.ToInt32(result);
 
-                return this.VenueID;
+                return VenueID;
             }
         }
 
         public override bool Update()
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_UpdateVenue";
 
 
-            ADOExtenstion.AddParameter(comm, "updatedByUserID", UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, "venueName", VenueName);
-            ADOExtenstion.AddParameter(comm, "addressLine1",AddressLine1);
-            ADOExtenstion.AddParameter(comm, "addressLine2", AddressLine2);
-            ADOExtenstion.AddParameter(comm, "city",  City);
-            ADOExtenstion.AddParameter(comm, "region",  Region);
-            ADOExtenstion.AddParameter(comm, "postalCode", PostalCode);
-            ADOExtenstion.AddParameter(comm, "countryISO", CountryISO);
-            ADOExtenstion.AddParameter(comm, "venueURL", VenueURL);
-            ADOExtenstion.AddParameter(comm, "isEnabled", IsEnabled);
-            ADOExtenstion.AddParameter(comm, "latitude",  Latitude);
-            ADOExtenstion.AddParameter(comm, "longitude", Longitude);
-            ADOExtenstion.AddParameter(comm, "phoneNumber",PhoneNumber);
-            ADOExtenstion.AddParameter(comm, "venueType", VenueType);
-            ADOExtenstion.AddParameter(comm, "description", Description);
-            ADOExtenstion.AddParameter(comm, "venueID",  VenueID);
+            comm.AddParameter("updatedByUserID", UpdatedByUserID);
+            comm.AddParameter("venueName", VenueName);
+            comm.AddParameter("addressLine1", AddressLine1);
+            comm.AddParameter("addressLine2", AddressLine2);
+            comm.AddParameter("city", City);
+            comm.AddParameter("region", Region);
+            comm.AddParameter("postalCode", PostalCode);
+            comm.AddParameter("countryISO", CountryISO);
+            comm.AddParameter("venueURL", VenueURL);
+            comm.AddParameter("isEnabled", IsEnabled);
+            comm.AddParameter("latitude", Latitude);
+            comm.AddParameter("longitude", Longitude);
+            comm.AddParameter("phoneNumber", PhoneNumber);
+            comm.AddParameter("venueType", VenueType);
+            comm.AddParameter("description", Description);
+            comm.AddParameter("venueID", VenueID);
 
             int result = -1;
 
@@ -326,11 +326,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             RemoveCache();
 
-            Venues venus = new Venues();
+            var venus = new Venues();
             venus.RemoveCache();
 
             return (result != -1);
- 
         }
 
         public override void Get(DataRow dr)
@@ -339,23 +338,22 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             {
                 base.Get(dr);
 
-                this.AddressLine1 = FromObj.StringFromObj(dr["addressLine1"]);
-                this.VenueID = FromObj.IntFromObj(dr["venueID"]);
-                this.VenueName = FromObj.StringFromObj(dr["venueName"]);
-                this.AddressLine1 = FromObj.StringFromObj(dr["addressLine1"]);
-                this.AddressLine2 = FromObj.StringFromObj(dr["addressLine2"]);
-                this.City = FromObj.StringFromObj(dr["city"]);
-                this.Region = FromObj.StringFromObj(dr["region"]);
-                this.PostalCode = FromObj.StringFromObj(dr["postalCode"]);
-                this.CountryISO = FromObj.StringFromObj(dr["countryISO"]);
-                this.VenueURL = FromObj.StringFromObj(dr["venueURL"]);
-                this.IsEnabled = FromObj.BoolFromObj(dr["isEnabled"]);
-                this.Latitude = FromObj.DecimalFromObj(dr["latitude"]);
-                this.Longitude = FromObj.DecimalFromObj(dr["longitude"]);
-                this.PhoneNumber = FromObj.StringFromObj(dr["phoneNumber"]);
-                this.VenueType = FromObj.CharFromObj(dr["venueType"]);
-                this.Description = FromObj.StringFromObj(dr["description"]);
-
+                AddressLine1 = FromObj.StringFromObj(dr["addressLine1"]);
+                VenueID = FromObj.IntFromObj(dr["venueID"]);
+                VenueName = FromObj.StringFromObj(dr["venueName"]);
+                AddressLine1 = FromObj.StringFromObj(dr["addressLine1"]);
+                AddressLine2 = FromObj.StringFromObj(dr["addressLine2"]);
+                City = FromObj.StringFromObj(dr["city"]);
+                Region = FromObj.StringFromObj(dr["region"]);
+                PostalCode = FromObj.StringFromObj(dr["postalCode"]);
+                CountryISO = FromObj.StringFromObj(dr["countryISO"]);
+                VenueURL = FromObj.StringFromObj(dr["venueURL"]);
+                IsEnabled = FromObj.BoolFromObj(dr["isEnabled"]);
+                Latitude = FromObj.DecimalFromObj(dr["latitude"]);
+                Longitude = FromObj.DecimalFromObj(dr["longitude"]);
+                PhoneNumber = FromObj.StringFromObj(dr["phoneNumber"]);
+                VenueType = FromObj.CharFromObj(dr["venueType"]);
+                Description = FromObj.StringFromObj(dr["description"]);
             }
             catch //(Exception ex)
             {
@@ -364,91 +362,49 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-        public string MapText
-        {
-            get
-            {
-                StringBuilder sb = new StringBuilder(100);
-
-                sb.Append(@"<div class=""venue_icon"">");
-                sb.Append(this.ToString());
-                
-                if (!string.IsNullOrEmpty(this.VenueURL))
-                {
-                    sb.Append("<br />");
-                    sb.AppendFormat("{0}: ", Messages.Venue);
-                    Uri uri = new Uri(this.VenueURL);
-                    sb.Append(@"<a target=""_blank"" href=""");
-                    sb.Append(this.VenueURL);
-                    sb.Append(@""">");
-                    sb.Append(uri.Host);
-                    sb.Append("</a>");
-                }
-
-                if (!string.IsNullOrEmpty(this.PhoneNumber))
-                {
-                    sb.Append("<br />");
-                    sb.AppendFormat("{0}: ", Messages.Phone);
-                    sb.Append(this.PhoneNumber);
-                }
-
-                //if (!string.IsNullOrEmpty(this.Description))
-                //{
-                //    sb.Append("<br />");
-                //    sb.AppendFormat("{0}: ", Messages.Details);
-                //    sb.Append(Utilities.MakeLink(this.Description));
-                //}
-
-                sb.Append("</div>");
-
-                return sb.ToString();
-
-            }
-        }
-
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder(100);
+            var sb = new StringBuilder(100);
 
-            if (!string.IsNullOrEmpty(this.VenueName))
+            if (!string.IsNullOrEmpty(VenueName))
             {
-                sb.Append(this.VenueName);
+                sb.Append(VenueName);
                 sb.Append(", ");
             }
 
-            if (!string.IsNullOrEmpty(this.AddressLine1))
+            if (!string.IsNullOrEmpty(AddressLine1))
             {
-                sb.Append(this.AddressLine1);
+                sb.Append(AddressLine1);
                 sb.Append(", ");
             }
 
-            if (!string.IsNullOrEmpty(this.AddressLine2))
+            if (!string.IsNullOrEmpty(AddressLine2))
             {
-                sb.Append(this.AddressLine2);
+                sb.Append(AddressLine2);
                 sb.Append(", ");
             }
 
-            if (!string.IsNullOrEmpty(this.City))
+            if (!string.IsNullOrEmpty(City))
             {
-                sb.Append(this.City);
+                sb.Append(City);
                 sb.Append(", ");
             }
 
-            if (!string.IsNullOrEmpty(this.Region))
+            if (!string.IsNullOrEmpty(Region))
             {
-                sb.Append(this.Region);
+                sb.Append(Region);
                 sb.Append(", ");
             }
 
-            if (!string.IsNullOrEmpty(this.PostalCode))
+            if (!string.IsNullOrEmpty(PostalCode))
             {
-                sb.Append(this.PostalCode);
+                sb.Append(PostalCode);
                 sb.Append(", ");
             }
 
-            if (!string.IsNullOrEmpty(this.CountryISO))
+            if (!string.IsNullOrEmpty(CountryISO))
             {
-                sb.Append(this.CountryISO);
+                sb.Append(CountryISO);
             }
 
             return sb.ToString();
@@ -458,14 +414,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
     public class Venues : List<Venue>, ICacheName
     {
-
         #region IGetAll Members
 
         public void GetAll()
         {
-            if (HttpContext.Current.Cache[this.CacheName] == null)
+            if (HttpContext.Current.Cache[CacheName] == null)
             {
-
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
@@ -481,17 +435,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     foreach (DataRow dr in dt.Rows)
                     {
                         ven = new Venue(dr);
-                        this.Add(ven);
+                        Add(ven);
                     }
 
-                    HttpContext.Current.Cache.AddObjToCache(this, this.CacheName);
+                    HttpContext.Current.Cache.AddObjToCache(this, CacheName);
                 }
             }
             else
             {
-                Venues uads = (Venues)HttpContext.Current.Cache[this.CacheName];
+                var uads = (Venues) HttpContext.Current.Cache[CacheName];
 
-                foreach (Venue ven in uads) this.Add(ven);
+                foreach (Venue ven in uads) Add(ven);
             }
         }
 
@@ -518,7 +472,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
-            CityRegionCountries crcs = new CityRegionCountries();
+            var crcs = new CityRegionCountries();
 
             CityRegionCountry crc = null;
 
@@ -531,21 +485,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             return crcs;
         }
 
-
-
         #region ICacheName Members
 
         public string CacheName
         {
-            get
-            {
-                return this.GetType().FullName + "all";
-            }
+            get { return GetType().FullName + "all"; }
         }
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
         }
 
         #endregion

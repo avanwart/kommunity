@@ -13,35 +13,28 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Text;
+using System.Web;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
-using BootBaronLib.Operational;
 using BootBaronLib.Interfaces;
-using System.Text;
+using BootBaronLib.Operational;
 using BootBaronLib.Resources;
 using BootBaronLib.Values;
 
-
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
-    public class StatusUpdateNotification : BaseIUserLogCRUD,  IUnorderdListItem
+    public class StatusUpdateNotification : BaseIUserLogCRUD, IUnorderdListItem
     {
         #region properties
 
-        private int _statusUpdateNotificationID = 0;
-
-        public int StatusUpdateNotificationID
-        {
-            get { return _statusUpdateNotificationID; }
-            set { _statusUpdateNotificationID = value; }
-        }
-
-
         private char _responseType = char.MinValue;
+        public int StatusUpdateNotificationID { get; set; }
 
         public char ResponseType
         {
@@ -49,30 +42,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _responseType = value; }
         }
 
-        private int _statusUpdateID = 0;
+        public int StatusUpdateID { get; set; }
 
-        public int StatusUpdateID
-        {
-            get { return _statusUpdateID; }
-            set { _statusUpdateID = value; }
-        }
-
-        private bool _isRead = false;
-
-        public bool IsRead
-        {
-            get { return _isRead; }
-            set { _isRead = value; }
-        }
-
-        private int _userAccountID = 0;
+        public bool IsRead { get; set; }
 
 
-        public int UserAccountID
-        {
-            get { return _userAccountID; }
-            set { _userAccountID = value; }
-        }
+        public int UserAccountID { get; set; }
+
         #endregion
 
         #region constructors
@@ -82,13 +58,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             Get(dr);
         }
 
-        public StatusUpdateNotification() { }
-
+        public StatusUpdateNotification()
+        {
+        }
 
         #endregion
 
         #region methods
-
 
         public override bool Update()
         {
@@ -100,14 +76,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             comm.CommandText = "up_UpdateStatusUpdateNotification";
 
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.StatusUpdateID), this.StatusUpdateID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UpdatedByUserID), this.UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.IsRead), this.IsRead);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserAccountID), this.UserAccountID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.StatusUpdateNotificationID), this.StatusUpdateNotificationID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ResponseType), this.ResponseType);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusUpdateID), StatusUpdateID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UpdatedByUserID), UpdatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsRead), IsRead);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusUpdateNotificationID),
+                              StatusUpdateNotificationID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ResponseType), ResponseType);
 
-            
 
             // result will represent the number of changed rows
 
@@ -128,16 +104,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteStatusUpdateNotification";
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.StatusUpdateNotificationID), StatusUpdateNotificationID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusUpdateNotificationID),
+                              StatusUpdateNotificationID);
 
             //RemoveCache();
 
             // execute the stored procedure
 
             return DbAct.ExecuteNonQuery(comm) > 0;
-
         }
-
 
 
         public override int Create()
@@ -148,11 +123,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             comm.CommandText = "up_AddStatusUpdateNotification";
 
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.StatusUpdateID), this.StatusUpdateID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.CreatedByUserID), this.CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.IsRead), this.IsRead);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserAccountID), this.UserAccountID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ResponseType), this.ResponseType);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusUpdateID), StatusUpdateID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => CreatedByUserID), CreatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsRead), IsRead);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ResponseType), ResponseType);
 
             // result will represent the number of changed rows
 
@@ -164,64 +139,40 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             if (string.IsNullOrEmpty(result)) return 0;
 
-            this.StatusUpdateNotificationID = Convert.ToInt32(result);
+            StatusUpdateNotificationID = Convert.ToInt32(result);
 
-            return this.StatusUpdateNotificationID;
+            return StatusUpdateNotificationID;
         }
 
         public override void Get(DataRow dr)
         {
             base.Get(dr);
 
-            this.StatusUpdateNotificationID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.StatusUpdateNotificationID)]);
-            this.StatusUpdateID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.StatusUpdateID)]);
-            this.IsRead = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => this.IsRead)]);
-            this.UserAccountID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.UserAccountID)]);
-            this.ResponseType = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ResponseType)]);
-
+            StatusUpdateNotificationID =
+                FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => StatusUpdateNotificationID)]);
+            StatusUpdateID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => StatusUpdateID)]);
+            IsRead = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => IsRead)]);
+            UserAccountID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => UserAccountID)]);
+            ResponseType = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => ResponseType)]);
         }
 
         #endregion
 
-        public void GetStatusUpdateNotificationForUserStatus(int userAccountID, int statusUpdateID, SiteEnums.ResponseType  responseType)
-        {
-            this.ResponseType = Convert.ToChar(responseType.ToString());
-            this.UserAccountID = userAccountID;
-            this.StatusUpdateID = statusUpdateID;
-
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-
-            // set the stored procedure name
-            comm.CommandText = "up_GetStatusUpdateNotificationForUserStatus";
-
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserAccountID), UserAccountID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.StatusUpdateID), StatusUpdateID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ResponseType), ResponseType);
-
-            // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                Get(dt.Rows[0]);
-            }
-        }
-
         public string ToUnorderdListItem
         {
-            get {
-                StringBuilder sb = new StringBuilder(100);
+            get
+            {
+                var sb = new StringBuilder(100);
 
-                UserAccountDetail uad = new UserAccountDetail( );
+                var uad = new UserAccountDetail();
 
-                if (this.UpdatedByUserID > 0)
+                if (UpdatedByUserID > 0)
                 {
-                    uad.GetUserAccountDeailForUser(this.UpdatedByUserID);
+                    uad.GetUserAccountDeailForUser(UpdatedByUserID);
                 }
                 else
                 {
-                    uad.GetUserAccountDeailForUser(this.CreatedByUserID);
+                    uad.GetUserAccountDeailForUser(CreatedByUserID);
                 }
 
                 sb.Append("<li>");
@@ -231,22 +182,22 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 sb.Append("<br />");
 
 
-                if (this.UpdateDate != DateTime.MinValue && this.UpdateDate != null)
+                if (UpdateDate != DateTime.MinValue && UpdateDate != null)
                 {
-                    sb.AppendFormat(@"<i>{0}</i>", Utilities.TimeElapsedMessage(this.UpdateDate));
+                    sb.AppendFormat(@"<i>{0}</i>", Utilities.TimeElapsedMessage(UpdateDate));
                 }
                 else
                 {
-                    sb.AppendFormat(@"<i>{0}</i>", Utilities.TimeElapsedMessage(this.CreateDate));
+                    sb.AppendFormat(@"<i>{0}</i>", Utilities.TimeElapsedMessage(CreateDate));
                 }
 
                 sb.Append("<br />");
 
-                SiteEnums.ResponseType rtype = 
-                (SiteEnums.ResponseType)Enum.Parse(typeof(SiteEnums.ResponseType), this.ResponseType.ToString());
+                var rtype =
+                    (SiteEnums.ResponseType) Enum.Parse(typeof (SiteEnums.ResponseType), ResponseType.ToString());
 
-                sb.AppendFormat(@"<a class=""notification_link"" href=""{0}"">", 
-                    System.Web.VirtualPathUtility.ToAbsolute("~/account/statusupdate/" + this.StatusUpdateID));
+                sb.AppendFormat(@"<a class=""notification_link"" href=""{0}"">",
+                                VirtualPathUtility.ToAbsolute("~/account/statusupdate/" + StatusUpdateID));
 
                 switch (rtype)
                 {
@@ -266,17 +217,39 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 sb.Append("</a>");
 
 
-
-              
                 sb.Append("</li>");
 
                 return sb.ToString();
             }
         }
+
+        public void GetStatusUpdateNotificationForUserStatus(int userAccountID, int statusUpdateID,
+                                                             SiteEnums.ResponseType responseType)
+        {
+            ResponseType = Convert.ToChar(responseType.ToString());
+            UserAccountID = userAccountID;
+            StatusUpdateID = statusUpdateID;
+
+            // get a configured DbCommand object
+            DbCommand comm = DbAct.CreateCommand();
+
+            // set the stored procedure name
+            comm.CommandText = "up_GetStatusUpdateNotificationForUserStatus";
+
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusUpdateID), StatusUpdateID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ResponseType), ResponseType);
+
+            // execute the stored procedure
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                Get(dt.Rows[0]);
+            }
+        }
     }
 
-     
-    
 
     public class StatusUpdateNotifications : List<StatusUpdateNotification>
     {
@@ -284,15 +257,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
-            
+
             // set the stored procedure name
             comm.CommandText = "up_GetStatusUpdateNotificationsForUser";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
+            comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
-            
+
             StatusUpdateNotification sun = null;
 
             // was something returned?
@@ -301,7 +274,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     sun = new StatusUpdateNotification(dr);
-                    this.Add(sun);
+                    Add(sun);
                 }
             }
         }
@@ -310,12 +283,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
-            
+
             // set the stored procedure name
             comm.CommandText = "up_GetStatusUpdateNotificationCountForUser";
             // this is a union on the reverse of this as well
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
+            comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure
             string rslt = DbAct.ExecuteScalar(comm);
@@ -325,21 +298,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 return Convert.ToInt32(rslt);
             }
             else return 0;
-            
         }
 
         public static bool DeleteNotificationsForStatusUpdate(int statusUpdateID)
         {
-             // get a configured DbCommand object
+            // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeleteNotificationsForStatusUpdate";
 
-            ADOExtenstion.AddParameter(comm, "statusUpdateID", statusUpdateID);
+            comm.AddParameter("statusUpdateID", statusUpdateID);
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
-           
         }
     }
 }

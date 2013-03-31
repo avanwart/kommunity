@@ -1,14 +1,12 @@
-﻿@using BootBaronLib.AppSpec.DasKlub.BOL;
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL
 
-   <h3>Newest Users</h3>
+<h3>Newest Users</h3>
 
 @{
 
-            // newest
-    UserAccounts uas = new UserAccounts();
-            uas.GetNewestUsers();
-            @Html.Raw(uas.ToUnorderdList);
-            }
-
-
-          
+    // newest
+    var uas = new UserAccounts();
+    uas.GetNewestUsers();
+    @Html.Raw(uas.ToUnorderdList)
+    ;
+}

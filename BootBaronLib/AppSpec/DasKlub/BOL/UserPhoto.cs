@@ -13,12 +13,14 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Web;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
-using System;
 using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
@@ -27,23 +29,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties
 
-        private int _userPhotoID = 0;
-
-        public int UserPhotoID
-        {
-            get { return _userPhotoID; }
-            set { _userPhotoID = value; }
-        }
-
-        private int _userAccountID = 0;
-
-        public int UserAccountID
-        {
-            get { return _userAccountID; }
-            set { _userAccountID = value; }
-        }
-
+        private string _description = string.Empty;
         private string _picURL = string.Empty;
+        private string _thumbPicURL = string.Empty;
+        public int UserPhotoID { get; set; }
+
+        public int UserAccountID { get; set; }
 
         public string PicURL
         {
@@ -51,15 +42,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _picURL = value; }
         }
 
-        private string _thumbPicURL = string.Empty;
-
         public string ThumbPicURL
         {
             get { return _thumbPicURL; }
             set { _thumbPicURL = value; }
         }
-
-        private string _description = string.Empty;
 
         public string Description
         {
@@ -67,17 +54,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _description = value; }
         }
 
-        private int _rankOrder = 0;
-   
 
-        public int RankOrder
-        {
-            get {
-                
-                return _rankOrder; }
-            set { _rankOrder = value; }
-        }
-
+        public int RankOrder { get; set; }
 
         #region non db
 
@@ -85,14 +63,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-
-                if (string.IsNullOrEmpty(this.PicURL))
+                if (string.IsNullOrEmpty(PicURL))
                 {
-                    return System.Web.VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuser.png");
+                    return VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuser.png");
                 }
                 else
                 {
-                    return Utilities.S3ContentPath(this.PicURL); 
+                    return Utilities.S3ContentPath(PicURL);
                 }
             }
         }
@@ -102,27 +79,31 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                if (string.IsNullOrEmpty(this.ThumbPicURL))
+                if (string.IsNullOrEmpty(ThumbPicURL))
                 {
-                    return System.Web.VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuserthumb.png");
+                    return VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuserthumb.png");
                 }
                 else
                 {
-                    return Utilities.S3ContentPath(this.ThumbPicURL); 
+                    return Utilities.S3ContentPath(ThumbPicURL);
                 }
             }
         }
 
         #endregion
 
-
         #endregion
 
         #region constructors
 
-        public UserPhoto() { }
+        public UserPhoto()
+        {
+        }
 
-        public UserPhoto(DataRow dr) { Get(dr); }
+        public UserPhoto(DataRow dr)
+        {
+            Get(dr);
+        }
 
         public UserPhoto(int userPhotoID)
         {
@@ -139,28 +120,26 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             {
                 base.Get(dr);
 
-                this.UserAccountID = FromObj.IntFromObj(dr["userAccountID"]);
-                this.Description = FromObj.StringFromObj(dr["description"]);
-                this.PicURL = FromObj.StringFromObj(dr["picURL"]);
-                this.RankOrder = FromObj.IntFromObj(dr["rankOrder"]);
-                this.ThumbPicURL = FromObj.StringFromObj(dr["thumbPicURL"]);
-                this.UserPhotoID = FromObj.IntFromObj(dr["userPhotoID"]);
+                UserAccountID = FromObj.IntFromObj(dr["userAccountID"]);
+                Description = FromObj.StringFromObj(dr["description"]);
+                PicURL = FromObj.StringFromObj(dr["picURL"]);
+                RankOrder = FromObj.IntFromObj(dr["rankOrder"]);
+                ThumbPicURL = FromObj.StringFromObj(dr["thumbPicURL"]);
+                UserPhotoID = FromObj.IntFromObj(dr["userPhotoID"]);
             }
             catch
             {
-
             }
         }
 
         public override void Get(int userPhotoID)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetUserPhotoByID";
 
-            ADOExtenstion.AddParameter(comm, "userPhotoID", userPhotoID);
+            comm.AddParameter("userPhotoID", userPhotoID);
 
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
@@ -172,15 +151,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public override bool Delete()
         {
-            if (this.UserPhotoID == 0) return false;
+            if (UserPhotoID == 0) return false;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeleteUserPhotoByID";
 
-            ADOExtenstion.AddParameter(comm, "userPhotoID", UserPhotoID);
-            
+            comm.AddParameter("userPhotoID", UserPhotoID);
+
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
         }
@@ -192,12 +171,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddUserPhoto";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID", CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "userAccountID", UserAccountID);
-            ADOExtenstion.AddParameter(comm, "picURL", PicURL);
-            ADOExtenstion.AddParameter(comm, "thumbPicURL", ThumbPicURL);
-            ADOExtenstion.AddParameter(comm, "description", Description);
-            ADOExtenstion.AddParameter(comm, "rankOrder",  RankOrder);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("userAccountID", UserAccountID);
+            comm.AddParameter("picURL", PicURL);
+            comm.AddParameter("thumbPicURL", ThumbPicURL);
+            comm.AddParameter("description", Description);
+            comm.AddParameter("rankOrder", RankOrder);
 
 
             // the result is their ID
@@ -211,29 +190,25 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                this.UserPhotoID = Convert.ToInt32(result);
+                UserPhotoID = Convert.ToInt32(result);
 
-                return this.UserPhotoID;
+                return UserPhotoID;
             }
-
-
-
         }
 
         public override bool Update()
         {
-
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_UpdateUserPhoto";
 
-            ADOExtenstion.AddParameter(comm, "updatedByUserID", UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, "userAccountID",  UserAccountID);
-            ADOExtenstion.AddParameter(comm, "picURL",  PicURL);
-            ADOExtenstion.AddParameter(comm, "thumbPicURL", ThumbPicURL);
-            ADOExtenstion.AddParameter(comm, "description", Description);
-            ADOExtenstion.AddParameter(comm, "rankOrder", RankOrder);
-            ADOExtenstion.AddParameter(comm, "userPhotoID", UserPhotoID);
+            comm.AddParameter("updatedByUserID", UpdatedByUserID);
+            comm.AddParameter("userAccountID", UserAccountID);
+            comm.AddParameter("picURL", PicURL);
+            comm.AddParameter("thumbPicURL", ThumbPicURL);
+            comm.AddParameter("description", Description);
+            comm.AddParameter("rankOrder", RankOrder);
+            comm.AddParameter("userPhotoID", UserPhotoID);
 
             int result = -1;
 
@@ -248,8 +223,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
     public class UserPhotos : List<UserPhoto>
     {
-        public UserPhotos() { }
-
         public void GetUserPhotos(int userAccountID)
         {
             // get a configured DbCommand object
@@ -257,8 +230,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetUserPhotos";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
-             
+            comm.AddParameter("userAccountID", userAccountID);
+
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt != null && dt.Rows.Count > 0)
@@ -268,15 +241,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     up = new UserPhoto(dr);
-                    this.Add(up);
+                    Add(up);
                 }
             }
 
-            this.Sort(delegate(UserPhoto p1, UserPhoto p2)
-            {
-                return p1.RankOrder.CompareTo(p2.RankOrder);
-            });
-
+            Sort(delegate(UserPhoto p1, UserPhoto p2) { return p1.RankOrder.CompareTo(p2.RankOrder); });
         }
     }
 }

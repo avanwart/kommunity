@@ -4,14 +4,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-<asp:HiddenField ID="hfVideoRequestID" runat="server" />
+    <asp:HiddenField ID="hfVideoRequestID" runat="server" />
  
 
     <asp:GridView AutoGenerateColumns="False" DataKeyNames="VideoRequestID" ID="gvwRequestedVideos"
-        runat="server" BackColor="White"
-        BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black"
-        GridLines="Vertical" 
-        onselectedindexchanged="gvwRequestedVideos_SelectedIndexChanged">
+                  runat="server" BackColor="White"
+                  BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black"
+                  GridLines="Vertical" 
+                  onselectedindexchanged="gvwRequestedVideos_SelectedIndexChanged">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:CommandField ShowSelectButton="True" />
@@ -36,36 +36,36 @@
 
 
 
-<table>
+    <table>
 
-<tr>
-<td>
- <asp:TextBox ID="txtURL" runat="server" Width="293px"></asp:TextBox>
- </td>
+        <tr>
+            <td>
+                <asp:TextBox ID="txtURL" runat="server" Width="293px"></asp:TextBox>
+            </td>
   
-<td>
- <asp:Button ID="btnFetchURL" runat="server" Text="Fetch" 
-        onclick="btnFetchURL_Click" />
- </td>
- </tr>
+            <td>
+                <asp:Button ID="btnFetchURL" runat="server" Text="Fetch" 
+                            onclick="btnFetchURL_Click" />
+            </td>
+        </tr>
 
 
- </table>
+    </table>
 
 
     <asp:Literal ID="litVideo" runat="server"></asp:Literal>
  
      
 
-             <br />
-                     <br />
+    <br />
+    <br />
      
     <asp:Button ID="btnReject" runat="server" Text="Reject Video" Enabled="false" 
-        onclick="btnReject_Click" />
-        <br />
+                onclick="btnReject_Click" />
+    <br />
 
 
-     <br />
+    <br />
     <asp:Label ID="lblStatus" runat="server"></asp:Label>
     <br />
 
@@ -114,9 +114,9 @@
                     <asp:TextBox ID="txtSecondsIn" runat="server"></asp:TextBox>
                 </td>
             </tr>
-                        <tr>
+            <tr>
                 <td>
-                   Contest
+                    Contest
                 </td>
                 <td>
                     <asp:DropDownList ID="ddlContest" runat="server"></asp:DropDownList>
@@ -315,7 +315,7 @@
             </tr>
 
 
-                        <tr>
+            <tr>
                 <td>
                     :
                 </td>
@@ -371,7 +371,7 @@
 
 
 
-                        <tr>
+            <tr>
                 <td>
                     :
                 </td>
@@ -418,7 +418,7 @@
 
 
 
-                       <tr>
+            <tr>
                 <td>
                     :
                 </td>
@@ -491,5 +491,3 @@
 
 
 </asp:Content>
-
- 

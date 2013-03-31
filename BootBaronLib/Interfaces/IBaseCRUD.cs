@@ -13,33 +13,30 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
-using System.Data;
 
 namespace BootBaronLib.Interfaces
 {
     /// <summary>
-    /// Implementing this means that all operations are possible
+    ///     Implementing this means that all operations are possible
     /// </summary>
     public interface IBaseCRUD : IGet
     {
         /// <summary>
-        /// Add row
+        ///     Add row
         /// </summary>
         /// <returns></returns>
         int Create();
 
         /// <summary>
-        /// Update object
+        ///     Update object
         /// </summary>
         /// <returns></returns>
         bool Update();
 
         /// <summary>
-        /// Delete the object
+        ///     Delete the object
         /// </summary>
         /// <returns></returns>
         bool Delete();
-
-       
     }
 }

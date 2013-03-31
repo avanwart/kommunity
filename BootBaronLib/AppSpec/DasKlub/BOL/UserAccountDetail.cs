@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -35,9 +36,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region contructors 
 
-        public UserAccountDetail() { }
+        public UserAccountDetail()
+        {
+        }
 
-        public UserAccountDetail(int userAccountDetailID) 
+        public UserAccountDetail(int userAccountDetailID)
         {
             Get(userAccountDetailID);
         }
@@ -46,16 +49,41 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #region properties
 
-        private int _userAccountDetailID = 0;
-
-        public int UserAccountDetailID
-        {
-            get { return _userAccountDetailID; }
-            set { _userAccountDetailID = value; }
-        }
-
-
+        private string _aboutDesc = string.Empty;
+        private string _bandsSeen = string.Empty;
+        private string _bandsToSee = string.Empty;
+        private DateTime _birthDate = DateTime.MinValue;
+        private string _browerType = string.Empty;
+        private string _city = string.Empty;
+        private string _country = string.Empty;
+        private string _defaultLanguage = string.Empty;
+        private char _diet = char.MinValue;
+        private bool _displayAge = true;
+        private char _drinks = char.MinValue;
+        private bool _emailMessages = true;
+        private bool _enableProfileLogging = true;
+        private char _ethnicity = char.MinValue;
+        private string _externalURL = string.Empty;
+        private string _findUserFilter = string.Empty;
+        private string _firstName = string.Empty;
+        private char _handed = char.MinValue;
+        private string _hardwareSoftware = string.Empty;
+        private string _lastName = string.Empty;
         private decimal? _latitude = 0;
+
+        private decimal? _longitude = 0;
+        private string _messangerName = string.Empty;
+
+
+        private string _messangerType = string.Empty;
+        private string _postalCode = string.Empty;
+        private string _profilePicURL = string.Empty;
+        private string _profileThumbPicURL = string.Empty;
+        private string _region = string.Empty;
+        private char _religion = char.MinValue;
+        private bool _showOnMap = true;
+        private char _smokes = char.MinValue;
+        public int UserAccountDetailID { get; set; }
 
         public decimal? Latitude
         {
@@ -63,24 +91,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _latitude = value; }
         }
 
-        private decimal? _longitude = 0;
-
         public decimal? Longitude
         {
             get { return _longitude; }
             set { _longitude = value; }
         }
 
-
-        private string _messangerType = string.Empty;
-
         public string MessangerType
         {
             get { return _messangerType; }
             set { _messangerType = value; }
         }
-
-        private string _messangerName = string.Empty;
 
         public string MessangerName
         {
@@ -89,29 +110,21 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-        private bool _membersOnlyProfile = false;
-
-        public bool MembersOnlyProfile
-        {
-            get { return _membersOnlyProfile; }
-            set { _membersOnlyProfile = value; }
-        }
-
-        private string _browerType = string.Empty;
+        public bool MembersOnlyProfile { get; set; }
 
         public string BrowerType
         {
-            get {
+            get
+            {
                 if (string.IsNullOrEmpty(_browerType))
                 {
                     _browerType = HttpContext.Current.Request.Browser.Type;
                 }
-                
-                return _browerType; }
+
+                return _browerType;
+            }
             set { _browerType = value; }
         }
-
-        private bool _emailMessages = true;
 
         public bool EmailMessages
         {
@@ -120,20 +133,18 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-        private string _defaultLanguage = string.Empty;
-
         public string DefaultLanguage
         {
-            get {
+            get
+            {
                 if (!string.IsNullOrWhiteSpace(_defaultLanguage))
                 {
                     return _defaultLanguage.ToUpper();
                 }
-                return _defaultLanguage; }
+                return _defaultLanguage;
+            }
             set { _defaultLanguage = value; }
         }
-
-        private bool _enableProfileLogging = true;
 
         public bool EnableProfileLogging
         {
@@ -141,68 +152,51 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _enableProfileLogging = value; }
         }
 
-        private DateTime? _lastPhotoUpdate = null;
+        public DateTime? LastPhotoUpdate { get; set; }
 
-        public DateTime? LastPhotoUpdate
-        {
-            get
-            {
-                return _lastPhotoUpdate;
-            }
-            set { _lastPhotoUpdate = value; }
-        }
-
-        private int _userAccountID = 0;
-
-        public int UserAccountID
-        {
-            get { return _userAccountID; }
-            set { _userAccountID = value; }
-        }
-
-        private string _country = string.Empty;
+        public int UserAccountID { get; set; }
 
         public string Country
         {
-            get {
+            get
+            {
                 if (string.IsNullOrWhiteSpace(_country)) return SiteEnums.CountryCodeISO.U0.ToString();
-                
-                return _country; }
+
+                return _country;
+            }
             set { _country = value; }
         }
 
-        private string _region = string.Empty;
-
         public string Region
         {
-            get {
+            get
+            {
                 if (string.IsNullOrWhiteSpace(_region)) return string.Empty;
-                return _region; }
+                return _region;
+            }
             set { _region = value; }
         }
 
-        private string _city = string.Empty;
-
         public string City
         {
-            get {
+            get
+            {
                 if (string.IsNullOrEmpty(_city)) return string.Empty;
-                return _city; }
+                return _city;
+            }
             set { _city = value; }
         }
 
-        private string _postalCode = string.Empty;
-
         public string PostalCode
         {
-            get {
+            get
+            {
                 if (string.IsNullOrEmpty(_postalCode)) return string.Empty;
-                return _postalCode; }
+                return _postalCode;
+            }
             set { _postalCode = value; }
         }
 
-
-        private string _profilePicURL = string.Empty;
 
         public string ProfilePicURL
         {
@@ -210,95 +204,67 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _profilePicURL = value; }
         }
 
-        private string _hardwareSoftware = string.Empty;
-
         public string HardwareSoftware
         {
-            get {
+            get
+            {
                 if (string.IsNullOrEmpty(_hardwareSoftware)) return string.Empty;
-                return _hardwareSoftware; }
+                return _hardwareSoftware;
+            }
             set { _hardwareSoftware = value; }
         }
 
 
-        private string _firstName = string.Empty;
-
         public string FirstName
         {
-            get {
-
+            get
+            {
                 if (string.IsNullOrWhiteSpace(_firstName)) return string.Empty;
-                return _firstName.Trim() ;
+                return _firstName.Trim();
             }
             set { _firstName = value; }
         }
 
-        private string _lastName = string.Empty;
-
         public string LastName
         {
-            get {
+            get
+            {
                 if (string.IsNullOrWhiteSpace(_lastName)) return string.Empty;
-                return _lastName.Trim(); }
+                return _lastName.Trim();
+            }
             set { _lastName = value; }
         }
 
 
-        private string _aboutDesc = string.Empty;
-
         public string AboutDesc
         {
-            get {
+            get
+            {
                 if (string.IsNullOrEmpty(_aboutDesc)) return string.Empty;
 
-                return _aboutDesc.Trim(); }
+                return _aboutDesc.Trim();
+            }
             set { _aboutDesc = value; }
         }
 
 
+        public int? YouAreID { get; set; }
 
-
-
-        private int? _youAreID = null;
-
-        public int? YouAreID
-        {
-            get { return _youAreID; }
-            set { _youAreID = value; }
-        }
-
-        private int? _relationshipStatusID = null;
-
-        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof (Messages))]
         [DataType(DataType.Password)]
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "RelationshipStatus")]
-        public int? RelationshipStatusID
-        {
-            get { return _relationshipStatusID; }
-            set { _relationshipStatusID = value; }
-        }
+        [Display(ResourceType = typeof (Messages), Name = "RelationshipStatus")]
+        public int? RelationshipStatusID { get; set; }
 
-        private int? _interestedInID = null;
-
-        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof (Messages))]
         [DataType(DataType.Password)]
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "InterestedIn")]
-        public int? InterestedInID
-        {
-            get { return _interestedInID; }
-            set { _interestedInID = value; }
-        }
-
-        private DateTime _birthDate = DateTime.MinValue;
+        [Display(ResourceType = typeof (Messages), Name = "InterestedIn")]
+        public int? InterestedInID { get; set; }
 
         public DateTime BirthDate
         {
-            get {
-                return _birthDate; }
+            get { return _birthDate; }
             set { _birthDate = value; }
         }
-
-        private char _religion = char.MinValue;
 
         public char Religion
         {
@@ -306,31 +272,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _religion = value; }
         }
 
-        private char _ethnicity = char.MinValue;
-
         public char Ethnicity
         {
             get { return _ethnicity; }
             set { _ethnicity = value; }
         }
 
-        private float _heightCM = 0;
+        public float HeightCM { get; set; }
 
-        public float HeightCM
-        {
-            get { return _heightCM; }
-            set { _heightCM = value; }
-        }
-
-        private float _weightKG = 0;
-
-        public float WeightKG
-        {
-            get { return _weightKG; }
-            set { _weightKG = value; }
-        }
-
-        private char _diet = char.MinValue;
+        public float WeightKG { get; set; }
 
         public char Diet
         {
@@ -338,28 +288,20 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _diet = value; }
         }
 
-        private int _accountViews = 0;
-
-        public int AccountViews
-        {
-            get { return _accountViews; }
-            set { _accountViews = value; }
-        }
-
-        private string _externalURL = string.Empty;
+        public int AccountViews { get; set; }
 
         public string ExternalURL
         {
-            get {
+            get
+            {
                 if (string.IsNullOrEmpty(_externalURL))
                 {
                     return string.Empty;
                 }
-                return _externalURL; }
+                return _externalURL;
+            }
             set { _externalURL = value; }
         }
-
-        private char _smokes = char.MinValue;
 
         public char Smokes
         {
@@ -367,32 +309,24 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _smokes = value; }
         }
 
-        private char _drinks = char.MinValue;
-
         public char Drinks
         {
             get { return _drinks; }
             set { _drinks = value; }
         }
 
-        private char _handed = char.MinValue;
-
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "Handed")]
+        [Display(ResourceType = typeof (Messages), Name = "Handed")]
         public char Handed
         {
             get { return _handed; }
             set { _handed = value; }
         }
 
-        private bool _displayAge = true;
-
         public bool DisplayAge
         {
             get { return _displayAge; }
             set { _displayAge = value; }
         }
-
-        private string _profileThumbPicURL = string.Empty;
 
         public string ProfileThumbPicURL
         {
@@ -401,30 +335,26 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-        private string _bandsSeen = string.Empty;
-
         public string BandsSeen
         {
-            get {
+            get
+            {
                 if (_bandsSeen == null) return string.Empty;
-                return _bandsSeen.Trim(); }
+                return _bandsSeen.Trim();
+            }
             set { _bandsSeen = value; }
         }
 
-        private string _bandsToSee = string.Empty;
-
         public string BandsToSee
         {
-            get {
+            get
+            {
                 if (_bandsToSee == null) return string.Empty;
-                return _bandsToSee.Trim(); }
+                return _bandsToSee.Trim();
+            }
             set { _bandsToSee = value; }
         }
 
-
-
-
-        private bool _showOnMap = true;
 
         public bool ShowOnMap
         {
@@ -432,16 +362,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _showOnMap = value; }
         }
 
-        private int _referringUserID = 0;
+        public int ReferringUserID { get; set; }
 
-        public int ReferringUserID
-        {
-            get { return _referringUserID; }
-            set { _referringUserID = value; }
-        }
-
-
-        private string _findUserFilter = string.Empty;
 
         public string FindUserFilter
         {
@@ -453,14 +375,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #region non-db properties
 
+        private bool _getJustOne;
+
         public bool ShowOnMapLegal
         {
-            get 
+            get
             {
-
-                if (!string.IsNullOrEmpty(this.Country.Trim()) && this.Over18 && this.ShowOnMap) return true;
+                if (!string.IsNullOrEmpty(Country.Trim()) && Over18 && ShowOnMap) return true;
                 else return false;
-
             }
         }
 
@@ -468,47 +390,43 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                if (this.DisplayAge &&
+                if (DisplayAge &&
                     DateTime.UtcNow.Month == BirthDate.Month &&
-                    (DateTime.UtcNow.Day == BirthDate.Day ))
+                    (DateTime.UtcNow.Day == BirthDate.Day))
                 {
                     return true;
                 }
                 else return false;
             }
-
         }
 
         public string CountryName
         {
             get
             {
-                SiteEnums.CountryCodeISO theCO = SiteEnums.CountryCodeISO.U0;
+                var theCO = SiteEnums.CountryCodeISO.U0;
 
-                if (Enum.TryParse(this.Country, out theCO))
+                if (Enum.TryParse(Country, out theCO))
                 {
-                    return Utilities.ResourceValue( Utilities.GetEnumDescription(theCO));
+                    return Utilities.ResourceValue(Utilities.GetEnumDescription(theCO));
                 }
 
-                return Resources.Messages.Unknown;
+                return Messages.Unknown;
             }
         }
 
         public string GenderIconSmall
         {
-            get
-            {
-                return this.GenderIcon.Replace(".png", "_small.png");
-            }
+            get { return GenderIcon.Replace(".png", "_small.png"); }
         }
 
         public string GenderIconLink
         {
             get
             {
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
 
-                YouAre youAre = new YouAre(Convert.ToInt32(this.YouAreID));
+                var youAre = new YouAre(Convert.ToInt32(YouAreID));
 
                 switch (youAre.TypeLetter)
                 {
@@ -520,11 +438,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     case 'R':
                     case 'G':
                     case 'D':
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(
+                        sb.Append(VirtualPathUtility.ToAbsolute(
                             string.Format("~/content/images/sex/{0}.png", youAre.TypeLetter.ToString())));
                         break;
                     default:
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(
+                        sb.Append(VirtualPathUtility.ToAbsolute(
                             "~/content/images/sex/U.png"));
                         break;
                 }
@@ -537,9 +455,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
 
-                YouAre youAre = new YouAre(Convert.ToInt32(this.YouAreID));
+                var youAre = new YouAre(Convert.ToInt32(YouAreID));
 
                 switch (youAre.TypeLetter)
                 {
@@ -551,11 +469,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     case 'R':
                     case 'G':
                     case 'D':
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(
+                        sb.Append(VirtualPathUtility.ToAbsolute(
                             string.Format("~/content/images/sex/{0}_D.png", youAre.TypeLetter.ToString())));
                         break;
                     default:
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(
+                        sb.Append(VirtualPathUtility.ToAbsolute(
                             "~/content/images/sex/U.png"));
                         break;
                 }
@@ -567,16 +485,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
 
                 sb.Append(@"<img src=""");
 
-                UserAccount ua = new UserAccount(this.UserAccountID);
+                var ua = new UserAccount(UserAccountID);
 
-                if (this.YouAreID == null) return string.Empty;
+                if (YouAreID == null) return string.Empty;
 
 
-                YouAre youAre = new YouAre(Convert.ToInt32(this.YouAreID));
+                var youAre = new YouAre(Convert.ToInt32(YouAreID));
 
                 switch (youAre.TypeLetter)
                 {
@@ -587,11 +505,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     case 'B':
                     case 'R':
                     case 'G':
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(
+                        sb.Append(VirtualPathUtility.ToAbsolute(
                             string.Format("~/content/images/sex/{0}.png", youAre.TypeLetter.ToString())));
                         break;
                     default:
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(
+                        sb.Append(VirtualPathUtility.ToAbsolute(
                             "~/content/images/sex/U.png"));
                         break;
                 }
@@ -638,11 +556,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                UserAccount ua = new UserAccount(this.UserAccountID);
+                var ua = new UserAccount(UserAccountID);
 
                 string[] rls = Roles.GetRolesForUser(ua.UserName);
 
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
 
                 Role role = null;
 
@@ -654,9 +572,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                         switch (rle)
                         {
-                            // override here
+                                // override here
                             default:
-                                sb.Append(System.Web.VirtualPathUtility.ToAbsolute(
+                                sb.Append(VirtualPathUtility.ToAbsolute(
                                     "~/content/images/roles/" + rle + ".png"));
                                 break;
                         }
@@ -671,20 +589,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                         if (_getJustOne)
                         {
-                            break;//just the 1st role's icon
+                            break; //just the 1st role's icon
                         }
                         else _getJustOne = false;
-                      
                     }
                 }
 
                 return sb.ToString();
-
             }
         }
 
-        private bool _getJustOne = false;
-      
 
         public string SiteBagesSmall
         {
@@ -700,13 +614,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                if (string.IsNullOrEmpty(this.Country.Trim()))
+                if (string.IsNullOrEmpty(Country.Trim()))
                 {
-                    return System.Web.VirtualPathUtility.ToAbsolute("~/content/images/countries/defaultcountry_small.png");
+                    return VirtualPathUtility.ToAbsolute("~/content/images/countries/defaultcountry_small.png");
                 }
                 else
                 {
-                    return System.Web.VirtualPathUtility.ToAbsolute( "~/content/images/countries/flag_sprite.png" );
+                    return VirtualPathUtility.ToAbsolute("~/content/images/countries/flag_sprite.png");
                     //return System.Web.VirtualPathUtility.ToAbsolute( string.Format( "~/content/images/countries/{0}_small.png",  this.Country ));
                     //images/countries/
                 }
@@ -717,13 +631,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                if (string.IsNullOrEmpty(this.Country.Trim()))
+                if (string.IsNullOrEmpty(Country.Trim()))
                 {
-                    return System.Web.VirtualPathUtility.ToAbsolute("~/content/images/countries/defaultcountry.png");
+                    return VirtualPathUtility.ToAbsolute("~/content/images/countries/defaultcountry.png");
                 }
                 else
                 {
-                    return System.Web.VirtualPathUtility.ToAbsolute(string.Format("~/content/images/countries/{0}.png", this.Country));
+                    return VirtualPathUtility.ToAbsolute(string.Format("~/content/images/countries/{0}.png", Country));
                 }
             }
         }
@@ -732,14 +646,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-               
-                if (string.IsNullOrEmpty(this.ProfileThumbPicURL))
+                if (string.IsNullOrEmpty(ProfileThumbPicURL))
                 {
-                    return System.Web.VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuser.png");
+                    return VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuser.png");
                 }
                 else
                 {
-                    return Utilities.S3ContentPath(this.ProfilePicURL); 
+                    return Utilities.S3ContentPath(ProfilePicURL);
                 }
             }
         }
@@ -749,27 +662,25 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                if (string.IsNullOrEmpty(this.ProfileThumbPicURL))
+                if (string.IsNullOrEmpty(ProfileThumbPicURL))
                 {
-                    return System.Web.VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuserthumb.png");
+                    return VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuserthumb.png");
                 }
                 else
                 {
-                    return Utilities.S3ContentPath(this.ProfileThumbPicURL); 
+                    return Utilities.S3ContentPath(ProfileThumbPicURL);
                 }
             }
         }
-
-
 
 
         public char SexLetter
         {
             get
             {
-                if (this.YouAreID == null) return 'U';
+                if (YouAreID == null) return 'U';
 
-                YouAre youAre = new YouAre(Convert.ToInt32(this.YouAreID));
+                var youAre = new YouAre(Convert.ToInt32(YouAreID));
 
                 return youAre.TypeLetter;
             }
@@ -779,9 +690,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                if (this.YouAreID == null) return string.Empty;
+                if (YouAreID == null) return string.Empty;
 
-                YouAre youAre = new YouAre(Convert.ToInt32(this.YouAreID));
+                var youAre = new YouAre(Convert.ToInt32(YouAreID));
 
                 return Utilities.ResourceValue(youAre.Name);
             }
@@ -789,18 +700,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string AboutDescription
         {
-            get
-            {
-                return Utilities.MakeLink(this.AboutDesc).Replace("\r\n", "<br />");
-            }
+            get { return Utilities.MakeLink(AboutDesc).Replace("\r\n", "<br />"); }
         }
 
         public int YearsOld
         {
-            get
-            {
-                return Utilities.CalculateAge(this.BirthDate);
-            }
+            get { return Utilities.CalculateAge(BirthDate); }
         }
 
 
@@ -808,7 +713,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                int age = Utilities.CalculateAge(this.BirthDate);
+                int age = Utilities.CalculateAge(BirthDate);
                 return (age >= 16);
             }
         }
@@ -818,7 +723,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                int age = Utilities.CalculateAge(this.BirthDate);
+                int age = Utilities.CalculateAge(BirthDate);
                 return (age >= 18);
             }
         }
@@ -826,7 +731,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         #endregion
 
         #region methods
-
 
         public static RelationshipStatuses GetDistinctRelationshipStatus()
         {
@@ -862,7 +766,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public static InterestedIns GetDistinctInterests()
         {
-
             InterestedIns iterests = null;
 
             // get a configured DbCommand object
@@ -911,7 +814,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             {
                 youAres = new YouAres();
 
-                YouAre youAre=null;
+                YouAre youAre = null;
                 foreach (DataRow dr in dt.Rows)
                 {
                     youAre = new YouAre(FromObj.IntFromObj(dr["youAreID"]));
@@ -927,21 +830,20 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public static List<SiteEnums.CountryCodeISO> GetDistinctUserCountries()
         {
-
-            List<SiteEnums.CountryCodeISO> countries = new List<SiteEnums.CountryCodeISO>();
+            var countries = new List<SiteEnums.CountryCodeISO>();
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetDistinctUserCountries";
- 
+
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
             {
-                SiteEnums.CountryCodeISO country ;
+                SiteEnums.CountryCodeISO country;
 
                 string uniqueCountry = string.Empty;
 
@@ -949,10 +851,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 {
                     uniqueCountry = FromObj.StringFromObj(dr["country"]);
 
-                    if(!string.IsNullOrWhiteSpace(uniqueCountry))
+                    if (!string.IsNullOrWhiteSpace(uniqueCountry))
                     {
-                    country = (SiteEnums.CountryCodeISO)Enum.Parse(typeof(SiteEnums.CountryCodeISO), uniqueCountry);
-                    countries.Add(country);
+                        country =
+                            (SiteEnums.CountryCodeISO) Enum.Parse(typeof (SiteEnums.CountryCodeISO), uniqueCountry);
+                        countries.Add(country);
                     }
                 }
             }
@@ -961,10 +864,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-
-        public static List<SiteEnums.SiteLanguages>  GetDistinctUserLanguages()
+        public static List<SiteEnums.SiteLanguages> GetDistinctUserLanguages()
         {
-            List<SiteEnums.SiteLanguages> languages = new List<SiteEnums.SiteLanguages>();
+            var languages = new List<SiteEnums.SiteLanguages>();
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -985,13 +887,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                     if (string.IsNullOrWhiteSpace(defaultLang)) continue;
 
-                    language = (SiteEnums.SiteLanguages)Enum.Parse(typeof(SiteEnums.SiteLanguages), defaultLang);
+                    language = (SiteEnums.SiteLanguages) Enum.Parse(typeof (SiteEnums.SiteLanguages), defaultLang);
                     languages.Add(language);
                 }
             }
 
             return languages;
- 
         }
 
         public override bool Delete()
@@ -1001,7 +902,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteUserAccountDetail";
 
-            ADOExtenstion.AddParameter(comm, "userAccountDetailID",UserAccountDetailID);
+            comm.AddParameter("userAccountDetailID", UserAccountDetailID);
 
             RemoveCache();
 
@@ -1023,58 +924,58 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             param.DbType = DbType.Int32;
             comm.Parameters.Add(param);
 
-            return  DbAct.ExecuteSelectCommand(comm);
+            return DbAct.ExecuteSelectCommand(comm);
         }
 
         public override int Create()
         {
-               // get a configured DbCommand object
+            // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddUserAccountDetail";
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.CreatedByUserID), CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserAccountID), UserAccountID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Country), Country);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Region), Region);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.City), City);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.YouAreID), YouAreID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ProfilePicURL), ProfilePicURL);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.AboutDesc), AboutDesc);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.RelationshipStatusID), RelationshipStatusID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.InterestedInID), InterestedInID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.BirthDate), BirthDate);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Religion), Religion);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Ethnicity), Ethnicity);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.HeightCM), HeightCM);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.WeightKG), WeightKG);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Diet), Diet);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.AccountViews), AccountViews);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ExternalURL), ExternalURL);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Smokes), Smokes);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Drinks), Drinks);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Handed), Handed);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.DisplayAge), DisplayAge);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ProfileThumbPicURL), ProfileThumbPicURL);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.BandsToSee), BandsToSee);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.BandsSeen), BandsSeen);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.EnableProfileLogging), EnableProfileLogging);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.LastPhotoUpdate), LastPhotoUpdate);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.EmailMessages), EmailMessages);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ShowOnMap), ShowOnMap);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.PostalCode), PostalCode);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ReferringUserID), ReferringUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.MembersOnlyProfile), MembersOnlyProfile);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.MessangerType), MessangerType);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.MessangerName), MessangerName);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.HardwareSoftware), HardwareSoftware);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.BrowerType), BrowerType);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FirstName), FirstName);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.LastName), LastName);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.DefaultLanguage), DefaultLanguage);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Latitude), Latitude);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Longitude), Longitude);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FindUserFilter), FindUserFilter);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => CreatedByUserID), CreatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Country), Country);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Region), Region);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => City), City);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => YouAreID), YouAreID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ProfilePicURL), ProfilePicURL);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => AboutDesc), AboutDesc);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => RelationshipStatusID), RelationshipStatusID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => InterestedInID), InterestedInID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => BirthDate), BirthDate);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Religion), Religion);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Ethnicity), Ethnicity);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => HeightCM), HeightCM);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => WeightKG), WeightKG);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Diet), Diet);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => AccountViews), AccountViews);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ExternalURL), ExternalURL);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Smokes), Smokes);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Drinks), Drinks);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Handed), Handed);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => DisplayAge), DisplayAge);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ProfileThumbPicURL), ProfileThumbPicURL);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => BandsToSee), BandsToSee);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => BandsSeen), BandsSeen);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => EnableProfileLogging), EnableProfileLogging);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => LastPhotoUpdate), LastPhotoUpdate);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => EmailMessages), EmailMessages);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ShowOnMap), ShowOnMap);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => PostalCode), PostalCode);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ReferringUserID), ReferringUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => MembersOnlyProfile), MembersOnlyProfile);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => MessangerType), MessangerType);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => MessangerName), MessangerName);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => HardwareSoftware), HardwareSoftware);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => BrowerType), BrowerType);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FirstName), FirstName);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => LastName), LastName);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => DefaultLanguage), DefaultLanguage);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Latitude), Latitude);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Longitude), Longitude);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FindUserFilter), FindUserFilter);
 
             // the result is their ID
             string result = string.Empty;
@@ -1087,17 +988,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                this.UserAccountDetailID = Convert.ToInt32(result);
+                UserAccountDetailID = Convert.ToInt32(result);
 
-                return this.UserAccountDetailID;
+                return UserAccountDetailID;
             }
         }
 
         public void GetUserAccountDeailForUser(int userAccountID)
         {
-            this.UserAccountID = userAccountID;
+            UserAccountID = userAccountID;
 
-            if (HttpContext.Current == null || HttpContext.Current.Cache[this.CacheNameAlt] == null)
+            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheNameAlt] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -1116,22 +1017,22 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 // was something returned?
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    if ( HttpContext.Current != null) HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheNameAlt);
+                    if (HttpContext.Current != null) HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheNameAlt);
 
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow)HttpContext.Current.Cache[this.CacheNameAlt]);
+                Get((DataRow) HttpContext.Current.Cache[CacheNameAlt]);
             }
         }
 
         public override void Get(int userAccountDetailID)
         {
-            this.UserAccountDetailID = userAccountDetailID;
+            UserAccountDetailID = userAccountDetailID;
 
-            if (HttpContext.Current == null || HttpContext.Current.Cache[this.CacheName] == null)
+            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -1151,63 +1052,67 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     if (HttpContext.Current != null)
-                        HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
+                        HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow)HttpContext.Current.Cache[this.CacheName]);
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
             }
         }
 
         public override void Get(DataRow dr)
         {
-
             base.Get(dr);
 
-            this.UserAccountDetailID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.UserAccountDetailID)]);
-            this.UserAccountID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.UserAccountID)]);
-            this.Country = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Country)]);
-            this.Region = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Region)]);
-            this.City = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.City)]);
-            this.PostalCode = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.PostalCode)]);
-            this.YouAreID = FromObj.IntNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => this.YouAreID)]);
-            this.ProfilePicURL = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ProfilePicURL)]);
-            this.AboutDesc = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.AboutDesc)]);
-            this.RelationshipStatusID = FromObj.IntNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => this.RelationshipStatusID)]);
-            this.InterestedInID = FromObj.IntNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => this.InterestedInID)]);
-            this.BirthDate = FromObj.DateFromObj(dr[StaticReflection.GetMemberName<string>(x => this.BirthDate)]);
-            this.Religion = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Religion)]);
-            this.Ethnicity = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Ethnicity)]);
-            this.HeightCM = FromObj.FloatFromObj(dr[StaticReflection.GetMemberName<string>(x => this.HeightCM)]);
-            this.WeightKG = FromObj.FloatFromObj(dr[StaticReflection.GetMemberName<string>(x => this.WeightKG)]);
-            this.Diet = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Diet)]);
-            this.AccountViews = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.AccountViews)]);
-            this.ExternalURL = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ExternalURL)]);
-            this.Smokes = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Smokes)]);
-            this.Drinks = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Drinks)]);
-            this.Handed = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Handed)]);
-            this.DisplayAge = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => this.DisplayAge)]);
-            this.ProfileThumbPicURL = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ProfileThumbPicURL)]);
-            this.BandsSeen = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.BandsSeen)]);
-            this.BandsToSee = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.BandsToSee)]);
-            this.EnableProfileLogging = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => this.EnableProfileLogging)]);
-            this.LastPhotoUpdate = FromObj.DateNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => this.LastPhotoUpdate)]);
-            this.EmailMessages = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => this.EmailMessages)]);
-            this.ShowOnMap = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ShowOnMap)]);
-            this.ReferringUserID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ReferringUserID)]);
-            this.BrowerType = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.BrowerType)]);
-            this.MembersOnlyProfile = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => this.MembersOnlyProfile)]);
-            this.MessangerName = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.MessangerName)]);
-            this.HardwareSoftware = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.HardwareSoftware)]);
-            this.FirstName = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.FirstName)]);
-            this.LastName = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.LastName)]);
-            this.DefaultLanguage = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.DefaultLanguage)]);
+            UserAccountDetailID =
+                FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => UserAccountDetailID)]);
+            UserAccountID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => UserAccountID)]);
+            Country = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => Country)]);
+            Region = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => Region)]);
+            City = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => City)]);
+            PostalCode = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => PostalCode)]);
+            YouAreID = FromObj.IntNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => YouAreID)]);
+            ProfilePicURL = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => ProfilePicURL)]);
+            AboutDesc = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => AboutDesc)]);
+            RelationshipStatusID =
+                FromObj.IntNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => RelationshipStatusID)]);
+            InterestedInID = FromObj.IntNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => InterestedInID)]);
+            BirthDate = FromObj.DateFromObj(dr[StaticReflection.GetMemberName<string>(x => BirthDate)]);
+            Religion = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => Religion)]);
+            Ethnicity = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => Ethnicity)]);
+            HeightCM = FromObj.FloatFromObj(dr[StaticReflection.GetMemberName<string>(x => HeightCM)]);
+            WeightKG = FromObj.FloatFromObj(dr[StaticReflection.GetMemberName<string>(x => WeightKG)]);
+            Diet = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => Diet)]);
+            AccountViews = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => AccountViews)]);
+            ExternalURL = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => ExternalURL)]);
+            Smokes = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => Smokes)]);
+            Drinks = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => Drinks)]);
+            Handed = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => Handed)]);
+            DisplayAge = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => DisplayAge)]);
+            ProfileThumbPicURL =
+                FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => ProfileThumbPicURL)]);
+            BandsSeen = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => BandsSeen)]);
+            BandsToSee = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => BandsToSee)]);
+            EnableProfileLogging =
+                FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => EnableProfileLogging)]);
+            LastPhotoUpdate =
+                FromObj.DateNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => LastPhotoUpdate)]);
+            EmailMessages = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => EmailMessages)]);
+            ShowOnMap = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => ShowOnMap)]);
+            ReferringUserID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => ReferringUserID)]);
+            BrowerType = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => BrowerType)]);
+            MembersOnlyProfile = FromObj.BoolFromObj(dr[StaticReflection.GetMemberName<string>(x => MembersOnlyProfile)]);
+            MessangerName = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => MessangerName)]);
+            HardwareSoftware = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => HardwareSoftware)]);
+            FirstName = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => FirstName)]);
+            LastName = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => LastName)]);
+            DefaultLanguage = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => DefaultLanguage)]);
 
-            this.Latitude = FromObj.DecimalNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Latitude)]);
-            this.Longitude = FromObj.DecimalNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Longitude)]);
-            this.FindUserFilter = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.FindUserFilter)]);
+            Latitude = FromObj.DecimalNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => Latitude)]);
+            Longitude = FromObj.DecimalNullableFromObj(dr[StaticReflection.GetMemberName<string>(x => Longitude)]);
+            FindUserFilter = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => FindUserFilter)]);
         }
 
         public override bool Update()
@@ -1217,50 +1122,50 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_UpdateUserAccountDetail";
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UpdatedByUserID), UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserAccountDetailID), UserAccountDetailID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserAccountID), UserAccountID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Country), Country);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Region), Region);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.City), City);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.YouAreID), YouAreID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ProfilePicURL), ProfilePicURL);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.AboutDesc), AboutDesc);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.RelationshipStatusID), RelationshipStatusID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.InterestedInID), InterestedInID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.BirthDate), BirthDate);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Religion), Religion);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Ethnicity), Ethnicity);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.HeightCM), HeightCM);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.WeightKG), WeightKG);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Diet), Diet);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.AccountViews), AccountViews);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ExternalURL), ExternalURL);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Smokes), Smokes);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Drinks), Drinks);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Handed), Handed);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.DisplayAge), DisplayAge);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ProfileThumbPicURL), ProfileThumbPicURL);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.BandsToSee), BandsToSee);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.BandsSeen), BandsSeen);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.EnableProfileLogging), EnableProfileLogging);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.LastPhotoUpdate), LastPhotoUpdate);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.EmailMessages), EmailMessages);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ShowOnMap), ShowOnMap);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ReferringUserID), ReferringUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.MembersOnlyProfile), MembersOnlyProfile);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.MessangerType), MessangerType);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.MessangerName), MessangerName);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.HardwareSoftware), HardwareSoftware);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.PostalCode), PostalCode);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.BrowerType), BrowerType);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FirstName), FirstName);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.LastName), LastName);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.DefaultLanguage), DefaultLanguage);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Latitude), Latitude);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Longitude), Longitude);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FindUserFilter), FindUserFilter);
-            
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UpdatedByUserID), UpdatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountDetailID), UserAccountDetailID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Country), Country);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Region), Region);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => City), City);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => YouAreID), YouAreID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ProfilePicURL), ProfilePicURL);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => AboutDesc), AboutDesc);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => RelationshipStatusID), RelationshipStatusID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => InterestedInID), InterestedInID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => BirthDate), BirthDate);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Religion), Religion);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Ethnicity), Ethnicity);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => HeightCM), HeightCM);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => WeightKG), WeightKG);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Diet), Diet);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => AccountViews), AccountViews);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ExternalURL), ExternalURL);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Smokes), Smokes);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Drinks), Drinks);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Handed), Handed);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => DisplayAge), DisplayAge);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ProfileThumbPicURL), ProfileThumbPicURL);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => BandsToSee), BandsToSee);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => BandsSeen), BandsSeen);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => EnableProfileLogging), EnableProfileLogging);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => LastPhotoUpdate), LastPhotoUpdate);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => EmailMessages), EmailMessages);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ShowOnMap), ShowOnMap);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ReferringUserID), ReferringUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => MembersOnlyProfile), MembersOnlyProfile);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => MessangerType), MessangerType);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => MessangerName), MessangerName);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => HardwareSoftware), HardwareSoftware);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => PostalCode), PostalCode);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => BrowerType), BrowerType);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FirstName), FirstName);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => LastName), LastName);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => DefaultLanguage), DefaultLanguage);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Latitude), Latitude);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Longitude), Longitude);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FindUserFilter), FindUserFilter);
+
             int result = -1;
 
             result = DbAct.ExecuteNonQuery(comm);
@@ -1274,53 +1179,38 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #region ICacheName Members
 
-        public string CacheName
+        public string CacheNameAlt
         {
-            get { return string.Format("{0}-{1}", this.GetType().FullName , this.UserAccountDetailID.ToString()); }
+            get { return string.Format("{0}-user-{1}", GetType().FullName, UserAccountID); }
         }
 
-        public string CacheNameAlt { get { return string.Format("{0}-user-{1}", this.GetType().FullName , this.UserAccountID); } }
+        public string CacheName
+        {
+            get { return string.Format("{0}-{1}", GetType().FullName, UserAccountDetailID.ToString()); }
+        }
 
         public void RemoveCache()
         {
             if (HttpContext.Current != null)
             {
-                HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
-                HttpContext.Current.Cache.DeleteCacheObj(this.CacheNameAlt);
+                HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+                HttpContext.Current.Cache.DeleteCacheObj(CacheNameAlt);
             }
         }
 
         #endregion
 
-        public int Set()
-        {
-            if (this.UserAccountDetailID == 0) return this.Create();
-            else
-            {
-                if (this.Update())
-                {
-                    return 1;
-                }
-                else return 0;
-            }
-        }
-
-
         public string InterestedInIconSmall
         {
-            get
-            {
-                return this.InterestedInIcon.Replace(".png", "_small.png");
-            }
+            get { return InterestedInIcon.Replace(".png", "_small.png"); }
         }
-
 
 
         public string HandedFull
         {
             get
             {
-                switch (this.Handed)
+                switch (Handed)
                 {
                     case 'R':
                         return Messages.Right;
@@ -1336,29 +1226,26 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string InterestedFull
         {
-
-
             get
             {
-                if (this.InterestedInID == null) return string.Empty;
+                if (InterestedInID == null) return string.Empty;
 
-                InterestedIn youAre = new InterestedIn(Convert.ToInt32(this.InterestedInID));
+                var youAre = new InterestedIn(Convert.ToInt32(InterestedInID));
 
                 return Utilities.ResourceValue(youAre.Name);
             }
-
         }
 
-  
+
         public string InterestedInIcon
         {
             get
             {
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
 
                 sb.Append(@"<img src=""");
 
-                switch (this.InterestedInID)
+                switch (InterestedInID)
                 {
                     case 'A':
                     case 'M':
@@ -1367,26 +1254,26 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     case 'P':
                     case 'R':
                     case 'C':
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(
-                            "~/content/images/interestedin/" + this.InterestedInID + ".png"));
+                        sb.Append(VirtualPathUtility.ToAbsolute(
+                            "~/content/images/interestedin/" + InterestedInID + ".png"));
                         break;
                     default:
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(
+                        sb.Append(VirtualPathUtility.ToAbsolute(
                             "~/content/images/interestedin/U.png"));
                         break;
                 }
 
                 sb.Append(@""" alt=""");
-                if (char.MinValue != this.InterestedInID)
+                if (char.MinValue != InterestedInID)
                 {
-                    sb.Append(this.InterestedInID);
+                    sb.Append(InterestedInID);
                 }
                 else sb.Append(Messages.Unknown);
                 sb.Append(@""" title=""");
 
                 sb.AppendFormat("{0}: ", Messages.InterestedIn);
 
-                switch (this.InterestedInID)
+                switch (InterestedInID)
                 {
                     case 'A':
                         sb.Append(Messages.Alien);
@@ -1423,60 +1310,57 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string RelationshipStatusFull
         {
-
             get
             {
-                if (this.RelationshipStatusID == null) return string.Empty;
+                if (RelationshipStatusID == null) return string.Empty;
 
-                RelationshipStatus youAre = new RelationshipStatus(Convert.ToInt32(this.RelationshipStatusID));
+                var youAre = new RelationshipStatus(Convert.ToInt32(RelationshipStatusID));
 
                 return Utilities.ResourceValue(youAre.Name);
             }
         }
-         
+
         public string RelationshipStatusIconSmall
         {
             get
             {
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
 
                 sb.Append(@"<img src=""");
 
 
-                switch (this.RelationshipStatusID)
+                switch (RelationshipStatusID)
                 {
-
                     case 'G':
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute("~/content/images/relationshipstatus/status_green.png"));
+                        sb.Append(VirtualPathUtility.ToAbsolute("~/content/images/relationshipstatus/status_green.png"));
                         break;
                     case 'Y':
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute("~/content/images/relationshipstatus/status_yellow.png"));
+                        sb.Append(VirtualPathUtility.ToAbsolute("~/content/images/relationshipstatus/status_yellow.png"));
                         break;
                     case 'R':
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute("~/content/images/relationshipstatus/status_red.png"));
+                        sb.Append(VirtualPathUtility.ToAbsolute("~/content/images/relationshipstatus/status_red.png"));
                         break;
                     default:
-                        sb.Append(System.Web.VirtualPathUtility.ToAbsolute("~/content/images/relationshipstatus/status_unknown.png"));
+                        sb.Append(VirtualPathUtility.ToAbsolute("~/content/images/relationshipstatus/status_unknown.png"));
                         break;
                 }
 
                 sb.Append(@""" alt=""");
 
-                if (this.RelationshipStatusID == char.MinValue)
+                if (RelationshipStatusID == char.MinValue)
                 {
                     sb.Append(Messages.Unknown);
                 }
                 else
                 {
-                    sb.Append(this.RelationshipStatusID);
+                    sb.Append(RelationshipStatusID);
                 }
 
-                
-                
+
                 sb.Append(@""" title=""");
 
                 sb.AppendFormat("{0}: ", Messages.RelationshipStatus);
-                switch (this.RelationshipStatusID)
+                switch (RelationshipStatusID)
                 {
                     case 'G':
                         sb.AppendFormat("{0}: ", Messages.SingleAndLooking);
@@ -1502,53 +1386,54 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                UserAccount ua = new UserAccount(this.UserAccountID);
-                StringBuilder sb = new StringBuilder(100);
-                sb.AppendFormat(@"<a title=""{0}"" class=""m_over"" href=""{1}"">", ua.UserName, VirtualPathUtility.ToAbsolute("~/" + ua.UserName));
+                var ua = new UserAccount(UserAccountID);
+                var sb = new StringBuilder(100);
+                sb.AppendFormat(@"<a title=""{0}"" class=""m_over"" href=""{1}"">", ua.UserName,
+                                VirtualPathUtility.ToAbsolute("~/" + ua.UserName));
                 sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""", ua.UserName);
-                sb.Append(this.FullProfilePicThumbURL);
+                sb.Append(FullProfilePicThumbURL);
                 sb.Append(@""" />");
                 sb.Append(@"</a>");
                 return sb.ToString();
             }
         }
 
-        public string  SmallUserIcon
+        public string SmallUserIcon
         {
             get
             {
-                StringBuilder sb = new StringBuilder(100);
-                UserAccount ua = new UserAccount(this.UserAccountID);
-                
+                var sb = new StringBuilder(100);
+                var ua = new UserAccount(UserAccountID);
+
                 sb.Append(UserFace);
 
                 sb.Append("<br />");
 
-                sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" />", this.Sex,
-                        VirtualPathUtility.ToAbsolute("~/content/images/sex/" + this.SexLetter.ToString() + ".png"));
+                sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" />", Sex,
+                                VirtualPathUtility.ToAbsolute("~/content/images/sex/" + SexLetter.ToString() + ".png"));
 
-               // sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" class=""flag_bg sprite-{2}_small"" />", this.CountryName, this.CountryFlagThumb, this.Country);
+                // sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" class=""flag_bg sprite-{2}_small"" />", this.CountryName, this.CountryFlagThumb, this.Country);
 
-                sb.AppendFormat(@"<div title=""{0}"" class=""sprites sprite-{1}_small""></div>", this.CountryName,   this.Country);
- 
+                sb.AppendFormat(@"<div title=""{0}"" class=""sprites sprite-{1}_small""></div>", CountryName, Country);
 
 
                 // hack: latin isn't supported
-                sb.AppendFormat(@"<span title=""{1}"" class=""default_lang"">{0}</span>", ( this.DefaultLanguage == "FO") ? "LA" :this.DefaultLanguage, 
-                    Utilities.GetLanguageNameForCode(this.DefaultLanguage));
+                sb.AppendFormat(@"<span title=""{1}"" class=""default_lang"">{0}</span>",
+                                (DefaultLanguage == "FO") ? "LA" : DefaultLanguage,
+                                Utilities.GetLanguageNameForCode(DefaultLanguage));
                 //sb.Append("&nbsp;");
-                this._getJustOne = true;
+                _getJustOne = true;
                 sb.Append(SiteBages);
 
                 if (ua.IsOnLine)
                 {
-                    sb.AppendFormat(@"<img style=""height: 8px; width:8px"" title=""{0}"" alt=""{0}"" src=""{1}"" />", Messages.IsOnline,
-                    System.Web.VirtualPathUtility.ToAbsolute("~/content/images/status/abutton2_e0.gif"));
+                    sb.AppendFormat(@"<img style=""height: 8px; width:8px"" title=""{0}"" alt=""{0}"" src=""{1}"" />",
+                                    Messages.IsOnline,
+                                    VirtualPathUtility.ToAbsolute("~/content/images/status/abutton2_e0.gif"));
                 }
 
                 return sb.ToString();
             }
-        
         }
 
 
@@ -1556,12 +1441,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                if (this.RelationshipStatusID == null) return char.MinValue;
+                if (RelationshipStatusID == null) return char.MinValue;
 
-                RelationshipStatus rstaus = new RelationshipStatus(Convert.ToInt32(this.RelationshipStatusID));
+                var rstaus = new RelationshipStatus(Convert.ToInt32(RelationshipStatusID));
 
                 return rstaus.TypeLetter;
-
             }
         }
 
@@ -1569,12 +1453,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                if (this.InterestedInID == null) return char.MinValue;
+                if (InterestedInID == null) return char.MinValue;
 
-                InterestedIn rstaus = new InterestedIn(Convert.ToInt32(this.InterestedInID));
+                var rstaus = new InterestedIn(Convert.ToInt32(InterestedInID));
 
                 return rstaus.TypeLetter;
-
             }
         }
 
@@ -1582,12 +1465,24 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                if (this.YouAreID == null) return 'U';
+                if (YouAreID == null) return 'U';
 
-                YouAre rstaus = new YouAre(Convert.ToInt32(this.YouAreID));
+                var rstaus = new YouAre(Convert.ToInt32(YouAreID));
 
                 return rstaus.TypeLetter;
+            }
+        }
 
+        public int Set()
+        {
+            if (UserAccountDetailID == 0) return Create();
+            else
+            {
+                if (Update())
+                {
+                    return 1;
+                }
+                else return 0;
             }
         }
     }

@@ -1,20 +1,19 @@
-﻿@using BootBaronLib.Resources;
+﻿@using BootBaronLib.Resources
 @{
     ViewBag.Title = Messages.Visitors;
 }
 <div class="row">
     <div class="span8">
-        @{Html.RenderPartial("_AdBanner"); }
+        @{ Html.RenderPartial("_AdBanner"); }
         <h2>@Messages.MyZone</h2>
-          <hr />
+        <hr />
        
-        @{Html.RenderPartial("_myZoneMenu"); }
+        @{ Html.RenderPartial("_myZoneMenu"); }
         @if (ViewBag.ApprovalList != null)
         {
             @Html.Raw(ViewBag.ApprovalList)
             <div class="clear">
             </div>
-        
         }
         @if (ViewBag.EnableProfileLogging != null && !ViewBag.EnableProfileLogging)
         {
@@ -27,37 +26,36 @@
             <br />
             if (ViewBag.TheViewers != null)
             {
-            @Html.Raw(ViewBag.TheViewers)
+                @Html.Raw(ViewBag.TheViewers)
             }
         }
     </div>
     <div class="span4">
-        @Html.ActionLink(BootBaronLib.Resources.Messages.ManageNews, "Articles", "Account")
+        @Html.ActionLink(Messages.ManageNews, "Articles", "Account")
         <br />
-                @if (ViewBag.AdminLink != null)
+        @if (ViewBag.AdminLink != null)
         {
-                    
             <div class="clear">
             </div>
-                    <hr />
-                    <b>@Messages.Administrator</b>
-                   <br />
-                    
-              <ul>
-                         <li><a href="@Url.Content("~/siteadmin/sitebranding")">@Messages.Website: @Messages.Settings</a></li>
+            <hr />
+            <b>@Messages.Administrator</b>
+            <br />
+
+            <ul>
+                <li><a href="@Url.Content("~/siteadmin/sitebranding")">@Messages.Website: @Messages.Settings</a></li>
               
-            <li><a href="@Url.Content("~/siteadmin/articles")">@Messages.Settings</a></li>
+                <li><a href="@Url.Content("~/siteadmin/articles")">@Messages.Settings</a></li>
               
                 <li>    <a href="@Html.Raw(ViewBag.AdminLink)">@Messages.Settings (@Messages.LoadMore)</a></li>
                     
-              <li>
+                <li>
                     <a href="@Url.Content("~/siteadmin/usermanagement")">@Messages.UserManagement </a></li>
-          </ul>
+            </ul>
         }
         <div class="clear">
             
         </div>
         <hr />
-        @{Html.RenderPartial("_AdBanner2"); }
+        @{ Html.RenderPartial("_AdBanner2"); }
     </div>
 </div>

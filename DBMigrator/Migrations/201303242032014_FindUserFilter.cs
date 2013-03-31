@@ -402,7 +402,7 @@ UPDATE [UserAccountDetail]
 
 ");
         }
-        
+
         public override void Down()
         {
             Sql(@"

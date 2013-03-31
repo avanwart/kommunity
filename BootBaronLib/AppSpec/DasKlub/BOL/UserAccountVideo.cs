@@ -13,54 +13,22 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Data;
 using System.Data.Common;
 using BootBaronLib.DAL;
-using System.Data;
 using BootBaronLib.Operational;
-using BootBaronLib.BaseTypes;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
-    public class UserAccountVideo  
+    public class UserAccountVideo
     {
         #region properties
 
-        private int _videoID = 0;
-
-        public int VideoID
-        {
-            get { return _videoID; }
-            set { _videoID = value; }
-        }
-
-        private char _videoType = char.MinValue;
-
-        /// <summary>
-        /// F = favorite video
-        /// U = uploaded video
-        /// </summary>
-        public char VideoType
-        {
-            get { return _videoType; }
-            set { _videoType = value; }
-        }
-
-        private int _userAccountID = 0;
-
-        public int UserAccountID
-        {
-            get { return _userAccountID; }
-            set { _userAccountID = value; }
-        }
-
-
-
-
         private DateTime _createDate = DateTime.MinValue;
+        private char _videoType = char.MinValue;
 
         public UserAccountVideo(DataRow dr)
         {
@@ -71,6 +39,20 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             // TODO: Complete member initialization
         }
+
+        public int VideoID { get; set; }
+
+        /// <summary>
+        ///     F = favorite video
+        ///     U = uploaded video
+        /// </summary>
+        public char VideoType
+        {
+            get { return _videoType; }
+            set { _videoType = value; }
+        }
+
+        public int UserAccountID { get; set; }
 
         public DateTime CreateDate
         {
@@ -84,12 +66,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             try
             {
-                this.CreateDate = FromObj.DateFromObj(dr["createDate"]);
-                this.UserAccountID = FromObj.IntFromObj(dr["userAccountID"]);
-                this.VideoID = FromObj.IntFromObj(dr["videoID"]);
-                this.VideoType = FromObj.CharFromObj(dr["videoType"]);
+                CreateDate = FromObj.DateFromObj(dr["createDate"]);
+                UserAccountID = FromObj.IntFromObj(dr["userAccountID"]);
+                VideoID = FromObj.IntFromObj(dr["videoID"]);
+                VideoType = FromObj.CharFromObj(dr["videoType"]);
             }
-            catch 
+            catch
             {
                 //Utilities.LogError(ex);
             }
@@ -102,9 +84,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddUserAccountVideo";
 
-            ADOExtenstion.AddParameter(comm, "videoID", VideoID);
-            ADOExtenstion.AddParameter(comm, "userAccountID", UserAccountID);
-            ADOExtenstion.AddParameter(comm, "videoType", VideoType);
+            comm.AddParameter("videoID", VideoID);
+            comm.AddParameter("userAccountID", UserAccountID);
+            comm.AddParameter("videoType", VideoType);
 
             return DbAct.ExecuteNonQuery(comm);
         }
@@ -117,14 +99,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteVideoForUser";
 
-            ADOExtenstion.AddParameter(comm, "videoID", videoID);
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
+            comm.AddParameter("videoID", videoID);
+            comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
-
         }
-
     }
 
     public class UserAccountVideos : List<UserAccountVideo>
@@ -138,8 +118,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             // create a new parameter
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
-            ADOExtenstion.AddParameter(comm, "videoType", videoType);
+            comm.AddParameter("userAccountID", userAccountID);
+            comm.AddParameter("videoType", videoType);
 
 
             // execute the stored procedure
@@ -153,7 +133,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     uav = new UserAccountVideo(dr);
-                    this.Add(uav);
+                    Add(uav);
                 }
             }
         }
@@ -165,11 +145,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteUserAccountVideo";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
+            comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
-
         }
 
         public void GetRecentUserAccountVideos(int userAccountID, char videoType)
@@ -179,8 +158,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetRecentUserAccountVideos";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
-            ADOExtenstion.AddParameter(comm, "videoType", videoType);
+            comm.AddParameter("userAccountID", userAccountID);
+            comm.AddParameter("videoType", videoType);
 
 
             // execute the stored procedure
@@ -194,11 +173,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     uav = new UserAccountVideo(dr);
-                    this.Add(uav);
+                    Add(uav);
                 }
             }
         }
-
-
     }
 }

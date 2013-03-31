@@ -13,8 +13,8 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Data;
 using System.Data.Common;
 using BootBaronLib.DAL;
 using BootBaronLib.Operational;
@@ -25,15 +25,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
     {
         #region properties
 
-        private int _videoLogID = 0;
-
-        public int VideoLogID
-        {
-            get { return _videoLogID; }
-            set { _videoLogID = value; }
-        }
-
         private DateTime _createDate = DateTime.MinValue;
+        private string _ipAddress = string.Empty;
+        private string _videoType = string.Empty;
+        private string _viewURL = string.Empty;
+        public int VideoLogID { get; set; }
 
         public DateTime CreateDate
         {
@@ -41,15 +37,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             set { _createDate = value; }
         }
 
-        private int _secondsElapsed = 0;
-
-        public int SecondsElapsed
-        {
-            get { return _secondsElapsed; }
-            set { _secondsElapsed = value; }
-        }
-
-        private string _viewURL = string.Empty;
+        public int SecondsElapsed { get; set; }
 
         public string ViewURL
         {
@@ -57,15 +45,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             set { _viewURL = value; }
         }
 
-        private string _ipAddress = string.Empty;
-
         public string IpAddress
         {
             get { return _ipAddress; }
             set { _ipAddress = value; }
         }
-
-        private string _videoType = string.Empty;
 
         public string VideoType
         {
@@ -77,20 +61,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
 
         public static void AddHostedVideoLog(string viewURL, string ipAddress, int secondsElapsed, string videoType)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddHostedVideoLog";
 
-            ADOExtenstion.AddParameter(comm, "viewURL", viewURL);
-            ADOExtenstion.AddParameter(comm, "ipAddress", ipAddress);
-            ADOExtenstion.AddParameter(comm, "secondsElapsed", secondsElapsed);
-            ADOExtenstion.AddParameter(comm, "videoType", videoType);
+            comm.AddParameter("viewURL", viewURL);
+            comm.AddParameter("ipAddress", ipAddress);
+            comm.AddParameter("secondsElapsed", secondsElapsed);
+            comm.AddParameter("videoType", videoType);
 
             DbAct.ExecuteNonQuery(comm);
-
         }
-
     }
 }

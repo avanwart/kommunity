@@ -1,51 +1,52 @@
 ﻿@using BootBaronLib.Operational
+@using BootBaronLib.Resources
 @using DasKlub.Helpers
 @model  BootBaronLib.AppSpec.DasKlub.BOL.PhotoItem
 @{
     ViewBag.Title = Model.Title;
     ViewBag.ThumbIcon = FromString.GetFixedLengthString(Html.S3ContentPath(Model.FilePathThumb).ToString(), 50);
 }
-@{Html.RenderPartial("_AdBanner"); }
+@{ Html.RenderPartial("_AdBanner"); }
 <div class="row">
     <div class="span8">
-    @if (Model == null)
-    {
-    <b>@BootBaronLib.Resources.Messages.Deleted</b>
-    }
-    else
-    {
-        <h3>@BootBaronLib.Resources.Messages.Photos:  @Html.Raw(ViewBag.UserName)</h3>
-        <div id="status_update_list">
-            @Html.Raw(ViewBag.StatusUpdateList)
-        </div>
-    }
+        @if (Model == null)
+        {
+            <b>@Messages.Deleted</b>
+        }
+        else
+        {
+            <h3>@Messages.Photos:  @Html.Raw(ViewBag.UserName)</h3>
+            <div id="status_update_list">
+                @Html.Raw(ViewBag.StatusUpdateList)
+            </div>
+        }
         @section _javascript {
-            @{Html.RenderPartial("_statusCommenting-js"); }
+            @{ Html.RenderPartial("_statusCommenting-js"); }
         }
     </div>
     <div class="span4">
      
 
 
-                @if (ViewBag.PreviousPhoto != null)
-                {
-            <i>@BootBaronLib.Resources.Messages.PreviousPhoto</i>
+        @if (ViewBag.PreviousPhoto != null)
+        {
+            <i>@Messages.PreviousPhoto</i>
             <ul class="photo_navs">
                 @Html.Raw(ViewBag.PreviousPhoto.ToUnorderdListItem)
             </ul>
-                }
+        }
                 
-                     <br />
+        <br />
         
-                     @if (ViewBag.NextPhoto != null)
-                     {
-            <i>@BootBaronLib.Resources.Messages.NextPhoto</i>
+        @if (ViewBag.NextPhoto != null)
+        {
+            <i>@Messages.NextPhoto</i>
             <ul class="photo_navs">
                 @Html.Raw(ViewBag.NextPhoto.ToUnorderdListItem)
             </ul>
-                     }
-             <hr />
-           @{Html.RenderPartial("_AdBanner3"); }
+        }
+        <hr />
+        @{ Html.RenderPartial("_AdBanner3"); }
 
  
               

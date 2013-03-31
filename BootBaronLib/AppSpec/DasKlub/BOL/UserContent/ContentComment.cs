@@ -13,22 +13,19 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using System.Web.UI;
+using System.Web;
+using System.Web.Security;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
-using System.Web.Security;
-
-using System.Linq;
-using System.Text.RegularExpressions;
 using BootBaronLib.Operational;
-using System.ComponentModel.DataAnnotations;
-using System.Web;
 using BootBaronLib.Resources;
 using BootBaronLib.Values;
 
@@ -38,39 +35,31 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
     {
         #region properties
 
-        private int _contentCommentID = 0;
-
-        public int ContentCommentID
-        {
-            get { return _contentCommentID; }
-            set { _contentCommentID = value; }
-        }
-
+        private string _detail = string.Empty;
+        private string _fromEmail = string.Empty;
+        private string _fromName = string.Empty;
+        private string _ipAddress = string.Empty;
         private char _statusType = char.MinValue;
+        public int ContentCommentID { get; set; }
 
         [Required(ErrorMessageResourceName = "Required",
-ErrorMessageResourceType = typeof(Resources.Messages))]
- 
+            ErrorMessageResourceType = typeof (Messages))]
         public char StatusType
         {
             get { return _statusType; }
             set { _statusType = value; }
         }
 
-        private string _detail = string.Empty;
-
         [Required(ErrorMessageResourceName = "Required",
-        ErrorMessageResourceType = typeof(Resources.Messages))]
-        [Display(ResourceType = typeof(Resources.Messages), Name = "Message")]
+            ErrorMessageResourceType = typeof (Messages))]
+        [Display(ResourceType = typeof (Messages), Name = "Message")]
         public string Detail
         {
             get { return _detail; }
             set { _detail = value; }
         }
 
-        private string _fromName = string.Empty;
 
- 
         public string FromName
         {
             get { return _fromName; }
@@ -78,11 +67,9 @@ ErrorMessageResourceType = typeof(Resources.Messages))]
         }
 
 
-        private string _ipAddress = string.Empty;
-
         [Required(ErrorMessageResourceName = "Required",
-       ErrorMessageResourceType = typeof(Resources.Messages))]
-        [Display(ResourceType = typeof(Resources.Messages), Name = "IpAddress")]
+            ErrorMessageResourceType = typeof (Messages))]
+        [Display(ResourceType = typeof (Messages), Name = "IpAddress")]
         public string IpAddress
         {
             get { return _ipAddress; }
@@ -90,25 +77,16 @@ ErrorMessageResourceType = typeof(Resources.Messages))]
         }
 
 
-
-        private string _fromEmail = string.Empty;
-
         [RegularExpression(@".+\@.+\..+", ErrorMessageResourceName = "IncorrectFormat", ErrorMessageResourceType =
-typeof(Resources.Messages))]
-        [Display(ResourceType = typeof(Resources.Messages), Name = "EMail")]
+            typeof (Messages))]
+        [Display(ResourceType = typeof (Messages), Name = "EMail")]
         public string FromEmail
         {
             get { return _fromEmail; }
             set { _fromEmail = value; }
         }
 
-        private int _contentID = 0;
-
-        public int ContentID
-        {
-            get { return _contentID; }
-            set { _contentID = value; }
-        }
+        public int ContentID { get; set; }
 
         #endregion
 
@@ -132,16 +110,91 @@ typeof(Resources.Messages))]
 
         #endregion
 
+        public string StatusTypeName
+        {
+            get
+            {
+                var theCO = SiteEnums.CommentStatus.U;
+
+                if (Enum.TryParse(StatusType.ToString(), out theCO))
+                {
+                    return Utilities.ResourceValue(Utilities.GetEnumDescription(theCO));
+                }
+
+                return string.Empty;
+            }
+        }
+
+        public string ToUnorderdListItem
+        {
+            get
+            {
+                if (ContentCommentID == 0) return string.Empty;
+
+                var sb = new StringBuilder(100);
+
+                sb.Append(@"<li>");
+
+                sb.Append(@"<hr />");
+
+
+                sb.Append(@"<br />");
+
+                sb.Append(@"<i>");
+                sb.Append(Utilities.TimeElapsedMessage(CreateDate));
+                sb.Append(@"</i>");
+                sb.Append(@"<br />");
+
+                if (CreatedByUserID > 0)
+                {
+                    var ua = new UserAccount(CreatedByUserID);
+
+                    var uad = new UserAccountDetail();
+
+                    uad.GetUserAccountDeailForUser(ua.UserAccountID);
+
+                    sb.Append(uad.SmallUserIcon);
+                }
+
+                sb.Append(@"<br />");
+
+                sb.Append(@"<p>");
+                sb.Append(FromString.ReplaceNewLineWithHTML(Detail));
+                sb.Append(@"</p>");
+
+                MembershipUser mu = Membership.GetUser();
+
+                if (mu != null && CreatedByUserID == Convert.ToInt32(mu.ProviderUserKey))
+                {
+                    sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
+                        "~/news/DeleteComment?commentID=" + ContentCommentID.ToString()), Messages.Delete);
+                }
+
+                sb.Append(@"</li>");
+
+                return sb.ToString();
+            }
+        }
+
+        public Uri UrlTo
+        {
+            get
+            {
+                var cnt = new Content(ContentID);
+                return cnt.UrlTo;
+            }
+        }
+
         public override void Get(int uniqueID)
         {
-            this.ContentCommentID = uniqueID;
+            ContentCommentID = uniqueID;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetContentComment";
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ContentCommentID), ContentCommentID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContentCommentID), ContentCommentID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -161,14 +214,14 @@ typeof(Resources.Messages))]
             // set the stored procedure name
             comm.CommandText = "up_UpdateContentComment";
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UpdatedByUserID), UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.StatusType), StatusType);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Detail), Detail);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ContentID), ContentID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FromName), FromName);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FromEmail), FromEmail);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.IpAddress), IpAddress);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ContentCommentID), ContentCommentID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UpdatedByUserID), UpdatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusType), StatusType);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Detail), Detail);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContentID), ContentID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FromName), FromName);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FromEmail), FromEmail);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => IpAddress), IpAddress);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContentCommentID), ContentCommentID);
 
             int result = -1;
 
@@ -186,13 +239,13 @@ typeof(Resources.Messages))]
             // set the stored procedure name
             comm.CommandText = "up_AddContentComment";
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.CreatedByUserID), CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.StatusType), StatusType);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Detail), Detail);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ContentID), ContentID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FromName), FromName);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FromEmail), FromEmail);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.IpAddress), IpAddress);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => CreatedByUserID), CreatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusType), StatusType);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Detail), Detail);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContentID), ContentID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FromName), FromName);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FromEmail), FromEmail);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => IpAddress), IpAddress);
 
             // the result is their ID
             string result = string.Empty;
@@ -205,9 +258,9 @@ typeof(Resources.Messages))]
             }
             else
             {
-                this.ContentCommentID = Convert.ToInt32(result);
+                ContentCommentID = Convert.ToInt32(result);
 
-                return this.ContentCommentID;
+                return ContentCommentID;
             }
         }
 
@@ -218,80 +271,30 @@ typeof(Resources.Messages))]
             {
                 base.Get(dr);
 
-                this.ContentCommentID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ContentCommentID)]);
-                this.StatusType = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => this.StatusType)]);
-                this.ContentID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ContentID)]);
-                this.Detail = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Detail)]);
-                this.FromEmail = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.FromEmail)]);
-                this.FromName = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.FromName)]);
-                this.IpAddress = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.IpAddress)]);
+                ContentCommentID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => ContentCommentID)]);
+                StatusType = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => StatusType)]);
+                ContentID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => ContentID)]);
+                Detail = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => Detail)]);
+                FromEmail = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => FromEmail)]);
+                FromName = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => FromName)]);
+                IpAddress = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => IpAddress)]);
             }
-            catch { }
-        }
-
-
-        public string ToUnorderdListItem
-        {
-            get
+            catch
             {
-                if (this.ContentCommentID == 0) return string.Empty;
-
-                StringBuilder sb = new StringBuilder(100);
-
-                sb.Append(@"<li>");
-
-                sb.Append(@"<hr />");
-
-
-                sb.Append(@"<br />");
-
-                sb.Append(@"<i>");
-                sb.Append(Utilities.TimeElapsedMessage(CreateDate));
-                sb.Append(@"</i>");
-                sb.Append(@"<br />");
-
-                if (this.CreatedByUserID > 0)
-                {
-                    UserAccount ua = new UserAccount(this.CreatedByUserID);
-
-                    UserAccountDetail uad = new UserAccountDetail();
-
-                    uad.GetUserAccountDeailForUser(ua.UserAccountID);
-
-                    sb.Append(uad.SmallUserIcon);
-                }
-
-                sb.Append(@"<br />");
-
-                sb.Append(@"<p>");
-                sb.Append(FromString.ReplaceNewLineWithHTML( this.Detail));
-                sb.Append(@"</p>");
-
-                MembershipUser mu = Membership.GetUser();
-
-                if (mu != null && this.CreatedByUserID == Convert.ToInt32(mu.ProviderUserKey))
-                {
-                    sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                        "~/news/DeleteComment?commentID=" + this.ContentCommentID.ToString()), Messages.Delete);
-                }
-
-                sb.Append(@"</li>");
-
-                return sb.ToString();
             }
         }
 
 
         public override bool Delete()
         {
-            if (this.ContentCommentID == 0) return false;
+            if (ContentCommentID == 0) return false;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeleteContentComment";
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ContentCommentID), ContentCommentID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContentCommentID), ContentCommentID);
 
             //RemoveCache();
 
@@ -299,39 +302,11 @@ typeof(Resources.Messages))]
 
             return DbAct.ExecuteNonQuery(comm) > 0;
         }
-
-
-        public string StatusTypeName
-        {
-            get
-            {
-                SiteEnums.CommentStatus theCO = SiteEnums.CommentStatus.U;
-
-                if (Enum.TryParse(this.StatusType.ToString(), out theCO))
-                {
-                    return Utilities.ResourceValue(Utilities.GetEnumDescription(theCO));
-                }
-
-                return string.Empty;
-            }
-        }
-
-
-        public Uri UrlTo
-        {
-            get
-            {
-                Content cnt = new Content(this.ContentID);
-                return cnt.UrlTo;
-            }
-        }
     }
-
 
 
     public class ContentComments : List<ContentComment>, IUnorderdList
     {
-
         private bool _includeStartAndEndTags = true;
 
         public bool IncludeStartAndEndTags
@@ -345,13 +320,13 @@ typeof(Resources.Messages))]
         {
             get
             {
-                if (this.Count == 0) return string.Empty;
+                if (Count == 0) return string.Empty;
 
                 //MembershipUser mu = Membership.GetUser();
 
                 //int membID = (mu != null) ? Convert.ToInt32(mu.ProviderUserKey) : 0;
 
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
 
                 //if (IncludeStartAndEndTags) sb.Append(@"<ul>");
 
@@ -416,7 +391,6 @@ typeof(Resources.Messages))]
                 //    //}
 
 
-
                 //    if (membID != 0 && ua.UserAccountID == membID)
                 //    {
                 //        sb.Append("<br />");
@@ -432,7 +406,6 @@ typeof(Resources.Messages))]
                 //    sb.Append(@"</table>");
 
 
-
                 //    sb.Append(@"</li>");
                 //}
 
@@ -446,18 +419,14 @@ typeof(Resources.Messages))]
         }
 
 
-
-
-
-        public void  GetUserContentComments(int createdByUserID)
+        public void GetUserContentComments(int createdByUserID)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetUserContentComments";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID", createdByUserID);
+            comm.AddParameter("createdByUserID", createdByUserID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -470,23 +439,21 @@ typeof(Resources.Messages))]
                 foreach (DataRow dr in dt.Rows)
                 {
                     ccomm = new ContentComment(dr);
-                    this.Add(ccomm);
+                    Add(ccomm);
                 }
             }
-
         }
 
 
         public void GetCommentsForContent(int contentID, SiteEnums.CommentStatus status)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetContentComments";
 
-            ADOExtenstion.AddParameter(comm, "contentID", contentID);
-            ADOExtenstion.AddParameter(comm, "statusType", status.ToString());
+            comm.AddParameter("contentID", contentID);
+            comm.AddParameter("statusType", status.ToString());
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -499,10 +466,9 @@ typeof(Resources.Messages))]
                 foreach (DataRow dr in dt.Rows)
                 {
                     ccomm = new ContentComment(dr);
-                    this.Add(ccomm);
+                    Add(ccomm);
                 }
             }
-
         }
 
 
@@ -520,8 +486,8 @@ typeof(Resources.Messages))]
             param.Direction = ParameterDirection.Output;
             comm.Parameters.Add(param);
 
-            ADOExtenstion.AddParameter(comm, "PageIndex", pageIndex);
-            ADOExtenstion.AddParameter(comm, "PageSize", pageSize);
+            comm.AddParameter("PageIndex", pageIndex);
+            comm.AddParameter("PageSize", pageSize);
 
             DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
@@ -534,14 +500,11 @@ typeof(Resources.Messages))]
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     content = new ContentComment(dr);
-                    this.Add(content);
+                    Add(content);
                 }
             }
 
             return recordCount;
         }
-
-
-
     }
 }

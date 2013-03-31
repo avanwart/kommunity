@@ -1,7 +1,10 @@
-﻿@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content
+﻿@using System.Threading
+@using BootBaronLib.AppSpec.DasKlub.BOL
+@using BootBaronLib.AppSpec.DasKlub.BOL.UserContent
 @using BootBaronLib.Operational
 @using BootBaronLib.Resources
 @using DasKlub.Helpers
+@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content
 
 @{
     ViewBag.Title = Model.Title;
@@ -11,50 +14,47 @@
 
 <div class="row">
     <div class="span8">
-        @{Html.RenderPartial("_AdBanner"); }
+        @{ Html.RenderPartial("_AdBanner"); }
 
-                                    @if (Model.Reply != null && Model.Reply.ContentCommentID > 0)
-                                    {
-            <div class="alert alert-success">@BootBaronLib.Resources.Messages.YouCommentWillBeReviewed</div>
-
-                                    }
+        @if (Model.Reply != null && Model.Reply.ContentCommentID > 0)
+        {
+            <div class="alert alert-success">@Messages.YouCommentWillBeReviewed</div>
+        }
                             
 
         <h3 class="title main_title">@Model.Title</h3>
            
         <hr class="half-bottom" />
-        @BootBaronLib.Resources.Messages.Language:
-          <span class="badge  badge-inverse" title="@BootBaronLib.Operational.Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
+        @Messages.Language:
+        <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
              
         <div class="meta">
-            @BootBaronLib.Resources.Messages.Published:
+            @Messages.Published:
             <span title="@Model.ReleaseDate.ToString("o")">
-            @BootBaronLib.Operational.Utilities.TimeElapsedMessage(Model.ReleaseDate)</span>
+                @Utilities.TimeElapsedMessage(Model.ReleaseDate)</span>
             <br />
-            @BootBaronLib.Resources.Messages.Tagged:
+            @Messages.Tagged:
             @Html.Raw(Model.TagLinks)
 
-              @if (Model.CreatedByUserID > 0)
-              {
-                  var ua =
-                      new BootBaronLib.AppSpec.DasKlub.BOL.UserAccount(Model.CreatedByUserID);
+            @if (Model.CreatedByUserID > 0)
+            {
+                var ua =
+                    new UserAccount(Model.CreatedByUserID);
 
-                  var uad =
-                       new BootBaronLib.AppSpec.DasKlub.BOL.UserAccountDetail();
-                  uad.GetUserAccountDeailForUser(ua.UserAccountID);
-                   
- <br />
-                 
-                <span>@BootBaronLib.Resources.Messages.From: <a href="@ua.UrlTo.ToString()">
-                    @ua.UserName</a>     <a href="@ua.UrlTo.ToString()">
-                    @Html.Raw(ua.TinyUserIcon)</a></span>
-                
-                        string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
-             
-              @Html.Raw(coName)
-              
-                  
-              }
+                var uad =
+                    new UserAccountDetail();
+                uad.GetUserAccountDeailForUser(ua.UserAccountID);
+
+                <br />
+
+                <span>@Messages.From: <a href="@ua.UrlTo.ToString()">
+                                          @ua.UserName</a>     <a href="@ua.UrlTo.ToString()">
+                                                                   @Html.Raw(ua.TinyUserIcon)</a></span>
+
+                string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
+
+                @Html.Raw(coName)
+            }
                   
             <br />  
         </div>
@@ -63,14 +63,11 @@
 
         @if (!string.IsNullOrEmpty(Model.ContentVideoURL))
         {
-
- 
-            
-                                     <div class="video_player" id="video_player">
+            <div class="video_player" id="video_player">
                 <video 
              
                     id="product_video" width="@ViewBag.VideoWidth" height="@ViewBag.VideoHeight"  
-poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload="none"
+                    poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload="none"
                    
                     >
                     <!-- MP4 source must come first for iOS -->
@@ -80,44 +77,41 @@ poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload=
                     {
                         <source type="video/webm" src="@Html.S3ContentPath(Model.ContentVideoURL2)" />
                     }
-@*		<!-- OGG for Firefox 3 -->
+                    @*		<!-- OGG for Firefox 3 -->
 	<source type="video/ogg" src="/content/media/echo-hereweare.ogv" />
 
 	<!-- Fallback flash player for no-HTML5 browsers with JavaScript turned off -->*@
 
 
             
-                        <object  width="@ViewBag.VideoWidth"   height="@ViewBag.VideoHeight"  type="application/x-shockwave-flash"
+                    <object  width="@ViewBag.VideoWidth"   height="@ViewBag.VideoHeight"  type="application/x-shockwave-flash"
                              data="@Url.Content("~/content/mediaelement/flashmediaelement.swf")">
-                            <param name="movie" value="@Url.Content("~/content/mediaelement/flashmediaelement.swf")" />
-                            <param name="flashvars" value="controls=true&amp;file=@Html.S3ContentPath(Model.ContentVideoURL)" />
-                            <!-- Image as a last resort -->
-                            <img src="@Html.S3ContentPath(Model.ContentPhotoURL)"  
-                                 width="@ViewBag.VideoWidth"   height="@ViewBag.VideoHeight"  
+                        <param name="movie" value="@Url.Content("~/content/mediaelement/flashmediaelement.swf")" />
+                        <param name="flashvars" value="controls=true&amp;file=@Html.S3ContentPath(Model.ContentVideoURL)" />
+                        <!-- Image as a last resort -->
+                        <img src="@Html.S3ContentPath(Model.ContentPhotoURL)"  
+                             width="@ViewBag.VideoWidth"   height="@ViewBag.VideoHeight"  
                                 
-           alt="@Messages.Video" 
-			title="@Messages.NoVideoPlaybackCapabilities"  />
-                        </object>  
+                             alt="@Messages.Video" 
+                             title="@Messages.NoVideoPlaybackCapabilities"  />
+                    </object>  
                      
                     
                    
                 </video>
-                              </div>
-            
-            
-         
+            </div>
         }
         else
         {
-            <img class="aligncenter" style="padding:5px; background-color:#FFF;" src="@Html.S3ContentPath(Model.ContentPhotoURL)" alt="@Model.Title" />
+            <img class="aligncenter" style="background-color: #FFF; padding: 5px;" src="@Html.S3ContentPath(Model.ContentPhotoURL)" alt="@Model.Title" />
         }
         <div class="the_content post type-post hentry excerpt clearfix">
-         <hr />
+            <hr />
           
             <div class="superquote">
-               @Model.MetaDescription
+                @Model.MetaDescription
           
-             </div>
+            </div>
            
             <hr />
 
@@ -125,15 +119,15 @@ poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload=
 
         
             <article>
-        <p>@Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.Video.IFrameVideoOnly(FromString.ReplaceNewLineWithHTML(Model.Detail)))</p>
-        </article>
+                <p>@Html.Raw(Video.IFrameVideoOnly(FromString.ReplaceNewLineWithHTML(Model.Detail)))</p>
+            </article>
         </div>
         <br />
         <hr class="remove-top" />
-         @{Html.RenderPartial("_AdBanner"); }
+        @{ Html.RenderPartial("_AdBanner"); }
         <hr />
         <div id="respond">
-            <h4>@BootBaronLib.Resources.Messages.LeaveAComment</h4>
+            <h4>@Messages.LeaveAComment</h4>
             @Html.ValidationSummary(false)
             @using (Html.BeginForm("Detail", "News", FormMethod.Post))
             {
@@ -143,29 +137,28 @@ poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload=
                         @Html.LabelFor(m => m.Reply.Detail)
                     </div>
                     <div class="editor-field">
-                        @Html.TextAreaFor(m => m.Reply.Detail, new { @class = "input-xlarge input-xlarge expand100-200", @rows = "3" })
+                        @Html.TextAreaFor(m => m.Reply.Detail, new {@class = "input-xlarge input-xlarge expand100-200", @rows = "3"})
                         @Html.CSSClassValidationMessageFor(m => m.Reply.Detail)
                     </div>
                     @if (Request.IsAuthenticated)
                     {
-                        <button class="btn btn-success" type="submit">@BootBaronLib.Resources.Messages.Submit</button>
+                        <button class="btn btn-success" type="submit">@Messages.Submit</button>
                     }
                     else
                     {
-                        <button disabled="disabled" class="btn btn-success" type="submit">@BootBaronLib.Resources.Messages.Submit</button>
-                        <a href="@Url.Content("~/account/logon")">@BootBaronLib.Resources.Messages.SignIn</a>
+                        <button disabled="disabled" class="btn btn-success" type="submit">@Messages.Submit</button>
+                        <a href="@Url.Content("~/account/logon")">@Messages.SignIn</a>
                     }
                 </fieldset>
             }
         </div>
         @if (Model.Comments != null && Model.Comments.Count > 0)
         {
-
             <a name="content_comments"></a>
-            <h4>@BootBaronLib.Resources.Messages.Comments</h4>
+            <h4>@Messages.Comments</h4>
             <ul class="comment_list">
-                @foreach (BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment content in
-        Model.Comments)
+                @foreach (ContentComment content in
+                    Model.Comments)
                 {
                     @Html.Raw(content.ToUnorderdListItem)
                 }
@@ -180,27 +173,25 @@ poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload=
         </div>
         <hr />
 
-                             @{Html.RenderPartial("_AdBanner3"); } 
-              <hr />
+        @{ Html.RenderPartial("_AdBanner3"); } 
+        <hr />
         @if (ViewBag.NextNews != null)
         {
-            <span>@BootBaronLib.Resources.Messages.Next</span>
+            <span>@Messages.Next</span>
             <ul class="photo_navs">
                 @Html.Raw(ViewBag.NextNews)
             </ul>
-       
         }
         @if (ViewBag.PreviousNews != null)
         {
-                        <span>@BootBaronLib.Resources.Messages.Previous</span>
-                <ul class="photo_navs">
+            <span>@Messages.Previous</span>
+            <ul class="photo_navs">
                 @Html.Raw(ViewBag.PreviousNews)
             </ul>
-           
         }
  
         <div class="span4">
-            @{Html.RenderPartial("_AdBanner2"); }
+            @{ Html.RenderPartial("_AdBanner2"); }
         </div>
     </div>
 </div>
@@ -210,100 +201,99 @@ poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload=
      
 
     // namespace init
-var DK = DK || {};
+        var DK = DK || {};
 
-(function () {
+        (function() {
 
-    'use strict';
+            'use strict';
 
-    /*jslint white: true */
-    /*global window: true, jQuery: true */
+            /*jslint white: true */
+            /*global window: true, jQuery: true */
 
-    function VideoLog(options) {
-        this.options = {
-            serviceUrl: $rootUrl +  'News/VideoLog'
-        };
+            function VideoLog(options) {
+                this.options = {
+                    serviceUrl: $rootUrl + 'News/VideoLog'
+                };
 
-        if (typeof options !== 'undefined') {
-            jQuery.extend(this.options, options);
-        }
-    }
+                if (typeof options !== 'undefined') {
+                    jQuery.extend(this.options, options);
+                }
+            }
 
-    VideoLog.prototype.logView = function (contentID, success, complete, error) {
+            VideoLog.prototype.logView = function(contentID, success, complete, error) {
 
-        error = error || function () { };
-        success = success || function () { };
-        complete = complete || function () { };
+                error = error || function() {
+                };
+                success = success || function() {
+                };
+                complete = complete || function() {
+                };
 
-        jQuery.ajax({
-            type: 'POST',
-            url: this.options.serviceUrl,
-            data: {
-                contentID: contentID
-            },
-            error: error,
-            success: success,
-            complete: complete
-        });
-    };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: this.options.serviceUrl,
+                    data: {
+                        contentID: contentID
+                    },
+                    error: error,
+                    success: success,
+                    complete: complete
+                });
+            };
 
-    // expose public api
-    DK.VideoLog = VideoLog;
-} ());
+            // expose public api
+            DK.VideoLog = VideoLog;
+        }());
 
 
-    (function () {
+        (function() {
 
-        var loggedView = false,
-            videoLog = new DK.VideoLog('@Url.Action("News", "VideoLog")'),
-            player = $('video').mediaelementplayer({
+            var loggedView = false,
+                videoLog = new DK.VideoLog('@Url.Action("News", "VideoLog")'),
+                player = $('video').mediaelementplayer({
+                    success: function(player) {
+                        player.addEventListener('play', function() {
+                            if (!loggedView) {
+                                videoLog.logView(@Model.ContentID);
+                                loggedView = true;
+                            }
+                        });
+                    },
 
-                success: function (player) {
-                    player.addEventListener('play', function () {
-                        if (!loggedView) {
-                            videoLog.logView(@Model.ContentID);
-                            loggedView = true;
-                        }
-                    });
-                },
+                    // if the <video width> is not specified, this is the default
+                    //  defaultVideoWidth: ViewBag.VideoWidth,
+                    // if the <video height> is not specified, this is the default
+                    //defaultVideoHeight: ViewBag.VideoHeight,
+                    // if set, overrides <video width>
+                    //videoWidth: -1,
+                    // if set, overrides <video height>
+                    //videoHeight: -1,
+                    // width of audio player
+                    //audioWidth: 400,
+                    // height of audio player
+                    //audioHeight: 30,
+                    // initial volume when the player starts
+                    startVolume: 0.8,
+                    // useful for <audio> player loops
+                    loop: false,
+                    // enables Flash and Silverlight to resize to content size
+                    //enableAutosize: true,
+                    // the order of controls you want on the control bar (and other plugins below)
+                    features: ['playpause', 'progress', 'duration', 'fullscreen', 'volume']//,
 
-                // if the <video width> is not specified, this is the default
-              //  defaultVideoWidth: ViewBag.VideoWidth,
-                // if the <video height> is not specified, this is the default
-                //defaultVideoHeight: ViewBag.VideoHeight,
-                // if set, overrides <video width>
-                //videoWidth: -1,
-                // if set, overrides <video height>
-                //videoHeight: -1,
-                // width of audio player
-                //audioWidth: 400,
-                // height of audio player
-                //audioHeight: 30,
-                // initial volume when the player starts
-                startVolume: 0.8,
-                // useful for <audio> player loops
-                loop: false,
-                // enables Flash and Silverlight to resize to content size
-                //enableAutosize: true,
-                // the order of controls you want on the control bar (and other plugins below)
-                features: ['playpause', 'progress',   'duration', 'fullscreen', 'volume' ]//,
-
-                // automatically selects a <track> element
-                //startLanguage: '@System.Threading.Thread.CurrentThread.CurrentUICulture.Parent.IetfLanguageTag',
-                // a list of languages to auto-translate via Google
+                    // automatically selects a <track> element
+                    //startLanguage: '@Thread.CurrentThread.CurrentUICulture.Parent.IetfLanguageTag',
+                    // a list of languages to auto-translate via Google
                 //translations:[], 
                 
                 // a dropdownlist of automatic translations
                 //translationSelector: false,
                 // key for tranlsations
                 //googleApiKey: ''
-            });
-    } ());
+                });
+        }());
 
-        $('video').mediaelementplayer().bind('ended', function () { $(this).parents('.mejs-inner').find('.mejs-poster').show(); });
+        $('video').mediaelementplayer().bind('ended', function() { $(this).parents('.mejs-inner').find('.mejs-poster').show(); });
 
-
-     
     </script>
 }
-

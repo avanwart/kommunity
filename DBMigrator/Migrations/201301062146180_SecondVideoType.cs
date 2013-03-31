@@ -4,8 +4,6 @@ namespace DBMigrator.Migrations
 {
     public partial class SecondVideoType : DbMigration
     {
-        
-
         public override void Up()
         {
             Sql(@"
@@ -649,7 +647,7 @@ SELECT TOP 1 [contentID]
 
 ");
         }
-        
+
         public override void Down()
         {
             Sql(@"

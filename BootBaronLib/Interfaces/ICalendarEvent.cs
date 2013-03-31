@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 
 namespace BootBaronLib.Interfaces
@@ -21,7 +22,7 @@ namespace BootBaronLib.Interfaces
     {
         DateTime StartDate { get; }
 
-        DateTime EndDate { get;  }
+        DateTime EndDate { get; }
 
         string VenueDetail { get; }
 

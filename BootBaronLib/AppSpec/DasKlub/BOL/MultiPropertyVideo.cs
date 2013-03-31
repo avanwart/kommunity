@@ -13,11 +13,12 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using BootBaronLib.DAL;
-using System.Collections.Generic;
 using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
@@ -26,42 +27,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         public MultiPropertyVideo(DataRow dr)
         {
-
             Get(dr);
-           
         }
-
 
 
         public void Get(DataRow dr)
         {
-
-            this.MultiPropertyID = FromObj.IntFromObj(dr["multiPropertyID"]);
-            this.ProductID = FromObj.IntFromObj(dr["productID"]);
+            MultiPropertyID = FromObj.IntFromObj(dr["multiPropertyID"]);
+            ProductID = FromObj.IntFromObj(dr["productID"]);
         }
-
-
-        #region properties
-
-        private int _multiPropertyID = 0;
-
-        public int MultiPropertyID
-        {
-            get { return _multiPropertyID; }
-            set { _multiPropertyID = value; }
-        }
-
-        private int _productID = 0;
-
-        public int ProductID
-        {
-            get { return _productID; }
-            set { _productID = value; }
-        }
-
-        #endregion
-
-
 
         public static bool AddMultiPropertyVideo(int multiPropertyID, int videoID)
         {
@@ -70,10 +44,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddMultiPropertyVideo";
 
-            ADOExtenstion.AddParameter(comm, "multiPropertyID",  multiPropertyID);
-            ADOExtenstion.AddParameter(comm, "videoID",   videoID);
+            comm.AddParameter("multiPropertyID", multiPropertyID);
+            comm.AddParameter("videoID", videoID);
 
-            return Convert.ToInt32(DbAct.ExecuteScalar(comm))  > 0;
+            return Convert.ToInt32(DbAct.ExecuteScalar(comm)) > 0;
         }
 
         public static bool DeleteMultiPropertyVideo(int multiPropertyID, int videoID)
@@ -85,12 +59,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteMultiPropertyVideo";
 
-            ADOExtenstion.AddParameter(comm, "multiPropertyID",   multiPropertyID);
-            ADOExtenstion.AddParameter(comm, "videoID",  videoID);
+            comm.AddParameter("multiPropertyID", multiPropertyID);
+            comm.AddParameter("videoID", videoID);
 
-            return Convert.ToInt32(DbAct.ExecuteNonQuery(comm))  > 0;
+            return Convert.ToInt32(DbAct.ExecuteNonQuery(comm)) > 0;
         }
 
+        #region properties
+
+        public int MultiPropertyID { get; set; }
+
+        public int ProductID { get; set; }
+
+        #endregion
 
         //public static bool DeletePropertyTypeForVideo(int propertyTypeID, int videoID)
         //{
@@ -116,13 +97,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         //    return Convert.ToInt32(DbAct.ExecuteNonQuery(comm)) > 0;
         //}
-
- 
     }
 
     public class MultiPropertyVideos : List<MultiPropertyVideo>
     {
-
         public void GetMultiPropertyVideoForProduct(int productID)
         {
             // get a configured DbCommand object
@@ -130,8 +108,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetMultiPropertyVideoForProduct";
 
-            ADOExtenstion.AddParameter(comm, "productID", productID);
-            
+            comm.AddParameter("productID", productID);
+
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
             MultiPropertyVideo pd = null;
@@ -141,7 +119,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     pd = new MultiPropertyVideo(dr);
-                    this.Add(pd);
+                    Add(pd);
                 }
             }
         }

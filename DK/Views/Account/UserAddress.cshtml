@@ -1,59 +1,56 @@
-﻿@model DasKlub.Models.UserAddressModel
-@using BootBaronLib.Resources;
-@using BootBaronLib.Enums;
-@using BootBaronLib.Operational;
+﻿@using BootBaronLib.Operational
+@using BootBaronLib.Resources
 @using BootBaronLib.Values
+@model DasKlub.Models.UserAddressModel
 @{
-    ViewBag.Title = Messages.EditProfile + ": "+ Messages.Address;
+    ViewBag.Title = Messages.EditProfile + ": " + Messages.Address;
 }
 <div class="row">
     <div class="span6">
-        @{Html.RenderPartial("_AdBanner"); }
+        @{ Html.RenderPartial("_AdBanner"); }
         <h2>@Messages.Submit: @Messages.Address</h2>
         @if (ViewBag.ProfileUpdated != null && ViewBag.ProfileUpdated)
         {
             <div class="alert alert-success">@Messages.Success</div>
-          
         }
         @using (Html.BeginForm("useraddress", "account"))
         {
- 
             @Html.ValidationSummary(false, Messages.PleaseCorrectTheErrors)
-        
-         
+
+
             <fieldset>
                 <div class="editor-label">
-                    @Html.Label(BootBaronLib.Resources.Messages.FirstName )
+                    @Html.Label(Messages.FirstName)
                 </div>
                 <div class="editor-field">
-                    @Html.TextBoxFor(m => m.FirstName, new { maxlength = "15" })
+                    @Html.TextBoxFor(m => m.FirstName, new {maxlength = "15"})
                     @Html.ValidationMessageFor(m => m.FirstName)
                 </div>
                 <div class="editor-label">
-                    @Html.Label(BootBaronLib.Resources.Messages.LastName )
+                    @Html.Label(Messages.LastName)
                 </div>
                 <div class="editor-field">
-                    @Html.TextBoxFor(m => m.LastName, new { maxlength = "15" })
+                    @Html.TextBoxFor(m => m.LastName, new {maxlength = "15"})
                     @Html.ValidationMessageFor(m => m.LastName)
                 </div>
                 <div class="editor-label">
-                    @Html.Label(BootBaronLib.Resources.Messages.StreetAddress + " 1" )
+                    @Html.Label(Messages.StreetAddress + " 1")
                 </div>
                 <div class="editor-field">
-                    @Html.TextBoxFor(m => m.AddressLine1 )
+                    @Html.TextBoxFor(m => m.AddressLine1)
 
                     @Html.ValidationMessageFor(m => m.AddressLine1)
                 </div>
                 <div class="editor-label">
-                    @Html.Label(BootBaronLib.Resources.Messages.StreetAddress + " 2" )
+                    @Html.Label(Messages.StreetAddress + " 2")
                 </div>
                 <div class="editor-field">
-                    @Html.TextBoxFor(m => m.AddressLine2 )
+                    @Html.TextBoxFor(m => m.AddressLine2)
                     <i>(@Messages.Optional)</i>
                     @Html.ValidationMessageFor(m => m.AddressLine2)
                 </div>
                 <div class="editor-label">
-                    @Html.Label(BootBaronLib.Resources.Messages.StreetAddress + " 3" )
+                    @Html.Label(Messages.StreetAddress + " 3")
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(m => m.AddressLine3)
@@ -61,21 +58,21 @@
                     @Html.ValidationMessageFor(m => m.AddressLine3)
                 </div>
                 <div class="editor-label">
-                    @Html.Label(BootBaronLib.Resources.Messages.City )
+                    @Html.Label(Messages.City)
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(m => m.City)
                     @Html.ValidationMessageFor(m => m.City)
                 </div>
                 <div class="editor-label">
-                    @Html.Label(BootBaronLib.Resources.Messages.RegionState )
+                    @Html.Label(Messages.RegionState)
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(m => m.RegionState)
                     @Html.ValidationMessageFor(m => m.RegionState)
                 </div>
                 <div class="editor-label">
-                    @Html.Label(BootBaronLib.Resources.Messages.Country)
+                    @Html.Label(Messages.Country)
                 </div>
                 <div class="editor-field">
                     <select name="country">
@@ -85,46 +82,42 @@
                         }
                         @foreach (string country in ViewBag.CountryOptions)
                         {
-                            SiteEnums.CountryCodeISO countryCode =
-                            (SiteEnums.CountryCodeISO)Enum.Parse(
-                           typeof(SiteEnums.CountryCodeISO), country);
+                            var countryCode =
+                                (SiteEnums.CountryCodeISO) Enum.Parse(
+                                    typeof (SiteEnums.CountryCodeISO), country);
 
                             if (countryCode != SiteEnums.CountryCodeISO.U0 &&
-                                 countryCode != SiteEnums.CountryCodeISO.RD)
+                                countryCode != SiteEnums.CountryCodeISO.RD)
                             {
                                 if (countryCode.ToString() != Model.Country)
                                 {
-                            <option value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
+                                    <option value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
                                 }
                                 else
                                 {
-                            <option selected="selected" value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
+                                    <option selected="selected" value="@countryCode.ToString()">@Utilities.ResourceValue(Utilities.GetEnumDescription(countryCode))</option>
                                 }
                             }
                         }
                     </select>
-                       @Html.ValidationMessageFor(m => m.Country)
+                    @Html.ValidationMessageFor(m => m.Country)
                 </div>
                 <div class="editor-label">
-                    @Html.Label(BootBaronLib.Resources.Messages.PostalCode)
+                    @Html.Label(Messages.PostalCode)
                 </div>
                 <div class="editor-field">
                     @Html.TextBoxFor(m => m.PostalCode)
                     @Html.ValidationMessageFor(m => m.PostalCode)
                 </div>
             </fieldset>
-            <input class="btn btn-success" type="submit" value="@BootBaronLib.Resources.Messages.Submit" />
-              
+            <input class="btn btn-success" type="submit" value="@Messages.Submit" />
         }
     </div>
     <div class="span6">
-        @{Html.RenderPartial("_AdBanner2"); }
+        @{ Html.RenderPartial("_AdBanner2"); }
         <img  src="@Url.Content("~/Content/images/stills/giveaway.jpg")" />
     </div>
 </div>
 <style type="text/css">
-    .editor-field, .editor-field input
-    {
-        padding-bottom: 0;
-    }
+    .editor-field, .editor-field input { padding-bottom: 0; }
 </style>

@@ -13,11 +13,9 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 
 namespace BootBaronLib.AppSpec.DasKlub.BLL
@@ -31,8 +29,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
 
             string[] bands = input.Split(',');
 
-            StringBuilder sb = new StringBuilder(100);
-            Artist art ;
+            var sb = new StringBuilder(100);
+            Artist art;
 
             int total = 0;
 
@@ -46,8 +44,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
 
                 if (art.ArtistID > 0)
                 {
-
-
                     if (total == bands.Length)
                     {
                         sb.AppendFormat(@"{0} ", art.HyperLinkToArtist);
@@ -59,9 +55,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
                 }
                 else
                 {
-                 
-
-
                     if (total == bands.Length)
                     {
                         sb.AppendFormat(@"{0} ", art.Name);
@@ -70,7 +63,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
                     {
                         sb.AppendFormat(@"{0}, ", art.Name);
                     }
-
                 }
             }
 
@@ -107,7 +99,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
             }
             else
             {
-                Artists arts = new Artists();
+                var arts = new Artists();
                 arts.GetAll();
 
                 foreach (Artist a1 in arts)
@@ -130,9 +122,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
             }
         }
 
-        static public string ReplaceString(string str, string oldValue, string newValue, StringComparison comparison)
+        public static string ReplaceString(string str, string oldValue, string newValue, StringComparison comparison)
         {
-            StringBuilder sb = new StringBuilder(100);
+            var sb = new StringBuilder(100);
 
             int previousIndex = 0;
             int index = str.IndexOf(oldValue, comparison);

@@ -13,103 +13,63 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Data;
 using System.Data.Common;
+using System.Web;
+using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
-using BootBaronLib.Operational;
-using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.Interfaces;
-using System.Web;
+using BootBaronLib.Operational;
 using BootBaronLib.Values;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
     public class PropertyType : BaseIUserLogCRUD, ICacheName
     {
-         
-            #region properties
+        #region properties
 
-            private int _propertyTypeID = 0;
+        private SiteEnums.PropertyTypeCode _propertyTypeCode = SiteEnums.PropertyTypeCode.UNKNO;
+        private string _propertyTypeName = string.Empty;
+        public int PropertyTypeID { get; set; }
 
-            public int PropertyTypeID
+        public string PropertyTypeName
+        {
+            get { return _propertyTypeName; }
+            set { _propertyTypeName = value; }
+        }
+
+        public SiteEnums.PropertyTypeCode PropertyTypeCode
+        {
+            get { return _propertyTypeCode; }
+            set { _propertyTypeCode = value; }
+        }
+
+        #endregion
+
+        #region constructors
+
+        public PropertyType()
+        {
+        }
+
+        public PropertyType(SiteEnums.PropertyTypeCode propertyTypeCode)
+        {
+            if (propertyTypeCode == SiteEnums.PropertyTypeCode.UNKNO) return;
+
+            PropertyTypeCode = propertyTypeCode;
+
+            if (HttpContext.Current == null ||
+                HttpContext.Current.Cache[CacheName] == null)
             {
-                get { return _propertyTypeID; }
-                set { _propertyTypeID = value; }
-            }
-
-
-            private string _propertyTypeName = string.Empty;
-
-            public string PropertyTypeName
-            {
-                get { return _propertyTypeName; }
-                set { _propertyTypeName = value; }
-            }
-
-            private SiteEnums.PropertyTypeCode _propertyTypeCode = SiteEnums.PropertyTypeCode.UNKNO;
-
-            public SiteEnums.PropertyTypeCode PropertyTypeCode
-            {
-                get { return _propertyTypeCode; }
-                set { _propertyTypeCode = value; }
-            }
-
-            #endregion
-
-            #region constructors
-
-            public PropertyType() { }
-
-            public PropertyType(SiteEnums.PropertyTypeCode propertyTypeCode)
-            {
-                if (propertyTypeCode == SiteEnums.PropertyTypeCode.UNKNO) return;
-
-                this.PropertyTypeCode = propertyTypeCode;
-
-                if (HttpContext.Current == null ||
-                    HttpContext.Current.Cache[this.CacheName] == null)
-                {
-
-                    // get a configured DbCommand object
-                    DbCommand comm = DbAct.CreateCommand();
-                    // set the stored procedure name
-                    comm.CommandText = "up_GetPropertyTypeByCode";
-
-                    ADOExtenstion.AddParameter(comm, "propertyTypeCode",  propertyTypeCode.ToString());
-
-                    // execute the stored procedure
-                    DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-                    // was something returned?
-                    if (dt != null && dt.Rows.Count > 0)
-                    {
-                        if (HttpContext.Current != null)
-                        {
-                            HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
-                        }
-                        Get(dt.Rows[0]);
-                        
-                    }
-                }
-                else
-                {
-                    Get((DataRow)HttpContext.Current.Cache[this.CacheName]);
-                }
-
-            }
-
-            public PropertyType(int propertyTypeID)
-            {
-
-
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
-                comm.CommandText = "up_GetPropertyTypeByID";
+                comm.CommandText = "up_GetPropertyTypeByCode";
 
-                ADOExtenstion.AddParameter(comm, "propertyTypeID",  propertyTypeID );
+                comm.AddParameter("propertyTypeCode", propertyTypeCode.ToString());
 
                 // execute the stored procedure
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -117,66 +77,84 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 // was something returned?
                 if (dt != null && dt.Rows.Count > 0)
                 {
+                    if (HttpContext.Current != null)
+                    {
+                        HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                    }
                     Get(dt.Rows[0]);
                 }
-
- 
             }
-
-
-
-            public override void Get(DataRow dr)
+            else
             {
-                try
-                {
-
-
-
-                    base.Get(dr);
-
-
-
-                    this.PropertyTypeID = FromObj.IntFromObj(dr["propertyTypeID"]);
-
-                    string itemPropertyType = FromObj.StringFromObj(dr["propertyTypeCode"]);
-
-                    if (string.IsNullOrEmpty(itemPropertyType))
-                        this.PropertyTypeCode = SiteEnums.PropertyTypeCode.UNKNO;
-                    else
-
-                        this.PropertyTypeCode = (SiteEnums.PropertyTypeCode)Enum.Parse(typeof(SiteEnums.PropertyTypeCode), itemPropertyType);
-
-
-
-                    this.PropertyTypeName = FromObj.StringFromObj(dr["propertyTypeName"]);
-                    this.CreateDate = FromObj.DateFromObj(dr["createDate"]);
-                    this.UpdateDate = FromObj.DateFromObj(dr["updateDate"]);
-                    this.UpdatedByUserID = FromObj.IntFromObj(dr["updatedByUserID"]);
-                    this.CreatedByUserID = FromObj.IntFromObj(dr["createdByUserID"]);
-
-                }
-                catch (Exception ex)
-                {
-                    Utilities.LogError(ex);
-                }
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
             }
+        }
 
+        public PropertyType(int propertyTypeID)
+        {
+            // get a configured DbCommand object
+            DbCommand comm = DbAct.CreateCommand();
+            // set the stored procedure name
+            comm.CommandText = "up_GetPropertyTypeByID";
 
-            #endregion
+            comm.AddParameter("propertyTypeID", propertyTypeID);
 
+            // execute the stored procedure
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
-            #region ICacheName Members
-
-            public string CacheName
+            // was something returned?
+            if (dt != null && dt.Rows.Count > 0)
             {
-                get { return this.GetType().FullName + "-" + this.PropertyTypeID.ToString() + "-" + this.PropertyTypeCode.ToString(); }
+                Get(dt.Rows[0]);
             }
+        }
 
-            public void RemoveCache()
+
+        public override void Get(DataRow dr)
+        {
+            try
             {
-                throw new NotImplementedException();
-            }
+                base.Get(dr);
 
-            #endregion
+
+                PropertyTypeID = FromObj.IntFromObj(dr["propertyTypeID"]);
+
+                string itemPropertyType = FromObj.StringFromObj(dr["propertyTypeCode"]);
+
+                if (string.IsNullOrEmpty(itemPropertyType))
+                    PropertyTypeCode = SiteEnums.PropertyTypeCode.UNKNO;
+                else
+
+                    PropertyTypeCode =
+                        (SiteEnums.PropertyTypeCode) Enum.Parse(typeof (SiteEnums.PropertyTypeCode), itemPropertyType);
+
+
+                PropertyTypeName = FromObj.StringFromObj(dr["propertyTypeName"]);
+                CreateDate = FromObj.DateFromObj(dr["createDate"]);
+                UpdateDate = FromObj.DateFromObj(dr["updateDate"]);
+                UpdatedByUserID = FromObj.IntFromObj(dr["updatedByUserID"]);
+                CreatedByUserID = FromObj.IntFromObj(dr["createdByUserID"]);
+            }
+            catch (Exception ex)
+            {
+                Utilities.LogError(ex);
+            }
+        }
+
+        #endregion
+
+        #region ICacheName Members
+
+        public string CacheName
+        {
+            get { return GetType().FullName + "-" + PropertyTypeID.ToString() + "-" + PropertyTypeCode.ToString(); }
+        }
+
+        public void RemoveCache()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

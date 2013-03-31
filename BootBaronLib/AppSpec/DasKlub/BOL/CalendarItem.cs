@@ -13,12 +13,12 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using BootBaronLib.Interfaces;
 using System.Web;
+using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
@@ -27,7 +27,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region constructors
 
-        public CalendarItem() { }
+        public CalendarItem()
+        {
+        }
 
         public CalendarItem(Event td)
         {
@@ -40,38 +42,43 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             _venueDetail = td.VenueDetail;
             _rsvpURL = td.RsvpURL;
 
-            Venue ven = new Venue(td.VenueID);
+            var ven = new Venue(td.VenueID);
 
             _venueURL = ven.VenueURL;
-
         }
 
- 
         #endregion
 
         #region private properties
 
-        private DateTime _startDate = DateTime.MinValue;
+        private readonly DateTime _endDate = DateTime.MinValue;
 
-        private DateTime _endDate = DateTime.MinValue;
+        private readonly string _eventDescription = string.Empty;
 
-        private string _venueDetail = string.Empty;
+        private readonly string _eventDetailURL = string.Empty;
 
-        private string _eventDescription = string.Empty;
+        private readonly string _eventType = string.Empty;
 
-        private string _eventDetailURL = string.Empty;
+        private readonly string _rsvpURL = string.Empty;
+        private readonly DateTime _startDate = DateTime.MinValue;
+        private readonly string _ticketDetailURL = string.Empty;
+        private readonly string _venueDetail = string.Empty;
 
-        private string _eventType = string.Empty;
-
-        private string _ticketDetailURL = string.Empty;
-
-        private string _rsvpURL = string.Empty;
-
-        private string _venueURL = string.Empty;
+        private readonly string _venueURL = string.Empty;
 
         #endregion
 
         #region ICalendarEvent Members
+
+        public string EventDetailURL
+        {
+            get { return _eventDetailURL; }
+        }
+
+        public string EventType
+        {
+            get { return _eventType; }
+        }
 
         public string RSVPURL
         {
@@ -99,16 +106,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             get { return _eventDescription; }
         }
 
-        public string EventDetailURL
-        {
-            get { return _eventDetailURL; }
-        }
-
-        public string EventType
-        {
-            get { return _eventType; }
-        }
-
         public string TicketDetailURL
         {
             get { return _ticketDetailURL; }
@@ -120,30 +117,24 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             get { return _venueURL; }
         }
 
-
-
         #endregion
- 
-
-
-
 
         public string ToUnorderdListItem
         {
             get
             {
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
 
                 sb.Append(@"<li>");
-                sb.Append(this.EventDescription);
+                sb.Append(EventDescription);
                 sb.Append(@" | <a target=""_blank"" href=""http://maps.google.com?daddr=");
-                sb.Append(HttpUtility.UrlEncode(this.VenueDetail));
+                sb.Append(HttpUtility.UrlEncode(VenueDetail));
                 sb.Append(@""">MAP</a>");
 
                 if (!string.IsNullOrEmpty(VenueURL))
                 {
                     sb.Append(@" | <a target=""_blank"" href=""");
-                    sb.Append(this.VenueURL);
+                    sb.Append(VenueURL);
                     sb.Append(@""">VENUE</a>");
                 }
 
@@ -151,21 +142,21 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 if (!string.IsNullOrEmpty(TicketDetailURL))
                 {
                     sb.Append(@" | <a target=""_blank"" href=""");
-                    sb.Append(this.TicketDetailURL);
+                    sb.Append(TicketDetailURL);
                     sb.Append(@""">TICKET</a>");
                 }
 
-                if (!string.IsNullOrEmpty(this.EventDetailURL))
+                if (!string.IsNullOrEmpty(EventDetailURL))
                 {
                     sb.Append(@" | <a target=""_blank"" href=""");
-                    sb.Append(this.EventDetailURL);
+                    sb.Append(EventDetailURL);
                     sb.Append(@""">DETAILS</a>");
                 }
 
-                if (!string.IsNullOrEmpty(this.RSVPURL))
+                if (!string.IsNullOrEmpty(RSVPURL))
                 {
                     sb.Append(@" | <a target=""_blank"" href=""");
-                    sb.Append(this.RSVPURL);
+                    sb.Append(RSVPURL);
                     sb.Append(@""">RSVP</a>");
                 }
 
@@ -179,12 +170,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
     public class CalendarItems : List<CalendarItem>
     {
-
         public string ToJSON(DateTime dtBegin)
         {
-            if (this.Count == 0) return string.Empty;
+            if (Count == 0) return string.Empty;
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.Append(@"<div class=""event_listings"">");
 
@@ -210,10 +200,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             else
             {
                 return @"{""EventsToday"": """ + HttpUtility.HtmlEncode(sb.ToString()) + @""",
-                ""ISODate"": """ + string.Empty +  @"""}";
+                ""ISODate"": """ + string.Empty + @"""}";
             }
         }
-
     }
-
 }

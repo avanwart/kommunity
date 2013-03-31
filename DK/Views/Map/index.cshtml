@@ -1,18 +1,17 @@
-﻿ @using BootBaronLib.Resources;
+﻿@using BootBaronLib.Resources
+
 
 @{
     ViewBag.Title = Messages.Map;
-  
 }
 <div class="row" >
-<div class="span12">
-@{Html.RenderPartial("_AdBanner"); }
-<h2>@Messages.Map</h2>
-    <hr />
-<a target="_blank" href="@Url.Content("~/map/frame")">@Messages.FullScreen</a>
+    <div class="span12">
+        @{ Html.RenderPartial("_AdBanner"); }
+        <h2>@Messages.Map</h2>
+        <hr />
+        <a target="_blank" href="@Url.Content("~/map/frame")">@Messages.FullScreen</a>
  
- <iframe src="@Url.Content("~/map/frame")" style="width:100%;
-  height: @ViewBag.MapHeight"></iframe>
+        <iframe src="@Url.Content("~/map/frame")" style="height: @ViewBag.MapHeight; width: 100%;"></iframe>
  
-       </div>
- </div>
+    </div>
+</div>

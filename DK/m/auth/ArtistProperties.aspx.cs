@@ -13,28 +13,31 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Web.Security;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
+using Image = System.Drawing.Image;
 
 namespace DasKlub.m.auth
 {
-    public partial class ArtistProperties : System.Web.UI.Page
+    public partial class ArtistProperties : Page
     {
         #region variables
 
-        Artists arts = null;
-        MembershipUser mu = null;
-        Artist art = null;
-        ArtistProperty artprop = null;
+        private Artist art;
+        private ArtistProperty artprop;
+        private Artists arts;
+        private MembershipUser mu;
 
         #endregion
 
@@ -44,7 +47,7 @@ namespace DasKlub.m.auth
         {
             mu = Membership.GetUser();
 
-            if (!this.IsPostBack)
+            if (!IsPostBack)
             {
                 ClearControls();
                 GetArtistsPageWise(1);
@@ -53,13 +56,11 @@ namespace DasKlub.m.auth
         }
 
 
-
         protected void gvwAllArtists_SelectedIndexChanged(object sender, EventArgs e)
         {
             hfArtistID.Value = gvwAllArtists.SelectedDataKey.Value.ToString();
 
             LoadArtistDetail(Convert.ToInt32(hfArtistID.Value));
-
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -76,19 +77,18 @@ namespace DasKlub.m.auth
             art.IsHidden = chkIsHidden.Checked;
 
             art.AltName = txtArtistAltName.Text;
-            art.Name = txtArtistName.Text ;
-
+            art.Name = txtArtistName.Text;
 
 
             if (art.ArtistID == 0)
             {
                 if (art.Create() > 0)
                 {
-                    MasterPageHelper.SetMainMasterPageMessageText(this.Page, "Artist created", true);
+                    MasterPageHelper.SetMainMasterPageMessageText(Page, "Artist created", true);
                 }
                 else
                 {
-                    MasterPageHelper.SetMainMasterPageMessageText(this.Page, "Artist not created", false);
+                    MasterPageHelper.SetMainMasterPageMessageText(Page, "Artist not created", false);
                     return;
                 }
             }
@@ -96,16 +96,14 @@ namespace DasKlub.m.auth
             {
                 if (art.Update())
                 {
-                    MasterPageHelper.SetMainMasterPageMessageText(this.Page, "Artist updated", true);
+                    MasterPageHelper.SetMainMasterPageMessageText(Page, "Artist updated", true);
                 }
                 else
                 {
-                    MasterPageHelper.SetMainMasterPageMessageText(this.Page, "Artist updated", false);
+                    MasterPageHelper.SetMainMasterPageMessageText(Page, "Artist updated", false);
                     return;
                 }
             }
-
-
 
 
             artprop = new ArtistProperty();
@@ -142,20 +140,20 @@ namespace DasKlub.m.auth
                 artprop.GetArtistPropertyForTypeArtist(art.ArtistID, SiteEnums.ArtistPropertyType.PH.ToString());
                 artprop.PropertyContent = imgArtistPhoto.ImageUrl;
 
-                Bitmap b = new Bitmap(fupArtistPhoto.FileContent);
+                var b = new Bitmap(fupArtistPhoto.FileContent);
                 string saveS = string.Empty;
-                System.Drawing.Image imgPhoto = null;
-                System.Drawing.Color theBGColor = System.Drawing.Color.Black;
+                Image imgPhoto = null;
+                Color theBGColor = Color.Black;
                 string fileRoot = ArtistProperty.ARTISTIMAGEPREFIX;
                 Guid fileGuid = Guid.NewGuid();
 
                 if (ddlBGColor.SelectedValue.ToLower() == "black")
                 {
-                    theBGColor = System.Drawing.Color.Black;
+                    theBGColor = Color.Black;
                 }
                 else if (ddlBGColor.SelectedValue.ToLower() == "white")
                 {
-                    theBGColor = System.Drawing.Color.White;
+                    theBGColor = Color.White;
                 }
 
                 // delete main image if exists
@@ -173,17 +171,17 @@ namespace DasKlub.m.auth
                 }
 
                 // 300 x 300  
-                imgPhoto = (System.Drawing.Image)b;
+                imgPhoto = b;
                 imgPhoto = ImageResize.FixedSize(imgPhoto, 300, 300, theBGColor);
-                saveS = fileRoot +  artprop.ArtistID.ToString() + "/" + fileGuid.ToString() + "_main.jpg";
+                saveS = fileRoot + artprop.ArtistID.ToString() + "/" + fileGuid.ToString() + "_main.jpg";
 
-                string artistFolder = ArtistProperty.ARTISTIMAGEPREFIX +  artprop.ArtistID.ToString();
+                string artistFolder = ArtistProperty.ARTISTIMAGEPREFIX + artprop.ArtistID.ToString();
 
                 if (!Directory.Exists(artistFolder))
                 {
                     try
                     {
-                        Directory.CreateDirectory(Server.MapPath(artistFolder) );
+                        Directory.CreateDirectory(Server.MapPath(artistFolder));
                     }
                     catch (Exception ex)
                     {
@@ -193,7 +191,7 @@ namespace DasKlub.m.auth
 
                 imgPhoto.Save(Server.MapPath(saveS), ImageFormat.Jpeg);
                 artprop.PropertyContent = saveS;
-                 
+
 
                 if (artprop.ArtistPropertyID == 0)
                 {
@@ -205,25 +203,11 @@ namespace DasKlub.m.auth
                 }
 
 
-
-
-
-
-
-
-
-
-
-
                 ///////////////////////
-
-
-
 
 
                 artprop = new ArtistProperty();
                 artprop.GetArtistPropertyForTypeArtist(art.ArtistID, SiteEnums.ArtistPropertyType.TH.ToString());
-                
 
 
                 // delete main image if exists
@@ -240,8 +224,8 @@ namespace DasKlub.m.auth
                     }
                 }
 
-                 
-                imgPhoto = (System.Drawing.Image)b;
+
+                imgPhoto = b;
                 imgPhoto = ImageResize.FixedSize(imgPhoto, 75, 75, theBGColor);
                 saveS = fileRoot + artprop.ArtistID.ToString() + "/" + fileGuid.ToString() + "_thumb.jpg";
 
@@ -271,15 +255,10 @@ namespace DasKlub.m.auth
                 {
                     artprop.Update();
                 }
-
-                 
-
- 
             }
 
 
             LoadArtistDetail(art.ArtistID);
-
         }
 
 
@@ -294,10 +273,8 @@ namespace DasKlub.m.auth
 
         protected void PageSize_Changed(object sender, EventArgs e)
         {
-            this.GetArtistsPageWise(1);
+            GetArtistsPageWise(1);
         }
- 
-
 
         #endregion
 
@@ -330,22 +307,22 @@ namespace DasKlub.m.auth
         private void SetControls()
         {
             txtArtistDescription.Attributes.Add("onkeyup",
-                "limitText(this.form." + txtArtistDescription.ClientID +
-                ",this.form.countdown,600);");
+                                                "limitText(this.form." + txtArtistDescription.ClientID +
+                                                ",this.form.countdown,600);");
 
             txtArtistDescription.Attributes.Add("onkeydown",
-                "limitText(this.form." + txtArtistDescription.ClientID +
-                ",this.form.countdown,600);");
+                                                "limitText(this.form." + txtArtistDescription.ClientID +
+                                                ",this.form.countdown,600);");
 
             ////
 
             txtArtistMetaDescription.Attributes.Add("onkeyup",
-    "limitText(this.form." + txtArtistMetaDescription.ClientID +
-    ",this.form.countdown2,155);");
+                                                    "limitText(this.form." + txtArtistMetaDescription.ClientID +
+                                                    ",this.form.countdown2,155);");
 
             txtArtistMetaDescription.Attributes.Add("onkeydown",
-                "limitText(this.form." + txtArtistMetaDescription.ClientID +
-                ",this.form.countdown2,155);");
+                                                    "limitText(this.form." + txtArtistMetaDescription.ClientID +
+                                                    ",this.form.countdown2,155);");
         }
 
         private void ClearControls()
@@ -371,9 +348,9 @@ namespace DasKlub.m.auth
 
         private void PopulatePager(int recordCount, int currentPage)
         {
-            double dblPageCount = (double)((decimal)recordCount / decimal.Parse(ddlPageSize.SelectedValue));
-            int pageCount = (int)Math.Ceiling(dblPageCount);
-            List<ListItem> pages = new List<ListItem>();
+            var dblPageCount = (double) (recordCount/decimal.Parse(ddlPageSize.SelectedValue));
+            var pageCount = (int) Math.Ceiling(dblPageCount);
+            var pages = new List<ListItem>();
             if (pageCount > 0)
             {
                 pages.Add(new ListItem("First", "1", currentPage > 1));

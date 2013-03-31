@@ -1,24 +1,25 @@
-﻿@{
-    ViewBag.Title =BootBaronLib.Resources.Messages.OnlineNow;
+﻿@using BootBaronLib.Resources
+@{
+    ViewBag.Title = Messages.OnlineNow;
 }
 
 <div class="row" >
-<div class="span8">
-@{Html.RenderPartial("_AdBanner"); }
-<h2>@Html.Raw(BootBaronLib.Resources.Messages.OnlineNow)</h2>
-      <hr />
-         <i>@BootBaronLib.Resources.Messages.SortedByActivity</i>
-    <div id="online_users">
+    <div class="span8">
+        @{ Html.RenderPartial("_AdBanner"); }
+        <h2>@Html.Raw(Messages.OnlineNow)</h2>
+        <hr />
+        <i>@Messages.SortedByActivity</i>
+        <div id="online_users">
    
-    @Html.Raw(Model.ToUnorderdList)
+            @Html.Raw(Model.ToUnorderdList)
         </div>
-       </div>
+    </div>
        
-       <div class="span4">
-              <div class="clear"></div>
-          @{Html.RenderPartial("_AdBanner2"); }
+    <div class="span4">
+        <div class="clear"></div>
+        @{ Html.RenderPartial("_AdBanner2"); }
       
-       </div>
+    </div>
 
 </div>
 
@@ -27,37 +28,31 @@
 
     <script type="text/javascript">
 
-
         var lastPost = '';
 
 
         function loadOnlineUsers() {
 
-            
 
             $.post($rootUrl + 'findusers/onlinenow?time=' + new Date().getTime(),
+                function(data) {
 
-                          function (data) {
-                              
-                              if (lastPost != data.Value) {
+                    if (lastPost != data.Value) {
 
-                                  $("#online_users").fadeOut('fast');
+                        $("#online_users").fadeOut('fast');
 
-                                  $("#online_users").html(data.Value);
+                        $("#online_users").html(data.Value);
 
-                                  $("#online_users").fadeIn("slow");
-                             }
+                        $("#online_users").fadeIn("slow");
+                    }
 
-                              lastPost = data.Value;
-                          });
+                    lastPost = data.Value;
+                });
 
 
-            
         }
 
         setInterval(loadOnlineUsers, 15000);
 
-
-
-        </script>
-    }
+    </script>
+}

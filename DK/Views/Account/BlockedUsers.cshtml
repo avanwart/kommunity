@@ -1,26 +1,27 @@
-﻿@{
-    ViewBag.Title = BootBaronLib.Resources.Messages.BlockedUsers;
+﻿@using BootBaronLib.Resources
+@{
+    ViewBag.Title = Messages.BlockedUsers;
 }
 
 <div class="vid_filter_block" >
  
-<h2> @BootBaronLib.Resources.Messages.BlockedUsers</h2>
-@*<i>These are users you have blocked from seeing your profile or sending you messages</i>
+    <h2> @Messages.BlockedUsers</h2>
+    @*<i>These are users you have blocked from seeing your profile or sending you messages</i>
 <br />*@
     <hr />
-<br />
+    <br />
 
-<a href="@Url.Content("~/account/myusers")">@BootBaronLib.Resources.Messages.MyZone</a> &gt; @BootBaronLib.Resources.Messages.BlockedUsers
- <br />
- <img src="~/Content/images/userstatus/block_user.png" />
- <br />
+    <a href="@Url.Content("~/account/myusers")">@Messages.MyZone</a> &gt; @Messages.BlockedUsers
+    <br />
+    <img src="~/Content/images/userstatus/block_user.png" />
+    <br />
   
-  @if (ViewBag.BlockedUsers != null)
-{
+    @if (ViewBag.BlockedUsers != null)
+    {
         @Html.Raw(ViewBag.BlockedUsers)
-}
+    }
 
 
-        <div class="clear"></div>
+    <div class="clear"></div>
         
 </div>

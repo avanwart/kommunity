@@ -1,132 +1,125 @@
-﻿@{
-    ViewBag.Title = BootBaronLib.Resources.Messages.Reply;
+﻿@using BootBaronLib.Resources
+@{
+    ViewBag.Title = Messages.Reply;
 }
 <div class="row">
     <div class="span8">
-        @{Html.RenderPartial("_AdBanner"); }
-        <h2>@BootBaronLib.Resources.Messages.SendMessage : @ViewBag.DisplayName</h2>
+        @{ Html.RenderPartial("_AdBanner"); }
+        <h2>@Messages.SendMessage : @ViewBag.DisplayName</h2>
         <hr />
         <ul>@Html.Raw(ViewBag.CurrentUser)</ul>
         <br />
         <form action="@Url.Content("~/account/send")" method="post">
       
-        <textarea id="message_text" rows="4" name="message"  class="input-xlarge expand50-300"></textarea>
+            <textarea id="message_text" rows="4" name="message"  class="input-xlarge expand50-300"></textarea>
    
-      <input id="submit_post" class="btn btn-success" type="submit" value="@BootBaronLib.Resources.Messages.Send" />
+            <input id="submit_post" class="btn btn-success" type="submit" value="@Messages.Send" />
 
       
 
-        <input type="hidden" name="displayname" value="@ViewBag.DisplayName" />
+            <input type="hidden" name="displayname" value="@ViewBag.DisplayName" />
         
         </form>
          
  
 
 
-       <div id="mail_messages">
-     @Html.Raw( ViewBag.DirectMessages)
-     </div>
-                      @if (Convert.ToInt32(ViewBag.RecordCount) > 0)
-                      {
-                          if (Request.Browser.IsMobileDevice)
-                          {
-
-   <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@BootBaronLib.Resources.Messages.LoadMore</button> 
-                          }
-                        
-                           
-                      }
-                       @{Html.RenderPartial("_bottomLoadingMessage"); }
+        <div id="mail_messages">
+            @Html.Raw(ViewBag.DirectMessages)
+        </div>
+        @if (Convert.ToInt32(ViewBag.RecordCount) > 0)
+        {
+            if (Request.Browser.IsMobileDevice)
+            {
+                <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@Messages.LoadMore</button>
+            }
+        }
+        @{ Html.RenderPartial("_bottomLoadingMessage"); }
 
     </div>
     <div class="span4">
-        @{Html.RenderPartial("_AdBanner2"); }
+        @{ Html.RenderPartial("_AdBanner2"); }
     </div>
  
- </div>
+</div>
 
 @section _javascript {
 
     <script type="text/javascript">
 
-        $('#submit_post').click(function (event) {
+        $('#submit_post').click(function(event) {
 
             $(this).attr("disabled", true);
-            $(this).parents('form').submit()
-          
-
+            $(this).parents('form').submit();
         });
 
     </script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $("#message_text").focus();
-
-    });
-</script>
-
-
-        @if (Request.Browser.IsMobileDevice)
-        {
-
-            <script type="text/javascript">
-
-
-                $('#load_more').click(function () {
-
-                    $('#loading').fadeIn();
-                    $.post($rootUrl + 'account/ReplyMailItems', { pageNumber: pageNumber },
-                           function (data) {
-
-                               pageNumber++;
-                               $('#mail_items').append(data.ListItems);
-                               $('#loading').fadeOut();
-                           });
-
-                });
-
-                     </script>
-        }
-        else
-        
-        {
 
     <script type="text/javascript">
+        $(document).ready(function() {
 
-        $(function () {
-            $('#mail_items').scrollPagination({
-                'contentPage': $rootUrl + 'account/ReplyMailItems', // the page where you are searching for results
-                'contentData': {}, // you can pass the children().size() to know where is the pagination
-                'scrollTarget': $(window), // who gonna scroll? in this example, the full window
-                'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please
-                'beforeLoad': function () { // before load, some function, maybe display a preloader div
-                    $('#loading').fadeIn();
-                },
-                'afterLoad': function (elementsLoaded) { // after loading, some function to animate results and hide a preloader div
-                    $('#loading').fadeOut();
-                    pageNumber++;
-                    var i = 0;
-                    $(elementsLoaded).fadeInWithDelay();
-                    if ($('#mail_items').children().size() > 10000) { // if more than 100 results loaded stop pagination (only for test)
-                        $('#nomoreresults').fadeIn();
-                        $('#mail_items').stopScrollPagination();
-                    }
-                }
-            });
-
-            // code for fade in element by element with delay
-            $.fn.fadeInWithDelay = function () {
-                var delay = 0;
-                return this.each(function () {
-                    $(this).delay(delay).animate({ opacity: 1 }, 200);
-                    delay += 100;
-                });
-            };
+            $("#message_text").focus();
 
         });
-
     </script>
-            }
+
+
+    @if (Request.Browser.IsMobileDevice)
+    {
+        <script type="text/javascript">
+
+            $('#load_more').click(function() {
+
+                $('#loading').fadeIn();
+                $.post($rootUrl + 'account/ReplyMailItems', { pageNumber: pageNumber },
+                    function(data) {
+
+                        pageNumber++;
+                        $('#mail_items').append(data.ListItems);
+                        $('#loading').fadeOut();
+                    });
+
+            });
+
+        </script>
+    }
+    else
+
+    {
+        <script type="text/javascript">
+
+            $(function() {
+                $('#mail_items').scrollPagination({
+                    'contentPage': $rootUrl + 'account/ReplyMailItems', // the page where you are searching for results
+                    'contentData': {}, // you can pass the children().size() to know where is the pagination
+                    'scrollTarget': $(window), // who gonna scroll? in this example, the full window
+                    'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please
+                    'beforeLoad': function() { // before load, some function, maybe display a preloader div
+                        $('#loading').fadeIn();
+                    },
+                    'afterLoad': function(elementsLoaded) { // after loading, some function to animate results and hide a preloader div
+                        $('#loading').fadeOut();
+                        pageNumber++;
+                        var i = 0;
+                        $(elementsLoaded).fadeInWithDelay();
+                        if ($('#mail_items').children().size() > 10000) { // if more than 100 results loaded stop pagination (only for test)
+                            $('#nomoreresults').fadeIn();
+                            $('#mail_items').stopScrollPagination();
+                        }
+                    }
+                });
+
+                // code for fade in element by element with delay
+                $.fn.fadeInWithDelay = function() {
+                    var delay = 0;
+                    return this.each(function() {
+                        $(this).delay(delay).animate({ opacity: 1 }, 200);
+                        delay += 100;
+                    });
+                };
+
+            });
+
+        </script>
+    }
 }

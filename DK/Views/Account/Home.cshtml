@@ -1,7 +1,8 @@
-﻿@using BootBaronLib.Operational
-@using BootBaronLib.Resources;
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL
+@using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
+@using BootBaronLib.Operational
+@using BootBaronLib.Resources
 @using BootBaronLib.Values
-@using DasKlub.Helpers
 @using DasKlub.Helpers
 @{
     ViewBag.Title = Messages.StatusUpdate;
@@ -14,7 +15,7 @@
         {
             <h5>@Messages.Notifications</h5>
             <ul class="notification_list">
-                @foreach (BootBaronLib.AppSpec.DasKlub.BOL.StatusUpdateNotification sun in ViewBag.Notifications)
+                @foreach (StatusUpdateNotification sun in ViewBag.Notifications)
                 {
                     @Html.Raw(sun.ToUnorderdListItem)
                 }
@@ -23,55 +24,51 @@
         }
         @if (ViewBag.MostApplauded != null)
         {
-      
-        
             <b class="green">@Messages.MostApplaudedThisWeek</b>
             <br />
             <ol>
-                @foreach (BootBaronLib.AppSpec.DasKlub.BOL.StatusUpdate s1 in ViewBag.MostApplauded)
+                @foreach (StatusUpdate s1 in ViewBag.MostApplauded)
                 {
                     <li>
-                          @{BootBaronLib.AppSpec.DasKlub.BOL.UserAccount ua = new BootBaronLib.AppSpec.DasKlub.BOL.UserAccount(
-                             Convert.ToInt32(s1.UserAccountID));    
-                        }
+                        @{ var ua = new UserAccount(
+                               Convert.ToInt32(s1.UserAccountID)); }
               
                        
 
-                                 <div class="status_count_applaud">
-                                       <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
+                        <div class="status_count_applaud">
+                            <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
 
 
-                                         @{string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName);
-                }
+                            @{ string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName); }
              
               
-              @Html.Raw(coName)
+                            @Html.Raw(coName)
                   
 
 
-                                     <i>
-                                         @BootBaronLib.AppSpec.DasKlub.BOL.Acknowledgements.GetAcknowledgementCount(s1.StatusUpdateID, 
-                                                                                                                    Convert.ToChar(SiteEnums.AcknowledgementType.A.ToString()))</i>
-                           </div>
+                            <i>
+                                @Acknowledgements.GetAcknowledgementCount(s1.StatusUpdateID,
+                                                                          Convert.ToChar(SiteEnums.AcknowledgementType.A.ToString()))</i>
+                        </div>
 
                         @if (s1.PhotoItemID != null)
                         {
-                            BootBaronLib.AppSpec.DasKlub.BOL.PhotoItem pitem
-                                = new BootBaronLib.AppSpec.DasKlub.BOL.PhotoItem(Convert.ToInt32(s1.PhotoItemID));
+                            var pitem
+                                = new PhotoItem(Convert.ToInt32(s1.PhotoItemID));
                             <a class="m_over"
-         title="@s1.Message"
-         href="@Url.Content("~/account/statusupdate/" + s1.StatusUpdateID)">
-                                <img style="border:none" src="@Html.S3ContentPath(pitem.FilePathThumb)" alt="@Messages.MostApplaudedThisWeek" title="@Messages.MostApplaudedThisWeek" />
+                               title="@s1.Message"
+                               href="@Url.Content("~/account/statusupdate/" + s1.StatusUpdateID)">
+                                <img style="border: none" src="@Html.S3ContentPath(pitem.FilePathThumb)" alt="@Messages.MostApplaudedThisWeek" title="@Messages.MostApplaudedThisWeek" />
                             </a>
                             <br />
                         }
-                      <br />
+                        <br />
                         <i>
                             
-                             @Html.Raw( BootBaronLib.AppSpec.DasKlub.BOL.Video.IFrameVideo(s1.Message, 120) )
+                            @Html.Raw(Video.IFrameVideo(s1.Message, 120))
                             <a 
-         title="@FromString.Truncate(s1.Message, 50)"
-         href="@Url.Content("~/account/statusupdate/" + s1.StatusUpdateID)">
+                                title="@FromString.Truncate(s1.Message, 50)"
+                                href="@Url.Content("~/account/statusupdate/" + s1.StatusUpdateID)">
                                 @Messages.Link</a> </i>
                         <hr />
                     </li>
@@ -80,37 +77,34 @@
         }
         @if (ViewBag.MostCommented != null)
         {
-          
-            <b class="yellow">@Messages.MostCommentedOnThisWeek</b>  
+            <b class="yellow">@Messages.MostCommentedOnThisWeek</b>
             <br />
-              <div class="status_comment_count">
-                     @{BootBaronLib.AppSpec.DasKlub.BOL.UserAccount ua = new BootBaronLib.AppSpec.DasKlub.BOL.UserAccount(
-   Convert.ToInt32(ViewBag.MostCommented.UserAccountID));
-        }
-                   <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
+            <div class="status_comment_count">
+                @{ var ua = new UserAccount(
+                       Convert.ToInt32(ViewBag.MostCommented.UserAccountID)); }
+                <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
                   
-                                         @{string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName);
-                                           }
+                @{ string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName); }
              
               
-              @Html.Raw(coName)
+                @Html.Raw(coName)
                    
-                  <i>
-                    @BootBaronLib.AppSpec.DasKlub.BOL.StatusComments.GetStatusCommentCount(ViewBag.MostCommented.StatusUpdateID)
-               </i>   </div>
+                <i>
+                    @StatusComments.GetStatusCommentCount(ViewBag.MostCommented.StatusUpdateID)
+                </i>   </div>
             if (ViewBag.MostCommented.PhotoItemID != null)
             {
-                BootBaronLib.AppSpec.DasKlub.BOL.PhotoItem pitem
-                    = new BootBaronLib.AppSpec.DasKlub.BOL.PhotoItem(Convert.ToInt32(ViewBag.MostCommented.PhotoItemID));
-            <a class="m_over" title="@ViewBag.MostCommented.Message" href="@Url.Content("~/account/statusupdate/" + ViewBag.MostCommented.StatusUpdateID)">
-                <img src="@Html.S3ContentPath(pitem.FilePathThumb)" alt="@Messages.MostCommentedOnThisWeek" title="@Messages.MostCommentedOnThisWeek" />
-            </a>
-            <br />
+                var pitem
+                    = new PhotoItem(Convert.ToInt32(ViewBag.MostCommented.PhotoItemID));
+                <a class="m_over" title="@ViewBag.MostCommented.Message" href="@Url.Content("~/account/statusupdate/" + ViewBag.MostCommented.StatusUpdateID)">
+                    <img src="@Html.S3ContentPath(pitem.FilePathThumb)" alt="@Messages.MostCommentedOnThisWeek" title="@Messages.MostCommentedOnThisWeek" />
+                </a>
+                <br />
             }
-         <br />
+            <br />
             <i>
              
-                   @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.Video.IFrameVideo(ViewBag.MostCommented.Message, 120))
+                @Html.Raw(Video.IFrameVideo(ViewBag.MostCommented.Message, 120))
                 <a title="@FromString.Truncate(ViewBag.MostCommented.Message, 50)" href="@Url.Content("~/account/statusupdate/" + ViewBag.MostCommented.StatusUpdateID)">
                     @Messages.Link</a> </i>
             <hr />
@@ -118,77 +112,71 @@
         }
         @if (ViewBag.MostBeatDown != null)
         {
-       
             <b class="red">@Messages.MostBeatenDownThisWeek</b>
             <br />
-            
-                                 <div class="status_count_beatdown">
-                                      @{BootBaronLib.AppSpec.DasKlub.BOL.UserAccount ua = new BootBaronLib.AppSpec.DasKlub.BOL.UserAccount(
-Convert.ToInt32(ViewBag.MostBeatDown.UserAccountID));
-        }
-                 <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
+
+            <div class="status_count_beatdown">
+                @{ var ua = new UserAccount(
+                       Convert.ToInt32(ViewBag.MostBeatDown.UserAccountID)); }
+                <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
                                      
-                                        @{string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName);
-                }
+                @{ string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName); }
              
               
-              @Html.Raw(coName)
+                @Html.Raw(coName)
                                
-                                     <i>
-                                         @BootBaronLib.AppSpec.DasKlub.BOL.Acknowledgements.GetAcknowledgementCount(ViewBag.MostBeatDown.StatusUpdateID,
-                                                                                                                    Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString()))</i>
-                           </div>
+                <i>
+                    @Acknowledgements.GetAcknowledgementCount(ViewBag.MostBeatDown.StatusUpdateID,
+                                                              Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString()))</i>
+            </div>
             if (ViewBag.MostBeatDown.PhotoItemID != null)
             {
-                BootBaronLib.AppSpec.DasKlub.BOL.PhotoItem pitem
-                    = new BootBaronLib.AppSpec.DasKlub.BOL.PhotoItem(Convert.ToInt32(ViewBag.MostBeatDown.PhotoItemID));
-            <a class="m_over" title="@ViewBag.MostBeatDown.Message" href="@Url.Content("~/account/statusupdate/" + ViewBag.MostBeatDown.StatusUpdateID)">
-                <img src="@Html.S3ContentPath(pitem.FilePathThumb)" alt="@Messages.MostBeatenDownThisWeek" title="@Messages.MostBeatenDownThisWeek" />
-            </a>
-            <br />
+                var pitem
+                    = new PhotoItem(Convert.ToInt32(ViewBag.MostBeatDown.PhotoItemID));
+                <a class="m_over" title="@ViewBag.MostBeatDown.Message" href="@Url.Content("~/account/statusupdate/" + ViewBag.MostBeatDown.StatusUpdateID)">
+                    <img src="@Html.S3ContentPath(pitem.FilePathThumb)" alt="@Messages.MostBeatenDownThisWeek" title="@Messages.MostBeatenDownThisWeek" />
+                </a>
+                <br />
             }
-           <br /> 
+            <br />
             <i>
  
-                 @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.Video.IFrameVideo(ViewBag.MostBeatDown.Message, 120))
+                @Html.Raw(Video.IFrameVideo(ViewBag.MostBeatDown.Message, 120))
                 <a title="@ViewBag.MostBeatDown.Message" href="@Url.Content("~/account/statusupdate/" + ViewBag.MostBeatDown.StatusUpdateID)">
                     @Messages.Link</a> </i>
-                 <hr />
+            <hr />
         }
    
-                 @{Html.RenderPartial("_AdBanner3"); } 
+        @{ Html.RenderPartial("_AdBanner3"); } 
     </div>
     <div class="span7">
         <div class="row" style="margin-left: 0;">
-            @{Html.RenderPartial("_AdBanner"); }
-            <h2>@BootBaronLib.Resources.Messages.StatusUpdate</h2>
+            @{ Html.RenderPartial("_AdBanner"); }
+            <h2>@Messages.StatusUpdate</h2>
              
-              <hr />
-            @using (Html.BeginForm("home", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            <hr />
+            @using (Html.BeginForm("home", "Account", FormMethod.Post, new {enctype = "multipart/form-data"}))
             {
-        
                 <div class="span4" style="margin: 0;">
                     <textarea id="message_text" rows="4" name="message" style="width: 80%;" class="input-xlarge expand65-600"></textarea>
                 </div>
-                
-              
+
+
                 <div class="span2" style="margin: 0;">
                     <img
                         class="upload_photo"
-                         alt="@BootBaronLib.Resources.Messages.Photo" title="@BootBaronLib.Resources.Messages.Photo" src="@Url.Content("~/content/images/icons/icon_photo.png")"  />
-                    <div style="display:inline;color:#08C"  class="upload_photo">@BootBaronLib.Resources.Messages.UploadPhoto</div>
+                        alt="@Messages.Photo" title="@Messages.Photo" src="@Url.Content("~/content/images/icons/icon_photo.png")"  />
+                    <div style="color: #08C; display: inline;"  class="upload_photo">@Messages.UploadPhoto</div>
                     <div class="upload_photo_input" style="display: none">
                         <input type="file" id="fileUpload" name="file" style="float: left;" />
                         <br />
                     </div>
                     <br />
                     <br />
-                     <button type="submit" id="submit_post" class="btn btn-success">@Messages.Submit</button>
+                    <button type="submit" id="submit_post" class="btn btn-success">@Messages.Submit</button>
                     <br />
           
                 </div>
-                
-
             }
             <a name="most_recent"></a>
         </div>
@@ -198,25 +186,24 @@ Convert.ToInt32(ViewBag.MostBeatDown.UserAccountID));
         </div>
         @if (Request.Browser.IsMobileDevice)
         {
-
-            <button class="btn btn-primary dropdown-toggle" id="load_more_statuses" type="button">@BootBaronLib.Resources.Messages.LoadMore</button> 
+            <button class="btn btn-primary dropdown-toggle" id="load_more_statuses" type="button">@Messages.LoadMore</button>
         }
-        @{Html.RenderPartial("_bottomLoadingMessage"); }
+        @{ Html.RenderPartial("_bottomLoadingMessage"); }
         <div class="clear">
         </div>
     </div>
     <div class="span2">
 
-      <div class="clear"></div>
-                @{Html.RenderPartial("_AdBanner2"); } 
+        <div class="clear"></div>
+        @{ Html.RenderPartial("_AdBanner2"); } 
 
 
-        <div style=" color:#000 !important;">
+        <div style="color: #000 !important;">
 
             <hr />
-            @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
                 SiteEnums.SiteBrandType.STATU,
-                BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+                Utilities.GetCurrentLanguageCode()))
 
 
  
@@ -230,42 +217,39 @@ Convert.ToInt32(ViewBag.MostBeatDown.UserAccountID));
 
     <script type="text/javascript">
 
-        $('#submit_post').click(function (event) {
+        $('#submit_post').click(function(event) {
 
             $(this).attr("disabled", true);
-            $(this).parents('form').submit()
-           
+            $(this).parents('form').submit();
         });
 
     </script>
  
     <script type="text/javascript">
 
-        $(".upload_photo").click(function () {
+        $(".upload_photo").click(function() {
 
             $('.upload_photo_input').show();
         });
     </script>
-    @{Html.RenderPartial("_statusCommenting-js"); }
+    @{ Html.RenderPartial("_statusCommenting-js"); }
 
     @if (Request.Browser.IsMobileDevice)
     {
-
         <script type="text/javascript">
 
-
-            $('#load_more_statuses').click(function () {
+            $('#load_more_statuses').click(function() {
 
                 $('#loading').fadeIn();
                 $.post($rootUrl + 'account/StatusUpdates?time=' + new Date().getTime(), { pageNumber: pageNumber },
-                           function (data) {
+                    function(data) {
 
-                               pageNumber++;
-                               $('#status_update_list_items').append(data.ListItems);
+                        pageNumber++;
+                        $('#status_update_list_items').append(data.ListItems);
 
-                               bindToOptions();
-                               $('#loading').fadeOut();
-                           });
+                        bindToOptions();
+                        $('#loading').fadeOut();
+                    });
 
             });
 
@@ -274,18 +258,17 @@ Convert.ToInt32(ViewBag.MostBeatDown.UserAccountID));
     else
     {
         <script type="text/javascript">
-         
 
-            $(function () {
+            $(function() {
                 $('#status_update_list_items').scrollPagination({
                     'contentPage': $rootUrl + 'account/StatusUpdates', // the page where you are searching for results
                     'contentData': {}, // you can pass the children().size() to know where is the pagination
                     'scrollTarget': $(window), // who gonna scroll? in this example, the full window
                     'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please
-                    'beforeLoad': function () { // before load, some function, maybe display a preloader div
+                    'beforeLoad': function() { // before load, some function, maybe display a preloader div
                         $('#loading').fadeIn();
                     },
-                    'afterLoad': function (elementsLoaded) { // after loading, some function to animate results and hide a preloader div
+                    'afterLoad': function(elementsLoaded) { // after loading, some function to animate results and hide a preloader div
                         $('#loading').fadeOut();
                         bindToOptions();
                         pageNumber++;
@@ -299,58 +282,55 @@ Convert.ToInt32(ViewBag.MostBeatDown.UserAccountID));
                 });
 
                 // code for fade in element by element with delay
-                $.fn.fadeInWithDelay = function () {
+                $.fn.fadeInWithDelay = function() {
                     var delay = 0;
-                    return this.each(function () {
+                    return this.each(function() {
                         $(this).delay(delay).animate({ opacity: 1 }, 600);
                         delay += 100;
                     });
                 };
 
             });
- 
+
             var hasInteractedWithPost = false;
             var lastPost = '';
 
-            $("#status_update_list_items ").click(function () {
+            $("#status_update_list_items ").click(function() {
                 // stop refresh if they click on a status
                 hasInteractedWithPost = true;
             });
 
-            $(".you_tube_iframe").hover(function () {
+            $(".you_tube_iframe").hover(function() {
                 // stop refresh if they hover a video, click needs a call back from the player apparently 
                 hasInteractedWithPost = true;
             });
 
-           
 
             function loadNewContent() {
 
                 if (pageNumber == 2 && !hasInteractedWithPost) {
 
                     $.post($rootUrl + 'account/StatusUpdates?time=' + new Date().getTime(), { pageNumber: 1 },
-                            function (data) {
-                                 
-                                if (lastPost != data.ListItems) {
+                        function(data) {
 
-                                    $('#status_update_list_items').fadeOut('fast');
-                                    $('#status_update_list_items').html('');
-                                    $('#status_update_list_items').append(data.ListItems);
-                                    $('#status_update_list_items').fadeIn('fast');
-                                    bindToOptions();
-                                }
+                            if (lastPost != data.ListItems) {
 
-                                lastPost = data.ListItems;
-                            });
+                                $('#status_update_list_items').fadeOut('fast');
+                                $('#status_update_list_items').html('');
+                                $('#status_update_list_items').append(data.ListItems);
+                                $('#status_update_list_items').fadeIn('fast');
+                                bindToOptions();
+                            }
+
+                            lastPost = data.ListItems;
+                        });
                 }
 
             }
 
 
-            
-                setInterval(loadNewContent, 15000);
+            setInterval(loadNewContent, 15000);
 
-         
         </script>
     }
 }

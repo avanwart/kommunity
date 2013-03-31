@@ -13,23 +13,20 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 
 namespace DasKlub
 {
-    public partial class AffReport : System.Web.UI.Page
+    public partial class AffReport : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (!IsPostBack)
             {
-                UserAccount ua = new UserAccount(Request.QueryString["username"]);
+                var ua = new UserAccount(Request.QueryString["username"]);
 
                 if (ua.UserAccountID == 0) return;
 

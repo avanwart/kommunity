@@ -1,5 +1,4 @@
-﻿Imports System
-Imports System.Reflection
+﻿Imports System.Reflection
 Imports System.Runtime.InteropServices
 
 ' General Information about an assembly is controlled through the following 
@@ -8,17 +7,17 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("SearchCloud")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("Intrepid Studios, Inc.")> 
-<Assembly: AssemblyProduct("SearchCloud")> 
-<Assembly: AssemblyCopyright("Copyright © Intrepid Studios, Inc. 2008")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyTitle("SearchCloud")>
+<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyCompany("Intrepid Studios, Inc.")>
+<Assembly: AssemblyProduct("SearchCloud")>
+<Assembly: AssemblyCopyright("Copyright © Intrepid Studios, Inc. 2008")>
+<Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("5830f636-f16e-467e-9e47-69416b97b62f")> 
+<Assembly: Guid("5830f636-f16e-467e-9e47-69416b97b62f")>
 
 ' Version information for an assembly consists of the following four values:
 '
@@ -30,5 +29,5 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("1.0.0.*")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("1.0.0.*")>
+<Assembly: AssemblyFileVersion("1.0.0.0")>

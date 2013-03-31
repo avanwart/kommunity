@@ -1,59 +1,59 @@
 ﻿@model Message
 <li id="msg@(Model.Id)">
-	@if (Config.UI.ShowUserDetailsOnList)
-	{
-		<div class="msgUser group@((int)Model.User.Role)">
-			@if (Model.User.Photo != null)
-			{
-				<div class="photo"><img src="@Model.User.Photo" alt="@Model.User.UserName" /></div>
-			}
-			else
-			{
-				<div class="nophoto"><span></span></div>
-			}
-			<div class="userName"><strong>@Model.User.UserName</strong></div>
-			<div class="groupName"><span>@Model.User.RoleName</span></div>
-			<div class="memberSince">@T("Member for:") @Html.Partial("SinceDate", Model.User.RegistrationDate)</div>
-		</div>
-	}
-	<div class="msgHeader">
-		<strong class="number">
-			<a class="msgId" rel="nofollow"
-				href="@(ViewData.Get<bool>("FullUrl", false) ? Url.Action(null, null, new{page=0}) : "")#msg@(Model.Id)" 
-				onclick="window.location.hash='#msg@(Model.Id)';return false;">#@(Model.Id)</a>
-		</strong>
-		<span class="userSep">
-		@T("by")
-		</span>
-		<strong class="userName">@Html.ActionLink(Model.User.UserName, "Detail", "Users", new{id=Model.User.Id}, new{rel="nofollow"})</strong>
-		<span class="dateSep">
+    @if (Config.UI.ShowUserDetailsOnList)
+    {
+        <div class="msgUser group@((int) Model.User.Role)">
+            @if (Model.User.Photo != null)
+            {
+                <div class="photo"><img src="@Model.User.Photo" alt="@Model.User.UserName" /></div>
+            }
+            else
+            {
+                <div class="nophoto"><span></span></div>
+            }
+            <div class="userName"><strong>@Model.User.UserName</strong></div>
+            <div class="groupName"><span>@Model.User.RoleName</span></div>
+            <div class="memberSince">@T("Member for:") @Html.Partial("SinceDate", Model.User.RegistrationDate)</div>
+        </div>
+    }
+    <div class="msgHeader">
+        <strong class="number">
+            <a class="msgId" rel="nofollow"
+               href="@(ViewData.Get<bool>("FullUrl", false) ? Url.Action(null, null, new {page = 0}) : "")#msg@(Model.Id)" 
+               onclick=" window.location.hash = '#msg@(Model.Id)';return false; ">#@(Model.Id)</a>
+        </strong>
+        <span class="userSep">
+            @T("by")
+        </span>
+        <strong class="userName">@Html.ActionLink(Model.User.UserName, "Detail", "Users", new {id = Model.User.Id}, new {rel = "nofollow"})</strong>
+        <span class="dateSep">
 		 
-		</span>
-		@Html.Date(Model.Date)
-	</div>
-	<div class="msgBody">
-		@if (this.Model.Active)
-		{
-			@Html.Raw(Model.Body)
-		}
-		else
-		{
-			<p class="removed">@T("The message was removed by a forum moderator.")</p>
-		}
-	</div>
-	<div class="msgOptions">
-		@Html.LinkLocalized("link", (ViewData.Get<bool>("FullUrl", false) ? Url.Action(null, null, new { page = 0 }) : "") + "#msg" + Model.Id, new { @class = "first" })
-		@if (ViewData.GetDefault<bool>("HasPostAccess"))
-		{
-			@Html.ActionLinkLocalized("reply", "Add", "Messages", new { msg = Model.Id }, new { rel = "nofollow" })
-		}
-		@if (Model.Active)
-		{
-			if (Role >= UserRole.Moderator)
-			{
-				@Html.LinkLocalized("remove", "#", new { onclick = "return deleteMessage(" + Model.Id + ", '" + @Url.Action("Delete", "Messages") + "');" })
-			}
-			@Html.LinkLocalized("flag", "#", new { onclick = "return flagMessage(" + Model.Id + ", '" + @Url.Action("Flag", "Messages") + "');" })
-		}
-	</div>
+        </span>
+        @Html.Date(Model.Date)
+    </div>
+    <div class="msgBody">
+        @if (Model.Active)
+        {
+            @Html.Raw(Model.Body)
+        }
+        else
+        {
+            <p class="removed">@T("The message was removed by a forum moderator.")</p>
+        }
+    </div>
+    <div class="msgOptions">
+        @Html.LinkLocalized("link", (ViewData.Get<bool>("FullUrl", false) ? Url.Action(null, null, new {page = 0}) : "") + "#msg" + Model.Id, new {@class = "first"})
+        @if (ViewData.GetDefault<bool>("HasPostAccess"))
+        {
+            @Html.ActionLinkLocalized("reply", "Add", "Messages", new {msg = Model.Id}, new {rel = "nofollow"})
+        }
+        @if (Model.Active)
+        {
+            if (Role >= UserRole.Moderator)
+            {
+                @Html.LinkLocalized("remove", "#", new {onclick = "return deleteMessage(" + Model.Id + ", '" + @Url.Action("Delete", "Messages") + "');"})
+            }
+            @Html.LinkLocalized("flag", "#", new {onclick = "return flagMessage(" + Model.Id + ", '" + @Url.Action("Flag", "Messages") + "');"})
+        }
+    </div>
 </li>

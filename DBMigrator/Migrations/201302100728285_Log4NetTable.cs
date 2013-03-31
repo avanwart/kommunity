@@ -5,7 +5,7 @@ namespace DBMigrator.Migrations
     public partial class Log4NetTable : DbMigration
     {
         public override void Up()
-        { 
+        {
             Sql(@"
 
 EXEC sp_executesql N'
@@ -47,7 +47,7 @@ INSERT INTO Log4Net ([Date],[Thread],[Level],[Logger],[Message],[Exception], [Lo
 
 ");
         }
-        
+
         public override void Down()
         {
             Sql(@"

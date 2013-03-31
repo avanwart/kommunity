@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,47 +26,8 @@ using SignalR.Hubs;
 
 namespace DasKlub.Controllers
 {
-
     public class Chat : Hub, IConnected, IDisconnect
     {
-        public void Send(string message, int userAccountID)
-        {
-            if (string.IsNullOrWhiteSpace(message) || (userAccountID == 0)) return;
-
-            var cr = new ChatRoom {ChatMessage = message, CreatedByUserID = userAccountID};
-
-            cr.Create();
-
-            var uad = new UserAccountDetail();
-            uad.GetUserAccountDeailForUser(userAccountID);
-            string userFace = string.Format(@"<div class=""user_face"">{0}</div>", uad.UserFace);
-
-            if (!message.Contains("CONNECTION OPENED") && !message.Contains("CONNECTION CLOSED") && !message.Contains("RECONNECT"))
-            {
-                message = HttpUtility.HtmlEncode(message);
-                message = Video.IFrameVideo(message);
-            }
-
-            // Call the addMessage method on all clients
-            Clients.addMessage(string.Format(@"{2} <span style=""font-size:10px"">{0}</span> <span style=""font-size:14px;color:#FFF;font-family: ‘Lucida Sans Unicode’, ‘Lucida Grande’, sans-serif;"">{1}</span>", DateTime.UtcNow.ToString("u"), message, userFace));
-
-        }
-
-        public Task Disconnect()
-        {
-            var cru = new ChatRoomUser();
-
-            cru.GetChatRoomUserByConnection(Context.ConnectionId);
-
-            var ua = new UserAccount(cru.CreatedByUserID);
-
-            cru.DeleteChatRoomUser();
-
-            Send(@"<i style=""color:red;font-size:10px;font-style: italic;"">CONNECTION CLOSED</i>", ua.UserAccountID);
-
-            return Clients.leave(Context.ConnectionId, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
-        }
-
         public Task Connect()
         {
             var ua = new UserAccount(Context.User.Identity.Name);
@@ -111,12 +73,52 @@ namespace DasKlub.Controllers
 
             return null;
         }
+
+        public Task Disconnect()
+        {
+            var cru = new ChatRoomUser();
+
+            cru.GetChatRoomUserByConnection(Context.ConnectionId);
+
+            var ua = new UserAccount(cru.CreatedByUserID);
+
+            cru.DeleteChatRoomUser();
+
+            Send(@"<i style=""color:red;font-size:10px;font-style: italic;"">CONNECTION CLOSED</i>", ua.UserAccountID);
+
+            return Clients.leave(Context.ConnectionId, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
+        }
+
+        private void Send(string message, int userAccountID)
+        {
+            if (string.IsNullOrWhiteSpace(message) || (userAccountID == 0)) return;
+
+            var cr = new ChatRoom {ChatMessage = message, CreatedByUserID = userAccountID};
+
+            cr.Create();
+
+            var uad = new UserAccountDetail();
+            uad.GetUserAccountDeailForUser(userAccountID);
+            string userFace = string.Format(@"<div class=""user_face"">{0}</div>", uad.UserFace);
+
+            if (!message.Contains("CONNECTION OPENED") && !message.Contains("CONNECTION CLOSED") &&
+                !message.Contains("RECONNECT"))
+            {
+                message = HttpUtility.HtmlEncode(message);
+                message = Video.IFrameVideo(message);
+            }
+
+            // Call the addMessage method on all clients
+            Clients.addMessage(
+                string.Format(
+                    @"{2} <span style=""font-size:10px"">{0}</span> <span style=""font-size:14px;color:#FFF;font-family: ‘Lucida Sans Unicode’, ‘Lucida Grande’, sans-serif;"">{1}</span>",
+                    DateTime.UtcNow.ToString("u"), message, userFace));
+        }
     }
 
 
     public class ChatController : Controller
     {
-
         public JsonResult RecentChatMessages()
         {
             var crs = new ChatRooms();
@@ -131,11 +133,10 @@ namespace DasKlub.Controllers
             }
 
             return Json(new
-            {
-                ListItems = sb.ToString()
-            });
+                {
+                    ListItems = sb.ToString()
+                });
         }
-
 
 
         public JsonResult GetChattingUsers()
@@ -148,17 +149,17 @@ namespace DasKlub.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (var cnt in crus)
+            foreach (ChatRoomUser cnt in crus)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
 
             return Json(new
-            {
-                ChattingUsers = sb.ToString()
-            });
+                {
+                    ChattingUsers = sb.ToString()
+                });
         }
-         
+
         public ActionResult Index()
         {
             return View();

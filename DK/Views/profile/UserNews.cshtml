@@ -1,22 +1,20 @@
-﻿  @{
-      ViewBag.Title = BootBaronLib.Resources.Messages.News + ": " + ViewBag.UserName;
-    
+﻿@using BootBaronLib.Resources
+@{
+    ViewBag.Title = Messages.News + ": " + ViewBag.UserName;
 }
-<div class="row" style="margin-left:0;padding-left:0">
+<div class="row" style="margin-left: 0; padding-left: 0">
 
-    <div class="span12" style="margin-left:0;padding-left:0;text-align:left;">
-    <h2>@ViewBag.UserName: @BootBaronLib.Resources.Messages.News (@ViewBag.NewsCount)</h2>
-    @{Html.RenderPartial("_AdBanner"); }
+    <div class="span12" style="margin-left: 0; padding-left: 0; text-align: left;">
+        <h2>@ViewBag.UserName: @Messages.News (@ViewBag.NewsCount)</h2>
+        @{ Html.RenderPartial("_AdBanner"); }
    
-                <ul id="article_list" class="no_mp">
-        @Html.Raw(Model.ToUnorderdList)
+        <ul id="article_list" class="no_mp">
+            @Html.Raw(Model.ToUnorderdList)
         </ul>
-                  <div class="clear"></div>
+        <div class="clear"></div>
                 
     </div>
 
 
             
 </div>
-
-    

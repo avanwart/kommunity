@@ -1,5 +1,4 @@
 ﻿@model DasKlub.Models.SiteDomainModel
-@using  DasKlub.Helpers
 @Html.HiddenFor(model => model.SiteDomainID)
 <div>
     <fieldset>
@@ -7,27 +6,27 @@
             @Html.LabelFor(m => m.PropertyType)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(m => m.PropertyType, new { @style = "width:500px" })
+            @Html.EditorFor(m => m.PropertyType, new {@style = "width:500px"})
           
         </div>
 
 
 
-          <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(m => m.Language)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(m => m.Language, new { @style = "width:500px" })
+            @Html.EditorFor(m => m.Language, new {@style = "width:500px"})
    
         </div>
 
         
-          <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(m => m.Description)
         </div>
         <div class="editor-field">
 
-         @Html.TextAreaFor(m => m.Description, new { @style = "width:500px;height:400px" })
+            @Html.TextAreaFor(m => m.Description, new {@style = "width:500px;height:400px"})
             
         </div>
  

@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections;
 
@@ -80,18 +81,7 @@ namespace DasKlub.Models
 
         public int Age { get; set; }
 
-        #region users 
-
-        public int CyberFriendCount { get; set; }
-
-        public int IRLFriendCount { get; set; }
-
-        public int ViewingUsersCount { get; set; }
-
-        #endregion
-
-
-        public ArrayList VideoPlaylist   { get; set; }
+        public ArrayList VideoPlaylist { get; set; }
 
         public string UploadedVideos { get; set; }
 
@@ -109,7 +99,6 @@ namespace DasKlub.Models
 
         public string ProfilePhotoMainThumb { get; set; }
 
- 
 
         public bool EnableProfileLogging { get; set; }
 
@@ -118,7 +107,10 @@ namespace DasKlub.Models
         public bool HasMoreThanMaxPhotos { get; set; }
 
         public int ProfileVisitorCount { get; set; }
- 
+
+        public string MetaDescription { get; set; }
+
+        public string SongRecords { get; set; }
 
         #region friendships
 
@@ -131,12 +123,17 @@ namespace DasKlub.Models
         public bool IsWatingToBeRealFriend { get; set; }
         public bool IsRealFriend { get; set; }
         public bool IsDeniedRealFriend { get; set; }
+
         #endregion
 
+        #region users 
 
+        public int CyberFriendCount { get; set; }
 
-        public string MetaDescription { get; set; }
+        public int IRLFriendCount { get; set; }
 
-        public string SongRecords { get; set; }
+        public int ViewingUsersCount { get; set; }
+
+        #endregion
     }
 }

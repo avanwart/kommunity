@@ -15,9 +15,11 @@
 //   limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -33,115 +35,26 @@ using LitS3;
 
 namespace DasKlub.Controllers
 {
-    [Authorize (Roles = "admin")]
+    [Authorize(Roles = "admin")]
     public class SiteAdminController : Controller
     {
-        MembershipUser mu = null;
+        private MembershipUser _mu;
 
         public ActionResult SiteBranding()
         {
-            SiteDomains siteDomains = new SiteDomains();
+            var siteDomains = new SiteDomains();
 
             siteDomains.GetAll();
 
             return View(siteDomains);
         }
 
-
-        #region user management
-
-        private void LoadAllRoles()
-        {
-            string[] allRoles = BootBaronLib.AppSpec.DasKlub.BOL.Role.GetAllRoles();
-
-            ViewBag.AllRoles = allRoles;
-        }
-
-        [HttpGet]
-        public ActionResult UserManagement()
-        {
-            LoadAllRoles();
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult FindByEmail(string email)
-        {
-            UserAccount ua = new UserAccount();
-            ua.GetUserAccountByEmail(email);
-
-            if (ua.UserAccountID > 0)
-            {
-                ViewBag.SelectedUser = ua;
-                UserAccountDetail uad = new UserAccountDetail();
-                uad.GetUserAccountDeailForUser(ua.UserAccountID);
-                ViewBag.UserAccountDetail = uad;
-            }
-
-            LoadAllRoles();
-
-            return View("UserManagement");
-        }
-
-        [HttpPost]
-        public ActionResult FindByUsername(string username)
-        {
-            UserAccount ua = new UserAccount(username);
-
-            if (ua.UserAccountID > 0)
-            {
-                ViewBag.SelectedUser = ua;
-                UserAccountDetail uad = new UserAccountDetail();
-                uad.GetUserAccountDeailForUser(ua.UserAccountID);
-                ViewBag.UserAccountDetail = uad;
-            }
-
-            LoadAllRoles();
-
-            return View("UserManagement");
-        }
-
-
-        [HttpPost]
-        public ActionResult UpdateRoles(int userAccountID, string[] roleOption)
-        {
-            UserAccount ua = new UserAccount(userAccountID);
-
-            // delete all their roles
-            UserAccountRole.DeleteUserRoles(userAccountID);
-
-            foreach (string newRole in roleOption)
-            {
-               Role thenewRole = new Role(newRole);
-
-               UserAccountRole.AddUserToRole(userAccountID, thenewRole.RoleID);
-            }
-
-            if (ua.UserAccountID > 0)
-            {
-                ViewBag.SelectedUser = ua;
-                UserAccountDetail uad = new UserAccountDetail();
-                uad.GetUserAccountDeailForUser(ua.UserAccountID);
-                ViewBag.UserAccountDetail = uad;
-            }
-
-            LoadAllRoles();
-
-
-            return View("UserManagement");
-        }
-
-         
-
-        #endregion
-
         [HttpGet]
         public ActionResult DeleteSiteDomain(int? siteDomainID)
         {
-            
             if (siteDomainID != null)
             {
-                SiteDomain siteDomain = new SiteDomain(Convert.ToInt32(siteDomainID));
+                var siteDomain = new SiteDomain(Convert.ToInt32(siteDomainID));
 
                 siteDomain.Delete();
             }
@@ -152,11 +65,11 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult EditSiteDomain(int? siteDomainID)
         {
-            SiteDomainModel model = new SiteDomainModel();
+            var model = new SiteDomainModel();
 
             if (siteDomainID != null)
             {
-                SiteDomain siteDomain = new SiteDomain(Convert.ToInt32( siteDomainID));
+                var siteDomain = new SiteDomain(Convert.ToInt32(siteDomainID));
 
                 model.Description = siteDomain.Description;
                 model.Language = siteDomain.Language;
@@ -176,10 +89,10 @@ namespace DasKlub.Controllers
 
             if (ModelState.IsValid)
             {
-                SiteDomain siteDomain = new SiteDomain();
+                var siteDomain = new SiteDomain();
 
                 siteDomain.Description = model.Description;
-                siteDomain.Language = ( model.Language == null) ? string.Empty : model.Language;
+                siteDomain.Language = (model.Language == null) ? string.Empty : model.Language;
                 siteDomain.PropertyType = model.PropertyType;
                 siteDomain.SiteDomainID = model.SiteDomainID;
 
@@ -189,9 +102,7 @@ namespace DasKlub.Controllers
             return RedirectToAction("SiteBranding");
         }
 
-
         #region comments
-
 
         [Authorize]
         [HttpPost]
@@ -200,26 +111,23 @@ namespace DasKlub.Controllers
             FormCollection fc,
             int? contentCommentID)
         {
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment();
+            var model = new ContentComment();
 
             if (contentCommentID != null && contentCommentID > 0)
             {
-                model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment(
+                model = new ContentComment(
                     Convert.ToInt32(contentCommentID));
             }
 
             TryUpdateModel(model);
 
-            if (ModelState.IsValid)
-            {
-                model.Update();
-
-                return RedirectToAction("ArticleComments");
-            }
-            else
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            model.Update();
+
+            return RedirectToAction("ArticleComments");
         }
 
 
@@ -227,17 +135,14 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult BlockIP(int? id)
         {
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment();
-
             if (id != null && id > 0)
             {
-                model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment(
+                var model = new ContentComment(
                     Convert.ToInt32(id));
 
                 model.Delete();
 
-                BlackIP bip = new BlackIP();
-                bip.IpAddress = model.IpAddress;
+                var bip = new BlackIP {IpAddress = model.IpAddress};
                 bip.Create();
             }
 
@@ -248,11 +153,11 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult EditArticleComment(int? id)
         {
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment();
+            var model = new ContentComment();
 
             if (id != null && id > 0)
             {
-                model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment(
+                model = new ContentComment(
                     Convert.ToInt32(id));
             }
 
@@ -263,10 +168,9 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult ArticleComments()
         {
-
-            int totalRecords = 0;
-            int pageSize = 10;
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComments();
+            int totalRecords;
+            const int pageSize = 10;
+            var model = new ContentComments();
 
             if (string.IsNullOrEmpty(Request.QueryString[
                 SiteEnums.QueryStringNames.pg.ToString()]))
@@ -281,12 +185,9 @@ namespace DasKlub.Controllers
                 totalRecords = model.GetCommentsPageWise(pageNumber, pageSize);
             }
 
-            ViewBag.PageCount = (totalRecords + pageSize - 1) / pageSize;
+            ViewBag.PageCount = (totalRecords + pageSize - 1)/pageSize;
 
             return View(model);
-
-
-
         }
 
 
@@ -294,11 +195,9 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult DeleteComment(int? id)
         {
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment();
-
             if (id != null && id > 0)
             {
-                model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment(
+                var model = new ContentComment(
                     Convert.ToInt32(id));
 
 
@@ -315,14 +214,12 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult DeleteArticle(int? id)
         {
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content();
-
             if (id != null && id > 0)
             {
-                model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content(
+                var model = new Content(
                     Convert.ToInt32(id));
 
-                ContentComments concoms = new ContentComments();
+                var concoms = new ContentComments();
                 concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.U);
                 concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.C);
 
@@ -330,18 +227,15 @@ namespace DasKlub.Controllers
                     c1.Delete();
 
                 model.Delete();
-
-
             }
 
             return RedirectToAction("Articles");
         }
 
         [HttpGet]
-
         public ActionResult CreateArticle()
         {
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content();
+            var model = new Content();
 
             if (model.ReleaseDate == DateTime.MinValue)
             {
@@ -360,15 +254,14 @@ namespace DasKlub.Controllers
             HttpPostedFileBase imageFile,
             HttpPostedFileBase videoFile)
         {
-
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
             // TODO: SAVE VIDEO
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content();
+            var model = new Content();
 
             if (contentID != null && contentID > 0)
             {
-                model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content(
+                model = new Content(
                     Convert.ToInt32(contentID));
             }
 
@@ -377,7 +270,7 @@ namespace DasKlub.Controllers
             ////// begin: amazon
             var acl = CannedAcl.PublicRead;
 
-            S3Service s3 = new S3Service();
+            var s3 = new S3Service();
 
             s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
             s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
@@ -389,8 +282,8 @@ namespace DasKlub.Controllers
 
                 if (model.ContentID == 0)
                 {
-                    mu = Membership.GetUser();
-                    model.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+                    _mu = Membership.GetUser();
+                    if (_mu != null) model.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
 
                     if (model.ReleaseDate == DateTime.MinValue)
                     {
@@ -402,16 +295,13 @@ namespace DasKlub.Controllers
 
                 if (imageFile != null)
                 {
+                    var b = new Bitmap(imageFile.InputStream);
 
-                    Bitmap b = new Bitmap(imageFile.InputStream);
+                    var fileNameFull = Utilities.CreateUniqueContentFilename(imageFile);
 
-                    System.Drawing.Image fullPhoto = (System.Drawing.Image)b;
+                    var imgPhoto = ImageResize.FixedSize(b, 600, 400, Color.Black);
 
-                    string fileNameFull = Utilities.CreateUniqueContentFilename(imageFile);
-
-                    System.Drawing.Image imgPhoto = ImageResize.FixedSize(b, 600, 400, System.Drawing.Color.Black);
-
-                    Stream maker = imgPhoto.ToAStream(ImageFormat.Jpeg);
+                    var maker = imgPhoto.ToAStream(ImageFormat.Jpeg);
 
                     s3.AddObject(
                         maker,
@@ -420,7 +310,7 @@ namespace DasKlub.Controllers
                         fileNameFull,
                         imageFile.ContentType,
                         acl);
-                    
+
                     if (!string.IsNullOrWhiteSpace(model.ContentPhotoThumbURL))
                     {
                         if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentPhotoURL))
@@ -435,7 +325,7 @@ namespace DasKlub.Controllers
 
                     string fileNameThumb = Utilities.CreateUniqueContentFilename(imageFile);
 
-                    System.Drawing.Image imgPhotoThumb = ImageResize.FixedSize(b, 350, 250, System.Drawing.Color.Black);
+                    Image imgPhotoThumb = ImageResize.FixedSize(b, 350, 250, Color.Black);
 
                     maker = imgPhotoThumb.ToAStream(ImageFormat.Jpeg);
 
@@ -458,10 +348,7 @@ namespace DasKlub.Controllers
                     model.ContentPhotoThumbURL = fileNameThumb;
 
                     model.Set();
-
-
                 }
-
 
 
                 if (videoFile != null)
@@ -469,18 +356,16 @@ namespace DasKlub.Controllers
                     // full
                     try
                     {
+                        // full
                         string fileName3 = Utilities.CreateUniqueContentFilename(videoFile);
 
-                        // full
-                        fileName3 = Utilities.CreateUniqueContentFilename(videoFile);
-
                         s3.AddObject(
-                         videoFile.InputStream,
-                         videoFile.ContentLength,
-                         AmazonCloudConfigs.AmazonBucketName,
-                         fileName3,
-                         videoFile.ContentType,
-                         acl);
+                            videoFile.InputStream,
+                            videoFile.ContentLength,
+                            AmazonCloudConfigs.AmazonBucketName,
+                            fileName3,
+                            videoFile.ContentType,
+                            acl);
 
 
                         if (!string.IsNullOrWhiteSpace(model.ContentVideoURL))
@@ -494,10 +379,10 @@ namespace DasKlub.Controllers
                         model.ContentVideoURL = fileName3;
 
                         model.Set();
-
                     }
-                    catch { }
-
+                    catch
+                    {
+                    }
                 }
 
                 return RedirectToAction("Articles");
@@ -509,18 +394,17 @@ namespace DasKlub.Controllers
         }
 
 
-
         [HttpGet]
         public ActionResult EditArticle(int? id)
         {
             ViewBag.VideoHeight = (Request.Browser.IsMobileDevice) ? 160 : 360;
             ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ? 285 : 640;
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content();
+            var model = new Content();
 
             if (id != null && id > 0)
             {
-                model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content(
+                model = new Content(
                     Convert.ToInt32(id));
             }
 
@@ -529,12 +413,11 @@ namespace DasKlub.Controllers
         }
 
 
-
         public ActionResult Articles()
         {
-            int totalRecords = 0;
-            int pageSize = 10;
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents();
+            int totalRecords;
+            const int pageSize = 10;
+            var model = new Contents();
 
             if (string.IsNullOrEmpty(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]))
             {
@@ -542,18 +425,99 @@ namespace DasKlub.Controllers
             }
             else
             {
-                int pageNumber = Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]);
+                var pageNumber = Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]);
 
                 totalRecords = model.GetContentPageWiseAll(pageNumber, pageSize);
             }
 
-            ViewBag.PageCount = (totalRecords + pageSize - 1) / pageSize;
+            ViewBag.PageCount = (totalRecords + pageSize - 1)/pageSize;
 
             return View(model);
         }
 
-
         #endregion
 
+        #region user management
+
+        private void LoadAllRoles()
+        {
+            var allRoles = Role.GetAllRoles();
+
+            ViewBag.AllRoles = allRoles;
+        }
+
+        [HttpGet]
+        public ActionResult UserManagement()
+        {
+            LoadAllRoles();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult FindByEmail(string email)
+        {
+            var ua = new UserAccount();
+            ua.GetUserAccountByEmail(email);
+
+            if (ua.UserAccountID > 0)
+            {
+                ViewBag.SelectedUser = ua;
+                var uad = new UserAccountDetail();
+                uad.GetUserAccountDeailForUser(ua.UserAccountID);
+                ViewBag.UserAccountDetail = uad;
+            }
+
+            LoadAllRoles();
+
+            return View("UserManagement");
+        }
+
+        [HttpPost]
+        public ActionResult FindByUsername(string username)
+        {
+            var ua = new UserAccount(username);
+
+            if (ua.UserAccountID > 0)
+            {
+                ViewBag.SelectedUser = ua;
+                var uad = new UserAccountDetail();
+                uad.GetUserAccountDeailForUser(ua.UserAccountID);
+                ViewBag.UserAccountDetail = uad;
+            }
+
+            LoadAllRoles();
+
+            return View("UserManagement");
+        }
+
+
+        [HttpPost]
+        public ActionResult UpdateRoles(int userAccountID, IEnumerable<string> roleOption)
+        {
+            var ua = new UserAccount(userAccountID);
+
+            // delete all their roles
+            UserAccountRole.DeleteUserRoles(userAccountID);
+
+            foreach (var thenewRole in roleOption.Select(newRole => new Role(newRole)))
+            {
+                UserAccountRole.AddUserToRole(userAccountID, thenewRole.RoleID);
+            }
+
+            if (ua.UserAccountID > 0)
+            {
+                ViewBag.SelectedUser = ua;
+                var uad = new UserAccountDetail();
+                uad.GetUserAccountDeailForUser(ua.UserAccountID);
+                ViewBag.UserAccountDetail = uad;
+            }
+
+            LoadAllRoles();
+
+
+            return View("UserManagement");
+        }
+
+        #endregion
     }
 }

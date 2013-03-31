@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Linq.Expressions;
 
@@ -20,13 +21,6 @@ namespace BootBaronLib.Operational
 {
     public static class StaticReflection
     {
-        public static string GetMemberName<T>(
-            this T instance,
-            Expression<Func<T, object>> expression)
-        {
-            return GetMemberName(expression);
-        }
-
         public static string GetMemberName<T>(
             Expression<Func<T, object>> expression)
         {
@@ -36,14 +30,7 @@ namespace BootBaronLib.Operational
                     "The expression cannot be null.");
             }
 
-            return GetMemberName(expression.Body) ;
-        }
-
-        public static string GetMemberName<T>(
-            this T instance,
-            Expression<Action<T>> expression)
-        {
-            return GetMemberName(expression);
+            return GetMemberName(expression.Body);
         }
 
         public static string GetMemberName<T>(
@@ -71,7 +58,7 @@ namespace BootBaronLib.Operational
             if (expression1 != null)
             {
                 // Reference type property or field
-                var memberExpression =
+                MemberExpression memberExpression =
                     expression1;
                 return memberExpression.Member.Name;
             }
@@ -80,7 +67,7 @@ namespace BootBaronLib.Operational
             if (callExpression != null)
             {
                 // Reference type method
-                var methodCallExpression =
+                MethodCallExpression methodCallExpression =
                     callExpression;
                 return methodCallExpression.Method.Name;
             }
@@ -89,7 +76,7 @@ namespace BootBaronLib.Operational
             if (unaryExpression1 != null)
             {
                 // Property, field of method returning value type
-                var unaryExpression = unaryExpression1;
+                UnaryExpression unaryExpression = unaryExpression1;
                 return GetMemberName(unaryExpression);
             }
 
@@ -102,14 +89,13 @@ namespace BootBaronLib.Operational
             var operand = unaryExpression.Operand as MethodCallExpression;
             if (operand != null)
             {
-                var methodExpression =
+                MethodCallExpression methodExpression =
                     operand;
                 return methodExpression.Method.Name;
             }
 
-            return ((MemberExpression)unaryExpression.Operand)
+            return ((MemberExpression) unaryExpression.Operand)
                 .Member.Name;
         }
     }
-
 }

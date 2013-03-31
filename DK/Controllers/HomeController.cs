@@ -13,8 +13,10 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
@@ -23,27 +25,25 @@ using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection;
 using BootBaronLib.AppSpec.DasKlub.BOL.Logging;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
+using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using Google.GData.Client;
 using Google.YouTube;
-
+using HttpUtility = System.Web.HttpUtility;
+using Utilities = BootBaronLib.Operational.Utilities;
+using Video = BootBaronLib.AppSpec.DasKlub.BOL.Video;
 
 namespace DasKlub.Controllers
 {
     [HandleError]
     public class HomeController : Controller
     {
-        string devkey = BootBaronLib.Configs.GeneralConfigs.YouTubeDevKey;
-        string username = BootBaronLib.Configs.GeneralConfigs.YouTubeDevUser;
-        string password = BootBaronLib.Configs.GeneralConfigs.YouTubeDevPass;
+        private readonly string _devkey = GeneralConfigs.YouTubeDevKey;
+        private readonly string _password = GeneralConfigs.YouTubeDevPass;
+        private readonly string _username = GeneralConfigs.YouTubeDevUser;
 
         #region Variables
-
-        char[] letters = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-
-        Videos toShow = new Videos();
-
 
         #endregion
 
@@ -51,42 +51,42 @@ namespace DasKlub.Controllers
 
         public JsonResult Download(char link)
         {
-            ClickLog cl = new ClickLog();
-
-            cl.CurrentURL = Request.Url.ToString();
-            cl.ClickType = link;
-            cl.IpAddress = Request.UserHostAddress;
-
-            MembershipUser mu = Membership.GetUser();
-
-            if (mu != null)
+            if (Request.Url != null)
             {
-                cl.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+                var cl = new ClickLog
+                    {
+                        CurrentURL = Request.Url.ToString(),
+                        ClickType = link,
+                        IpAddress = Request.UserHostAddress
+                    };
+
+                var mu = Membership.GetUser();
+
+                if (mu != null)
+                {
+                    cl.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+                }
+
+                cl.Create();
             }
 
-            cl.Create();
-
             return Json(new
-            {
-                Result = 1
-            });
+                {
+                    Result = 1
+                });
         }
 
         #endregion
 
         #region Actions
 
-
-
         [HttpGet]
         public ActionResult SiteContent(string brandType)
         {
+            var siteBrand =
+                (SiteEnums.SiteBrandType) Enum.Parse(typeof (SiteEnums.SiteBrandType), brandType);
 
-
-            SiteEnums.SiteBrandType siteBrand =
-(SiteEnums.SiteBrandType)Enum.Parse(typeof(SiteEnums.SiteBrandType), brandType);
-
-            ViewBag.ContentMessage = SiteDomain.GetSiteDomainValue(siteBrand, BootBaronLib.Operational.Utilities.GetCurrentLanguageCode());
+            ViewBag.ContentMessage = SiteDomain.GetSiteDomainValue(siteBrand, Utilities.GetCurrentLanguageCode());
 
 
             return View();
@@ -94,19 +94,16 @@ namespace DasKlub.Controllers
 
         [HttpPost]
         public ActionResult VideoSubmit(string video, string videoType, string personType,
-            string footageType, string band, string song, string contestID)
+                                        string footageType, string band, string song, string contestID)
         {
-
             if (string.IsNullOrWhiteSpace(video))
             {
                 Response.Redirect("~/videosubmission.aspx?statustype=I");
                 return new EmptyResult();
             }
-            VideoRequest vir = new VideoRequest();
+            var vir = new VideoRequest {RequestURL = video};
 
-            vir.RequestURL = video;
-
-            string vidKey = string.Empty;
+            var vidKey = string.Empty;
 
             vir.RequestURL = vir.RequestURL.Replace("https", "http");
 
@@ -116,7 +113,8 @@ namespace DasKlub.Controllers
             }
             else if (vir.RequestURL.Contains("http://www.youtube.com/watch?"))
             {
-                NameValueCollection nvcKey = System.Web.HttpUtility.ParseQueryString(vir.RequestURL.Replace("http://www.youtube.com/watch?", string.Empty));
+                var nvcKey =
+                    HttpUtility.ParseQueryString(vir.RequestURL.Replace("http://www.youtube.com/watch?", string.Empty));
 
                 vir.VideoKey = nvcKey["v"];
                 vidKey = nvcKey["v"];
@@ -143,49 +141,22 @@ namespace DasKlub.Controllers
             }
 
 
-
-
             try
             {
+               
 
-                //IDictionaryEnumerator enumerator = HttpContext.Current.Cache.GetEnumerator();
+                var vid = new Video("YT", vidKey) {ProviderCode = "YT"};
 
-                //while (enumerator.MoveNext())
-                //{
-
-                //    HttpContext.Current.Cache.Remove(enumerator.Key.ToString());
-
-                //}
-
-                //Artists allartsis = new Artists();
-                //allartsis.RemoveCache();
-
-                //if (gvwRequestedVideos.SelectedDataKey != null)
-                //{
-                //    vidreq = new VideoRequest(Convert.ToInt32(gvwRequestedVideos.SelectedDataKey.Value));
-                //    vidreq.StatusType = 'A';
-                //    vidreq.Update();
-                //}
-
-                BootBaronLib.AppSpec.DasKlub.BOL.Video vid = new BootBaronLib.AppSpec.DasKlub.BOL.Video("YT", vidKey);
-
-
-                vid.ProviderCode = "YT";
-
-                Google.YouTube.Video video2;
-                video2 = new Google.YouTube.Video();
 
                 try
                 {
-                    YouTubeRequestSettings yousettings = new YouTubeRequestSettings("You Manager", devkey, username, password);
-                    YouTubeRequest yourequest;
-                    Uri Url;
+                    var yousettings = new YouTubeRequestSettings("You Manager", _devkey, _username, _password);
 
-                    yourequest = new YouTubeRequest(yousettings);
-                    Url = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vidKey);
+                    var yourequest = new YouTubeRequest(yousettings);
+                    Uri entryUri = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", vidKey));
 
-                    video2 = yourequest.Retrieve<Google.YouTube.Video>(Url);
-                    vid.Duration = (float)Convert.ToDouble(video2.YouTubeEntry.Duration.Seconds);
+                    var video2 = yourequest.Retrieve<Google.YouTube.Video>(entryUri);
+                    vid.Duration = (float) Convert.ToDouble(video2.YouTubeEntry.Duration.Seconds);
                     vid.ProviderUserKey = video2.Uploader;
                     vid.PublishDate = video2.YouTubeEntry.Published;
                 }
@@ -212,7 +183,6 @@ namespace DasKlub.Controllers
 
 
                 //  vid.VideoType = videoType;
-
 
 
                 //vid.Duration = (float)Convert.ToDouble(txtDuration.Text);
@@ -257,20 +227,17 @@ namespace DasKlub.Controllers
                 }
 
 
-
-
                 // if there is a contest, add it now since there is an id
-                int subContestID = 0;
-                if (!string.IsNullOrWhiteSpace(contestID) && int.TryParse(contestID, out subContestID) && subContestID > 0)
+                int subContestID;
+                if (!string.IsNullOrWhiteSpace(contestID) && int.TryParse(contestID, out subContestID) &&
+                    subContestID > 0)
                 {
                     //TODO: check if it already is in the contest
 
                     ContestVideo.DeleteVideoFromAllContests(vid.VideoID);
 
-                    ContestVideo cv = new ContestVideo();
+                    var cv = new ContestVideo {ContestID = subContestID, VideoID = vid.VideoID};
 
-                    cv.ContestID = subContestID;
-                    cv.VideoID = vid.VideoID;
                     cv.Create();
                 }
                 else
@@ -279,13 +246,10 @@ namespace DasKlub.Controllers
                     ContestVideo.DeleteVideoFromAllContests(vid.VideoID);
                 }
 
-                PropertyType propTyp = null;
-                MultiProperty mp = null;
-
                 // vid type
 
-                propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
-                mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
+                var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
+                var mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
                 MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
                 mp.RemoveCache();
                 MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(videoType), vid.VideoID);
@@ -297,7 +261,6 @@ namespace DasKlub.Controllers
                 MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
                 mp.RemoveCache();
                 MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(personType), vid.VideoID);
-
 
 
                 // footage
@@ -334,7 +297,6 @@ namespace DasKlub.Controllers
                 //}
 
 
-
                 //// genre
                 //if (!string.IsNullOrWhiteSpace(this.ddlGenre.SelectedValue)
                 //    && this.ddlGenre.SelectedValue != selectText)
@@ -363,7 +325,7 @@ namespace DasKlub.Controllers
 
                 // song 1
 
-                Artist artst = new Artist(band.Trim());
+                var artst = new Artist(band.Trim());
 
                 if (artst.ArtistID == 0)
                 {
@@ -378,7 +340,7 @@ namespace DasKlub.Controllers
                 }
 
 
-                Song sng = new Song(artst.ArtistID, song.Trim());
+                var sng = new Song(artst.ArtistID, song.Trim());
 
 
                 if (sng.SongID == 0)
@@ -396,7 +358,7 @@ namespace DasKlub.Controllers
 
                 if (vid.VideoID > 0)
                 {
-                    Response.Redirect(vid.VideoURL);// just send them to it
+                    Response.Redirect(vid.VideoURL); // just send them to it
                 }
             }
             catch
@@ -407,17 +369,7 @@ namespace DasKlub.Controllers
                 Response.Redirect("~/videosubmission.aspx?statustype=I");
                 return new EmptyResult();
                 //}
-
             }
-
-
-
-
-
-
-
-
-
 
 
             //Video v1 = new Video();
@@ -479,8 +431,6 @@ namespace DasKlub.Controllers
             //}
 
 
-
-
             return new EmptyResult();
         }
 
@@ -490,87 +440,55 @@ namespace DasKlub.Controllers
             // CONTESTS
 
 
-            Contest cndss = Contest.GetCurrentContest();
-            ContestVideos cvids = new ContestVideos();
+            var cndss = Contest.GetCurrentContest();
+            var cvids = new ContestVideos();
 
 
-            Videos vidsInContest = new Videos();
-            BootBaronLib.AppSpec.DasKlub.BOL.Video vid2 = null;
+            var vidsInContest = new Videos();
+            vidsInContest.AddRange(cvids.Select(cv1 => new Video(cv1.VideoID)));
 
-            foreach (ContestVideo cv1 in cvids)
-            {
-                vid2 = new BootBaronLib.AppSpec.DasKlub.BOL.Video(cv1.VideoID);
-                vidsInContest.Add(vid2);
-            }
+            vidsInContest.Sort((p1, p2) => p2.PublishDate.CompareTo(p1.PublishDate));
 
-            vidsInContest.Sort(delegate(BootBaronLib.AppSpec.DasKlub.BOL.Video p1, BootBaronLib.AppSpec.DasKlub.BOL.Video p2)
-            {
-                return p2.PublishDate.CompareTo(p1.PublishDate);
-            });
-
-            SongRecords sngrcds3 = new SongRecords();
-            SongRecord sng3 = new SongRecord();
-
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.Video v1 in vidsInContest)
-            {
-                sng3 = new SongRecord(v1);
-
-                sngrcds3.Add(sng3);
-            }
+            var sngrcds3 = new SongRecords();
+            sngrcds3.AddRange(vidsInContest.Select(v1 => new SongRecord(v1)));
 
             ViewBag.ContestVideoList = sngrcds3.VideosList();
             ViewBag.CurrentContest = cndss;
 
 
             // 
-            PhotoItems pitms = new PhotoItems();
-            pitms.UseThumb = true;
-            pitms.ShowTitle = false;
+            var pitms = new PhotoItems {UseThumb = true, ShowTitle = false};
             pitms.GetPhotoItemsPageWise(1, 4);
 
             ViewBag.PhotoList = pitms.ToUnorderdList;
 
-            Contents cnts = new Contents();
+            var cnts = new Contents();
             cnts.GetContentPageWiseAll(1, 3);
 
             ViewBag.RecentArticles = cnts.ToUnorderdList;
 
-            UserAccounts uas = new UserAccounts();
+            var uas = new UserAccounts();
             uas.GetNewestUsers();
             ViewBag.NewestUsers = uas.ToUnorderdList;
 
 
-            Videos newestVideos = new Videos();
+            var newestVideos = new Videos();
             newestVideos.GetMostRecentVideos();
-            SongRecords newSongs = new SongRecords();
-            SongRecord sng1 = null;
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.Video v1 in newestVideos)
-            {
-                sng1 = new SongRecord(v1);
-                newSongs.Add(sng1);
-            }
+            var newSongs = new SongRecords();
+            newSongs.AddRange(newestVideos.Select(v1 => new SongRecord(v1)));
 
             ViewBag.NewestVideos = newSongs.VideosList();
 
 
-
-            BootBaronLib.AppSpec.DasKlub.BOL.Video vid = new BootBaronLib.AppSpec.DasKlub.BOL.Video(BootBaronLib.AppSpec.DasKlub.BOL.Video.RandomVideoIDVideo());
+            var vid = new Video(Video.RandomVideoIDVideo());
 
             ViewBag.RandomVideoKey = vid.ProviderKey;
 
 
-            ///video submit
-            MultiProperties addList = null;
-            PropertyType propTyp = null;
-            MultiProperties mps = null;
-
             // video typesa
-            propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
-            mps = new MultiProperties(propTyp.PropertyTypeID);
-            mps.Sort(delegate(MultiProperty p1, MultiProperty p2)
-            {
-                return p1.DisplayName.CompareTo(p2.DisplayName);
-            });
+            var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
+            var mps = new MultiProperties(propTyp.PropertyTypeID);
+            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
 
 
             ViewBag.VideoTypes = mps;
@@ -578,21 +496,15 @@ namespace DasKlub.Controllers
             // person types
             propTyp = new PropertyType(SiteEnums.PropertyTypeCode.HUMAN);
             mps = new MultiProperties(propTyp.PropertyTypeID);
-            mps.Sort(delegate(MultiProperty p1, MultiProperty p2)
-            {
-                return p1.DisplayName.CompareTo(p2.DisplayName);
-            });
+            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
 
             ViewBag.PersonTypes = mps;
 
             //// footage types
             propTyp = new PropertyType(SiteEnums.PropertyTypeCode.FOOTG);
             mps = new MultiProperties(propTyp.PropertyTypeID);
-            mps.Sort(delegate(MultiProperty p1, MultiProperty p2)
-            {
-                return p1.DisplayName.CompareTo(p2.DisplayName);
-            });
-            addList = new MultiProperties();
+            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
+            new MultiProperties();
 
 
             ViewBag.FootageTypes = mps;
@@ -608,6 +520,5 @@ namespace DasKlub.Controllers
         }
 
         #endregion
-
     }
 }

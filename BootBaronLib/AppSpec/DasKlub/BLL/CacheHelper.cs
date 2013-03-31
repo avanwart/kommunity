@@ -15,19 +15,19 @@
 //   limitations under the License.
 
 using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Web;
 using System.Web.Caching;
 
-
 namespace BootBaronLib.AppSpec.DasKlub.BLL
 {
     public static class OtherExt
     {
-        public static Stream ToAStream(this System.Drawing.Image image, ImageFormat formaw)
+        public static Stream ToAStream(this Image image, ImageFormat formaw)
         {
-            var stream = new System.IO.MemoryStream();
+            var stream = new MemoryStream();
             image.Save(stream, formaw);
             stream.Position = 0;
             return stream;
@@ -35,20 +35,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
     }
 
     /// <summary>
-    /// Extension methods for HttpContext.Current.Cache
+    ///     Extension methods for HttpContext.Current.Cache
     /// </summary>
     public static class CacheExtension
     {
         #region variables
-        
-        static CacheItemRemovedCallback onRemove = null;
+
+        private static CacheItemRemovedCallback onRemove;
         //static bool itemRemoved = false;
-        static CacheItemRemovedReason reasonRemoved;
+        private static CacheItemRemovedReason reasonRemoved;
 
         #endregion
 
         #region methods
-
 
         public static bool CacheItemExists(this Cache cache, string cacheName)
         {
@@ -61,7 +60,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         }
 
         /// <summary>
-        /// Get an object from the cache by its name
+        ///     Get an object from the cache by its name
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="cacheName"></param>
@@ -83,8 +82,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         }
 
         /// <summary>
-        /// Add an object to the cache with its name (add object to cache before the datarow for the object is used because it relies
-        /// on knowing only the info before the DB call to instantiate)
+        ///     Add an object to the cache with its name (add object to cache before the datarow for the object is used because it relies
+        ///     on knowing only the info before the DB call to instantiate)
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="obj"></param>
@@ -92,57 +91,54 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         public static void AddObjToCache(this Cache cache, object obj, string cacheName)
         {
             //onRemove += new CacheItemRemovedCallback(RemovedCallback);
-            onRemove = new CacheItemRemovedCallback(RemovedCallback);
+            onRemove = RemovedCallback;
 
             if (HttpContext.Current != null && obj != null && !string.IsNullOrEmpty(cacheName))
             {
                 //HttpContext.Current.Cache.DeleteCacheObj(cacheName);
 
                 HttpContext.Current.Cache.Add(cacheName,
-                      obj,
-                      null,
-                      Cache.NoAbsoluteExpiration,
-                      new TimeSpan(0, 5, 0),
-                      CacheItemPriority.Default,
-                      onRemove);
+                                              obj,
+                                              null,
+                                              Cache.NoAbsoluteExpiration,
+                                              new TimeSpan(0, 5, 0),
+                                              CacheItemPriority.Default,
+                                              onRemove);
             }
         }
-
-
 
 
         public static void AddObjToCache(this Cache cache, object obj, string cacheName, int minutes)
         {
             //onRemove += new CacheItemRemovedCallback(RemovedCallback);
-            onRemove = new CacheItemRemovedCallback(RemovedCallback);
+            onRemove = RemovedCallback;
 
             if (HttpContext.Current != null && obj != null && !string.IsNullOrEmpty(cacheName))
             {
                 //HttpContext.Current.Cache.DeleteCacheObj(cacheName);
 
                 HttpContext.Current.Cache.Add(cacheName,
-                      obj,
-                      null,
-                      DateTime.UtcNow.AddMinutes(minutes),
-                      Cache.NoSlidingExpiration,
-                      CacheItemPriority.Default,
-                      onRemove);
+                                              obj,
+                                              null,
+                                              DateTime.UtcNow.AddMinutes(minutes),
+                                              Cache.NoSlidingExpiration,
+                                              CacheItemPriority.Default,
+                                              onRemove);
             }
         }
 
         /// <summary>
-        /// Removes an item from the cache by its name and removes it from any sister sites
+        ///     Removes an item from the cache by its name and removes it from any sister sites
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="keyName"></param>
         public static void DeleteCacheObj(this Cache cache, string keyName)
         {
-            if (HttpContext.Current != null && 
-                !string.IsNullOrEmpty(keyName) && 
+            if (HttpContext.Current != null &&
+                !string.IsNullOrEmpty(keyName) &&
                 HttpContext.Current.Cache[keyName] != null)
             {
                 HttpContext.Current.Cache.Remove(keyName);
-                
             }
         }
 
@@ -160,7 +156,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
 
 
         /// <summary>
-        /// Removes all the cached items on the remote server, regardless of name
+        ///     Removes all the cached items on the remote server, regardless of name
         /// </summary>
         public static void RemoveExternalCache()
         {
@@ -174,9 +170,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
             //}
         }
 
-        
-
-
         #endregion
 
         #region events
@@ -189,8 +182,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
 
             RemoveExternalCache(keyName);
         }
-        
-        #endregion
 
+        #endregion
     }
 }

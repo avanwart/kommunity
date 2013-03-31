@@ -13,13 +13,12 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
@@ -31,15 +30,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties
 
-        private int _chatRoomUserID = 0;
-
-        public int ChatRoomUserID
-        {
-            get { return _chatRoomUserID; }
-            set { _chatRoomUserID = value; }
-        }
-
+        private string _connectionCode = string.Empty;
         private string _ipAddress = string.Empty;
+        public int ChatRoomUserID { get; set; }
 
         public string IpAddress
         {
@@ -47,17 +40,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _ipAddress = value; }
         }
 
-        private int _roomID = 0;
+        public int RoomID { get; set; }
 
-        public int RoomID
-        {
-            get { return _roomID; }
-            set { _roomID = value; }
-        }
-
-        private string _connectionCode = string.Empty;
-        
-      
 
         public string ConnectionCode
         {
@@ -67,7 +51,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #endregion
 
-        public ChatRoomUser() { }
+        public ChatRoomUser()
+        {
+        }
 
         public ChatRoomUser(DataRow dr)
         {
@@ -78,13 +64,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public void GetChatRoomUserByConnection(string connectionCode)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetChatRoomUserByConnection";
 
-            ADOExtenstion.AddParameter(comm, "connectionCode", connectionCode);
+            comm.AddParameter("connectionCode", connectionCode);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -104,10 +89,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddChatRoomUser";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID", CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "ipAddress", IpAddress);
-            ADOExtenstion.AddParameter(comm, "roomID", RoomID);
-            ADOExtenstion.AddParameter(comm, "connectionCode", ConnectionCode);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("ipAddress", IpAddress);
+            comm.AddParameter("roomID", RoomID);
+            comm.AddParameter("connectionCode", ConnectionCode);
 
             // the result is their ID
             string result = string.Empty;
@@ -116,24 +101,23 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             if (string.IsNullOrEmpty(result)) return 0;
 
-            this.ChatRoomUserID = Convert.ToInt32(result);
+            ChatRoomUserID = Convert.ToInt32(result);
 
-            return this.ChatRoomUserID;
+            return ChatRoomUserID;
         }
 
 
         public override bool Update()
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_UpdateChatRoomUser";
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UpdatedByUserID), UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.IpAddress), IpAddress);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.RoomID), RoomID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ConnectionCode), ConnectionCode);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UpdatedByUserID), UpdatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => IpAddress), IpAddress);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => RoomID), RoomID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ConnectionCode), ConnectionCode);
 
             int result = -1;
 
@@ -152,26 +136,43 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteChatRoomUser";
 
-            ADOExtenstion.AddParameter(comm, "connectionCode", this.ConnectionCode);
+            comm.AddParameter("connectionCode", ConnectionCode);
 
             //RemoveCache();
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
-
         }
 
         public override void Get(DataRow dr)
         {
             base.Get(dr);
 
-            this.ChatRoomUserID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ChatRoomUserID)]);
-            this.ConnectionCode = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ConnectionCode)]);
-            this.IpAddress = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.IpAddress)]);
-            this.RoomID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.RoomID)]);
+            ChatRoomUserID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => ChatRoomUserID)]);
+            ConnectionCode = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => ConnectionCode)]);
+            IpAddress = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => IpAddress)]);
+            RoomID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => RoomID)]);
         }
 
         #endregion
+
+        public string ToUnorderdListItem
+        {
+            get
+            {
+                if (CreatedByUserID == 0) return string.Empty;
+
+                var uad = new UserAccountDetail();
+
+                uad.GetUserAccountDeailForUser(CreatedByUserID);
+
+                var sb = new StringBuilder(100);
+
+                sb.AppendFormat(@"<li>{0}</li>", uad.SmallUserIcon);
+
+                return sb.ToString();
+            }
+        }
 
         public void GetChatRoomUserByUserAccountID(int createdByUserID)
         {
@@ -180,7 +181,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetChatRoomUserByUserAccountID";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID", createdByUserID);
+            comm.AddParameter("createdByUserID", createdByUserID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -191,25 +192,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 Get(dt.Rows[0]);
             }
         }
-
-        public string ToUnorderdListItem
-        {
-            get {
-
-                if (this.CreatedByUserID == 0) return string.Empty;
-
-                UserAccountDetail uad = new UserAccountDetail();
-
-                uad.GetUserAccountDeailForUser(this.CreatedByUserID);
-
-                StringBuilder sb = new StringBuilder(100);
-
-                sb.AppendFormat(@"<li>{0}</li>", uad.SmallUserIcon);
-
-                return sb.ToString();
-
-            }
-        }
     }
 
     public class ChatRoomUsers : List<ChatRoomUser>
@@ -218,7 +200,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
-            
+
             // set the stored procedure name
             comm.CommandText = "up_GetChattingUserCount";
 
@@ -249,10 +231,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     cru = new ChatRoomUser(dr);
-                    this.Add(cru);
+                    Add(cru);
                 }
 
-                this.Sort((ChatRoomUser x, ChatRoomUser y) => (x.CreateDate.CompareTo(y.CreateDate)));
+                Sort((ChatRoomUser x, ChatRoomUser y) => (x.CreateDate.CompareTo(y.CreateDate)));
             }
         }
     }

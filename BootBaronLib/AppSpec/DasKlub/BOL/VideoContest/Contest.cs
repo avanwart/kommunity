@@ -13,16 +13,17 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Web;
+using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
-using BootBaronLib.AppSpec.DasKlub.BLL;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
 {
@@ -30,15 +31,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
     {
         #region properties
 
-        private int _contestID = 0;
-
-        public int ContestID
-        {
-            get { return _contestID; }
-            set { _contestID = value; }
-        }
-
+        private DateTime _beginDate = DateTime.MinValue;
         private string _contestKey = string.Empty;
+        private DateTime _deadLine = DateTime.MinValue;
+        private string _description = string.Empty;
+        private string _name = string.Empty;
+        public int ContestID { get; set; }
 
         public string ContestKey
         {
@@ -46,15 +44,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             set { _contestKey = value; }
         }
 
-        private DateTime _beginDate = DateTime.MinValue;
-
         public DateTime BeginDate
         {
             get { return _beginDate; }
             set { _beginDate = value; }
         }
-
-        private string _name = string.Empty;
 
         public string Name
         {
@@ -62,23 +56,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             set { _name = value; }
         }
 
-        private DateTime _deadLine = DateTime.MinValue;
-
         public DateTime DeadLine
         {
             get { return _deadLine; }
             set { _deadLine = value; }
         }
 
-        private string _description = string.Empty;
-
         public string Description
         {
             get { return _description; }
             set { _description = value; }
         }
-
-
 
         #endregion
 
@@ -100,14 +88,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
 
         public void GetContestByName(string name)
         {
-            this.Name = name;
+            Name = name;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetContestByName";
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Name), Name);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Name), Name);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -120,10 +108,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
         }
 
 
-
         public void GetContestByKey(string contestKey)
         {
-            this.ContestKey = contestKey;
+            ContestKey = contestKey;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -131,7 +118,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             comm.CommandText = "up_GetContestByKey";
 
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ContestKey), ContestKey);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContestKey), ContestKey);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -150,21 +137,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
                 base.Get(dr);
 
 
-                this.Name = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Name)]);
-                this.ContestID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ContestID)]);
-                this.DeadLine = FromObj.DateFromObj(dr[StaticReflection.GetMemberName<string>(x => this.DeadLine)]);
-                this.BeginDate = FromObj.DateFromObj(dr[StaticReflection.GetMemberName<string>(x => this.BeginDate)]);
-                this.Description = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Description)]);
-                this.ContestKey = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ContestKey)]);
+                Name = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => Name)]);
+                ContestID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => ContestID)]);
+                DeadLine = FromObj.DateFromObj(dr[StaticReflection.GetMemberName<string>(x => DeadLine)]);
+                BeginDate = FromObj.DateFromObj(dr[StaticReflection.GetMemberName<string>(x => BeginDate)]);
+                Description = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => Description)]);
+                ContestKey = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => ContestKey)]);
             }
             catch
             {
-
             }
         }
 
         #endregion
-
 
         public bool IsHappening
         {
@@ -172,16 +157,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             {
                 DateTime dt = Utilities.GetDataBaseTime();
 
-                return (this.DeadLine > dt && this.BeginDate < dt);
+                return (DeadLine > dt && BeginDate < dt);
             }
         }
 
         public static Contest GetCurrentContest()
         {
-            Contests sns = new Contests();
+            var sns = new Contests();
             sns.GetAll();
 
-            Contest cndss = new Contest();
+            var cndss = new Contest();
 
             foreach (Contest c1 in sns)
             {
@@ -191,41 +176,33 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
                 }
             }
             return null;
-
-
         }
 
         public static Contest GetLastContest()
         {
-            Contests sns = new Contests();
+            var sns = new Contests();
             sns.GetAll();
 
-            Contest cndss = new Contest();
+            var cndss = new Contest();
 
-            sns.Sort(delegate(Contest p1, Contest p2)
-            {
-                return p2.DeadLine.CompareTo(p1.DeadLine);
-            });
+            sns.Sort(delegate(Contest p1, Contest p2) { return p2.DeadLine.CompareTo(p1.DeadLine); });
 
             if (sns.Count > 0)
                 return sns[0];
             else
                 return null;
         }
-
     }
 
     public class Contests : List<Contest>, IGetAll, ICacheName
     {
-
-
         #region IGetAll Members
 
         public void GetAll()
         {
             DataTable dt = null;
 
-            if (HttpContext.Current == null || HttpContext.Current.Cache[this.CacheName] == null)
+            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -237,12 +214,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
 
                 if (HttpContext.Current != null)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt, this.CacheName);
+                    HttpContext.Current.Cache.AddObjToCache(dt, CacheName);
                 }
             }
             else
             {
-                dt = (DataTable)HttpContext.Current.Cache[this.CacheName];
+                dt = (DataTable) HttpContext.Current.Cache[CacheName];
             }
 
             // was something returned?
@@ -252,7 +229,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
                 foreach (DataRow dr in dt.Rows)
                 {
                     cont = new Contest(dr);
-                    this.Add(cont);
+                    Add(cont);
                 }
             }
         }
@@ -261,10 +238,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
 
         public string CacheName
         {
-            get
-            {
-                return string.Format("{0}-{1}", this.GetType().FullName, "-all");
-            }
+            get { return string.Format("{0}-{1}", GetType().FullName, "-all"); }
         }
 
         public void RemoveCache()

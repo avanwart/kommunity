@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -23,18 +24,17 @@ using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
 
-
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
-    public class EventCycle : BaseIUserLogCRUD, ICacheName 
+    public class EventCycle : BaseIUserLogCRUD, ICacheName
     {
         #region contstructor
 
         public EventCycle(int eventCycleID)
         {
-            this.EventCycleID = eventCycleID;
+            EventCycleID = eventCycleID;
 
-            if (HttpContext.Current.Cache[this.CacheName] == null)
+            if (HttpContext.Current.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -52,13 +52,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                 if (dt.Rows.Count == 1)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
+                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow)HttpContext.Current.Cache[this.CacheName]);
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
             }
         }
 
@@ -71,19 +71,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             Get(dr);
         }
+
         #endregion
 
         #region properties
 
-        private int _eventCycleID = 0;
-
-        public int EventCycleID
-        {
-            get { return _eventCycleID; }
-            set { _eventCycleID = value; }
-        }
-
         private string _cycleName = string.Empty;
+
+        private string _eventCode = string.Empty;
+        public int EventCycleID { get; set; }
 
         public string CycleName
         {
@@ -91,8 +87,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _cycleName = value; }
         }
 
-        private string _eventCode = string.Empty;
-  
         public string EventCode
         {
             get { return _eventCode; }
@@ -105,10 +99,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             {
                 base.Get(dr);
 
-                this.EventCycleID = FromObj.IntFromObj(dr["eventCycleID"]);
-                this.CycleName = FromObj.StringFromObj(dr["cycleName"]);
-                this.EventCode = FromObj.StringFromObj(dr["eventCode"]);
-                
+                EventCycleID = FromObj.IntFromObj(dr["eventCycleID"]);
+                CycleName = FromObj.StringFromObj(dr["cycleName"]);
+                EventCode = FromObj.StringFromObj(dr["eventCode"]);
             }
             catch // (Exception ex)
             {
@@ -122,26 +115,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string CacheName
         {
-            get
-            {
-                return this.GetType().FullName + "-" + this.EventCycleID;
-            }
+            get { return GetType().FullName + "-" + EventCycleID; }
         }
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
         }
 
         #endregion
- 
     }
 
     public class EventCycles : List<EventCycle>, IGetAll
     {
-        public EventCycles() { }
-
-
         #region IGetAll Members
 
         public void GetAll()
@@ -162,12 +148,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     envtcyc = new EventCycle(dr);
-                    this.Add(envtcyc);
+                    Add(envtcyc);
                 }
             }
         }
 
         #endregion
     }
-
 }

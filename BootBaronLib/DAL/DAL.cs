@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Data;
 using System.Data.Common;
@@ -22,17 +23,12 @@ using BootBaronLib.Operational;
 namespace BootBaronLib.DAL
 {
     /// <summary>
-    /// Generic data access functionality to be accessed from the business tier (CreateCommand,
-    /// ExecuteSelectCommand, ExecuteNonQuery, ExecuteScalar, ExecuteMultipleTableSelectCommand)
+    ///     Generic data access functionality to be accessed from the business tier (CreateCommand,
+    ///     ExecuteSelectCommand, ExecuteNonQuery, ExecuteScalar, ExecuteMultipleTableSelectCommand)
     /// </summary>
-    public class DbAct
+    public static class DbAct
     {
         #region constructor
-
-        /// <summary>
-        /// static constructor 
-        /// </summary>
-        static DbAct() { }
 
         #endregion
 
@@ -41,49 +37,51 @@ namespace BootBaronLib.DAL
         #region core DB actions
 
         /// <summary>
-        /// Returns a DataSet (best used for multiple tables in the result set)
+        ///     Returns a DataSet (best used for multiple tables in the result set)
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        /// <see cref=">http://msdn.microsoft.com/en-us/library/fks3666w%28VS.80%29.aspx"/>
+        /// <see cref=">http://msdn.microsoft.com/en-us/library/fks3666w%28VS.80%29.aspx" />
         public static DataSet ExecuteMultipleTableSelectCommand(DbCommand command)
         {
             using (command)
             {
-                DbProviderFactory factory = DbProviderFactories.GetFactory( DataBaseConfigs.DbProviderName);
+                var factory = DbProviderFactories.GetFactory(DataBaseConfigs.DbProviderName);
 
-                using (DbDataAdapter adapter = factory.CreateDataAdapter())
+                using (var adapter = factory.CreateDataAdapter())
                 {
-                    adapter.SelectCommand = command;
-
-                    using (DataSet ds = new DataSet())
+                    if (adapter != null)
                     {
-                        try
-                        {
-                            adapter.Fill(ds);
-                        }
-                        catch (Exception ex)
-                        {
-                            if (command != null && command.CommandText != null)
-                                Utilities.LogError("COMMAND: " + command.CommandText, ex);
-                            else 
-                                Utilities.LogError(ex);
+                        adapter.SelectCommand = command;
 
-                            return null;
-                        }
+                        using (var ds = new DataSet())
+                        {
+                            try
+                            {
+                                adapter.Fill(ds);
+                            }
+                            catch (Exception ex)
+                            {
+                                if (command != null && command.CommandText != null)
+                                    Utilities.LogError("COMMAND: " + command.CommandText, ex);
+                                else
+                                    Utilities.LogError(ex);
 
-                        command.Connection.Close();
-                        return ds;
+                                return null;
+                            }
+
+                            command.Connection.Close();
+                            return ds;
+                        }
                     }
                 }
             }
-
-            
+            return null;
         }
 
 
         /// <summary>
-        /// Execute a command and return the results as a DataTable object
+        ///     Execute a command and return the results as a DataTable object
         /// </summary>
         /// <param name="command">database command</param>
         public static DataTable ExecuteSelectCommand(DbCommand command)
@@ -100,7 +98,7 @@ namespace BootBaronLib.DAL
 
                     table = new DataTable();
                     // Execute the command and save the results in a DataTable
-                    using (DbDataReader reader = command.ExecuteReader())
+                    using (var reader = command.ExecuteReader())
                     {
                         table.Load(reader);
                         // Close the reader 
@@ -117,23 +115,26 @@ namespace BootBaronLib.DAL
                 }
                 finally
                 {
-                    command.Connection.Close();
-                    // Close the connection
-                    command.Parameters.Clear();
+                    if (command != null)
+                    {
+                        command.Connection.Close();
+                        // Close the connection
+                        command.Parameters.Clear();
+                    }
                 }
                 return table;
             }
         }
 
         /// <summary>
-        /// Execute an update, delete, or insert command 
-        /// and return the number of affected rows
+        ///     Execute an update, delete, or insert command
+        ///     and return the number of affected rows
         /// </summary>
         /// <param name="command">database command</param>
         public static int ExecuteNonQuery(DbCommand command)
         {
             // The number of affected rows 
-            int affectedRows = -1;
+            var affectedRows = -1;
 
             // Execute the command making sure the connection gets closed in the end
             using (command)
@@ -154,9 +155,12 @@ namespace BootBaronLib.DAL
                 }
                 finally
                 {
-                    command.Parameters.Clear();
-                    // Close the connection
-                    command.Connection.Close();
+                    if (command != null)
+                    {
+                        command.Parameters.Clear();
+                        // Close the connection
+                        command.Connection.Close();
+                    }
                 }
                 // return the number of affected rows
                 return affectedRows;
@@ -164,25 +168,23 @@ namespace BootBaronLib.DAL
         }
 
         /// <summary>
-        /// Execute a select command and return a single result as a string
+        ///     Execute a select command and return a single result as a string
         /// </summary>
         /// <param name="command">database command</param>
         public static string ExecuteScalar(DbCommand command)
         {
             // The value to be returned 
-            string value = string.Empty;
+            var value = string.Empty;
             // Execute the command making sure the connection gets closed in the end
             using (command)
             {
                 try
                 {
-                   
                     // Open the connection of the command
                     command.Connection.Open();
                     // Execute the command and get the number of affected rows
-                    object result = command.ExecuteScalar();
-                    if (result != null) { value = Convert.ToString(result); }
-                    else { value = string.Empty; }
+                    var result = command.ExecuteScalar();
+                    value = result != null ? Convert.ToString(result) : string.Empty;
                 }
                 catch (Exception ex)
                 {
@@ -193,9 +195,12 @@ namespace BootBaronLib.DAL
                 }
                 finally
                 {
-                    command.Parameters.Clear();
-                    // Close the connection
-                    command.Connection.Close();
+                    if (command != null)
+                    {
+                        command.Parameters.Clear();
+                        // Close the connection
+                        command.Connection.Close();
+                    }
                 }
                 // return the result
                 return value;
@@ -207,84 +212,69 @@ namespace BootBaronLib.DAL
         #region DBCommands
 
         /// <summary>
-        /// Creates and prepares a new DbCommand object 
-        /// on a new connection using a StoredProcedure
+        ///     Creates and prepares a new DbCommand object
+        ///     on a new connection using a StoredProcedure
         /// </summary>
         public static DbCommand CreateCommand()
         {
             // Obtain the database provider name
-            string dataProviderName = DataBaseConfigs.DbProviderName;
+            var dataProviderName = DataBaseConfigs.DbProviderName;
             // Obtain the database connection string
-            string connectionString = DataBaseConfigs.DbConnectionString;
+            var connectionString = DataBaseConfigs.DbConnectionString;
             // Create a new data provider factory
-            DbProviderFactory factory = DbProviderFactories.GetFactory(dataProviderName);
+            var factory = DbProviderFactories.GetFactory(dataProviderName);
             // Obtain a database specific connection object
-            DbConnection conn = factory.CreateConnection();
-            // Set the connection string
-            conn.ConnectionString = connectionString;
+            var conn = factory.CreateConnection();
+
             // Create a database specific command object
-            DbCommand comm = conn.CreateCommand();
-            // Set the command type to stored procedure
-            comm.CommandType = CommandType.StoredProcedure;
-            // Return the initialized command object
-            return comm;
+            if (conn != null)
+            {
+                var comm = conn.CreateCommand();
+
+                // Set the connection string
+                conn.ConnectionString = connectionString;
+                // Set the command type to stored procedure
+                comm.CommandType = CommandType.StoredProcedure;
+                // Return the initialized command object
+                return comm;
+            }
+
+            return null;
         }
 
         /// <summary>
-        /// Creates and prepares a new DbCommand object 
-        /// on a new connection using choice
+        ///     Creates and prepares a new DbCommand object
+        ///     on a new connection using choice
         /// </summary>
-        /// <param name="text">true or false to use command type of text</param>
+        /// <param name="isText"></param>
         /// <returns></returns>
         /// <remarks>allows the use of text or stored procedure for command type</remarks>
         public static DbCommand CreateCommand(bool isText)
         {
             // Obtain the database provider name
-            string dataProviderName = DataBaseConfigs.DbProviderName;
+            var dataProviderName = DataBaseConfigs.DbProviderName;
             // Obtain the database connection string
-            string connectionString = DataBaseConfigs.DbConnectionString;
+            var connectionString = DataBaseConfigs.DbConnectionString;
             // Create a new data provider factory
-            DbProviderFactory factory = DbProviderFactories.GetFactory(dataProviderName);
+            var factory = DbProviderFactories.GetFactory(dataProviderName);
             // Obtain a database specific connection object
-            DbConnection conn = factory.CreateConnection();
-            // Set the connection string
-            conn.ConnectionString = connectionString;
-            // Create a database specific command object
-            DbCommand comm = conn.CreateCommand();
-            // Set the command type based on the paramter
-            if (isText == true) { comm.CommandType = CommandType.Text; }
-            else { comm.CommandType = CommandType.StoredProcedure; }
-            // Return the initialized command object
-            return comm;
-        }
+            var conn = factory.CreateConnection();
+            // Set the connection string 
 
-        /// <summary>
-        /// Creates and prepares a new DbCommand object on a new 
-        /// (other) connection using a StoredProcedure
-        /// </summary>
-        public static DbCommand CreateCommand2()
-        {
-            // Obtain the database provider name
-            string dataProviderName2 = DataBaseConfigs.DbProviderName;
-            // Obtain the database connection string
-            string connectionString2 = DataBaseConfigs.DbConnectionString;
-            // Create a new data provider factory
-            DbProviderFactory factory = DbProviderFactories.GetFactory(dataProviderName2);
-            // Obtain a database specific connection object
-            DbConnection conn = factory.CreateConnection();
-            // Set the connection string
-            conn.ConnectionString = connectionString2;
-            // Create a database specific command object
-            DbCommand comm = conn.CreateCommand();
-            // Set the command type to stored procedure
-            comm.CommandType = CommandType.StoredProcedure;
-            // Return the initialized command object
-            return comm;
+            if (conn != null)
+            {
+                var comm = conn.CreateCommand();
+                conn.ConnectionString = connectionString;
+                // Set the command type based on the paramter
+                comm.CommandType = isText ? CommandType.Text : CommandType.StoredProcedure;
+                // Return the initialized command object
+                return comm;
+            }
+            return null;
         }
 
         #endregion
 
         #endregion
-
     }
 }

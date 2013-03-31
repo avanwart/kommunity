@@ -13,14 +13,17 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Data;
+using System.Globalization;
+using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
-using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using IntrepidStudios;
 
@@ -28,87 +31,77 @@ namespace DasKlub.Controllers
 {
     public class VideoController : Controller
     {
-
         #region Variables
 
-        char[] letters = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-        char chosen = ' ';
-        int pageSize = 50;
-        Videos toShow = new Videos();
-        Contest contest = null;
-        int videoPageNumber = 1;
+        private readonly char[] _letters = new[]
+            {
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+                'V', 'W', 'X', 'Y', 'Z'
+            };
+
+        private char _chosen = ' ';
+        private Contest _contest;
+        private const int PageSize = 50;
+        private Videos _toShow = new Videos();
+        private int _videoPageNumber = 1;
 
         #endregion
 
         [HttpGet]
         public ActionResult Contests()
         {
-            BootBaronLib.AppSpec.DasKlub.BOL.VideoContest.Contests contests = new Contests();
+            var contests = new Contests();
 
             contests.GetAll();
 
             return View(contests);
-            
         }
 
 
         [HttpGet]
         public ActionResult Contest(string key)
         {
-            contest = new Contest();
+            _contest = new Contest();
 
-            contest.GetContestByKey(key);
+            _contest.GetContestByKey(key);
 
-            ContestVideos convids = new ContestVideos();
+            var convids = new ContestVideos();
 
-            convids.GetContestVideosForContest(contest.ContestID);
+            convids.GetContestVideosForContest(_contest.ContestID);
 
-            ViewBag.ContestName = contest.Name;
-
-
-
-            SongRecords sngrcs = new SongRecords();
-            SongRecord sngrcd = null;
-            BootBaronLib.AppSpec.DasKlub.BOL.Video vidCon = null;
-
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.VideoContest.ContestVideo vi in convids)
-            {
-                vidCon = new BootBaronLib.AppSpec.DasKlub.BOL.Video(vi.VideoID);
-
-                sngrcd = new SongRecord(vidCon);
-
-                sngrcs.Add(sngrcd);
-            }
+            ViewBag.ContestName = _contest.Name;
 
 
+            var sngrcs = new SongRecords();
+            sngrcs.AddRange(convids.Select(vi => new Video(vi.VideoID)).Select(vidCon => new SongRecord(vidCon)));
 
-            sngrcs.Sort(delegate(BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent.SongRecord p1,
-            BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent.SongRecord p2)
-            {
-                return p2.VideoID.CompareTo(p1.VideoID);
-            });
+
+            sngrcs.Sort((p1, p2) => p2.VideoID.CompareTo(p1.VideoID));
 
             return View(sngrcs);
         }
 
         private void LoadUserBandViewBag()
         {
-            char[] letters = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+            var letters = new[]
+                {
+                    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U'
+                    , 'V', 'W', 'X', 'Y', 'Z'
+                };
 
             ////// BANDS
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.Append(@"<div class=""letter_group""><ul>");
 
-            foreach (char ch2 in letters)
+            foreach (var ch2 in letters)
             {
                 sb.Append("<li>");
 
 
-                sb.AppendFormat(@"<a href=""{0}"">{1}</a>", System.Web.VirtualPathUtility.ToAbsolute(
-    "~/video/bands/" + Convert.ToChar(ch2.ToString().ToLower())), Convert.ToChar(ch2.ToString()));
-
+                sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
+                    "~/video/bands/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())), Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
 
 
                 sb.Append("</li>");
@@ -128,8 +121,8 @@ namespace DasKlub.Controllers
             {
                 sb.Append("<li>");
 
-                sb.AppendFormat(@"<a href=""{0}"">{1}</a>", System.Web.VirtualPathUtility.ToAbsolute(
-                    "~/video/users/" + Convert.ToChar(ch2.ToString().ToLower())), Convert.ToChar(ch2.ToString()));
+                sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
+                    "~/video/users/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())), Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
 
                 sb.Append("</li>");
             }
@@ -137,7 +130,6 @@ namespace DasKlub.Controllers
             sb.Append("</ul></div>");
 
             ViewBag.LetterOfUsers = sb.ToString();
-
         }
 
         [HttpGet]
@@ -151,28 +143,22 @@ namespace DasKlub.Controllers
 
         public JsonResult Items(int pageNumber)
         {
-            videoPageNumber = pageNumber;
-            toShow = new BootBaronLib.AppSpec.DasKlub.BOL.Videos();
+            _videoPageNumber = pageNumber;
+            _toShow = new Videos();
 
             LoadFilteredVideos(true);
 
-            SongRecords sngrcs = new SongRecords();
-            SongRecord sngrcd = null;
-
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.Video vi in toShow)
-            {
-                sngrcd = new SongRecord(vi);
-                sngrcs.Add(sngrcd);
-            }
+            var sngrcs = new SongRecords();
+            sngrcs.AddRange(_toShow.Select(vi => new SongRecord(vi)));
 
             sngrcs.IncludeStateAndEndTag = false;
 
             return Json(new
-            {
-                ListItems = sngrcs.VideosPageList()
-            });
+                {
+                    ListItems = sngrcs.VideosPageList()
+                });
         }
-       
+
         public ActionResult Index()
         {
             LoadUserBandViewBag();
@@ -187,114 +173,70 @@ namespace DasKlub.Controllers
             int? personType = null;
             int? footageType = null;
             int? videoType = null;
-            
-  
+
+
             if (!string.IsNullOrEmpty(
-             Request.QueryString[SiteEnums.QueryStringNames.videoType.ToString()]))
+                Request.QueryString[SiteEnums.QueryStringNames.videoType.ToString()]))
             {
                 videoType = Convert.ToInt32(
                     Request.QueryString[SiteEnums.QueryStringNames.videoType.ToString()]);
             }
 
             if (!string.IsNullOrEmpty(
-            Request.QueryString[SiteEnums.QueryStringNames.personType.ToString()]))
+                Request.QueryString[SiteEnums.QueryStringNames.personType.ToString()]))
             {
                 personType = Convert.ToInt32(
                     Request.QueryString[SiteEnums.QueryStringNames.personType.ToString()]);
             }
 
             if (!string.IsNullOrEmpty(
-            Request.QueryString[SiteEnums.QueryStringNames.footageType.ToString()]))
+                Request.QueryString[SiteEnums.QueryStringNames.footageType.ToString()]))
             {
                 footageType = Convert.ToInt32(
                     Request.QueryString[SiteEnums.QueryStringNames.footageType.ToString()]);
             }
 
-            toShow.GetListFilter(videoPageNumber, pageSize, personType, footageType, videoType);
+            _toShow.GetListFilter(_videoPageNumber, PageSize, personType, footageType, videoType);
 
-            if(isAjax) return;//this is ajax
+            if (isAjax) return; //this is ajax
 
-            if (videoPageNumber == 1)
+            if (_videoPageNumber == 1)
             {
-                SongRecords sngrcs = new SongRecords();
-                SongRecord sngrcd = null;
-
-                foreach (BootBaronLib.AppSpec.DasKlub.BOL.Video vi in toShow)
-                {
-                    sngrcd = new SongRecord(vi);
-
-                    sngrcs.Add(sngrcd);
-                }
+                var sngrcs = new SongRecords();
+                sngrcs.AddRange(_toShow.Select(vi => new SongRecord(vi)));
 
                 ViewBag.VideosFiltered = sngrcs.VideosPageList();
             }
 
-            MultiProperties addList = null;
-            PropertyType propTyp = null;
-            MultiProperties mps = null;
-
 
             // video types
-            propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
-            mps = new MultiProperties(propTyp.PropertyTypeID);
-            mps.Sort(delegate(MultiProperty p1, MultiProperty p2)
-            {
-                return p1.DisplayName.CompareTo(p2.DisplayName);
-            });
+            var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
+            var mps = new MultiProperties(propTyp.PropertyTypeID);
+            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
 
-            addList = new MultiProperties();
-
-            foreach (MultiProperty mp1 in mps)
-            {
-                if (Videos.HasResults(footageType, mp1.MultiPropertyID, personType))
-                {
-                    addList.Add(mp1);
-                }
-            }
+            var addList = new MultiProperties();
+            addList.AddRange(mps.Where(mp1 => Videos.HasResults(footageType, mp1.MultiPropertyID, personType)));
 
             ViewBag.VideoTypes = addList;
 
             // person types
             propTyp = new PropertyType(SiteEnums.PropertyTypeCode.HUMAN);
             mps = new MultiProperties(propTyp.PropertyTypeID);
-            mps.Sort(delegate(MultiProperty p1, MultiProperty p2)
-            {
-                return p1.DisplayName.CompareTo(p2.DisplayName);
-            });
-           
-            addList = new MultiProperties();
+            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
 
-            foreach (MultiProperty mp1 in mps)
-            {
-                if (Videos.HasResults( footageType, videoType, mp1.MultiPropertyID ))
-                {
-                    addList.Add(mp1);
-                }
-            }
+            addList = new MultiProperties();
+            addList.AddRange(mps.Where(mp1 => Videos.HasResults(footageType, videoType, mp1.MultiPropertyID)));
 
             ViewBag.PersonTypes = addList;
 
             //// footage types
             propTyp = new PropertyType(SiteEnums.PropertyTypeCode.FOOTG);
             mps = new MultiProperties(propTyp.PropertyTypeID);
-            mps.Sort(delegate(MultiProperty p1, MultiProperty p2)
-            {
-                return p1.DisplayName.CompareTo(p2.DisplayName);
-            });
+            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
             addList = new MultiProperties();
-
-            foreach (MultiProperty mp1 in mps)
-            {
-                if (Videos.HasResults(footageType, mp1.MultiPropertyID, personType))
-                {
-                    addList.Add(mp1);
-                }
-            }
+            addList.AddRange(mps.Where(mp1 => Videos.HasResults(footageType, mp1.MultiPropertyID, personType)));
 
             ViewBag.FootageTypes = addList;
- 
- 
- 
         }
 
         public ActionResult Detail()
@@ -304,52 +246,42 @@ namespace DasKlub.Controllers
 
         public ActionResult Filter(string firstLetter)
         {
-            chosen = Convert.ToChar(firstLetter);
+            _chosen = Convert.ToChar(firstLetter);
 
             ViewBag.FirstLetter = firstLetter.ToUpper();
 
-            Cloud cloud1 = new Cloud();
-            cloud1.DataIDField = "keyword_id";
-            cloud1.DataKeywordField = "keyword_value";
-            cloud1.DataCountField = "keyword_count";
-            cloud1.DataURLField = "keyword_url";
+            var cloud1 = new Cloud
+                {
+                    DataIDField = @"keyword_id",
+                    DataKeywordField = "keyword_value",
+                    DataCountField = "keyword_count",
+                    DataURLField = "keyword_url"
+                };
             //cloud1.MinColor = "#000000";
             //cloud1.MaxColor = "#000000";
 
-            DataSet theDS = new DataSet();
-
-            if (firstLetter == "0")
-            {
-                theDS = Artists.GetArtistCloudByNonLetter();
-            }
-            else
-            {
-                theDS = Artists.GetArtistCloudByLetter(firstLetter);
-            }
-            cloud1.DataSource = theDS;
+            DataSet theDs = firstLetter == "0" ? Artists.GetArtistCloudByNonLetter() : Artists.GetArtistCloudByLetter(firstLetter);
+            cloud1.DataSource = theDs;
 
             cloud1.MinFontSize = 14;
             cloud1.MaxFontSize = 30;
             cloud1.FontUnit = "px";
 
-            foreach (char chl in letters)
+            foreach (var chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
             {
-                if (chl == Convert.ToChar(firstLetter))
-                {
-                    chosen = chl;
-                }
+                _chosen = chl;
             }
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.Append(@"<div class=""letter_group""><ul>");
 
 
-            foreach (char ch2 in letters)
+            foreach (var ch2 in _letters)
             {
                 sb.Append("<li>");
 
-                if (Convert.ToChar(ch2.ToString().ToLower()) == Convert.ToChar(chosen.ToString().ToLower()))
+                if (Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()) == Convert.ToChar(_chosen.ToString(CultureInfo.InvariantCulture).ToLower()))
                 {
                     sb.Append("<b>");
                     sb.Append(ch2);
@@ -357,8 +289,8 @@ namespace DasKlub.Controllers
                 }
                 else
                 {
-                    sb.AppendFormat(@"<a href=""{0}"">{1}</a>", System.Web.VirtualPathUtility.ToAbsolute(
-                    "~/video/bands/" + Convert.ToChar(ch2.ToString().ToLower())), Convert.ToChar(ch2.ToString()));
+                    sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
+                        "~/video/bands/" + Convert.ToChar(ch2.ToString().ToLower())), Convert.ToChar(ch2.ToString()));
                 }
 
                 sb.Append("</li>");
@@ -375,46 +307,43 @@ namespace DasKlub.Controllers
 
         public ActionResult UserFilter(string firstLetter)
         {
-            chosen = Convert.ToChar(firstLetter);
+            _chosen = Convert.ToChar(firstLetter);
 
             ViewBag.FirstLetter = firstLetter.ToUpper();
 
-            Cloud cloud1 = new Cloud();
-            cloud1.DataIDField = "keyword_id";
-            cloud1.DataKeywordField = "keyword_value";
-            cloud1.DataCountField = "keyword_count";
-            cloud1.DataURLField = "keyword_url";
+            var cloud1 = new Cloud
+                {
+                    DataIDField = "keyword_id",
+                    DataKeywordField = "keyword_value",
+                    DataCountField = "keyword_count",
+                    DataURLField = "keyword_url"
+                };
             //cloud1.MinColor = "#000000";
             //cloud1.MaxColor = "#000000";
 
-            DataSet theDS = new DataSet();
 
+            var theDs = Videos.GetAccountCloudByLetter(firstLetter);
 
-            theDS = Videos.GetAccountCloudByLetter(firstLetter);
-
-            cloud1.DataSource = theDS;
+            cloud1.DataSource = theDs;
             cloud1.MinFontSize = 14;
             cloud1.MaxFontSize = 30;
             cloud1.FontUnit = "px";
 
-            foreach (char chl in letters)
+            foreach (var chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
             {
-                if (chl == Convert.ToChar(firstLetter))
-                {
-                    chosen = chl;
-                }
+                _chosen = chl;
             }
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             sb.Append(@"<div class=""letter_group""><ul>");
 
 
-            foreach (char ch2 in letters)
+            foreach (var ch2 in _letters)
             {
                 sb.Append("<li>");
 
-                if (Convert.ToChar(ch2.ToString().ToLower()) == Convert.ToChar(chosen.ToString().ToLower()))
+                if (Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()) == Convert.ToChar(_chosen.ToString(CultureInfo.InvariantCulture).ToLower()))
                 {
                     sb.Append("<b>");
                     sb.Append(ch2);
@@ -422,9 +351,8 @@ namespace DasKlub.Controllers
                 }
                 else
                 {
-                    sb.AppendFormat(@"<a href=""{0}"">{1}</a>", System.Web.VirtualPathUtility.ToAbsolute(
-    "~/video/users/" + Convert.ToChar(ch2.ToString().ToLower())), Convert.ToChar(ch2.ToString() ));
-
+                    sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
+                        "~/video/users/" + Convert.ToChar(ch2.ToString().ToLower())), Convert.ToChar(ch2.ToString()));
                 }
 
                 sb.Append("</li>");
@@ -433,13 +361,10 @@ namespace DasKlub.Controllers
             sb.Append("</ul></div>");
 
             ViewBag.LetterOfUsers = sb.ToString();
-            
+
             ViewBag.CloudUsers = cloud1.HTML();
 
             return View();
         }
-
-
     }
- 
 }

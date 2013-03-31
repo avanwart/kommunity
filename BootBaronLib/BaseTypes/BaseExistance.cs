@@ -13,48 +13,25 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BootBaronLib.BaseTypes
 {
     public abstract class BaseExistance
     {
-        public virtual int Create()
-        {
-
-            throw new NotImplementedException();
-        }
-
-        private int _createdByUserID = 0;
-
-        public int CreatedByUserID
-        {
-            get
-            {
-                return _createdByUserID;
-            }
-            set
-            {
-                _createdByUserID = value;
-            }
-        }
-
         private DateTime _createDate = DateTime.MinValue;
+        public int CreatedByUserID { get; set; }
 
         public DateTime CreateDate
         {
-            get
-            {
-                return _createDate;
-            }
-            set
-            {
-                _createDate = value;
-            }
+            get { return _createDate; }
+            set { _createDate = value; }
         }
 
+        public virtual int Create()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

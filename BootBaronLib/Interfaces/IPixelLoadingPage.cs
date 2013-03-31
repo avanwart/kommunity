@@ -17,13 +17,13 @@
 namespace BootBaronLib.Interfaces
 {
     /// <summary>
-    /// Implement this to prove that this page can load a pixel and update the user 
-    /// accordingly
+    ///     Implement this to prove that this page can load a pixel and update the user
+    ///     accordingly
     /// </summary>
     public interface IPixelLoadingPage
     {
         /// <summary>
-        /// Specifies that the page will load the pixel
+        ///     Specifies that the page will load the pixel
         /// </summary>
         void LoadPixel();
     }

@@ -31,14 +31,15 @@
 *     The textarea will use an appropriate height between 50 and 200 pixels.
 */
 
-(function ($) {
+(function($) {
 
     // jQuery plugin definition
-    $.fn.TextAreaExpander = function (minHeight, maxHeight) {
+    $.fn.TextAreaExpander = function(minHeight, maxHeight) {
 
         var hCheck = !($.browser.msie || $.browser.opera);
 
         // resize a textarea
+
         function ResizeTextarea(e) {
 
             // event or initialize element?
@@ -59,10 +60,12 @@
             }
 
             return true;
-        };
+        }
+
+        ;
 
         // initialize
-        this.each(function () {
+        this.each(function() {
 
             // is a textarea?
             if (this.nodeName.toLowerCase() != "textarea") return;
@@ -86,19 +89,13 @@
         return this;
     };
 
-})(jQuery);
-
-
-
- 
+})(jQuery); 
 
 
 // initialize all expanding textareas
-jQuery(document).ready(function () {
+jQuery(document).ready(function() {
 // added the mobile detection because it's too slow on iPhone
 
-        jQuery("textarea[class*=expand]").TextAreaExpander();
-  
-});
+    jQuery("textarea[class*=expand]").TextAreaExpander();
 
- 
+});

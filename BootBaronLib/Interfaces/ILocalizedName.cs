@@ -13,16 +13,11 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
-using System.Data;
 
 namespace BootBaronLib.Interfaces
 {
-
- 
-    public interface ILocalizedName 
+    public interface ILocalizedName
     {
-
         string LocalizedName { get; }
-  
     }
 }

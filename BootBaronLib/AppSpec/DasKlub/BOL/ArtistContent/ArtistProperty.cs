@@ -13,15 +13,13 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BootBaronLib.Interfaces;
-using BootBaronLib.BaseTypes;
-using System.Data.Common;
 using System.Data;
+using System.Data.Common;
+using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
+using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
@@ -30,23 +28,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
     {
         #region properties
 
-        private int _artistPropertyID = 0;
-
-        public int ArtistPropertyID
-        {
-            get { return _artistPropertyID; }
-            set { _artistPropertyID = value; }
-        }
-
-        private int _artistID = 0;
-
-        public int ArtistID
-        {
-            get { return _artistID; }
-            set { _artistID = value; }
-        }
-
         private string _propertyContent = string.Empty;
+        private string _propertyType = string.Empty;
+        public int ArtistPropertyID { get; set; }
+
+        public int ArtistID { get; set; }
 
         public string PropertyContent
         {
@@ -54,13 +40,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             set { _propertyContent = value; }
         }
 
-        private string _propertyType = string.Empty;
-
         /// <summary>
-        /// Options are: 
-        /// MD = meta description
-        /// LD = long description
-        /// PH = photo
+        ///     Options are:
+        ///     MD = meta description
+        ///     LD = long description
+        ///     PH = photo
         /// </summary>
         public string PropertyType
         {
@@ -70,18 +54,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         #endregion
 
-
         #region constants
 
         public const string ARTISTIMAGEPREFIX = "~/Content/artists/";
 
         #endregion
 
-
         #region constructors
-
-
-        public ArtistProperty() { }
 
         #endregion
 
@@ -89,16 +68,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public void GetArtistPropertyForTypeArtist(int artistID, string propertyType)
         {
-            this.ArtistID = artistID;
-            this.PropertyType = propertyType;
+            ArtistID = artistID;
+            PropertyType = propertyType;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetArtistPropertyForTypeArtist";
 
-            ADOExtenstion.AddParameter(comm, "artistID", ArtistID);
-            ADOExtenstion.AddParameter(comm, "propertyType", PropertyType);
+            comm.AddParameter("artistID", ArtistID);
+            comm.AddParameter("propertyType", PropertyType);
 
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
@@ -109,10 +88,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
         }
 
 
-
         public override bool Update()
         {
-            if (this.ArtistPropertyID == 0) return false;
+            if (ArtistPropertyID == 0) return false;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -120,11 +98,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             comm.CommandText = "up_UpdateArtistProperty";
 
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, "updatedByUserID", UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, "artistID", ArtistID);
-            ADOExtenstion.AddParameter(comm, "propertyContent", PropertyContent);
-            ADOExtenstion.AddParameter(comm, "propertyType", PropertyType);
-            ADOExtenstion.AddParameter(comm, "artistPropertyID", ArtistPropertyID);
+            comm.AddParameter("updatedByUserID", UpdatedByUserID);
+            comm.AddParameter("artistID", ArtistID);
+            comm.AddParameter("propertyContent", PropertyContent);
+            comm.AddParameter("propertyType", PropertyType);
+            comm.AddParameter("artistPropertyID", ArtistPropertyID);
 
             // result will represent the number of changed rows
             bool result = false;
@@ -137,7 +115,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
         }
 
 
-
         public override int Create()
         {
             // get a configured DbCommand object
@@ -146,11 +123,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             comm.CommandText = "up_AddArtistProperty";
 
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, "createdByUserID", CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "artistID", ArtistID);
-            ADOExtenstion.AddParameter(comm, "propertyContent", PropertyContent);
-            ADOExtenstion.AddParameter(comm, "propertyType", PropertyType);
- 
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("artistID", ArtistID);
+            comm.AddParameter("propertyContent", PropertyContent);
+            comm.AddParameter("propertyType", PropertyType);
+
             // the result is their ID
             string result = string.Empty;
             // execute the stored procedure
@@ -158,32 +135,27 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
             if (string.IsNullOrEmpty(result)) return 0;
 
-            this.ArtistPropertyID = Convert.ToInt32(result);
+            ArtistPropertyID = Convert.ToInt32(result);
 
-            return this.ArtistPropertyID;
+            return ArtistPropertyID;
         }
 
 
         public override bool Delete()
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeleteArtistProperty";
 
-            ADOExtenstion.AddParameter(comm, "artistPropertyID", this.ArtistPropertyID);
+            comm.AddParameter("artistPropertyID", ArtistPropertyID);
 
             RemoveCache();
 
             // execute the stored procedure
 
             return DbAct.ExecuteNonQuery(comm) > 0;
-
         }
-
-
-
 
 
         public override void Get(DataRow dr)
@@ -192,16 +164,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             {
                 base.Get(dr);
 
-                this.ArtistID = FromObj.IntFromObj(dr["artistID"]);
-                this.PropertyContent = FromObj.StringFromObj(dr["propertyContent"]);
-                this.PropertyType = FromObj.StringFromObj(dr["propertyType"]);
-                this.ArtistPropertyID = FromObj.IntFromObj(dr["artistPropertyID"]);
+                ArtistID = FromObj.IntFromObj(dr["artistID"]);
+                PropertyContent = FromObj.StringFromObj(dr["propertyContent"]);
+                PropertyType = FromObj.StringFromObj(dr["propertyType"]);
+                ArtistPropertyID = FromObj.IntFromObj(dr["artistPropertyID"]);
             }
             catch
             {
-
             }
         }
+
         #endregion
 
         #region ICacheName Members

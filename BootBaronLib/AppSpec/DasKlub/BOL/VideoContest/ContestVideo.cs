@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,64 +29,37 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
     {
         #region constructors
 
-        public ContestVideo() { }
+        public ContestVideo()
+        {
+        }
 
         #endregion
 
         #region properties
 
-        private int _contestVideoID = 0;
+        private char _subContest = Convert.ToChar(SiteEnums.SubContest.U.ToString());
+        public int ContestVideoID { get; set; }
 
-        public int ContestVideoID
-        {
-            get { return _contestVideoID; }
-            set { _contestVideoID = value; }
-        }
-
-        private int _videoID = 0;
-
-        public int VideoID
-        {
-            get { return _videoID; }
-            set { _videoID = value; }
-        }
-
-        private int _contestID = 0;
+        public int VideoID { get; set; }
 
 
-        private int _contestRank = 0;
+        public int ContestRank { get; set; }
 
-        public int ContestRank
-        {
-            get { return _contestRank; }
-            set { _contestRank = value; }
-        }
-
-
-        private char _subContest = Convert.ToChar( SiteEnums.SubContest.U.ToString() );
 
         public char SubContest
         {
             get { return _subContest; }
             set { _subContest = value; }
         }
-       
-        public int ContestID
-        {
-            get { return _contestID; }
-            set { _contestID = value; }
-        }
+
+        public int ContestID { get; set; }
 
         #endregion
 
         public ContestVideo(DataRow dr)
         {
-
             Get(dr);
         }
-
-        
-
 
         #region methods
 
@@ -96,12 +70,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             comm.CommandText = "up_AddContestVideo";
 
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.CreatedByUserID), CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.VideoID), VideoID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ContestID), ContestID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.SubContest), SubContest);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => CreatedByUserID), CreatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => VideoID), VideoID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContestID), ContestID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => SubContest), SubContest);
 
- 
 
             // the result is their ID
             string result = string.Empty;
@@ -110,9 +83,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
 
             if (string.IsNullOrEmpty(result)) return 0;
 
-            this.ContestVideoID = Convert.ToInt32(result);
+            ContestVideoID = Convert.ToInt32(result);
 
-            return this.ContestVideoID;
+            return ContestVideoID;
         }
 
         public static bool IsUserContestVoted(int userAccountID, int contestID)
@@ -122,9 +95,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             // set the stored procedure name
             comm.CommandText = "up_IsUserContestVoted";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
-            ADOExtenstion.AddParameter(comm, "contestID", contestID);
-          
+            comm.AddParameter("userAccountID", userAccountID);
+            comm.AddParameter("contestID", contestID);
+
             // execute the stored procedure
             return DbAct.ExecuteScalar(comm) == "1";
         }
@@ -136,8 +109,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
 
         public void GetContestVideoForContestAndVideo(int videoID, int contestID)
         {
-            this.VideoID = videoID;
-            this.ContestID = contestID;
+            VideoID = videoID;
+            ContestID = contestID;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -145,8 +118,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             comm.CommandText = "up_GetContestVideoForContestAndVideo";
 
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.VideoID), VideoID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ContestID), ContestID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => VideoID), VideoID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContestID), ContestID);
 
 
             // execute the stored procedure
@@ -160,17 +133,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
         }
 
 
-        public void  GetContestVideo(int videoID)
+        public void GetContestVideo(int videoID)
         {
-            this.VideoID = videoID;
+            VideoID = videoID;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetContestVideo";
-            
+
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.VideoID), VideoID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => VideoID), VideoID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -181,7 +154,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
                 Get(dt.Rows[0]);
             }
         }
-
 
 
         public override void Get(DataRow dr)
@@ -190,17 +162,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             {
                 base.Get(dr);
 
-                this.ContestID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ContestID)]);
-                this.ContestVideoID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ContestVideoID)]);
-                this.VideoID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.VideoID)]);
-                this.SubContest = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => this.SubContest)]);
+                ContestID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => ContestID)]);
+                ContestVideoID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => ContestVideoID)]);
+                VideoID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => VideoID)]);
+                SubContest = FromObj.CharFromObj(dr[StaticReflection.GetMemberName<string>(x => SubContest)]);
             }
             catch
             {
-
             }
         }
-
 
 
         public static void DeleteVideoFromAllContests(int videoID)
@@ -210,7 +180,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             // set the stored procedure name
             comm.CommandText = "up_DeleteContestVideo";
 
-            ADOExtenstion.AddParameter(comm, "videoID", videoID);
+            comm.AddParameter("videoID", videoID);
 
             //RemoveCache();
 
@@ -219,21 +189,18 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             DbAct.ExecuteNonQuery(comm);
         }
 
-
         #endregion
-
     }
 
     public class ContestVideos : List<ContestVideo>
     {
-
         public void GetContestVideosForContest(int contestID)
         {
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetContestVideosForContest";
 
-            ADOExtenstion.AddParameter(comm, "contestID",  contestID);
+            comm.AddParameter("contestID", contestID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -249,7 +216,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
                     cvid = new ContestVideo(dr);
                     vid = new Video(cvid.VideoID);
 
-                    if (vid.IsEnabled) this.Add(cvid);
+                    if (vid.IsEnabled) Add(cvid);
                 }
             }
         }

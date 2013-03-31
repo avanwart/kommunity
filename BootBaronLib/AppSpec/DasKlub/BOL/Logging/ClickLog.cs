@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Data.Common;
 using BootBaronLib.BaseTypes;
@@ -25,19 +26,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.Logging
     {
         #region properties
 
-        private int _clickLogID = 0;
-
-        public int ClickLogID
-        {
-            get { return _clickLogID; }
-            set { _clickLogID = value; }
-        }
-
         private char _clickType = char.MinValue;
+        private string _currentURL = string.Empty;
+
+        private string _ipAddress = string.Empty;
+        private string _referringURL = string.Empty;
+        public int ClickLogID { get; set; }
 
         /// <summary>
-        /// V = product is being viewed
-        /// T = clicking through to add to cart or affilaite outbound link
+        ///     V = product is being viewed
+        ///     T = clicking through to add to cart or affilaite outbound link
         /// </summary>
         public char ClickType
         {
@@ -45,15 +43,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.Logging
             set { _clickType = value; }
         }
 
-        private string _ipAddress = string.Empty;
-
         public string IpAddress
         {
             get { return _ipAddress; }
             set { _ipAddress = value; }
         }
-
-        private string _currentURL = string.Empty;
 
         public string CurrentURL
         {
@@ -61,39 +55,31 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.Logging
             set { _currentURL = value; }
         }
 
-        private string _referringURL = string.Empty;
-
         public string ReferringURL
         {
             get { return _referringURL; }
             set { _referringURL = value; }
         }
 
-        private int _productID = 0;
-
-        public int ProductID
-        {
-            get { return _productID; }
-            set { _productID = value; }
-        }
+        public int ProductID { get; set; }
 
         #endregion
 
         #region methods
 
         public override int Create()
-        { 
+        {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddClickLog";
 
-            ADOExtenstion.AddParameter(comm, "clickType", this.ClickType);
-            ADOExtenstion.AddParameter(comm, "ipAddress", IpAddress);
-            ADOExtenstion.AddParameter(comm, "currentURL", CurrentURL);
-            ADOExtenstion.AddParameter(comm, "referringURL", ReferringURL);
-            ADOExtenstion.AddParameter(comm, "productID", this.ProductID);
-            ADOExtenstion.AddParameter(comm, "createdByUserID", CreatedByUserID);
+            comm.AddParameter("clickType", ClickType);
+            comm.AddParameter("ipAddress", IpAddress);
+            comm.AddParameter("currentURL", CurrentURL);
+            comm.AddParameter("referringURL", ReferringURL);
+            comm.AddParameter("productID", ProductID);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
 
             // the result is their ID
             string result = string.Empty;
@@ -106,9 +92,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.Logging
             }
             else
             {
-                this.ClickLogID = Convert.ToInt32(result);
+                ClickLogID = Convert.ToInt32(result);
 
-                return this.ClickLogID;
+                return ClickLogID;
             }
         }
 

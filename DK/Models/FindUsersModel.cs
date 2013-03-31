@@ -18,6 +18,8 @@ namespace DasKlub.Models
 {
     public class FindUsersModel
     {
+        private int _ageFrom = 18;
+        private int _ageTo = 35;
         public string PostalCode { get; set; }
 
         public int? YouAreID { get; set; }
@@ -28,15 +30,11 @@ namespace DasKlub.Models
 
         public string Lang { get; set; }
 
-        private int _ageFrom = 18;
-
         public int AgeFrom
         {
             get { return _ageFrom; }
             set { _ageFrom = value; }
         }
-
-        private int _ageTo = 35;
 
         public int AgeTo
         {

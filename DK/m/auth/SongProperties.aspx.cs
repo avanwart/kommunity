@@ -13,39 +13,31 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections;
 using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
- 
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Operational;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
+using BootBaronLib.Operational;
 
 namespace DasKlub.m.auth
 {
- 
-
-
-    public partial class SongProperties : System.Web.UI.Page
+    public partial class SongProperties : Page
     {
-        
-        Song sng = null;
-        Artist artst = null;
-        
-        string videoKey = string.Empty;
-        
-        const string unknownValue = "-UNKNOWN-";
-        Songs artsngs = null;
+        private const string unknownValue = "-UNKNOWN-";
+        private Songs artsngs;
+        private Artist artst;
+        private Song sng;
+        private string videoKey = string.Empty;
+
         ///
-        
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (!IsPostBack)
             {
-                Artists arts = new Artists();
+                var arts = new Artists();
                 arts.GetAll();
 
                 // artists 1
@@ -97,7 +89,6 @@ namespace DasKlub.m.auth
         //    ddlVideoStatus.DataBind();
 
 
-
         //    ///
         //    PropertyType propTyp = new PropertyType(SiteEnums.PropertyTypeCode.HUMAN);
         //    MultiProperties mps = new MultiProperties(propTyp.PropertyTypeID);
@@ -128,24 +119,19 @@ namespace DasKlub.m.auth
 
         //}
 
-    
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             try
             {
-
                 IDictionaryEnumerator enumerator = HttpContext.Current.Cache.GetEnumerator();
 
                 while (enumerator.MoveNext())
                 {
-
                     HttpContext.Current.Cache.Remove(enumerator.Key.ToString());
-
                 }
 
 
-                 
                 //  RefreshLists();
 
                 lblStatus.Text = "OK";
@@ -157,7 +143,7 @@ namespace DasKlub.m.auth
 
 
             // amazon
-            SongProperty sp1 = new SongProperty();
+            var sp1 = new SongProperty();
 
             sp1.SongID = sng.SongID;
             sp1.PropertyContent = txtAmazonLink.Text;
@@ -182,7 +168,6 @@ namespace DasKlub.m.auth
         }
 
 
-
         protected void ddlArtist1_SelectedIndexChanged(object sender, EventArgs e)
         {
             artsngs = new Songs();
@@ -198,23 +183,19 @@ namespace DasKlub.m.auth
 
             txtAmazonLink.Text = string.Empty;
             txtiTunesLink.Text = string.Empty;
-
-
         }
 
         protected void ddlArtistSongs1_SelectedIndexChanged(object sender, EventArgs e)
         {
-          
-            
-            SongProperty sp1 = new SongProperty();
-            
+            var sp1 = new SongProperty();
+
             //am
             sp1.GetSongPropertySongIDTypeID(
                 sng.SongID,
                 SongProperty.SPropType.AM.ToString());
 
             txtAmazonLink.Text = sp1.PropertyContent;
-            
+
 
             sp1 = new SongProperty();
 
@@ -225,12 +206,5 @@ namespace DasKlub.m.auth
 
             txtiTunesLink.Text = sp1.PropertyContent;
         }
-
-      
-
-     
-        
- 
-
     }
 }

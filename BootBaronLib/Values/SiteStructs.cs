@@ -16,9 +16,15 @@
 
 namespace BootBaronLib.Values
 {
-    public class SiteStructs 
+    public static class SiteStructs
     {
+        public struct CityRegion
+        {
+            public string CityName;
+            public string Region;
+        }
 
+ 
 
         public struct LatLong
         {
@@ -26,55 +32,6 @@ namespace BootBaronLib.Values
             public double longitude;
         };
 
-
-
-
-        #region constructors
-
-        public SiteStructs() { }
-
-        #endregion
-
-
-        /// <summary>
-        /// A state/ country
-        /// </summary>
-        public struct RegionCountry
-        {
-            public string Region ;
-            public string  CountryCode ;
-        };
-
-
-
-        public struct CityRegionCountry
-        {
-            public string City;
-            public string Region;
-            public string CountryCode;
-        };
-
-        public struct CityRegion
-        {
-            public string CityName;
-            public string Region;
-
-        }
-
-
-        public struct JetPayNameAndValueEncryption
-        {
-            public string nameOfEnc;
-            public string valOfEnc;
-        }
-
-
-
-        public struct UserNamePassword
-        {
-            public string userName;
-            public string password;
-        }
  
     }
 }

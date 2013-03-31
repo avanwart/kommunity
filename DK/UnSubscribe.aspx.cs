@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Values;
 
 namespace DasKlub
 {
-    public partial class UnSubscribe : System.Web.UI.Page
+    public partial class UnSubscribe : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string email = Server.UrlDecode( Request.QueryString[SiteEnums.QueryStringNames.email.ToString()]);
-
-          
+            string email = Server.UrlDecode(Request.QueryString[SiteEnums.QueryStringNames.email.ToString()]);
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            UserAccount ua = new UserAccount();
+            var ua = new UserAccount();
             ua.GetUserAccountByEmail(txtEmail.Text.Trim());
             if (ua.UserAccountID == 0)
             {
@@ -28,7 +22,7 @@ namespace DasKlub
                 return;
             }
 
-            UserAccountDetail uad = new UserAccountDetail();
+            var uad = new UserAccountDetail();
             uad.GetUserAccountDeailForUser(ua.UserAccountID);
             uad.EmailMessages = false;
 

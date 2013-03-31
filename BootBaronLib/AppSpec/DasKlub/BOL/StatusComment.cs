@@ -13,18 +13,19 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Text;
+using System.Web;
+using System.Web.Security;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
-using System.Text;
-using System.Web;
 using BootBaronLib.Resources;
-using System.Web.Security;
 using BootBaronLib.Values;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
@@ -33,31 +34,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties
 
-        private int _statusCommentID = 0;
-
-        public int StatusCommentID
-        {
-            get { return _statusCommentID; }
-            set { _statusCommentID = value; }
-        }
-
-        private int _statusUpdateID = 0;
-
-        public int StatusUpdateID
-        {
-            get { return _statusUpdateID; }
-            set { _statusUpdateID = value; }
-        }
-
-        private int _userAccountID = 0;
-
-        public int UserAccountID
-        {
-            get { return _userAccountID; }
-            set { _userAccountID = value; }
-        }
-
+        private string _message = string.Empty;
         private char _statusType = char.MinValue;
+        public int StatusCommentID { get; set; }
+
+        public int StatusUpdateID { get; set; }
+
+        public int UserAccountID { get; set; }
 
         public char StatusType
         {
@@ -65,14 +48,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             set { _statusType = value; }
         }
 
-        private string _message = string.Empty;
-
         public string Message
         {
-            get {
+            get
+            {
                 if (_message == null) return _message;
                 else return _message.Trim();
-                 }
+            }
             set { _message = value; }
         }
 
@@ -80,15 +62,28 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #region constructors
 
-        public StatusComment() { }
+        public StatusComment()
+        {
+        }
 
-        public StatusComment(int statusCommentID) { Get(statusCommentID); }
+        public StatusComment(int statusCommentID)
+        {
+            Get(statusCommentID);
+        }
 
-        public StatusComment(DataRow dr) { Get(dr); }
+        public StatusComment(DataRow dr)
+        {
+            Get(dr);
+        }
 
         #endregion
 
         #region methods
+
+        public void RemoveCache()
+        {
+            throw new NotImplementedException();
+        }
 
         public override int Create()
         {
@@ -97,11 +92,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddStatusComment";
 
-            ADOExtenstion.AddParameter(comm, "statusUpdateID", StatusUpdateID);
-            ADOExtenstion.AddParameter(comm, "userAccountID", UserAccountID);
-            ADOExtenstion.AddParameter(comm, "statusType", StatusType);
-            ADOExtenstion.AddParameter(comm, "createdByUserID", CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "message", Message);
+            comm.AddParameter("statusUpdateID", StatusUpdateID);
+            comm.AddParameter("userAccountID", UserAccountID);
+            comm.AddParameter("statusType", StatusType);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("message", Message);
 
             // the result is their ID
             string result = string.Empty;
@@ -114,15 +109,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                this.StatusCommentID = Convert.ToInt32(result);
+                StatusCommentID = Convert.ToInt32(result);
 
-                return this.StatusCommentID;
+                return StatusCommentID;
             }
         }
 
         public override bool Delete()
         {
-            if (this.StatusCommentID == 0) return false;
+            if (StatusCommentID == 0) return false;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -130,7 +125,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteStatusComment";
 
-            ADOExtenstion.AddParameter(comm, "statusCommentID", StatusCommentID);
+            comm.AddParameter("statusCommentID", StatusCommentID);
 
             //RemoveCache();
 
@@ -145,25 +140,27 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             {
                 base.Get(dr);
 
-                this.Message = FromObj.StringFromObj(dr["message"]);
-                this.StatusType = FromObj.CharFromObj(dr["statusType"]);
-                this.StatusUpdateID = FromObj.IntFromObj(dr["statusUpdateID"]);
-                this.UserAccountID = FromObj.IntFromObj(dr["userAccountID"]);
-                this.StatusCommentID = FromObj.IntFromObj(dr["statusCommentID"]);
+                Message = FromObj.StringFromObj(dr["message"]);
+                StatusType = FromObj.CharFromObj(dr["statusType"]);
+                StatusUpdateID = FromObj.IntFromObj(dr["statusUpdateID"]);
+                UserAccountID = FromObj.IntFromObj(dr["userAccountID"]);
+                StatusCommentID = FromObj.IntFromObj(dr["statusCommentID"]);
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         public override void Get(int uniqueID)
         {
-            this.StatusCommentID = uniqueID;
+            StatusCommentID = uniqueID;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetStatusComment";
 
-            ADOExtenstion.AddParameter(comm, "statusCommentID", StatusCommentID);
+            comm.AddParameter("statusCommentID", StatusCommentID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -175,54 +172,53 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
         }
 
-        public void RemoveCache()
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
-
-        public string CacheName
-        {
-            get { throw new NotImplementedException(); }
-        }
 
         public string StatusCommentAcknowledgementsOptions
         {
             get
             {
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
                 StatusCommentAcknowledgement ack = null;
 
                 MembershipUser mu = Membership.GetUser();
 
                 if (mu == null) return string.Empty;
 
-                if (mu != null && StatusCommentAcknowledgement.IsUserCommentAcknowledgement(this.StatusCommentID, Convert.ToInt32(mu.ProviderUserKey)))
+                if (mu != null &&
+                    StatusCommentAcknowledgement.IsUserCommentAcknowledgement(StatusCommentID,
+                                                                              Convert.ToInt32(mu.ProviderUserKey)))
                 {
                     sb.Append(@"<div class=""left_float"">");
 
                     sb.Append(@"<span class=""status_comment_count_applaud"">");
-                    sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(this.StatusCommentID, Convert.ToChar(SiteEnums.AcknowledgementType.A.ToString())));
+                    sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
+                                                                                           Convert.ToChar(
+                                                                                               SiteEnums
+                                                                                                   .AcknowledgementType
+                                                                                                   .A.ToString())));
                     sb.Append(@"</span>");
 
                     ack = new StatusCommentAcknowledgement();
-                    ack.GetCommentAcknowledgement(this.StatusCommentID, Convert.ToInt32(mu.ProviderUserKey));
+                    ack.GetCommentAcknowledgement(StatusCommentID, Convert.ToInt32(mu.ProviderUserKey));
 
-                    if (ack.StatusCommentAcknowledgementID > 0 && ack.AcknowledgementType == Convert.ToChar(SiteEnums.AcknowledgementType.A.ToString()))
+                    if (ack.StatusCommentAcknowledgementID > 0 &&
+                        ack.AcknowledgementType == Convert.ToChar(SiteEnums.AcknowledgementType.A.ToString()))
                     {
-                        sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_applaud""", Messages.YouResponded);
+                        sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_applaud""",
+                                        Messages.YouResponded);
                         //sb.Append(@" disabled=""disabled"" class=""applaud_status_comment_complete""  type=""button"" value=""");
                         sb.Append(@"  class=""applaud_status_comment_complete""  type=""button"" value=""");
-                        sb.Append(this.StatusCommentID.ToString());
+                        sb.Append(StatusCommentID.ToString());
                         sb.AppendFormat(@""">{0}</button>", Messages.Applaud);
                     }
                     else
                     {
-                        sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_applaud""", Messages.YouResponded);
+                        sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_applaud""",
+                                        Messages.YouResponded);
                         //sb.Append(@" disabled=""disabled"" class=""applaud_status_comment""  type=""button"" value=""");
                         sb.Append(@"   class=""applaud_status_comment""  type=""button"" value=""");
-                        sb.Append(this.StatusCommentID.ToString());
+                        sb.Append(StatusCommentID.ToString());
                         sb.AppendFormat(@""">{0}</button>", Messages.Applaud);
                     }
 
@@ -231,39 +227,49 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     sb.Append(@"<div class=""left_float"">");
 
                     sb.Append(@"<span class=""status_comment_count_beatdown"">");
-                    sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(this.StatusCommentID, Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString())));
+                    sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
+                                                                                           Convert.ToChar(
+                                                                                               SiteEnums
+                                                                                                   .AcknowledgementType
+                                                                                                   .B.ToString())));
                     sb.Append(@"</span>");
 
-                    if (ack.StatusCommentAcknowledgementID > 0 && ack.AcknowledgementType == Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString()))
+                    if (ack.StatusCommentAcknowledgementID > 0 &&
+                        ack.AcknowledgementType == Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString()))
                     {
                         sb.AppendFormat(@"<button title=""{0}""", Messages.YouResponded);
                         //sb.Append(@" class=""beat_status_comment_complete"" disabled=""disabled"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                        sb.Append(@" class=""beat_status_comment_complete"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                        sb.Append(this.StatusCommentID.ToString());
+                        sb.Append(
+                            @" class=""beat_status_comment_complete"" name=""status_comment_update_id_beat"" type=""button"" value=""");
+                        sb.Append(StatusCommentID.ToString());
                         sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
                     }
                     else
                     {
                         sb.AppendFormat(@"<button title=""{0}""", Messages.YouResponded);
                         //sb.Append(@" class=""beat_status_comment"" disabled=""disabled"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                        sb.Append(@" class=""beat_status_comment"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                        sb.Append(this.StatusCommentID.ToString());
+                        sb.Append(
+                            @" class=""beat_status_comment"" name=""status_comment_update_id_beat"" type=""button"" value=""");
+                        sb.Append(StatusCommentID.ToString());
                         sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
                     }
 
                     sb.Append(@"</div>");
-
                 }
                 else
                 {
                     sb.Append(@"<div class=""left_float"">");
 
                     sb.Append(@"<span class=""status_comment_count_applaud"">");
-                    sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(this.StatusCommentID, Convert.ToChar(SiteEnums.AcknowledgementType.A.ToString())));
+                    sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
+                                                                                           Convert.ToChar(
+                                                                                               SiteEnums
+                                                                                                   .AcknowledgementType
+                                                                                                   .A.ToString())));
                     sb.Append(@"</span>");
                     sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_applaud""", Messages.Applaud);
                     sb.Append(@" class=""applaud_status_comment"" type=""button"" value=""");
-                    sb.Append(this.StatusCommentID.ToString());
+                    sb.Append(StatusCommentID.ToString());
                     sb.AppendFormat(@""">{0}</button>", Messages.Applaud);
 
                     sb.Append(@"</div>");
@@ -272,41 +278,47 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
 
                     sb.Append(@"<span class=""status_comment_count_beatdown"">");
-                    sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(this.StatusCommentID, Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString())));
+                    sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
+                                                                                           Convert.ToChar(
+                                                                                               SiteEnums
+                                                                                                   .AcknowledgementType
+                                                                                                   .B.ToString())));
                     sb.Append(@"</span>");
                     sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_beat""", Messages.BeatDown);
                     sb.Append(@" class=""beat_status_comment"" type=""button"" value=""");
-                    sb.Append(this.StatusCommentID.ToString());
+                    sb.Append(StatusCommentID.ToString());
                     sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
 
 
-
                     sb.Append(@"</div>");
-
                 }
 
                 return sb.ToString();
             }
+        }
 
+        public string CacheName
+        {
+            get { throw new NotImplementedException(); }
         }
 
         public string ToUnorderdListItem
         {
             get
             {
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
 
                 sb.Append(@"<li class=""status_com"" ");
                 sb.Append(@" id=""status_com_id_");
-                sb.Append(this.StatusCommentID.ToString());
+                sb.Append(StatusCommentID.ToString());
                 sb.Append(@""">");
                 sb.Append(@"<div class=""inner_status_com"">");
 
                 //UserAccount ua = new UserAccount(this.UserAccountID);
 
-                UserAccountDetail uad = new UserAccountDetail();
+                var uad = new UserAccountDetail();
 
-                uad.GetUserAccountDeailForUser(this.UserAccountID);
+                uad.GetUserAccountDeailForUser(UserAccountID);
 
                 sb.Append(@"<div>");
 
@@ -314,7 +326,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                 //if (!PhotoDisplay)
                 //{
-                    
+
                 //}
                 //else
                 //{
@@ -326,37 +338,38 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
 
                 /// comment acknowledgements
-                sb.AppendFormat(@"<div class=""acknowlege_options left_float""><div id=""status_comment_ack_{0}"">{1}</div></div>",
-    this.StatusCommentID, this.StatusCommentAcknowledgementsOptions);
+                sb.AppendFormat(
+                    @"<div class=""acknowlege_options left_float""><div id=""status_comment_ack_{0}"">{1}</div></div>",
+                    StatusCommentID, StatusCommentAcknowledgementsOptions);
 
                 sb.Append(@"</div>");
 
                 sb.Append(@"<div class=""clear""></div>");
 
-                sb.AppendFormat(@"<i title=""{1}"">{0}</i>", Utilities.TimeElapsedMessage(CreateDate), CreateDate.ToString("o"));
+                sb.AppendFormat(@"<i title=""{1}"">{0}</i>", Utilities.TimeElapsedMessage(CreateDate),
+                                CreateDate.ToString("o"));
 
                 sb.Append("<br />");
                 //sb.Append("<br />");
 
 
-                sb.Append(Utilities.MakeLink(FromString.ReplaceNewLineSingleWithHTML(this.Message), true));
+                sb.Append(Utilities.MakeLink(FromString.ReplaceNewLineSingleWithHTML(Message), true));
 
-                UserAccount currentUser = new UserAccount(HttpContext.Current.User.Identity.Name);
+                var currentUser = new UserAccount(HttpContext.Current.User.Identity.Name);
 
-                if (currentUser.UserAccountID != 0 && this.UserAccountID == currentUser.UserAccountID)
+                if (currentUser.UserAccountID != 0 && UserAccountID == currentUser.UserAccountID)
                 {
                     sb.Append("<br />");
 
                     sb.AppendFormat(@"<button title=""{0}"" name=""delete_status_comment_id""", Messages.Delete);
                     sb.Append(@" class=""btn btn-mini btn-danger delete_icon_small"" type=""button"" value=""");
-                    sb.Append(this.StatusCommentID.ToString());
+                    sb.Append(StatusCommentID.ToString());
                     sb.AppendFormat(@""">{0}</button>", Messages.Delete);
                 }
 
                 sb.Append(@"<div class=""clear""></div>");
 
                 sb.Append(@"</div>");
-
 
 
                 sb.Append(@"</li>");
@@ -367,18 +380,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public void GetStatusCommentMessage()
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetStatusCommentMessage";
 
-            ADOExtenstion.AddParameter(comm,
-                StaticReflection.GetMemberName<string>(x => this.StatusUpdateID), StatusUpdateID);
-            ADOExtenstion.AddParameter(comm,
-                StaticReflection.GetMemberName<string>(x => this.Message), Message);
-            ADOExtenstion.AddParameter(comm,
-                StaticReflection.GetMemberName<string>(x => this.UserAccountID), UserAccountID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusUpdateID), StatusUpdateID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Message), Message);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -393,6 +402,34 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
     public class StatusComments : List<StatusComment>, IUnorderdList
     {
+        private bool _includeStartAndEndTags = true;
+
+        public bool IncludeStartAndEndTags
+        {
+            get { return _includeStartAndEndTags; }
+            set { _includeStartAndEndTags = value; }
+        }
+
+        public string ToUnorderdList
+        {
+            get
+            {
+                if (Count == 0) return string.Empty;
+
+                var sb = new StringBuilder(100);
+
+                if (IncludeStartAndEndTags) sb.Append("<ul>");
+
+                foreach (StatusComment stcom in this)
+                {
+                    sb.Append(stcom.ToUnorderdListItem);
+                }
+
+                if (IncludeStartAndEndTags) sb.Append("</ul>");
+
+                return sb.ToString();
+            }
+        }
 
         public static int GetMostCommentedOnStatus(DateTime beginDate)
         {
@@ -401,19 +438,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetMostCommentedOnStatus";
 
-            ADOExtenstion.AddParameter(comm, "beginDate", beginDate);
+            comm.AddParameter("beginDate", beginDate);
 
             // execute the stored procedure
             string str = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(str)) return 0;
-            else return
-               FromObj.IntFromObj(str);
+            else
+                return
+                    FromObj.IntFromObj(str);
         }
-        
-
- 
-        public StatusComments() { }
 
 
         public static int GetStatusCommentCount(int statusUpdateID)
@@ -423,7 +457,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetStatusCommentCount";
 
-            ADOExtenstion.AddParameter(comm, "statusUpdateID", statusUpdateID);
+            comm.AddParameter("statusUpdateID", statusUpdateID);
 
             string str = DbAct.ExecuteScalar(comm);
 
@@ -439,7 +473,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetAllStatusCommentsForUpdate";
 
-            ADOExtenstion.AddParameter(comm, "statusUpdateID", statusUpdateID);
+            comm.AddParameter("statusUpdateID", statusUpdateID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -452,38 +486,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     statusCom = new StatusComment(dr);
-                    this.Add(statusCom);
+                    Add(statusCom);
                 }
-            }
-
-        }
-
-        private bool _includeStartAndEndTags = true;
-
-        public bool IncludeStartAndEndTags
-        {
-            get { return _includeStartAndEndTags; }
-            set { _includeStartAndEndTags = value; }
-        }
-
-        public string ToUnorderdList
-        {
-            get
-            {
-                if (this.Count == 0) return string.Empty;
-
-                StringBuilder sb = new StringBuilder(100);
-
-                if (IncludeStartAndEndTags) sb.Append("<ul>");
-
-                foreach (StatusComment stcom in this)
-                {
-                    sb.Append(stcom.ToUnorderdListItem);
-                }
-
-                if (IncludeStartAndEndTags) sb.Append("</ul>");
-
-                return sb.ToString();
             }
         }
 
@@ -494,7 +498,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteStatusComments";
 
-            ADOExtenstion.AddParameter(comm, "statusUpdateID", statusUpdateID);
+            comm.AddParameter("statusUpdateID", statusUpdateID);
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
@@ -507,7 +511,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteStatusCommentsForUser";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
+            comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;

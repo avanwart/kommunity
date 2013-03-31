@@ -1,41 +1,38 @@
-﻿ 
-<%@ Page Title="" Language="C#" MasterPageFile="~/m/auth/Shared/Main.Master" AutoEventWireup="true"
-    CodeBehind="NewTourDate.aspx.cs" Inherits="DasKlub.m.auth.NewTourDate" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m/auth/Shared/Main.Master" AutoEventWireup="true"
+         CodeBehind="NewTourDate.aspx.cs" Inherits="DasKlub.m.auth.NewTourDate" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
-      <div>
+    <div>
         <h2>
             Event</h2>
 
-            <asp:HiddenField ID="hfEventID" runat="server" />
+        <asp:HiddenField ID="hfEventID" runat="server" />
 
 
-                <script type="text/javascript">
-                    function confirmSubmit() {
+        <script type="text/javascript">
+            function confirmSubmit() {
 
-                        var agree = confirm("Do you really want to delete this event?");
+                var agree = confirm("Do you really want to delete this event?");
 
-                        if (agree)
+                if (agree)
+                    return true;
 
-                            return true;
+                else
+                    return false;
 
-                        else
+            }
 
-                            return false;
-
-                    }
-
-    </script>
+        </script>
 
 
 
         <asp:GridView AutoGenerateColumns="False" DataKeyNames="eventID" ID="gvwEvents" runat="server"
-            BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px"
-            onselectedindexchanged="gvwAllEvents_SelectedIndexChanged" 
-            CellPadding="4" ForeColor="Black" GridLines="Vertical" AllowPaging="True">
+                      BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px"
+                      onselectedindexchanged="gvwAllEvents_SelectedIndexChanged" 
+                      CellPadding="4" ForeColor="Black" GridLines="Vertical" AllowPaging="True">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:CommandField ShowSelectButton="True" />
@@ -44,8 +41,8 @@
                 <asp:TemplateField>
                     <ItemTemplate>
                         <asp:Button ID="btnDeleteEvent" Text="delete" runat="server" 
-                        OnClick="btnDeleteEvent_Click"
-                            OnClientClick="return confirmSubmit()" />
+                                    OnClick="btnDeleteEvent_Click"
+                                    OnClientClick=" return confirmSubmit() " />
                     </ItemTemplate>
                 </asp:TemplateField>
 
@@ -55,19 +52,19 @@
 
 
 
-    </Columns>
+            </Columns>
 
-    <FooterStyle BackColor="#CCCC99" />
-    <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
-    <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
-    <RowStyle BackColor="#F7F7DE" />
-    <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
-    <SortedAscendingCellStyle BackColor="#FBFBF2" />
-    <SortedAscendingHeaderStyle BackColor="#848384" />
-    <SortedDescendingCellStyle BackColor="#EAEAD3" />
-    <SortedDescendingHeaderStyle BackColor="#575357" />
+            <FooterStyle BackColor="#CCCC99" />
+            <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+            <RowStyle BackColor="#F7F7DE" />
+            <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+            <SortedAscendingCellStyle BackColor="#FBFBF2" />
+            <SortedAscendingHeaderStyle BackColor="#848384" />
+            <SortedDescendingCellStyle BackColor="#EAEAD3" />
+            <SortedDescendingHeaderStyle BackColor="#575357" />
 
-</asp:GridView>
+        </asp:GridView>
 
 
 
@@ -173,9 +170,9 @@
                 </td>
             </tr>
 
-             <tr>
+            <tr>
                 <td>
-                   Name:
+                    Name:
                 </td>
                 <td>
                     <asp:TextBox ID="txtName" runat="server" Width="372px"></asp:TextBox>
@@ -222,7 +219,7 @@
                     <asp:Button ID="btnSubmit" runat="server" Text="Update" OnClick="btnSubmit_Click" />
 
                     <asp:Button ID="btnNewEvent" runat="server" Text="Create New Event" 
-                        onclick="btnNewEvent_Click"   />
+                                onclick="btnNewEvent_Click"   />
                 </td>
             </tr>
         </table>

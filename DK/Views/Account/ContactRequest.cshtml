@@ -1,42 +1,42 @@
-﻿@using BootBaronLib.Resources;
+﻿@using BootBaronLib.Resources
 @{
     ViewBag.Title = Messages.ContactRequest;
 }
 <div class="row">
 
-<div class="span8">
-@{Html.RenderPartial("_AdBanner"); }
-<h2>@Html.Raw(ViewBag.HeaderRequest)</h2>
+    <div class="span8">
+        @{ Html.RenderPartial("_AdBanner"); }
+        <h2>@Html.Raw(ViewBag.HeaderRequest)</h2>
 
-<table>
-<tr>
-<td>@Html.Raw(ViewBag.UserTo)</td>
-<td>
-<form method="post" 
-action="@Url.Content(string.Format("~/account/contactrequest/?rslt=1&username={0}&contacttype={1}", ViewBag.UserNameTo, ViewBag.ContactType))">
-<input name="contact_request" class="btn btn-success"
-type="submit" value="@Messages.Confirm" />
+        <table>
+            <tr>
+                <td>@Html.Raw(ViewBag.UserTo)</td>
+                <td>
+                    <form method="post" 
+                          action="@Url.Content(string.Format("~/account/contactrequest/?rslt=1&username={0}&contacttype={1}", ViewBag.UserNameTo, ViewBag.ContactType))">
+                        <input name="contact_request" class="btn btn-success"
+                               type="submit" value="@Messages.Confirm" />
 
-</form>
-
-
-
-</td>
-<td>
-
-<form method="post" 
-action="@Url.Content(string.Format("~/account/contactrequest/?rslt=0&username={0}&contacttype={1}", ViewBag.UserNameTo, ViewBag.ContactType))">
-<input name="contact_request"  class="btn btn-danger"
-type="submit" value="@Messages.NotNow" />
-
-</form>
-</td>
-</tr>
-</table>
+                    </form>
 
 
 
+                </td>
+                <td>
 
-</div>
- <div class="span4">@{Html.RenderPartial("_AdBanner2"); }</div>
+                    <form method="post" 
+                          action="@Url.Content(string.Format("~/account/contactrequest/?rslt=0&username={0}&contacttype={1}", ViewBag.UserNameTo, ViewBag.ContactType))">
+                        <input name="contact_request"  class="btn btn-danger"
+                               type="submit" value="@Messages.NotNow" />
+
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+
+
+
+    </div>
+    <div class="span4">@{ Html.RenderPartial("_AdBanner2"); }</div>
 </div>

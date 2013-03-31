@@ -1,16 +1,19 @@
-﻿  @using BootBaronLib.Resources;
+﻿
+@using BootBaronLib.AppSpec.DasKlub.BOL
+@using BootBaronLib.Configs
+@using BootBaronLib.Resources
 @using BootBaronLib.Values
-  @model DasKlub.Models.RegisterModel
-                     @if (!Request.IsAuthenticated)
-                     {
-  using (Html.BeginForm("Register", "Account"))
-  {
-      if (!string.IsNullOrWhiteSpace(Request.QueryString["refuser"]))
-      {
-          <input type="hidden" value="@Request.QueryString["refuser"]" name="refuser" />
-      }
-                        @Html.ValidationSummary(false, Messages.PleaseCorrectTheErrors)
- 
+@model DasKlub.Models.RegisterModel
+@if (!Request.IsAuthenticated)
+{
+    using (Html.BeginForm("Register", "Account"))
+    {
+        if (!string.IsNullOrWhiteSpace(Request.QueryString["refuser"]))
+        {
+            <input type="hidden" value="@Request.QueryString["refuser"]" name="refuser" />
+        }
+        @Html.ValidationSummary(false, Messages.PleaseCorrectTheErrors)
+
         <br />
         <div class="clear">
         </div>
@@ -22,34 +25,34 @@
                         @Html.LabelFor(m => m.UserName)
                     </div>
                     <div class="editor-field">
-                        @Html.TextBoxFor(m => m.UserName, new { maxlength = "15" })  
+                        @Html.TextBoxFor(m => m.UserName, new {maxlength = "15"})  
                         @Html.ValidationMessageFor(m => m.UserName)
                     </div>
                     <div class="editor-label">
                         @Html.LabelFor(m => m.Email)
                     </div>
                     <div class="editor-field">
-                        @Html.TextBoxFor(m => m.Email, new { maxlength = "75" })
+                        @Html.TextBoxFor(m => m.Email, new {maxlength = "75"})
                         @Html.ValidationMessageFor(m => m.Email)
                     </div>
                     <div class="editor-label">
                         @Html.LabelFor(m => m.NewPassword)
                     </div>
                     <div class="editor-field">
-                        @Html.PasswordFor(m => m.NewPassword, new { maxlength = "15" })
+                        @Html.PasswordFor(m => m.NewPassword, new {maxlength = "15"})
                         @Html.ValidationMessageFor(m => m.NewPassword)
                     </div>
                   
                     <div class="editor-label">
-                    @Messages.BirthDate
+                        @Messages.BirthDate
                     </div>
                     <div class="editor-field">
                         <select name="year" class="span1">
                             <option selected="selected" value="">@Messages.Year</option>
-                                @for (int i = DateTime.UtcNow.Year -  BootBaronLib.Configs.GeneralConfigs.MinimumAge; i >= DateTime.UtcNow.Year - 100; i--)
-                                {
+                            @for (int i = DateTime.UtcNow.Year - GeneralConfigs.MinimumAge; i >= DateTime.UtcNow.Year - 100; i--)
+                            {
                                 <option value="@i">@i</option>
-                                }
+                            }
                         </select>
                         -
                         <select name="month" class="span1">
@@ -69,33 +72,30 @@
                         </select>
                     </div>
                     <div class="editor-label">
-                    @Html.LabelFor(m => m.YouAreID)
+                        @Html.LabelFor(m => m.YouAreID)
                     </div>
                     @{
-                                var youAres = new BootBaronLib.AppSpec.DasKlub.BOL.YouAres();
-            youAres.GetAll();
+                        var youAres = new YouAres();
+                        youAres.GetAll();
 
 
-            youAres.Sort(delegate(BootBaronLib.AppSpec.DasKlub.BOL.YouAre p1, BootBaronLib.AppSpec.DasKlub.BOL.YouAre p2)
-            {
-                return p1.LocalizedName.CompareTo(p2.LocalizedName);
-            });
+                        youAres.Sort(delegate(YouAre p1, YouAre p2) { return p1.LocalizedName.CompareTo(p2.LocalizedName); });
 
-            ViewBag.YouAres = youAres.Select(x => new { YouAreID = x.YouAreID, LocalizedName = x.LocalizedName });
-            }
+                        ViewBag.YouAres = youAres.Select(x => new {x.YouAreID, x.LocalizedName});
+                    }
 
 
                     <div class="editor-field">
-                                              @Html.DropDownList("YouAreID", new SelectList(
-ViewBag.YouAres, "YouAreID", "LocalizedName", Model == null ? 0 : Model.YouAreID), Messages.DashSelect)
-                     @Html.ValidationMessageFor(m => m.YouAreID)
+                        @Html.DropDownList("YouAreID", new SelectList(
+                                                           ViewBag.YouAres, "YouAreID", "LocalizedName", Model == null ? 0 : Model.YouAreID), Messages.DashSelect)
+                        @Html.ValidationMessageFor(m => m.YouAreID)
                     </div>
                     <div class="editor-field">
                
  
                                
-                               @Messages.BySigningUpYouAgreeToTheTermsOfService
-                                 <a target="_blank" href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS.ToString())">@Messages.Here</a>
+                        @Messages.BySigningUpYouAgreeToTheTermsOfService
+                        <a target="_blank" href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS.ToString())">@Messages.Here</a>
                               
                     </div>
                     <br />
@@ -107,5 +107,5 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model == null ? 0 : Model.YouAreID
             <div class="clear">
             </div>
         </div>
-  }
-                     }
+    }
+}

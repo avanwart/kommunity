@@ -13,17 +13,18 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 namespace BootBaronLib.Interfaces
 {
     /// <summary>
-    /// Creates or updates the record depending on if it was created or not
+    ///     Creates or updates the record depending on if it was created or not
     /// </summary>
     public interface ISet
     {
         /// <summary>
-        /// Creates or updates the record
+        ///     Creates or updates the record
         /// </summary>
         /// <returns></returns>
-          bool Set();
+        bool Set();
     }
 }

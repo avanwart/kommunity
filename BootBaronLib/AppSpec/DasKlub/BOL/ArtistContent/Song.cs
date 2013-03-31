@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,8 +28,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
     {
         public Song(int artistID, string songName)
         {
-            this.ArtistID = artistID;
-            this.Name = songName;
+            ArtistID = artistID;
+            Name = songName;
 
 
             // get a configured DbCommand object
@@ -36,8 +37,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             // set the stored procedure name
             comm.CommandText = "up_GetSongByArtistIDName";
 
-            ADOExtenstion.AddParameter(comm, "artistID",   artistID);
-            ADOExtenstion.AddParameter(comm, "name",  songName);
+            comm.AddParameter("artistID", artistID);
+            comm.AddParameter("name", songName);
 
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
@@ -45,8 +46,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             {
                 Get(dt.Rows[0]);
             }
-
-
         }
 
         public Song(DataRow dr)
@@ -54,46 +53,26 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             Get(dr);
         }
 
-
         #region properties
 
-        private int _songID = 0;
-
-        public int SongID
-        {
-            get { return _songID; }
-            set { _songID = value; }
-        }
-
-        private int _artistID = 0;
-
-        public int ArtistID
-        {
-            get { return _artistID; }
-            set { _artistID = value; }
-        }
-
-        private bool _isHidden = false;
-
-        public bool IsHidden
-        {
-            get { return _isHidden; }
-            set { _isHidden = value; }
-        }
-
         private string _name = string.Empty;
-        
+        private string _songKey = string.Empty;
+        public int SongID { get; set; }
+
+        public int ArtistID { get; set; }
+
+        public bool IsHidden { get; set; }
+
 
         public string Name
         {
-            get {
-
+            get
+            {
                 if (_name != null) _name = _name.Trim();
-                return _name; }
+                return _name;
+            }
             set { _name = value; }
         }
-
-        private string _songKey = string.Empty;
 
         public string SongKey
         {
@@ -103,51 +82,42 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         #endregion
 
+        /* justric in the hands of chaos */
+
+        public int RankOrder { get; set; }
+
+        #region methods
+
         public override void Get(DataRow dr)
         {
             try
             {
                 base.Get(dr);
 
-                this.SongID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.SongID)]);
-                this.ArtistID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.ArtistID)]);
-                this.Name = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.Name)]);
-                this.SongKey = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => this.SongKey)]);
-
-            
+                SongID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => SongID)]);
+                ArtistID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => ArtistID)]);
+                Name = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => Name)]);
+                SongKey = FromObj.StringFromObj(dr[StaticReflection.GetMemberName<string>(x => SongKey)]);
             }
-            catch { }
+            catch
+            {
+            }
         }
-
-        /* justric in the hands of chaos */
-
-        private int _rankOrder = 0;
-
-        public int RankOrder
-        {
-            get { return _rankOrder; }
-            set { _rankOrder = value; }
-        }
-
-
-
-        #region methods
 
         public override int Create()
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddSong";
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.CreatedByUserID), CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ArtistID), ArtistID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.IsHidden), IsHidden);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Name), Name);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.SongKey), SongKey);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => CreatedByUserID), CreatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ArtistID), ArtistID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsHidden), IsHidden);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Name), Name);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => SongKey), SongKey);
 
- 
+
             // the result is their ID
             string result = string.Empty;
             // execute the stored procedure
@@ -159,9 +129,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             }
             else
             {
-                this.SongID = Convert.ToInt32(result);
+                SongID = Convert.ToInt32(result);
 
-                return this.SongID;
+                return SongID;
             }
         }
 
@@ -170,13 +140,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_UpdateSong";
- 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UpdatedByUserID), UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.ArtistID), ArtistID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.IsHidden), IsHidden);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Name), Name);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.SongID), SongID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.SongKey), SongKey);
+
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UpdatedByUserID), UpdatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => ArtistID), ArtistID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsHidden), IsHidden);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Name), Name);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => SongID), SongID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => SongKey), SongKey);
 
             int result = -1;
 
@@ -184,24 +154,20 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
             return (result != -1);
 
-        #endregion
-
+            #endregion
         }
-
-     
     }
 
     public class Songs : List<Song>
     {
         public void GetSongsForArtist(int artistID)
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetSongsForArtist";
 
-            ADOExtenstion.AddParameter(comm, "artistID",  artistID);
+            comm.AddParameter("artistID", artistID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -214,10 +180,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
                 foreach (DataRow dr in dt.Rows)
                 {
                     sng = new Song(dr);
-                    this.Add(sng);
+                    Add(sng);
                 }
             }
-
         }
 
 
@@ -228,7 +193,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             // set the stored procedure name
             comm.CommandText = "up_GetSongsForVideo";
 
-            ADOExtenstion.AddParameter(comm, "videoID",  videoID);
+            comm.AddParameter("videoID", videoID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -243,11 +208,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
                     sng = new Song(dr);
                     sng.RankOrder = FromObj.IntFromObj(dr["rankOrder"]);
 
-                    this.Add(sng);
+                    Add(sng);
                 }
             }
         }
-
-
     }
 }

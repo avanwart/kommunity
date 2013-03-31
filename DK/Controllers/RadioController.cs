@@ -23,7 +23,6 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-
             return View();
         }
     }

@@ -40,51 +40,55 @@
 ' %k = Keyword Title
 ' %c = Keyword Count
 ' %u = Keyword URL
-Imports System
-Imports System.Collections.Generic
-Imports System.ComponentModel
-Imports System.Text
-Imports System.Web
 Imports System.Web.UI
 Imports System.Web.UI.WebControls
+Imports System.ComponentModel
+Imports System.Text.RegularExpressions
+Imports System.Text
+Imports System.Web
 
-<ToolboxData("<{0}:Cloud runat=server></{0}:Cloud>")> _
+<ToolboxData("<{0}:Cloud runat=server></{0}:Cloud>")>
 Public Class Cloud
     Inherits WebControl
 
 #Region " Properties "
 
     ' Apperance Properties
+
 #Region " Appearance "
-    <Bindable(True), Category("Appearance"), Localizable(True)> Property MinFontSize() As Integer
+
+    <Bindable(True), Category("Appearance"), Localizable(True)>
+    Property MinFontSize() As Integer
         Get
             If CInt(ViewState("MinFontSize")) = 0 Then
                 Return 12 '10
             Else
                 Return CInt(ViewState("MinFontSize"))
             End If
-
         End Get
 
         Set(ByVal Value As Integer)
             ViewState("MinFontSize") = Value
         End Set
     End Property
-    <Bindable(True), Category("Appearance"), Localizable(True)> Property MaxFontSize() As Integer
+
+    <Bindable(True), Category("Appearance"), Localizable(True)>
+    Property MaxFontSize() As Integer
         Get
             If CInt(ViewState("MaxFontSize")) = 0 Then
                 Return 30 '22
             Else
                 Return CInt(ViewState("MaxFontSize"))
             End If
-
         End Get
 
         Set(ByVal Value As Integer)
             ViewState("MaxFontSize") = Value
         End Set
     End Property
-    <Bindable(False), Category("Appearance"), Localizable(True)> Property FontUnit() As String
+
+    <Bindable(False), Category("Appearance"), Localizable(True)>
+    Property FontUnit() As String
         Get
             Dim s As String = ViewState("FontUnit")
             If s = String.Empty Then
@@ -92,7 +96,6 @@ Public Class Cloud
             Else
                 Return s
             End If
-
         End Get
 
         Set(ByVal Value As String)
@@ -103,10 +106,11 @@ Public Class Cloud
                 Case "px" : ViewState("FontUnit") = Value
                 Case Else : ViewState("FontUnit") = "px"
             End Select
-
         End Set
     End Property
-    <Bindable(True), Category("Appearance"), Localizable(True)> Property MaxColor() As String
+
+    <Bindable(True), Category("Appearance"), Localizable(True)>
+    Property MaxColor() As String
         Get
             Dim s As String = CStr(ViewState("MaxColor"))
 
@@ -121,7 +125,9 @@ Public Class Cloud
             ViewState("MaxColor") = Value
         End Set
     End Property
-    <Bindable(True), Category("Appearance"), Localizable(True)> Property MinColor() As String
+
+    <Bindable(True), Category("Appearance"), Localizable(True)>
+    Property MinColor() As String
         Get
             Dim s As String = CStr(ViewState("MinColor"))
 
@@ -136,11 +142,15 @@ Public Class Cloud
             ViewState("MinColor") = Value
         End Set
     End Property
+
 #End Region
 
     ' Data Properties
+
 #Region " Data "
-    <Bindable(True), Category("Data"), DefaultValue("")> Property DataSource() As DataSet
+
+    <Bindable(True), Category("Data"), DefaultValue("")>
+    Property DataSource() As DataSet
         Get
             Return CType(ViewState("DataSource"), DataSet)
         End Get
@@ -148,7 +158,9 @@ Public Class Cloud
             ViewState("DataSource") = value
         End Set
     End Property
-    <Bindable(True), Category("Data"), DefaultValue(""), Localizable(True)> Property DataIDField() As String
+
+    <Bindable(True), Category("Data"), DefaultValue(""), Localizable(True)>
+    Property DataIDField() As String
         Get
             Return CStr(ViewState("DataIDField"))
         End Get
@@ -157,7 +169,9 @@ Public Class Cloud
             ViewState("DataIDField") = Value
         End Set
     End Property
-    <Bindable(True), Category("Data"), DefaultValue(""), Localizable(True)> Property DataKeywordField() As String
+
+    <Bindable(True), Category("Data"), DefaultValue(""), Localizable(True)>
+    Property DataKeywordField() As String
         Get
             Return CStr(ViewState("DataKeywordField"))
         End Get
@@ -166,7 +180,9 @@ Public Class Cloud
             ViewState("DataKeywordField") = Value
         End Set
     End Property
-    <Bindable(True), Category("Data"), Localizable(True)> Property DataURLField() As String
+
+    <Bindable(True), Category("Data"), Localizable(True)>
+    Property DataURLField() As String
         Get
             Dim s As String = CStr(ViewState("DataURLField"))
             Return s
@@ -176,7 +192,9 @@ Public Class Cloud
             ViewState("DataURLField") = Value
         End Set
     End Property
-    <Bindable(True), Category("Data"), DefaultValue(""), Localizable(True)> Property DataCountField() As String
+
+    <Bindable(True), Category("Data"), DefaultValue(""), Localizable(True)>
+    Property DataCountField() As String
         Get
             Return CStr(ViewState("DataCountField"))
         End Get
@@ -185,21 +203,24 @@ Public Class Cloud
             ViewState("DataCountField") = Value
         End Set
     End Property
-    <Bindable(True), Category("Data"), Localizable(True)> Property KeywordTitleFormat() As String
+
+    <Bindable(True), Category("Data"), Localizable(True)>
+    Property KeywordTitleFormat() As String
         Get
             If CStr(ViewState("KeywordTitleFormat")) = String.Empty Then
                 Return "%k = %c"
             Else
                 Return CStr(ViewState("KeywordTitleFormat"))
             End If
-
         End Get
 
         Set(ByVal Value As String)
             ViewState("KeywordTitleFormat") = Value
         End Set
     End Property
-    <Bindable(True), Category("Data"), Localizable(True)> Property KeywordURLFormat() As String
+
+    <Bindable(True), Category("Data"), Localizable(True)>
+    Property KeywordURLFormat() As String
         Get
             Return CStr(ViewState("KeywordURLFormat"))
         End Get
@@ -208,7 +229,9 @@ Public Class Cloud
             ViewState("KeywordURLFormat") = Value
         End Set
     End Property
-    <Bindable(True), Category("Data"), DefaultValue(""), Localizable(True)> Property SortBy() As String
+
+    <Bindable(True), Category("Data"), DefaultValue(""), Localizable(True)>
+    Property SortBy() As String
         Get
             Return CStr(ViewState("SortBy"))
         End Get
@@ -217,9 +240,11 @@ Public Class Cloud
             ViewState("SortBy") = Value
         End Set
     End Property
+
 #End Region
 
-    <Bindable(False), Category("Debug"), DefaultValue(False), Localizable(True)> Property Debug() As Boolean
+    <Bindable(False), Category("Debug"), DefaultValue(False), Localizable(True)>
+    Property Debug() As Boolean
         Get
             Dim s As Boolean = CBool(ViewState("Debug"))
 
@@ -244,6 +269,7 @@ Public Class Cloud
             ViewState("CloudHTML") = value
         End Set
     End Property
+
     Private Property KeyAttributes() As Hashtable
         Get
             Return arrAttributes
@@ -280,14 +306,13 @@ Public Class Cloud
         Else
             output.Write("There was no generated HTML. An unhandled error must have occurred.")
         End If
-
     End Sub
 
     '********************
     '** Main Functions **
     '********************
 
-    Protected Overrides Sub OnLoad(ByVal e As System.EventArgs)
+    Protected Overrides Sub OnLoad(ByVal e As EventArgs)
         ' Validate Fields
         If DataSource Is Nothing Then
             CloudHTML = "Please specify a DataSet to read from"
@@ -305,11 +330,11 @@ Public Class Cloud
             CloudHTML = "Please specify a Keyword Count Field"
             Exit Sub
         End If
-        If Not RegularExpressions.Regex.IsMatch(MinColor, "^#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$") Then
+        If Not Regex.IsMatch(MinColor, "^#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$") Then
             CloudHTML = "MinColor must be a HEX code and must have leading #. Example: #000 or #ff99cc"
             Exit Sub
         End If
-        If Not RegularExpressions.Regex.IsMatch(MaxColor, "^#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$") Then
+        If Not Regex.IsMatch(MaxColor, "^#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$") Then
             CloudHTML = "MaxColor must be a HEX code and must have leading #. Example: #000 or #ff99cc"
             Exit Sub
         End If
@@ -323,9 +348,9 @@ Public Class Cloud
             dv.Sort = String.Format("{0} DESC", DataCountField)
 
             ' Row count
-            Dim Count As Integer = dv.Count
+            Dim count As Integer = dv.Count
 
-            If Count = 0 Then
+            If count = 0 Then
                 CloudHTML = "No values to generate cloud"
                 Exit Sub
             End If
@@ -364,14 +389,14 @@ Public Class Cloud
             ' DEBUG: Max Min Avg
             'sb.Append(String.Format("Max: {0}, Min: {1}, Spread: {2}, MaxColor: {3}, MinColor: {4}, MaxFontSize: {5}, MinFontSize: {6}<br />", MaxQty, MinQty, Spread, MaxColor, MinColor, MaxFontSize, MinFontSize))
             For Each row In dv
-                Dim sKeyID As Integer = row.Item(DataIDField)
+                Dim sKeyId As Integer = row.Item(DataIDField)
                 Dim sKeyWord As String = row.Item(DataKeywordField)
                 Dim sKeyCount As Integer = row.Item(DataCountField)
                 Dim sKeyURL As String
                 Dim ColorRGB As String
-                Dim Weight As Double = MinFontSize + ((sKeyCount - MinQty) * FontStep)
+                Dim weight As Double = MinFontSize + ((sKeyCount - MinQty) * FontStep)
                 Dim FontDiff As Integer = MaxFontSize - MinFontSize
-                Dim ColorWeight As Double = Math.Round(99 * (Weight - MinFontSize) / (FontDiff) + 1)
+                Dim ColorWeight As Double = Math.Round(99 * (weight - MinFontSize) / (FontDiff) + 1)
 
                 ' Create Color
                 ' Don't want to calculate if colors = each other
@@ -384,7 +409,7 @@ Public Class Cloud
                 ' Handle URL
                 If DataURLField = String.Empty Then
                     If KeywordURLFormat <> String.Empty Then
-                        sKeyURL = ReplaceKeyValues(KeywordURLFormat, sKeyID, sKeyWord, "", sKeyCount)
+                        sKeyURL = ReplaceKeyValues(KeywordURLFormat, sKeyId, sKeyWord, "", sKeyCount)
                     Else
                         sKeyURL = "#"
                     End If
@@ -402,14 +427,15 @@ Public Class Cloud
                 '                        GenerateAttributes(sKeyWord, sKeyID, sKeyURL, sKeyCount)))
 
 
-                sb.Append(String.Format("<a href=""{0}"" style=""font-size:{1}{5};"" title=""{2}""{6}>{3}</a> " & vbNewLine, _
-                                        sKeyURL, _
-                                        IIf(Math.Round(Weight) > MaxFontSize, MaxFontSize, Math.Round(Weight)), _
-                                        ReplaceKeyValues(KeywordTitleFormat, sKeyID, sKeyWord, sKeyURL, sKeyCount), _
-                                        HttpContext.Current.Server.HtmlEncode(sKeyWord), _
-                                        ColorRGB, _
-                                        FontUnit, _
-                                        GenerateAttributes(sKeyWord, sKeyID, sKeyURL, sKeyCount)))
+                sb.Append(
+                    String.Format("<a href=""{0}"" style=""font-size:{1}{5};"" title=""{2}""{6}>{3}</a> " & vbNewLine,
+                                  sKeyURL,
+                                  IIf(Math.Round(weight) > MaxFontSize, MaxFontSize, Math.Round(weight)),
+                                  ReplaceKeyValues(KeywordTitleFormat, sKeyId, sKeyWord, sKeyURL, sKeyCount),
+                                  HttpContext.Current.Server.HtmlEncode(sKeyWord),
+                                  ColorRGB,
+                                  FontUnit,
+                                  GenerateAttributes(sKeyWord, sKeyId, sKeyURL, sKeyCount)))
 
             Next
 
@@ -423,7 +449,6 @@ Public Class Cloud
         Finally
             MyBase.OnLoad(e)
         End Try
-
     End Sub
 
     ' Add custom HTML attributes
@@ -436,14 +461,10 @@ Public Class Cloud
     End Sub
 
 
-
-
-
-
-
-
-
     Public Function HTML() As String
+
+        Dim sb As New StringBuilder
+
         ' Validate Fields
         If DataSource Is Nothing Then
             CloudHTML = "Please specify a DataSet to read from"
@@ -461,17 +482,17 @@ Public Class Cloud
             CloudHTML = "Please specify a Keyword Count Field"
             Return Nothing
         End If
-        If Not RegularExpressions.Regex.IsMatch(MinColor, "^#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$") Then
+        If Not Regex.IsMatch(MinColor, "^#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$") Then
             CloudHTML = "MinColor must be a HEX code and must have leading #. Example: #000 or #ff99cc"
             Return Nothing
         End If
-        If Not RegularExpressions.Regex.IsMatch(MaxColor, "^#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$") Then
+        If Not Regex.IsMatch(MaxColor, "^#([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$") Then
             CloudHTML = "MaxColor must be a HEX code and must have leading #. Example: #000 or #ff99cc"
             Return Nothing
         End If
 
         Try
-            Dim sb As New StringBuilder
+
             Dim dv As New DataView(DataSource.Tables(0))
             Dim row As DataRowView
 
@@ -483,7 +504,7 @@ Public Class Cloud
 
             If Count = 0 Then
                 CloudHTML = "No values to generate cloud"
-                Exit Function
+                Return Nothing
             End If
 
             ' Get Largest and Smallest Count Values
@@ -550,15 +571,15 @@ Public Class Cloud
                     sKeyURL = row.Item(DataURLField)
                 End If
 
-                sb.Append(String.Format("<a href=""{0}"" style=""font-size:{1}{5};"" title=""{2}""{6}>{3}</a> " & vbNewLine, _
-                                        sKeyURL, _
-                                        IIf(Math.Round(Weight) > MaxFontSize, MaxFontSize, Math.Round(Weight)), _
-                                        ReplaceKeyValues(KeywordTitleFormat, sKeyID, sKeyWord, sKeyURL, sKeyCount), _
-                                        HttpContext.Current.Server.HtmlEncode(sKeyWord), _
-                                        ColorRGB, _
-                                        FontUnit, _
-                                        GenerateAttributes(sKeyWord, sKeyID, sKeyURL, sKeyCount)))
-
+                sb.Append(
+                    String.Format("<a href=""{0}"" style=""font-size:{1}{5};"" title=""{2}""{6}>{3}</a> " & vbNewLine,
+                                  sKeyURL,
+                                  IIf(Math.Round(Weight) > MaxFontSize, MaxFontSize, Math.Round(Weight)),
+                                  ReplaceKeyValues(KeywordTitleFormat, sKeyID, sKeyWord, sKeyURL, sKeyCount),
+                                  HttpContext.Current.Server.HtmlEncode(sKeyWord),
+                                  ColorRGB,
+                                  FontUnit,
+                                  GenerateAttributes(sKeyWord, sKeyID, sKeyURL, sKeyCount)))
 
 
                 'sb.Append(String.Format("<a href=""{0}"" style=""font-size:{1}{5};color:{4};"" title=""{2}""{6}>{3}</a> " & vbNewLine, _
@@ -582,7 +603,7 @@ Public Class Cloud
 
             Next
 
-            Return sb.ToString
+
         Catch ex As Exception
             If Not Debug Then
                 CloudHTML = "Error generating cloud"
@@ -590,31 +611,16 @@ Public Class Cloud
                 Throw ex
             End If
         Finally
-            '  MyBase.OnLoad(e)
+
         End Try
+
+        Return sb.ToString
 
     End Function
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    Private Function GenerateAttributes(ByVal k As String, ByVal id As Integer, ByVal u As String, ByVal c As Integer) As String
+    Private Function GenerateAttributes(ByVal k As String, ByVal id As Integer, ByVal u As String, ByVal c As Integer) _
+        As String
 
         If KeyAttributes Is Nothing Then
             Return String.Empty
@@ -631,7 +637,8 @@ Public Class Cloud
     End Function
 
     ' Replace %keyvalues with proper value
-    Function ReplaceKeyValues(ByVal txt As String, ByVal id As Integer, ByVal k As String, ByVal u As String, ByVal c As Integer) As String
+    Function ReplaceKeyValues(ByVal txt As String, ByVal id As Integer, ByVal k As String, ByVal u As String,
+                              ByVal c As Integer) As String
         ' In case using k in javascript
         k = k.Replace("'", "&apos;")
 

@@ -13,43 +13,21 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using System.Data.Common;
 using BootBaronLib.DAL;
-using System.Data;
 using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
     public class VideoSong
     {
-        private int _videoID = 0;
+        public int VideoID { get; set; }
 
-        public int VideoID
-        {
-            get { return _videoID; }
-            set { _videoID = value; }
-        }
-
-        private int _songID = 0;
-
-        public int SongID
-        {
-            get { return _songID; }
-            set { _songID = value; }
-        }
+        public int SongID { get; set; }
 
 
-        private int _rankOrder = 0;
-
-        public int RankOrder
-        {
-            get { return _rankOrder; }
-            set { _rankOrder = value; }
-        }
+        public int RankOrder { get; set; }
 
 
         public static bool AddVideoSong(int songID, int videoID, int rankOrder)
@@ -59,39 +37,31 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddVideoSong";
 
-            ADOExtenstion.AddParameter(comm, "videoID", videoID);
-            ADOExtenstion.AddParameter(comm, "songID",  songID);
-            ADOExtenstion.AddParameter(comm, "rankOrder", rankOrder);
+            comm.AddParameter("videoID", videoID);
+            comm.AddParameter("songID", songID);
+            comm.AddParameter("rankOrder", rankOrder);
 
             // the result is their ID
             string result = string.Empty;
             // execute the stored procedure
             result = DbAct.ExecuteScalar(comm);
 
-            return true;// this isn't really true
-
-
- 
-
+            return true; // this isn't really true
         }
 
         public static bool DeleteSongsForVideo(int videoID)
         {
-              // get a configured DbCommand object
+            // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeleteSongsForVideo";
 
-            ADOExtenstion.AddParameter(comm, "videoID",   videoID);
-           
+            comm.AddParameter("videoID", videoID);
+
             // execute the stored procedure
             int result = DbAct.ExecuteNonQuery(comm);
 
             return result > 0;
-
-
-
         }
-  
     }
 }

@@ -13,22 +13,18 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
+using System.Data.Entity.Migrations;
+
 namespace Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    using System.IO;
-    
-    public partial class Initial : DbMigration
+    public class Initial : DbMigration
     {
-      
         public override void Up()
         {
             // TODO: RUN dk_script.sql to create the database
-
-           
         }
-        
+
         public override void Down()
         {
         }

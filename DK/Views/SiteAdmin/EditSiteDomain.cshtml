@@ -1,50 +1,46 @@
-﻿@model DasKlub.Models.SiteDomainModel
-@using  BootBaronLib.Resources
-@using  DasKlub.Helpers
+﻿@using BootBaronLib.Resources
+@model DasKlub.Models.SiteDomainModel
 
 @{
     ViewBag.Title = "EditSiteDomain";
 }
 
 <div class="row">
-<div class="span8">
+    <div class="span8">
 
-<h2>@Messages.Website: @Messages.Settings</h2>
-    <hr />
-   @{Html.RenderPartial("_adminMenu"); }
-
-
+        <h2>@Messages.Website: @Messages.Settings</h2>
+        <hr />
+        @{ Html.RenderPartial("_adminMenu"); }
 
 
-@using (Html.BeginForm("EditSiteDomain", "SiteAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-
-            
-    @Html.ValidationSummary(true)
-
-    @Html.Partial("_siteBrandForm");
 
 
-    <button style="margin-right:100px;" type="submit" value="save" class="btn btn-success">@BootBaronLib.Resources.Messages.Submit</button>
-            
+        @using (Html.BeginForm("EditSiteDomain", "SiteAdmin", FormMethod.Post, new {enctype = "multipart/form-data"}))
+        {
+            @Html.ValidationSummary(true)
+
+            @Html.Partial("_siteBrandForm")
+            ;
 
 
-    @Html.ActionLink(@BootBaronLib.Resources.Messages.Delete,
-                           "DeleteSiteDomain", new { siteDomainID = Model.SiteDomainID },
-                  new
-                  {
-                      @class = "btn btn-danger",
-                      onclick = "return confirm('" +
-                      BootBaronLib.Resources.Messages.Delete + "?')"
-                  })
+            <button style="margin-right: 100px;" type="submit" value="save" class="btn btn-success">@Messages.Submit</button>
 
-}
 
-</div>
+            @Html.ActionLink(Messages.Delete,
+                             "DeleteSiteDomain", new {siteDomainID = Model.SiteDomainID},
+                             new
+                                 {
+                                     @class = "btn btn-danger",
+                                     onclick = "return confirm('" +
+                                               Messages.Delete + "?')"
+                                 })
+        }
 
-<div class="span4">
+    </div>
+
+    <div class="span4">
     
-    <pre>
+        <pre>
       public enum SiteBrandType
         {
             
@@ -188,5 +184,5 @@
             
   
     </pre>
-</div>
+    </div>
 </div>

@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,26 +32,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
     public class MultiProperty : BaseIUserLogCRUD, ICacheName, IDisplayName
     {
-
         #region properties
 
-        private int _multiPropertyID = 0;
-
-        public int MultiPropertyID
-        {
-            get { return _multiPropertyID; }
-            set { _multiPropertyID = value; }
-        }
-
-        private int _propertyTypeID = 0;
-
-        public int PropertyTypeID
-        {
-            get { return _propertyTypeID; }
-            set { _propertyTypeID = value; }
-        }
-
         private string _name = string.Empty;
+        private string _propertyContent = string.Empty;
+        public int MultiPropertyID { get; set; }
+
+        public int PropertyTypeID { get; set; }
 
         public string Name
         {
@@ -59,39 +47,28 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 if (_name == null)
                     return string.Empty;
                 else
-                return _name.Trim(); }
+                    return _name.Trim();
+            }
             set { _name = value; }
         }
 
-        private string _propertyContent = string.Empty;
-
         public string PropertyContent
         {
-            get {
+            get
+            {
                 if (_propertyContent == null) return string.Empty;
-                
-                return _propertyContent.Trim(); }
+
+                return _propertyContent.Trim();
+            }
             set { _propertyContent = value; }
         }
 
 
         /****** extra *******/
 
-        private int _videoID = 0;
+        public int VideoID { get; set; }
 
-        public int VideoID
-        {
-            get { return _videoID; }
-            set { _videoID = value; }
-        }
-
-        private int _productID = 0;
-
-        public int ProductID
-        {
-            get { return _productID; }
-            set { _productID = value; }
-        }
+        public int ProductID { get; set; }
 
         #endregion
 
@@ -99,12 +76,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             get
             {
-                string reslt = Utilities.ResourceValue(this.Name);
+                string reslt = Utilities.ResourceValue(Name);
 
-                if (string.IsNullOrWhiteSpace(reslt)) return this.Name;
+                if (string.IsNullOrWhiteSpace(reslt)) return Name;
 
                 return reslt;
-
             }
         }
 
@@ -150,13 +126,29 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
+        public MultiProperty(DataRow dr)
+        {
+            Get(dr);
+        }
+
+        public MultiProperty()
+        {
+            // TODO: Complete member initialization
+        }
+
+
+        public MultiProperty(int multiPropertyProductID)
+        {
+            Get(multiPropertyProductID);
+        }
+
         public void GetMultiPropertyVideo(int propertyTypeID, int videoID)
         {
-            this.PropertyTypeID = propertyTypeID;
-            this.VideoID = videoID;
-            
+            PropertyTypeID = propertyTypeID;
+            VideoID = videoID;
 
-            if (HttpContext.Current.Cache[this.CacheName] == null)
+
+            if (HttpContext.Current.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -181,48 +173,46 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                 if (dt.Rows.Count == 1)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
+                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
-                    
                 }
                 else if (dt.Rows.Count > 1)
                 {
                     // THEY SHOULD NOT HAVE MORE THAN 1, this might matter later
-                    MultiProperty mpt = new MultiProperty();
+                    var mpt = new MultiProperty();
 
                     foreach (DataRow dr in dt.Rows)
                     {
-                        
-                       mpt = new MultiProperty(dr);
+                        mpt = new MultiProperty(dr);
 
-                       MultiPropertyVideo.DeleteMultiPropertyVideo(mpt.MultiPropertyID, videoID);
+                        MultiPropertyVideo.DeleteMultiPropertyVideo(mpt.MultiPropertyID, videoID);
 
-                       RemoveCache();
+                        RemoveCache();
                     }
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[this.CacheName]);
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
             }
         }
 
 
         public void GetMultiPropertyProduct(int propertyTypeID, int productID)
         {
-            this.PropertyTypeID = propertyTypeID;
-            this.ProductID = productID;
+            PropertyTypeID = propertyTypeID;
+            ProductID = productID;
 
             if (HttpContext.Current == null ||
-                HttpContext.Current.Cache[this.CacheName] == null)
+                HttpContext.Current.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
                 comm.CommandText = "up_GetMultiPropertyProduct";
 
-                ADOExtenstion.AddParameter(comm, "propertyTypeID", PropertyTypeID);
-                ADOExtenstion.AddParameter(comm, "productID", ProductID);
+                comm.AddParameter("propertyTypeID", PropertyTypeID);
+                comm.AddParameter("productID", ProductID);
 
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
@@ -231,7 +221,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     Get(dt.Rows[0]);
                     if (HttpContext.Current != null)
                     {
-                        HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
+                        HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     }
                 }
                 //else if (dt.Rows.Count > 1)
@@ -252,41 +242,22 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                Get((DataRow)HttpContext.Current.Cache[this.CacheName]);
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
             }
-        }
-
-
-
-        public MultiProperty(DataRow dr)
-        {
-            Get( dr);
-        }
-
-        public MultiProperty()
-        {
-            // TODO: Complete member initialization
-        }
-
-
-        public MultiProperty(int multiPropertyProductID)
-        {
-            Get(multiPropertyProductID);
         }
 
         #endregion
 
-
         public override void Get(int uniqueID)
         {
-            this.MultiPropertyID = uniqueID;
+            MultiPropertyID = uniqueID;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetMultiPropertyByID";
 
-            ADOExtenstion.AddParameter(comm, "multiPropertyID", MultiPropertyID);
+            comm.AddParameter("multiPropertyID", MultiPropertyID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -304,7 +275,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteMultiPropertyByID";
 
-            ADOExtenstion.AddParameter(comm, "multiPropertyID", MultiPropertyID);
+            comm.AddParameter("multiPropertyID", MultiPropertyID);
 
             int result = -1;
 
@@ -318,29 +289,27 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public override void Get(DataRow dr)
         {
             base.Get(dr);
- 
 
-            this.MultiPropertyID = FromObj.IntFromObj(dr["multiPropertyID"]);
-            this.PropertyTypeID = FromObj.IntFromObj(dr["propertyTypeID"]);
-            this.PropertyContent = FromObj.StringFromObj(dr["propertyContent"]);
-            this.Name = FromObj.StringFromObj(dr["name"]);
-            this.PropertyContent = FromObj.StringFromObj(dr["propertyContent"]);
 
+            MultiPropertyID = FromObj.IntFromObj(dr["multiPropertyID"]);
+            PropertyTypeID = FromObj.IntFromObj(dr["propertyTypeID"]);
+            PropertyContent = FromObj.StringFromObj(dr["propertyContent"]);
+            Name = FromObj.StringFromObj(dr["name"]);
+            PropertyContent = FromObj.StringFromObj(dr["propertyContent"]);
         }
 
 
         public override int Create()
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddMultiProperty";
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID", CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "propertyTypeID", PropertyTypeID);
-            ADOExtenstion.AddParameter(comm, "name", Name);
-            ADOExtenstion.AddParameter(comm, "propertyContent", PropertyContent);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("propertyTypeID", PropertyTypeID);
+            comm.AddParameter("name", Name);
+            comm.AddParameter("propertyContent", PropertyContent);
 
             // the result is their ID
             string result = string.Empty;
@@ -353,18 +322,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                this.MultiPropertyID = Convert.ToInt32(result);
+                MultiPropertyID = Convert.ToInt32(result);
 
-                return this.MultiPropertyID;
+                return MultiPropertyID;
             }
-
         }
-
 
 
         public override bool Update()
         {
-            if (this.MultiPropertyID == 0) return false;
+            if (MultiPropertyID == 0) return false;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -372,11 +339,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             comm.CommandText = "up_UpdateMultiProperty";
 
             // create a new parameter
-            ADOExtenstion.AddParameter(comm, "propertyTypeID", PropertyTypeID);
-            ADOExtenstion.AddParameter(comm, "name", Name);
-            ADOExtenstion.AddParameter(comm, "updatedByUserID", UpdatedByUserID);
-            ADOExtenstion.AddParameter(comm, "propertyContent", PropertyContent);
-            ADOExtenstion.AddParameter(comm, "multiPropertyID", MultiPropertyID);
+            comm.AddParameter("propertyTypeID", PropertyTypeID);
+            comm.AddParameter("name", Name);
+            comm.AddParameter("updatedByUserID", UpdatedByUserID);
+            comm.AddParameter("propertyContent", PropertyContent);
+            comm.AddParameter("multiPropertyID", MultiPropertyID);
 
             // result will represent the number of changed rows
             bool result = false;
@@ -389,10 +356,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-
         public int Set()
         {
-            if (this.MultiPropertyID == 0) return Create();
+            if (MultiPropertyID == 0) return Create();
             else
             {
                 int rslt = 0;
@@ -403,36 +369,35 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
         }
 
-
         #region ICacheName Members
 
         public string CacheName
         {
             get
             {
-                return string.Format("{0}-{1}-{2}-{3}-{4}", this.GetType().FullName,
-                    this.MultiPropertyID.ToString() ,
-                    this.PropertyTypeID.ToString() ,
-                    this.VideoID.ToString() ,
-                    this.ProductID.ToString());
+                return string.Format("{0}-{1}-{2}-{3}-{4}", GetType().FullName,
+                                     MultiPropertyID.ToString(),
+                                     PropertyTypeID.ToString(),
+                                     VideoID.ToString(),
+                                     ProductID.ToString());
             }
         }
 
         public void RemoveCache()
         {
             // delete the main one
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
 
-            int multiPropertyID = this.MultiPropertyID;
-            int productID = this.ProductID;
+            int multiPropertyID = MultiPropertyID;
+            int productID = ProductID;
 
             // delete the other
-            this.MultiPropertyID = 0;
-            this.ProductID = 0;
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
-            
-            this.MultiPropertyID = multiPropertyID;
-            this.ProductID = productID;
+            MultiPropertyID = 0;
+            ProductID = 0;
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+
+            MultiPropertyID = multiPropertyID;
+            ProductID = productID;
         }
 
         #endregion
@@ -450,7 +415,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // TODO: Complete member initialization
         }
 
-        
+
         public void GetMultiPropertyByPropertyTypeID(int propertyTypeID)
         {
             // get a configured DbCommand object
@@ -458,7 +423,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetMultiPropertyByPropertyTypeID";
 
-            ADOExtenstion.AddParameter(comm, "propertyTypeID", propertyTypeID);
+            comm.AddParameter("propertyTypeID", propertyTypeID);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -468,17 +433,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             foreach (DataRow dr in dt.Rows)
             {
                 mp = new MultiProperty(dr);
-                this.Add(mp);
+                Add(mp);
             }
-
-
         }
 
 
-
-        public void FilteredOptions(int propertyTypeID, int? guitarType, int? humanType, int? footageType, int? genreType, int? videoType, int? difficultyLevel, int? languge)
+        public void FilteredOptions(int propertyTypeID, int? guitarType, int? humanType, int? footageType,
+                                    int? genreType, int? videoType, int? difficultyLevel, int? languge)
         {
-            ArrayList allFilters = new ArrayList();
+            var allFilters = new ArrayList();
 
             if (guitarType != null && guitarType != 0) allFilters.Add(Convert.ToInt32(guitarType));
             if (humanType != null && humanType != 0) allFilters.Add(Convert.ToInt32(humanType));
@@ -488,7 +451,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             if (difficultyLevel != null && difficultyLevel != 0) allFilters.Add(Convert.ToInt32(difficultyLevel));
             if (languge != null && languge != 0) allFilters.Add(Convert.ToInt32(languge));
 
-            StringBuilder sb = new StringBuilder(100);
+            var sb = new StringBuilder(100);
 
             sb.AppendFormat(@"
  
@@ -516,40 +479,50 @@ SELECT
 
             if (allFilters.Count > 0)
             {
-                sb.AppendFormat(@"  AND vid.videoID in (SELECT mpv2.videoID FROM MultiPropertyVideo mpv2 WHERE mpv2.multiPropertyID = {0}) ", allFilters[0]);
+                sb.AppendFormat(
+                    @"  AND vid.videoID in (SELECT mpv2.videoID FROM MultiPropertyVideo mpv2 WHERE mpv2.multiPropertyID = {0}) ",
+                    allFilters[0]);
 
                 if (allFilters.Count > 1)
                 {
-                    sb.AppendFormat(@"  AND vid.videoID in (SELECT mpv3.videoID FROM MultiPropertyVideo mpv3 WHERE mpv3.multiPropertyID = {0}) ", allFilters[1]);
+                    sb.AppendFormat(
+                        @"  AND vid.videoID in (SELECT mpv3.videoID FROM MultiPropertyVideo mpv3 WHERE mpv3.multiPropertyID = {0}) ",
+                        allFilters[1]);
 
                     if (allFilters.Count > 2)
                     {
-                        sb.AppendFormat(@"  AND vid.videoID in (SELECT mpv4.videoID FROM MultiPropertyVideo mpv4 WHERE mpv4.multiPropertyID = {0}) ", allFilters[2]);
+                        sb.AppendFormat(
+                            @"  AND vid.videoID in (SELECT mpv4.videoID FROM MultiPropertyVideo mpv4 WHERE mpv4.multiPropertyID = {0}) ",
+                            allFilters[2]);
 
                         if (allFilters.Count > 3)
                         {
-                            sb.AppendFormat(@"  AND vid.videoID in (SELECT mpv5.videoID FROM MultiPropertyVideo mpv5 WHERE mpv5.multiPropertyID = {0}) ", allFilters[3]);
+                            sb.AppendFormat(
+                                @"  AND vid.videoID in (SELECT mpv5.videoID FROM MultiPropertyVideo mpv5 WHERE mpv5.multiPropertyID = {0}) ",
+                                allFilters[3]);
 
                             if (allFilters.Count > 4)
                             {
-                                sb.AppendFormat(@"  AND vid.videoID in (SELECT mpv6.videoID FROM MultiPropertyVideo mpv6 WHERE mpv6.multiPropertyID = {0}) ", allFilters[4]);
+                                sb.AppendFormat(
+                                    @"  AND vid.videoID in (SELECT mpv6.videoID FROM MultiPropertyVideo mpv6 WHERE mpv6.multiPropertyID = {0}) ",
+                                    allFilters[4]);
 
                                 if (allFilters.Count > 5)
                                 {
-                                    sb.AppendFormat(@"  AND vid.videoID in (SELECT mpv7.videoID FROM MultiPropertyVideo mpv7 WHERE mpv7.multiPropertyID = {0}) ", allFilters[5]);
+                                    sb.AppendFormat(
+                                        @"  AND vid.videoID in (SELECT mpv7.videoID FROM MultiPropertyVideo mpv7 WHERE mpv7.multiPropertyID = {0}) ",
+                                        allFilters[5]);
 
                                     if (allFilters.Count > 6)
                                     {
-                                        sb.AppendFormat(@"  AND vid.videoID in (SELECT mpv8.videoID FROM MultiPropertyVideo mpv8 WHERE mpv8.multiPropertyID = {0}) ", allFilters[6]);
+                                        sb.AppendFormat(
+                                            @"  AND vid.videoID in (SELECT mpv8.videoID FROM MultiPropertyVideo mpv8 WHERE mpv8.multiPropertyID = {0}) ",
+                                            allFilters[6]);
                                     }
                                 }
                             }
                         }
-
-
                     }
-
-
                 }
             }
 
@@ -568,13 +541,8 @@ SELECT
             foreach (DataRow dr in dt.Rows)
             {
                 mp = new MultiProperty(dr);
-                this.Add(mp);
+                Add(mp);
             }
         }
-
-
-
     }
-
-    
 }
