@@ -15,8 +15,8 @@
 //   limitations under the License.
 using System;
 using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Enums;
 using BootBaronLib.Operational;
+using BootBaronLib.Values;
 
 namespace DasKlub.m.auth
 {

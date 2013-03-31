@@ -23,7 +23,6 @@ using System.Data.Common;
 using BootBaronLib.DAL;
 using System.Data;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {

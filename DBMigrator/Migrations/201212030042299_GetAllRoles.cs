@@ -1,8 +1,7 @@
-namespace Migrations
+using System.Data.Entity.Migrations;
+
+namespace DBMigrator.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class GetAllRoles : DbMigration
     {
         public override void Up()

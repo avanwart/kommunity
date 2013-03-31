@@ -8,7 +8,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 
-namespace BootBaronLib.Operational.Compression
+namespace BootBaronLib.Operational
 {
     /// <summary>
     /// Unique class for compression/decompression file. Represents a Zip file.

@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -22,7 +23,7 @@ using System.Web.Configuration;
 
 ///<see>http://69.10.233.10/KB/recipes/Encrypt_an_string.aspx</see>
 
-namespace BootBaronLib.Operational.Encryption
+namespace BootBaronLib.Operational
 {
     /// <summary>
     /// RSA Encryption Services
@@ -229,13 +230,13 @@ namespace BootBaronLib.Operational.Encryption
              int randNum2 = new Random().Next(100000000, 999999999);
 
 
-             privateKey = BootBaronLib.Operational.Encryption.EncryptionAndDecryption.EncryptMaker(
+             privateKey = EncryptionAndDecryption.EncryptMaker(
                 Convert.ToString(randNum1),
                 Convert.ToString(randNum2),
                 1,
                 out intVector);
 
-             key3 = Encryption.EncryptionAndDecryption.EncryptMaker(unencrypted, 
+             key3 = EncryptionAndDecryption.EncryptMaker(unencrypted, 
                 privateKey, 2, out intVector);
  
          }

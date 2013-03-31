@@ -1,5 +1,6 @@
 ﻿@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.FAQ
            @using BootBaronLib.Operational;
+@using BootBaronLib.Values
 @using Web.Helpers
 @Html.HiddenFor(model => model.FaqID)
 <div>
@@ -27,7 +28,7 @@
             </div>
 
           @{
-    var listItems = Enum.GetValues(typeof(BootBaronLib.Enums.SiteEnums.CommentStatus)).OfType<Enum>().Select(e =>
+    var listItems = Enum.GetValues(typeof(SiteEnums.CommentStatus)).OfType<Enum>().Select(e =>
 new SelectListItem()
 {
     Text = Utilities.ResourceValue(Utilities.GetEnumDescription(e)),

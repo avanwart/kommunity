@@ -24,9 +24,7 @@ using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
-using BootBaronLib.Enums;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
 using BootBaronLib.Values;
 using DasKlub.Models;
 

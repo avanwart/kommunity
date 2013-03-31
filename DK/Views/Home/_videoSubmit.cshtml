@@ -1,4 +1,5 @@
 ﻿@using BootBaronLib.Resources;
+@using BootBaronLib.Values
 <a href="http://youtube.com" target="_blank">
     <b><img src="@Url.Content("~/content/images/social/you_tube.png")" /></a>
 <a name="submit"></a>
@@ -134,8 +135,8 @@ CountBack(gsecs);
                 @foreach (BootBaronLib.AppSpec.DasKlub.BOL.MultiProperty mp1 in ViewBag.VideoTypes)
                 {
 
-                    if (!string.IsNullOrWhiteSpace(Request.QueryString[BootBaronLib.Enums.SiteEnums.QueryStringNames.videoType.ToString()]) &&
-                     Convert.ToInt32(Request.QueryString[BootBaronLib.Enums.SiteEnums.QueryStringNames.videoType.ToString()]) == mp1.MultiPropertyID)
+                    if (!string.IsNullOrWhiteSpace(Request.QueryString[SiteEnums.QueryStringNames.videoType.ToString()]) &&
+                     Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.videoType.ToString()]) == mp1.MultiPropertyID)
                     {
                     <option selected="selected" value="@mp1.MultiPropertyID">@mp1.DisplayName</option>
                     }
@@ -161,8 +162,8 @@ CountBack(gsecs);
                 @foreach (BootBaronLib.AppSpec.DasKlub.BOL.MultiProperty mp1 in ViewBag.PersonTypes)
                 {
 
-                    if (!string.IsNullOrWhiteSpace(Request.QueryString[BootBaronLib.Enums.SiteEnums.QueryStringNames.personType.ToString()]) &&
-                     Convert.ToInt32(Request.QueryString[BootBaronLib.Enums.SiteEnums.QueryStringNames.personType.ToString()]) == mp1.MultiPropertyID)
+                    if (!string.IsNullOrWhiteSpace(Request.QueryString[SiteEnums.QueryStringNames.personType.ToString()]) &&
+                     Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.personType.ToString()]) == mp1.MultiPropertyID)
                     {
                     <option selected="selected" value="@mp1.MultiPropertyID">@mp1.DisplayName</option>
                     }
@@ -188,8 +189,8 @@ CountBack(gsecs);
                 @foreach (BootBaronLib.AppSpec.DasKlub.BOL.MultiProperty mp1 in ViewBag.FootageTypes)
                 {
 
-                    if (!string.IsNullOrWhiteSpace(Request.QueryString[BootBaronLib.Enums.SiteEnums.QueryStringNames.footageType.ToString()]) &&
-                     Convert.ToInt32(Request.QueryString[BootBaronLib.Enums.SiteEnums.QueryStringNames.footageType.ToString()]) == mp1.MultiPropertyID)
+                    if (!string.IsNullOrWhiteSpace(Request.QueryString[SiteEnums.QueryStringNames.footageType.ToString()]) &&
+                     Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.footageType.ToString()]) == mp1.MultiPropertyID)
                     {
                     <option selected="selected" value="@mp1.MultiPropertyID">@mp1.DisplayName</option>
                     }

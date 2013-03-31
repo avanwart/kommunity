@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -25,13 +26,12 @@ using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using BootBaronLib.Configs;
-using BootBaronLib.Enums;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
+using BootBaronLib.Values;
 using DasKlub.Models;
 using LitS3;
 
-namespace Web.Controllers
+namespace DasKlub.Controllers
 {
     [Authorize (Roles = "admin")]
     public class SiteAdminController : Controller

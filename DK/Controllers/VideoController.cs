@@ -20,8 +20,9 @@ using System.Web.Mvc;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
-using BootBaronLib.Enums;
 using BootBaronLib.Operational;
+using BootBaronLib.Values;
+using IntrepidStudios;
 
 namespace DasKlub.Controllers
 {
@@ -307,7 +308,7 @@ namespace DasKlub.Controllers
 
             ViewBag.FirstLetter = firstLetter.ToUpper();
 
-            IntrepidStudios.SearchCloud.Cloud cloud1 = new IntrepidStudios.SearchCloud.Cloud();
+            Cloud cloud1 = new Cloud();
             cloud1.DataIDField = "keyword_id";
             cloud1.DataKeywordField = "keyword_value";
             cloud1.DataCountField = "keyword_count";
@@ -378,7 +379,7 @@ namespace DasKlub.Controllers
 
             ViewBag.FirstLetter = firstLetter.ToUpper();
 
-            IntrepidStudios.SearchCloud.Cloud cloud1 = new IntrepidStudios.SearchCloud.Cloud();
+            Cloud cloud1 = new Cloud();
             cloud1.DataIDField = "keyword_id";
             cloud1.DataKeywordField = "keyword_value";
             cloud1.DataCountField = "keyword_count";

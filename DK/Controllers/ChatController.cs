@@ -15,18 +15,11 @@
 //   limitations under the License.
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
-using DasKlub.Models;
-using SignalR;
 using SignalR.Hubs;
 
 namespace DasKlub.Controllers
@@ -38,14 +31,11 @@ namespace DasKlub.Controllers
         {
             if (string.IsNullOrWhiteSpace(message) || (userAccountID == 0)) return;
 
-           
-            ChatRoom cr = new ChatRoom();
+            var cr = new ChatRoom {ChatMessage = message, CreatedByUserID = userAccountID};
 
-            cr.ChatMessage = message;
-            cr.CreatedByUserID = userAccountID;
             cr.Create();
 
-            BootBaronLib.AppSpec.DasKlub.BOL.UserAccountDetail uad = new BootBaronLib.AppSpec.DasKlub.BOL.UserAccountDetail();
+            var uad = new UserAccountDetail();
             uad.GetUserAccountDeailForUser(userAccountID);
             string userFace = string.Format(@"<div class=""user_face"">{0}</div>", uad.UserFace);
 
@@ -62,11 +52,11 @@ namespace DasKlub.Controllers
 
         public Task Disconnect()
         {
-            ChatRoomUser cru = new ChatRoomUser();
+            var cru = new ChatRoomUser();
 
             cru.GetChatRoomUserByConnection(Context.ConnectionId);
 
-            UserAccount ua = new UserAccount(cru.CreatedByUserID);
+            var ua = new UserAccount(cru.CreatedByUserID);
 
             cru.DeleteChatRoomUser();
 
@@ -77,9 +67,9 @@ namespace DasKlub.Controllers
 
         public Task Connect()
         {
-            UserAccount ua = new UserAccount(Context.User.Identity.Name);
+            var ua = new UserAccount(Context.User.Identity.Name);
 
-            ChatRoomUser cru = new ChatRoomUser();
+            var cru = new ChatRoomUser();
 
             cru.GetChatRoomUserByUserAccountID(ua.UserAccountID);
 
@@ -103,9 +93,9 @@ namespace DasKlub.Controllers
 
         public Task Reconnect(IEnumerable<string> groups)
         {
-            UserAccount ua = new UserAccount(Context.User.Identity.Name);
+            var ua = new UserAccount(Context.User.Identity.Name);
 
-            ChatRoomUser cru = new ChatRoomUser();
+            var cru = new ChatRoomUser();
 
             cru.GetChatRoomUserByUserAccountID(ua.UserAccountID);
 
@@ -128,13 +118,13 @@ namespace DasKlub.Controllers
 
         public JsonResult RecentChatMessages()
         {
-            ChatRooms crs = new ChatRooms();
+            var crs = new ChatRooms();
 
             crs.GetRecentChatMessages();
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            foreach (ChatRoom cnt in crs)
+            foreach (var cnt in crs)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
@@ -149,15 +139,15 @@ namespace DasKlub.Controllers
 
         public JsonResult GetChattingUsers()
         {
-            ChatRoomUsers crus = new ChatRoomUsers();
+            var crus = new ChatRoomUsers();
 
             crus.GetChattingUsers();
 
             if (crus.Count == 0) return null;
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            foreach (ChatRoomUser cnt in crus)
+            foreach (var cnt in crus)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }

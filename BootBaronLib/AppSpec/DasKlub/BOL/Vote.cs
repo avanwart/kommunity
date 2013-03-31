@@ -21,7 +21,6 @@ using BootBaronLib.Interfaces;
 using System.Data.Common;
 using BootBaronLib.DAL;
 using System.Data;
-using BootBaronLib.Operational.Converters;
 using BootBaronLib.Operational;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL

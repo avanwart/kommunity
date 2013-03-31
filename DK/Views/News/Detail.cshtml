@@ -1,5 +1,7 @@
 ﻿@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content
+@using BootBaronLib.Operational
 @using BootBaronLib.Resources
+@using DasKlub.Helpers
 @using Web.Helpers
 @{
     ViewBag.Title = Model.Title;
@@ -123,7 +125,7 @@ poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload=
 
         
             <article>
-        <p>@Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.Video.IFrameVideoOnly(BootBaronLib.Operational.Converters.FromString.ReplaceNewLineWithHTML(Model.Detail)))</p>
+        <p>@Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.Video.IFrameVideoOnly(FromString.ReplaceNewLineWithHTML(Model.Detail)))</p>
         </article>
         </div>
         <br />

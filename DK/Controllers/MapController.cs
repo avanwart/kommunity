@@ -16,7 +16,6 @@
 using System;
 using System.Web.Mvc;
 using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Enums;
 using System.Web.Security;
 using BootBaronLib.Values;
 using System.Collections;
@@ -24,7 +23,6 @@ using DasKlub.Models;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
-using BootBaronLib.Operational.Converters;
 using System.Threading;
 using System.Globalization;
 using BootBaronLib.Operational;

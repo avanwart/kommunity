@@ -1,4 +1,6 @@
 ﻿@using BootBaronLib.Resources;
+@using BootBaronLib.Values
+@using DasKlub.Helpers
 @using Web.Helpers;
 @using BootBaronLib.Operational;
 @model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComment
@@ -30,7 +32,7 @@
             </div>
             <div class="editor-field">
                 @{
-    var listItems = Enum.GetValues(typeof(BootBaronLib.Enums.SiteEnums.CommentStatus)).OfType<Enum>().Select(e =>
+    var listItems = Enum.GetValues(typeof(SiteEnums.CommentStatus)).OfType<Enum>().Select(e =>
 new SelectListItem()
 {
     Text = Utilities.ResourceValue(Utilities.GetEnumDescription(e)),

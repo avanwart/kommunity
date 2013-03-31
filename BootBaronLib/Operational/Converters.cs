@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections;
 using System.Data;
@@ -26,12 +27,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
 using System.Xml.Serialization;
- 
-using BootBaronLib.Enums;
+using BootBaronLib.Values;
 
-
-
-namespace BootBaronLib.Operational.Converters
+namespace BootBaronLib.Operational
 {
 
     /// <summary>

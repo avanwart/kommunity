@@ -1,4 +1,5 @@
-﻿@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComments
+﻿@using BootBaronLib.Values
+@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.ContentComments
 @{
     ViewBag.Title = BootBaronLib.Resources.Messages.ManageNewsComments;
 }
@@ -56,16 +57,16 @@
     for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
     {
         if (string.IsNullOrEmpty(Request.QueryString[
-            BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString()]) && 
+            SiteEnums.QueryStringNames.pg.ToString()]) && 
             pageNumber == 1)
         {
     @pageNumber     
         }
         else if (!string.IsNullOrEmpty(Request.QueryString[
-            BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString()]) &&
+            SiteEnums.QueryStringNames.pg.ToString()]) &&
             pageNumber ==
             Convert.ToInt32(Request.QueryString[
-            BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString()])
+            SiteEnums.QueryStringNames.pg.ToString()])
             )
         {
     @pageNumber 
@@ -73,8 +74,8 @@
         else
         {
     <a href="@Url.Content("~/account/articlecomments/?" +
-      BootBaronLib.Enums.SiteEnums.QueryStringNames.pg.ToString() +
-      "=" + pageNumber.ToString())">@pageNumber.ToString()</a>  
+                          SiteEnums.QueryStringNames.pg.ToString() +
+                          "=" + pageNumber.ToString())">@pageNumber.ToString()</a>  
         }
     }
     

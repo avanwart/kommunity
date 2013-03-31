@@ -23,39 +23,39 @@ namespace DasKlub.Models
     {
 
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Messages))]
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "FirstName")]
+        [Display(ResourceType = typeof(Messages), Name = "FirstName")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Messages))]
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "LastName")]
+        [Display(ResourceType = typeof(Messages), Name = "LastName")]
         public string LastName { get; set; }
 
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Messages))]
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "StreetAddress")]
+        [Display(ResourceType = typeof(Messages), Name = "StreetAddress")]
         public string AddressLine1 { get; set; }
 
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "StreetAddress")]
+        [Display(ResourceType = typeof(Messages), Name = "StreetAddress")]
         public string AddressLine2 { get; set; }
 
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "StreetAddress")]
+        [Display(ResourceType = typeof(Messages), Name = "StreetAddress")]
         public string AddressLine3 { get; set; }
 
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Messages))]
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "City")]
+        [Display(ResourceType = typeof(Messages), Name = "City")]
         public string City { get; set; }
 
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Messages))]
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "RegionState")]
+        [Display(ResourceType = typeof(Messages), Name = "RegionState")]
         public string RegionState { get; set; }
 
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Messages))]
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "Country")]
+        [Display(ResourceType = typeof(Messages), Name = "Country")]
         public string Country { get; set; }
 
 
 
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Messages))]
-        [Display(ResourceType = typeof(BootBaronLib.Resources.Messages), Name = "PostalCode")]
+        [Display(ResourceType = typeof(Messages), Name = "PostalCode")]
         public string PostalCode { get; set; }
 
      

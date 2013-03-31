@@ -16,17 +16,13 @@
 //   limitations under the License.
 
 
-namespace Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Migrations;
-    using System.IO;
-    using System.Linq;
-    using System.Transactions;
-    using Migrations;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Transactions;
 
+namespace DBMigrator.Migrations
+{
     /// <summary>
     /// Does nothing
     /// </summary>

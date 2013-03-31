@@ -18,7 +18,6 @@ using System.Data;
 using System.Data.Common;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
-using BootBaronLib.Operational.Converters;
 using System;
 using BootBaronLib.Operational;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;

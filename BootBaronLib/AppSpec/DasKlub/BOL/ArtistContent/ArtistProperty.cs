@@ -23,7 +23,6 @@ using System.Data.Common;
 using System.Data;
 using BootBaronLib.DAL;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 {

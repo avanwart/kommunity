@@ -18,13 +18,12 @@ using System.Data;
 using System.Data.Common;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
-using BootBaronLib.Operational.Converters;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using BootBaronLib.Enums;
 using BootBaronLib.Operational;
 using BootBaronLib.Interfaces;
+using BootBaronLib.Values;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {

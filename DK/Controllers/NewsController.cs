@@ -23,10 +23,11 @@ using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
-using BootBaronLib.Enums;
 using BootBaronLib.Operational;
 using System.Collections;
 using System.Collections.Generic;
+using BootBaronLib.Values;
+using IntrepidStudios;
 
 namespace DasKlub.Controllers
 {
@@ -158,7 +159,7 @@ namespace DasKlub.Controllers
 
             if (HttpContext.Cache[cacheName] == null)
             {
-                IntrepidStudios.SearchCloud.Cloud cloud1 = new IntrepidStudios.SearchCloud.Cloud();
+                Cloud cloud1 = new Cloud();
                 cloud1.DataIDField = "keyword_id";
                 cloud1.DataKeywordField = "keyword_value";
                 cloud1.DataCountField = "keyword_count";

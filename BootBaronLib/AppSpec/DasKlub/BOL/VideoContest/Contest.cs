@@ -23,7 +23,6 @@ using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
 using BootBaronLib.AppSpec.DasKlub.BLL;
-using BootBaronLib.Operational.Converters;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
 {

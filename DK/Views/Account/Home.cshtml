@@ -1,4 +1,7 @@
-﻿@using BootBaronLib.Resources;
+﻿@using BootBaronLib.Operational
+@using BootBaronLib.Resources;
+@using BootBaronLib.Values
+@using DasKlub.Helpers
 @using Web.Helpers
 @{
     ViewBag.Title = Messages.StatusUpdate;
@@ -47,8 +50,8 @@
 
 
                                      <i>
-                        @BootBaronLib.AppSpec.DasKlub.BOL.Acknowledgements.GetAcknowledgementCount(s1.StatusUpdateID, 
-                          Convert.ToChar(BootBaronLib.Enums.SiteEnums.AcknowledgementType.A.ToString()))</i>
+                                         @BootBaronLib.AppSpec.DasKlub.BOL.Acknowledgements.GetAcknowledgementCount(s1.StatusUpdateID, 
+                                                                                                                    Convert.ToChar(SiteEnums.AcknowledgementType.A.ToString()))</i>
                            </div>
 
                         @if (s1.PhotoItemID != null)
@@ -67,7 +70,7 @@
                             
                              @Html.Raw( BootBaronLib.AppSpec.DasKlub.BOL.Video.IFrameVideo(s1.Message, 120) )
                             <a 
-         title="@BootBaronLib.Operational.Converters.FromString.Truncate(s1.Message, 50)"
+         title="@FromString.Truncate(s1.Message, 50)"
          href="@Url.Content("~/account/statusupdate/" + s1.StatusUpdateID)">
                                 @Messages.Link</a> </i>
                         <hr />
@@ -108,7 +111,7 @@
             <i>
              
                    @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.Video.IFrameVideo(ViewBag.MostCommented.Message, 120))
-                <a title="@BootBaronLib.Operational.Converters.FromString.Truncate(ViewBag.MostCommented.Message, 50)" href="@Url.Content("~/account/statusupdate/" + ViewBag.MostCommented.StatusUpdateID)">
+                <a title="@FromString.Truncate(ViewBag.MostCommented.Message, 50)" href="@Url.Content("~/account/statusupdate/" + ViewBag.MostCommented.StatusUpdateID)">
                     @Messages.Link</a> </i>
             <hr />
             <br />
@@ -132,8 +135,8 @@ Convert.ToInt32(ViewBag.MostBeatDown.UserAccountID));
               @Html.Raw(coName)
                                
                                      <i>
-                        @BootBaronLib.AppSpec.DasKlub.BOL.Acknowledgements.GetAcknowledgementCount(ViewBag.MostBeatDown.StatusUpdateID,
-                          Convert.ToChar(BootBaronLib.Enums.SiteEnums.AcknowledgementType.B.ToString()))</i>
+                                         @BootBaronLib.AppSpec.DasKlub.BOL.Acknowledgements.GetAcknowledgementCount(ViewBag.MostBeatDown.StatusUpdateID,
+                                                                                                                    Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString()))</i>
                            </div>
             if (ViewBag.MostBeatDown.PhotoItemID != null)
             {
@@ -212,8 +215,8 @@ Convert.ToInt32(ViewBag.MostBeatDown.UserAccountID));
 
             <hr />
             @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                            BootBaronLib.Enums.SiteEnums.SiteBrandType.STATU,
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+                SiteEnums.SiteBrandType.STATU,
+                BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
 
 
  

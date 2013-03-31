@@ -15,7 +15,6 @@
 //   limitations under the License.
 using System.Collections;
 using System.Web.UI.WebControls;
-using BootBaronLib.Enums;
 
 namespace BootBaronLib.Values
 {

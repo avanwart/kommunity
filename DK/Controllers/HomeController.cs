@@ -23,8 +23,8 @@ using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection;
 using BootBaronLib.AppSpec.DasKlub.BOL.Logging;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
-using BootBaronLib.Enums;
-using BootBaronLib.Operational.Converters;
+using BootBaronLib.Operational;
+using BootBaronLib.Values;
 using Google.GData.Client;
 using Google.YouTube;
 

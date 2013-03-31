@@ -20,8 +20,7 @@ using System.Data.Common;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
-using BootBaronLib.Enums;
+using BootBaronLib.Values;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
 {

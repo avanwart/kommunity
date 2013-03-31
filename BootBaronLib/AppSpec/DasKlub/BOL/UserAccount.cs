@@ -30,10 +30,8 @@ using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.Configs;
 using BootBaronLib.DAL;
-using BootBaronLib.Enums;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
 using BootBaronLib.Values;
 using LitS3;
 

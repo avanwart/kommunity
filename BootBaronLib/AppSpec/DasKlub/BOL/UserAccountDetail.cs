@@ -24,12 +24,11 @@ using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
-using BootBaronLib.Enums;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
 using BootBaronLib.Resources;
- 
+using BootBaronLib.Values;
+
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
     public class UserAccountDetail : BaseIUserLogCRUD, ICacheName

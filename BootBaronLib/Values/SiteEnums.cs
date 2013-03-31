@@ -13,9 +13,10 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System.ComponentModel;
 
-namespace BootBaronLib.Enums
+namespace BootBaronLib.Values
 {
     /// <summary>
     /// Enumerations created for use in the site

@@ -13,16 +13,17 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System.Xml.Serialization;
 
-namespace DasKlub.Extension
+namespace DasKlub.Controllers
 {
 
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.w3.org/2005/Atom", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
+    [XmlRoot(Namespace = "http://www.w3.org/2005/Atom", IsNullable = false)]
     public partial class entry
     {
 
@@ -115,7 +116,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("category")]
+        [XmlElement("category")]
         public entryCategory[] category
         {
             get
@@ -129,7 +130,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("content")]
+        [XmlElement("content")]
         public entryContent[] content
         {
             get
@@ -143,7 +144,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("link")]
+        [XmlElement("link")]
         public entryLink[] link
         {
             get
@@ -157,7 +158,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("author")]
+        [XmlElement("author")]
         public entryAuthor[] author
         {
             get
@@ -176,7 +177,7 @@ namespace DasKlub.Extension
         private rating _rating;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("rating")]
+        [XmlElement("rating")]
         public rating rating
         {
             get
@@ -193,9 +194,9 @@ namespace DasKlub.Extension
 
  
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace =
+    [XmlType(AnonymousType = true, Namespace =
         "http://gdata.youtube.com/schemas/2007")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://gdata.youtube.com/schemas/2007", 
+    [XmlRoot(Namespace = "http://gdata.youtube.com/schemas/2007", 
         IsNullable = false)]
     public partial class rating
     {
@@ -205,7 +206,7 @@ namespace DasKlub.Extension
         private string numLikesField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string numDislikes
         {
             get
@@ -219,7 +220,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string numLikes
         {
             get
@@ -238,7 +239,7 @@ namespace DasKlub.Extension
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
     public partial class entryCategory
     {
 
@@ -249,7 +250,7 @@ namespace DasKlub.Extension
         private string labelField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string scheme
         {
             get
@@ -263,7 +264,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string term
         {
             get
@@ -277,7 +278,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string label
         {
             get
@@ -296,7 +297,7 @@ namespace DasKlub.Extension
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
     public partial class entryContent
     {
 
@@ -305,7 +306,7 @@ namespace DasKlub.Extension
         private string srcField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string type
         {
             get
@@ -319,7 +320,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string src
         {
             get
@@ -338,7 +339,7 @@ namespace DasKlub.Extension
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
     public partial class entryLink
     {
 
@@ -349,7 +350,7 @@ namespace DasKlub.Extension
         private string hrefField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string rel
         {
             get
@@ -363,7 +364,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string type
         {
             get
@@ -377,7 +378,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string href
         {
             get
@@ -396,7 +397,7 @@ namespace DasKlub.Extension
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
     public partial class entryAuthor
     {
 
@@ -436,15 +437,15 @@ namespace DasKlub.Extension
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.w3.org/2005/Atom", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://www.w3.org/2005/Atom")]
+    [XmlRoot(Namespace = "http://www.w3.org/2005/Atom", IsNullable = false)]
     public partial class NewDataSet
     {
 
         private entry[] itemsField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("entry")]
+        [XmlElement("entry")]
         public entry[] Items
         {
             get
@@ -466,15 +467,15 @@ namespace DasKlub.Extension
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.google.com/g/2005")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://schemas.google.com/g/2005", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://schemas.google.com/g/2005")]
+    [XmlRoot(Namespace = "http://schemas.google.com/g/2005", IsNullable = false)]
     public partial class comments
     {
 
         private commentsFeedLink[] feedLinkField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("feedLink")]
+        [XmlElement("feedLink")]
         public commentsFeedLink[] feedLink
         {
             get
@@ -492,7 +493,7 @@ namespace DasKlub.Extension
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.google.com/g/2005")]
+    [XmlType(AnonymousType = true, Namespace = "http://schemas.google.com/g/2005")]
     public partial class commentsFeedLink
     {
 
@@ -501,7 +502,7 @@ namespace DasKlub.Extension
         private string countHintField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string href
         {
             get
@@ -515,7 +516,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string countHint
         {
             get
@@ -537,8 +538,8 @@ namespace DasKlub.Extension
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://gdata.youtube.com/schemas/2007")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://gdata.youtube.com/schemas/2007", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://gdata.youtube.com/schemas/2007")]
+    [XmlRoot(Namespace = "http://gdata.youtube.com/schemas/2007", IsNullable = false)]
     public partial class accessControl
     {
 
@@ -547,7 +548,7 @@ namespace DasKlub.Extension
         private string permissionField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string action
         {
             get
@@ -561,7 +562,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string permission
         {
             get
@@ -579,15 +580,15 @@ namespace DasKlub.Extension
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://gdata.youtube.com/schemas/2007")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://gdata.youtube.com/schemas/2007", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://gdata.youtube.com/schemas/2007")]
+    [XmlRoot(Namespace = "http://gdata.youtube.com/schemas/2007", IsNullable = false)]
     public partial class duration
     {
 
         private string secondsField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string seconds
         {
             get
@@ -606,8 +607,8 @@ namespace DasKlub.Extension
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://gdata.youtube.com/schemas/2007")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://gdata.youtube.com/schemas/2007", IsNullable = false)]
+    [XmlType(AnonymousType = true, Namespace = "http://gdata.youtube.com/schemas/2007")]
+    [XmlRoot(Namespace = "http://gdata.youtube.com/schemas/2007", IsNullable = false)]
     public partial class statistics
     {
 
@@ -616,7 +617,7 @@ namespace DasKlub.Extension
         private string viewCountField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string favoriteCount
         {
             get
@@ -630,7 +631,7 @@ namespace DasKlub.Extension
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [XmlAttribute()]
         public string viewCount
         {
             get

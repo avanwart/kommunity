@@ -21,12 +21,11 @@ using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
 using System.Text;
 using System.Web;
 using BootBaronLib.Resources;
-using BootBaronLib.Enums;
 using System.Web.Security;
+using BootBaronLib.Values;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {

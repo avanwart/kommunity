@@ -1,4 +1,5 @@
 ﻿  @using BootBaronLib.Resources;
+@using BootBaronLib.Values
   @model DasKlub.Models.RegisterModel
                      @if (!Request.IsAuthenticated)
                      {
@@ -94,7 +95,7 @@ ViewBag.YouAres, "YouAreID", "LocalizedName", Model == null ? 0 : Model.YouAreID
  
                                
                                @Messages.BySigningUpYouAgreeToTheTermsOfService
-                                 <a target="_blank" href="@Url.Content("~/SiteContent?brandType=" + BootBaronLib.Enums.SiteEnums.SiteBrandType.TERMS.ToString())">@Messages.Here</a>
+                                 <a target="_blank" href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS.ToString())">@Messages.Here</a>
                               
                     </div>
                     <br />

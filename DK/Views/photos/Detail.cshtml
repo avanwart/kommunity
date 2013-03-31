@@ -1,8 +1,10 @@
-﻿@using Web.Helpers
+﻿@using BootBaronLib.Operational
+@using DasKlub.Helpers
+@using Web.Helpers
 @model  BootBaronLib.AppSpec.DasKlub.BOL.PhotoItem
 @{
     ViewBag.Title = Model.Title;
-    ViewBag.ThumbIcon = BootBaronLib.Operational.Converters.FromString.GetFixedLengthString(Html.S3ContentPath(Model.FilePathThumb).ToString(), 50);
+    ViewBag.ThumbIcon = FromString.GetFixedLengthString(Html.S3ContentPath(Model.FilePathThumb).ToString(), 50);
 }
 @{Html.RenderPartial("_AdBanner"); }
 <div class="row">

@@ -19,8 +19,8 @@ using System.Web.UI.WebControls;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
-using BootBaronLib.Enums;
-using BootBaronLib.Operational.Converters;
+using BootBaronLib.Operational;
+using BootBaronLib.Values;
 using Google.GData.Client;
 using Google.YouTube;
 

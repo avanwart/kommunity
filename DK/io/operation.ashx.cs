@@ -21,9 +21,9 @@ using System.Web;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Configs;
-using BootBaronLib.Enums;
 using BootBaronLib.Operational;
 using BootBaronLib.Resources;
+using BootBaronLib.Values;
 using LitS3;
 
 namespace DasKlub.io

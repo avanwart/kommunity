@@ -710,6 +710,8 @@
     <Content Include="Views\Shared\HeaderContent.cshtml" />
     <Content Include="Views\Shared\Mobile.cshtml" />
     <Content Include="Views\SiteAdmin\UserManagement.cshtml" />
+    <Content Include="Views\Account\Handler.cshtml" />
+    <Content Include="Views\Chat\Index.cshtml" />
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

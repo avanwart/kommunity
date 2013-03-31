@@ -21,7 +21,6 @@ using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
 
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent

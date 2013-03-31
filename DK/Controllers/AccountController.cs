@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,7 +23,9 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -33,9 +36,7 @@ using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
 using BootBaronLib.Configs;
-using BootBaronLib.Enums;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
 using BootBaronLib.Resources;
 using BootBaronLib.Values;
 using DasKlub.Models;
@@ -47,15 +48,15 @@ namespace DasKlub.Controllers
     {
         #region variables
 
-        MembershipUser mu = null;
-        UserAccountDetail uad = null;
-        UserAccounts uas = null;
-        UserAccount ua = null;
-        UserAccounts contacts = null;
-        UserConnections ucons = null;
-        UserConnection ucon = null;
-        UserPhotos ups = null;
-        static int pageSize = 5;
+        private const int PageSize = 5;
+        private UserAccounts _contacts;
+        private MembershipUser _mu;
+        private UserAccount _ua;
+        private UserAccountDetail _uad;
+        private UserAccounts _uas;
+        private UserConnection _ucon;
+        private UserConnections _ucons;
+        private UserPhotos _ups;
 
         #endregion
 
@@ -65,20 +66,18 @@ namespace DasKlub.Controllers
         [Authorize]
         public ActionResult DeleteArticle(int? id)
         {
-            mu = Membership.GetUser();
-
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content();
+            _mu = Membership.GetUser();
 
             if (id != null && id > 0)
             {
-                model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content(
+                var model = new Content(
                     Convert.ToInt32(id));
 
-                ContentComments concoms = new ContentComments();
+                var concoms = new ContentComments();
                 concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.U);
                 concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.C);
 
-                if (model.CreatedByUserID == Convert.ToInt32(mu.ProviderUserKey))
+                if (_mu != null && model.CreatedByUserID == Convert.ToInt32(_mu.ProviderUserKey))
                 {
                     // security check
                     foreach (ContentComment c1 in concoms)
@@ -86,7 +85,6 @@ namespace DasKlub.Controllers
 
                     model.Delete();
                 }
-
             }
 
             return RedirectToAction("Articles");
@@ -96,7 +94,7 @@ namespace DasKlub.Controllers
         [Authorize]
         public ActionResult CreateArticle()
         {
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content();
+            var model = new Content();
 
             if (model.ReleaseDate == DateTime.MinValue)
             {
@@ -123,204 +121,190 @@ namespace DasKlub.Controllers
             HttpPostedFileBase videoFile,
             HttpPostedFileBase videoFile2)
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content();
+            var model = new Content();
 
             if (contentID != null && contentID > 0)
             {
-                model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content(
+                model = new Content(
                     Convert.ToInt32(contentID));
             }
 
             TryUpdateModel(model);
 
             ////// begin: amazon
-            var acl = CannedAcl.PublicRead;
+            const CannedAcl acl = CannedAcl.PublicRead;
 
-            S3Service s3 = new S3Service();
+            var s3 = new S3Service
+                {
+                    AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                    SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+                };
 
-            s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
-            s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
-
-            if (string.IsNullOrWhiteSpace(model.Detail) )
+            if (string.IsNullOrWhiteSpace(model.Detail))
             {
-                ModelState.AddModelError(Messages.Required, Messages.Required + ": " + Messages.Details);
+                ModelState.AddModelError(Messages.Required, Messages.Required + @": " + Messages.Details);
             }
 
             if (imageFile == null && string.IsNullOrWhiteSpace(model.ContentPhotoURL))
             {
-                ModelState.AddModelError(Messages.Required, Messages.Required + ": " + Messages.Photo);
+                ModelState.AddModelError(Messages.Required, Messages.Required + @": " + Messages.Photo);
             }
 
-            if (ModelState.IsValid)
-            {
-                model.ContentKey = FromString.URLKey(model.Title);
-
-                if (model.ContentID == 0)
-                {
-                    mu = Membership.GetUser();
-                    model.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
-
-                    if (model.ReleaseDate == DateTime.MinValue)
-                    {
-                        model.ReleaseDate = DateTime.UtcNow;
-                    }
-                }
-
-                if (model.Set() <= 0) return View(model);
-
-                if (imageFile != null)
-                {
-
-                    Bitmap b = new Bitmap(imageFile.InputStream);
-
-                    System.Drawing.Image fullPhoto = (System.Drawing.Image)b;
-
-                    string fileNameFull = Utilities.CreateUniqueContentFilename(imageFile);
-
-                    System.Drawing.Image imgPhoto = ImageResize.FixedSize(b, 600, 400, System.Drawing.Color.Black);
-
-                    Stream maker = imgPhoto.ToAStream(ImageFormat.Jpeg);
-
-                    s3.AddObject(
-                        maker,
-                        maker.Length,
-                        AmazonCloudConfigs.AmazonBucketName,
-                        fileNameFull,
-                        imageFile.ContentType,
-                        acl);
-
-
-
-                    if (!string.IsNullOrWhiteSpace(model.ContentPhotoURL))
-                    {
-                        if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentPhotoURL))
-                        {
-                            s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentPhotoURL);
-                        }
-                    }
-
-
-
-
-                    model.ContentPhotoURL = fileNameFull;
-
-                    // resized
-
-                    string fileNameThumb = Utilities.CreateUniqueContentFilename(imageFile);
-
-                    System.Drawing.Image imgPhotoThumb = ImageResize.FixedSize(b, 350, 250, System.Drawing.Color.Black);
-
-                    maker = imgPhotoThumb.ToAStream(ImageFormat.Jpeg);
-
-                    s3.AddObject(
-                        maker,
-                        maker.Length,
-                        AmazonCloudConfigs.AmazonBucketName,
-                        fileNameThumb,
-                        imageFile.ContentType,
-                        acl);
-
-                    if (!string.IsNullOrWhiteSpace(model.ContentPhotoThumbURL))
-                    {
-                        if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentPhotoThumbURL))
-                        {
-                            s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentPhotoThumbURL);
-                        }
-                    }
-
-                    model.ContentPhotoThumbURL = fileNameThumb;
-
-                    model.Set();
-
-
-                }
-
-
-
-                if (videoFile != null)
-                {
-                    // full
-                    try
-                    {
-                        string fileName3 = Utilities.CreateUniqueContentFilename(videoFile);
-
-                        // full
-                        fileName3 = Utilities.CreateUniqueContentFilename(videoFile);
-
-                        s3.AddObject(
-                         videoFile.InputStream,
-                         videoFile.ContentLength,
-                         AmazonCloudConfigs.AmazonBucketName,
-                         fileName3,
-                         videoFile.ContentType,
-                         acl);
-
-
-                        if (!string.IsNullOrWhiteSpace(model.ContentVideoURL))
-                        {
-
-                            if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL))
-                            {
-                                s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL);
-                            }
-                        }
-
-                        model.ContentVideoURL = fileName3;
-
-                        model.Set();
-
-                    }
-                    catch { }
-
-                }
-
-
-
-                if (videoFile2 != null)
-                {
-                    // full
-                    try
-                    {
-                        string fileName3 = Utilities.CreateUniqueContentFilename(videoFile2);
-
-                        // full
-                        fileName3 = Utilities.CreateUniqueContentFilename(videoFile2);
-
-                        s3.AddObject(
-                         videoFile2.InputStream,
-                         videoFile2.ContentLength,
-                         AmazonCloudConfigs.AmazonBucketName,
-                         fileName3,
-                         videoFile2.ContentType,
-                         acl);
-
-
-                        if (!string.IsNullOrWhiteSpace(model.ContentVideoURL2))
-                        {
-
-                            if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL2))
-                            {
-                                s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL2);
-                            }
-                        }
-
-                        model.ContentVideoURL2 = fileName3;
-
-                        model.Set();
-
-                    }
-                    catch { }
-
-                }
-
-                return RedirectToAction("Articles");
-            }
-            else
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            model.ContentKey = FromString.URLKey(model.Title);
+
+            if (model.ContentID == 0)
+            {
+                _mu = Membership.GetUser();
+                if (_mu != null) model.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
+
+                if (model.ReleaseDate == DateTime.MinValue)
+                {
+                    model.ReleaseDate = DateTime.UtcNow;
+                }
+            }
+
+            if (model.Set() <= 0) return View(model);
+
+            if (imageFile != null)
+            {
+                var b = new Bitmap(imageFile.InputStream);
+
+                string fileNameFull = Utilities.CreateUniqueContentFilename(imageFile);
+
+                Image imgPhoto = ImageResize.FixedSize(b, 600, 400, Color.Black);
+
+                Stream maker = imgPhoto.ToAStream(ImageFormat.Jpeg);
+
+                s3.AddObject(
+                    maker,
+                    maker.Length,
+                    AmazonCloudConfigs.AmazonBucketName,
+                    fileNameFull,
+                    imageFile.ContentType,
+                    acl);
+
+
+                if (!string.IsNullOrWhiteSpace(model.ContentPhotoURL))
+                {
+                    if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentPhotoURL))
+                    {
+                        s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentPhotoURL);
+                    }
+                }
+
+
+                model.ContentPhotoURL = fileNameFull;
+
+                // resized
+
+                string fileNameThumb = Utilities.CreateUniqueContentFilename(imageFile);
+
+                Image imgPhotoThumb = ImageResize.FixedSize(b, 350, 250, Color.Black);
+
+                maker = imgPhotoThumb.ToAStream(ImageFormat.Jpeg);
+
+                s3.AddObject(
+                    maker,
+                    maker.Length,
+                    AmazonCloudConfigs.AmazonBucketName,
+                    fileNameThumb,
+                    imageFile.ContentType,
+                    acl);
+
+                if (!string.IsNullOrWhiteSpace(model.ContentPhotoThumbURL))
+                {
+                    if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentPhotoThumbURL))
+                    {
+                        s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentPhotoThumbURL);
+                    }
+                }
+
+                model.ContentPhotoThumbURL = fileNameThumb;
+
+                model.Set();
+            }
+
+
+            if (videoFile != null)
+            {
+                // full
+                try
+                {
+                    // full
+                    string fileName3 = Utilities.CreateUniqueContentFilename(videoFile);
+
+                    s3.AddObject(
+                        videoFile.InputStream,
+                        videoFile.ContentLength,
+                        AmazonCloudConfigs.AmazonBucketName,
+                        fileName3,
+                        videoFile.ContentType,
+                        acl);
+
+
+                    if (!string.IsNullOrWhiteSpace(model.ContentVideoURL))
+                    {
+                        if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL))
+                        {
+                            s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL);
+                        }
+                    }
+
+                    model.ContentVideoURL = fileName3;
+
+                    model.Set();
+                }
+// ReSharper disable EmptyGeneralCatchClause
+                catch (Exception)
+// ReSharper restore EmptyGeneralCatchClause
+                {
+                }
+            }
+
+
+            if (videoFile2 != null)
+            {
+                // full
+                try
+                {
+                    // full
+                    string fileName3 = Utilities.CreateUniqueContentFilename(videoFile2);
+
+                    s3.AddObject(
+                        videoFile2.InputStream,
+                        videoFile2.ContentLength,
+                        AmazonCloudConfigs.AmazonBucketName,
+                        fileName3,
+                        videoFile2.ContentType,
+                        acl);
+
+
+                    if (!string.IsNullOrWhiteSpace(model.ContentVideoURL2))
+                    {
+                        if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL2))
+                        {
+                            s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL2);
+                        }
+                    }
+
+                    model.ContentVideoURL2 = fileName3;
+
+                    model.Set();
+                }
+// ReSharper disable EmptyGeneralCatchClause
+                catch (Exception)
+// ReSharper restore EmptyGeneralCatchClause
+                {
+                }
+            }
+
+            return RedirectToAction("Articles");
         }
 
 
@@ -331,11 +315,11 @@ namespace DasKlub.Controllers
             ViewBag.VideoHeight = (Request.Browser.IsMobileDevice) ? 160 : 360;
             ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ? 285 : 640;
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content();
+            var model = new Content();
 
             if (id != null && id > 0)
             {
-                model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content(
+                model = new Content(
                     Convert.ToInt32(id));
             }
 
@@ -347,21 +331,18 @@ namespace DasKlub.Controllers
         [Authorize]
         public ActionResult Articles()
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
             int totalRecords = 0;
-            int pageSize = 10;
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents();
+            const int pageSize = 10;
+            var model = new Contents();
 
             if (string.IsNullOrEmpty(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]))
             {
                 //totalRecords = 
-                model.GetContentForUser(Convert.ToInt32(mu.ProviderUserKey));
+                if (_mu != null) model.GetContentForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
-                model.Sort(delegate(Content p1, Content p2)
-                {
-                    return p2.ReleaseDate.CompareTo(p1.ReleaseDate);
-                });
+                model.Sort((p1, p2) => p2.ReleaseDate.CompareTo(p1.ReleaseDate));
             }
             else
             {
@@ -370,17 +351,14 @@ namespace DasKlub.Controllers
                 totalRecords = model.GetContentPageWiseAll(pageNumber, pageSize);
             }
 
-            ViewBag.PageCount = (totalRecords + pageSize - 1) / pageSize;
+            ViewBag.PageCount = (totalRecords + pageSize - 1)/pageSize;
 
             return View(model);
         }
 
-
         #endregion
 
-
         #region sign in/ out
-
 
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
@@ -395,17 +373,17 @@ namespace DasKlub.Controllers
                     return View(model);
                 }
 
-                ua = new UserAccount(model.UserName);
+                _ua = new UserAccount(model.UserName);
 
-                if (ua.UserAccountID == 0)
+                if (_ua.UserAccountID == 0)
                 {
-                    ua = new UserAccount();
-                    ua.GetUserAccountByEmail(model.UserName);
+                    _ua = new UserAccount();
+                    _ua.GetUserAccountByEmail(model.UserName);
 
-                    if (ua.UserAccountID > 0)
+                    if (_ua.UserAccountID > 0)
                     {
                         // they were stupid and put their email not username
-                        model.UserName = ua.UserName;
+                        model.UserName = _ua.UserName;
                     }
                 }
 
@@ -417,59 +395,53 @@ namespace DasKlub.Controllers
                     {
                         return Redirect(returnUrl);
                     }
-                    else
+                    _ua = new UserAccount(model.UserName);
+
+                    if (_ua.IsLockedOut)
                     {
-                        ua = new UserAccount(model.UserName);
-
-                        if (ua.IsLockedOut)
-                        {
-                            ModelState.AddModelError(string.Empty, BootBaronLib.Resources.Messages.IsLockedOut);
-                            return View(model);
-                        }
-
-                        ua.LastLoginDate = DateTime.UtcNow;
-                        ua.FailedPasswordAttemptCount = 0;
-                        ua.IsOnLine = true;
-                        ua.SigningOut = false;
-                        ua.Update();
-
-                        UserAccountDetail uad = new UserAccountDetail();
-                        uad.GetUserAccountDeailForUser(ua.UserAccountID);
-                        //uad.DefaultLanguage = Utilities.GetCurrentLanguageCode();
-                        //uad.Update();
-
-                        if (!string.IsNullOrWhiteSpace(uad.DefaultLanguage))
-                        {
-                            HttpCookie hc =
-                                new HttpCookie(SiteEnums.CookieName.usersetting.ToString(), uad.DefaultLanguage);
-
-                            NameValueCollection nvc = new NameValueCollection();
-                            nvc.Add(SiteEnums.CookieValue.language.ToString(), uad.DefaultLanguage);
-
-                            Utilities.CookieMaker(SiteEnums.CookieName.usersetting, nvc);
-
-                            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
-                            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
-                        }
-
-                        return RedirectToAction("Home", "Account");
+                        ModelState.AddModelError(string.Empty, Messages.IsLockedOut);
+                        return View(model);
                     }
+
+                    _ua.LastLoginDate = DateTime.UtcNow;
+                    _ua.FailedPasswordAttemptCount = 0;
+                    _ua.IsOnLine = true;
+                    _ua.SigningOut = false;
+                    _ua.Update();
+
+                    var uad = new UserAccountDetail();
+                    uad.GetUserAccountDeailForUser(_ua.UserAccountID);
+                    //uad.DefaultLanguage = Utilities.GetCurrentLanguageCode();
+                    //uad.Update();
+
+                    if (!string.IsNullOrWhiteSpace(uad.DefaultLanguage))
+                    {
+                        var nvc = new NameValueCollection
+                            {
+                                {SiteEnums.CookieValue.language.ToString(), uad.DefaultLanguage}
+                            };
+
+                        Utilities.CookieMaker(SiteEnums.CookieName.usersetting, nvc);
+
+                        Thread.CurrentThread.CurrentUICulture =
+                            CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
+                        Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
+                    }
+
+                    return RedirectToAction("Home", "Account");
                 }
-                else
-                {
-                    // it updates as online, make off
-                    ua = new UserAccount(model.UserName);
+                // it updates as online, make off
+                _ua = new UserAccount(model.UserName);
 
-                    if (ua.UserAccountID > 0)
-                    {
-                        ua.IsOnLine = false;
-                        ua.SigningOut = true;
-                        ua.Update();
-                    }
+                if (_ua.UserAccountID > 0)
+                {
+                    _ua.IsOnLine = false;
+                    _ua.SigningOut = true;
+                    _ua.Update();
                 }
             }
 
-            ModelState.AddModelError(string.Empty, BootBaronLib.Resources.Messages.LoginUnsuccessfulPleaseCorrect);
+            ModelState.AddModelError(string.Empty, Messages.LoginUnsuccessfulPleaseCorrect);
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -487,15 +459,15 @@ namespace DasKlub.Controllers
             }
 
 
-            ua = new UserAccount(Membership.GetUser().UserName);
-            ua.IsOnLine = false;
-            ua.SigningOut = true;
-            ua.Update();
-            ua.RemoveCache();
+            MembershipUser membershipUser = Membership.GetUser();
+            if (membershipUser != null)
+                _ua = new UserAccount(membershipUser.UserName) {IsOnLine = false, SigningOut = true};
+            _ua.Update();
+            _ua.RemoveCache();
 
-            ChatRoomUser cru = new ChatRoomUser();
+            var cru = new ChatRoomUser();
 
-            cru.GetChatRoomUserByUserAccountID(ua.UserAccountID);
+            cru.GetChatRoomUserByUserAccountID(_ua.UserAccountID);
             cru.DeleteChatRoomUser();
 
             FormsAuthentication.SignOut();
@@ -508,7 +480,6 @@ namespace DasKlub.Controllers
             return View();
         }
 
-
         #endregion
 
         #region video vote
@@ -516,38 +487,42 @@ namespace DasKlub.Controllers
         private void LoadContestResults()
         {
             Contest contest = Contest.GetLastContest();
-            ContestResults cResults = new ContestResults();
+            var cResults = new ContestResults();
             cResults.GetContestVideosForContest(contest.ContestID);
             ViewBag.ContestResults = cResults;
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult VideoVote(int video_vote)
+        public ActionResult VideoVote(int videoVote)
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
             Contest contest = Contest.GetLastContest();
 
             ViewBag.Contest = contest;
 
-            if (ContestVideo.IsUserContestVoted(Convert.ToInt32(mu.ProviderUserKey), contest.ContestID))
+            if (_mu != null && ContestVideo.IsUserContestVoted(Convert.ToInt32(_mu.ProviderUserKey), contest.ContestID))
             {
                 LoadContestResults();
                 return View();
             }
 
-            ContestVideo convid = new ContestVideo();
+            var convid = new ContestVideo();
 
-            convid.GetContestVideoForContestAndVideo(video_vote, contest.ContestID);
+            convid.GetContestVideoForContestAndVideo(videoVote, contest.ContestID);
 
-            ContestVideoVote cvv = new ContestVideoVote();
+            if (_mu != null)
+            {
+                var cvv = new ContestVideoVote
+                    {
+                        UserAccountID = Convert.ToInt32(_mu.ProviderUserKey),
+                        CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey),
+                        ContestVideoID = convid.ContestVideoID
+                    };
 
-            cvv.UserAccountID = Convert.ToInt32(mu.ProviderUserKey);
-            cvv.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
-            cvv.ContestVideoID = convid.ContestVideoID;
-
-            cvv.Create();
+                cvv.Create();
+            }
 
             LoadContestResults();
 
@@ -563,9 +538,11 @@ namespace DasKlub.Controllers
 
             ViewBag.Contest = contest;
 
-            mu = Membership.GetUser();
-            
-            if (ContestVideo.IsUserContestVoted(Convert.ToInt32(mu.ProviderUserKey), contest.ContestID)  && contest.DeadLine.AddHours(72) > DateTime.UtcNow)
+            _mu = Membership.GetUser();
+
+            if (_mu != null &&
+                (ContestVideo.IsUserContestVoted(Convert.ToInt32(_mu.ProviderUserKey), contest.ContestID) &&
+                 contest.DeadLine.AddHours(72) > DateTime.UtcNow))
             {
                 LoadContestResults();
 
@@ -573,40 +550,19 @@ namespace DasKlub.Controllers
             }
 
 
-            ContestVideos cvids = new ContestVideos();
+            var cvids = new ContestVideos();
 
             cvids.GetContestVideosForContest(contest.ContestID);
 
 
-            Videos vidsInContest = new Videos();
-            Video vid2 = null;
-
-            foreach (ContestVideo cv1 in cvids)
-            {
-                vid2 = new Video(cv1.VideoID);
-                vidsInContest.Add(vid2);
-
-            }
+            var vidsInContest = new Videos();
+            vidsInContest.AddRange(cvids.Select(cv1 => new Video(cv1.VideoID)));
 
 
-            vidsInContest.Sort(delegate(Video p1, Video p2)
-                            {
-                                return p1.PublishDate.CompareTo(p2.PublishDate);
-                            });
+            vidsInContest.Sort((p1, p2) => p1.PublishDate.CompareTo(p2.PublishDate));
 
             ViewBag.ContestVideos = vidsInContest;
 
-            //SongRecords sngrcds3 = new SongRecords();
-            //SongRecord sng3 = new SongRecord();
-
-            //foreach (Video v1 in vidsInContest)
-            //{
-            //    sng3 = new SongRecord(v1);
-
-            //    sngrcds3.Add(sng3);
-            //}
-
-            //ViewBag.ContestVideoList = sngrcds3.VideosList();
 
             return View();
         }
@@ -626,25 +582,22 @@ namespace DasKlub.Controllers
         [HttpPost]
         public ActionResult UserDeletion(NameValueCollection postedData)
         {
-            mu = Membership.GetUser();
-            ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
+            _mu = Membership.GetUser();
+            if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
-            if (ua.IsAdmin)
+            if (_ua.IsAdmin)
             {
                 // admin should not die
                 return View();
             }
 
-            if (ua.Delete(true))
+            if (_ua.Delete(true))
             {
                 FormsAuthentication.SignOut();
 
                 return RedirectToAction("Register", "Account");
             }
-            else
-            {
-                return View();
-            }
+            return View();
         }
 
         #endregion
@@ -656,12 +609,14 @@ namespace DasKlub.Controllers
         public ActionResult ContactRequest(NameValueCollection postedData)
         {
             NameValueCollection qury = Request.QueryString;
-            UserAccount userToBe = new UserAccount(qury["username"]);
-            UserConnection ucToSet = new UserConnection();
-            mu = Membership.GetUser();
+            var userToBe = new UserAccount(qury["username"]);
+            var ucToSet = new UserConnection();
+            _mu = Membership.GetUser();
 
-            ucToSet.GetUserToUserConnection(
-                Convert.ToInt32(Membership.GetUser().ProviderUserKey), userToBe.UserAccountID);
+            MembershipUser membershipUser = Membership.GetUser();
+            if (membershipUser != null)
+                ucToSet.GetUserToUserConnection(
+                    Convert.ToInt32(membershipUser.ProviderUserKey), userToBe.UserAccountID);
 
             if (ucToSet.UserConnectionID == 0 && qury["rslt"] == "0")
             {
@@ -670,14 +625,15 @@ namespace DasKlub.Controllers
             }
             else if (ucToSet.UserConnectionID != 0 && qury["rslt"] == "0")
             {
-                if (Convert.ToInt32(mu.ProviderUserKey) != ucToSet.CreatedByUserID)
+                if (_mu != null && Convert.ToInt32(_mu.ProviderUserKey) != ucToSet.CreatedByUserID)
                 {
                     // one user sent a request and now it's rejected
                     ucToSet.StatusType = 'L';
-                    ucToSet.UpdatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+                    ucToSet.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
                     ucToSet.IsConfirmed = true;
                     ucToSet.Update();
-                    Response.Redirect("/" + Membership.GetUser().UserName);
+                    MembershipUser user = Membership.GetUser();
+                    if (user != null) Response.Redirect("/" + user.UserName);
                 }
                 else
                 {
@@ -689,8 +645,11 @@ namespace DasKlub.Controllers
             {
                 // they are not yet connected and are requesting to begin a connection
                 ucToSet.IsConfirmed = false;
-                ucToSet.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
-                ucToSet.FromUserAccountID = Convert.ToInt32(mu.ProviderUserKey);
+                if (_mu != null)
+                {
+                    ucToSet.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
+                    ucToSet.FromUserAccountID = Convert.ToInt32(_mu.ProviderUserKey);
+                }
                 ucToSet.ToUserAccountID = userToBe.UserAccountID;
                 ucToSet.StatusType = Convert.ToChar(qury["contacttype"]);
                 ucToSet.Create();
@@ -711,14 +670,14 @@ namespace DasKlub.Controllers
                     // upgrading the request
                     ucToSet.IsConfirmed = false;
 
-                    if (Convert.ToInt32(mu.ProviderUserKey) == ucToSet.ToUserAccountID)
+                    if (_mu != null && Convert.ToInt32(_mu.ProviderUserKey) == ucToSet.ToUserAccountID)
                     {
                         // the opposite this time
-                        ucToSet.FromUserAccountID = Convert.ToInt32(mu.ProviderUserKey);
+                        ucToSet.FromUserAccountID = Convert.ToInt32(value: _mu.ProviderUserKey);
                         ucToSet.ToUserAccountID = userToBe.UserAccountID;
                     }
                 }
-                ucToSet.UpdatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+                if (_mu != null) ucToSet.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
                 ucToSet.StatusType = Convert.ToChar(qury["contacttype"]);
                 ucToSet.Update();
 
@@ -727,7 +686,7 @@ namespace DasKlub.Controllers
                     case 'R':
                         if (ucToSet.IsConfirmed)
                         {
-                            Response.Redirect("~/account/irlcontacts/" + mu.UserName);
+                            if (_mu != null) Response.Redirect("~/account/irlcontacts/" + _mu.UserName);
                         }
                         else
                         {
@@ -737,7 +696,7 @@ namespace DasKlub.Controllers
                     case 'C':
                         if (ucToSet.IsConfirmed)
                         {
-                            Response.Redirect("~/account/CyberAssociates/" + mu.UserName);
+                            if (_mu != null) Response.Redirect("~/account/CyberAssociates/" + _mu.UserName);
                         }
                         else
                         {
@@ -745,17 +704,10 @@ namespace DasKlub.Controllers
                         }
                         break;
                     case 'L':
-                        Response.Redirect("~/" + mu.UserName);
-                        break;
-                    default:
+                        if (_mu != null) Response.Redirect("~/" + _mu.UserName);
                         break;
                 }
             }
-            else
-            {
-                // ???
-            }
-
 
 
             return View();
@@ -767,33 +719,30 @@ namespace DasKlub.Controllers
         {
             NameValueCollection nvc = Request.QueryString;
 
-            ua = new UserAccount(nvc["username"]);
-            uas = new UserAccounts();
+            _ua = new UserAccount(nvc["username"]);
+            _uas = new UserAccounts {_ua};
 
-            uas.Add(ua);
-
-            ViewBag.UserTo = uas.ToUnorderdList;
+            ViewBag.UserTo = _uas.ToUnorderdList;
             ViewBag.ContactType = nvc["contacttype"];
-            ViewBag.UserNameTo = ua.UserName;
+            ViewBag.UserNameTo = _ua.UserName;
 
             char contype = Convert.ToChar(nvc["contacttype"]);
 
             switch (contype)
             {
                 case 'R':
-                    ViewBag.HeaderRequest = string.Format("{0} : {1}", ua.UserName, BootBaronLib.Resources.Messages.HaveYouMetInRealLife);
+                    ViewBag.HeaderRequest = string.Format("{0} : {1}", _ua.UserName, Messages.HaveYouMetInRealLife);
                     ViewBag.HeaderRequest += string.Format(
                         @"<img src=""{0}"" />",
                         VirtualPathUtility.ToAbsolute("~/content/images/userstatus/handprint_small.png"));
                     break;
                 case 'C':
-                    ViewBag.HeaderRequest = string.Format("{0} : {1}", ua.UserName, BootBaronLib.Resources.Messages.WouldYouLikeToBeCyberAssociates);
+                    ViewBag.HeaderRequest = string.Format("{0} : {1}", _ua.UserName,
+                                                          Messages.WouldYouLikeToBeCyberAssociates);
                     ViewBag.HeaderRequest +=
-    string.Format(
-    @"<img src=""{0}"" />",
-    VirtualPathUtility.ToAbsolute("~/content/images/userstatus/keyboard_small.png"));
-                    break;
-                default:
+                        string.Format(
+                            @"<img src=""{0}"" />",
+                            VirtualPathUtility.ToAbsolute("~/content/images/userstatus/keyboard_small.png"));
                     break;
             }
 
@@ -804,80 +753,47 @@ namespace DasKlub.Controllers
 
         #region contacts and visitors
 
-
         [Authorize]
         [HttpGet]
         public ActionResult DeleteContact(int userConnectionID)
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            ucon = new UserConnection(userConnectionID);
+            _ucon = new UserConnection(userConnectionID);
 
-            char conType = ucon.StatusType;
+            char conType = _ucon.StatusType;
 
-            if (ucon.IsConfirmed)
+            if (_ucon.IsConfirmed)
             {
-                ucon.Delete();
+                _ucon.Delete();
             }
 
             if (conType == 'R')
             {
                 return RedirectToAction("irlcontacts");
             }
-            else if (conType == 'C')
+            if (conType == 'C')
             {
                 return RedirectToAction("CyberAssociates");
             }
-            else
-            {
-                Utilities.LogError("deleted no existing contact type");
-                // something went wrong 
-                return new EmptyResult();
-            }
+            Utilities.LogError("deleted no existing contact type");
+            // something went wrong 
+            return new EmptyResult();
         }
-
-
-        //[Authorize]
-        //[HttpPost]
-        //public ActionResult DeleteContact(int contact_to_delete)
-        //{
-        //    mu = Membership.GetUser();
-
-        //    ucon = new UserConnection(contact_to_delete);
-
-        //    char conType = ucon.StatusType;
-
-        //    if (ucon.IsConfirmed)
-        //    {
-        //        ucon.Delete();
-        //    }
-
-        //    if (conType == 'R')
-        //    {
-        //        return RedirectToAction("irlcontacts");
-        //    }
-        //    else if (conType == 'C')
-        //    {
-        //        return RedirectToAction("CyberAssociates");
-        //    }
-
-        //    return new EmptyResult();
-        //}
 
 
         [Authorize]
         [HttpPost]
         public ActionResult ManageVideos(NameValueCollection nvc)
         {
+            if (nvc == null) throw new ArgumentNullException("nvc");
+            _mu = Membership.GetUser();
+            if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
+            ViewBag.UserName = _ua.UserName;
 
-            mu = Membership.GetUser();
-            ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
-            ViewBag.UserName = ua.UserName;
 
-
-
-            UserAccountVideos plyvids = new UserAccountVideos();
-            plyvids.GetVideosForUserAccount(ua.UserAccountID, 'U');
+            var plyvids = new UserAccountVideos();
+            plyvids.GetVideosForUserAccount(_ua.UserAccountID, 'U');
 
             nvc = Request.Form;
 
@@ -887,7 +803,7 @@ namespace DasKlub.Controllers
 
             if (nvc["video_delete_id"] != null)
             {
-                UserAccountVideo.DeleteVideoForUser(ua.UserAccountID, Convert.ToInt32(nvc["video_delete_id"]));
+                UserAccountVideo.DeleteVideoForUser(_ua.UserAccountID, Convert.ToInt32(nvc["video_delete_id"]));
             }
 
             return View("ManageVideos");
@@ -897,30 +813,18 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult ManageVideos()
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            UserAccountVideos uavs = new UserAccountVideos();
-            uavs.GetVideosForUserAccount(Convert.ToInt32(mu.ProviderUserKey), 'U');
+            var uavs = new UserAccountVideos();
+            if (_mu != null) uavs.GetVideosForUserAccount(Convert.ToInt32(_mu.ProviderUserKey), 'U');
 
             if (uavs.Count > 0)
             {
-                Videos favvids = new Videos();
-                Video f1 = new Video();
+                var favvids = new Videos();
+                favvids.AddRange(uavs.Select(uav1 => new Video(uav1.VideoID)).Where(f1 => f1.IsEnabled));
 
-                foreach (UserAccountVideo uav1 in uavs)
-                {
-                    f1 = new Video(uav1.VideoID);
-                    if (f1.IsEnabled) favvids.Add(f1);
-                }
-
-                SongRecord sng1 = null;
-                SongRecords sngrcds2 = new SongRecords();
-
-                foreach (Video v1 in favvids)
-                {
-                    sng1 = new SongRecord(v1);
-                    sngrcds2.Add(sng1);
-                }
+                var sngrcds2 = new SongRecords();
+                sngrcds2.AddRange(favvids.Select(v1 => new SongRecord(v1)));
 
                 sngrcds2.IsUserSelected = true;
                 sngrcds2.EnableChangeOrder = false;
@@ -935,35 +839,38 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult MyUsers()
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            ViewBag.CurrentUserName = mu.UserName;
-
-            if (mu != null)
+            if (_mu != null)
             {
-                uad = new UserAccountDetail();
-                uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+                ViewBag.CurrentUserName = _mu.UserName;
 
-                ViewBag.EnableProfileLogging = uad.EnableProfileLogging;
+                if (_mu != null)
+                {
+                    _uad = new UserAccountDetail();
+                    _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
+                    ViewBag.EnableProfileLogging = _uad.EnableProfileLogging;
+                }
             }
 
-            UserConnections unconfirmedUsers = new UserConnections();
-            UserConnections allusrcons = new UserConnections();
+            var unconfirmedUsers = new UserConnections();
+            var allusrcons = new UserConnections();
 
-            allusrcons.GetUserConnections(Convert.ToInt32(mu.ProviderUserKey));
-
-            foreach (UserConnection uc1 in allusrcons)
+            if (_mu != null)
             {
-                if (!uc1.IsConfirmed && Convert.ToInt32(mu.ProviderUserKey) != uc1.FromUserAccountID)
-                {
-                    unconfirmedUsers.Add(uc1);
-                }
+                allusrcons.GetUserConnections(Convert.ToInt32(_mu.ProviderUserKey));
+
+                unconfirmedUsers.AddRange(
+                    allusrcons.Where(
+                        uc1 => !uc1.IsConfirmed && Convert.ToInt32(_mu.ProviderUserKey) != uc1.FromUserAccountID));
             }
 
             ViewBag.ApprovalList = unconfirmedUsers.ToUnorderdList;
 
-            ViewBag.BlockedUsers = BootBaronLib.AppSpec.DasKlub.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(mu.ProviderUserKey));
+            ViewBag.BlockedUsers =
+                _mu != null &&
+                BootBaronLib.AppSpec.DasKlub.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(_mu.ProviderUserKey));
 
 
             return View();
@@ -971,42 +878,34 @@ namespace DasKlub.Controllers
 
         public void GetContactsForUser(string userName, char contactType)
         {
-            ua = new UserAccount(userName);
+            _ua = new UserAccount(userName);
 
             //  if (Membership.GetUser().UserName != ua.UserName) return View();
 
-            if (ua.UserAccountID == 0) return;
+            if (_ua.UserAccountID == 0) return;
 
-            contacts = new UserAccounts();
+            _contacts = new UserAccounts();
 
-            UserAccount ua1 = null;
+            _ucons = new UserConnections();
+            _ucons.GetUserConnections(_ua.UserAccountID);
 
-            ucons = new UserConnections();
-            ucons.GetUserConnections(ua.UserAccountID);
-
-            foreach (UserConnection uc1 in ucons)
+            foreach (UserConnection uc1 in _ucons)
             {
                 if (!uc1.IsConfirmed || uc1.StatusType != contactType) continue;
 
-                if (uc1.FromUserAccountID == ua.UserAccountID)
-                {
-                    ua1 = new UserAccount(uc1.ToUserAccountID);
-                }
-                else
-                {
-                    ua1 = new UserAccount(uc1.FromUserAccountID);
-                }
+                UserAccount ua1 = uc1.FromUserAccountID == _ua.UserAccountID
+                                      ? new UserAccount(uc1.ToUserAccountID)
+                                      : new UserAccount(uc1.FromUserAccountID);
 
                 if (ua1.IsApproved && !ua1.IsLockedOut)
                 {
-                    contacts.Add(ua1);
+                    _contacts.Add(ua1);
                 }
-
             }
 
-            ViewBag.UserName = ua.UserName;
-            ViewBag.ContactsCount = Convert.ToString(contacts.Count);
-            ViewBag.Contacts = contacts.ToUnorderdList;
+            ViewBag.UserName = _ua.UserName;
+            ViewBag.ContactsCount = Convert.ToString(_contacts.Count);
+            ViewBag.Contacts = _contacts.ToUnorderdList;
         }
 
         [Authorize]
@@ -1025,14 +924,12 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult IRLContacts(string userName)
         {
-
             if (string.IsNullOrWhiteSpace(userName)) userName = User.Identity.Name;
 
             GetContactsForUser(userName, 'R');
 
 
             return View();
-
         }
 
 
@@ -1040,40 +937,41 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult Visitors()
         {
-            mu = Membership.GetUser();
-            uad = new UserAccountDetail();
-            ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
+            _mu = Membership.GetUser();
+            _uad = new UserAccountDetail();
+            if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
-            if (ua.IsAdmin)
+            if (_ua.IsAdmin)
             {
                 ViewBag.AdminLink = "/m/auth/default.aspx";
             }
 
 
-            uad.GetUserAccountDeailForUser(ua.UserAccountID);
-            UserAccountDetail uadLooker = new UserAccountDetail();
-            uadLooker.GetUserAccountDeailForUser(ua.UserAccountID);
+            _uad.GetUserAccountDeailForUser(_ua.UserAccountID);
+            var uadLooker = new UserAccountDetail();
+            uadLooker.GetUserAccountDeailForUser(_ua.UserAccountID);
 
-            UserConnections unconfirmedUsers = new UserConnections();
-            UserConnections allusrcons = new UserConnections();
+            var unconfirmedUsers = new UserConnections();
+            var allusrcons = new UserConnections();
 
-            allusrcons.GetUserConnections(Convert.ToInt32(mu.ProviderUserKey));
-
-            foreach (UserConnection uc1 in allusrcons)
+            if (_mu != null)
             {
-                if (!uc1.IsConfirmed && Convert.ToInt32(mu.ProviderUserKey) != uc1.FromUserAccountID)
-                {
-                    unconfirmedUsers.Add(uc1);
-                }
+                allusrcons.GetUserConnections(Convert.ToInt32(_mu.ProviderUserKey));
+
+                unconfirmedUsers.AddRange(
+                    allusrcons.Where(
+                        uc1 => !uc1.IsConfirmed && Convert.ToInt32(_mu.ProviderUserKey) != uc1.FromUserAccountID));
             }
 
             ViewBag.ApprovalList = unconfirmedUsers.ToUnorderdList;
 
-            ViewBag.BlockedUsers = BootBaronLib.AppSpec.DasKlub.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(mu.ProviderUserKey));
+            ViewBag.BlockedUsers =
+                _mu != null &&
+                BootBaronLib.AppSpec.DasKlub.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(_mu.ProviderUserKey));
 
-            ViewBag.EnableProfileLogging = uad.EnableProfileLogging;
+            ViewBag.EnableProfileLogging = _uad.EnableProfileLogging;
 
-            LoadVisitorsView(ua.UserName);
+            LoadVisitorsView(_ua.UserName);
 
 
             return View();
@@ -1081,51 +979,48 @@ namespace DasKlub.Controllers
 
         private void LoadVisitorsView(string userName)
         {
-            int maxcountusers = 100;
-            mu = Membership.GetUser();
-            uad = new UserAccountDetail();
-            ua = new UserAccount(userName);
-            uad.GetUserAccountDeailForUser(ua.UserAccountID);
-            UserAccountDetail uadLooker = new UserAccountDetail();
-            uadLooker.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
-
-            if (mu != null && ua.UserAccountID > 0 &&
-                uad.EnableProfileLogging && uad.EnableProfileLogging)
+            const int maxcountusers = 100;
+            _mu = Membership.GetUser();
+            _uad = new UserAccountDetail();
+            if (userName != null) _ua = new UserAccount(userName);
+            _uad.GetUserAccountDeailForUser(_ua.UserAccountID);
+            var uadLooker = new UserAccountDetail();
+            if (_mu != null)
             {
-                ArrayList al = ProfileLog.GetRecentProfileViews(ua.UserAccountID);
+                uadLooker.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
-                if (al != null && al.Count > 0)
+                if (_mu != null && _ua.UserAccountID > 0 &&
+                    _uad.EnableProfileLogging && _uad.EnableProfileLogging)
                 {
-                    UserAccounts uas = new UserAccounts();
+                    ArrayList al = ProfileLog.GetRecentProfileViews(_ua.UserAccountID);
 
-                    UserAccount viewwer = null;
-
-                    foreach (int ID in al)
+                    if (al != null && al.Count > 0)
                     {
-                        viewwer = new UserAccount(ID);
-                        if (!viewwer.IsLockedOut && viewwer.IsApproved)
+                        var uas = new UserAccounts();
+
+                        foreach (int id in al)
                         {
-                            uad = new UserAccountDetail();
-                            uad.GetUserAccountDeailForUser(ID);
-                            if (uad.EnableProfileLogging == false) continue;
+                            var viewwer = new UserAccount(id);
+                            if (viewwer.IsLockedOut || !viewwer.IsApproved) continue;
+                            _uad = new UserAccountDetail();
+                            _uad.GetUserAccountDeailForUser(id);
+                            if (_uad.EnableProfileLogging == false) continue;
 
                             if (uas.Count >= maxcountusers) break;
 
                             uas.Add(viewwer);
                         }
-                    }
 
-                    ViewBag.TheViewers = uas.ToUnorderdList;
+                        ViewBag.TheViewers = uas.ToUnorderdList;
+                    }
                 }
             }
-
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult ProfileVisitors(string userName)
         {
-
             LoadVisitorsView(userName);
 
             return View();
@@ -1141,15 +1036,15 @@ namespace DasKlub.Controllers
         {
             LoadCountries();
 
-            mu = Membership.GetUser();
-            ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
+            _mu = Membership.GetUser();
+            if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
-            uad = new UserAccountDetail();
-            uad.GetUserAccountDeailForUser(ua.UserAccountID);
+            _uad = new UserAccountDetail();
+            _uad.GetUserAccountDeailForUser(_ua.UserAccountID);
 
-            BootBaronLib.AppSpec.DasKlub.BOL.UserAddress uadress = new UserAddress();
+            var uadress = new UserAddress();
 
-            uadress.GetUserAddress(ua.UserAccountID);
+            uadress.GetUserAddress(_ua.UserAccountID);
 
             TryUpdateModel(model);
 
@@ -1164,45 +1059,12 @@ namespace DasKlub.Controllers
                 uadress.LastName = model.LastName;
                 uadress.PostalCode = model.PostalCode;
                 uadress.Region = model.RegionState;
-                uadress.UserAccountID = ua.UserAccountID;
+                uadress.UserAccountID = _ua.UserAccountID;
 
                 if (uadress.UserAddressID == 0) uadress.AddressStatus = 'U';
 
                 ViewBag.ProfileUpdated = uadress.Set();
             }
-            //if (BootBaronLib.AppSpec.DasKlub.BOL.UserAddress.IsBlank(ua.UserAccountID))
-            //{
-            //    newUAdd.UserAccountID = ua.UserAccountID;
-            //    newUAdd.CreatedByUserID = ua.UserAccountID;
-
-            //    if (Request.Form["no_button"] != null &&
-            //        Request.Form["no_button"] == "no")
-            //    {
-            //        newUAdd.AddressStatus = 'N';
-            //    }
-            //    else
-            //    {
-            //        newUAdd.AddressStatus = 'U';
-            //    }
-
-            //    if (!string.IsNullOrEmpty(newUAdd.PostalCode) && (string.IsNullOrEmpty(newUAdd.City) || string.IsNullOrEmpty(newUAdd.Region)))
-            //    {
-            //        // for those those who think the system can figure them out
-            //        SiteEnums.CountryCodeISO coiso = GeoData.GetCountryISOForCountryCode(newUAdd.CountryISO);
-
-            //        SiteStructs.CityRegion cr = GeoData.GetCityRegionForPostalCodeCountry(newUAdd.PostalCode, coiso);
-
-            //        newUAdd.Region = cr.Region;
-            //        newUAdd.City = cr.CityName;
-            //    }
-
-            //    newUAdd.Create();
-            //}
-            ////Response.Redirect("/" + ua.UserName);
-            //Response.Redirect("~/thanks.htm");
-
-            //uad = new UserAccountDetail();
-            //uad.GetUserAccountDeailForUser(ua.UserAccountID);
 
             return View(model);
         }
@@ -1211,30 +1073,27 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult UserAddress()
         {
-
-
             LoadCountries();
 
-            mu = Membership.GetUser();
-            ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
+            _mu = Membership.GetUser();
+            if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
 
+            _uad = new UserAccountDetail();
+            _uad.GetUserAccountDeailForUser(_ua.UserAccountID);
 
-            uad = new UserAccountDetail();
-            uad.GetUserAccountDeailForUser(ua.UserAccountID);
+            var model = new UserAddressModel();
 
-            UserAddressModel model = new UserAddressModel();
+            var uadress = new UserAddress();
 
-            BootBaronLib.AppSpec.DasKlub.BOL.UserAddress uadress = new UserAddress();
+            uadress.GetUserAddress(_ua.UserAccountID);
 
-            uadress.GetUserAddress(ua.UserAccountID);
-
-            if (BootBaronLib.Configs.GeneralConfigs.IsGiveAway && uadress.UserAddressID > 0) return View("NotAllowed");
+            if (GeneralConfigs.IsGiveAway && uadress.UserAddressID > 0) return View("NotAllowed");
 
             if (uadress.UserAddressID == 0)
             {
-                model.PostalCode = uad.PostalCode;
-                model.Country = uad.Country;
+                model.PostalCode = _uad.PostalCode;
+                model.Country = _uad.Country;
             }
             else
             {
@@ -1254,110 +1113,67 @@ namespace DasKlub.Controllers
 
         #endregion
 
-
         #region blocking
-
 
         [Authorize]
         [HttpGet]
         public ActionResult BlockedUsers()
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            ua = new UserAccount(mu.UserName);
+            if (_mu != null) _ua = new UserAccount(_mu.UserName);
 
-            if (ua.UserAccountID == 0) return View();
+            if (_ua.UserAccountID == 0) return View();
 
-            contacts = new UserAccounts();
+            _contacts = new UserAccounts();
 
-            UserAccount ua1 = null;
+            var bus = new BlockedUsers();
 
-            BlockedUsers bus = new BootBaronLib.AppSpec.DasKlub.BOL.BlockedUsers();
+            if (_mu != null) bus.GetBlockedUsers(Convert.ToInt32(_mu.ProviderUserKey));
 
-            bus.GetBlockedUsers(Convert.ToInt32(mu.ProviderUserKey));
-
-            foreach (BlockedUser uc1 in bus)
+            foreach (UserAccount ua1 in bus.Select(uc1 => new UserAccount(uc1.UserAccountIDBlocked)))
             {
-                ua1 = new UserAccount(uc1.UserAccountIDBlocked);
-
-                contacts.Add(ua1);
+                _contacts.Add(ua1);
             }
 
-            ViewBag.BlockedUsers = contacts.ToUnorderdList;
+            ViewBag.BlockedUsers = _contacts.ToUnorderdList;
 
             return View();
         }
-
-        //[Authorize]
-        //[HttpPost]
-        //public ActionResult BlockedUser(NameValueCollection nvc)
-        //{
-        //    nvc = Request.Form;
-
-        //    string userToBlock = nvc["user_to_block"];
-        //    string userToUnBlock = nvc["user_to_unblock"];
-
-        //    mu = Membership.GetUser();
-
-        //    if (!string.IsNullOrEmpty(userToBlock))
-        //    {
-        //        BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser bu = new BlockedUser();
-
-        //        ucon = new UserConnection();
-        //        ucon.GetUserToUserConnection(
-        //            Convert.ToInt32(userToBlock), Convert.ToInt32(mu.ProviderUserKey));
-        //        ucon.Delete();
-
-        //        bu.UserAccountIDBlocked = Convert.ToInt32(userToBlock);
-        //        bu.UserAccountIDBlocking = Convert.ToInt32(mu.ProviderUserKey);
-        //        bu.Create();
-        //    }
-        //    else if (!string.IsNullOrEmpty(userToUnBlock))
-        //    {
-        //        BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.Delete(
-        //            Convert.ToInt32(mu.ProviderUserKey), Convert.ToInt32(userToUnBlock));
-        //    }
-
-        //    return RedirectToAction("MyUsers");
-        //}
-
-
-
-
 
         [Authorize]
         [HttpGet]
         public ActionResult ReportUser(int userAccountID)
         {
+            _mu = Membership.GetUser();
 
-            mu = Membership.GetUser();
+            _ua = new UserAccount(userAccountID);
 
-            ua = new UserAccount(userAccountID);
-
-            Utilities.SendMail(BootBaronLib.Configs.GeneralConfigs.SendToErrorEmail, Messages.Report + ": " + Messages.UserAccount, Messages.Report + Environment.NewLine
-                + Environment.NewLine + Messages.UserName + ": " + ua.UserName + Environment.NewLine + Messages.UserAccount + ": " + ua.UserAccountID.ToString() +
-                Environment.NewLine + Environment.NewLine + "----------" + Environment.NewLine + Messages.From + ": " + mu.UserName);
+            if (_mu != null)
+                Utilities.SendMail(GeneralConfigs.SendToErrorEmail, Messages.Report + ": " + Messages.UserAccount,
+                                   string.Format("{0}{1}{1}{2}: {3}{1}{4}: {5}{1}{1}----------{1}{6}: {7}",
+                                                 Messages.Report, Environment.NewLine,
+                                                 Messages.UserName, _ua.UserName, Messages.UserAccount,
+                                                 _ua.UserAccountID, Messages.From, _mu.UserName));
 
             return RedirectToAction("Visitors");
         }
-
-
 
 
         [Authorize]
         [HttpGet]
         public ActionResult BlockedUser(int userAccountID)
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser bu = new BlockedUser();
+            var bu = new BlockedUser();
 
-            ucon = new UserConnection();
-            ucon.GetUserToUserConnection(userAccountID, Convert.ToInt32(mu.ProviderUserKey));
-            ucon.Delete();
+            _ucon = new UserConnection();
+            if (_mu != null) _ucon.GetUserToUserConnection(userAccountID, Convert.ToInt32(_mu.ProviderUserKey));
+            _ucon.Delete();
 
             bu.UserAccountIDBlocked = userAccountID;
-            bu.UserAccountIDBlocking = Convert.ToInt32(mu.ProviderUserKey);
+            if (_mu != null) bu.UserAccountIDBlocking = Convert.ToInt32(_mu.ProviderUserKey);
             bu.Create();
 
             return RedirectToAction("Visitors");
@@ -1376,7 +1192,6 @@ namespace DasKlub.Controllers
 
         public ActionResult Handler()
         {
-
             return View();
         }
 
@@ -1385,13 +1200,10 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult Room()
         {
-
-
             return View();
         }
 
         #endregion
-
 
         #region edit profile
 
@@ -1401,74 +1213,69 @@ namespace DasKlub.Controllers
         {
             ViewBag.IsValid = true;
 
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            uad = new UserAccountDetail();
+            _uad = new UserAccountDetail();
 
-            uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+            if (_mu != null) _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
             LoadCountries();
 
             InterestIdentityViewBags();
 
-            return View(uad);
+            return View(_uad);
         }
 
         private void InterestIdentityViewBags()
         {
-
-            ///
             var interins = new InterestedIns();
             interins.GetAll();
-            interins.Sort(delegate(InterestedIn p1, InterestedIn p2)
-            {
-                return p1.LocalizedName.CompareTo(p2.LocalizedName);
-            });
-            ViewBag.InterestedIns = interins.Select(x => new { InterestedInID = x.InterestedInID, LocalizedName = x.LocalizedName });
+            interins.Sort(
+                (p1, p2) => String.Compare(p1.LocalizedName, p2.LocalizedName, StringComparison.Ordinal));
+            ViewBag.InterestedIns = interins.Select(x => new {x.InterestedInID, x.LocalizedName});
 
 
-            ///
             var relationshipStatuses = new RelationshipStatuses();
             relationshipStatuses.GetAll();
-            relationshipStatuses.Sort(delegate(RelationshipStatus p1, RelationshipStatus p2)
-            {
-                return p1.LocalizedName.CompareTo(p2.LocalizedName);
-            });
-            ViewBag.RelationshipStatuses = relationshipStatuses.Select(x => new { RelationshipStatusID = x.RelationshipStatusID, LocalizedName = x.LocalizedName });
+            relationshipStatuses.Sort(
+                (p1, p2) => String.Compare(p1.LocalizedName, p2.LocalizedName, StringComparison.Ordinal));
+            ViewBag.RelationshipStatuses =
+                relationshipStatuses.Select(x => new {x.RelationshipStatusID, x.LocalizedName});
 
-            ///
             var youAres = new YouAres();
             youAres.GetAll();
-            youAres.Sort(delegate(YouAre p1, YouAre p2)
-            {
-                return p1.LocalizedName.CompareTo(p2.LocalizedName);
-            });
-            ViewBag.YouAres = youAres.Select(x => new { YouAreID = x.YouAreID, LocalizedName = x.LocalizedName });
+            youAres.Sort((p1, p2) => String.Compare(p1.LocalizedName, p2.LocalizedName, StringComparison.Ordinal));
+            ViewBag.YouAres = youAres.Select(x => new {x.YouAreID, x.LocalizedName});
         }
 
 
         private void LoadCountries()
         {
+            Dictionary<string, string> countryOptions = Enum.GetValues(typeof (SiteEnums.CountryCodeISO))
+                                                            .Cast<int>()
+                                                            .Select(value => (SiteEnums.CountryCodeISO)
+// ReSharper disable AssignNullToNotNullAttribute
+                                                                             Enum.Parse(
+                                                                                 typeof (SiteEnums.CountryCodeISO),
+                                                                                 value:
+                                                                                     Enum.GetName(
+                                                                                         enumType:
+                                                                                             typeof (
+                                                                                             SiteEnums.CountryCodeISO),
+                                                                                         value: value)))
+// ReSharper restore AssignNullToNotNullAttribute
+                                                            .Where(
+                                                                countryCode =>
+                                                                countryCode != SiteEnums.CountryCodeISO.U0 &&
+                                                                countryCode != SiteEnums.CountryCodeISO.RD)
+                                                            .ToDictionary(countryCode => countryCode.ToString(),
+                                                                          countryCode =>
+                                                                          Utilities.ResourceValue(
+                                                                              Utilities.GetEnumDescription(countryCode)));
 
-            System.Collections.Generic.Dictionary<string, string> countryOptions = new Dictionary<string, string>();
-
-            foreach (int value in System.Enum.GetValues(typeof(SiteEnums.CountryCodeISO)))
-            {
-                SiteEnums.CountryCodeISO countryCode =
-                    (SiteEnums.CountryCodeISO)Enum.Parse(typeof(SiteEnums.CountryCodeISO),
-                    Enum.GetName(typeof(SiteEnums.CountryCodeISO), value));
-
-                if (countryCode != SiteEnums.CountryCodeISO.U0 &&
-                     countryCode != SiteEnums.CountryCodeISO.RD)
-                {
-                    countryOptions.Add(countryCode.ToString(), Utilities.ResourceValue(
-                        Utilities.GetEnumDescription(countryCode)));
-                }
-            }
-
-            var items = from k in countryOptions.Keys
-                        orderby countryOptions[k] ascending
-                        select k;
+            IOrderedEnumerable<string> items = from k in countryOptions.Keys
+                                               orderby countryOptions[k] ascending
+                                               select k;
 
 
             ViewBag.CountryOptions = items;
@@ -1481,123 +1288,125 @@ namespace DasKlub.Controllers
         {
             // must change culture because decimal will not be correct for long/ lat
             string currentLang = Utilities.GetCurrentLanguageCode();
+            if (currentLang == null) throw new ArgumentNullException("uad");
 
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+            Thread.CurrentThread.CurrentUICulture =
+                CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+            Thread.CurrentThread.CurrentCulture =
+                CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
 
             LoadCountries();
             InterestIdentityViewBags();
 
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            UserAccountDetail uadCurrent = new UserAccountDetail();
-            uadCurrent.UserAccountID = Convert.ToInt32(mu.ProviderUserKey);
-            uadCurrent.GetUserAccountDeailForUser(uadCurrent.UserAccountID);
-
-            ViewBag.IsValid = true;
-            ViewBag.ProfileUpdated = false;
-
-            DateTime dt = new DateTime();
-
-            if (DateTime.TryParse(Request.Form["birthyear"]
-                + "-" + Request.Form["birthmonth"] + "-" + Request.Form["birthday"], out dt))
+            if (_mu != null)
             {
-                uad.BirthDate = dt;
-            }
-            else
-            {
-                ViewBag.IsValid = false;
-                ModelState.AddModelError(string.Empty, BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.BirthDate);
-                return View(uad);
-            }
+                var uadCurrent = new UserAccountDetail {UserAccountID = Convert.ToInt32(_mu.ProviderUserKey)};
+                uadCurrent.GetUserAccountDeailForUser(uadCurrent.UserAccountID);
 
-            if (string.IsNullOrEmpty(uad.Country) || uad.Country == Messages.DashSelect)
-            {
-                uad.Country = string.Empty;
-                ViewBag.IsValid = false;
-                ModelState.AddModelError(string.Empty, BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.Country);
-                return View(uad);
-            }
+                ViewBag.IsValid = true;
+                ViewBag.ProfileUpdated = false;
 
-            if (string.IsNullOrEmpty(uad.PostalCode))
-            {
-                ViewBag.IsValid = false;
-                ModelState.AddModelError(string.Empty, BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.PostalCode);
-                return View(uad);
-            }
+                DateTime dt;
 
-            if (uad.YouAreID == null)
-            {
-                ViewBag.IsValid = false;
-                ModelState.AddModelError(string.Empty, BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.YouAre);
-                return View(uad);
-            }
-
-            if (uad.InterestedInID == null)
-            {
-                ViewBag.IsValid = false;
-                ModelState.AddModelError(string.Empty, BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.InterestedIn);
-                return View(uad);
-            }
-
-            if (!string.IsNullOrEmpty(uad.ExternalURL.Trim()) &&
-                !Uri.IsWellFormedUriString(uad.ExternalURL, UriKind.Absolute))
-            {
-                ViewBag.IsValid = false;
-                ModelState.AddModelError(string.Empty, BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.Website);
-                return View(uad);
-            }
-
-            bool isNewProfile = false;
-
-            if (string.IsNullOrEmpty(uad.Country.Trim()))
-            {
-                isNewProfile = true;
-            }
-
-            uadCurrent.AboutDesc = uad.AboutDesc;
-            uadCurrent.HardwareSoftware = uad.HardwareSoftware;
-            uadCurrent.BirthDate = uad.BirthDate;
-            uadCurrent.YouAreID = uad.YouAreID;
-            uadCurrent.ExternalURL = uad.ExternalURL;
-            uadCurrent.Country = uad.Country;
-            uadCurrent.PostalCode = uad.PostalCode;
-            uadCurrent.BandsSeen = uad.BandsSeen;
-            uadCurrent.BandsToSee = uad.BandsToSee;
-            uadCurrent.RelationshipStatusID = uad.RelationshipStatusID;
-            uadCurrent.InterestedInID = uad.InterestedInID;
-            uadCurrent.FirstName = uad.FirstName;
-            uadCurrent.LastName = uad.LastName;
-
-            if (!string.IsNullOrWhiteSpace(uad.Country) &&
-                !string.IsNullOrWhiteSpace(uad.PostalCode))
-            {
-                SiteStructs.LatLong latlong =
-                GeoData.GetLatLongForCountryPostal(uad.Country, uad.PostalCode);
-
-                if (latlong.latitude != 0 && latlong.longitude != 0)
+                if (DateTime.TryParse(Request.Form["birthyear"]
+                                      + "-" + Request.Form["birthmonth"] + "-" + Request.Form["birthday"], out dt))
                 {
-                    uad.Latitude = Convert.ToDecimal(latlong.latitude);
-                    uad.Longitude = Convert.ToDecimal(latlong.longitude);
-
-                    uadCurrent.Latitude = uad.Latitude;
-                    uadCurrent.Longitude = uad.Longitude;
+                    uad.BirthDate = dt;
                 }
-            }
+                else
+                {
+                    ViewBag.IsValid = false;
+                    ModelState.AddModelError(string.Empty, Messages.Invalid + @": " + Messages.BirthDate);
+                    return View(uad);
+                }
 
-            if (uadCurrent.Set() > 0)
-            {
-                ViewBag.ProfileUpdated = true;
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, BootBaronLib.Resources.Messages.Error);
-            }
+                if (string.IsNullOrEmpty(uad.Country) || uad.Country == Messages.DashSelect)
+                {
+                    uad.Country = string.Empty;
+                    ViewBag.IsValid = false;
+                    ModelState.AddModelError(string.Empty, Messages.Invalid + @": " + Messages.Country);
+                    return View(uad);
+                }
+
+                if (string.IsNullOrEmpty(uad.PostalCode))
+                {
+                    ViewBag.IsValid = false;
+                    ModelState.AddModelError(string.Empty, Messages.Invalid + @": " + Messages.PostalCode);
+                    return View(uad);
+                }
+
+                if (uad.YouAreID == null)
+                {
+                    ViewBag.IsValid = false;
+                    ModelState.AddModelError(string.Empty, Messages.Invalid + @": " + Messages.YouAre);
+                    return View(uad);
+                }
+
+                if (uad.InterestedInID == null)
+                {
+                    ViewBag.IsValid = false;
+                    ModelState.AddModelError(string.Empty, Messages.Invalid + @": " + Messages.InterestedIn);
+                    return View(uad);
+                }
+
+                if (!string.IsNullOrEmpty(uad.ExternalURL.Trim()) &&
+                    !Uri.IsWellFormedUriString(uad.ExternalURL, UriKind.Absolute))
+                {
+                    ViewBag.IsValid = false;
+                    ModelState.AddModelError(string.Empty, Messages.Invalid + @": " + Messages.Website);
+                    return View(uad);
+                }
+
+                bool isNewProfile = string.IsNullOrEmpty(uad.Country.Trim());
+
+                uadCurrent.AboutDesc = uad.AboutDesc;
+                uadCurrent.HardwareSoftware = uad.HardwareSoftware;
+                uadCurrent.BirthDate = uad.BirthDate;
+                uadCurrent.YouAreID = uad.YouAreID;
+                uadCurrent.ExternalURL = uad.ExternalURL;
+                uadCurrent.Country = uad.Country;
+                uadCurrent.PostalCode = uad.PostalCode;
+                uadCurrent.BandsSeen = uad.BandsSeen;
+                uadCurrent.BandsToSee = uad.BandsToSee;
+                uadCurrent.RelationshipStatusID = uad.RelationshipStatusID;
+                uadCurrent.InterestedInID = uad.InterestedInID;
+                uadCurrent.FirstName = uad.FirstName;
+                uadCurrent.LastName = uad.LastName;
+
+                if (!string.IsNullOrWhiteSpace(uad.Country) &&
+                    !string.IsNullOrWhiteSpace(uad.PostalCode))
+                {
+                    SiteStructs.LatLong latlong =
+                        GeoData.GetLatLongForCountryPostal(uad.Country, uad.PostalCode);
+
+// ReSharper disable CompareOfFloatsByEqualityOperator
+                    if (latlong.latitude != 0 && latlong.longitude != 0)
+// ReSharper restore CompareOfFloatsByEqualityOperator
+                    {
+                        uad.Latitude = Convert.ToDecimal(latlong.latitude);
+                        uad.Longitude = Convert.ToDecimal(latlong.longitude);
+
+                        uadCurrent.Latitude = uad.Latitude;
+                        uadCurrent.Longitude = uad.Longitude;
+                    }
+                }
+
+                if (uadCurrent.Set() > 0)
+                {
+                    ViewBag.ProfileUpdated = true;
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, Messages.Error);
+                }
 
 
-            if (isNewProfile)
-            {
-                return RedirectToAction("EditPhoto");
+                if (isNewProfile)
+                {
+                    return RedirectToAction("EditPhoto");
+                }
             }
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
@@ -1610,12 +1419,9 @@ namespace DasKlub.Controllers
 
         #region photos
 
-
-
         #endregion
 
         #region edit photo
-
 
         [Authorize]
         [HttpPost]
@@ -1623,85 +1429,82 @@ namespace DasKlub.Controllers
         {
             string str = Request.Form["delete_photo"];
 
-            mu = Membership.GetUser();
-            uad = new UserAccountDetail();
-            uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+            _mu = Membership.GetUser();
+            _uad = new UserAccountDetail();
+            if (_mu != null) _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
 
+            var s3 = new S3Service
+                {
+                    AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                    SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+                };
 
-            S3Service s3 = new S3Service();
 
-            s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
-            s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
-
-
-            if (str == "1")
+            switch (str)
             {
-                try
-                {
-
-
-                    if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, uad.ProfilePicURL))
-                    {
-                        s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, uad.ProfilePicURL);
-                    }
-
-                    if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, uad.ProfileThumbPicURL))
-                    {
-                        s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, uad.ProfileThumbPicURL);
-                    }
-
-                }
-                catch
-                {
-                    // whatever
-                }
-
-                uad.ProfileThumbPicURL = string.Empty;
-                uad.ProfilePicURL = string.Empty;
-                uad.Update();
-            }
-            else if (str == "2" || str == "3")
-            {
-                ups = new UserPhotos();
-                ups.GetUserPhotos(uad.UserAccountID);
-
-                foreach (UserPhoto up1 in ups)
-                {
+                case "1":
                     try
                     {
-                        if ((up1.RankOrder == 1 && str == "2") || (up1.RankOrder == 2 && str == "3"))
+                        if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, _uad.ProfilePicURL))
                         {
-                            if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, up1.PicURL))
-                            {
-                                s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, up1.PicURL);
-                            }
+                            s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, _uad.ProfilePicURL);
+                        }
 
-                            if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, up1.ThumbPicURL))
-                            {
-                                s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, up1.ThumbPicURL);
-                            }
-
-                            up1.Delete();
+                        if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, _uad.ProfileThumbPicURL))
+                        {
+                            s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, _uad.ProfileThumbPicURL);
                         }
                     }
+// ReSharper disable EmptyGeneralCatchClause
                     catch
+// ReSharper restore EmptyGeneralCatchClause
                     {
                         // whatever
                     }
-                }
+                    _uad.ProfileThumbPicURL = string.Empty;
+                    _uad.ProfilePicURL = string.Empty;
+                    _uad.Update();
+                    break;
+                case "3":
+                case "2":
+                    _ups = new UserPhotos();
+                    _ups.GetUserPhotos(_uad.UserAccountID);
+                    foreach (UserPhoto up1 in _ups)
+                    {
+                        try
+                        {
+                            if ((up1.RankOrder == 1 && str == "2") || (up1.RankOrder == 2 && str == "3"))
+                            {
+                                if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, up1.PicURL))
+                                {
+                                    s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, up1.PicURL);
+                                }
 
-                // update ranking
-                ups = new UserPhotos();
-                ups.GetUserPhotos(uad.UserAccountID);
+                                if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, up1.ThumbPicURL))
+                                {
+                                    s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, up1.ThumbPicURL);
+                                }
 
-                if (ups.Count == 1 && ups[0].RankOrder == 2)
-                {
-                    ups[0].RankOrder = 1;
-                    ups[0].Update();
-                }
+                                up1.Delete();
+                            }
+                        }
+// ReSharper disable EmptyGeneralCatchClause
+                        catch
+// ReSharper restore EmptyGeneralCatchClause
+                        {
+                            // whatever
+                        }
+                    }
+                    _ups = new UserPhotos();
+                    _ups.GetUserPhotos(_uad.UserAccountID);
+                    if (_ups.Count == 1 && _ups[0].RankOrder == 2)
+                    {
+                        _ups[0].RankOrder = 1;
+                        _ups[0].Update();
+                    }
+                    break;
             }
-
 
 
             Response.Redirect("~/account/editphoto");
@@ -1713,91 +1516,89 @@ namespace DasKlub.Controllers
         [HttpPost]
         public ActionResult EditPhoto(HttpPostedFileBase file)
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
             UserPhoto up1 = null;
-            int swapID = 0;
+            int swapID;
 
-            var acl = CannedAcl.PublicRead;
+            const CannedAcl acl = CannedAcl.PublicRead;
 
-            S3Service s3 = new S3Service();
-
-            s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
-            s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
+            var s3 = new S3Service
+                {
+                    AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                    SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+                };
 
 
             if (Request.Form["new_default"] != null &&
                 int.TryParse(Request.Form["new_default"], out swapID))
             {
                 // swap the default with the new default
-                uad = new UserAccountDetail();
-                uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+                _uad = new UserAccountDetail();
+                if (_mu != null) _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
-                string currentDefaultMain = uad.ProfilePicURL;
-                string currentDefaultMainThumb = uad.ProfileThumbPicURL;
+                string currentDefaultMain = _uad.ProfilePicURL;
+                string currentDefaultMainThumb = _uad.ProfileThumbPicURL;
 
                 up1 = new UserPhoto(swapID);
 
-                uad.ProfilePicURL = up1.PicURL;
-                uad.ProfileThumbPicURL = up1.ThumbPicURL;
-                uad.LastPhotoUpdate = DateTime.UtcNow;
-                uad.Update();
+                _uad.ProfilePicURL = up1.PicURL;
+                _uad.ProfileThumbPicURL = up1.ThumbPicURL;
+                _uad.LastPhotoUpdate = DateTime.UtcNow;
+                _uad.Update();
 
                 up1.PicURL = currentDefaultMain;
                 up1.ThumbPicURL = currentDefaultMainThumb;
-                up1.UpdatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+                if (_mu != null) up1.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
                 up1.Update();
 
-                LoadCurrentImagesViewBag(Convert.ToInt32(mu.ProviderUserKey));
+                if (_mu != null) LoadCurrentImagesViewBag(Convert.ToInt32(_mu.ProviderUserKey));
 
-                return View(uad);
+                return View(_uad);
             }
 
-            string photoOne = "photo_edit_1";
-            string photoTwo = "photo_edit_2";
-            string photoThree = "photo_edit_3";
+            const string photoOne = "photo_edit_1";
+            const string photoTwo = "photo_edit_2";
+            const string photoThree = "photo_edit_3";
 
-            LoadCurrentImagesViewBag(Convert.ToInt32(mu.ProviderUserKey));
+            if (_mu != null) LoadCurrentImagesViewBag(Convert.ToInt32(_mu.ProviderUserKey));
 
-            uad = new UserAccountDetail();
-            uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+            _uad = new UserAccountDetail();
+            if (_mu != null) _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
             if (file == null)
             {
                 ViewBag.IsValid = false;
-                ModelState.AddModelError(string.Empty, BootBaronLib.Resources.Messages.NoFile);
-                return View(uad);
+                ModelState.AddModelError(string.Empty, Messages.NoFile);
+                return View(_uad);
             }
 
             string photoEdited = Request.Form["photo_edit"];
             string mainPhotoToDelete = string.Empty;
             string thumbPhotoToDelete = string.Empty;
 
-            ups = new UserPhotos();
-            ups.GetUserPhotos(uad.UserAccountID);
+            _ups = new UserPhotos();
+            _ups.GetUserPhotos(_uad.UserAccountID);
 
-            if (string.IsNullOrEmpty(uad.ProfilePicURL) ||
-                ups.Count == 2 && photoEdited == photoOne)
+            if (string.IsNullOrEmpty(_uad.ProfilePicURL) ||
+                _ups.Count == 2 && photoEdited == photoOne)
             {
-                mainPhotoToDelete = uad.ProfilePicURL;
-                thumbPhotoToDelete = uad.ProfileThumbPicURL;
+                mainPhotoToDelete = _uad.ProfilePicURL;
+                thumbPhotoToDelete = _uad.ProfileThumbPicURL;
             }
             else
             {
-                if (ups.Count > 1 && photoEdited == photoTwo)
+                if (_ups.Count > 1 && photoEdited == photoTwo)
                 {
-                    up1 = new UserPhoto(ups[0].UserPhotoID);
-                    up1.RankOrder = 1;
+                    up1 = new UserPhoto(_ups[0].UserPhotoID) {RankOrder = 1};
                     mainPhotoToDelete = up1.PicURL;
                     thumbPhotoToDelete = up1.ThumbPicURL;
                 }
-                else if (ups.Count > 1 && photoEdited == photoThree)
+                else if (_ups.Count > 1 && photoEdited == photoThree)
                 {
-                    up1 = new UserPhoto(ups[1].UserPhotoID);
-                    up1.RankOrder = 2;
-                    mainPhotoToDelete = ups[1].FullProfilePicURL;
+                    up1 = new UserPhoto(_ups[1].UserPhotoID) {RankOrder = 2};
+                    mainPhotoToDelete = _ups[1].FullProfilePicURL;
                     thumbPhotoToDelete = up1.ThumbPicURL;
                 }
-
             }
 
 
@@ -1806,7 +1607,6 @@ namespace DasKlub.Controllers
                 // delete the existing photos
                 try
                 {
-
                     if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, mainPhotoToDelete))
                     {
                         s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, mainPhotoToDelete);
@@ -1817,19 +1617,21 @@ namespace DasKlub.Controllers
                         s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, thumbPhotoToDelete);
                     }
                 }
+// ReSharper disable EmptyGeneralCatchClause
                 catch
+// ReSharper restore EmptyGeneralCatchClause
                 {
                     // whatever
                 }
             }
 
 
-            Bitmap b = new Bitmap(file.InputStream);
+            var b = new Bitmap(file.InputStream);
 
             // full
-            System.Drawing.Image fullPhoto = (System.Drawing.Image)b;
+            Image fullPhoto = b;
 
-            fullPhoto = ImageResize.FixedSize(fullPhoto, 300, 300, System.Drawing.Color.Black);
+            fullPhoto = ImageResize.FixedSize(fullPhoto, 300, 300, Color.Black);
 
             string fileNameFull = Utilities.CreateUniqueContentFilename(file);
 
@@ -1843,10 +1645,10 @@ namespace DasKlub.Controllers
                 file.ContentType,
                 acl);
 
-            if (string.IsNullOrEmpty(uad.ProfileThumbPicURL) ||
-                ups.Count == 2 && photoEdited == photoOne)
+            if (string.IsNullOrEmpty(_uad.ProfileThumbPicURL) ||
+                _ups.Count == 2 && photoEdited == photoOne)
             {
-                uad.ProfilePicURL = fileNameFull;
+                _uad.ProfilePicURL = fileNameFull;
             }
             else
             {
@@ -1855,29 +1657,29 @@ namespace DasKlub.Controllers
                     up1 = new UserPhoto();
                 }
 
-                up1.UserAccountID = Convert.ToInt32(mu.ProviderUserKey);
+                if (_mu != null) up1.UserAccountID = Convert.ToInt32(_mu.ProviderUserKey);
                 up1.PicURL = fileNameFull;
 
-                if ((ups.Count > 0 && photoEdited == photoTwo) || (ups.Count == 0))
+                if ((_ups.Count > 0 && photoEdited == photoTwo) || (_ups.Count == 0))
                 {
                     up1.RankOrder = 1;
                 }
-                else if ((ups.Count > 1 && photoEdited == photoThree) || ups.Count == 1)
+                else if ((_ups.Count > 1 && photoEdited == photoThree) || _ups.Count == 1)
                 {
                     up1.RankOrder = 2;
                 }
 
-                if (ups.Count == 1 && ups[0].RankOrder == 2)
+                if (_ups.Count == 1 && _ups[0].RankOrder == 2)
                 {
-                    ups[0].RankOrder = 1;
-                    ups[0].Update();
+                    _ups[0].RankOrder = 1;
+                    _ups[0].Update();
                 }
             }
 
 
-            fullPhoto = (System.Drawing.Image)b;
+            fullPhoto = b;
 
-            fullPhoto = ImageResize.FixedSize(fullPhoto, 75, 75, System.Drawing.Color.Black);
+            fullPhoto = ImageResize.FixedSize(fullPhoto, 75, 75, Color.Black);
 
             fileNameFull = Utilities.CreateUniqueContentFilename(file);
 
@@ -1892,35 +1694,37 @@ namespace DasKlub.Controllers
                 acl);
 
 
-
             //// thumb
 
-            if (string.IsNullOrEmpty(uad.ProfileThumbPicURL) ||
-                ups.Count == 2 && photoEdited == photoOne)
+            if (string.IsNullOrEmpty(_uad.ProfileThumbPicURL) ||
+                _ups.Count == 2 && photoEdited == photoOne)
             {
-                uad.ProfileThumbPicURL = fileNameFull;
-                uad.LastPhotoUpdate = DateTime.UtcNow;
-                uad.Set();
+                _uad.ProfileThumbPicURL = fileNameFull;
+                _uad.LastPhotoUpdate = DateTime.UtcNow;
+                _uad.Set();
             }
             else
             {
-                up1.UserAccountID = Convert.ToInt32(mu.ProviderUserKey);
-                up1.ThumbPicURL = fileNameFull;
+                if (up1 != null)
+                {
+                    if (_mu != null) up1.UserAccountID = Convert.ToInt32(_mu.ProviderUserKey);
+                    up1.ThumbPicURL = fileNameFull;
 
-                if (
-                    (ups.Count == 0 && photoEdited == photoTwo) ||
-                    (ups.Count > 0 && photoEdited == photoTwo)
-                    )
-                {
-                    up1.RankOrder = 1;
-                }
-                else if
-                    (
-                    (ups.Count == 0 && photoEdited == photoThree) ||
-                    (ups.Count > 1 && photoEdited == photoThree)
-                    )
-                {
-                    up1.RankOrder = 2;
+                    if (
+                        (_ups.Count == 0 && photoEdited == photoTwo) ||
+                        (_ups.Count > 0 && photoEdited == photoTwo)
+                        )
+                    {
+                        up1.RankOrder = 1;
+                    }
+                    else if
+                        (
+                        (_ups.Count == 0 && photoEdited == photoThree) ||
+                        (_ups.Count > 1 && photoEdited == photoThree)
+                        )
+                    {
+                        up1.RankOrder = 2;
+                    }
                 }
             }
 
@@ -1928,51 +1732,52 @@ namespace DasKlub.Controllers
 
             if (up1 != null && up1.UserPhotoID == 0)
             {
-                up1.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+                if (_mu != null) up1.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
                 up1.Create();
             }
             else if (up1 != null && up1.UserPhotoID > 0)
             {
-                up1.UpdatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+                up1.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
                 up1.Update();
             }
 
 
-            LoadCurrentImagesViewBag(Convert.ToInt32(mu.ProviderUserKey));
+            LoadCurrentImagesViewBag(Convert.ToInt32(_mu.ProviderUserKey));
 
-            return View(uad);
+            return View(_uad);
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult EditPhoto()
         {
-            mu = Membership.GetUser();
-            uad = new UserAccountDetail();
-            uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+            _mu = Membership.GetUser();
+            _uad = new UserAccountDetail();
+            if (_mu != null)
+            {
+                _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
-            LoadCurrentImagesViewBag(Convert.ToInt32(mu.ProviderUserKey));
+                LoadCurrentImagesViewBag(Convert.ToInt32(_mu.ProviderUserKey));
+            }
 
-            return View(uad);
+            return View(_uad);
         }
 
         private void LoadCurrentImagesViewBag(int userAccountID)
         {
-
-            UserPhotos ups = new UserPhotos();
+            var ups = new UserPhotos();
             ups.GetUserPhotos(userAccountID);
 
             if (ups.Count == 0)
             {
-                UserPhoto up = new UserPhoto();
+                var up = new UserPhoto();
                 ups.Add(up);
                 up = new UserPhoto();
                 ups.Add(up);
             }
             else if (ups.Count == 1)
             {
-                UserPhoto up = new UserPhoto();
-                up.RankOrder = 2;
+                var up = new UserPhoto {RankOrder = 2};
                 ups.Add(up);
             }
 
@@ -1983,10 +1788,7 @@ namespace DasKlub.Controllers
             ViewBag.ThirdUserPhotoFull = ups[1].FullProfilePicURL;
             ViewBag.ThirdUserPhotoThumb = ups[1].FullProfilePicThumbURL;
             ViewBag.ThirdUserPhotoID = ups[1].UserPhotoID;
-
         }
-
-
 
         #endregion
 
@@ -1995,20 +1797,18 @@ namespace DasKlub.Controllers
         [Authorize]
         public JsonResult OutboxMailItems(int pageNumber)
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.DirectMessages();
+            var model = new DirectMessages();
 
-            model.GetMailPageWiseFromUser(pageNumber, pageSize, Convert.ToInt32(mu.ProviderUserKey));
-
-            StringBuilder sb = new StringBuilder();
+            if (_mu != null) model.GetMailPageWiseFromUser(pageNumber, PageSize, Convert.ToInt32(_mu.ProviderUserKey));
 
             model.AllInInbox = false;
 
             return Json(new
-            {
-                ListItems = model.ToUnorderdList
-            });
+                {
+                    ListItems = model.ToUnorderdList
+                });
         }
 
 
@@ -2017,85 +1817,81 @@ namespace DasKlub.Controllers
         {
             // basing the user on the referrer, this will be blank if it uses SSL, change then
 
-            string referrring = Request.UrlReferrer.ToString();
-            string[] partsOfreferring = referrring.Split('/');
-            UserAccount ua = new UserAccount(partsOfreferring[partsOfreferring.Length - 1]);
-
-            mu = Membership.GetUser();
-
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.DirectMessages();
-
-            model.GetMailPageWiseToUser(pageNumber, pageSize,
-                Convert.ToInt32(mu.ProviderUserKey), ua.UserAccountID);
-
-            StringBuilder sb = new StringBuilder();
-
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.DirectMessage cnt in model)
+            if (Request.UrlReferrer != null)
             {
-                sb.Append(cnt.ToUnorderdListItem);
+                string referrring = Request.UrlReferrer.ToString();
+                string[] partsOfreferring = referrring.Split('/');
+                var ua = new UserAccount(partsOfreferring[partsOfreferring.Length - 1]);
+
+                _mu = Membership.GetUser();
+
+                var model = new DirectMessages();
+
+                if (_mu != null)
+                    model.GetMailPageWiseToUser(pageNumber, PageSize,
+                                                Convert.ToInt32(_mu.ProviderUserKey), ua.UserAccountID);
+
+                var sb = new StringBuilder();
+
+                foreach (DirectMessage cnt in model)
+                {
+                    sb.Append(cnt.ToUnorderdListItem);
+                }
+
+                return Json(new
+                    {
+                        ListItems = sb.ToString()
+                    });
             }
-
-            return Json(new
-            {
-                ListItems = sb.ToString()
-            });
+            return null;
         }
 
         [Authorize]
         public JsonResult MailItems(int pageNumber)
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.DirectMessages();
+            var model = new DirectMessages();
 
-            model.GetMailPageWise(pageNumber, pageSize, Convert.ToInt32(mu.ProviderUserKey));
+            if (_mu != null) model.GetMailPageWise(pageNumber, PageSize, Convert.ToInt32(_mu.ProviderUserKey));
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.DirectMessage cnt in model)
+            foreach (DirectMessage cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
 
-
-            foreach (DirectMessage dm in model)
+            foreach (DirectMessage dm in model.Where(dm => !dm.IsRead))
             {
-                if (!dm.IsRead)
-                {
-                    dm.IsRead = true;
-                    dm.Update();
-                }
+                dm.IsRead = true;
+                dm.Update();
             }
 
             return Json(new
-            {
-                ListItems = sb.ToString()
-            });
+                {
+                    ListItems = sb.ToString()
+                });
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult Inbox()
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.DirectMessages();
+            var model = new DirectMessages();
 
-            ViewBag.RecordCount = model.GetMailPageWise(1, pageSize, Convert.ToInt32(mu.ProviderUserKey));
-
-            StringBuilder sb = new StringBuilder();
+            if (_mu != null)
+                ViewBag.RecordCount = model.GetMailPageWise(1, PageSize, Convert.ToInt32(_mu.ProviderUserKey));
 
             ViewBag.DirectMessages = model.ToUnorderdList;
 
-            foreach (DirectMessage dm in model)
+            foreach (DirectMessage dm in model.Where(dm => !dm.IsRead))
             {
-                if (!dm.IsRead)
-                {
-                    dm.IsRead = true;
-                    dm.Update();
-                }
+                dm.IsRead = true;
+                dm.Update();
             }
-
 
 
             return View();
@@ -2109,93 +1905,78 @@ namespace DasKlub.Controllers
             string displayname = Request.Form["displayname"];
             string msg = Request.Form["message"];
 
-            ua = new UserAccount(displayname);
-            mu = Membership.GetUser();
+            _ua = new UserAccount(displayname);
+            _mu = Membership.GetUser();
 
-            if (string.IsNullOrEmpty(msg) ||
-                BootBaronLib.AppSpec.DasKlub.BOL.
-                BlockedUser.IsBlockedUser(ua.UserAccountID, Convert.ToInt32(mu.ProviderUserKey))
+            if (_mu != null && (string.IsNullOrEmpty(msg) ||
+                                BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockedUser(_ua.UserAccountID,
+                                                                                           Convert.ToInt32(
+                                                                                               _mu.ProviderUserKey)))
                 )
             {
-                return RedirectToAction("Reply", new { @userName = displayname });
+                return RedirectToAction("Reply", new {@userName = displayname});
             }
 
-            DirectMessage dm = new DirectMessage();
-
-            //dm.GetMostRecentSentMessage(Convert.ToInt32(mu.ProviderUserKey));
-
-            //DateTime dbtime = Utilities.GetDataBaseTime();
-
-            //TimeSpan tsLastPst = dbtime.Subtract(dm.CreateDate);
-
-            //if (tsLastPst.TotalSeconds < 5 && tsLastPst.TotalSeconds > 0)
-            //{
-            //    return RedirectToAction("Reply", new { @userName = displayname });
-            //}
-
-            dm = new DirectMessage();
-            dm.IsRead = false;
-            dm.FromUserAccountID = Convert.ToInt32(mu.ProviderUserKey);
-            dm.ToUserAccountID = ua.UserAccountID;
+            var dm = new DirectMessage {IsRead = false};
+            if (_mu != null) dm.FromUserAccountID = Convert.ToInt32(_mu.ProviderUserKey);
+            dm.ToUserAccountID = _ua.UserAccountID;
             dm.Message = msg;
-            dm.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+            if (_mu != null) dm.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
 
             dm.Create();
-
 
 
             string language = Utilities.GetCurrentLanguageCode();
             // change language for message to
 
-            uad = new UserAccountDetail();
-            uad.GetUserAccountDeailForUser(ua.UserAccountID);
+            _uad = new UserAccountDetail();
+            _uad.GetUserAccountDeailForUser(_ua.UserAccountID);
 
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(_uad.DefaultLanguage);
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(_uad.DefaultLanguage);
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            sb.Append(BootBaronLib.Resources.Messages.Hello);
+            sb.Append(Messages.Hello);
             sb.Append(",");
             sb.AppendLine(Environment.NewLine);
             sb.AppendLine(Environment.NewLine);
-            sb.AppendFormat("{0}: ", BootBaronLib.Resources.Messages.From);
-            sb.Append(BootBaronLib.Configs.GeneralConfigs.SiteDomain);
+            sb.AppendFormat("{0}: ", Messages.From);
+            sb.Append(GeneralConfigs.SiteDomain);
             sb.Append("/");
-            sb.Append(mu.UserName);
+            if (_mu != null) sb.Append(_mu.UserName);
             sb.AppendLine(Environment.NewLine);
-            sb.AppendFormat("{0}: ", BootBaronLib.Resources.Messages.Message);
+            sb.AppendFormat("{0}: ", Messages.Message);
             sb.AppendLine(msg);
             sb.AppendLine(Environment.NewLine);
-            sb.AppendFormat("{0}: {1}", BootBaronLib.Resources.Messages.SignIn, BootBaronLib.Configs.GeneralConfigs.SiteDomain);
+            sb.AppendFormat("{0}: {1}", Messages.SignIn, GeneralConfigs.SiteDomain);
             sb.AppendLine(Environment.NewLine);
 
 
-            if (uad.EmailMessages)
+            if (_uad.EmailMessages)
             {
-                Utilities.SendMail(ua.EMail,
-                    BootBaronLib.Resources.Messages.From + ": " + mu.UserName, sb.ToString());
+                if (_mu != null)
+                    Utilities.SendMail(_ua.EMail,
+                                       Messages.From + ": " + _mu.UserName, body: sb.ToString());
             }
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(language);
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
 
-            return RedirectToAction("Reply", new { @userName = displayname });
+            return RedirectToAction("Reply", new {@userName = displayname});
         }
-
 
 
         [Authorize]
         [HttpGet]
         public ActionResult Outbox()
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.DirectMessages();
+            var model = new DirectMessages();
 
-            ViewBag.RecordCount = model.GetMailPageWiseFromUser(1, pageSize, Convert.ToInt32(mu.ProviderUserKey));
-
-            StringBuilder sb = new StringBuilder();
+            if (_mu != null)
+                ViewBag.RecordCount = model.GetMailPageWiseFromUser(1, PageSize, Convert.ToInt32(_mu.ProviderUserKey));
 
             model.AllInInbox = false;
 
@@ -2210,23 +1991,15 @@ namespace DasKlub.Controllers
         {
             ViewBag.DisplayName = userName;
 
-            mu = Membership.GetUser();
-            ua = new UserAccount(userName);
+            _mu = Membership.GetUser();
+            _ua = new UserAccount(userName);
 
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.DirectMessages();
+            var model = new DirectMessages();
 
-            ViewBag.RecordCount = model.GetMailPageWiseToUser(1, pageSize, Convert.ToInt32(mu.ProviderUserKey), ua.UserAccountID);
-
+            if (_mu != null)
+                ViewBag.RecordCount = model.GetMailPageWiseToUser(1, PageSize, Convert.ToInt32(_mu.ProviderUserKey),
+                                                                  _ua.UserAccountID);
             ViewBag.DirectMessages = model.ToUnorderdList;
-
-            //foreach (DirectMessage dm in model)
-            //{
-            //    if (!dm.IsRead)
-            //    {
-            //        dm.IsRead = true;
-            //        dm.Update();
-            //    }
-            //}
 
             return View();
         }
@@ -2239,24 +2012,21 @@ namespace DasKlub.Controllers
         [Authorize]
         public ActionResult Playlist(NameValueCollection nvc)
         {
-            mu = Membership.GetUser();
-            ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
-            ViewBag.UserName = ua.UserName;
+            if (nvc == null) throw new ArgumentNullException("nvc");
+            _mu = Membership.GetUser();
+            if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
+            ViewBag.UserName = _ua.UserName;
 
-            BootBaronLib.AppSpec.DasKlub.BOL.Playlist plyst = new Playlist();
+            var plyst = new Playlist();
 
-            plyst.GetUserPlaylist(ua.UserAccountID);
+            plyst.GetUserPlaylist(_ua.UserAccountID);
 
             ViewBag.UserPlaylistID = plyst.PlaylistID;
 
-            PlaylistVideos plyvids = new PlaylistVideos();
+            var plyvids = new PlaylistVideos();
             plyvids.GetPlaylistVideosForPlaylist(plyst.PlaylistID);
 
             nvc = Request.Form;
-
-            //video_delete_id
-            //video_down_id
-            //video_up_id
 
             PlaylistVideo plv = null;
 
@@ -2267,19 +2037,17 @@ namespace DasKlub.Controllers
                     if (plv != null && plv1.RankOrder > plv.RankOrder)
                     {
                         plv1.RankOrder--;
-                        plv1.UpdatedByUserID = ua.UserAccountID;
+                        plv1.UpdatedByUserID = _ua.UserAccountID;
                         plv1.Update();
                     }
 
-                    if (plv1.PlaylistID == plyst.PlaylistID &&
-                        Convert.ToInt32(nvc["video_delete_id"]) == plv1.VideoID)
-                    {
-                        plv = new PlaylistVideo(plv1.PlaylistVideoID);
+                    if (plv1.PlaylistID != plyst.PlaylistID || Convert.ToInt32(nvc["video_delete_id"]) != plv1.VideoID)
+                        continue;
+                    plv = new PlaylistVideo(plv1.PlaylistVideoID);
 
-                        if (PlaylistVideo.Delete(plyst.PlaylistID, Convert.ToInt32(nvc["video_delete_id"])))
-                        {
-                            // deleted
-                        }
+                    if (PlaylistVideo.Delete(plyst.PlaylistID, Convert.ToInt32(nvc["video_delete_id"])))
+                    {
+                        // deleted
                     }
                 }
             }
@@ -2288,18 +2056,15 @@ namespace DasKlub.Controllers
                 plv = new PlaylistVideo();
                 plv.Get(plyst.PlaylistID, Convert.ToInt32(nvc["video_down_id"]));
 
-                foreach (PlaylistVideo plv1 in plyvids)
+                foreach (PlaylistVideo plv1 in plyvids.Where(plv1 => plv1.RankOrder == (plv.RankOrder + 1)))
                 {
-                    if (plv1.RankOrder == (plv.RankOrder + 1))
-                    {
-                        plv1.RankOrder--;
-                        plv1.UpdatedByUserID = ua.UserAccountID;
-                        plv1.Update();
-                    }
+                    plv1.RankOrder--;
+                    plv1.UpdatedByUserID = _ua.UserAccountID;
+                    plv1.Update();
                 }
 
                 plv.RankOrder++;
-                plv.UpdatedByUserID = ua.UserAccountID;
+                plv.UpdatedByUserID = _ua.UserAccountID;
                 plv.Update();
             }
             else if (nvc["video_up_id"] != null)
@@ -2307,18 +2072,15 @@ namespace DasKlub.Controllers
                 plv = new PlaylistVideo();
                 plv.Get(plyst.PlaylistID, Convert.ToInt32(nvc["video_up_id"]));
 
-                foreach (PlaylistVideo plv1 in plyvids)
+                foreach (PlaylistVideo plv1 in plyvids.Where(plv1 => plv1.RankOrder == (plv.RankOrder - 1)))
                 {
-                    if (plv1.RankOrder == (plv.RankOrder - 1))
-                    {
-                        plv1.RankOrder++;
-                        plv1.UpdatedByUserID = ua.UserAccountID;
-                        plv1.Update();
-                    }
+                    plv1.RankOrder++;
+                    plv1.UpdatedByUserID = _ua.UserAccountID;
+                    plv1.Update();
                 }
 
                 plv.RankOrder--;
-                plv.UpdatedByUserID = ua.UserAccountID;
+                plv.UpdatedByUserID = _ua.UserAccountID;
                 plv.Update();
             }
             else //if (nvc["selected_autoplay"] != null)
@@ -2344,14 +2106,14 @@ namespace DasKlub.Controllers
             ViewBag.VideoHeight = (Request.Browser.IsMobileDevice) ? 100 : 277;
             ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ? 225 : 400;
 
-            mu = Membership.GetUser();
-            ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
+            _mu = Membership.GetUser();
+            if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
-            ViewBag.UserName = ua.UserName;
+            ViewBag.UserName = _ua.UserName;
 
-            BootBaronLib.AppSpec.DasKlub.BOL.Playlist plyst = new Playlist();
+            var plyst = new Playlist();
 
-            plyst.GetUserPlaylist(ua.UserAccountID);
+            plyst.GetUserPlaylist(_ua.UserAccountID);
 
             ViewBag.AutoPlay = plyst.AutoPlay;
 
@@ -2359,28 +2121,15 @@ namespace DasKlub.Controllers
 
             ViewBag.UserPlaylistID = plyst.PlaylistID;
 
-            PlaylistVideos plyvids = new PlaylistVideos();
+            var plyvids = new PlaylistVideos();
 
             plyvids.GetPlaylistVideosForPlaylist(plyst.PlaylistID);
 
-            BootBaronLib.AppSpec.DasKlub.BOL.Videos vids = new BootBaronLib.AppSpec.DasKlub.BOL.Videos();
-            Video vid = null;
+            var vids = new Videos();
+            vids.AddRange(plyvids.Select(plv => new Video(plv.VideoID)));
 
-            foreach (PlaylistVideo plv in plyvids)
-            {
-                vid = new Video(plv.VideoID);
-                vids.Add(vid);
-            }
-
-            SongRecords sngrcs = new SongRecords();
-            SongRecord sngrcd = null;
-
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.Video vi in vids)
-            {
-                sngrcd = new SongRecord(vi);
-
-                sngrcs.Add(sngrcd);
-            }
+            var sngrcs = new SongRecords();
+            sngrcs.AddRange(vids.Select(vi => new SongRecord(vi)));
 
             ViewBag.PlaylistVideos = sngrcs.VideoPlaylist();
 
@@ -2390,13 +2139,14 @@ namespace DasKlub.Controllers
         #endregion
 
         #region register
+
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
             if (Utilities.IsSpamIP(Request.UserHostAddress))
             {
                 // they are a duplicate IP and are no being referred by an existing user
-                ModelState.AddModelError("", BootBaronLib.Resources.Messages.Invalid + ": " + Messages.Account);
+                ModelState.AddModelError("", Messages.Invalid + @": " + Messages.Account);
                 return View(model);
             }
 
@@ -2408,19 +2158,18 @@ namespace DasKlub.Controllers
                 Request.Browser.Type == "IE5" ||
                 Request.Browser.Type == "IE6" ||
                 Request.Browser.Type == "IE7" ||
-                BlackIPs.IsIPBlocked(Request.UserHostAddress) 
-                
+                BlackIPs.IsIPBlocked(Request.UserHostAddress)
                 )
             {
                 Response.Redirect("http://browsehappy.com/");
                 return View();
             }
-            else if (!BootBaronLib.Configs.GeneralConfigs.EnableSameIP &&
+            if (!GeneralConfigs.EnableSameIP &&
                 UserAccount.IsAccountIPTaken(Request.UserHostAddress) &&
                 string.IsNullOrEmpty(model.RefUser))
             {
                 // they are a duplicate IP and are no being referred by an existing user
-                ModelState.AddModelError("", BootBaronLib.Resources.Messages.Invalid + ": " + Messages.Account);
+                ModelState.AddModelError("", Messages.Invalid + @": " + Messages.Account);
                 return View(model);
             }
 
@@ -2431,10 +2180,10 @@ namespace DasKlub.Controllers
             {
                 if (!Utilities.IsEmail(model.Email))
                 {
-                    ModelState.AddModelError("", BootBaronLib.Resources.Messages.IncorrectFormat + ": " + BootBaronLib.Resources.Messages.EMail);
+                    ModelState.AddModelError("", Messages.IncorrectFormat + @": " + Messages.EMail);
                     return View();
                 }
-                else if (
+                if (
                     model.UserName.Trim().Contains(" ") ||
                     model.UserName.Trim().Contains("?") ||
                     model.UserName.Trim().Contains("*") ||
@@ -2442,35 +2191,36 @@ namespace DasKlub.Controllers
                     model.UserName.Trim().Contains("/") ||
                     model.UserName.Trim().Contains(@"\"))
                 {
-                    ModelState.AddModelError("", BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.UserName);
+                    ModelState.AddModelError("", Messages.Invalid + @": " + Messages.UserName);
                     return View();
                 }
-                else if (model.YouAreID == null)
+                if (model.YouAreID == null)
                 {
-                    ModelState.AddModelError("", BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.YouAre);
+                    ModelState.AddModelError("", Messages.Invalid + @": " + Messages.YouAre);
                     return View();
                 }
 
-                DateTime dt = new DateTime();
+                DateTime dt;
 
                 if (!DateTime.TryParse(model.Year
-                                + "-" + model.Month + "-" + model.Day, out dt))
+                                       + "-" + model.Month + "-" + model.Day, out dt))
                 {
-                    ModelState.AddModelError("", BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.BirthDate);
+                    ModelState.AddModelError("", Messages.Invalid + @": " + Messages.BirthDate);
                     return View();
                 }
-                else if (DateTime.TryParse(model.Year
-                    + "-" + model.Month + "-" + model.Day, out dt))
+                if (DateTime.TryParse(model.Year
+                                      + "-" + model.Month + "-" + model.Day, out dt))
                 {
-                    if (Utilities.CalculateAge(dt) < BootBaronLib.Configs.GeneralConfigs.MinimumAge)
+                    if (Utilities.CalculateAge(dt) < GeneralConfigs.MinimumAge)
                     {
-                        ModelState.AddModelError("", BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.BirthDate);
+                        ModelState.AddModelError("", Messages.Invalid + @": " + Messages.BirthDate);
                         return View();
                     }
                 }
 
 
-                model.UserName = model.UserName.Replace(" ", string.Empty).Replace(":", string.Empty) /* still annoying errors */;
+                model.UserName = model.UserName.Replace(" ", string.Empty).Replace(":", string.Empty)
+                    /* still annoying errors */;
 
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
@@ -2481,24 +2231,25 @@ namespace DasKlub.Controllers
                 {
                     FormsAuthentication.RedirectFromLoginPage(model.UserName, true);
 
-                    UserAccount ua = new UserAccount(model.UserName);
-                    uad = new UserAccountDetail();
-                    uad.UserAccountID = ua.UserAccountID;
-
-                    uad.BirthDate = dt;
-                    uad.YouAreID = model.YouAreID;
-                    uad.DisplayAge = true;
-                    uad.DefaultLanguage = Utilities.GetCurrentLanguageCode();
+                    var ua = new UserAccount(model.UserName);
+                    _uad = new UserAccountDetail
+                        {
+                            UserAccountID = ua.UserAccountID,
+                            BirthDate = dt,
+                            YouAreID = model.YouAreID,
+                            DisplayAge = true,
+                            DefaultLanguage = Utilities.GetCurrentLanguageCode()
+                        };
 
                     if (!string.IsNullOrEmpty(model.RefUser))
                     {
-                        UserAccount refUser = new UserAccount(model.RefUser);
-                        uad.ReferringUserID = refUser.UserAccountID;
+                        var refUser = new UserAccount(model.RefUser);
+                        _uad.ReferringUserID = refUser.UserAccountID;
                     }
 
-                    uad.Set();
+                    _uad.Set();
 
-                    StringBuilder sb = new StringBuilder(100);
+                    var sb = new StringBuilder(100);
 
                     sb.Append(Messages.Hello);
                     sb.Append(Environment.NewLine);
@@ -2511,26 +2262,26 @@ namespace DasKlub.Controllers
                     sb.Append(Messages.Password + ": ");
                     sb.Append(model.NewPassword);
                     sb.Append(Environment.NewLine);
-                    sb.Append(BootBaronLib.Configs.GeneralConfigs.SiteDomain);
+                    sb.Append(GeneralConfigs.SiteDomain);
 
                     Utilities.SendMail(ua.EMail, Messages.YourNewAccountIsReadyForUse, sb.ToString());
 
                     // see if this is the 1st user
-                    UserAccounts recentUsers = new UserAccounts();
+                    var recentUsers = new UserAccounts();
                     recentUsers.GetNewestUsers();
 
                     if (recentUsers.Count == 1)
                     {
-                        Role adminRole = new Role(SiteEnums.RoleTypes.admin.ToString());
+                        var adminRole = new Role(SiteEnums.RoleTypes.admin.ToString());
 
                         UserAccountRole.AddUserToRole(ua.UserAccountID, adminRole.RoleID);
                     }
 
 
-                    DirectMessage dm = new DirectMessage();
+                    var dm = new DirectMessage();
                     dm.IsRead = false;
 
-                    UserAccount admin = new UserAccount(  GeneralConfigs.AdminUserName);
+                    var admin = new UserAccount(GeneralConfigs.AdminUserName);
 
                     dm.FromUserAccountID = admin.UserAccountID;
                     dm.ToUserAccountID = ua.UserAccountID;
@@ -2542,7 +2293,8 @@ namespace DasKlub.Controllers
                     sb.AppendLine("I am the site creator/ admin");
                     sb.AppendLine();
                     sb.AppendLine("Useful member links:");
-                    sb.AppendLine(string.Format("Status Updates (where most of the action happens): {0}/account/home", GeneralConfigs.SiteDomain));
+                    sb.AppendLine(string.Format("Status Updates (where most of the action happens): {0}/account/home",
+                                                GeneralConfigs.SiteDomain));
                     sb.AppendLine(string.Format("Who's online now: {0}/findusers/online", GeneralConfigs.SiteDomain));
                     sb.AppendLine();
                     sb.AppendLine("Send mail if you have questions.");
@@ -2561,10 +2313,7 @@ namespace DasKlub.Controllers
 
                     return RedirectToAction("editprofile", "Account");
                 }
-                else
-                {
-                    ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
-                }
+                ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
             }
 
             return View(model);
@@ -2576,7 +2325,6 @@ namespace DasKlub.Controllers
             return View();
         }
 
-
         #endregion
 
         #region change password
@@ -2585,7 +2333,6 @@ namespace DasKlub.Controllers
         {
             return View();
         }
-
 
 
         [Authorize]
@@ -2602,14 +2349,11 @@ namespace DasKlub.Controllers
             {
                 MembershipUser mu = Membership.GetUser();
 
-                if (mu.ChangePassword(model.OldPassword, model.NewPassword))
+                if (mu != null && mu.ChangePassword(model.OldPassword, model.NewPassword))
                 {
                     return RedirectToAction("ChangePasswordSuccess");
                 }
-                else
-                {
-                    ModelState.AddModelError("", Messages.ThePasswordsEnteredDoNotMatch);
-                }
+                ModelState.AddModelError("", Messages.ThePasswordsEnteredDoNotMatch);
             }
 
             // If we got this far, something failed, redisplay form
@@ -2620,23 +2364,22 @@ namespace DasKlub.Controllers
 
         #region settings
 
-
         [Authorize]
         [HttpGet]
         public ActionResult Settings()
         {
             ViewBag.IsValid = true;
 
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            uad = new UserAccountDetail();
+            _uad = new UserAccountDetail();
 
-            uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+            if (_mu != null) _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
-            ViewBag.UserAccountDetail = uad;
-            ViewBag.Membership = mu;
+            ViewBag.UserAccountDetail = _uad;
+            ViewBag.Membership = _mu;
 
-            return View(uad);
+            return View(_uad);
         }
 
         [HttpPost]
@@ -2645,12 +2388,12 @@ namespace DasKlub.Controllers
         {
             ViewBag.IsValid = true;
 
-            mu = Membership.GetUser();
-            ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
+            _mu = Membership.GetUser();
+            if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
-            uad = new UserAccountDetail();
+            _uad = new UserAccountDetail();
 
-            uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+            if (_mu != null) _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
             string enableProfileLogging = Request.Form["enableprofilelogging"];
             string emailmessages = Request.Form["emailmessages"];
@@ -2659,36 +2402,26 @@ namespace DasKlub.Controllers
             string membersOnlyProfile = Request.Form["membersonlyprofile"];
 
 
-            if (!string.IsNullOrEmpty(membersOnlyProfile))
-                uad.MembersOnlyProfile = true;
-            else uad.MembersOnlyProfile = false;
+            _uad.MembersOnlyProfile = !string.IsNullOrEmpty(membersOnlyProfile);
 
-            if (!string.IsNullOrEmpty(enableProfileLogging))
-                uad.EnableProfileLogging = true;
-            else uad.EnableProfileLogging = false;
+            _uad.EnableProfileLogging = !string.IsNullOrEmpty(enableProfileLogging);
 
 
-            if (!string.IsNullOrEmpty(displayAge))
-                uad.DisplayAge = true;
-            else uad.DisplayAge = false;
+            _uad.DisplayAge = !string.IsNullOrEmpty(displayAge);
 
-            if (!string.IsNullOrEmpty(emailmessages))
-                uad.EmailMessages = true;
-            else uad.EmailMessages = false;
+            _uad.EmailMessages = !string.IsNullOrEmpty(emailmessages);
 
-            if (!string.IsNullOrEmpty(showonmap))
-                uad.ShowOnMap = true;
-            else uad.ShowOnMap = false;
+            _uad.ShowOnMap = !string.IsNullOrEmpty(showonmap);
 
-            uad.Set();
+            _uad.Set();
 
             string username = Request.Form["username"].Trim();
             bool isNewUserName = false;
-            bool isValidName = false;
+            bool isValidName;
 
             try
             {
-                isValidName = !System.Text.RegularExpressions.Regex.IsMatch(@"[A-Za-z][A-Za-z0-9_]{3,14}", username);
+                isValidName = !Regex.IsMatch(@"[A-Za-z][A-Za-z0-9_]{3,14}", username);
             }
             catch
             {
@@ -2696,68 +2429,64 @@ namespace DasKlub.Controllers
                 isValidName = false;
             }
 
-            if (mu.UserName != username && isValidName)
+            if (_mu.UserName != username && isValidName)
             {
                 // TODO: PUT IN ALL THE SAME VALIDATION AS REGISTRATION
                 isNewUserName = true;
-                UserAccount newUsername = new UserAccount(username.Replace(":", string.Empty) /* still annoying errors */);
+                var newUsername = new UserAccount(username.Replace(":", string.Empty) /* still annoying errors */);
 
                 if (newUsername.UserAccountID != 0)
                 {
                     ViewBag.IsValid = false;
-                    ModelState.AddModelError("", BootBaronLib.Resources.Messages.AlreadyInUse + ": " + BootBaronLib.Resources.Messages.UserName);
-                    uad = new UserAccountDetail();
+                    ModelState.AddModelError("", Messages.AlreadyInUse + @": " + Messages.UserName);
+                    _uad = new UserAccountDetail();
 
-                    uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
-                    mu = Membership.GetUser();
+                    _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
+                    _mu = Membership.GetUser();
 
-                    ViewBag.UserAccountDetail = uad;
-                    ViewBag.Membership = mu;
+                    ViewBag.UserAccountDetail = _uad;
+                    ViewBag.Membership = _mu;
                     return View();
                 }
-                else
+                if (!Utilities.IsEmail(Request.Form["email"]))
                 {
-                    if (!Utilities.IsEmail(Request.Form["email"]))
-                    {
-                        ViewBag.IsValid = false;
-                        ModelState.AddModelError("", BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.EMail);
-                        return View();
-                    }
-                    else if (Request.Form["email"].Trim() != ua.EMail)
-                    {
-                        ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
-                        ua.EMail = Request.Form["email"];
-                        ua.Update();
-                    }
-
-                    ua.UserName = username;
-                    ua.Update();
-                    FormsAuthentication.SetAuthCookie(username, false);
-                    ViewBag.IsValid = true;
+                    ViewBag.IsValid = false;
+                    ModelState.AddModelError("", Messages.Invalid + @": " + Messages.EMail);
+                    return View();
                 }
+                if (Request.Form["email"].Trim() != _ua.EMail)
+                {
+                    _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey)) {EMail = Request.Form["email"]};
+                    _ua.Update();
+                }
+
+                _ua.UserName = username;
+                _ua.Update();
+                FormsAuthentication.SetAuthCookie(username, false);
+                ViewBag.IsValid = true;
             }
             else if (!Utilities.IsEmail(Request.Form["email"]))
             {
                 ViewBag.IsValid = false;
-                ModelState.AddModelError("", BootBaronLib.Resources.Messages.Invalid + ": " + BootBaronLib.Resources.Messages.EMail);
+                ModelState.AddModelError("", Messages.Invalid + @": " + Messages.EMail);
                 return View();
             }
-            else if (Request.Form["email"].Trim() != ua.EMail)
+            else if (Request.Form["email"].Trim() != _ua.EMail)
             {
-                ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
-                ua.EMail = Request.Form["email"];
-                ua.Update();
+                _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
+                _ua.EMail = Request.Form["email"];
+                _ua.Update();
             }
 
             ViewBag.ProfileUpdated = true;
 
-            uad = new UserAccountDetail();
+            _uad = new UserAccountDetail();
 
-            uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
-            mu = Membership.GetUser();
+            _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
+            _mu = Membership.GetUser();
 
-            ViewBag.UserAccountDetail = uad;
-            ViewBag.Membership = mu;
+            ViewBag.UserAccountDetail = _uad;
+            ViewBag.Membership = _mu;
 
             if (isNewUserName)
             {
@@ -2770,20 +2499,20 @@ namespace DasKlub.Controllers
 
         #endregion
 
-
-
         [Authorize]
         [HttpGet]
         public ActionResult DeleteVideo(int? id)
         {
-            var model = new BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content(Convert.ToInt32(id));
+            var model = new Content(Convert.ToInt32(id));
 
-            S3Service s3 = new S3Service();
+            var s3 = new S3Service
+                {
+                    AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                    SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+                };
 
-            s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
-            s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
-
-            if (!string.IsNullOrWhiteSpace(model.ContentVideoURL) && s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL))
+            if (!string.IsNullOrWhiteSpace(model.ContentVideoURL) &&
+                s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL))
             {
                 s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL);
 
@@ -2791,7 +2520,8 @@ namespace DasKlub.Controllers
                 model.Set();
             }
 
-            if (!string.IsNullOrWhiteSpace(model.ContentVideoURL2) && s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL2))
+            if (!string.IsNullOrWhiteSpace(model.ContentVideoURL2) &&
+                s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL2))
             {
                 s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL2);
 
@@ -2800,121 +2530,50 @@ namespace DasKlub.Controllers
             }
 
 
-
-            return RedirectToAction("EditArticle", new { @id = model.ContentID });
+            return RedirectToAction("EditArticle", new {@id = model.ContentID});
         }
 
         #region status updates
 
-
-        //public static Image RotateImage(Image img, float rotationAngle)
-        //{
-        //    //create an empty Bitmap image
-        //    Bitmap bmp = new Bitmap(img.Width, img.Height);
-
-        //    //turn the Bitmap into a Graphics object
-        //    Graphics gfx = Graphics.FromImage(bmp);
-
-        //    //now we set the rotation point to the center of our image
-        //    gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
-
-        //    //now rotate the image
-        //    gfx.RotateTransform(rotationAngle);
-
-        //    gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);
-
-        //    //set the InterpolationMode to HighQualityBicubic so to ensure a high
-        //    //quality image once it is transformed to the specified size
-        //    gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-        //    //now draw our new image onto the graphics object
-        //    gfx.DrawImage(img, new Point(0, 0));
-
-        //    //dispose of our Graphics object
-        //    gfx.Dispose();
-
-        //    //return the image
-        //    return bmp;
-        //}
-
-        //public static Bitmap RotateImage(Image image, PointF offset, float angle)
-        //{
-        //    int R1, R2;
-        //    R1 = R2 = 0;
-        //    if (image.Width > image.Height)
-        //        R2 = image.Width - image.Height;
-        //    else
-        //        R1 = image.Height - image.Width;
-
-        //    if (image == null)
-        //        throw new ArgumentNullException("image");
-
-        //    //create a new empty bitmap to hold rotated image
-        //    Bitmap rotatedBmp = new Bitmap(image.Width + R1 + 40, image.Height + R2 + 40);
-        //    rotatedBmp.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
-        //    //make a graphics object from the empty bitmap
-        //    Graphics g = Graphics.FromImage(rotatedBmp);
-
-        //    //Put the rotation point in the center of the image
-        //    g.TranslateTransform(offset.X + R1 / 2 + 20, offset.Y + R2 / 2 + 20);
-
-        //    //rotate the image
-        //    g.RotateTransform(angle);
-
-        //    //move the image back
-        //    g.TranslateTransform(-offset.X - R1 / 2 - 20, -offset.Y - R2 / 2 - 20);
-
-        //    //draw passed in image onto graphics object 
-        //    g.DrawImage(image, new PointF(R1 / 2 + 20, R2 / 2 + 20));
-
-        //    return rotatedBmp;
-        //}
-
-        /// <summary>
-        /// Function to download Image from website
-        /// </summary>
-        /// <param name="_URL">URL address to download image</param>
-        /// <returns>Image</returns>
-        public Image DownloadImage(string _URL)
+        public Image DownloadImage(string url)
         {
-            Image _tmpImage = null;
+            Image tmpImage = null;
 
             try
             {
                 // Open a connection
-                System.Net.HttpWebRequest _HttpWebRequest = (System.Net.HttpWebRequest)System.Net.HttpWebRequest.Create(_URL);
+                var httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
 
-                _HttpWebRequest.AllowWriteStreamBuffering = true;
+                httpWebRequest.AllowWriteStreamBuffering = true;
 
                 // You can also specify additional header values like the user agent or the referer: (Optional)
-                _HttpWebRequest.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)";
-                _HttpWebRequest.Referer = "http://www.google.com/";
+                httpWebRequest.UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)";
+                httpWebRequest.Referer = "http://www.google.com/";
 
                 // set timeout for 20 seconds (Optional)
-                _HttpWebRequest.Timeout = 20000;
+                httpWebRequest.Timeout = 20000;
 
                 // Request response:
-                System.Net.WebResponse _WebResponse = _HttpWebRequest.GetResponse();
+                WebResponse webResponse = httpWebRequest.GetResponse();
 
                 // Open data stream:
-                System.IO.Stream _WebStream = _WebResponse.GetResponseStream();
+                Stream webStream = webResponse.GetResponseStream();
 
                 // convert webstream to image
-                _tmpImage = Image.FromStream(_WebStream);
+                if (webStream != null) tmpImage = Image.FromStream(webStream);
 
                 // Cleanup
-                _WebResponse.Close();
-                _WebResponse.Close();
+                webResponse.Close();
+                webResponse.Close();
             }
-            catch (Exception _Exception)
+            catch (Exception exception)
             {
                 // Error
-                Console.WriteLine("Exception caught in process: {0}", _Exception.ToString());
+                Console.WriteLine(@"Exception caught in process: {0}", exception);
                 return null;
             }
 
-            return _tmpImage;
+            return tmpImage;
         }
 
         [HttpPost]
@@ -2923,7 +2582,7 @@ namespace DasKlub.Controllers
         {
             if (Request.Form["delete_status_id"] != null)
             {
-                StatusUpdate su = new StatusUpdate(
+                var su = new StatusUpdate(
                     Convert.ToInt32(Request.Form["delete_status_id"])
                     );
 
@@ -2936,114 +2595,76 @@ namespace DasKlub.Controllers
             else if (Request.Form["status_update_id_beat"] != null ||
                      Request.Form["status_update_id_applaud"] != null)
             {
-                mu = Membership.GetUser();
+                _mu = Membership.GetUser();
 
-                Acknowledgement ack = new Acknowledgement();
-
-                ack.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
-                ack.UserAccountID = Convert.ToInt32(mu.ProviderUserKey);
-
-                if (Request.Form["status_update_id_beat"] != null)
+                if (_mu != null)
                 {
-                    ack.AcknowledgementType = 'B';
-                    ack.StatusUpdateID = Convert.ToInt32(Request.Form["status_update_id_beat"]);
-                }
-                else if (Request.Form["status_update_id_applaud"] != null)
-                {
-                    ack.AcknowledgementType = 'A';
-                    ack.StatusUpdateID = Convert.ToInt32(Request.Form["status_update_id_applaud"]);
-                }
+                    var ack = new Acknowledgement
+                        {
+                            CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey),
+                            UserAccountID = Convert.ToInt32(_mu.ProviderUserKey)
+                        };
 
-                if (!Acknowledgement.IsUserAcknowledgement(ack.StatusUpdateID, ack.UserAccountID))
-                {
-                    ack.Create();
+                    if (Request.Form["status_update_id_beat"] != null)
+                    {
+                        ack.AcknowledgementType = 'B';
+                        ack.StatusUpdateID = Convert.ToInt32(Request.Form["status_update_id_beat"]);
+                    }
+                    else if (Request.Form["status_update_id_applaud"] != null)
+                    {
+                        ack.AcknowledgementType = 'A';
+                        ack.StatusUpdateID = Convert.ToInt32(Request.Form["status_update_id_applaud"]);
+                    }
+
+                    if (!Acknowledgement.IsUserAcknowledgement(ack.StatusUpdateID, ack.UserAccountID))
+                    {
+                        ack.Create();
+                    }
                 }
             }
 
             return RedirectToAction("Home");
         }
 
-        //        /// <summary>
-        ///// Creates a new Image containing the same image only rotated
-        ///// </summary>
-        ///// <param name="image">The <see cref="System.Drawing.Image"/> to rotate</param>
-        ///// <param name="angle">The amount to rotate the image, clockwise, in degrees</param>
-        ///// <returns>A new <see cref="System.Drawing.Bitmap"/> of the same size rotated.</returns>
-        ///// <exception cref="System.ArgumentNullException">Thrown if <see cref="image"/> is null.</exception>
-        //public static Bitmap RotateImage(Image image, float angle)
-        //{
-        //    return RotateImage(image, new PointF((float)image.Width / 2, (float)image.Height / 2), angle);
-        //}
-
-        ///// <summary>
-        ///// Creates a new Image containing the same image only rotated
-        ///// </summary>
-        ///// <param name="image">The <see cref="System.Drawing.Image"/> to rotate</param>
-        ///// <param name="offset">The position to rotate from.</param>
-        ///// <param name="angle">The amount to rotate the image, clockwise, in degrees</param>
-        ///// <returns>A new <see cref="System.Drawing.Bitmap"/> of the same size rotated.</returns>
-        ///// <exception cref="System.ArgumentNullException">Thrown if <see cref="image"/> is null.</exception>
-        //public static Bitmap RotateImage(Image image, PointF offset, float angle)
-        //{
-        //    if (image == null)
-        //        throw new ArgumentNullException("image");
-
-        //    //create a new empty bitmap to hold rotated image
-        //    Bitmap rotatedBmp = new Bitmap(image.Width, image.Height);
-        //    rotatedBmp.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
-        //    //make a graphics object from the empty bitmap
-        //    Graphics g = Graphics.FromImage(rotatedBmp);
-
-        //    //Put the rotation point in the center of the image
-        //    g.TranslateTransform(offset.X, offset.Y);
-
-        //    //rotate the image
-        //    g.RotateTransform(angle);
-
-        //    //move the image back
-        //    g.TranslateTransform(-offset.X, -offset.Y);
-
-        //    //draw passed in image onto graphics object
-        //    g.DrawImage(image, new PointF(0, 0));
-
-        //    return rotatedBmp;
-        //}
-
-
 
         /// <summary>
-        /// Creates a new Image containing the same image only rotated
+        ///     Creates a new Image containing the same image only rotated
         /// </summary>
-        /// <param name="image">The <see cref="System.Drawing.Image"/> to rotate</param>
+        /// <param name="image">
+        ///     The <see cref="System.Drawing.Image" /> to rotate
+        /// </param>
         /// <param name="angle">The amount to rotate the image, clockwise, in degrees</param>
-        /// <returns>A new <see cref="System.Drawing.Bitmap"/> that is just large enough
-        /// to contain the rotated image without cutting any corners off.</returns>
-        /// <exception cref="System.ArgumentNullException">Thrown if <see cref="image"/> is null.</exception>
+        /// <returns>
+        ///     A new <see cref="System.Drawing.Bitmap" /> that is just large enough
+        ///     to contain the rotated image without cutting any corners off.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        ///     Thrown if <see cref="image" /> is null.
+        /// </exception>
         public static Bitmap RotateImage(Image image, float angle)
         {
             if (image == null)
                 throw new ArgumentNullException("image");
 
-            const double pi2 = Math.PI / 2.0;
+            const double pi2 = Math.PI/2.0;
 
             // Why can't C# allow these to be const, or at least readonly
             // *sigh*  I'm starting to talk like Christian Graus :omg:
-            double oldWidth = (double)image.Width;
-            double oldHeight = (double)image.Height;
+            double oldWidth = image.Width;
+            double oldHeight = image.Height;
 
             // Convert degrees to radians
-            double theta = ((double)angle) * Math.PI / 180.0;
-            double locked_theta = theta;
+            double theta = (angle)*Math.PI/180.0;
+            double lockedTheta = theta;
 
             // Ensure theta is now [0, 2pi)
-            while (locked_theta < 0.0)
-                locked_theta += 2 * Math.PI;
+            while (lockedTheta < 0.0)
+                lockedTheta += 2*Math.PI;
 
-            double newWidth, newHeight;
-            int nWidth, nHeight; // The newWidth/newHeight expressed as ints
+            int nHeight; // The newWidth/newHeight expressed as ints
 
             #region Explaination of the calculations
+
             /*
 			 * The trig involved in calculating the new width and height
 			 * is fairly simple; the hard part was remembering that when 
@@ -3092,6 +2713,7 @@ namespace DasKlub.Controllers
 			 * oppositeBottom while the height is calculate by adding 
 			 * together adjacentBottom and oppositeTop.
 			 */
+
             #endregion
 
             double adjacentTop, oppositeTop;
@@ -3101,31 +2723,31 @@ namespace DasKlub.Controllers
             // on how much rotation is being done to the bitmap.
             //   Refer to the first paragraph in the explaination above for 
             //   reasons why.
-            if ((locked_theta >= 0.0 && locked_theta < pi2) ||
-                (locked_theta >= Math.PI && locked_theta < (Math.PI + pi2)))
+            if ((lockedTheta >= 0.0 && lockedTheta < pi2) ||
+                (lockedTheta >= Math.PI && lockedTheta < (Math.PI + pi2)))
             {
-                adjacentTop = Math.Abs(Math.Cos(locked_theta)) * oldWidth;
-                oppositeTop = Math.Abs(Math.Sin(locked_theta)) * oldWidth;
+                adjacentTop = Math.Abs(Math.Cos(lockedTheta))*oldWidth;
+                oppositeTop = Math.Abs(Math.Sin(lockedTheta))*oldWidth;
 
-                adjacentBottom = Math.Abs(Math.Cos(locked_theta)) * oldHeight;
-                oppositeBottom = Math.Abs(Math.Sin(locked_theta)) * oldHeight;
+                adjacentBottom = Math.Abs(Math.Cos(lockedTheta))*oldHeight;
+                oppositeBottom = Math.Abs(Math.Sin(lockedTheta))*oldHeight;
             }
             else
             {
-                adjacentTop = Math.Abs(Math.Sin(locked_theta)) * oldHeight;
-                oppositeTop = Math.Abs(Math.Cos(locked_theta)) * oldHeight;
+                adjacentTop = Math.Abs(Math.Sin(lockedTheta))*oldHeight;
+                oppositeTop = Math.Abs(Math.Cos(lockedTheta))*oldHeight;
 
-                adjacentBottom = Math.Abs(Math.Sin(locked_theta)) * oldWidth;
-                oppositeBottom = Math.Abs(Math.Cos(locked_theta)) * oldWidth;
+                adjacentBottom = Math.Abs(Math.Sin(lockedTheta))*oldWidth;
+                oppositeBottom = Math.Abs(Math.Cos(lockedTheta))*oldWidth;
             }
 
-            newWidth = adjacentTop + oppositeBottom;
-            newHeight = adjacentBottom + oppositeTop;
+            double newWidth = adjacentTop + oppositeBottom;
+            double newHeight = adjacentBottom + oppositeTop;
 
-            nWidth = (int)Math.Ceiling(newWidth);
-            nHeight = (int)Math.Ceiling(newHeight);
+            var nWidth = (int) Math.Ceiling(newWidth);
+            nHeight = (int) Math.Ceiling(newHeight);
 
-            Bitmap rotatedBmp = new Bitmap(nWidth, nHeight);
+            var rotatedBmp = new Bitmap(nWidth, nHeight);
 
             using (Graphics g = Graphics.FromImage(rotatedBmp))
             {
@@ -3146,38 +2768,41 @@ namespace DasKlub.Controllers
                  * then the bitmap we are drawing on WOULDN'T be the bounding box
                  * as required.
                  */
-                if (locked_theta >= 0.0 && locked_theta < pi2)
+                if (lockedTheta >= 0.0 && lockedTheta < pi2)
                 {
-                    points = new Point[] { 
-											 new Point( (int) oppositeBottom, 0 ), 
-											 new Point( nWidth, (int) oppositeTop ),
-											 new Point( 0, (int) adjacentBottom )
-										 };
-
+                    points = new[]
+                        {
+                            new Point((int) oppositeBottom, 0),
+                            new Point(nWidth, (int) oppositeTop),
+                            new Point(0, (int) adjacentBottom)
+                        };
                 }
-                else if (locked_theta >= pi2 && locked_theta < Math.PI)
+                else if (lockedTheta >= pi2 && lockedTheta < Math.PI)
                 {
-                    points = new Point[] { 
-											 new Point( nWidth, (int) oppositeTop ),
-											 new Point( (int) adjacentTop, nHeight ),
-											 new Point( (int) oppositeBottom, 0 )						 
-										 };
+                    points = new[]
+                        {
+                            new Point(nWidth, (int) oppositeTop),
+                            new Point((int) adjacentTop, nHeight),
+                            new Point((int) oppositeBottom, 0)
+                        };
                 }
-                else if (locked_theta >= Math.PI && locked_theta < (Math.PI + pi2))
+                else if (lockedTheta >= Math.PI && lockedTheta < (Math.PI + pi2))
                 {
-                    points = new Point[] { 
-											 new Point( (int) adjacentTop, nHeight ), 
-											 new Point( 0, (int) adjacentBottom ),
-											 new Point( nWidth, (int) oppositeTop )
-										 };
+                    points = new[]
+                        {
+                            new Point((int) adjacentTop, nHeight),
+                            new Point(0, (int) adjacentBottom),
+                            new Point(nWidth, (int) oppositeTop)
+                        };
                 }
                 else
                 {
-                    points = new Point[] { 
-											 new Point( 0, (int) adjacentBottom ), 
-											 new Point( (int) oppositeBottom, 0 ),
-											 new Point( (int) adjacentTop, nHeight )		
-										 };
+                    points = new[]
+                        {
+                            new Point(0, (int) adjacentBottom),
+                            new Point((int) oppositeBottom, 0),
+                            new Point((int) adjacentTop, nHeight)
+                        };
                 }
 
                 g.DrawImage(image, points);
@@ -3190,29 +2815,29 @@ namespace DasKlub.Controllers
         [Authorize]
         public ActionResult RotateStatusImage(int statusUpdateID)
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            StatusUpdate su = new StatusUpdate(statusUpdateID);
+            var su = new StatusUpdate(statusUpdateID);
 
             if (su.PhotoItemID != null && su.PhotoItemID > 0)
             {
                 var acl = CannedAcl.PublicRead;
 
-                S3Service s3 = new S3Service();
+                var s3 = new S3Service();
 
                 s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
                 s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
 
-                PhotoItem pitm = new PhotoItem(Convert.ToInt32(su.PhotoItemID));
+                var pitm = new PhotoItem(Convert.ToInt32(su.PhotoItemID));
 
                 // full
                 Image imgFull = DownloadImage(Utilities.S3ContentPath(pitm.FilePathRaw));
 
-                float angle = 90;
+                const float angle = 90;
 
                 Bitmap b = RotateImage(imgFull, angle);
 
-                System.Drawing.Image fullPhoto = (System.Drawing.Image)b;
+                Image fullPhoto = b;
 
                 string fileNameFull = Guid.NewGuid() + ".jpg";
 
@@ -3235,11 +2860,11 @@ namespace DasKlub.Controllers
 
 
                 // resized
-                System.Drawing.Image photoResized = (System.Drawing.Image)b;
+                Image photoResized = b;
 
                 string fileNameResize = Guid.NewGuid() + ".jpg";
 
-                photoResized = ImageResize.FixedSize(photoResized, 500, 375, System.Drawing.Color.Black);
+                photoResized = ImageResize.FixedSize(photoResized, 500, 375, Color.Black);
 
                 maker = photoResized.ToAStream(ImageFormat.Jpeg);
 
@@ -3259,7 +2884,7 @@ namespace DasKlub.Controllers
                 pitm.FilePathStandard = fileNameResize;
 
                 // thumb
-                System.Drawing.Image thumbPhoto = (System.Drawing.Image)b;
+                Image thumbPhoto = b;
 
                 thumbPhoto = ImageResize.Crop(thumbPhoto, 150, 150, ImageResize.AnchorPosition.Center);
 
@@ -3272,7 +2897,7 @@ namespace DasKlub.Controllers
                     maker.Length,
                     AmazonCloudConfigs.AmazonBucketName,
                     fileNameThumb,
-                   "image/jpg",
+                    "image/jpg",
                     acl);
 
                 if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, pitm.FilePathThumb))
@@ -3283,48 +2908,45 @@ namespace DasKlub.Controllers
                 pitm.FilePathThumb = fileNameThumb;
 
                 pitm.Update();
-
-
-
             }
 
-            return RedirectToAction("statusupdate", new { @statusUpdateID = statusUpdateID });
+            return RedirectToAction("statusupdate", new {statusUpdateID});
         }
 
         [Authorize]
         public JsonResult StatusUpdates(int pageNumber)
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
+            if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
-            ViewBag.CurrentUser = ua.ToUnorderdListItem;
+            ViewBag.CurrentUser = _ua.ToUnorderdListItem;
 
-            StatusUpdates preFilter = new StatusUpdates();
+            var preFilter = new StatusUpdates();
 
             preFilter.GetStatusUpdatesPageWise(pageNumber, 5);
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.StatusUpdate cnt in preFilter)
+            foreach (StatusUpdate cnt in preFilter)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
 
             return Json(new
-            {
-                ListItems = sb.ToString()
-            });
+                {
+                    ListItems = sb.ToString()
+                });
         }
 
         [HttpGet]
         [Authorize]
         public ActionResult StatusUpdate(int statusUpdateID)
         {
-            StatusUpdate su = new StatusUpdate(statusUpdateID);
+            var su = new StatusUpdate(statusUpdateID);
             su.PhotoDisplay = false;
 
-            StatusUpdates sus = new StatusUpdates();
+            var sus = new StatusUpdates();
             sus.Add(su);
 
             sus.IncludeStartAndEndTags = false;
@@ -3337,7 +2959,6 @@ namespace DasKlub.Controllers
 
         #region home
 
-
         [HttpPost]
         [Authorize]
         public ActionResult Home(string message, HttpPostedFileBase file)
@@ -3347,53 +2968,46 @@ namespace DasKlub.Controllers
                 return RedirectToAction("Home");
             }
 
-            message = message.Trim();
+            if (message != null) message = message.Trim();
 
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
-            //StatusUpdates sus = null;
+            if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
-            ViewBag.CurrentUser = ua.ToUnorderdListItem;
+            ViewBag.CurrentUser = _ua.ToUnorderdListItem;
 
-            StatusUpdate su = new StatusUpdate();
+            var su = new StatusUpdate();
 
-            su.GetMostRecentUserStatus(ua.UserAccountID);
+            su.GetMostRecentUserStatus(_ua.UserAccountID);
 
             DateTime startTime = Utilities.GetDataBaseTime();
 
             TimeSpan span = startTime.Subtract(su.CreateDate);
 
-            //su = new StatusUpdate();
             // TODO: this is not working properly, preventing posts
             if (su.Message == message && file == null)
             {
                 // double post
                 return RedirectToAction("Home");
             }
-            else
-            {
-                su = new StatusUpdate();
-            }
+            su = new StatusUpdate();
 
             if (file != null && Utilities.IsImageFile(file.FileName))
             {
-                Bitmap b = new Bitmap(file.InputStream);
+                var b = new Bitmap(file.InputStream);
 
-                var acl = CannedAcl.PublicRead;
+                const CannedAcl acl = CannedAcl.PublicRead;
 
-                S3Service s3 = new S3Service();
+                var s3 = new S3Service
+                    {
+                        AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                        SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+                    };
 
-                s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
-                s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
-
-                PhotoItem pitem = new PhotoItem();
-
-                pitem.CreatedByUserID = ua.UserAccountID;
-                pitem.Title = message;
+                var pitem = new PhotoItem {CreatedByUserID = _ua.UserAccountID, Title = message};
 
                 // full
-                System.Drawing.Image fullPhoto = (System.Drawing.Image)b;
+                Image fullPhoto = b;
 
                 string fileNameFull = Utilities.CreateUniqueContentFilename(file);
 
@@ -3410,11 +3024,11 @@ namespace DasKlub.Controllers
                 pitem.FilePathRaw = fileNameFull;
 
                 // resized
-                System.Drawing.Image photoResized = (System.Drawing.Image)b;
+                Image photoResized = b;
 
                 string fileNameResize = Utilities.CreateUniqueContentFilename(file);
 
-                photoResized = ImageResize.FixedSize(photoResized, 500, 375, System.Drawing.Color.Black);
+                photoResized = ImageResize.FixedSize(photoResized, 500, 375, Color.Black);
 
                 maker = photoResized.ToAStream(ImageFormat.Jpeg);
 
@@ -3429,7 +3043,7 @@ namespace DasKlub.Controllers
                 pitem.FilePathStandard = fileNameResize;
 
                 // thumb
-                System.Drawing.Image thumbPhoto = (System.Drawing.Image)b;
+                Image thumbPhoto = b;
 
                 thumbPhoto = ImageResize.Crop(thumbPhoto, 150, 150, ImageResize.AnchorPosition.Center);
 
@@ -3452,9 +3066,9 @@ namespace DasKlub.Controllers
                 su.PhotoItemID = pitem.PhotoItemID;
             }
 
-            su.UserAccountID = ua.UserAccountID;
+            su.UserAccountID = _ua.UserAccountID;
             su.Message = message;
-            su.CreatedByUserID = ua.UserAccountID;
+            su.CreatedByUserID = _ua.UserAccountID;
             su.IsMobile = Request.Browser.IsMobileDevice;
             su.Create();
 
@@ -3463,38 +3077,35 @@ namespace DasKlub.Controllers
                 // this will bring them to the post
                 return new RedirectResult(Url.Action("Home") + "#most_recent");
             }
-            else
-            {
-                // the menu prevents brining to post correctly
-                return RedirectToAction("Home");
-            }
+            // the menu prevents brining to post correctly
+            return RedirectToAction("Home");
         }
 
         [HttpGet]
         [Authorize]
         public ActionResult Home()
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            if (mu == null)
+            if (_mu == null)
             {
                 return RedirectToAction("LogOff");
             }
 
-            ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
+            _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
-            ViewBag.CurrentUser = ua.ToUnorderdListItem;
+            ViewBag.CurrentUser = _ua.ToUnorderdListItem;
 
-            StatusUpdates preFilter = new StatusUpdates();
+            var preFilter = new StatusUpdates();
 
-            preFilter.GetStatusUpdatesPageWise(1, pageSize);
+            preFilter.GetStatusUpdatesPageWise(1, PageSize);
 
-            StatusUpdates sus = new StatusUpdates();
+            var sus = new StatusUpdates();
 
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.StatusUpdate su1
+            foreach (StatusUpdate su1
                 in preFilter)
             {
-                if (!BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockingUser(ua.UserAccountID, su1.UserAccountID))
+                if (!BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockingUser(_ua.UserAccountID, su1.UserAccountID))
                 {
                     sus.Add(su1);
                 }
@@ -3503,15 +3114,14 @@ namespace DasKlub.Controllers
             sus.IncludeStartAndEndTags = false;
             ViewBag.StatusUpdateList = string.Format(@"<ul id=""status_update_list_items"">{0}</ul>", sus.ToUnorderdList);
 
-            StatusUpdateNotifications suns = new StatusUpdateNotifications();
-            suns.GetStatusUpdateNotificationsForUser(ua.UserAccountID);
+            var suns = new StatusUpdateNotifications();
+            suns.GetStatusUpdateNotificationsForUser(_ua.UserAccountID);
 
             if (suns.Count > 0)
             {
-                suns.Sort(delegate(StatusUpdateNotification p1, StatusUpdateNotification p2)
-                {
-                    return p1.CreateDate.CompareTo(p2.CreateDate);
-                });
+                suns.Sort(
+                    delegate(StatusUpdateNotification p1, StatusUpdateNotification p2)
+                        { return p1.CreateDate.CompareTo(p2.CreateDate); });
 
                 ViewBag.Notifications = suns;
 
@@ -3523,31 +3133,23 @@ namespace DasKlub.Controllers
             }
 
 
-
-
-
-            StatusUpdates applauseResult = new StatusUpdates();
+            var applauseResult = new StatusUpdates();
             applauseResult.GetMostAcknowledgedStatus(7, 'A');
             if (applauseResult.Count > 0)
             {
                 ViewBag.MostApplauded = applauseResult;
             }
 
-            StatusUpdate beatDownResult = new BootBaronLib.AppSpec.DasKlub.BOL.StatusUpdate();
-            beatDownResult = new StatusUpdate();
+            var beatDownResult = new StatusUpdate();
             beatDownResult.GetMostAcknowledgedStatus(7, 'B');
 
             bool isAlreadyApplauded = false;
 
             if (beatDownResult.StatusUpdateID > 0)
             {
-                foreach (StatusUpdate ssr1 in applauseResult)
+                if (applauseResult.Any(ssr1 => beatDownResult.StatusUpdateID == ssr1.StatusUpdateID))
                 {
-                    if (beatDownResult.StatusUpdateID == ssr1.StatusUpdateID)
-                    {
-                        isAlreadyApplauded = true;
-                        break;
-                    }
+                    isAlreadyApplauded = true;
                 }
             }
 
@@ -3557,9 +3159,9 @@ namespace DasKlub.Controllers
             }
 
             //
-            StatusUpdate commentResponse
-            = new BootBaronLib.AppSpec.DasKlub.BOL.StatusUpdate(
-            StatusComments.GetMostCommentedOnStatus(DateTime.UtcNow.AddDays(-7)));
+            var commentResponse
+                = new StatusUpdate(
+                    StatusComments.GetMostCommentedOnStatus(DateTime.UtcNow.AddDays(-7)));
 
             bool isAlreadyCommented = false;
 
@@ -3571,19 +3173,15 @@ namespace DasKlub.Controllers
                 }
             }
 
-            if (!isAlreadyCommented && beatDownResult.StatusUpdateID != commentResponse.StatusUpdateID && commentResponse.StatusUpdateID > 0)
+            if (!isAlreadyCommented && beatDownResult.StatusUpdateID != commentResponse.StatusUpdateID &&
+                commentResponse.StatusUpdateID > 0)
             {
                 // only show if the most commented is different from most beat down or applauded
                 ViewBag.MostCommented = commentResponse;
             }
 
             return View();
-
         }
-
-
-
-
 
         #endregion
 
@@ -3592,7 +3190,7 @@ namespace DasKlub.Controllers
         [HttpPost]
         public ActionResult ForgotPassword(string email)
         {
-            UserAccount ua = new UserAccount();
+            var ua = new UserAccount();
             ua.GetUserAccountByEmail(email);
 
             if (ua.UserAccountID == 0)
@@ -3606,14 +3204,17 @@ namespace DasKlub.Controllers
                 ua.IsLockedOut = false;
                 ua.Update();
 
-                mu = Membership.GetUser(ua.UserName);
-                string newPassword = mu.ResetPassword();
+                _mu = Membership.GetUser(ua.UserName);
+                if (_mu != null)
+                {
+                    string newPassword = _mu.ResetPassword();
 
-                BootBaronLib.Operational.Utilities.SendMail(email, BootBaronLib.Configs.AmazonCloudConfigs.SendFromEmail, Messages.PasswordReset,
-                   Messages.UserName + ": " + ua.UserName + Environment.NewLine +
-                    Environment.NewLine + Messages.NewPassword + ": " + newPassword +
-                    Environment.NewLine +
-                Environment.NewLine + Messages.SignIn + ": " + BootBaronLib.Configs.GeneralConfigs.SiteDomain);
+                    Utilities.SendMail(email, AmazonCloudConfigs.SendFromEmail, Messages.PasswordReset,
+                                       Messages.UserName + ": " + ua.UserName + Environment.NewLine +
+                                       Environment.NewLine + Messages.NewPassword + ": " + newPassword +
+                                       Environment.NewLine +
+                                       Environment.NewLine + Messages.SignIn + ": " + GeneralConfigs.SiteDomain);
+                }
 
                 ViewBag.Result = Messages.CheckYourEmailAndSpamFolder;
             }
@@ -3628,7 +3229,5 @@ namespace DasKlub.Controllers
         }
 
         #endregion
-
     }
 }
-

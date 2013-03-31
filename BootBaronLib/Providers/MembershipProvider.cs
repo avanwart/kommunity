@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -23,10 +24,11 @@ using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Enums;
+using BootBaronLib.Operational;
 using BootBaronLib.Resources;
+using BootBaronLib.Values;
 
-namespace DK.ASPNET.DKMembership
+namespace BootBaronLib.Providers
 {
     /// <summary>
     /// The membership provider for the site
@@ -554,7 +556,7 @@ namespace DK.ASPNET.DKMembership
         {
             if (!EnablePasswordRetrieval) throw new ProviderException(Messages.PasswordRetrievalNotEnabled);
 
-            string password = BootBaronLib.Operational.Encryption.RandomPassword.Generate(8, 10);// string.Empty;
+            string password = RandomPassword.Generate(8, 10);// string.Empty;
 
             UserAccount eu = new UserAccount(username);
 

@@ -1,8 +1,9 @@
 ﻿@using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 @using BootBaronLib.Resources;
+@using BootBaronLib.Values
 @{
     ViewBag.Title =  BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                   BootBaronLib.Enums.SiteEnums.SiteBrandType.TAGLN, 
+                   SiteEnums.SiteBrandType.TAGLN, 
                    BootBaronLib.Operational.Utilities.GetCurrentLanguageCode());
 
     ViewBag.MetaDescription = "Das Klub is an international industrial dance community which connects artists, dancers and creative people.";
@@ -41,9 +42,9 @@
           <div class="span4">
              
 
-                  @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                   BootBaronLib.Enums.SiteEnums.SiteBrandType.HOMEC, 
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode())) 
+              @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                  SiteEnums.SiteBrandType.HOMEC, 
+                  BootBaronLib.Operational.Utilities.GetCurrentLanguageCode())) 
 
               <hr />
                 
@@ -178,9 +179,9 @@
 @section _javascriptHead {
 
   
-                  @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                   BootBaronLib.Enums.SiteEnums.SiteBrandType.HOMES,
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+    @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+        SiteEnums.SiteBrandType.HOMES,
+        BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
 
 
 }
@@ -191,10 +192,10 @@
 
 
     @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                   BootBaronLib.Enums.SiteEnums.SiteBrandType.HOMEB, 
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+        SiteEnums.SiteBrandType.HOMEB, 
+        BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
 
-      <script type="text/javascript">
+    <script type="text/javascript">
           $("#download1").click(function () {
 
 

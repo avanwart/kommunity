@@ -21,8 +21,8 @@ using System.Threading;
 using System.Web.Mvc;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Enums;
 using BootBaronLib.Operational;
+using BootBaronLib.Values;
 using DasKlub.Models;
 
 namespace DasKlub.Controllers

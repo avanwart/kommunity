@@ -22,16 +22,15 @@ using System.Web.UI;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
-using BootBaronLib.Operational.Converters;
 using System.Web.Security;
 
 using System.Linq;
 using System.Text.RegularExpressions;
 using BootBaronLib.Operational;
 using System.ComponentModel.DataAnnotations;
-using BootBaronLib.Enums;
 using System.Web;
 using BootBaronLib.Resources;
+using BootBaronLib.Values;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
 {

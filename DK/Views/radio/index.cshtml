@@ -1,4 +1,5 @@
-﻿@{
+﻿@using BootBaronLib.Values
+@{
     ViewBag.Title = BootBaronLib.Resources.Messages.Radio;
 }
  
@@ -11,19 +12,15 @@
 
         @if (!Request.Browser.IsMobileDevice)
         {
-
-                        @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                   BootBaronLib.Enums.SiteEnums.SiteBrandType.RADIO,
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
-     
-            
-             
+            @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.RADIO,
+                BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
         }
         else
         {
-                        @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                   BootBaronLib.Enums.SiteEnums.SiteBrandType.RADIM,
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+            @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.RADIM,
+                BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
         }
     </div>
     <div class="span4">

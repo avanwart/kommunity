@@ -177,7 +177,7 @@
             {
                 <h5>@Messages.LatestUpdate</h5>
                 <i>@Utilities.TimeElapsedMessage(Model.LastStatusUpdate)</i>
-                <div class="post_content">@Html.Raw(BootBaronLib.Operational.Converters.FromString.Truncate(Model.MostRecentStatusUpdate, 200))</div>
+                <div class="post_content">@Html.Raw(FromString.Truncate(Model.MostRecentStatusUpdate, 200))</div>
                 <br />
             }
             <hr />

@@ -1,5 +1,6 @@
 ﻿@using BootBaronLib.Resources;
 @using BootBaronLib.Enums;
+@using BootBaronLib.Values
 <!DOCTYPE html>
 
 @{string langName = string.Empty;
@@ -58,9 +59,9 @@
 
 @System.Web.Optimization.Styles.Render("~/Content/mediaelement/css_mediaelement")
 
-         @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                   @BootBaronLib.Enums.SiteEnums.SiteBrandType.STYLE,
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+    @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+        SiteEnums.SiteBrandType.STYLE,
+        BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
     
 
     @RenderSection("_css", false)
@@ -93,8 +94,8 @@
 
 
     @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                   BootBaronLib.Enums.SiteEnums.SiteBrandType.GOOGH,
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+        SiteEnums.SiteBrandType.GOOGH,
+        BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
     @RenderSection("_javascriptHead", false)
 </head>
 <body>

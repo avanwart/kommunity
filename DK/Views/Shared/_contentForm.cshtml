@@ -1,5 +1,7 @@
 ﻿@model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content
            @using System.Linq;
+@using BootBaronLib.Values
+@using DasKlub.Helpers
 @using Web.Helpers
 @Html.HiddenFor(model => model.ContentID)
 <div>
@@ -127,7 +129,7 @@ poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload=
         <div class="editor-field">
    
             @{
-                var listItems = Enum.GetValues(typeof(BootBaronLib.Enums.SiteEnums.SiteLanguages)).OfType<Enum>().Select(e =>
+                var listItems = Enum.GetValues(typeof(SiteEnums.SiteLanguages)).OfType<Enum>().Select(e =>
             new SelectListItem()
             {
                 Text = BootBaronLib.Operational.Utilities.ResourceValue(BootBaronLib.Operational.Utilities.GetEnumDescription(e)),

@@ -22,8 +22,8 @@ using System.Web.Security;
 using System.Web.UI.WebControls;
 using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
-using BootBaronLib.Enums;
 using BootBaronLib.Operational;
+using BootBaronLib.Values;
 
 namespace DasKlub.m.auth
 {

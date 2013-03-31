@@ -1,4 +1,5 @@
-﻿ <!-- 468 x 60 -->
+﻿@using BootBaronLib.Values
+ <!-- 468 x 60 -->
  @{int randomID = BootBaronLib.Operational.Utilities.RandomNumber(1, 4);
 
    switch (randomID)
@@ -6,24 +7,24 @@
 
        case 1:
 
-                  @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                            BootBaronLib.Enums.SiteEnums.SiteBrandType.A4861,
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+           @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+               SiteEnums.SiteBrandType.A4861,
+               BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
            break;
 
        case 2:
- 
-        @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                            BootBaronLib.Enums.SiteEnums.SiteBrandType.A4862,
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+
+           @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+               SiteEnums.SiteBrandType.A4862,
+               BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
            break;
 
            default:
- 
-  
-            @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                            BootBaronLib.Enums.SiteEnums.SiteBrandType.A4863,
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
+
+
+           @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+               SiteEnums.SiteBrandType.A4863,
+               BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))
            break;
    }
    }

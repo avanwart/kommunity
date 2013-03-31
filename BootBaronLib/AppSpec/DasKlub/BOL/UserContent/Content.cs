@@ -25,8 +25,8 @@ using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
 using BootBaronLib.Resources;
+using BootBaronLib.Values;
 
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
@@ -503,7 +503,7 @@ ErrorMessageResourceType = typeof(Resources.Messages))]
             {
                 ContentComments ccoms = new ContentComments();
 
-                ccoms.GetCommentsForContent(this.ContentID, Enums.SiteEnums.CommentStatus.C);
+                ccoms.GetCommentsForContent(this.ContentID, SiteEnums.CommentStatus.C);
 
                 return ccoms;
             }

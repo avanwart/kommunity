@@ -17,7 +17,6 @@ using System;
 using System.Data;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
-using BootBaronLib.Operational.Converters;
 
 namespace BootBaronLib.BaseTypes
 {
