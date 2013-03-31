@@ -834,7 +834,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\BlockedUsers.cshtml" />
-    <Content Include="Views\Account\_Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Chatroom.cshtml" />

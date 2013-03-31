@@ -13,10 +13,12 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Operational;
@@ -27,44 +29,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties
 
-        private int _acknowledgementID = 0;
-
-        public int AcknowledgementID
-        {
-            get { return _acknowledgementID; }
-            set { _acknowledgementID = value; }
-        }
-
         private char _acknowledgementType = char.MinValue;
 
-        /// <summary>
-        /// A = applaud, B = beat
-        /// </summary>
-        public char AcknowledgementType
-        {
-            get { return _acknowledgementType; }
-            set { _acknowledgementType = value; }
-        }
-
-        private int _userAccountID = 0;
-
-        public int UserAccountID
-        {
-            get { return _userAccountID; }
-            set { _userAccountID = value; }
-        }
-
-        private int _statusUpdateID = 0;
-
-        public int StatusUpdateID
-        {
-            get { return _statusUpdateID; }
-            set { _statusUpdateID = value; }
-        }
-
-
-        private int? _statusCommentID = null;
-       
         public Acknowledgement(DataRow dr)
         {
             Get(dr);
@@ -75,27 +41,39 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // TODO: Complete member initialization
         }
 
-        public int? StatusCommentID
+        public int AcknowledgementID { get; set; }
+
+        /// <summary>
+        ///     A = applaud, B = beat
+        /// </summary>
+        public char AcknowledgementType
         {
-            get { return _statusCommentID; }
-            set { _statusCommentID = value; }
+            get { return _acknowledgementType; }
+            set { _acknowledgementType = value; }
         }
+
+        public int UserAccountID { get; set; }
+
+        public int StatusUpdateID { get; set; }
+
+
+        public int? StatusCommentID { get; set; }
 
         #endregion
 
         public override bool Delete()
         {
-            if (this.AcknowledgementID == 0) return false;
+            if (AcknowledgementID == 0) return false;
 
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
 
             // set the stored procedure name
             comm.CommandText = "up_DeleteAcknowledgement";
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.AcknowledgementID), AcknowledgementID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => AcknowledgementID), AcknowledgementID);
 
-           // RemoveCache();
+            // RemoveCache();
 
             // execute the stored procedure
 
@@ -109,26 +87,22 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_AddAcknowledgement";
 
-            ADOExtenstion.AddParameter(comm, "statusUpdateID",  StatusUpdateID);
-            ADOExtenstion.AddParameter(comm, "createdByUserID",  CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "userAccountID",  UserAccountID);
-            ADOExtenstion.AddParameter(comm, "acknowledgementType", AcknowledgementType);
+            comm.AddParameter("statusUpdateID", StatusUpdateID);
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("userAccountID", UserAccountID);
+            comm.AddParameter("acknowledgementType", AcknowledgementType);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
                 return 0;
             }
-            else
-            {
-                this.AcknowledgementID = Convert.ToInt32(result);
+            AcknowledgementID = Convert.ToInt32(result);
 
-                return this.AcknowledgementID;
-            }
+            return AcknowledgementID;
         }
 
         public static bool IsUserAcknowledgement(int statusUpdateID, int userAccountID)
@@ -138,33 +112,32 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_IsUserAcknowledgement";
 
-            ADOExtenstion.AddParameter(comm, "statusUpdateID",   statusUpdateID);
-            ADOExtenstion.AddParameter(comm, "userAccountID",  userAccountID);
+            comm.AddParameter("statusUpdateID", statusUpdateID);
+            comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure
-            return  DbAct.ExecuteScalar(comm) == "1";
+            return DbAct.ExecuteScalar(comm) == "1";
         }
 
-        public override void Get(DataRow dr)
+        public override sealed void Get(DataRow dr)
         {
             base.Get(dr);
 
-            this.AcknowledgementID = FromObj.IntFromObj(dr["acknowledgementID"]);
-            this.AcknowledgementType = FromObj.CharFromObj(dr["acknowledgementType"]);
-            this.StatusUpdateID = FromObj.IntFromObj(dr["statusUpdateID"]);
-            
+            AcknowledgementID = FromObj.IntFromObj(dr["acknowledgementID"]);
+            AcknowledgementType = FromObj.CharFromObj(dr["acknowledgementType"]);
+            StatusUpdateID = FromObj.IntFromObj(dr["statusUpdateID"]);
         }
 
 
-        public void  GetAcknowledgement(int statusUpdateID, int userAccountID)
+        public void GetAcknowledgement(int statusUpdateID, int userAccountID)
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetAcknowledgement";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
-            ADOExtenstion.AddParameter(comm, "statusUpdateID", statusUpdateID);
+            comm.AddParameter("userAccountID", userAccountID);
+            comm.AddParameter("statusUpdateID", statusUpdateID);
 
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
@@ -184,7 +157,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_DeleteAllAcknowledgements";
 
-            ADOExtenstion.AddParameter(comm, "userAccountID",  userAccountID);
+            comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
@@ -193,62 +166,53 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public static int GetAcknowledgementCount(int statusUpdateID, char acknowledgementType)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetAcknowledgementCount";
- 
-            ADOExtenstion.AddParameter(comm, "statusUpdateID",   statusUpdateID);
-            ADOExtenstion.AddParameter(comm, "acknowledgementType", acknowledgementType);
+
+            comm.AddParameter("statusUpdateID", statusUpdateID);
+            comm.AddParameter("acknowledgementType", acknowledgementType);
 
             // execute the stored procedure
-            string str = DbAct.ExecuteScalar(comm);
+            var str = DbAct.ExecuteScalar(comm);
 
-            if (string.IsNullOrEmpty(str))
-            {
-                return 0;
-            }
-            else return Convert.ToInt32(str);
+            return string.IsNullOrEmpty(str) ? 0 : Convert.ToInt32(str);
         }
 
 
         public static bool DeleteStatusAcknowledgements(int statusUpdateID)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeleteStatusAcknowledgements";
 
-            ADOExtenstion.AddParameter(comm, "statusUpdateID",  statusUpdateID);
+            comm.AddParameter("statusUpdateID", statusUpdateID);
 
             // execute the stored procedure
             return DbAct.ExecuteNonQuery(comm) > 0;
         }
 
 
-
         public void GetAcknowledgementsForStatus(int statusUpdateID)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetAcknowledgementsForStatus";
 
-            ADOExtenstion.AddParameter(comm, "statusUpdateID", statusUpdateID);
+            comm.AddParameter("statusUpdateID", statusUpdateID);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (var art in from DataRow dr in dt.Rows select new Acknowledgement(dr))
             {
-                Acknowledgement art = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    art = new Acknowledgement(dr);
-                    this.Add(art);
-                }
+                Add(art);
             }
-           
         }
     }
 }

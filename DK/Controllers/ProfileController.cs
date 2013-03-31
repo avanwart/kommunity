@@ -127,7 +127,7 @@ namespace DasKlub.Controllers
 
                 if (uad.MembersOnlyProfile)
                 {
-                    return RedirectToAction("Account", "LogOn");
+                    return RedirectToAction( "LogOn", "Account");
                 }
 
             }

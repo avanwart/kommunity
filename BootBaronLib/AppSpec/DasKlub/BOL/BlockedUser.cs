@@ -17,10 +17,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Operational;
-using System.Web.Caching;
 using BootBaronLib.AppSpec.DasKlub.BLL;
 using System.Web;
 
@@ -28,38 +28,28 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
     public class BlockedUser : BaseIUserLogCRUD
     {
-        public BlockedUser() { }
+        public BlockedUser()
+        {
+            UserAccountIDBlocked = 0;
+            UserAccountIDBlocking = 0;
+            BlockedUserID = 0;
+        }
 
         public BlockedUser(DataRow dr)
         {
+            UserAccountIDBlocked = 0;
+            UserAccountIDBlocking = 0;
+            BlockedUserID = 0;
             Get(dr);
         }
 
         #region properties
 
-        private int _blockedUserID = 0;
+        public int BlockedUserID { get; set; }
 
-        public int BlockedUserID
-        {
-            get { return _blockedUserID; }
-            set { _blockedUserID = value; }
-        }
+        public int UserAccountIDBlocking { get; set; }
 
-        private int _userAccountIDBlocking = 0;
-
-        public int UserAccountIDBlocking
-        {
-            get { return _userAccountIDBlocking; }
-            set { _userAccountIDBlocking = value; }
-        }
-
-        private int _userAccountIDBlocked = 0;
-
-        public int UserAccountIDBlocked
-        {
-            get { return _userAccountIDBlocked; }
-            set { _userAccountIDBlocked = value; }
-        }
+        public int UserAccountIDBlocked { get; set; }
 
         #endregion
 
@@ -72,9 +62,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             // create a new parameter
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserAccountIDBlocking), UserAccountIDBlocking);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserAccountIDBlocked), UserAccountIDBlocked);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.CreatedByUserID), CreatedByUserID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountIDBlocking), UserAccountIDBlocking);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountIDBlocked), UserAccountIDBlocked);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => CreatedByUserID), CreatedByUserID);
  
             // the result is their ID
             string result = string.Empty;
@@ -88,13 +78,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             return this.BlockedUserID;
         }
 
-        public override void Get(DataRow dr)
+        public override sealed void Get(DataRow dr)
         {
             base.Get(dr);
 
-            this.BlockedUserID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.BlockedUserID)]);
-            this.UserAccountIDBlocked = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.UserAccountIDBlocked)]);
-            this.UserAccountIDBlocking = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => this.UserAccountIDBlocking)]);
+            this.BlockedUserID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => BlockedUserID)]);
+            this.UserAccountIDBlocked = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => UserAccountIDBlocked)]);
+            this.UserAccountIDBlocking = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => UserAccountIDBlocking)]);
         }
 
 
@@ -108,12 +98,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
 
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeleteBlockedUser";
 
-            ADOExtenstion.AddParameter(comm, "userAccountIDBlocking", userAccountIDBlocking);
-            ADOExtenstion.AddParameter(comm, "userAccountIDBlocked", userAccountIDBlocked);
+            comm.AddParameter("userAccountIDBlocking", userAccountIDBlocking);
+            comm.AddParameter("userAccountIDBlocked", userAccountIDBlocked);
             // execute the stored procedure
 
             return DbAct.ExecuteNonQuery(comm) > 0;
@@ -123,20 +113,20 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public static bool IsBlockedUser(int userAccountIDBlocking, int userAccountIDBlocked)
         {
-            string cacheName = "IsBlockedUser" + "-" + userAccountIDBlocking.ToString() + "-" +
-                userAccountIDBlocked.ToString();
+            var cacheName = "IsBlockedUser" + "-" + userAccountIDBlocking + "-" +
+                userAccountIDBlocked;
 
-            bool rslt = false;
+            bool rslt;
 
 
             if (HttpContext.Current.Cache[cacheName] == null)
             {
-                DbCommand comm = DbAct.CreateCommand();
+                var comm = DbAct.CreateCommand();
                 // set the stored procedure name
                 comm.CommandText = "up_IsBlockedUser";
 
-                ADOExtenstion.AddParameter(comm, "userAccountIDBlocking", userAccountIDBlocking);
-                ADOExtenstion.AddParameter(comm, "userAccountIDBlocked", userAccountIDBlocked);
+                comm.AddParameter("userAccountIDBlocking", userAccountIDBlocking);
+                comm.AddParameter("userAccountIDBlocked", userAccountIDBlocked);
 
                 // execute the stored procedure
                 rslt = DbAct.ExecuteScalar(comm) == "1";
@@ -153,19 +143,18 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public static bool IsBlockingUser(int userAccountIDBlocking, int userAccountIDBlocked)
         {
 
-            string cacheName = "IsBlockingUser" + "-" + userAccountIDBlocking.ToString() + "-" +
-    userAccountIDBlocked.ToString();
+            var cacheName = "IsBlockingUser" + "-" + userAccountIDBlocking + "-" + userAccountIDBlocked;
 
-            bool rslt = false;
+            bool rslt;
 
             if (HttpContext.Current.Cache[cacheName] == null)
             {
-                DbCommand comm = DbAct.CreateCommand();
+                var comm = DbAct.CreateCommand();
                 // set the stored procedure name
                 comm.CommandText = "up_IsBlockingUser";
 
-                ADOExtenstion.AddParameter(comm, "userAccountIDBlocking", userAccountIDBlocking);
-                ADOExtenstion.AddParameter(comm, "userAccountIDBlocked", userAccountIDBlocked);
+                comm.AddParameter("userAccountIDBlocking", userAccountIDBlocking);
+                comm.AddParameter("userAccountIDBlocked", userAccountIDBlocked);
 
                 // execute the stored procedure
                 rslt = DbAct.ExecuteScalar(comm) == "1";
@@ -187,37 +176,31 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public static bool HasBlockedUsers(int userAccountIDBlocking)
         {
-            BlockedUsers bus = new BlockedUsers();
+            var bus = new BlockedUsers();
 
             bus.GetBlockedUsers(userAccountIDBlocking);
 
-            return (bus != null && bus.Count > 0);
+            return (bus.Count > 0);
         }
 
         public void GetBlockedUsers(int userAccountIDBlocking)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetBlockedUsers";
 
-            ADOExtenstion.AddParameter(comm, "userAccountIDBlocking", userAccountIDBlocking);
+            comm.AddParameter("userAccountIDBlocking", userAccountIDBlocking);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+            foreach (var ccomm in from DataRow dr in dt.Rows select new BlockedUser(dr))
             {
-                BlockedUser ccomm = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    ccomm = new BlockedUser(dr);
-                    this.Add(ccomm);
-                }
+                this.Add(ccomm);
             }
-
         }
     }
 }

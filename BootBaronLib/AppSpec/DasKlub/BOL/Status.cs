@@ -13,7 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
-using System;
+
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -27,23 +27,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties
 
-        private int _statusID = 0;
-
-        public int StatusID
-        {
-            get { return _statusID; }
-            set { _statusID = value; }
-        }
-
+        private string _statusCode = string.Empty;
         private string _statusDescription = string.Empty;
+        public int StatusID { get; set; }
 
         public string StatusDescription
         {
             get { return _statusDescription; }
             set { _statusDescription = value; }
         }
-
-        private string _statusCode = string.Empty;
 
         public string StatusCode
         {
@@ -64,23 +56,21 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #region methods
 
-        public   void Get(DataRow dr)
+        public void Get(DataRow dr)
         {
             try
             {
-                this.StatusCode = FromObj.StringFromObj(dr["statusCode"]);
-                this.StatusDescription = FromObj.StringFromObj(dr["statusDescription"]);
-                this.StatusID = FromObj.IntFromObj(dr["statusID"]);
-
+                StatusCode = FromObj.StringFromObj(dr["statusCode"]);
+                StatusDescription = FromObj.StringFromObj(dr["statusDescription"]);
+                StatusID = FromObj.IntFromObj(dr["statusID"]);
             }
-            catch  
+            catch
             {
                 //Utilities.LogError(ex);
             }
         }
 
         #endregion
-
     }
 
     public class Statuses : List<Status>, IGetAll
@@ -88,8 +78,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         #region IGetAll Members
 
         public void GetAll()
-        { 
-
+        {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
@@ -105,12 +94,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     str = new Status(dr);
-                    this.Add(str);
+                    Add(str);
                 }
             }
-
-
- 
         }
 
         #endregion

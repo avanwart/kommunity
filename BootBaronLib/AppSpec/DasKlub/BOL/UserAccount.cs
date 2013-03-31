@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,54 +36,52 @@ using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using LitS3;
 
-
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
-    public class UserAccount : BaseIUserLogCRUD, BootBaronLib.Interfaces.ICacheName, IUnorderdListItem, IURLTo
+    public class UserAccount : BaseIUserLogCRUD, ICacheName, IUnorderdListItem, IURLTo
     {
         #region BOLAction Members
 
         /// <summary>
-        /// INSERT the enduser in the database
+        ///     INSERT the enduser in the database
         /// </summary>
         public override int Create()
         {
-            if (this.UserName == string.Empty || EMail == string.Empty) return 0;
+            if (UserName == string.Empty || EMail == string.Empty) return 0;
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddUserAccount";
             // create a new parameter
-            
-            ADOExtenstion.AddParameter(comm, "username",  this.UserName);
-            ADOExtenstion.AddParameter(comm, "eMail",  this.EMail);
-            ADOExtenstion.AddParameter(comm, "password", this.Password);
-            ADOExtenstion.AddParameter(comm, "passwordFormat", this.PasswordFormat);
-            ADOExtenstion.AddParameter(comm, "passwordSalt", this.PasswordSalt);
-            ADOExtenstion.AddParameter(comm, "passwordQuestion", this.PasswordQuestion);
-            ADOExtenstion.AddParameter(comm, "passwordAnswer", this.PasswordAnswer);
-            ADOExtenstion.AddParameter(comm, "isApproved", IsApproved);
-            ADOExtenstion.AddParameter(comm, "isOnLine", this.IsOnLine);
-            ADOExtenstion.AddParameter(comm, "comment", this.Comment);
-            ADOExtenstion.AddParameter(comm, "isLockedOut",   IsLockedOut);
-            ADOExtenstion.AddParameter(comm, "LastPasswordChangedDate",  DateTime.UtcNow);
-            ADOExtenstion.AddParameter(comm, "ipAddress",   HttpContext.Current.Request.UserHostAddress);
+
+            comm.AddParameter("username", UserName);
+            comm.AddParameter("eMail", EMail);
+            comm.AddParameter("password", Password);
+            comm.AddParameter("passwordFormat", PasswordFormat);
+            comm.AddParameter("passwordSalt", PasswordSalt);
+            comm.AddParameter("passwordQuestion", PasswordQuestion);
+            comm.AddParameter("passwordAnswer", PasswordAnswer);
+            comm.AddParameter("isApproved", IsApproved);
+            comm.AddParameter("isOnLine", IsOnLine);
+            comm.AddParameter("comment", Comment);
+            comm.AddParameter("isLockedOut", IsLockedOut);
+            comm.AddParameter("LastPasswordChangedDate", DateTime.UtcNow);
+            comm.AddParameter("ipAddress", HttpContext.Current.Request.UserHostAddress);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result)) return 0;
 
-            this.UserAccountID = Convert.ToInt32(result);
+            UserAccountID = Convert.ToInt32(result);
 
-            return this.UserAccountID;
+            return UserAccountID;
         }
 
         /// <summary>
-        /// UPDATE the enduser in the database
+        ///     UPDATE the enduser in the database
         /// </summary>
         public override bool Update()
         {
@@ -94,53 +93,58 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             comm.CommandText = "up_UpdateUserAccount";
             // create a new parameter
 
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.IpAddress),  HttpContext.Current.Request.UserHostAddress);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserAccountID), this.UserAccountID);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserName), this.UserName);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.EMail), this.EMail);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.Password), this.Password);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.PasswordFormat) , this.PasswordFormat);
-            ADOExtenstion.AddParameter(comm,  StaticReflection.GetMemberName<string>(x => this.PasswordSalt) ,  this.PasswordSalt);
-            ADOExtenstion.AddParameter(comm,  StaticReflection.GetMemberName<string>(x => this.PasswordQuestion) , this.PasswordQuestion);
-            ADOExtenstion.AddParameter(comm,  StaticReflection.GetMemberName<string>(x => this.PasswordAnswer) , this.PasswordAnswer);
-            ADOExtenstion.AddParameter(comm,  StaticReflection.GetMemberName<string>(x => this.FailedPasswordAttemptCount) ,  this.FailedPasswordAttemptCount);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FailedPasswordAttemptWindowStart)  , this.FailedPasswordAttemptWindowStart);
-            ADOExtenstion.AddParameter(comm,  StaticReflection.GetMemberName<string>(x => this.IsApproved)    ,  IsApproved);
-            ADOExtenstion.AddParameter(comm,   StaticReflection.GetMemberName<string>(x => this.Comment)  , this.Comment);
-            ADOExtenstion.AddParameter(comm,  StaticReflection.GetMemberName<string>(x => this.IsLockedOut) ,  IsLockedOut);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FailedPasswordAnswerAttemptCount)  , this.FailedPasswordAnswerAttemptCount);
-            ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.FailedPasswordAnswerAttemptWindowStart), this.FailedPasswordAnswerAttemptWindowStart);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => IpAddress),
+                              HttpContext.Current.Request.UserHostAddress);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserName), UserName);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => EMail), EMail);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Password), Password);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => PasswordFormat), PasswordFormat);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => PasswordSalt), PasswordSalt);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => PasswordQuestion), PasswordQuestion);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => PasswordAnswer), PasswordAnswer);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FailedPasswordAttemptCount),
+                              FailedPasswordAttemptCount);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FailedPasswordAttemptWindowStart),
+                              FailedPasswordAttemptWindowStart);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsApproved), IsApproved);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => Comment), Comment);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsLockedOut), IsLockedOut);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FailedPasswordAnswerAttemptCount),
+                              FailedPasswordAnswerAttemptCount);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => FailedPasswordAnswerAttemptWindowStart),
+                              FailedPasswordAnswerAttemptWindowStart);
 
             if (LastLoginDate == DateTime.MinValue)
             {
                 LastLoginDate = new DateTime(1900, 1, 1);
             }
 
-            ADOExtenstion.AddParameter(comm,  StaticReflection.GetMemberName<string>(x => this.LastLoginDate) ,  this.LastLoginDate);
-     
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => LastLoginDate), LastLoginDate);
+
             DbParameter param = comm.CreateParameter();
             // isOnLine
             param = comm.CreateParameter();
             param.ParameterName = "@isOnLine";
 
             // something isn't working
-            if (this.SigningOut)
+            if (SigningOut)
             {
                 param.Value = false;
             }
-            //else if (this.LastActivityDate > DateTime.UtcNow.AddMinutes(-10))
-            //{
-            //    param.Value = true;
-            //}
+                //else if (this.LastActivityDate > DateTime.UtcNow.AddMinutes(-10))
+                //{
+                //    param.Value = true;
+                //}
             else
             {
-               // param.Value = this.IsOnLine;
+                // param.Value = this.IsOnLine;
                 param.Value = true;
             }
 
             param.DbType = DbType.Boolean;
             comm.Parameters.Add(param);
-          
+
 
             // result will represent the number of changed rows
             bool result = false;
@@ -154,7 +158,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
 
         /// <summary>
-        /// Delete the user and their data
+        ///     Delete the user and their data
         /// </summary>
         /// <returns>if they were deleted</returns>
         public override bool Delete()
@@ -165,7 +169,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             comm.CommandText = "up_DeleteUserAccount";
             // create a new parameter
 
-            ADOExtenstion.AddParameter(comm,  StaticReflection.GetMemberName<string>(x => this.UserAccountID) ,  UserAccountID);
+            comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
 
             RemoveCache();
 
@@ -175,17 +179,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public override void Get(int userAccountID)
         {
-            this.UserAccountID = userAccountID;
+            UserAccountID = userAccountID;
 
-            if (HttpContext.Current == null || HttpContext.Current.Cache[this.CacheName] == null)
+            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
                 comm.CommandText = "up_GetUserAccountFromID";
                 // create a new parameter
-                ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserAccountID), UserAccountID);
-                
+                comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
+
                 // execute the stored procedure
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
@@ -194,14 +198,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 {
                     if (HttpContext.Current != null)
                     {
-                        HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
+                        HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     }
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow)HttpContext.Current.Cache[this.CacheName]);
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
             }
         }
 
@@ -211,76 +215,81 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             {
                 if (dr == null) return;
 
-                this.Comment = FromObj.StringFromObj(dr["Comment"]);
-                this.CreateDate = FromObj.DateFromObj(dr["CreateDate"]);
-                this.EMail = FromObj.StringFromObj(dr["eMail"]);
-                this.PasswordSalt = FromObj.StringFromObj(dr["PasswordSalt"]);
-                this.UserAccountID = FromObj.IntFromObj(dr["userAccountID"]);
-                this.FailedPasswordAttemptCount = FromObj.IntFromObj(dr["FailedPasswordAttemptCount"]);
-                this.FailedPasswordAttemptWindowStart = FromObj.DateFromObj(dr["FailedPasswordAttemptWindowStart"]);
-                this.FailedPasswordAnswerAttemptCount = FromObj.IntFromObj(dr["FailedPasswordAnswerAttemptCount"]);
-                this.FailedPasswordAnswerAttemptWindowStart = FromObj.DateFromObj(dr["FailedPasswordAnswerAttemptWindowStart"]);
-                this.IsApproved = FromObj.BoolFromObj(dr["IsApproved"]);
-                this.IsLockedOut = FromObj.BoolFromObj(dr["IsLockedOut"]);
-                this.IsOnLine = FromObj.BoolFromObj(dr["IsOnLine"]);
-                this.LastActivityDate = FromObj.DateFromObj(dr["LastActivityDate"]);
-                this.LastLockoutDate = FromObj.DateFromObj(dr["LastLockoutDate"]);
-                this.LastLoginDate = FromObj.DateFromObj((dr["LastLoginDate"]));
-                this.LastPasswordChangedDate = FromObj.DateFromObj(dr["LastPasswordChangeDate"]);
-                this.Password = FromObj.StringFromObj(dr["password"]);
-                this.PasswordAnswer = FromObj.StringFromObj(dr["passwordAnswer"]);
-                this.PasswordFormat = FromObj.StringFromObj(dr["passwordFormat"]);
-                this.PasswordQuestion = FromObj.StringFromObj(dr["passwordQuestion"]);
-                this.UserName = FromObj.StringFromObj(dr["userName"]);
-                this.IpAddress = FromObj.StringFromObj(dr["ipAddress"]);
+                Comment = FromObj.StringFromObj(dr["Comment"]);
+                CreateDate = FromObj.DateFromObj(dr["CreateDate"]);
+                EMail = FromObj.StringFromObj(dr["eMail"]);
+                PasswordSalt = FromObj.StringFromObj(dr["PasswordSalt"]);
+                UserAccountID = FromObj.IntFromObj(dr["userAccountID"]);
+                FailedPasswordAttemptCount = FromObj.IntFromObj(dr["FailedPasswordAttemptCount"]);
+                FailedPasswordAttemptWindowStart = FromObj.DateFromObj(dr["FailedPasswordAttemptWindowStart"]);
+                FailedPasswordAnswerAttemptCount = FromObj.IntFromObj(dr["FailedPasswordAnswerAttemptCount"]);
+                FailedPasswordAnswerAttemptWindowStart =
+                    FromObj.DateFromObj(dr["FailedPasswordAnswerAttemptWindowStart"]);
+                IsApproved = FromObj.BoolFromObj(dr["IsApproved"]);
+                IsLockedOut = FromObj.BoolFromObj(dr["IsLockedOut"]);
+                IsOnLine = FromObj.BoolFromObj(dr["IsOnLine"]);
+                LastActivityDate = FromObj.DateFromObj(dr["LastActivityDate"]);
+                LastLockoutDate = FromObj.DateFromObj(dr["LastLockoutDate"]);
+                LastLoginDate = FromObj.DateFromObj((dr["LastLoginDate"]));
+                LastPasswordChangedDate = FromObj.DateFromObj(dr["LastPasswordChangeDate"]);
+                Password = FromObj.StringFromObj(dr["password"]);
+                PasswordAnswer = FromObj.StringFromObj(dr["passwordAnswer"]);
+                PasswordFormat = FromObj.StringFromObj(dr["passwordFormat"]);
+                PasswordQuestion = FromObj.StringFromObj(dr["passwordQuestion"]);
+                UserName = FromObj.StringFromObj(dr["userName"]);
+                IpAddress = FromObj.StringFromObj(dr["ipAddress"]);
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         #endregion
 
         #region Constructors
 
-        public UserAccount() {/*do nothing constructor*/ }
+        public UserAccount()
+        {
+/*do nothing constructor*/
+        }
 
         /// <summary>
-        /// Fill a new UserAccount object from the username
+        ///     Fill a new UserAccount object from the username
         /// </summary>
         /// <param name="username">the user to logging in or logged in</param>
         /// <returns>the UserAccount</returns>
         public UserAccount(string username)
         {
-            this.UserName = username;
+            UserName = username;
 
-            if (HttpContext.Current.Cache[this.CacheName] == null)
+            if (HttpContext.Current.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
                 comm.CommandText = "up_GetUserAccountFromUsername";
 
-                ADOExtenstion.AddParameter(comm, StaticReflection.GetMemberName<string>(x => this.UserName), this.UserName);
-                
+                comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserName), UserName);
+
                 // execute the stored procedure
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
+                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow)HttpContext.Current.Cache[this.CacheName]);
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
             }
         }
-    
 
 
         /// <summary>
-        /// Get the user from their id or membership user provider key
+        ///     Get the user from their id or membership user provider key
         /// </summary>
         /// <param name="userAccountID"></param>
         public UserAccount(int userAccountID)
@@ -289,7 +298,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
         /// <summary>
-        /// Get the user from the membership user
+        ///     Get the user from the membership user
         /// </summary>
         /// <param name="mu"></param>
         public UserAccount(MembershipUser mu)
@@ -299,7 +308,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
 
-                ADOExtenstion.AddParameter(comm,  "UserAccountID",  Convert.ToInt32(mu.ProviderUserKey));
+                comm.AddParameter("UserAccountID", Convert.ToInt32(mu.ProviderUserKey));
 
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
@@ -315,38 +324,31 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             Get(dr);
         }
+
         #endregion
 
         #region private variables
 
-        private int _UserAccountID = 0;
-        private string _username = string.Empty;
-        private string _eMail = string.Empty;
-        private string _password = string.Empty;
-        private string _passwordFormat = string.Empty;
-        private string _passwordSalt = string.Empty;
-        private string _passwordQuestion = string.Empty;
-        private string _passwordAnswer = string.Empty;
-        private DateTime _createDate = DateTime.MinValue;
-        private DateTime _lastLoginDate = DateTime.MinValue;
-        private DateTime _lastLockoutDate = DateTime.MinValue;
-        private int _failedPasswordAttemptCount = 0;
-        private DateTime _failedPasswordAttemptWindowStart = DateTime.MinValue;
-        private int _failedPasswordAnswerAttemptCount = 0;
-        private DateTime _failedPasswordAnswerAttemptWindowStart = DateTime.MinValue;
-        private bool _isOnLine = false;
-        private bool _isApproved = false;
         private string _comment = string.Empty;
-        private bool _isLockedOut = false;
-        private DateTime _lastActivityDateTime = DateTime.MinValue;
-        private DateTime _lastPasswordChangedDateTime = DateTime.MinValue;
+        private DateTime _createDate = DateTime.MinValue;
+        private string _eMail = string.Empty;
+        private DateTime _failedPasswordAnswerAttemptWindowStart = DateTime.MinValue;
+        private DateTime _failedPasswordAttemptWindowStart = DateTime.MinValue;
         private string _ipAddress = string.Empty;
+        private DateTime _lastActivityDateTime = DateTime.MinValue;
+        private DateTime _lastLockoutDate = DateTime.MinValue;
+        private DateTime _lastLoginDate = DateTime.MinValue;
+        private DateTime _lastPasswordChangedDateTime = DateTime.MinValue;
+        private string _password = string.Empty;
+        private string _passwordAnswer = string.Empty;
+        private string _passwordFormat = string.Empty;
+        private string _passwordQuestion = string.Empty;
+        private string _passwordSalt = string.Empty;
+        private string _username = string.Empty;
 
         #endregion
 
         #region public properties
-
-
 
         public string IpAddress
         {
@@ -363,34 +365,32 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public DateTime FailedPasswordAttemptWindowStart
         {
-            get {
+            get
+            {
                 if (_failedPasswordAttemptWindowStart == DateTime.MinValue)
                 {
                     _failedPasswordAttemptWindowStart = new DateTime(1900, 1, 1);
                 }
-                
-                return _failedPasswordAttemptWindowStart; }
+
+                return _failedPasswordAttemptWindowStart;
+            }
             set { _failedPasswordAttemptWindowStart = value; }
         }
 
-        public int FailedPasswordAnswerAttemptCount
-        {
-            get { return _failedPasswordAnswerAttemptCount; }
-            set { _failedPasswordAnswerAttemptCount = value; }
-        }
+        public int FailedPasswordAnswerAttemptCount { get; set; }
 
         public DateTime FailedPasswordAnswerAttemptWindowStart
         {
-            get {
-
+            get
+            {
                 if (_failedPasswordAnswerAttemptWindowStart == DateTime.MinValue)
                 {
                     _failedPasswordAnswerAttemptWindowStart = new DateTime(1900, 1, 1);
                 }
-                
-                
-                
-                return _failedPasswordAnswerAttemptWindowStart; }
+
+
+                return _failedPasswordAnswerAttemptWindowStart;
+            }
             set { _failedPasswordAnswerAttemptWindowStart = value; }
         }
 
@@ -402,49 +402,26 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public DateTime LastActivityDate
         {
-            get { 
-                return _lastActivityDateTime; }
+            get { return _lastActivityDateTime; }
             set { _lastActivityDateTime = value; }
         }
 
-        public bool IsLockedOut
-        {
-            get { return _isLockedOut; }
-            set { _isLockedOut = value; }
-        }
+        public bool IsLockedOut { get; set; }
 
-        public bool IsApproved
-        {
-            get { return _isApproved; }
-            set { _isApproved = value; }
-        }
+        public bool IsApproved { get; set; }
 
         /// <summary>
-        /// A user is considered online if the current 
-        /// date and time minus the UserIsOnlineTimeWindow 
-        /// property value is earlier than the LastActivityDate for the user. 
-        /// 
-        /// The LastActivityDate for a user is updated to the current date and 
-        /// time by the CreateUser, UpdateUser and ValidateUser methods, 
-        /// and can be updated by some of the overloads of the GetUser method. 
+        ///     A user is considered online if the current
+        ///     date and time minus the UserIsOnlineTimeWindow
+        ///     property value is earlier than the LastActivityDate for the user.
+        ///     The LastActivityDate for a user is updated to the current date and
+        ///     time by the CreateUser, UpdateUser and ValidateUser methods,
+        ///     and can be updated by some of the overloads of the GetUser method.
         /// </summary>
         /// <see>http://msdn.microsoft.com/en-us/library/system.web.security.membershipuser.isonline.aspx</see>
-        public bool IsOnLine
-        {
-            get
-            {
+        public bool IsOnLine { get; set; }
 
-
-                return _isOnLine;
-            }
-            set { _isOnLine = value; }
-        }
-
-        public int FailedPasswordAttemptCount
-        {
-            get { return _failedPasswordAttemptCount; }
-            set { _failedPasswordAttemptCount = value; }
-        }
+        public int FailedPasswordAttemptCount { get; set; }
 
         public DateTime LastLockoutDate
         {
@@ -457,7 +434,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             get { return _lastLoginDate; }
             set { _lastLoginDate = value; }
         }
- 
+
 
         public string PasswordAnswer
         {
@@ -467,10 +444,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string PasswordQuestion
         {
-            get {
+            get
+            {
                 if (_passwordQuestion == null)
                     _passwordQuestion = string.Empty;
-                return _passwordQuestion; }
+                return _passwordQuestion;
+            }
             set { _passwordQuestion = value; }
         }
 
@@ -489,34 +468,33 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string EMail
         {
-            get
-            { return _eMail; }
+            get { return _eMail; }
             set { _eMail = value; }
         }
 
         public string UserName
         {
-            get {
+            get
+            {
                 if (_username != null)
                 {
                     _username = _username.Trim();
                 }
-                return _username; }
+                return _username;
+            }
             set { _username = value; }
         }
 
-        public int UserAccountID
-        {
-            get { return _UserAccountID; }
-            set { _UserAccountID = value; }
-        }
+        public int UserAccountID { get; set; }
 
         public string Comment
         {
-            get {
+            get
+            {
                 if (_comment == null) _comment = string.Empty;
 
-                return _comment; }
+                return _comment;
+            }
             set { _comment = value; }
         }
 
@@ -525,20 +503,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         #region public static methods
 
         /// <summary>
-        /// Get the user from their e-mail
+        ///     Get the user from their e-mail
         /// </summary>
         /// <param name="eMail"></param>
-        /// <param name="iseMail"></param>
         public static string GetUserAccountNameFromEMail(string eMail)
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetUserAccountnameFromEMail";
-            
-            ADOExtenstion.AddParameter(comm, "eMail", eMail.Trim());
 
-            string username = DbAct.ExecuteScalar(comm);
+            comm.AddParameter("eMail", eMail.Trim());
+
+            var username = DbAct.ExecuteScalar(comm);
             return username;
         }
 
@@ -551,34 +528,39 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_IsAccountIPTaken";
 
-            ADOExtenstion.AddParameter(comm, "ipAddress", ipAddress.Trim());
+            comm.AddParameter("ipAddress", ipAddress.Trim());
 
             // execute the stored procedure
             return DbAct.ExecuteScalar(comm) == "1";
         }
 
         /// <summary>
-        /// Add a user to a role
+        ///     Add a user to a role
         /// </summary>
         /// <param name="UserAccountID"></param>
         /// <param name="roleName"></param>
-        /// <returns></returns>   
+        /// <returns></returns>
         public static bool AddUserToRole(int UserAccountID, string roleName)
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
-            ADOExtenstion.AddParameter(comm,  "UserAccountID", UserAccountID);
-            ADOExtenstion.AddParameter(comm,  "roleName",  roleName);
+            comm.AddParameter("UserAccountID", UserAccountID);
+            comm.AddParameter("roleName", roleName);
 
             int result = Convert.ToInt32(DbAct.ExecuteScalar(comm));
             if (result == 0)
-            { return false; }
-            else { return true; }
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         /// <summary>
-        /// Remove a user from a role
+        ///     Remove a user from a role
         /// </summary>
         /// <param name="UserAccountID"></param>
         /// <param name="roleName"></param>
@@ -588,25 +570,30 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
-            ADOExtenstion.AddParameter(comm,  "UserAccountID",  UserAccountID);
-            ADOExtenstion.AddParameter(comm,  "roleName",  roleName);
+            comm.AddParameter("UserAccountID", UserAccountID);
+            comm.AddParameter("roleName", roleName);
 
             int result = Convert.ToInt32(DbAct.ExecuteScalar(comm));
             if (result == 0)
-            { return false; }
-            else { return true; }
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         /// <summary>
-        /// Get all of the roles for this user
+        ///     Get all of the roles for this user
         /// </summary>
         /// <param name="username"></param>
         /// <returns>string array</returns>
         public static string[] GetRolesForUser(string username)
         {
-            UserAccount eu = new UserAccount(username);
+            var eu = new UserAccount(username);
 
-            ArrayList allRoles = new ArrayList();
+            var allRoles = new ArrayList();
             DataTable dt;
 
             // get a configured DbCommand object
@@ -614,23 +601,22 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetRolesForUser";
             // create a new parameter
-            
-            ADOExtenstion.AddParameter(comm,  "UserAccountID", eu.UserAccountID);
-            
+
+            comm.AddParameter("UserAccountID", eu.UserAccountID);
+
             // exec
             dt = DbAct.ExecuteSelectCommand(comm);
             foreach (DataRow r in dt.Rows)
             {
                 allRoles.Add(FromObj.StringFromObj(r["roleName"]));
             }
-            string[] stringArray = (string[])allRoles.ToArray(typeof(string));
+            var stringArray = (string[]) allRoles.ToArray(typeof (string));
             return stringArray;
         }
 
 
         public void GetRandomUserAccount()
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
@@ -655,67 +641,67 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 Get(FromObj.IntFromObj(dt.Rows[0]["userAccountID"]));
         }
 
-
         #endregion
 
         #region ICacheName Members
 
         public string CacheName
         {
-            get { return string.Format("{0}-{1}-{2}", this.GetType().FullName ,
-                 this.UserName, this.UserAccountID.ToString()); }
+            get
+            {
+                return string.Format("{0}-{1}-{2}", GetType().FullName,
+                                     UserName, UserAccountID.ToString());
+            }
         }
- 
+
         public void RemoveCache()
         {
             if (HttpContext.Current == null) return;
 
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
 
             // remove username cache
-            int useraccountID = this.UserAccountID;
-            this.UserAccountID = 0;
+            int useraccountID = UserAccountID;
+            UserAccountID = 0;
 
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
 
             // remove user account id cache
-            string username = this.UserName;
-            this.UserName = string.Empty;
-            this.UserAccountID = useraccountID;
+            string username = UserName;
+            UserName = string.Empty;
+            UserAccountID = useraccountID;
 
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
 
-            this.UserName = username;
-            this.UserAccountID = useraccountID;
+            UserName = username;
+            UserAccountID = useraccountID;
         }
 
         #endregion
-
 
         public string TinyUserIcon
         {
             get
             {
-                UserAccountDetail uad = new UserAccountDetail();
+                var uad = new UserAccountDetail();
 
-                uad.GetUserAccountDeailForUser(this.UserAccountID);
+                uad.GetUserAccountDeailForUser(UserAccountID);
 
-                StringBuilder sb = new StringBuilder(100);
+                var sb = new StringBuilder(100);
 
-                sb.AppendFormat(@"<img style=""width:20px;height:20px;"" title=""{0}"" alt=""{0}"" src=""", this.UserName);
+                sb.AppendFormat(@"<img style=""width:20px;height:20px;"" title=""{0}"" alt=""{0}"" src=""", UserName);
                 sb.Append(uad.FullProfilePicThumbURL);
                 sb.Append(@""" />");
 
                 return sb.ToString();
             }
-
         }
 
         public bool IsAdmin
         {
             get
             {
-                string[] roles = UserAccount.GetRolesForUser(this.UserName);
+                string[] roles = GetRolesForUser(UserName);
 
                 foreach (string role in roles)
                 {
@@ -725,27 +711,163 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
         }
 
+        public bool SigningOut { get; set; }
+
+
+        public string FlagIcon
+        {
+            get
+            {
+                var uad = new UserAccountDetail();
+
+                uad.GetUserAccountDeailForUser(UserAccountID);
+
+                return uad.CountryFlagThumb;
+            }
+        }
+
+
+        public string CountryName
+        {
+            get
+            {
+                var uad = new UserAccountDetail();
+
+                uad.GetUserAccountDeailForUser(UserAccountID);
+
+                return uad.CountryName;
+            }
+        }
+
+
+        public string Country
+        {
+            get
+            {
+                var uad = new UserAccountDetail();
+
+                uad.GetUserAccountDeailForUser(UserAccountID);
+
+                return uad.Country;
+            }
+        }
+
+
+        public string ToUnorderdListItem
+        {
+            get
+            {
+                var uad = new UserAccountDetail();
+
+                uad.GetUserAccountDeailForUser(UserAccountID);
+
+                var sb = new StringBuilder(100);
+
+                sb.Append(@"<li>");
+
+
+                if (IsProfileLinkNewWindow)
+                {
+                    string fullIcon = uad.SmallUserIcon.Replace("<a ", @"<a  target=""_blank"" ");
+                    sb.Append(fullIcon);
+                }
+                else
+                {
+                    sb.Append(uad.SmallUserIcon);
+                }
+                //sb.Append(@"<div class=""user_item_thumb"">");
+
+
+                //if (this.IsOnLine)
+                //{
+                //    sb.AppendFormat(
+                //    @"<img style=""height: 12px; width: 12px;"" alt=""{0}"" title=""{0}""", BootBaronLib.Resources.Messages.IsOnline);
+                //    sb.Append(@" src=""");
+                //    sb.Append(System.Web.VirtualPathUtility.ToAbsolute("~/content/images/status/abutton2_e0.gif"));
+                //    sb.Append(@""" />&nbsp;");
+                //}
+
+                //sb.Append(@"<a ");
+
+                //if (this.IsProfileLinkNewWindow)
+                //{
+                //    sb.Append(@" target=""_blank""");
+                //}
+
+                //sb.Append(@" href=""/");
+                //sb.Append(this.UserName);
+                //sb.Append(@""">");
+                //sb.Append(this.UserName);
+                //sb.Append(@"</a>");
+
+
+                //sb.Append(@"<br />");
+
+
+                //sb.Append(@"<div class=""user_photo_thumb"">");
+
+                //sb.Append(@"<a class=""m_over""");
+
+                //if (this.IsProfileLinkNewWindow)
+                //{
+                //    sb.Append(@" target=""_blank""");
+                //}
+                //sb.Append(@" href=""/");
+                //sb.Append(this.UserName);
+                //sb.Append(@""">");
+                //sb.Append(@"<img src=""");
+                //sb.Append(uad.FullProfilePicThumbURL);
+                //sb.Append(@""" title=""");
+                //sb.Append(this.UserName);
+                //sb.Append(@"""");
+                //sb.Append(@" alt=""");
+                //sb.Append(uad.Sex);
+                //sb.Append(@""" />");
+                //sb.Append(@"</a>");
+                //sb.Append(@" ");
+                //sb.AppendLine(uad.SiteBagesSmall);
+
+
+                //sb.Append(@"</div>");
+
+
+                //sb.Append(@"</div>");
+                sb.Append(@"</li>");
+
+
+                return sb.ToString();
+            }
+        }
+
+        public Uri UrlTo
+        {
+            get
+            {
+                return new Uri(Utilities.URLAuthority() + VirtualPathUtility.ToAbsolute(
+                    string.Format("~/{0}", UserName)));
+            }
+        }
+
         /// <summary>
-        /// DELETES THE USER COMPLETELY!
+        ///     DELETES THE USER COMPLETELY!
         /// </summary>
         /// <param name="deleteAllRelatedData"></param>
         /// <returns></returns>
         public bool Delete(bool deleteAllRelatedData)
         {
+            if (!deleteAllRelatedData) return Delete();
 
-            if (!deleteAllRelatedData) return this.Delete();
-
-            S3Service s3 = new S3Service();
+            var s3 = new S3Service();
 
             s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
             s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
 
 
-            UserAccountDetail uad = new UserAccountDetail();
-            uad.GetUserAccountDeailForUser(this.UserAccountID);
+            var uad = new UserAccountDetail();
+            uad.GetUserAccountDeailForUser(UserAccountID);
             uad.Delete();
 
-            if (!string.IsNullOrWhiteSpace( s3.AccessKeyID) &&
+            if (!string.IsNullOrWhiteSpace(s3.AccessKeyID) &&
                 !string.IsNullOrWhiteSpace(s3.SecretAccessKey) &&
                 !string.IsNullOrWhiteSpace(uad.ProfilePicURL))
             {
@@ -756,7 +878,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
 
             if (!string.IsNullOrWhiteSpace(s3.AccessKeyID) &&
-                !string.IsNullOrWhiteSpace(s3.SecretAccessKey) && 
+                !string.IsNullOrWhiteSpace(s3.SecretAccessKey) &&
                 !string.IsNullOrWhiteSpace(uad.ProfileThumbPicURL))
             {
                 if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, uad.ProfileThumbPicURL))
@@ -764,14 +886,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, uad.ProfileThumbPicURL);
                 }
             }
-             
-            UserConnection usc = new UserConnection();
-            usc.UserAccountID = this.UserAccountID;
+
+            var usc = new UserConnection();
+            usc.UserAccountID = UserAccountID;
             usc.Delete(true);
 
-            ContentComments conComs = new ContentComments();
+            var conComs = new ContentComments();
 
-            conComs.GetUserContentComments(this.UserAccountID);
+            conComs.GetUserContentComments(UserAccountID);
 
             foreach (ContentComment concom1 in conComs)
             {
@@ -779,14 +901,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
 
             // user wall
-            WallMessages.DeleteUserWall(this.UserAccountID);
+            WallMessages.DeleteUserWall(UserAccountID);
 
-            UserAddress uaddress = new UserAddress();
-            uaddress.UserAccountID = this.UserAccountID;
+            var uaddress = new UserAddress();
+            uaddress.UserAccountID = UserAccountID;
             uaddress.Delete();
 
-            UserPhotos uphos = new UserPhotos();
-            uphos.GetUserPhotos(this.UserAccountID);
+            var uphos = new UserPhotos();
+            uphos.GetUserPhotos(UserAccountID);
 
             foreach (UserPhoto up1 in uphos)
             {
@@ -794,10 +916,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
 
                 if (!string.IsNullOrWhiteSpace(s3.AccessKeyID) &&
-                !string.IsNullOrWhiteSpace(s3.SecretAccessKey) && 
-                !string.IsNullOrWhiteSpace(up1.FullProfilePicThumbURL))
+                    !string.IsNullOrWhiteSpace(s3.SecretAccessKey) &&
+                    !string.IsNullOrWhiteSpace(up1.FullProfilePicThumbURL))
                 {
-
                     if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, up1.FullProfilePicThumbURL))
                     {
                         s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, up1.FullProfilePicThumbURL);
@@ -805,29 +926,28 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 }
 
                 if (!string.IsNullOrWhiteSpace(s3.AccessKeyID) &&
-                !string.IsNullOrWhiteSpace(s3.SecretAccessKey) && 
-                !string.IsNullOrWhiteSpace(up1.FullProfilePicURL))
+                    !string.IsNullOrWhiteSpace(s3.SecretAccessKey) &&
+                    !string.IsNullOrWhiteSpace(up1.FullProfilePicURL))
                 {
                     if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, up1.FullProfilePicURL))
                     {
                         s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, up1.FullProfilePicURL);
                     }
                 }
-
             }
 
             // delete any acknowledgements they made
-            Acknowledgements.DeleteAllAcknowledgements(this.UserAccountID);
+            Acknowledgements.DeleteAllAcknowledgements(UserAccountID);
 
 
             // get all status updates and delete all the acknowledgements for each
-            StatusUpdates allUserStatusUpdates = new StatusUpdates();
-            allUserStatusUpdates.GetAllUserStatusUpdates(this.UserAccountID);
+            var allUserStatusUpdates = new StatusUpdates();
+            allUserStatusUpdates.GetAllUserStatusUpdates(UserAccountID);
 
             foreach (StatusUpdate su1 in allUserStatusUpdates)
             {
                 Acknowledgements.DeleteStatusAcknowledgements(su1.StatusUpdateID);
-                StatusComments statcoms = new StatusComments();
+                var statcoms = new StatusComments();
                 statcoms.GetAllStatusCommentsForUpdate(su1.StatusUpdateID);
 
                 StatusUpdateNotifications.DeleteNotificationsForStatusUpdate(su1.StatusUpdateID);
@@ -841,23 +961,23 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
 
             // delete the comment Acknowledgements
-            StatusCommentAcknowledgements.DeleteAllCommentAcknowledgements(this.UserAccountID);
+            StatusCommentAcknowledgements.DeleteAllCommentAcknowledgements(UserAccountID);
 
             // all the user comments
-            StatusComments.DeleteStatusCommentsForUser(this.UserAccountID);
+            StatusComments.DeleteStatusCommentsForUser(UserAccountID);
 
 
             // delete the statuses
-            StatusUpdates.DeleteAllStatusUpdates(this.UserAccountID);
+            StatusUpdates.DeleteAllStatusUpdates(UserAccountID);
 
-            PhotoItems pitms = new PhotoItems();
-            pitms.GetUserPhotos(this.UserAccountID);
+            var pitms = new PhotoItems();
+            pitms.GetUserPhotos(UserAccountID);
 
             foreach (PhotoItem pitm1 in pitms)
             {
                 if (!string.IsNullOrWhiteSpace(s3.AccessKeyID) &&
-                !string.IsNullOrWhiteSpace(s3.SecretAccessKey) && 
-                !string.IsNullOrWhiteSpace(pitm1.FilePathRaw))
+                    !string.IsNullOrWhiteSpace(s3.SecretAccessKey) &&
+                    !string.IsNullOrWhiteSpace(pitm1.FilePathRaw))
                 {
                     if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, pitm1.FilePathRaw))
                     {
@@ -866,8 +986,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 }
 
                 if (!string.IsNullOrWhiteSpace(s3.AccessKeyID) &&
-                !string.IsNullOrWhiteSpace(s3.SecretAccessKey) && 
-                !string.IsNullOrWhiteSpace(pitm1.FilePathStandard))
+                    !string.IsNullOrWhiteSpace(s3.SecretAccessKey) &&
+                    !string.IsNullOrWhiteSpace(pitm1.FilePathStandard))
                 {
                     if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, pitm1.FilePathStandard))
                     {
@@ -876,8 +996,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 }
 
                 if (!string.IsNullOrWhiteSpace(s3.AccessKeyID) &&
-                !string.IsNullOrWhiteSpace(s3.SecretAccessKey) && 
-                !string.IsNullOrWhiteSpace(pitm1.FilePathThumb))
+                    !string.IsNullOrWhiteSpace(s3.SecretAccessKey) &&
+                    !string.IsNullOrWhiteSpace(pitm1.FilePathThumb))
                 {
                     if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, pitm1.FilePathThumb))
                     {
@@ -887,26 +1007,26 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 pitm1.Delete();
             }
 
-            DirectMessages.DeleteAllDirectMessages(this.UserAccountID);
+            DirectMessages.DeleteAllDirectMessages(UserAccountID);
 
-            ProfileLogs.DeleteProfileLog(this.UserAccountID);
-            UserAccountVideos.DeleteUserAccountVideo(this.UserAccountID);
-            Votes.DeleteUserAccountVideo(this.UserAccountID);
-            UserAccountRole.DeleteUserRoles(this.UserAccountID);
+            ProfileLogs.DeleteProfileLog(UserAccountID);
+            UserAccountVideos.DeleteUserAccountVideo(UserAccountID);
+            Votes.DeleteUserAccountVideo(UserAccountID);
+            UserAccountRole.DeleteUserRoles(UserAccountID);
 
-            BlockedUsers uabs = new BlockedUsers();
-            uabs.GetBlockedUsers(this.UserAccountID);
+            var uabs = new BlockedUsers();
+            uabs.GetBlockedUsers(UserAccountID);
 
             foreach (BlockedUser uab1 in uabs)
             {
                 uab1.Delete();
             }
-  
-            ContestVideoVotes.DeleteAllUserContestVotes(this.UserAccountID);
 
-            Playlist plyslt = new Playlist();
-            plyslt.GetUserPlaylist(this.UserAccountID);
-            PlaylistVideos uavs = new PlaylistVideos();
+            ContestVideoVotes.DeleteAllUserContestVotes(UserAccountID);
+
+            var plyslt = new Playlist();
+            plyslt.GetUserPlaylist(UserAccountID);
+            var uavs = new PlaylistVideos();
 
             uavs.GetPlaylistVideosForPlaylistAll(plyslt.PlaylistID);
 
@@ -919,7 +1039,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
 
             //delete their files folder
-            string mainPath = "~/content/users/" + this.UserAccountID.ToString();
+            string mainPath = "~/content/users/" + UserAccountID.ToString();
 
             if (Directory.Exists(HttpContext.Current.Server.MapPath(mainPath)))
             {
@@ -927,26 +1047,28 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 {
                     Directory.Delete(HttpContext.Current.Server.MapPath(mainPath));
                 }
-                catch { }
+                catch
+                {
+                }
             }
 
-            string[] roles = Roles.GetRolesForUser(this.UserName);
+            string[] roles = Roles.GetRolesForUser(UserName);
 
             foreach (string role1 in roles)
             {
-                Roles.RemoveUserFromRole(this.UserName, role1);
+                Roles.RemoveUserFromRole(UserName, role1);
             }
 
-            UserContent.Contents contents = new UserContent.Contents();
+            var contents = new Contents();
 
-            contents.GetContentForUser(this.UserAccountID);
+            contents.GetContentForUser(UserAccountID);
 
             foreach (Content c1 in contents)
             {
                 c1.Delete();
             }
 
-            return this.Delete();
+            return Delete();
         }
 
 
@@ -972,29 +1094,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
         }
 
-        #region non-db properties
-
-      
-
-        private bool _isProfileLinkNewWindow = false;
-
-        public bool IsProfileLinkNewWindow
-        {
-            get { return _isProfileLinkNewWindow; }
-            set { _isProfileLinkNewWindow = value; }
-        }
-
-        #endregion
-
-        private bool _signingOut = false;
-
-        public bool SigningOut
-        {
-            get { return _signingOut; }
-            set { _signingOut = value; }
-        }
-
-
         public static bool IsUserOnline(int userAccountID)
         {
             if (userAccountID == 0) return false;
@@ -1003,153 +1102,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_IsUserOnline";
- 
-            ADOExtenstion.AddParameter(comm, "userAccountID", userAccountID);
+
+            comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure
-            return Convert.ToBoolean( DbAct.ExecuteScalar(comm) );
-        }
-
-
-        public string FlagIcon
-        {
-            get
-            {
-                UserAccountDetail uad = new UserAccountDetail();
-
-                uad.GetUserAccountDeailForUser(this.UserAccountID);
-
-                return uad.CountryFlagThumb;
-
-            }
-
-        }
-
-
-
-        public string CountryName
-        {
-            get
-            {
-                UserAccountDetail uad = new UserAccountDetail();
-
-                uad.GetUserAccountDeailForUser(this.UserAccountID);
-
-                return uad.CountryName;
-
-            }
-
-        }
-
-
-
-        public string Country 
-        {
-            get
-            {
-                UserAccountDetail uad = new UserAccountDetail();
-
-                uad.GetUserAccountDeailForUser(this.UserAccountID);
-
-                return uad.Country;
-
-            }
-
-        }
-
-
-        
-
-        public string ToUnorderdListItem
-        {
-            get {        
-            
-                UserAccountDetail uad = new UserAccountDetail();
-
-                uad.GetUserAccountDeailForUser(this.UserAccountID);
-
-                StringBuilder sb = new StringBuilder(100);
-
-                sb.Append(@"<li>");
-
-
-                if (this.IsProfileLinkNewWindow)
-                {
-                    string fullIcon = uad.SmallUserIcon.Replace("<a ", @"<a  target=""_blank"" ");
-                    sb.Append(fullIcon);
-                }
-                else
-                {
-                    sb.Append(uad.SmallUserIcon);
-                }
-                //sb.Append(@"<div class=""user_item_thumb"">");
- 
-
-                //if (this.IsOnLine)
-                //{
-                //    sb.AppendFormat(
-                //    @"<img style=""height: 12px; width: 12px;"" alt=""{0}"" title=""{0}""", BootBaronLib.Resources.Messages.IsOnline);
-                //    sb.Append(@" src=""");
-                //    sb.Append(System.Web.VirtualPathUtility.ToAbsolute("~/content/images/status/abutton2_e0.gif"));
-                //    sb.Append(@""" />&nbsp;");
-                //}
-
-                //sb.Append(@"<a ");
-
-                //if (this.IsProfileLinkNewWindow)
-                //{
-                //    sb.Append(@" target=""_blank""");
-                //}
-
-                //sb.Append(@" href=""/");
-                //sb.Append(this.UserName);
-                //sb.Append(@""">");
-                //sb.Append(this.UserName);
-                //sb.Append(@"</a>");
- 
-
-                //sb.Append(@"<br />");
- 
-
-                //sb.Append(@"<div class=""user_photo_thumb"">");
-
-                //sb.Append(@"<a class=""m_over""");
-
-                //if (this.IsProfileLinkNewWindow)
-                //{
-                //    sb.Append(@" target=""_blank""");
-                //}
-                //sb.Append(@" href=""/");
-                //sb.Append(this.UserName);
-                //sb.Append(@""">");
-                //sb.Append(@"<img src=""");
-                //sb.Append(uad.FullProfilePicThumbURL);
-                //sb.Append(@""" title=""");
-                //sb.Append(this.UserName);
-                //sb.Append(@"""");
-                //sb.Append(@" alt=""");
-                //sb.Append(uad.Sex);
-                //sb.Append(@""" />");
-                //sb.Append(@"</a>");
-                //sb.Append(@" ");
-                //sb.AppendLine(uad.SiteBagesSmall);
-
-            
-
-                //sb.Append(@"</div>");
- 
-               
-                //sb.Append(@"</div>");
-                sb.Append(@"</li>");
-
-
-                return sb.ToString();
-            }
+            return Convert.ToBoolean(DbAct.ExecuteScalar(comm));
         }
 
         public static UserAccount GetNewestUserUserAccount()
         {
-            UserAccounts uas = new UserAccounts();
+            var uas = new UserAccounts();
 
             uas.GetNewestUsers();
 
@@ -1161,32 +1123,60 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             else return null;
         }
 
-        public Uri UrlTo
-        {
-            get
-            {
-                return new Uri(Utilities.URLAuthority() + System.Web.VirtualPathUtility.ToAbsolute(
-                    string.Format("~/{0}", this.UserName)));
-            }
-        }
+        #region non-db properties
+
+        public bool IsProfileLinkNewWindow { get; set; }
+
+        #endregion
     }
 
     public class UserAccounts : List<UserAccount>, IGetAll, ICacheName, IUnorderdList
     {
+        private bool _includeStartAndEndTags = true;
+        public int LookedAtCount { get; set; }
 
+        public bool IncludeStartAndEndTags
+        {
+            get { return _includeStartAndEndTags; }
+            set { _includeStartAndEndTags = value; }
+        }
+
+
+        public string ToUnorderdList
+        {
+            get
+            {
+                if (Count == 0) return string.Empty;
+
+                var sb = new StringBuilder(100);
+
+                if (IncludeStartAndEndTags) sb.Append(@"<ul class=""user_list"">");
+
+                foreach (UserAccount ua in this)
+                {
+                    sb.Append(ua.ToUnorderdListItem);
+                }
+
+                if (IncludeStartAndEndTags) sb.Append(@"</ul>");
+
+                return sb.ToString();
+            }
+        }
 
         public int GetListUsers(int pageNumber, int resultSize,
-            int? ageFrom, int? ageTo, int? interestedInID,
-            int? relationshipStatusID, int? youAreID, string country,
-            string postalcode, string lang, out bool sortByDistance)
+                                int? ageFrom, int? ageTo, int? interestedInID,
+                                int? relationshipStatusID, int? youAreID, string country,
+                                string postalcode, string lang, out bool sortByDistance)
         {
             string currentLang = Utilities.GetCurrentLanguageCode();
 
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
- 
-          
-            SiteStructs.LatLong longLat = new SiteStructs.LatLong();
+            Thread.CurrentThread.CurrentUICulture =
+                CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+            Thread.CurrentThread.CurrentCulture =
+                CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+
+
+            var longLat = new SiteStructs.LatLong();
 
             if (!string.IsNullOrWhiteSpace(postalcode) &&
                 !string.IsNullOrWhiteSpace(country))
@@ -1198,27 +1188,27 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             if (longLat.longitude != 0 && longLat.latitude != 0)
             {
-                sortByDistance = true;// sorting by distance or activity
-            } 
+                sortByDistance = true; // sorting by distance or activity
+            }
 
-            StringBuilder sb = new StringBuilder(100);
+            var sb = new StringBuilder(100);
 
 
-            StringBuilder whereCondition = new StringBuilder(100);
+            var whereCondition = new StringBuilder(100);
 
             if (ageFrom != null || ageTo != null || interestedInID != null || relationshipStatusID != null ||
                 youAreID != null || !string.IsNullOrEmpty(country) || !string.IsNullOrEmpty(postalcode) ||
                 !string.IsNullOrEmpty(lang))
             {
-
-
-                ArrayList alFilters = new ArrayList();
+                var alFilters = new ArrayList();
 
                 if (ageFrom != null && ageTo != null)
                 {
                     DateTime yearFrom = DateTime.UtcNow.AddYears(-Convert.ToInt32(ageFrom));
                     DateTime yearTo = DateTime.UtcNow.AddYears(-Convert.ToInt32(ageTo));
-                    alFilters.Add(string.Format(@" birthDate BETWEEN '{1}' AND '{0}' ", yearFrom.ToString("yyyy-MM-dd HH':'mm':'ss"), yearTo.ToString("yyyy-MM-dd HH':'mm':'ss")));
+                    alFilters.Add(string.Format(@" birthDate BETWEEN '{1}' AND '{0}' ",
+                                                yearFrom.ToString("yyyy-MM-dd HH':'mm':'ss"),
+                                                yearTo.ToString("yyyy-MM-dd HH':'mm':'ss")));
                 }
 
                 if (interestedInID != null)
@@ -1236,12 +1226,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     alFilters.Add(string.Format(@" youAreID = {0} ", Convert.ToInt32(youAreID)));
                 }
 
-                if (!sortByDistance &&  !string.IsNullOrEmpty(country))
+                if (!sortByDistance && !string.IsNullOrEmpty(country))
                 {
                     alFilters.Add(string.Format(@" country = '{0}' ", country.Substring(0, 2)));
                 }
 
-                if (  !string.IsNullOrEmpty(lang))
+                if (!string.IsNullOrEmpty(lang))
                 {
                     alFilters.Add(string.Format(@" [defaultLanguage] = '{0}' ", lang.Substring(0, 2)));
                 }
@@ -1269,12 +1259,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                         whereCondition.AppendFormat(" {0} AND ", filter);
                     }
                 }
-
             }
 
             if (sortByDistance)
             {
-
                 sb.AppendFormat(@" 
 
 DECLARE  @PageIndex INT = {0}
@@ -1309,8 +1297,7 @@ WHERE RowNumber BETWEEN(@PageIndex -1)
 
 DROP TABLE #Results
 
- ", pageNumber, resultSize, longLat.latitude.ToString(), longLat.longitude.ToString(), whereCondition.ToString());
-
+ ", pageNumber, resultSize, longLat.latitude.ToString(), longLat.longitude.ToString(), whereCondition);
             }
             else
             {
@@ -1348,10 +1335,10 @@ WHERE RowNumber BETWEEN(@PageIndex -1)
 
 DROP TABLE #Results
 
- ", pageNumber, resultSize , whereCondition.ToString());
+ ", pageNumber, resultSize, whereCondition);
             }
-           
-       
+
+
             int totalResults = 0;
 
             // get a configured DbCommand object
@@ -1373,7 +1360,7 @@ DROP TABLE #Results
                 foreach (DataRow dr in ds.Tables[1].Rows)
                 {
                     ua = new UserAccount(FromObj.IntFromObj(dr["userAccountID"]));
-                    this.Add(ua);
+                    Add(ua);
                 }
             }
 
@@ -1383,7 +1370,6 @@ DROP TABLE #Results
 
             return totalResults;
         }
-    
 
 
         public void GetNewestUsers()
@@ -1404,13 +1390,10 @@ DROP TABLE #Results
                 {
                     ua = new UserAccount(dr);
 
-                    this.Add(ua);
+                    Add(ua);
                 }
             }
         }
-
-
-
 
 
         public void GetWhoIsOffline(bool fillList)
@@ -1431,22 +1414,16 @@ DROP TABLE #Results
                 {
                     ua = new UserAccount(dr);
 
-                    if (fillList) this.Add(ua);
+                    if (fillList) Add(ua);
                     else ua.RemoveCache();
                 }
             }
         }
 
 
-
-
-
-
-
-
         public static void GetWhoIsOffline()
         {
-            UserAccounts uas = new UserAccounts();
+            var uas = new UserAccounts();
 
             uas.GetWhoIsOffline(false);
         }
@@ -1462,7 +1439,6 @@ DROP TABLE #Results
             // execute the stored procedure
             return Convert.ToInt32(DbAct.ExecuteScalar(comm));
         }
-
 
 
         public static int GetOnlineUserCount()
@@ -1482,19 +1458,6 @@ DROP TABLE #Results
         }
 
 
-
-
-        public UserAccounts() { }
-
-
-        private int _lookedAtCount = 0;
-
-        public int LookedAtCount
-        {
-            get { return _lookedAtCount; }
-            set { _lookedAtCount = value; }
-        }
-
         public void GetMostLookedAtUsersDays(int daysBack, int total)
         {
             // get a configured DbCommand object
@@ -1502,7 +1465,7 @@ DROP TABLE #Results
             // set the stored procedure name
             comm.CommandText = "up_GetMostLookedAtUsersDays";
 
-            ADOExtenstion.AddParameter(comm, "daysBack", daysBack);
+            comm.AddParameter("daysBack", daysBack);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -1515,17 +1478,12 @@ DROP TABLE #Results
                 foreach (DataRow dr in dt.Rows)
                 {
                     user = new UserAccount(FromObj.IntFromObj(dr["lookedAtUserAccountID"]));
-                    this.LookedAtCount = FromObj.IntFromObj(dr["count"]);
-                    if (this.Count == total) break;
-                    this.Add(user);
+                    LookedAtCount = FromObj.IntFromObj(dr["count"]);
+                    if (Count == total) break;
+                    Add(user);
                 }
             }
         }
-
-
-
-
-
 
 
         public void GetMostLookedAtUsersDays(int daysBack)
@@ -1534,10 +1492,9 @@ DROP TABLE #Results
         }
 
 
-
         public static void UpdateWhoIsOnline()
         {
-            UserAccounts.GetWhoIsOffline();// update cache
+            GetWhoIsOffline(); // update cache
 
             // set the DB
 
@@ -1548,7 +1505,6 @@ DROP TABLE #Results
 
             // execute the stored procedure
             DbAct.ExecuteNonQuery(comm);
-
         }
 
 
@@ -1559,7 +1515,7 @@ DROP TABLE #Results
             // set the stored procedure name
             comm.CommandText = "up_GetActiveUsersFilter";
 
-            ADOExtenstion.AddParameter(comm, "gender", filter);
+            comm.AddParameter("gender", filter);
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
@@ -1572,7 +1528,7 @@ DROP TABLE #Results
                 foreach (DataRow dr in dt.Rows)
                 {
                     art = new UserAccount(dr);
-                    this.Add(art);
+                    Add(art);
                 }
             }
         }
@@ -1594,16 +1550,14 @@ DROP TABLE #Results
                 foreach (DataRow dr in dt.Rows)
                 {
                     art = new UserAccount(dr);
-                    this.Add(art);
+                    Add(art);
                 }
             }
         }
 
 
-
-        public void  GetOnlineUsers()
+        public void GetOnlineUsers()
         {
-
             //if (HttpContext.Current.Cache[this.CacheName] == null)
             //{
             // get a configured DbCommand object
@@ -1621,10 +1575,43 @@ DROP TABLE #Results
                 foreach (DataRow dr in dt.Rows)
                 {
                     art = new UserAccount(dr);
-                    this.Add(art);
+                    Add(art);
                 }
 
                 // HttpContext.Current.Cache.AddObjToCache(this, this.CacheName);
+            }
+        }
+
+        public void GetMappableUsers()
+        {
+            if (HttpContext.Current.Cache[CacheName] == null)
+            {
+                // get a configured DbCommand object
+                DbCommand comm = DbAct.CreateCommand();
+                // set the stored procedure name
+                comm.CommandText = "up_GetMappableUsers";
+
+                // execute the stored procedure
+                DataTable dt = DbAct.ExecuteSelectCommand(comm);
+
+                // was something returned?
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    UserAccount art = null;
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        art = new UserAccount(dr);
+                        Add(art);
+                    }
+
+                    HttpContext.Current.Cache.AddObjToCache(this, CacheName);
+                }
+            }
+            else
+            {
+                var uads = (UserAccounts) HttpContext.Current.Cache[CacheName];
+
+                foreach (UserAccount uad in uads) Add(uad);
             }
         }
 
@@ -1632,7 +1619,6 @@ DROP TABLE #Results
 
         public void GetAll()
         {
-
             //if (HttpContext.Current.Cache[this.CacheName] == null)
             //{
             // get a configured DbCommand object
@@ -1650,7 +1636,7 @@ DROP TABLE #Results
                 foreach (DataRow dr in dt.Rows)
                 {
                     art = new UserAccount(dr);
-                    this.Add(art);
+                    Add(art);
                 }
 
                 // HttpContext.Current.Cache.AddObjToCache(this, this.CacheName);
@@ -1670,83 +1656,14 @@ DROP TABLE #Results
 
         public string CacheName
         {
-            get { return string.Format("{0}map", this.GetType().FullName); }
+            get { return string.Format("{0}map", GetType().FullName); }
         }
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
         }
-
 
         #endregion
-
-        private bool _includeStartAndEndTags = true;
-
-        public bool IncludeStartAndEndTags
-        {
-            get { return _includeStartAndEndTags; }
-            set { _includeStartAndEndTags = value; }
-        }
-
-
-        public string ToUnorderdList
-        {
-            get
-            {
-                if (this.Count == 0) return string.Empty;
-
-                StringBuilder sb = new StringBuilder(100);
-
-                if (IncludeStartAndEndTags) sb.Append(@"<ul class=""user_list"">");
-
-                foreach (UserAccount ua in this)
-                {
-                    sb.Append(ua.ToUnorderdListItem);
-                }
-
-                if (IncludeStartAndEndTags) sb.Append(@"</ul>");
-
-                return sb.ToString();
-            }
-        }
-
-        public void GetMappableUsers()
-        {
-
-            if (HttpContext.Current.Cache[this.CacheName] == null)
-            {
-                // get a configured DbCommand object
-                DbCommand comm = DbAct.CreateCommand();
-                // set the stored procedure name
-                comm.CommandText = "up_GetMappableUsers";
-
-                // execute the stored procedure
-                DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-                // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    UserAccount art = null;
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        art = new UserAccount(dr);
-                        this.Add(art);
-                    }
-
-                    HttpContext.Current.Cache.AddObjToCache(this, this.CacheName);
-                }
-
-
-            }
-            else
-            {
-                UserAccounts uads = (UserAccounts)HttpContext.Current.Cache[this.CacheName];
-
-                foreach (UserAccount uad in uads) this.Add(uad);
-            }
-
-
-        }
     }
 }

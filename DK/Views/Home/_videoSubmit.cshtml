@@ -1,9 +1,9 @@
 ﻿@using BootBaronLib.Resources;
 @using BootBaronLib.Values
 <a href="http://youtube.com" target="_blank">
-    <b><img src="@Url.Content("~/content/images/social/you_tube.png")" /></a>
+ <img src="@Url.Content("~/content/images/social/you_tube.png")" /></a>
 <a name="submit"></a>
-@Messages.SubmitYourYouTubeVideoLinkHere</b>
+<b>@Messages.SubmitYourYouTubeVideoLinkHere</b>
 @using (Html.BeginForm("videosubmit", "Home", FormMethod.Post))
 {
     <div class="span3">
@@ -108,7 +108,7 @@ CountBack(gsecs);
                 
                 <label>@Messages.Contest <i>(@Messages.Optional)</i></label>
                 <select name="contestID">
-                             <option selected="selected " value="">@Messages.DashSelect</option>
+                             <option selected="selected" value="">@Messages.DashSelect</option>
                     <option value="@ViewBag.CurrentContest.ContestID">@ViewBag.CurrentContest.Name</option>
                 </select>
             }

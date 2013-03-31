@@ -14,7 +14,6 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
@@ -26,15 +25,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties 
 
-        private int _blackIPID = 0;
-
-        public int BlackIPID
-        {
-            get { return _blackIPID; }
-            set { _blackIPID = value; }
-        }
+        public int BlackIPID { get; set; }
 
         private string _ipAddress = string.Empty;
+
+        public BlackIP()
+        {
+            BlackIPID = 0;
+        }
 
         public string IpAddress
         {
@@ -56,7 +54,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // set the stored procedure name
             comm.CommandText = "up_IsIPBlocked";
 
-            ADOExtenstion.AddParameter(comm, "ipAddress", ipAddress);
+            comm.AddParameter("ipAddress", ipAddress);
 
             // execute the stored procedure
             return DbAct.ExecuteScalar(comm) == "1";

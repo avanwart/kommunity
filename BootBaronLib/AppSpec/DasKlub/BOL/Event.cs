@@ -13,6 +13,7 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,11 +21,11 @@ using System.Data.Common;
 using System.Text;
 using System.Web;
 using BootBaronLib.AppSpec.DasKlub.BLL;
+using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
-using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
@@ -32,15 +33,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         #region properties
 
-        private int _EventID = 0;
-
-        public int EventID
-        {
-            get { return _EventID; }
-            set { _EventID = value; }
-        }
-
+        private string _eventDetailURL = string.Empty;
+        private DateTime _localTimeBegin = DateTime.MinValue;
+        private DateTime _localTimeEnd = DateTime.MinValue;
         private string _name = string.Empty;
+        private string _notes = string.Empty;
+        private string _rsvpURL = string.Empty;
+        private string _ticketURL = string.Empty;
+        public int EventID { get; set; }
 
         public string Name
         {
@@ -49,23 +49,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-        private int _eventCycleID = 0;
+        public int EventCycleID { get; set; }
 
-        public int EventCycleID
-        {
-            get { return _eventCycleID; }
-            set { _eventCycleID = value; }
-        }
-
-        private int _venueID = 0;
-
-        public int VenueID
-        {
-            get { return _venueID; }
-            set { _venueID = value; }
-        }
-
-        private DateTime _localTimeBegin = DateTime.MinValue;
+        public int VenueID { get; set; }
 
         public DateTime LocalTimeBegin
         {
@@ -74,8 +60,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-        private DateTime _localTimeEnd = DateTime.MinValue;
-
         public DateTime LocalTimeEnd
         {
             get { return _localTimeEnd; }
@@ -83,19 +67,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-
-        private string _notes = string.Empty;
-
         public string Notes
         {
             get { return _notes; }
             set { _notes = value; }
         }
- 
-    
-        private string _ticketURL = string.Empty;
 
-       
 
         public string TicketURL
         {
@@ -104,8 +81,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-        private string _rsvpURL = string.Empty;
-
         public string RsvpURL
         {
             get { return _rsvpURL; }
@@ -113,32 +88,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-        private bool _isEnabled = false;
-
-        public bool IsEnabled
-        {
-            get { return _isEnabled; }
-            set { _isEnabled = value; }
-        }
+        public bool IsEnabled { get; set; }
 
 
-        private bool _isReoccuring = false;
-
-        public bool IsReoccuring
-        {
-            get { return _isReoccuring; }
-            set { _isReoccuring = value; }
-        }
+        public bool IsReoccuring { get; set; }
 
 
-        private string _eventDetailURL = string.Empty;
- 
         public string EventDetailURL
         {
             get { return _eventDetailURL; }
             set { _eventDetailURL = value; }
         }
-
 
         #endregion
 
@@ -156,9 +116,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public Event(int eventID)
         {
-            this.EventID = eventID;
+            EventID = eventID;
 
-            if (HttpContext.Current.Cache[this.CacheName] == null)
+            if (HttpContext.Current.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -175,13 +135,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                 if (dt.Rows.Count == 1)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], this.CacheName);
+                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow)HttpContext.Current.Cache[this.CacheName]);
+                Get((DataRow) HttpContext.Current.Cache[CacheName]);
             }
         }
 
@@ -191,14 +151,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string CacheName
         {
-            get {
-                return string.Format("{0}-{1}", this.GetType().FullName, this.EventID.ToString());
-            }
+            get { return string.Format("{0}-{1}", GetType().FullName, EventID.ToString()); }
         }
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(this.CacheName);
+            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
         }
 
         #endregion
@@ -209,18 +167,18 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             {
                 base.Get(dr);
 
-                this.EventID = FromObj.IntFromObj(dr["EventID"]);
-                this.VenueID = FromObj.IntFromObj(dr["venueID"]);
-                this.LocalTimeBegin = FromObj.DateFromObj(dr["localTimeBegin"]);
-                this.LocalTimeEnd = FromObj.DateFromObj(dr["localTimeEnd"]);
-                this.Notes = FromObj.StringFromObj(dr["notes"]);
-                this.TicketURL = FromObj.StringFromObj(dr["ticketURL"]);
-                this.EventCycleID = FromObj.IntFromObj(dr["eventCycleID"]);
-                this.RsvpURL = FromObj.StringFromObj(dr["rsvpURL"]);
-                this.Name = FromObj.StringFromObj(dr["name"]);
-                this.IsEnabled = FromObj.BoolFromObj(dr["isEnabled"]);
-                this.IsReoccuring = FromObj.BoolFromObj(dr["isReoccuring"]);
-                this.EventDetailURL = FromObj.StringFromObj(dr["eventDetailURL"]);
+                EventID = FromObj.IntFromObj(dr["EventID"]);
+                VenueID = FromObj.IntFromObj(dr["venueID"]);
+                LocalTimeBegin = FromObj.DateFromObj(dr["localTimeBegin"]);
+                LocalTimeEnd = FromObj.DateFromObj(dr["localTimeEnd"]);
+                Notes = FromObj.StringFromObj(dr["notes"]);
+                TicketURL = FromObj.StringFromObj(dr["ticketURL"]);
+                EventCycleID = FromObj.IntFromObj(dr["eventCycleID"]);
+                RsvpURL = FromObj.StringFromObj(dr["rsvpURL"]);
+                Name = FromObj.StringFromObj(dr["name"]);
+                IsEnabled = FromObj.BoolFromObj(dr["isEnabled"]);
+                IsReoccuring = FromObj.BoolFromObj(dr["isReoccuring"]);
+                EventDetailURL = FromObj.StringFromObj(dr["eventDetailURL"]);
             }
             catch // (Exception ex)
             {
@@ -230,37 +188,36 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public override int Create()
         {
-
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddEvent";
 
-            if ( this.LocalTimeBegin == DateTime.MinValue)
+            if (LocalTimeBegin == DateTime.MinValue)
             {
-                this.LocalTimeBegin = DateTime.UtcNow;
+                LocalTimeBegin = DateTime.UtcNow;
             }
 
-            if ( LocalTimeEnd == DateTime.MinValue)
+            if (LocalTimeEnd == DateTime.MinValue)
             {
                 LocalTimeEnd = DateTime.UtcNow;
             }
 
 
-            ADOExtenstion.AddParameter(comm, "createdByUserID", CreatedByUserID);
-            ADOExtenstion.AddParameter(comm, "name", Name);
-            ADOExtenstion.AddParameter(comm, "venueID", VenueID);
-            ADOExtenstion.AddParameter(comm, "localTimeBegin", LocalTimeBegin);
-            ADOExtenstion.AddParameter(comm, "notes", Notes);
-            ADOExtenstion.AddParameter(comm, "ticketURL", TicketURL);
-            ADOExtenstion.AddParameter(comm, "localTimeEnd", LocalTimeEnd);
-            ADOExtenstion.AddParameter(comm, "eventCycleID", EventCycleID);
-            ADOExtenstion.AddParameter(comm, "rsvpURL", RsvpURL);
-            ADOExtenstion.AddParameter(comm, "isReoccuring", IsReoccuring);
-            ADOExtenstion.AddParameter(comm, "isEnabled", IsEnabled);
-            ADOExtenstion.AddParameter(comm, "eventDetailURL", EventDetailURL);
-           
-             
+            comm.AddParameter("createdByUserID", CreatedByUserID);
+            comm.AddParameter("name", Name);
+            comm.AddParameter("venueID", VenueID);
+            comm.AddParameter("localTimeBegin", LocalTimeBegin);
+            comm.AddParameter("notes", Notes);
+            comm.AddParameter("ticketURL", TicketURL);
+            comm.AddParameter("localTimeEnd", LocalTimeEnd);
+            comm.AddParameter("eventCycleID", EventCycleID);
+            comm.AddParameter("rsvpURL", RsvpURL);
+            comm.AddParameter("isReoccuring", IsReoccuring);
+            comm.AddParameter("isEnabled", IsEnabled);
+            comm.AddParameter("eventDetailURL", EventDetailURL);
+
+
             // the result is their ID
             string result = string.Empty;
             // execute the stored procedure
@@ -272,9 +229,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
             else
             {
-                this.VenueID = Convert.ToInt32(result);
+                VenueID = Convert.ToInt32(result);
 
-                return this.VenueID;
+                return VenueID;
             }
         }
 
@@ -290,79 +247,79 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             //
             param = comm.CreateParameter();
             param.ParameterName = "@name";
-            param.Value = this.Name;
+            param.Value = Name;
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@venueID ";
-            param.Value = this.VenueID;
+            param.Value = VenueID;
             param.DbType = DbType.Int32;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@updatedByUserID";
-            param.Value = this.UpdatedByUserID;
+            param.Value = UpdatedByUserID;
             param.DbType = DbType.Int32;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@localTimeBegin";
-            param.Value = this.LocalTimeBegin;
+            param.Value = LocalTimeBegin;
             param.DbType = DbType.DateTime;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@notes";
-            param.Value = this.Notes;
+            param.Value = Notes;
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@ticketURL";
-            param.Value = this.TicketURL;
+            param.Value = TicketURL;
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@localTimeEnd ";
-            param.Value = this.LocalTimeEnd;
+            param.Value = LocalTimeEnd;
             param.DbType = DbType.DateTime;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@eventCycleID";
-            param.Value = this.EventCycleID;
+            param.Value = EventCycleID;
             param.DbType = DbType.Int32;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@rsvpURL";
-            param.Value = this.RsvpURL;
+            param.Value = RsvpURL;
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@isReoccuring";
-            param.Value = this.IsReoccuring;
+            param.Value = IsReoccuring;
             param.DbType = DbType.Boolean;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@isEnabled";
-            param.Value = this.IsEnabled;
+            param.Value = IsEnabled;
             param.DbType = DbType.Boolean;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@eventDetailURL";
-            param.Value = this.EventDetailURL;
+            param.Value = EventDetailURL;
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
             //
             param = comm.CreateParameter();
             param.ParameterName = "@eventID ";
-            param.Value = this.EventID;
+            param.Value = EventID;
             param.DbType = DbType.Int32;
             comm.Parameters.Add(param);
 
@@ -374,7 +331,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             RemoveCache();
 
             return (result != -1);
- 
         }
 
         public override bool Delete()
@@ -388,7 +344,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             //
             param = comm.CreateParameter();
             param.ParameterName = "@eventID";
-            param.Value = this.EventID;
+            param.Value = EventID;
             param.DbType = DbType.Int32;
             comm.Parameters.Add(param);
 
@@ -397,12 +353,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         #region ICalendarEvent Members
 
-
         public string VenueURL
         {
             get
             {
-                Venue ven = new Venue(this.VenueID);
+                var ven = new Venue(VenueID);
 
                 return ven.VenueURL;
             }
@@ -410,19 +365,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public DateTime StartDate
         {
-            get { return this.LocalTimeBegin; }
+            get { return LocalTimeBegin; }
         }
 
         public DateTime EndDate
         {
-            get { return this.LocalTimeEnd; }
+            get { return LocalTimeEnd; }
         }
 
         public string VenueDetail
         {
             get
             {
-                Venue ven = new Venue(this.VenueID);
+                var ven = new Venue(VenueID);
 
                 return ven.ToString();
             }
@@ -430,26 +385,26 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string EventDescription
         {
-            get {
-                
-                if (this.IsReoccuring)
+            get
+            {
+                if (IsReoccuring)
                 {
-                    return this.Name;
+                    return Name;
                 }
 
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
 
-                ArtistEvents artds = new ArtistEvents();
+                var artds = new ArtistEvents();
 
-                artds.GetArtistsForEvent(this.EventID);
+                artds.GetArtistsForEvent(EventID);
 
                 Artist art = null;
 
                 int i = 1;
 
-                if ( artds.Count == 1)
+                if (artds.Count == 1)
                     sb.Append(@"Band: ");
-                else if ( artds.Count > 1)
+                else if (artds.Count > 1)
                     sb.Append(@"Bands: ");
 
                 foreach (ArtistEvent atd in artds)
@@ -466,7 +421,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     {
                         sb.Append(", ");
                     }
-                
+
                     i++;
                 }
 
@@ -474,29 +429,25 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
         }
 
-        
 
         public string TicketDetailURL
         {
-            get { return this.TicketURL; }
+            get { return TicketURL; }
         }
-
 
 
         public string RSVPURL
         {
-            get { return this.RsvpURL; }
+            get { return RsvpURL; }
         }
 
         #endregion
-
- 
     }
 
-    public class Events : List<Event> 
+    public class Events : List<Event>
     {
-      
-        public void GetEventsForLocation(DateTime beginDate, DateTime endDate, string countryISO, string region, string city)
+        public void GetEventsForLocation(DateTime beginDate, DateTime endDate, string countryISO, string region,
+                                         string city)
         {
             DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
@@ -547,13 +498,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 {
                     trd = new Event(dr);
 
-                    this.Add(trd);
+                    Add(trd);
                 }
             }
-
         }
- 
- 
 
         #region IGetAll Members
 
@@ -574,7 +522,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 foreach (DataRow dr in dt.Rows)
                 {
                     td = new Event(dr);
-                    this.Add(td);
+                    Add(td);
                 }
             }
         }

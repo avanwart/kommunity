@@ -2,7 +2,7 @@
 @using BootBaronLib.Operational
 @using BootBaronLib.Resources
 @using DasKlub.Helpers
-@using Web.Helpers
+
 @{
     ViewBag.Title = Model.Title;
     ViewBag.MetaDescription = Model.MetaDescription;
@@ -36,10 +36,10 @@
 
               @if (Model.CreatedByUserID > 0)
               {
-                  BootBaronLib.AppSpec.DasKlub.BOL.UserAccount ua =
+                  var ua =
                       new BootBaronLib.AppSpec.DasKlub.BOL.UserAccount(Model.CreatedByUserID);
 
-                  BootBaronLib.AppSpec.DasKlub.BOL.UserAccountDetail uad =
+                  var uad =
                        new BootBaronLib.AppSpec.DasKlub.BOL.UserAccountDetail();
                   uad.GetUserAccountDeailForUser(ua.UserAccountID);
                    
@@ -174,7 +174,7 @@ poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload=
     </div>
     <div class="span4">
         <div id="article_tags" class="widget simple-flickr-photostream">
-            <h3 class="widget-title">@BootBaronLib.Resources.Messages.FilterNewsByTag
+            <h3 class="widget-title">@Messages.FilterNewsByTag
             </h3>
             @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))
         </div>

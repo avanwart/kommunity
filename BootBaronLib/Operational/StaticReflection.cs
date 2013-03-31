@@ -15,7 +15,6 @@
 //   limitations under the License.
 using System;
 using System.Linq.Expressions;
-using System.Globalization;
 
 namespace BootBaronLib.Operational
 {
@@ -68,26 +67,29 @@ namespace BootBaronLib.Operational
                     "The expression cannot be null.");
             }
 
-            if (expression is MemberExpression)
+            var expression1 = expression as MemberExpression;
+            if (expression1 != null)
             {
                 // Reference type property or field
                 var memberExpression =
-                    (MemberExpression)expression;
+                    expression1;
                 return memberExpression.Member.Name;
             }
 
-            if (expression is MethodCallExpression)
+            var callExpression = expression as MethodCallExpression;
+            if (callExpression != null)
             {
                 // Reference type method
                 var methodCallExpression =
-                    (MethodCallExpression)expression;
+                    callExpression;
                 return methodCallExpression.Method.Name;
             }
 
-            if (expression is UnaryExpression)
+            var unaryExpression1 = expression as UnaryExpression;
+            if (unaryExpression1 != null)
             {
                 // Property, field of method returning value type
-                var unaryExpression = (UnaryExpression)expression;
+                var unaryExpression = unaryExpression1;
                 return GetMemberName(unaryExpression);
             }
 
@@ -97,10 +99,11 @@ namespace BootBaronLib.Operational
         private static string GetMemberName(
             UnaryExpression unaryExpression)
         {
-            if (unaryExpression.Operand is MethodCallExpression)
+            var operand = unaryExpression.Operand as MethodCallExpression;
+            if (operand != null)
             {
                 var methodExpression =
-                    (MethodCallExpression)unaryExpression.Operand;
+                    operand;
                 return methodExpression.Method.Name;
             }
 
