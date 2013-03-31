@@ -13,14 +13,15 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
+
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
+using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using DasKlub.Models;
@@ -31,149 +32,64 @@ namespace DasKlub.Controllers
     {
         #region variables
 
-        MembershipUser mu = null;
-      
-        UserAccounts uas = null;
- 
-        
-        
-        
-        
-        int pageSize = 25;
-        int userPageNumber = 1;
+        private MembershipUser _mu;
+        private const int PageSize = 25;
+        private UserAccounts _uas;
+        private int _userPageNumber = 1;
 
         #endregion
 
- 
-
         private void InterestIdentityViewBags()
         {
-
-            ///
             var interins = UserAccountDetail.GetDistinctInterests();
             if (interins != null)
             {
-                interins.Sort(delegate(InterestedIn p1, InterestedIn p2)
-                {
-                    return p1.LocalizedName.CompareTo(p2.LocalizedName);
-                });
-                ViewBag.InterestedIns = interins.Select(x => new { InterestedInID = x.InterestedInID, LocalizedName = x.LocalizedName });
+                interins.Sort(
+                    (p1, p2) => String.Compare(p1.LocalizedName, p2.LocalizedName, StringComparison.Ordinal));
+                ViewBag.InterestedIns = interins.Select(x => new {x.InterestedInID, x.LocalizedName});
             }
 
-            ///
             var relationshipStatuses = UserAccountDetail.GetDistinctRelationshipStatus();
             if (relationshipStatuses != null)
             {
-                relationshipStatuses.Sort(delegate(RelationshipStatus p1, RelationshipStatus p2)
-                {
-                    return p1.LocalizedName.CompareTo(p2.LocalizedName);
-                });
-                ViewBag.RelationshipStatuses = relationshipStatuses.Select(x => new { RelationshipStatusID = x.RelationshipStatusID, LocalizedName = x.LocalizedName });
+                relationshipStatuses.Sort(
+                    (p1, p2) => String.Compare(p1.LocalizedName, p2.LocalizedName, StringComparison.Ordinal));
+                ViewBag.RelationshipStatuses =
+                    relationshipStatuses.Select(x => new {x.RelationshipStatusID, x.LocalizedName});
             }
 
-            ///
             var youAres = UserAccountDetail.GetDistinctYouAres();
             if (youAres != null)
             {
-                youAres.Sort(delegate(YouAre p1, YouAre p2)
-                {
-                    return p1.LocalizedName.CompareTo(p2.LocalizedName);
-                });
-                ViewBag.YouAres = youAres.Select(x => new { YouAreID = x.YouAreID, LocalizedName = x.LocalizedName });
+                youAres.Sort((p1, p2) => String.Compare(p1.LocalizedName, p2.LocalizedName, StringComparison.Ordinal));
+                ViewBag.YouAres = youAres.Select(x => new {x.YouAreID, x.LocalizedName});
             }
 
-            ///
             var countries = UserAccountDetail.GetDistinctUserCountries();
             if (countries != null)
             {
-                System.Collections.Generic.Dictionary<string, string> countryOptions = new Dictionary<string, string>();
-                foreach (SiteEnums.CountryCodeISO value in countries)
-                {
-                    if (value != SiteEnums.CountryCodeISO.U0 &&
-                         value != SiteEnums.CountryCodeISO.RD)
-                    {
-                        countryOptions.Add(value.ToString(), Utilities.ResourceValue(
-                            Utilities.GetEnumDescription(value)));
-                    }
-                }
+                var countryOptions = countries.Where(value => value != SiteEnums.CountryCodeISO.U0 && value 
+                    != SiteEnums.CountryCodeISO.RD).ToDictionary(value => value.ToString(), value => Utilities.ResourceValue(Utilities.GetEnumDescription(value)));
 
                 var items = from k in countryOptions.Keys
-                            orderby countryOptions[k] ascending
-                            select k;
+                                                   orderby countryOptions[k] ascending
+                                                   select k;
 
 
                 ViewBag.CountryOptions = items;
-
             }
 
 
-
-            ///
             var languages = UserAccountDetail.GetDistinctUserLanguages();
-            if (languages != null)
-            {
-                System.Collections.Generic.Dictionary<string, string> languageOptions = new Dictionary<string, string>();
+            if (languages == null) return;
+            var languageOptions = languages.ToDictionary(value => value.ToString(), value => Utilities.ResourceValue(Utilities.GetEnumDescription(value)));
 
-                foreach (SiteEnums.SiteLanguages value in languages)
-                {
-                    languageOptions.Add(value.ToString(), Utilities.ResourceValue(
-                            Utilities.GetEnumDescription(value)));
-
-                }
-
-                var languagesitems = from k in languageOptions.Keys
-                                     orderby languageOptions[k] ascending
-                                     select k;
+            var languagesitems = from k in languageOptions.Keys
+                                                        orderby languageOptions[k] ascending
+                                                        select k;
 
 
-                ViewBag.Languages = languagesitems;
-            }
-        }
-
-        private int ReverseYouAreByInterestName(int? interesetedinID)
-        {
-            if (interesetedinID == null) return 0;
-
-            InterestedIn iiinets = new InterestedIn();
-
-            iiinets.Get(Convert.ToInt32(interesetedinID));
-
-            YouAres iins = new YouAres();
-
-            iins.GetAll();
-
-            foreach (YouAre inn1 in iins)
-            {
-                if (inn1.Name == iiinets.Name)
-                {
-                    return inn1.YouAreID; ;
-                }
-            }
-
-            return 0;
-        }
-
-        private int ReverseInterestYouAreByName(int? youAreID )
-        {
-            if (youAreID == null) return 0;
-
-            YouAre youAre = new YouAre();
-
-            youAre.Get(Convert.ToInt32(youAreID));
-
-            InterestedIns iins = new InterestedIns();
-
-            iins.GetAll();
-
-            foreach (InterestedIn inn1 in iins)
-            {
-                if (inn1.Name == youAre.Name)
-                {
-                    return inn1.InterestedInID;
-                }
-            }
-
-            return 0;
+            ViewBag.Languages = languagesitems;
         }
 
         //
@@ -183,25 +99,25 @@ namespace DasKlub.Controllers
         {
             InterestIdentityViewBags();
 
-            FindUsersModel model = new FindUsersModel();
+            var model = new FindUsersModel();
 
             LoadFilteredUsers(false, model);
 
-            ViewBag.FilteredUsers = uas.ToUnorderdList;
+            ViewBag.FilteredUsers = _uas.ToUnorderdList;
 
 
             // random
-            Role rle = new Role(SiteEnums.RoleTypes.cyber_girl.ToString());
+            var rle = new Role(SiteEnums.RoleTypes.cyber_girl.ToString());
 
             UserAccounts girlModels = UserAccountRole.GetUsersInRole(rle.RoleID);
 
-            if (girlModels!= null && girlModels.Count > 0)
+            if (girlModels != null && girlModels.Count > 0)
             {
-                BootBaronLib.Operational.StaticHelper.Shuffle(girlModels);
+                girlModels.Shuffle();
 
                 UserAccount featuredModel = girlModels[0];
 
-                UserAccountDetail featuredPhoto = new UserAccountDetail();
+                var featuredPhoto = new UserAccountDetail();
                 featuredPhoto.GetUserAccountDeailForUser(featuredModel.UserAccountID);
 
                 int photoNumber = Utilities.RandomNumber(1, 4);
@@ -210,7 +126,7 @@ namespace DasKlub.Controllers
 
                 if (photoNumber > 1)
                 {
-                    UserPhotos ups = new UserPhotos();
+                    var ups = new UserPhotos();
 
                     ups.GetUserPhotos(featuredModel.UserAccountID);
 
@@ -228,15 +144,15 @@ namespace DasKlub.Controllers
                 }
 
                 // random border color with random user pic from their 3 photos
-                string[] colorBorder = BootBaronLib.Configs.GeneralConfigs.RandomColors.Split(',');
+                string[] colorBorder = GeneralConfigs.RandomColors.Split(',');
 
-                Random rnd=new Random();
+                var rnd = new Random();
                 string[] myRandomArray = colorBorder.OrderBy(x => rnd.Next()).ToArray();
 
                 ViewBag.FeaturedModel = string.Format(@"
 <a class=""m_over"" href=""{1}"">
 <img src=""{0}"" class=""featured_user"" style="" border: 2px dashed {2}; "" /></a>", photoPath,
-        featuredModel.UrlTo.ToString(), myRandomArray[0]);
+                                                      featuredModel.UrlTo, myRandomArray[0]);
             }
 
 
@@ -244,59 +160,62 @@ namespace DasKlub.Controllers
         }
 
 
-
         [Authorize]
         public JsonResult OnlineNow()
         {
-            uas = new UserAccounts();
-            uas.GetOnlineUsers();
+            _uas = new UserAccounts();
+            _uas.GetOnlineUsers();
 
-            uas.Sort(delegate(UserAccount p1, UserAccount p2)
-            {
-                return p2.LastActivityDate.CompareTo(p1.LastActivityDate);
-            });
+            _uas.Sort(
+                (p1, p2) => p2.LastActivityDate.CompareTo(p1.LastActivityDate));
 
             return Json(new
-            {
-                Value = uas.ToUnorderdList
-            });
+                {
+                    Value = _uas.ToUnorderdList
+                });
         }
 
         public JsonResult Items(int pageNumber)
         {
-            FindUsersModel model = new FindUsersModel();
+            var model = new FindUsersModel();
 
-            userPageNumber = pageNumber;
+            _userPageNumber = pageNumber;
 
             string currentLang = Utilities.GetCurrentLanguageCode();
 
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+            Thread.CurrentThread.CurrentUICulture =
+                CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+            Thread.CurrentThread.CurrentCulture =
+                CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
 
             LoadFilteredUsers(true, model);
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(currentLang);
 
-            uas.IncludeStartAndEndTags = false;
+            _uas.IncludeStartAndEndTags = false;
 
             return Json(new
-            {
-                ListItems = uas.ToUnorderdList
-            });
+                {
+                    ListItems = _uas.ToUnorderdList
+                });
         }
 
 
         private void LoadFilteredUsers(bool isAjax, FindUsersModel model)
         {
-            mu = Membership.GetUser();
+            _mu = Membership.GetUser();
 
-            model.AgeFrom = (!string.IsNullOrWhiteSpace(Request.QueryString["AgeFrom"])) ? Convert.ToInt32(Request.QueryString["AgeFrom"]) : model.AgeFrom;
-            model.AgeTo = (!string.IsNullOrWhiteSpace(Request.QueryString["AgeTo"])) ? Convert.ToInt32(Request.QueryString["AgeTo"]) : model.AgeTo;
+            model.AgeFrom = (!string.IsNullOrWhiteSpace(Request.QueryString["AgeFrom"]))
+                                ? Convert.ToInt32(Request.QueryString["AgeFrom"])
+                                : model.AgeFrom;
+            model.AgeTo = (!string.IsNullOrWhiteSpace(Request.QueryString["AgeTo"]))
+                              ? Convert.ToInt32(Request.QueryString["AgeTo"])
+                              : model.AgeTo;
 
 
-
-            if (mu != null)
+            UserAccountDetail uad;
+            if (_mu != null)
             {
                 // there aren't enough results for this filter
 
@@ -320,8 +239,8 @@ namespace DasKlub.Controllers
 
                 if (!isAjax)
                 {
-                    UserAccountDetail uad = new UserAccountDetail();
-                    uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+                    uad = new UserAccountDetail();
+                    uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
 
                     if (!string.IsNullOrWhiteSpace(Request.QueryString.ToString()))
@@ -329,76 +248,76 @@ namespace DasKlub.Controllers
                         uad.FindUserFilter = Request.QueryString.ToString();
                         uad.Update();
                     }
-                    else if ( !string.IsNullOrWhiteSpace(uad.FindUserFilter))
+                    else if (!string.IsNullOrWhiteSpace(uad.FindUserFilter))
                     {
                         Response.Redirect(string.Format("~/findusers?{0}", uad.FindUserFilter));
                     }
-
-
-
                 }
             }
 
 
             model.InterestedInID =
-                    (Request.QueryString["InterestedInID"] != null && Request.QueryString["InterestedInID"] == string.Empty) ? null :
-                    (Request.QueryString["InterestedInID"] == null) ? model.InterestedInID : Convert.ToInt32(Request.QueryString["InterestedInID"]);
-
+                (Request.QueryString["InterestedInID"] != null && Request.QueryString["InterestedInID"] == string.Empty)
+                    ? null
+                    : (Request.QueryString["InterestedInID"] == null)
+                          ? model.InterestedInID
+                          : Convert.ToInt32(Request.QueryString["InterestedInID"]);
 
 
             model.RelationshipStatusID =
-        (Request.QueryString["RelationshipStatusID"] != null && Request.QueryString["RelationshipStatusID"] == string.Empty) ? null :
-        (Request.QueryString["RelationshipStatusID"] == null) ? model.RelationshipStatusID : Convert.ToInt32(Request.QueryString["RelationshipStatusID"]);
-
-
+                (Request.QueryString["RelationshipStatusID"] != null &&
+                 Request.QueryString["RelationshipStatusID"] == string.Empty)
+                    ? null
+                    : (Request.QueryString["RelationshipStatusID"] == null)
+                          ? model.RelationshipStatusID
+                          : Convert.ToInt32(Request.QueryString["RelationshipStatusID"]);
 
 
             model.YouAreID =
-        (Request.QueryString["YouAreID"] != null && Request.QueryString["YouAreID"] == string.Empty) ? null :
-        (Request.QueryString["YouAreID"] == null) ? model.YouAreID : Convert.ToInt32(Request.QueryString["YouAreID"]);
+                (Request.QueryString["YouAreID"] != null && Request.QueryString["YouAreID"] == string.Empty)
+                    ? null
+                    : (Request.QueryString["YouAreID"] == null)
+                          ? model.YouAreID
+                          : Convert.ToInt32(Request.QueryString["YouAreID"]);
 
 
-
-            model.Lang = (Request.QueryString["lang"] != null && Request.QueryString["lang"] == string.Empty) ? null :
-        (Request.QueryString["lang"] == null) ? model.Lang : Request.QueryString["lang"];
+            model.Lang = (Request.QueryString["lang"] != null && Request.QueryString["lang"] == string.Empty)
+                             ? null
+                             : Request.QueryString["lang"] ?? model.Lang;
 
 
             model.PostalCode
-                = (Request.QueryString["postalcode"] != null && Request.QueryString["postalcode"] == string.Empty) ? null :
-        (Request.QueryString["postalcode"] == null) ? model.PostalCode : Request.QueryString["postalcode"];
-
+                = (Request.QueryString["postalcode"] != null && Request.QueryString["postalcode"] == string.Empty)
+                      ? null
+                      : Request.QueryString["postalcode"] ?? model.PostalCode;
 
 
             model.Country
-                = (Request.QueryString["country"] != null && Request.QueryString["country"] == string.Empty) ? null :
-        (Request.QueryString["country"] == null) ? model.Country : Request.QueryString["country"];
+                = (Request.QueryString["country"] != null && Request.QueryString["country"] == string.Empty)
+                      ? null
+                      : Request.QueryString["country"] ?? model.Country;
 
 
-            uas = new UserAccounts();
+            _uas = new UserAccounts();
 
-            bool sortByDistance = false;
+            bool sortByDistance;
 
-            uas.GetListUsers(userPageNumber, pageSize, model.AgeFrom, model.AgeTo, model.InterestedInID, model.RelationshipStatusID,
-                model.YouAreID, model.Country, model.PostalCode, model.Lang, out sortByDistance);
+            _uas.GetListUsers(_userPageNumber, PageSize, model.AgeFrom, model.AgeTo, model.InterestedInID,
+                             model.RelationshipStatusID,
+                             model.YouAreID, model.Country, model.PostalCode, model.Lang, out sortByDistance);
 
             if (!isAjax)
             {
                 ViewBag.SortByDistance = sortByDistance;
             }
 
-            if (mu != null && !isAjax)
-            {
+            if (_mu == null || isAjax) return;
+            if (string.IsNullOrWhiteSpace(Request.QueryString.ToString())) return;
+            uad = new UserAccountDetail();
+            uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
-                if (!string.IsNullOrWhiteSpace(Request.QueryString.ToString()))
-                {
-                    UserAccountDetail uad = new UserAccountDetail();
-                    uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
-
-                    uad.FindUserFilter = Request.QueryString.ToString();
-                    uad.Update();
-                }
-
-            }
+            uad.FindUserFilter = Request.QueryString.ToString();
+            uad.Update();
         }
 
 
@@ -406,16 +325,13 @@ namespace DasKlub.Controllers
         [Authorize]
         public ActionResult Online()
         {
-            uas = new UserAccounts();
-            uas.GetOnlineUsers();
+            _uas = new UserAccounts();
+            _uas.GetOnlineUsers();
 
-            uas.Sort(delegate(UserAccount p1, UserAccount p2)
-            {
-                return p2.LastActivityDate.CompareTo(p1.LastActivityDate);
-            });
-            
-            return View(uas);
+            _uas.Sort(
+                (p1, p2) => p2.LastActivityDate.CompareTo(p1.LastActivityDate));
+
+            return View(_uas);
         }
-
     }
 }

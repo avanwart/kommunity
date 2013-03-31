@@ -15,6 +15,7 @@
 //   limitations under the License.
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -62,7 +63,7 @@ namespace DasKlub.Controllers
 
             Send(@"<i style=""color:red;font-size:10px;font-style: italic;"">CONNECTION CLOSED</i>", ua.UserAccountID);
 
-            return Clients.leave(Context.ConnectionId, DateTime.UtcNow.ToString());
+            return Clients.leave(Context.ConnectionId, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
         }
 
         public Task Connect()
@@ -88,7 +89,7 @@ namespace DasKlub.Controllers
 
             Send(@"<i style=""color:yellow;font-size:10px;font-style: italic;"">CONNECTION OPENED</i>", ua.UserAccountID);
 
-            return Clients.joined(Context.ConnectionId, DateTime.UtcNow.ToString());
+            return Clients.joined(Context.ConnectionId, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
         }
 
         public Task Reconnect(IEnumerable<string> groups)

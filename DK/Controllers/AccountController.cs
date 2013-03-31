@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -673,7 +672,7 @@ namespace DasKlub.Controllers
                     if (_mu != null && Convert.ToInt32(_mu.ProviderUserKey) == ucToSet.ToUserAccountID)
                     {
                         // the opposite this time
-                        ucToSet.FromUserAccountID = Convert.ToInt32(value: _mu.ProviderUserKey);
+                        ucToSet.FromUserAccountID = Convert.ToInt32(_mu.ProviderUserKey);
                         ucToSet.ToUserAccountID = userToBe.UserAccountID;
                     }
                 }
@@ -1251,18 +1250,13 @@ namespace DasKlub.Controllers
 
         private void LoadCountries()
         {
-            Dictionary<string, string> countryOptions = Enum.GetValues(typeof (SiteEnums.CountryCodeISO))
+            var countryOptions = Enum.GetValues(typeof (SiteEnums.CountryCodeISO))
                                                             .Cast<int>()
                                                             .Select(value => (SiteEnums.CountryCodeISO)
 // ReSharper disable AssignNullToNotNullAttribute
                                                                              Enum.Parse(
-                                                                                 typeof (SiteEnums.CountryCodeISO),
-                                                                                 value:
-                                                                                     Enum.GetName(
-                                                                                         enumType:
-                                                                                             typeof (
-                                                                                             SiteEnums.CountryCodeISO),
-                                                                                         value: value)))
+                                                                                 typeof (SiteEnums.CountryCodeISO), Enum.GetName(typeof (
+                                                                                             SiteEnums.CountryCodeISO), value)))
 // ReSharper restore AssignNullToNotNullAttribute
                                                             .Where(
                                                                 countryCode =>
@@ -1273,7 +1267,7 @@ namespace DasKlub.Controllers
                                                                           Utilities.ResourceValue(
                                                                               Utilities.GetEnumDescription(countryCode)));
 
-            IOrderedEnumerable<string> items = from k in countryOptions.Keys
+            var items = from k in countryOptions.Keys
                                                orderby countryOptions[k] ascending
                                                select k;
 
@@ -1956,8 +1950,7 @@ namespace DasKlub.Controllers
             if (_uad.EmailMessages)
             {
                 if (_mu != null)
-                    Utilities.SendMail(_ua.EMail,
-                                       Messages.From + ": " + _mu.UserName, body: sb.ToString());
+                    Utilities.SendMail(_ua.EMail, Messages.From + ": " + _mu.UserName, sb.ToString());
             }
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(language);
@@ -2278,8 +2271,7 @@ namespace DasKlub.Controllers
                     }
 
 
-                    var dm = new DirectMessage();
-                    dm.IsRead = false;
+                    var dm = new DirectMessage {IsRead = false};
 
                     var admin = new UserAccount(GeneralConfigs.AdminUserName);
 
@@ -2473,8 +2465,7 @@ namespace DasKlub.Controllers
             }
             else if (Request.Form["email"].Trim() != _ua.EMail)
             {
-                _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
-                _ua.EMail = Request.Form["email"];
+                _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey)) {EMail = Request.Form["email"]};
                 _ua.Update();
             }
 
@@ -2661,8 +2652,6 @@ namespace DasKlub.Controllers
             while (lockedTheta < 0.0)
                 lockedTheta += 2*Math.PI;
 
-            int nHeight; // The newWidth/newHeight expressed as ints
-
             #region Explaination of the calculations
 
             /*
@@ -2741,11 +2730,11 @@ namespace DasKlub.Controllers
                 oppositeBottom = Math.Abs(Math.Cos(lockedTheta))*oldWidth;
             }
 
-            double newWidth = adjacentTop + oppositeBottom;
-            double newHeight = adjacentBottom + oppositeTop;
+            var newWidth = adjacentTop + oppositeBottom;
+            var newHeight = adjacentBottom + oppositeTop;
 
             var nWidth = (int) Math.Ceiling(newWidth);
-            nHeight = (int) Math.Ceiling(newHeight);
+            var nHeight = (int) Math.Ceiling(newHeight);
 
             var rotatedBmp = new Bitmap(nWidth, nHeight);
 

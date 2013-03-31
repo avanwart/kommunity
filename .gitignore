@@ -151,7 +151,7 @@ $RECYCLE.BIN/
 # =========================
 # Custom
 # =========================
-
+App_Data/
 Web.Release.config
 buildartifacts/
 configs.ps1
