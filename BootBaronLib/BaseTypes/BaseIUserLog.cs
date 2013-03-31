@@ -25,7 +25,7 @@ namespace BootBaronLib.BaseTypes
     ///     This is used so that all the CRUD and logging actions
     ///     can be performed through inheritance
     /// </summary>
-    public abstract class BaseIUserLogCRUD : BaseExistance, ICRUD, IUserLog
+    public abstract   class BaseIUserLogCRUD : BaseExistance, ICRUD, IUserLog
     {
         #region properties
 

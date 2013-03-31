@@ -27,7 +27,7 @@ namespace DasKlub.Models
 
     #region Models
 
-    public abstract class ChangePasswordModel
+    public   class ChangePasswordModel
     {
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof (Messages))]
         [DataType(DataType.Password)]
@@ -48,7 +48,7 @@ namespace DasKlub.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public abstract class LogOnModel
+    public   class LogOnModel
     {
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof (Messages))]
         [Display(ResourceType = typeof (Messages), Name = "UserName")]
@@ -65,7 +65,7 @@ namespace DasKlub.Models
     }
 
 
-    public abstract class RegisterModel
+    public   class RegisterModel
     {
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof (Messages))]
         [StringLength(15, ErrorMessageResourceName = "UserNameBetween4and15Characters", MinimumLength = 4

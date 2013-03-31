@@ -30,6 +30,7 @@ namespace DasKlub.App_Start
                 "~/Scripts/scrollpagination.js",
                 //"~/Scripts/textarea_expander.js",
                 "~/content/script/site_wide_13.js",
+               // "~/scripts/jquery.signalR-{version}.js",
                 "~/content/mediaelement/mediaelement-and-player.js"
                             ));
 

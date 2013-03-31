@@ -54,10 +54,9 @@ namespace DasKlub
 
         private static void RegisterRoutes(RouteCollection routes)
         {
+
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            RouteTable.Routes.MapConnection<MyConnection>("echo", "echo/{*operation}");
-
 
             routes.IgnoreRoute("{*favicon}", new {favicon = "(.*/)?favicon.ico(/.*)"});
 
@@ -795,6 +794,8 @@ namespace DasKlub
 
         protected void Application_Start()
         {
+            RouteTable.Routes.MapHubs();
+
             XmlConfigurator.Configure();
 
             Log.Info("Application Started");
@@ -903,39 +904,39 @@ namespace DasKlub
             var exception = Server.GetLastError();
             var httpException = exception as HttpException;
 
-            Utilities.LogError(httpException);
+            //Utilities.LogError(httpException);
 
-            Log.Error("Application Error", httpException);
+            //Log.Error("Application Error", httpException);
 
-            Response.Clear();
-            Server.ClearError();
-            var routeData = new RouteData();
-            routeData.Values["controller"] = "Errors";
-            routeData.Values["action"] = "General";
-            routeData.Values["exception"] = exception;
-            Response.StatusCode = 500;
+            //Response.Clear();
+            //Server.ClearError();
+            //var routeData = new RouteData();
+            //routeData.Values["controller"] = "Errors";
+            //routeData.Values["action"] = "General";
+            //routeData.Values["exception"] = exception;
+            //Response.StatusCode = 500;
 
-            if (httpException != null)
-            {
-                Response.StatusCode = httpException.GetHttpCode();
-                switch (Response.StatusCode)
-                {
-                    case 403:
-                        routeData.Values["action"] = "Http403";
-                        break;
-                    case 404:
-                        routeData.Values["action"] = "Http404";
-                        break;
-                }
-            }
+            //if (httpException != null)
+            //{
+            //    Response.StatusCode = httpException.GetHttpCode();
+            //    switch (Response.StatusCode)
+            //    {
+            //        case 403:
+            //            routeData.Values["action"] = "Http403";
+            //            break;
+            //        case 404:
+            //            routeData.Values["action"] = "Http404";
+            //            break;
+            //    }
+            //}
 
 
-            // Avoid IIS7 getting in the middle
-            Response.TrySkipIisCustomErrors = true;
-            IController errorsController = new ErrorsController();
-            var wrapper = new HttpContextWrapper(Context);
-            var rc = new RequestContext(wrapper, routeData);
-            errorsController.Execute(rc);
+            //// Avoid IIS7 getting in the middle
+            //Response.TrySkipIisCustomErrors = true;
+            //IController errorsController = new ErrorsController();
+            //var wrapper = new HttpContextWrapper(Context);
+            //var rc = new RequestContext(wrapper, routeData);
+            //errorsController.Execute(rc);
         }
 
 
