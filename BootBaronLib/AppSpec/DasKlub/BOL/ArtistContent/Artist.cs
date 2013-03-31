@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Globalization;
 using System.Web;
 using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.BaseTypes;
@@ -235,7 +236,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public override bool Update()
         {
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_UpdateArtist";
 
@@ -246,9 +247,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             comm.AddParameter("altName", AltName);
 
 
-            int result = -1;
-
-            result = DbAct.ExecuteNonQuery(comm);
+            var result = DbAct.ExecuteNonQuery(comm);
 
             RemoveCache();
 
@@ -259,7 +258,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public string CacheName
         {
-            get { return string.Format("{0}-{1}", GetType().FullName, ArtistID.ToString()); }
+            get { return string.Format("{0}-{1}", GetType().FullName, ArtistID.ToString(CultureInfo.InvariantCulture)); }
         }
 
         public void RemoveCache()

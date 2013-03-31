@@ -41,7 +41,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // TODO: Complete member initialization
         }
 
-        public int AcknowledgementID { get; set; }
+        public int AcknowledgementID { get; private set; }
 
         /// <summary>
         ///     A = applaud, B = beat
@@ -55,9 +55,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public int UserAccountID { get; set; }
 
         public int StatusUpdateID { get; set; }
-
-
-        public int? StatusCommentID { get; set; }
 
         #endregion
 
@@ -83,7 +80,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public override int Create()
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddAcknowledgement";
 

@@ -15,6 +15,7 @@
 //   limitations under the License.
 
 using System;
+using System.Linq;
 using System.Text;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 
@@ -22,7 +23,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
 {
     public class ContentLinker
     {
-        public static string InsertBandLinks(string input)
+        private static string InsertBandLinks(string input)
         {
             if (string.IsNullOrEmpty(input)) return string.Empty;
 
@@ -30,16 +31,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
             string[] bands = input.Split(',');
 
             var sb = new StringBuilder(100);
-            Artist art;
 
-            int total = 0;
+            var total = 0;
 
-            foreach (string b1 in bands)
+            foreach (var art in from b1 in bands where !string.IsNullOrWhiteSpace(b1) select new Artist(b1))
             {
-                if (string.IsNullOrWhiteSpace(b1)) continue;
-
-                art = new Artist(b1);
-
                 total++;
 
                 if (art.ArtistID > 0)

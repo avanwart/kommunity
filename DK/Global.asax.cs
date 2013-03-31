@@ -32,9 +32,9 @@ using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using DasKlub.App_Start;
 using DasKlub.Controllers;
-using SignalR;
 using log4net;
 using log4net.Config;
+using   Microsoft.AspNet.SignalR ;
 
 namespace DasKlub
 {

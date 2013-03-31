@@ -30,9 +30,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         private string _propertyContent = string.Empty;
         private string _propertyType = string.Empty;
-        public int ArtistPropertyID { get; set; }
+        public int ArtistPropertyID { get; private set; }
 
-        public int ArtistID { get; set; }
+        public int ArtistID { get; private set; }
 
         public string PropertyContent
         {
@@ -46,7 +46,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
         ///     LD = long description
         ///     PH = photo
         /// </summary>
-        public string PropertyType
+        private string PropertyType
         {
             get { return _propertyType; }
             set { _propertyType = value; }

@@ -44,9 +44,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public int ArtistID { get; set; }
 
-        public int EventID { get; set; }
+        public int EventID { private get; set; }
 
-        public int RankOrder { get; set; }
+        public int RankOrder { private get; set; }
 
         #endregion
 
@@ -68,7 +68,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public override bool Delete()
         {
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeleteEventByID";
 
