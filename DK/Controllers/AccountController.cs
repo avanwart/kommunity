@@ -2635,7 +2635,7 @@ namespace DasKlub.Controllers
         /// <exception cref="System.ArgumentNullException">
         ///     Thrown if <see cref="image" /> is null.
         /// </exception>
-        public static Bitmap RotateImage(Image image, float angle)
+        private static Bitmap RotateImage(Image image, float angle)
         {
             if (image == null)
                 throw new ArgumentNullException("image");
@@ -2813,12 +2813,13 @@ namespace DasKlub.Controllers
 
             if (su.PhotoItemID != null && su.PhotoItemID > 0)
             {
-                var acl = CannedAcl.PublicRead;
+                const CannedAcl acl = CannedAcl.PublicRead;
 
-                var s3 = new S3Service();
-
-                s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
-                s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
+                var s3 = new S3Service
+                    {
+                        AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                        SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+                    };
 
                 var pitm = new PhotoItem(Convert.ToInt32(su.PhotoItemID));
 
@@ -2935,11 +2936,9 @@ namespace DasKlub.Controllers
         [Authorize]
         public ActionResult StatusUpdate(int statusUpdateID)
         {
-            var su = new StatusUpdate(statusUpdateID);
-            su.PhotoDisplay = false;
+            var su = new StatusUpdate(statusUpdateID) {PhotoDisplay = false};
 
-            var sus = new StatusUpdates();
-            sus.Add(su);
+            var sus = new StatusUpdates {su};
 
             sus.IncludeStartAndEndTags = false;
             ViewBag.StatusUpdateList = @"<ul id=""status_update_list_items"">" + sus.ToUnorderdList + @"</ul>";
@@ -3093,15 +3092,7 @@ namespace DasKlub.Controllers
             preFilter.GetStatusUpdatesPageWise(1, PageSize);
 
             var sus = new StatusUpdates();
-
-            foreach (StatusUpdate su1
-                in preFilter)
-            {
-                if (!BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockingUser(_ua.UserAccountID, su1.UserAccountID))
-                {
-                    sus.Add(su1);
-                }
-            }
+            sus.AddRange(preFilter.Where(su1 => !BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockingUser(_ua.UserAccountID, su1.UserAccountID)));
 
             sus.IncludeStartAndEndTags = false;
             ViewBag.StatusUpdateList = string.Format(@"<ul id=""status_update_list_items"">{0}</ul>", sus.ToUnorderdList);
@@ -3112,8 +3103,7 @@ namespace DasKlub.Controllers
             if (suns.Count > 0)
             {
                 suns.Sort(
-                    delegate(StatusUpdateNotification p1, StatusUpdateNotification p2)
-                        { return p1.CreateDate.CompareTo(p2.CreateDate); });
+                    (p1, p2) => p1.CreateDate.CompareTo(p2.CreateDate));
 
                 ViewBag.Notifications = suns;
 

@@ -165,14 +165,12 @@
     <Compile Include="Configs\AmazonCloudConfigs.cs" />
     <Compile Include="Configs\DataBaseConfigs.cs" />
     <Compile Include="Interfaces\ILocalizedName.cs" />
-    <Compile Include="Interfaces\IGetAllForDomain.cs" />
     <Compile Include="Interfaces\IUnorderdListItem.cs" />
     <Compile Include="Interfaces\IUnorderdList.cs" />
     <Compile Include="Interfaces\ICalendarEvent.cs" />
     <Compile Include="Interfaces\IDatesInRange.cs" />
     <Compile Include="Interfaces\IGet.cs" />
     <Compile Include="Interfaces\IGetCachedDataRow.cs" />
-    <Compile Include="Interfaces\IIsHidden.cs" />
     <Compile Include="BaseTypes\BaseIUserLog.cs" />
     <Compile Include="Configs\GeneralConfigs.cs" />
     <Compile Include="DAL\DAL.cs" />
@@ -185,7 +183,6 @@
     <Compile Include="Interfaces\IURLTo.cs" />
     <Compile Include="Interfaces\IUserLog.cs" />
     <Compile Include="Interfaces\ICRUD.cs" />
-    <Compile Include="Interfaces\IPixelLoadingPage.cs" />
     <Compile Include="Operational\ADOExtenstion.cs" />
     <Compile Include="Operational\ImageResize.cs" />
     <Compile Include="Operational\StaticHelper.cs" />

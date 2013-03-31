@@ -77,7 +77,7 @@ namespace DasKlub.Controllers
                                                                                        Utilities.GetEnumDescription(
                                                                                            value)));
 
-                IOrderedEnumerable<string> items = from k in countryOptions.Keys
+                var items = from k in countryOptions.Keys
                                                    orderby countryOptions[k] ascending
                                                    select k;
 
@@ -187,7 +187,7 @@ namespace DasKlub.Controllers
 
             _userPageNumber = pageNumber;
 
-            string currentLang = Utilities.GetCurrentLanguageCode();
+            var currentLang = Utilities.GetCurrentLanguageCode();
 
             Thread.CurrentThread.CurrentUICulture =
                 CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());

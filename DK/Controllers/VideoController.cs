@@ -281,7 +281,8 @@ namespace DasKlub.Controllers
             {
                 sb.Append("<li>");
 
-                if (Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()) == Convert.ToChar(_chosen.ToString(CultureInfo.InvariantCulture).ToLower()))
+                if (Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()) ==
+                    Convert.ToChar(_chosen.ToString(CultureInfo.InvariantCulture).ToLower()))
                 {
                     sb.Append("<b>");
                     sb.Append(ch2);
@@ -290,7 +291,8 @@ namespace DasKlub.Controllers
                 else
                 {
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                        "~/video/bands/" + Convert.ToChar(ch2.ToString().ToLower())), Convert.ToChar(ch2.ToString()));
+                        "~/video/bands/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())), 
+                        Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
                 }
 
                 sb.Append("</li>");
@@ -352,7 +354,8 @@ namespace DasKlub.Controllers
                 else
                 {
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                        "~/video/users/" + Convert.ToChar(ch2.ToString().ToLower())), Convert.ToChar(ch2.ToString()));
+                        "~/video/users/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())), 
+                        Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
                 }
 
                 sb.Append("</li>");

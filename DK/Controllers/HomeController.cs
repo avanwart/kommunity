@@ -15,7 +15,6 @@
 //   limitations under the License.
 
 using System;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -153,7 +152,7 @@ namespace DasKlub.Controllers
                     var yousettings = new YouTubeRequestSettings("You Manager", _devkey, _username, _password);
 
                     var yourequest = new YouTubeRequest(yousettings);
-                    Uri entryUri = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", vidKey));
+                    var entryUri = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", vidKey));
 
                     var video2 = yourequest.Retrieve<Google.YouTube.Video>(entryUri);
                     vid.Duration = (float) Convert.ToDouble(video2.YouTubeEntry.Duration.Seconds);
@@ -504,7 +503,6 @@ namespace DasKlub.Controllers
             propTyp = new PropertyType(SiteEnums.PropertyTypeCode.FOOTG);
             mps = new MultiProperties(propTyp.PropertyTypeID);
             mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
-            new MultiProperties();
 
 
             ViewBag.FootageTypes = mps;

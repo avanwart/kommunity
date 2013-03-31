@@ -33,18 +33,6 @@ namespace BootBaronLib.Operational
             return GetMemberName(expression.Body);
         }
 
-        public static string GetMemberName<T>(
-            Expression<Action<T>> expression)
-        {
-            if (expression == null)
-            {
-                throw new ArgumentException(
-                    "The expression cannot be null.");
-            }
-
-            return GetMemberName(expression.Body);
-        }
-
         private static string GetMemberName(
             Expression expression)
         {
@@ -67,7 +55,7 @@ namespace BootBaronLib.Operational
             if (callExpression != null)
             {
                 // Reference type method
-                MethodCallExpression methodCallExpression =
+                var methodCallExpression =
                     callExpression;
                 return methodCallExpression.Method.Name;
             }
@@ -76,7 +64,7 @@ namespace BootBaronLib.Operational
             if (unaryExpression1 != null)
             {
                 // Property, field of method returning value type
-                UnaryExpression unaryExpression = unaryExpression1;
+                var unaryExpression = unaryExpression1;
                 return GetMemberName(unaryExpression);
             }
 
@@ -89,7 +77,7 @@ namespace BootBaronLib.Operational
             var operand = unaryExpression.Operand as MethodCallExpression;
             if (operand != null)
             {
-                MethodCallExpression methodExpression =
+                var methodExpression =
                     operand;
                 return methodExpression.Method.Name;
             }

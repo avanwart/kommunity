@@ -19,28 +19,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Data;
 using System.Data.Common;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Security;
 using System.Reflection;
 using System.Resources;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Xml;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
 using BootBaronLib.AppSpec.DasKlub.BLL;
@@ -50,10 +40,8 @@ using BootBaronLib.DAL;
 using BootBaronLib.Resources;
 using BootBaronLib.Values;
 using HtmlAgilityPack;
-using Microsoft.Win32;
 using log4net;
 using Content = Amazon.SimpleEmail.Model.Content;
-using Image = System.Drawing.Image;
 
 namespace BootBaronLib.Operational
 {
@@ -153,15 +141,12 @@ namespace BootBaronLib.Operational
             {
                 var doc = new HtmlDocument();
 
-                string topPicks;
-
                 if (HttpContext.Current.Cache["top_week_picks"] == null)
                 {
                     using (var wc = new WebClient())
                     {
-                        topPicks =
-                            wc.DownloadString(
-                                "http://store.vampirefreaks.com/?cat=monthly+top+sellers&aff=dasklub&cols=1&numitems=1000");
+                        string topPicks = wc.DownloadString(
+                            "http://store.vampirefreaks.com/?cat=monthly+top+sellers&aff=dasklub&cols=1&numitems=1000");
 
                         HttpContext.Current.Cache.AddObjToCache(topPicks, "top_week_picks");
                     }
@@ -171,16 +156,16 @@ namespace BootBaronLib.Operational
 
                 var adChoices = new Dictionary<int, string>();
 
-                int itemCnt = 0;
+                var itemCnt = 0;
 
-                foreach (HtmlNode table in doc.DocumentNode.SelectNodes("//table"))
+                foreach (var table in doc.DocumentNode.SelectNodes("//table"))
                 {
-                    foreach (HtmlNode row in table.SelectNodes("tr"))
+                    foreach (var row in table.SelectNodes("tr"))
                     {
-                        string link1and2 = string.Empty;
+                        var link1And2 = string.Empty;
 
-                        string linkText = string.Empty;
-                        foreach (HtmlNode cell in row.SelectNodes("th|td"))
+                        var linkText = string.Empty;
+                        foreach (var cell in row.SelectNodes("th|td"))
                         {
                             var regx =
                                 new Regex(
@@ -192,13 +177,13 @@ namespace BootBaronLib.Operational
 
                             foreach (Match match in mactches)
                             {
-                                link1and2 += match.Value + "|";
+                                link1And2 += match.Value + "|";
                             }
                         }
 
                         itemCnt++;
 
-                        adChoices.Add(itemCnt, linkText + "|" + link1and2);
+                        adChoices.Add(itemCnt, linkText + "|" + link1And2);
                     }
                 }
 
@@ -229,45 +214,12 @@ namespace BootBaronLib.Operational
             return string.Format(AmazonCloudConfigs.AmazonCloudDomain, AmazonCloudConfigs.AmazonBucketName, filePath);
         }
 
-        public static string YouTubeKey(string url)
-        {
-            var regx =
-                new Regex(
-                    "(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?",
-                    RegexOptions.IgnoreCase);
-
-            MatchCollection mactches = regx.Matches(url);
-            string vidKey = string.Empty;
-            string theLink = string.Empty;
-
-            foreach (Match match in mactches)
-            {
-                if (match.Value.Contains("http://www.youtube.com/watch?"))
-                {
-                    NameValueCollection nvcKey =
-                        HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
-
-                    return nvcKey["v"];
-                }
-                else if (match.Value.Contains("http://youtu.be/"))
-                {
-                    return match.Value.Replace("http://youtu.be/", string.Empty);
-                }
-            }
-            return string.Empty;
-        }
-
-
-        public static T NumToEnum<T>(int number)
-        {
-            return (T) Enum.ToObject(typeof (T), number);
-        }
 
         public static string GetIPForDomain(string domain)
         {
             try
             {
-                IPAddress[] iPAddress = Dns.GetHostAddresses(domain);
+                var iPAddress = Dns.GetHostAddresses(domain);
                 return iPAddress[0].ToString();
             }
             catch (Exception ex)
@@ -283,7 +235,7 @@ namespace BootBaronLib.Operational
             {
                 return false;
             }
-            string userAgent = HttpContext.Current.Request.UserAgent.ToLower();
+            var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
 
             return userAgent.Contains("iphone") || userAgent.Contains("ipad");
         }
@@ -296,11 +248,11 @@ namespace BootBaronLib.Operational
             return TimeElapsedMessage(occurance, now);
         }
 
-        public static string TimeElapsedMessage(DateTime occurance, DateTime now)
+        private static string TimeElapsedMessage(DateTime occurance, DateTime now)
         {
             string timeElapsed;
 
-            TimeSpan elapsed = now.Subtract(occurance);
+            var elapsed = now.Subtract(occurance);
 
 
             if (elapsed.TotalSeconds <= 1)
@@ -399,7 +351,7 @@ namespace BootBaronLib.Operational
         /// </summary>
         /// <param name="txt"></param>
         /// <returns></returns>
-        public static string MakeLink(string txt, string linkText)
+        private static string MakeLink(string txt, string linkText)
         {
             // BUG: NOT GETTING HTTPS URLS
             var regx =
@@ -433,7 +385,7 @@ namespace BootBaronLib.Operational
             return txt;
         }
 
-        public static CultureInfo GetCurrentCulture()
+        private static CultureInfo GetCurrentCulture()
         {
             return Thread.CurrentThread.CurrentCulture;
         }
@@ -447,13 +399,6 @@ namespace BootBaronLib.Operational
             return GetCurrentCulture().TwoLetterISOLanguageName.ToUpper();
         }
 
-
-        public static string GetCurrentLanguage()
-        {
-            string[] languages = HttpContext.Current.Request.UserLanguages;
-
-            return languages != null ? languages[0].ToLowerInvariant().Trim() : string.Empty;
-        }
 
         public static string GetLanguageNameForCode(string defaultLanguage)
         {
@@ -553,28 +498,6 @@ namespace BootBaronLib.Operational
             }
         }
 
-
-        public static ArrayList GetVerifiedSenders()
-        {
-            //INITIALIZE AWS CLIENT/////////////////////////////////////////////////////////
-            var amConfig = new AmazonSimpleEmailServiceConfig {UseSecureStringForAwsSecretKey = false};
-            var amzClient = new AmazonSimpleEmailServiceClient(AmazonCloudConfigs.AmazonSecretKey,
-                                                               AmazonCloudConfigs.AmazonAccessKey, amConfig);
-            //LIST VERIFIED EMAILS/////////////////////////////////////////////////////////
-            var lveReq = new ListVerifiedEmailAddressesRequest();
-            ListVerifiedEmailAddressesResponse lveResp = amzClient.ListVerifiedEmailAddresses(lveReq);
-            ListVerifiedEmailAddressesResult lveResult = lveResp.ListVerifiedEmailAddressesResult;
-
-            var allUsers = new ArrayList();
-
-            foreach (string email in lveResult.VerifiedEmailAddresses)
-            {
-                allUsers.Add(email);
-            }
-
-            return allUsers;
-        }
-
         #endregion
 
         #region SQL injection
@@ -587,27 +510,6 @@ namespace BootBaronLib.Operational
                 "delete", "drop", "end", "exec", "execute", "select",
                 "table", "update"
             };
-
-        /// <summary>
-        ///     Replaces SQL characters
-        /// </summary>
-        /// <param name="inputSQL"></param>
-        /// <returns>doubled quotes version of string</returns>
-        public static string MakeSQLSafe(string input)
-        {
-            return input.Replace("'", "''");
-        }
-
-        /// <summary>
-        ///     Check for valid SQL safe string
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static bool IsValidInput(string input)
-        {
-            return !BlackList.Any(t => (input.IndexOf(t, StringComparison.OrdinalIgnoreCase) >= 0)) || IsEmail(input);
-            // it's valid
-        }
 
         #endregion
 
@@ -632,536 +534,16 @@ namespace BootBaronLib.Operational
             return re.IsMatch(inputEmail);
         }
 
-        /// <summary>
-        ///     Check if a string is a guid
-        /// </summary>
-        /// <param name="candidate"></param>
-        /// <returns></returns>
-        /// <see>http://msdn.microsoft.com/en-us/library/7c5ka91b(VS.80).aspx</see>
-        public static bool IsGuid(string candidate)
-        {
-            var isGuid =
-                new Regex(
-                    @"^(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}$",
-                    RegexOptions.Compiled);
-
-            bool isValid = false;
-
-            //  output = Guid.Empty;
-
-            if (!string.IsNullOrEmpty(candidate))
-            {
-                if (isGuid.IsMatch(candidate))
-                {
-                    //  output = new Guid(candidate);
-                    isValid = true;
-                }
-            }
-
-            return isValid;
-        }
-
         #endregion
 
-        #region user interface
 
-        /// <summary>
-        ///     Configures what button to be clicked when the uses presses Enter in a textbox.
-        ///     The text box doesn't have to be a TextBox control, but it must
-        ///     be derived from either HtmlControl or WebControl, and the HTML control it
-        ///     generates should accept an 'onkeydown' attribute. The HTML generated by
-        ///     the button must support the 'Click' event
-        /// </summary>
-        /// <param name="page"></param>
-        /// <param name="TextBoxToTie"></param>
-        /// <param name="ButtonToTie"></param>
-        public static void TieButton(Page page, Control TextBoxToTie, Control ButtonToTie)
-        {
-            if (TextBoxToTie == null) return;
-
-            // Init jscript
-            string jsString = string.Empty;
-
-            // Check button type and get required jscript
-            if (ButtonToTie is LinkButton)
-            {
-                jsString = "if ((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)) {"
-                           + page.ClientScript.GetPostBackEventReference(ButtonToTie, "").Replace(":", "$") +
-                           ";return false;} else return true;";
-            }
-            else if (ButtonToTie is ImageButton)
-            {
-                jsString = "if ((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)) {"
-                           + page.ClientScript.GetPostBackEventReference(ButtonToTie, "").Replace(":", "$") +
-                           ";return false;} else return true;";
-            }
-            else
-            {
-                jsString = "if ((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)) {document."
-                           + "forms[0].elements['" + ButtonToTie.UniqueID.Replace(":", "_") +
-                           "'].click();return false;} else return true; ";
-            }
-
-            // Attach jscript to the onkeydown attribute - we have to cater for HtmlControl or WebControl
-            if (TextBoxToTie is HtmlControl)
-            {
-                ((HtmlControl) TextBoxToTie).Attributes.Add("onkeydown", jsString);
-            }
-            else if (TextBoxToTie is WebControl)
-            {
-                ((WebControl) TextBoxToTie).Attributes.Add("onkeydown", jsString);
-            }
-        }
-
-        #endregion
-
-        #region collections
-
-        /// <summary>
-        ///     Takes and arraylist which may contain duplicate items and makes a unique arraylist
-        /// </summary>
-        /// <param name="list"></param>
-        /// <returns>unique arraylist</returns>
-        public static ArrayList RemoveDuplicates(ArrayList list)
-        {
-            var ret = new ArrayList();
-            foreach (object obj in list)
-            {
-                if (!ret.Contains(obj)) ret.Add(obj);
-            }
-            return ret;
-        }
-
-        #endregion
-
-        #region page processing
-
-        /// <summary>
-        ///     Write out the file to the browser
-        /// </summary>
-        /// <param name="fileLocation"></param>
-        /// <param name="contentType"></param>
-        /// <param name="extension"></param>
-        /// <param name="fileName"></param>
-        /// <see>http://en.kioskea.net/contents/courrier-electronique/mime.php3</see>
-        public static void WriteOutFile(string fileLocation, string contentType, string fileName)
-        {
-            try
-            {
-                HttpContext.Current.Response.Clear();
-                HttpContext.Current.Response.ContentType = contentType;
-                HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=" + fileName);
-                HttpContext.Current.Response.WriteFile(fileLocation);
-                HttpContext.Current.Response.Flush();
-                HttpContext.Current.Response.Close();
-            }
-            catch (Exception ex)
-            {
-                LogError(ex);
-            }
-        }
-
-        /// <summary>
-        ///     Get the control that caused a postback
-        /// </summary>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        /// <see>http://www.aspdotnetfaq.com/Faq/How-to-determine-which-Control-caused-PostBack-on-ASP-NET-page.aspx</see>
-        public static Control GetPostBackControl(Page page)
-        {
-            Control postbackControlInstance = null;
-            string postbackControlName = page.Request.Params.Get("__EVENTTARGET");
-            if (postbackControlName != null && postbackControlName != string.Empty)
-            {
-                postbackControlInstance = page.FindControl(postbackControlName);
-            }
-            else
-            {
-                // handle the Button control postbacks
-                for (int i = 0; i < page.Request.Form.Keys.Count; i++)
-                {
-                    if (postbackControlInstance == null) return null;
-
-                    postbackControlInstance = page.FindControl(page.Request.Form.Keys[i]);
-                    if (postbackControlInstance is Button)
-                    {
-                        return postbackControlInstance;
-                    }
-                }
-            }
-
-            // handle the ImageButton postbacks
-            if (postbackControlInstance == null)
-            {
-                for (int i = 0; i < page.Request.Form.Count; i++)
-                {
-                    if ((page.Request.Form.Keys[i].EndsWith(".x")) || (page.Request.Form.Keys[i].EndsWith(".y")))
-                    {
-                        postbackControlInstance =
-                            page.FindControl(page.Request.Form.Keys[i].Substring(0, page.Request.Form.Keys[i].Length - 2));
-                        return postbackControlInstance;
-                    }
-                }
-            }
-
-            return postbackControlInstance;
-        }
-
-        #endregion
-
-        #region imagery
-
-        public static Color GetRandomColor()
-        {
-            var rand = new Random();
-
-            return Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256));
-        }
-
-
-        public static Image FixedSize(Image imgPhoto, int Width, int Height)
-        {
-            int sourceWidth = imgPhoto.Width;
-            int sourceHeight = imgPhoto.Height;
-            int sourceX = 0;
-            int sourceY = 0;
-            int destX = 0;
-            int destY = 0;
-
-            float nPercent = 0;
-            float nPercentW = 0;
-            float nPercentH = 0;
-
-            nPercentW = (Width/(float) sourceWidth);
-            nPercentH = (Height/(float) sourceHeight);
-            if (nPercentH < nPercentW)
-            {
-                nPercent = nPercentH;
-                destX = Convert.ToInt16((Width -
-                                         (sourceWidth*nPercent))/2);
-            }
-            else
-            {
-                nPercent = nPercentW;
-                destY = Convert.ToInt16((Height -
-                                         (sourceHeight*nPercent))/2);
-            }
-
-            var destWidth = (int) (sourceWidth*nPercent);
-            var destHeight = (int) (sourceHeight*nPercent);
-
-            var bmPhoto = new Bitmap(Width, Height,
-                                     PixelFormat.Format24bppRgb);
-            bmPhoto.SetResolution(imgPhoto.HorizontalResolution,
-                                  imgPhoto.VerticalResolution);
-
-            Graphics grPhoto = Graphics.FromImage(bmPhoto);
-            grPhoto.Clear(Color.Red);
-            grPhoto.InterpolationMode =
-                InterpolationMode.HighQualityBicubic;
-
-            grPhoto.DrawImage(imgPhoto,
-                              new Rectangle(destX, destY, destWidth, destHeight),
-                              new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
-                              GraphicsUnit.Pixel);
-
-            grPhoto.Dispose();
-            return bmPhoto;
-        }
-
-
-        /// <summary>
-        ///     Take an image, resizes it and save it to the file system
-        /// </summary>
-        /// <param name="s">file stream</param>
-        /// <param name="filePath">path to write it too</param>
-        /// <param name="maxWidth">image will not be wider than this</param>
-        /// <param name="maxHeight">image will not be higher than this</param>
-        /// <param name="bilinear">reduce distortion</param>
-        /// <returns></returns>
-        /// <see> http://www.codeproject.com/KB/GDI-plus/imageprocessing4.aspx </see>
-        public static bool ResizeImage(Stream s,
-                                       string filePath,
-                                       int maxWidth,
-                                       int maxHeight,
-                                       bool isBilinear)
-        {
-            var b = new Bitmap(s);
-
-            // current height/ width
-            decimal bitmapWidth = b.Width;
-            decimal bitmapHeigth = b.Height;
-
-            // new height/ width
-            //int targetWidth = 0;
-            //int targetHeigth = 0;
-
-            int targetWidth = maxWidth;
-            int targetHeigth = maxHeight;
-
-
-            decimal imageRatio = bitmapHeigth/bitmapWidth;
-
-            if (bitmapWidth >= bitmapHeigth)
-            {
-                // wide pic
-
-                if (maxWidth <= bitmapWidth)
-                {
-                    targetWidth = maxWidth;
-                    targetHeigth = Convert.ToInt32(targetWidth*imageRatio);
-                }
-
-                if (maxHeight <= targetHeigth)
-                {
-                    targetHeigth = maxHeight;
-                    targetWidth = Convert.ToInt32(targetHeigth*imageRatio);
-                }
-            }
-            else
-            {
-                // high pic
-
-                if (maxWidth <= bitmapWidth)
-                {
-                    targetWidth = maxWidth;
-                    targetHeigth = Convert.ToInt32(targetWidth*imageRatio);
-                }
-
-                if (maxHeight <= targetHeigth)
-                {
-                    targetHeigth = maxHeight;
-                    targetWidth = Convert.ToInt32(targetHeigth/imageRatio);
-                }
-            }
-
-            var bTemp = (Bitmap) b.Clone();
-            try
-            {
-                b = new Bitmap(targetWidth, targetHeigth, bTemp.PixelFormat);
-            }
-            catch (ArgumentException)
-            {
-                // incorrect type
-                return false;
-            }
-            catch
-            {
-                // other kind
-                return false;
-            }
-            double nXFactor = bTemp.Width/(double) targetWidth;
-            double nYFactor = bTemp.Height/(double) targetHeigth;
-
-            if (isBilinear)
-            {
-                // optimization
-                double fraction_x, fraction_y, one_minus_x, one_minus_y;
-                int ceil_x, ceil_y, floor_x, floor_y;
-                var c1 = new Color();
-                var c2 = new Color();
-                var c3 = new Color();
-                var c4 = new Color();
-                byte red, green, blue;
-
-                byte b1, b2;
-
-                for (int x = 0; x < b.Width; ++x)
-                    for (int y = 0; y < b.Height; ++y)
-                    {
-                        // Setup
-                        floor_x = (int) Math.Floor(x*nXFactor);
-                        floor_y = (int) Math.Floor(y*nYFactor);
-                        ceil_x = floor_x + 1;
-                        if (ceil_x >= bTemp.Width) ceil_x = floor_x;
-                        ceil_y = floor_y + 1;
-                        if (ceil_y >= bTemp.Height) ceil_y = floor_y;
-                        fraction_x = x*nXFactor - floor_x;
-                        fraction_y = y*nYFactor - floor_y;
-                        one_minus_x = 1.0 - fraction_x;
-                        one_minus_y = 1.0 - fraction_y;
-
-                        c1 = bTemp.GetPixel(floor_x, floor_y);
-                        c2 = bTemp.GetPixel(ceil_x, floor_y);
-                        c3 = bTemp.GetPixel(floor_x, ceil_y);
-                        c4 = bTemp.GetPixel(ceil_x, ceil_y);
-
-                        // Blue
-                        b1 = (byte) (one_minus_x*c1.B + fraction_x*c2.B);
-                        b2 = (byte) (one_minus_x*c3.B + fraction_x*c4.B);
-                        blue = (byte) (one_minus_y*(b1) + fraction_y*(b2));
-
-                        // Green
-                        b1 = (byte) (one_minus_x*c1.G + fraction_x*c2.G);
-                        b2 = (byte) (one_minus_x*c3.G + fraction_x*c4.G);
-                        green = (byte) (one_minus_y*(b1) + fraction_y*(b2));
-
-                        // Red
-                        b1 = (byte) (one_minus_x*c1.R + fraction_x*c2.R);
-                        b2 = (byte) (one_minus_x*c3.R + fraction_x*c4.R);
-                        red = (byte) (one_minus_y*(b1) + fraction_y*(b2));
-
-
-                        if (b.PixelFormat == PixelFormat.Format8bppIndexed)
-                        {
-                            b = CreateNonIndexedImage(b);
-                        }
-
-                        b.SetPixel(x, y, Color.FromArgb(255, red, green, blue));
-                    }
-            }
-            else
-            {
-                for (int x = 0; x < b.Width; ++x)
-                    for (int y = 0; y < b.Height; ++y)
-                        b.SetPixel(x, y, bTemp.GetPixel((int) (Math.Floor(x*nXFactor)),
-                                                        (int) (Math.Floor(y*nYFactor))));
-            }
-
-            // save it
-            try
-            {
-                b.Save(filePath);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                b.Dispose();
-                s.Dispose();
-            }
-        }
-
-
-        public static Bitmap CreateNonIndexedImage(Image src)
-        {
-            var newBmp = new Bitmap(src.Width, src.Height, PixelFormat.Format32bppArgb);
-
-            using (Graphics gfx = Graphics.FromImage(newBmp))
-            {
-                gfx.DrawImage(src, 0, 0);
-            }
-
-            return newBmp;
-        }
-
-        #endregion
-
-        #region ipaddress look up
-
-        /// <summary>
-        ///     Given the IP Address, get back a dataset of the location
-        /// </summary>
-        /// <param name="ipaddress"></param>
-        /// <returns></returns>
-        /// <see
-        ///     cref=">http://www.aspsnippets.com/post/2009/04/12/Find-Visitors-Geographic-Location-using-IP-Address-in-ASPNet.aspx" />
-        public static DataTable GetLocation(string ipaddress)
-        {
-            //Create a WebRequest
-            WebRequest rssReq = WebRequest.Create("http://freegeoip.appspot.com/xml/" + ipaddress);
-
-            //Create a Proxy
-            var px = new WebProxy("http://freegeoip.appspot.com/xml/" + ipaddress, true);
-
-            //Assign the proxy to the WebRequest
-            rssReq.Proxy = px;
-
-            //Set the timeout in Seconds for the WebRequest
-            rssReq.Timeout = 2000;
-
-            try
-            {
-                //Get the WebResponse 
-                WebResponse rep = rssReq.GetResponse();
-
-                //Read the Response in a XMLTextReader
-                var xtr = new XmlTextReader(rep.GetResponseStream());
-
-                //Create a new DataSet
-                var ds = new DataSet();
-
-                //Read the Response into the DataSet
-                ds.ReadXml(xtr);
-                return ds.Tables[0];
-            }
-            catch
-            {
-                return null;
-            }
-            ////////////////////////////////////////////////////////////////
-            /// EXAMPLE USE:
-            /// 
-            //Get IP Address
-            //string ipaddress;
-
-            //ipaddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-
-            //if (string.IsNullOrEmpty(ipaddress))
-            //{
-            //    ipaddress = Request.ServerVariables["REMOTE_ADDR"];
-            //}
-
-            //DataTable dt = GetLocation(ipaddress);
-            //if (dt != null)
-            //{
-            //    if (dt != null && dt.Rows.Count > 0)
-            //    {
-            //        litLocationCity.Text = dt.Rows[0]["RegionName"].ToString();//state
-            //        //lblCity.Text = dt.Rows[0]["City"].ToString();
-            //        //lblRegion.Text = dt.Rows[0]["RegionName"].ToString();
-            //        //lblCountry.Text = dt.Rows[0]["CountryName"].ToString();
-            //        //lblCountryCode.Text = dt.Rows[0]["CountryCode"].ToString();
-            //    }
-            //    else
-            //    {
-
-            //    }
-            //}
-
-            //        // more
-            //            /// <summary>
-            ///// Set the drop down list to the value that is the 
-            ///// user's state
-            ///// </summary>
-            //private void SetUserState()
-            //{
-            //    // TODO: improve this functionality later
-            //    return;
-
-            //    //Get IP Address
-            //    string ipaddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-
-            //    if (string.IsNullOrEmpty(ipaddress))
-            //    {
-            //        ipaddress = Request.ServerVariables["REMOTE_ADDR"];
-            //    }
-
-            //    if (string.IsNullOrEmpty(ipaddress)) return;
-
-            //    DataTable dt = FT.Operational.Utilities.GetLocation(ipaddress);
-
-            //    if (dt != null)
-            //    {
-            //        if (dt != null && dt.Rows.Count > 0)
-            //        {
-            //            ddlState.SelectedItem.Text = dt.Rows[0]["RegionName"].ToString();
-            //        }
-            //    }
-            // }
-        }
-
-        #endregion
 
         #region time
 
         public static DateTime GetDataBaseTime()
         {
             double totalSecondsDif = 0;
-            string cacheName = "db_time";
+            const string cacheName = "db_time";
 
             if (HttpContext.Current != null && HttpContext.Current.Cache[cacheName] == null)
             {
@@ -1181,108 +563,15 @@ namespace BootBaronLib.Operational
             }
             else
             {
-                totalSecondsDif = (double) HttpContext.Current.Cache[cacheName];
+                if (HttpContext.Current != null) totalSecondsDif = (double) HttpContext.Current.Cache[cacheName];
             }
 
 
             return DateTime.UtcNow.AddSeconds(totalSecondsDif);
         }
 
-        public static string GetUTCNowYYYYMMDDHHMM()
-        {
-            return DateTime.UtcNow.ToString("yyyyMMddHHmm");
-        }
-
         #endregion
 
-        #region web controls
-
-        /// <summary>
-        ///     Add this many years from now to the drop down list
-        /// </summary>
-        /// <param name="ddlYears"></param>
-        /// <param name="j"></param>
-        public static void AddYearsToDropDownList(ref DropDownList ddlYears, int j)
-        {
-            if (ddlYears == null) return;
-
-            ddlYears.Items.Clear();
-
-            for (int i = 0; i < j; i++)
-                ddlYears.Items.Add(new ListItem(DateTime.UtcNow.AddYears(i).Year.ToString()));
-        }
-
-        #endregion
-
-        #region file system
-
-        public static void CopyAll(DirectoryInfo source, DirectoryInfo target)
-        {
-            // Check if the target directory exists, if not, create it.
-            if (Directory.Exists(target.FullName) == false)
-            {
-                Directory.CreateDirectory(target.FullName);
-            }
-
-            // Copy each file into it’s new directory.
-            foreach (FileInfo fi in source.GetFiles())
-            {
-                // Console.WriteLine(@”Copying {0}\{1}”, target.FullName, fi.Name);
-                fi.CopyTo(Path.Combine(target.ToString(), fi.Name), true);
-            }
-
-            // Copy each subdirectory using recursion.
-            foreach (DirectoryInfo diSourceSubDir in source.GetDirectories())
-            {
-                DirectoryInfo nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);
-                CopyAll(diSourceSubDir, nextTargetSubDir);
-            }
-        }
-
-
-        public static void CopyAll(string sourceFolder, string destFolder)
-        {
-            if (!Directory.Exists(destFolder))
-                Directory.CreateDirectory(destFolder);
-            string[] files = Directory.GetFiles(sourceFolder);
-            foreach (string file in files)
-            {
-                string name = Path.GetFileName(file);
-                string dest = Path.Combine(destFolder, name);
-                File.Copy(file, dest);
-            }
-            string[] folders = Directory.GetDirectories(sourceFolder);
-            foreach (string folder in folders)
-            {
-                string name = Path.GetFileName(folder);
-                string dest = Path.Combine(destFolder, name);
-                CopyAll(folder, dest);
-            }
-        }
-
-        #endregion
-
-        #region file system types
-
-        public static string MimeType(string Filename)
-        {
-            try
-            {
-                string mime = "application/octetstream";
-                string ext = Path.GetExtension(Filename).ToLower();
-                RegistryKey rk = Registry.ClassesRoot.OpenSubKey(ext);
-                if (rk != null && rk.GetValue("Content Type") != null)
-                    mime = rk.GetValue("Content Type").ToString();
-                return mime;
-            }
-            catch (Exception ex)
-            {
-                LogError(ex);
-                return string.Empty;
-            }
-        }
-
-        #endregion
 
         #region listmod
 
@@ -1345,36 +634,6 @@ namespace BootBaronLib.Operational
 
         #region cookies
 
-        public static void CookieMaker(
-            HttpCookie processorCookie,
-            string coookieValue,
-            SiteEnums.CookieName cn)
-        {
-            processorCookie = HttpContext.Current.Request.Cookies[cn.ToString()];
-
-            // if the cookie exists, see if the value for the contact exists
-            if (processorCookie != null)
-            {
-                // check if the cookievalue exists, remove it
-                if (processorCookie.Values[cn.ToString()] != null)
-                {
-                    processorCookie.Values.Remove(cn.ToString());
-                }
-            }
-            else
-            {
-                // make a new cookie
-                processorCookie = new HttpCookie(cn.ToString());
-            }
-
-            // add the new value to the cookie, the new contact id
-            processorCookie[cn.ToString()] = coookieValue;
-            processorCookie.Expires = DateTime.Now.AddDays(7);
-
-            HttpContext.Current.Response.Cookies.Add(processorCookie);
-        }
-
-
         /// <summary>
         ///     Given the cookie name, check if it exists, if it does, check if the name
         ///     in the name value collection exists, if so remove it and add the new one
@@ -1416,219 +675,16 @@ namespace BootBaronLib.Operational
 
         #endregion
 
-        #region domain settings
 
-        /// <summary>
-        ///     When domains are passed to this, it will only allow the page
-        ///     to be acceessible from this domain, other domains to which
-        ///     point at this file will be rejected to a 404 page
-        /// </summary>
-        /// <param name="allowableDomains">the allowable domains as in whatever.com</param>
-        public static void AllowOnlyDomains(ArrayList allowableDomains)
-        {
-            string currentDomain = GetCurrentDomain().ToLower().Trim();
-
-            foreach (string s in allowableDomains)
-            {
-                if (s.ToLower().Trim().Contains(currentDomain))
-                {
-                    return;
-                }
-            }
-            HttpContext.Current.Response.Redirect("~/Errors/404.htm");
-        }
-
-        /// <summary>
-        ///     Get the current domain name, excluding the www. as in: whatever.com
-        /// </summary>
-        /// <returns></returns>
-        public static string GetCurrentDomain()
-        {
-#if !(DEBUG)
-            try
-            {
-                Uri url = new Uri(HttpContext.Current.Request.Url.ToString());
-                return url.Host.Replace("www.", string.Empty).ToLower(); 
-            }
-            catch { return string.Empty; }
-
-             #endif
-#if (DEBUG)
-            return string.Empty;
-#endif
-        }
-
-        /// <summary>
-        ///     Take the current incoming URL, check if it's secure
-        ///     if it is not secure, redirect to the current page securely,
-        ///     changing the url from http:// to https:// lowercase
-        /// </summary>
-        public static void MakeSecurePage()
-        {
-#if !(DEBUG)
-    // if (HttpContext.Current.IsDebuggingEnabled) return;
-
-    // THIS DOESN'T WORK IN AN ASSMBLY FOR THE WEBSITE
-            
-            #endif
-
-            // for some reason this is not working correctly, it's saying it's secure and not localhost when it's only http
-            if (!HttpContext.Current.Request.IsSecureConnection &&
-                !HttpContext.Current.Request.Url.ToString().ToLower().Contains("localhost"))
-            {
-                HttpContext.Current.Response.Redirect
-                    (
-                        HttpContext.Current.Request.Url.ToString().ToLower().Replace("http://", "https://")
-                    );
-            }
-        }
-
-        /// <summary>
-        ///     Used to redirect to SSL page with the requirement of having
-        ///     and SSL
-        /// </summary>
-        /// <param name="requiresWWW"></param>
-        public static void MakeSecurePage(bool requiresWWW)
-        {
-            if (HttpContext.Current.Request.Url.ToString().ToLower().Contains("localhost"))
-            {
-                return;
-            }
-
-#if !(DEBUG)
-    // if (HttpContext.Current.IsDebuggingEnabled) return;
-
-    // THIS DOESN'T WORK IN AN ASSMBLY FOR THE WEBSITE
-            
-            #endif
-
-            if (requiresWWW &&
-                !HttpContext.Current.Request.Url.ToString().ToLower().Contains("https://www.") &&
-                HttpContext.Current.Request.Url.ToString().ToLower().Contains("https://"))
-            {
-                // needs WWW and does not contains it
-                HttpContext.Current.Response.Redirect(
-                    HttpContext.Current.Request.Url.ToString().ToLower().Replace("https://", "https://www."));
-            }
-            //
-
-            if (!HttpContext.Current.Request.IsSecureConnection)
-            {
-                if (requiresWWW && !HttpContext.Current.Request.Url.ToString().ToLower().Contains("http://www."))
-                {
-                    // needs WWW and does not contain it
-                    HttpContext.Current.Response.Redirect(
-                        HttpContext.Current.Request.Url.ToString().ToLower().Replace("http://", "https://www."));
-                }
-                else if (!requiresWWW && HttpContext.Current.Request.Url.ToString().ToLower().Contains("http://www."))
-                {
-                    // does not require a WWW but does contain it
-                    HttpContext.Current.Response.Redirect(
-                        HttpContext.Current.Request.Url.ToString().ToLower().Replace("http://www.", "https://"));
-                }
-                else if (!requiresWWW && HttpContext.Current.Request.Url.ToString().ToLower().Contains("https://www."))
-                {
-                    // this may be impossible to hit if it's a non-WWW site that has a WWW already
-                    HttpContext.Current.Response.Redirect(
-                        HttpContext.Current.Request.Url.ToString().ToLower().Replace("https://www.", "https://"));
-                }
-                else if (requiresWWW && HttpContext.Current.Request.Url.ToString().ToLower().Contains("http://www."))
-                {
-                    // needs WWW and contains it
-                    HttpContext.Current.Response.Redirect(
-                        HttpContext.Current.Request.Url.ToString().ToLower().Replace("http://", "https://"));
-                }
-
-                else
-                {
-                    // replace to non WWW 
-                    HttpContext.Current.Response.Redirect(
-                        HttpContext.Current.Request.Url.ToString().ToLower().Replace("http://", "https://"));
-                }
-            }
-        }
-
-        #endregion
-
-        #region bytes
-
-        /// <summary>
-        ///     To convert a Byte Array of Unicode values (UTF-8 encoded) to a complete String.
-        /// </summary>
-        /// <param name="characters">Unicode Byte Array to be converted to String</param>
-        /// <returns>String converted from Unicode Byte Array</returns>
-        public static String UTF8ByteArrayToString(Byte[] characters)
-        {
-            var encoding = new UTF8Encoding();
-            String constructedString = encoding.GetString(characters);
-            return (constructedString);
-        }
-
-        /// <summary>
-        ///     Converts the String to UTF8 Byte array and is used in De serialization
-        /// </summary>
-        /// <param name="pXmlString"></param>
-        /// <returns></returns>
-        public static Byte[] StringToUTF8ByteArray(String pXmlString)
-        {
-            var encoding = new UTF8Encoding();
-            Byte[] byteArray = encoding.GetBytes(pXmlString);
-            return byteArray;
-        }
-
-        #endregion
-
-        #region pixel loading
-
-        #endregion
-
-        #region string formatting
-
-        /// <summary>
-        ///     Returns a red string, centered
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        public static string ErrorMessage(string msg)
-        {
-            return @"<center><span style=""color: red;background-color: white;"">" + msg + @"</span></center>";
-        }
-
-        /// <summary>
-        ///     Returns the a string of numbers
-        /// </summary>
-        /// <param name="expr"></param>
-        /// <returns></returns>
-        public static string ExtractNumbers(string expr)
-        {
-            if (expr == null) return string.Empty;
-
-            return string.Join(null, Regex.Split(expr, "[^\\d]"));
-        }
-
-        #endregion
 
         #region math
-
-        /// <summary>
-        ///     Random percent of times true out of 100
-        /// </summary>
-        /// <param name="percentTrue"></param>
-        /// <returns></returns>
-        public static bool RandomTrueOrFalse(int percentTrue)
-        {
-            int i = new Random().Next(100);
-
-            if (i <= percentTrue) return true;
-            else return false;
-        }
 
         /// <summary>
         ///     How many years have passed since birthdate
         /// </summary>
         /// <param name="birthDay"></param>
         /// <returns></returns>
-        public static int CalculateAge(DateTime birthDay, DateTime currentDate)
+        private static int CalculateAge(DateTime birthDay, DateTime currentDate)
         {
             if (birthDay == DateTime.MinValue) return 0;
 
@@ -1675,11 +731,11 @@ namespace BootBaronLib.Operational
 
             var exMessage = new StringBuilder();
 
-            HttpContext context = HttpContext.Current;
+            var context = HttpContext.Current;
 
-            string serverName = string.Empty;
+            string serverName;
 
-            if (context != null && context.Server != null && context.Server.MachineName != null)
+            if (context != null && context.Server.MachineName != null)
             {
                 serverName = HttpContext.Current.Server.MachineName;
             }
@@ -1699,7 +755,6 @@ namespace BootBaronLib.Operational
                 }
 
                 if (ex != null &&
-                    ex.Message != null &&
                     (ex.Message.Contains(
                         "A connection was successfully established with the server, but then an error occurred during the login process. (provider: TCP Provider, error: 0 - The specified network name is no longer available.)") ||
                      ex.Message.Contains(
@@ -1791,10 +846,7 @@ namespace BootBaronLib.Operational
                     {
                         exMessage.Append("\n\n Browser Version: " + context.Request.Browser.Version);
                     }
-                    if (context.Request.Headers != null)
-                    {
-                        exMessage.Append("\n\n Headers: " + context.Request.Headers);
-                    }
+                    exMessage.Append("\n\n Headers: " + context.Request.Headers);
                     if (!string.IsNullOrEmpty(context.Request.ApplicationPath))
                     {
                         exMessage.Append("\n\n Application Path: " + context.Request.ApplicationPath);
@@ -1831,7 +883,7 @@ namespace BootBaronLib.Operational
 
             if (GeneralConfigs.EnableErrorLogEmail && sendMail)
             {
-                string messageError = exMessage.ToString();
+                var messageError = exMessage.ToString();
 
                 if (messageError.ToLower().Contains("network") ||
                     messageError.ToLower().Contains("timeout"))
@@ -1839,13 +891,10 @@ namespace BootBaronLib.Operational
                     // annoying messages
                     return;
                 }
-                else
-                {
-                    SendMail(
-                        GeneralConfigs.SendToErrorEmail,
-                        AmazonCloudConfigs.SendFromEmail,
-                        "Error On: " + serverName, exMessage.ToString());
-                }
+                SendMail(
+                    GeneralConfigs.SendToErrorEmail,
+                    AmazonCloudConfigs.SendFromEmail,
+                    "Error On: " + serverName, exMessage.ToString());
             }
 
             if (context == null) return;
@@ -1870,11 +919,6 @@ namespace BootBaronLib.Operational
             el.Create();
         }
 
-        private static void SendMail(bool p, string p_2, string p_3, string p_4)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         ///     Log an exception to a file and mail it
         /// </summary>
@@ -1882,16 +926,6 @@ namespace BootBaronLib.Operational
         public static void LogError(Exception ex)
         {
             LogError(string.Empty, ex, true);
-        }
-
-        /// <summary>
-        ///     Log the exception with mail sending option
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <param name="sendMail"></param>
-        public static void LogError(Exception ex, bool sendMail)
-        {
-            LogError(string.Empty, ex, sendMail);
         }
 
         /// <summary>
@@ -1909,88 +943,9 @@ namespace BootBaronLib.Operational
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="sendEmail">if errors are being sent</param>
-        public static void LogError(string msg, bool sendEmail)
+        private static void LogError(string msg, bool sendEmail)
         {
             LogError(msg, null, sendEmail);
-        }
-
-        #endregion
-
-        #region FTP
-
-        /// <summary>
-        ///     FTP upload a file
-        /// </summary>
-        /// <param name="ftpAddress">the IP address or host name</param>
-        /// <param name="directoryOnFTPPath">
-        ///     specifies a path within the FTP
-        ///     example: MyFolderName/ or MyFolderName/MySubFolderName/
-        /// </param>
-        /// <param name="fileToUploadPath"></param>
-        /// <param name="username">username for FTP authentication</param>
-        /// <param name="password">password for FTP authentication</param>
-        /// <see cref="http://www.vcskicks.com/csharp_ftp_upload.php" />
-        public static bool FTPFileUpload(string ftpAddress, string directoryOnFTPPath, string fileToUploadPath,
-                                         string username, string password)
-        {
-            if (!ftpAddress.StartsWith("ftp://")) ftpAddress = "ftp://" + ftpAddress;
-
-            FileStream stream = null;
-            Stream reqStream = null;
-
-            try
-            {
-                //Create FTP request
-                var request =
-                    (FtpWebRequest)
-                    WebRequest.Create(ftpAddress + "/" + directoryOnFTPPath + Path.GetFileName(fileToUploadPath));
-
-                request.Method = WebRequestMethods.Ftp.UploadFile;
-                request.Credentials = new NetworkCredential(username, password);
-
-
-                request.UsePassive = true; // true for 21, false for 22
-                request.UseBinary = true;
-                request.KeepAlive = false;
-
-
-                //Load the file
-                stream = File.OpenRead(fileToUploadPath);
-                var buffer = new byte[stream.Length];
-
-                stream.Read(buffer, 0, buffer.Length);
-                stream.Close();
-
-                //Upload file
-                reqStream = request.GetRequestStream();
-                reqStream.Write(buffer, 0, buffer.Length);
-                reqStream.Close();
-            }
-            catch (Exception ex)
-            {
-                LogError("FTP UPLOAD EXCEPTION", ex);
-                return false;
-            }
-            finally
-            {
-                stream.Dispose();
-                reqStream.Dispose();
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        ///     FTP Upload of file to default directory
-        /// </summary>
-        /// <param name="ftpAddress">the IP address or host name</param>
-        /// <param name="fileToUploadPath"></param>
-        /// <param name="username">username for FTP authentication</param>
-        /// <param name="password">password for FTP authentication</param>
-        /// <see cref="http://www.vcskicks.com/csharp_ftp_upload.php" />
-        public static bool FTPFileUpload(string ftpAddress, string fileToUploadPath, string username, string password)
-        {
-            return FTPFileUpload(ftpAddress, string.Empty, fileToUploadPath, username, password);
         }
 
         #endregion
@@ -2013,49 +968,44 @@ namespace BootBaronLib.Operational
             {
                 return null;
             }
-            string responseData = string.Empty;
 
             WebRequest request = WebRequest.Create(input) as HttpWebRequest;
-            request.Method = SiteEnums.HTTPTypes.GET.ToString();
-
-            try
+            if (request != null)
             {
-                using (var response = (HttpWebResponse) request.GetResponse())
+                request.Method = SiteEnums.HTTPTypes.GET.ToString();
+
+                try
                 {
-                    if (response.StatusCode == HttpStatusCode.OK) return true;
-                    using (Stream dataStream = response.GetResponseStream())
+                    using (var response = (HttpWebResponse) request.GetResponse())
                     {
-                        using (var reader = new StreamReader(dataStream))
+                        if (response.StatusCode == HttpStatusCode.OK) return true;
+                        using (var dataStream = response.GetResponseStream())
                         {
-                            responseData = reader.ReadToEnd();
+                            if (dataStream != null)
+                                using (var reader = new StreamReader(dataStream))
+                                {
+                                    reader.ReadToEnd();
+                                }
                         }
                     }
                 }
-            }
-            catch (WebException ex)
-            {
-                if (ex.Status == WebExceptionStatus.ProtocolError &&
-                    ex.Response != null)
+                catch (WebException ex)
                 {
-                    var resp = (HttpWebResponse) ex.Response;
-                    if (resp.StatusCode == HttpStatusCode.NotFound)
+                    if (ex.Status == WebExceptionStatus.ProtocolError &&
+                        ex.Response != null)
                     {
-                        return false;
-                        // Do something
-                    }
-                    else
-                    {
-                        // Do something else
+                        var resp = (HttpWebResponse) ex.Response;
+                        if (resp.StatusCode == HttpStatusCode.NotFound)
+                        {
+                            return false;
+                            // Do something
+                        }
                     }
                 }
-                else
+                catch
                 {
-                    // Do something else
+                    // Utilities.LogError(debugMsg, ex);
                 }
-            }
-            catch
-            {
-                // Utilities.LogError(debugMsg, ex);
             }
 
             return false;
@@ -2067,380 +1017,41 @@ namespace BootBaronLib.Operational
         /// <param name="input"></param>
         /// <param name="debugMsg"></param>
         /// <returns></returns>
-        public static string GETRequest(Uri input, string debugMsg)
+        private static string GETRequest(Uri input, string debugMsg)
         {
-            string responseData = string.Empty;
+            var responseData = string.Empty;
 
             WebRequest request = WebRequest.Create(input) as HttpWebRequest;
-            request.Method = SiteEnums.HTTPTypes.GET.ToString();
-
-            try
+            if (request != null)
             {
-                using (var response = (HttpWebResponse) request.GetResponse())
+                request.Method = SiteEnums.HTTPTypes.GET.ToString();
+
+                try
                 {
-                    using (Stream dataStream = response.GetResponseStream())
+                    using (var response = (HttpWebResponse) request.GetResponse())
                     {
-                        using (var reader = new StreamReader(dataStream))
+                        using (var dataStream = response.GetResponseStream())
                         {
-                            responseData = reader.ReadToEnd();
+                            if (dataStream != null)
+                                using (var reader = new StreamReader(dataStream))
+                                {
+                                    responseData = reader.ReadToEnd();
+                                }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                LogError(debugMsg, ex);
+                catch (Exception ex)
+                {
+                    LogError(debugMsg, ex);
+                }
             }
             return responseData;
         }
 
-        /// <summary>
-        ///     POST a string to a URI and return the result
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="sendTo"></param>
-        /// <returns></returns>
-        public static string POSTRequest(string input, Uri sendTo, string debugMsg)
-        {
-            var whc = new WebHeaderCollection();
-
-            whc.Add(HttpRequestHeader.ContentType, GetEnumDescription(SiteEnums.FormContentTypes.URLENCODE));
-
-            return POSTRequest(input, sendTo, whc, debugMsg);
-        }
-
-        /// <summary>
-        ///     POST a string to a URI and return the result
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="sendTo"></param>
-        /// <returns></returns>
-        public static string POSTRequest(string input, Uri sendTo)
-        {
-            var whc = new WebHeaderCollection();
-
-            whc.Add(HttpRequestHeader.ContentType, GetEnumDescription(SiteEnums.FormContentTypes.URLENCODE));
-
-            return POSTRequest(input, sendTo, whc, sendTo.Host);
-        }
-
-        /// <summary>
-        ///     POST a string to a URI with headers and return the result
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="sendTo"></param>
-        /// <param name="whc"></param>
-        /// <returns></returns>
-        public static string POSTRequest(string input, Uri sendTo, WebHeaderCollection whc, string debugMsg)
-        {
-            return POSTRequest(input, sendTo, whc, debugMsg, false);
-        }
-
-
-        public static string POSTRequest(string input, Uri sendTo, WebHeaderCollection whc, string debugMsg,
-                                         bool byPassAllCertificates)
-        {
-            string toReturn = string.Empty;
-
-            using (var wc = new WebClient())
-            {
-                wc.Headers = whc;
-
-                if (byPassAllCertificates)
-                {
-                    ServicePointManager.ServerCertificateValidationCallback += ByPassAllCertificates;
-                }
-
-                try
-                {
-                    toReturn = wc.UploadString(sendTo.AbsoluteUri, SiteEnums.HTTPTypes.POST.ToString(), input);
-                    return toReturn;
-                }
-                catch
-                {
-                    //// log the post
-                    //ErrorLog ell = new ErrorLog();
-
-                    //ell.CurrentPage = sendTo.ToString();
-                    //ell.LogMessage = input;
-                    //ell.DebugMessage = debugMsg;
-                    //ell.IsException = true;
-                    //if (HttpContext.Current != null && HttpContext.Current.Request != null)
-                    //    ell.IpAddress = HttpContext.Current.Request.UserHostAddress;
-                    //ell.ServerStatusCode = "-1";
-
-                    //HttpCookie offerCookie = HttpContext.Current.Request.Cookies[SiteEnums.CookieName.chocolatechip.ToString()];
-
-                    //int contactUserID = 0;
-
-                    //if (offerCookie != null &&
-                    //    offerCookie.Values[SiteEnums.CookieValue.contactuserid.ToString()] != null)
-                    //    contactUserID = Convert.ToInt32(offerCookie[SiteEnums.CookieValue.contactuserid.ToString()]);
-
-                    //ell.ContactUserID = contactUserID;
-
-                    //ell.Create();
-
-                    //// log the exception
-                    //Utilities.LogError(debugMsg, ex);
-                }
-            }
-
-            return string.Empty;
-        }
-
-
-        /// <summary>
-        ///     Delegate to ignore the SSL credentials
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="cert"></param>
-        /// <param name="chain"></param>
-        /// <param name="error"></param>
-        /// <returns></returns>
-        /// <see cref=">http://stackoverflow.com/questions/536352/webclient-https-issues" />
-        private static bool ByPassAllCertificates(object sender, X509Certificate cert, X509Chain chain,
-                                                  SslPolicyErrors error)
-        {
-            //always accepts
-            return true;
-        }
-
         #endregion
 
-        #region auto form submit
-
-        public static void SubmitHTMLForm(string formName, string postToURL, NameValueCollection nvc)
-        {
-            //NameValueCollection nvc1 = new NameValueCollection();
-
-            //nvc1.Add("sForename", "fname");
-            //nvc1.Add("sSurname", "lname");
-            //nvc1.Add("sEmail", "test@aol.com");
-            //nvc1.Add("sTelephone", "1234567890");
-            //nvc1.Add("sMobile", "");
-            //nvc1.Add("sAddr1", "123 fake street");
-            //nvc1.Add("sAddr2", "");
-            //nvc1.Add("sAddr3", "");
-            //nvc1.Add("sTown", "cityname");
-            //nvc1.Add("sCounty", "FL");
-            //nvc1.Add("sPostcode", "12344");
-            //nvc1.Add("sCountry", "US");
-            //nvc1.Add("sPassword", "password");
-            //nvc1.Add("cPassword", "password");
-            //nvc1.Add("date", "2010-06-16");
-            ////  nvc1.Add("submit", "Sign Me Up!");
-            //nvc1.Add("sCouponCode", "");
-            ////nvc1.Add("MM_insert", "frmSignUp");
-
-            //Utilities.SubmitHTMLForm("frmSignUp", "http://www.twittertacticsrevealed.com/members/signup.php", nvc1);
-
-
-            HttpContext.Current.Response.Clear();
-
-            var sb = new StringBuilder();
-
-            sb.AppendFormat("<html><body onload='document.{0}.submit()'>", formName);
-
-            sb.AppendFormat("<form method=\"POST\" action=\"{0}\" name=\"{1}\" id=\"{1}\">", postToURL, formName);
-
-            string[] values = null;
-
-            foreach (string key in nvc.Keys)
-            {
-                values = nvc.GetValues(key);
-
-                foreach (string value in values)
-                    sb.AppendFormat("<input type=hidden name=\"{0}\" value=\"{1}\">", key, value);
-            }
-
-            sb.Append("</form></body></html>");
-
-            HttpContext.Current.Response.Write(sb.ToString());
-        }
-
-        #endregion
-
-        #region datetime
-
-        /// <summary>
-        ///     Given the start and end date, return a list of days inbetween the range as
-        /// </summary>
-        /// <param name="startingDate"></param>
-        /// <param name="endingDate"></param>
-        /// <returns></returns>
-        /// <see
-        ///     cref="http://geekswithblogs.net/thibbard/archive/2007/03/01/CSharpCodeToGetGenericListOfDatesBetweenStartingAndEndingDate.aspx" />
-        public static List<DateTime> GetDateRange(DateTime startingDate, DateTime endingDate)
-        {
-            if (startingDate > endingDate) return null;
-
-            var rv = new List<DateTime>();
-            DateTime tmpDate = startingDate;
-
-            do
-            {
-                rv.Add(tmpDate);
-                tmpDate = tmpDate.AddDays(1);
-            } while (tmpDate <= endingDate);
-
-            return rv;
-        }
-
-        public static DateTime ConvertFromUnixTimestamp(double timestamp)
-        {
-            var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return origin.AddSeconds(timestamp);
-        }
-
-
-        public static double ConvertToUnixTimestamp(DateTime date)
-        {
-            var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            TimeSpan diff = date - origin;
-            return Math.Floor(diff.TotalSeconds);
-        }
-
-        #endregion
-
-        #region query strings
-
-        /// <summary>
-        ///     Replace a key with a value in the current URL
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="valueToReplace"></param>
-        /// <returns></returns>
-        public static string ReplaceQueryStringValue(string key, string valueToReplace)
-        {
-            var filtered = new NameValueCollection(HttpContext.Current.Request.QueryString);
-            filtered.Remove(key);
-            filtered.Add(key, valueToReplace);
-
-            string currentURL = HttpContext.Current.Request.Url.ToString().Replace(
-                HttpContext.Current.Request.Url.Query, string.Empty);
-
-            var newQS = new StringBuilder();
-
-            foreach (string  kvp in filtered.Keys)
-            {
-                newQS.Append("&");
-                newQS.Append(kvp);
-                newQS.Append("=");
-                newQS.Append(filtered.Get(kvp));
-            }
-
-            return currentURL += "?" + newQS;
-        }
-
-        /// <summary>
-        ///     Replace in a Full URL
-        /// </summary>
-        /// <param name="fullurlToModify"></param>
-        /// <param name="key"></param>
-        /// <param name="valueToReplace"></param>
-        /// <returns></returns>
-        public static string ReplaceQueryStringValue(
-            Uri fullurlToModify,
-            string key,
-            string valueToReplace)
-        {
-            NameValueCollection filtered = HttpUtility.ParseQueryString(fullurlToModify.Query);
-
-            filtered.Remove(key);
-            filtered.Add(key, valueToReplace);
-
-            string currentURL = fullurlToModify.ToString().Replace(
-                fullurlToModify.Query, string.Empty);
-
-            var newQS = new StringBuilder();
-
-            foreach (string kvp in filtered.Keys)
-            {
-                newQS.Append("&");
-                newQS.Append(kvp);
-                newQS.Append("=");
-                newQS.Append(filtered.Get(kvp));
-            }
-
-            return currentURL += "?" + newQS;
-        }
-
-        /// <summary>
-        ///     Take a namevaluecollection and turn it into querystring parameters
-        /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="delimiter"></param>
-        /// <param name="omitEmpty"></param>
-        /// <returns></returns>
-        public static String ConstructQueryString(NameValueCollection parameters, String delimiter, Boolean omitEmpty)
-        {
-            if (String.IsNullOrEmpty(delimiter))
-                delimiter = "&";
-
-            Char equals = '=';
-            var items = new List<String>();
-
-            for (int i = 0; i < parameters.Count; i++)
-            {
-                foreach (String value in parameters.GetValues(i))
-                {
-                    Boolean addValue = (omitEmpty) ? !String.IsNullOrEmpty(value) : true;
-                    if (addValue)
-                        items.Add(String.Concat(parameters.GetKey(i), equals, HttpUtility.UrlEncode(value)));
-                }
-            }
-
-            return String.Join(delimiter, items.ToArray());
-        }
-
-        public static String ConstructQueryString(NameValueCollection parameters)
-        {
-            return ConstructQueryString(parameters, "&", false);
-        }
-
-        /// <summary>
-        ///     Get a value from the string
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="keyOfValue"></param>
-        /// <returns></returns>
-        public static string GetQueryStringValue(string query, string keyOfValue)
-        {
-            var nvc = new NameValueCollection(
-                HttpUtility.ParseQueryString(HttpContext.Current.Server.UrlDecode(query)));
-
-            return nvc[keyOfValue];
-        }
-
-        #endregion
-
+   
         #region enum methods
-
-        /// <summary>
-        ///     Get the enum name by using it's description
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        public static string GetEnumName(Type value, string description)
-        {
-            FieldInfo[] fis = value.GetFields();
-            foreach (FieldInfo fi in fis)
-            {
-                var attributes =
-                    (DescriptionAttribute[]) fi.GetCustomAttributes
-                                                 (typeof (DescriptionAttribute), false);
-                if (attributes.Length > 0)
-                {
-                    if (attributes[0].Description == description)
-                    {
-                        return fi.Name;
-                    }
-                }
-            }
-            return description;
-        }
 
         /// <summary>
         ///     Turns an enum into a string, if it has a description
@@ -2461,94 +1072,5 @@ namespace BootBaronLib.Operational
         }
 
         #endregion
-
-        public class CGWebClient : WebClient
-        {
-            private CookieContainer cookieContainer;
-            private int timeout;
-            private string userAgent;
-
-            public CGWebClient()
-            {
-                timeout = -1;
-                userAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)";
-                //cookieContainer = new CookieContainer();
-                //cookieContainer.Add(new Cookie("example", "example_value"));
-            }
-
-            public CookieContainer CookieContainer
-            {
-                get { return cookieContainer; }
-                set { cookieContainer = value; }
-            }
-
-            public string UserAgent
-            {
-                get { return userAgent; }
-                set { userAgent = value; }
-            }
-
-            public int Timeout
-            {
-                get { return timeout; }
-                set { timeout = value; }
-            }
-
-            protected override WebRequest GetWebRequest(Uri address)
-            {
-                WebRequest request = base.GetWebRequest(address);
-                RefreshUserAgent();
-
-                if (request.GetType() == typeof (HttpWebRequest))
-                {
-                    ((HttpWebRequest) request).CookieContainer = cookieContainer;
-                    ((HttpWebRequest) request).UserAgent = userAgent;
-                    (request).Timeout = timeout;
-                }
-
-                return request;
-            }
-
-            private void RefreshUserAgent()
-            {
-                var UserAgents = new List<string>();
-                UserAgents.Add("Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)");
-                UserAgents.Add(
-                    "Mozilla/4.0 (compatible; MSIE 8.0; AOL 9.5; AOLBuild 4337.43; Windows NT 6.0; Trident/4.0; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.5.21022; .NET CLR 3.5.30729; .NET CLR 3.0.30618)");
-                UserAgents.Add(
-                    "Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.5; AOLBuild 4337.34; Windows NT 6.0; WOW64; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30618)");
-                UserAgents.Add(
-                    "Mozilla/5.0 (X11; U; Linux i686; pl-PL; rv:1.9.0.2) Gecko/20121223 Ubuntu/9.25 (jaunty) Firefox/3.8");
-                UserAgents.Add(
-                    "Mozilla/5.0 (Windows; U; Windows NT 5.1; ja; rv:1.9.2a1pre) Gecko/20090402 Firefox/3.6a1pre (.NET CLR 3.5.30729)");
-                UserAgents.Add(
-                    "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1b4) Gecko/20090423 Firefox/3.5b4 GTB5 (.NET CLR 3.5.30729)");
-                UserAgents.Add(
-                    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Avant Browser; .NET CLR 2.0.50727; MAXTHON 2.0)");
-                UserAgents.Add(
-                    "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; Media Center PC 6.0; InfoPath.2; MS-RTC LM 8)");
-                UserAgents.Add(
-                    "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; WOW64; Trident/4.0; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; InfoPath.2; .NET CLR 3.5.21022; .NET CLR 3.5.30729; .NET CLR 3.0.30618)");
-                UserAgents.Add("Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 6.0)");
-                UserAgents.Add(
-                    "Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 5.1; Media Center PC 3.0; .NET CLR 1.0.3705; .NET CLR 1.1.4322; .NET CLR 2.0.50727; InfoPath.1)");
-                UserAgents.Add("Opera/9.70 (Linux i686 ; U; zh-cn) Presto/2.2.0");
-                UserAgents.Add("Opera 9.7 (Windows NT 5.2; U; en)");
-                UserAgents.Add(
-                    "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.8.1.8pre) Gecko/20070928 Firefox/2.0.0.7 Navigator/9.0RC1");
-                UserAgents.Add(
-                    "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.7pre) Gecko/20070815 Firefox/2.0.0.6 Navigator/9.0b3");
-                UserAgents.Add(
-                    "Mozilla/5.0 (Windows; U; Windows NT 5.1; en) AppleWebKit/526.9 (KHTML, like Gecko) Version/4.0dp1 Safari/526.8");
-                UserAgents.Add(
-                    "Mozilla/5.0 (Windows; U; Windows NT 6.0; ru-RU) AppleWebKit/528.16 (KHTML, like Gecko) Version/4.0 Safari/528.16");
-                UserAgents.Add("Opera/9.64 (X11; Linux x86_64; U; en) Presto/2.1.1");
-
-                var r = new Random();
-                UserAgent = UserAgents[r.Next(0, UserAgents.Count)];
-
-                UserAgents = null;
-            }
-        }
     }
 }

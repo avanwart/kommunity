@@ -207,12 +207,4 @@ namespace BootBaronLib.Operational
             return new string(password);
         }
     }
-
-    public enum EncryptionAlgorithm
-    {
-        DES = 0,
-        Rc2,
-        Rijndael,
-        TripleDes
-    }
 }

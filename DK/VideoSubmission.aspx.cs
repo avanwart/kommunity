@@ -24,26 +24,23 @@ namespace DasKlub
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(Request.QueryString["statustype"]))
-            {
-                string rslt = Request.QueryString["statustype"];
+            if (string.IsNullOrEmpty(Request.QueryString["statustype"])) return;
+            var rslt = Request.QueryString["statustype"];
 
-                if (rslt == "W")
-                {
+            switch (rslt)
+            {
+                case "W":
                     litResult.Text = Messages.WaitingToBeReviewed;
-                }
-                else if (rslt == "R")
-                {
+                    break;
+                case "R":
                     litResult.Text = Messages.VideoRejected;
-                }
-                else if (rslt == "I")
-                {
+                    break;
+                case "I":
                     litResult.Text = Messages.InvalidLink;
-                }
-                else if (rslt == "P")
-                {
+                    break;
+                case "P":
                     litResult.Text = Messages.Error;
-                }
+                    break;
             }
         }
     }

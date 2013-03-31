@@ -264,9 +264,9 @@ namespace DasKlub.Controllers
                     model.DisplayOnMap = uad.ShowOnMapLegal;
 
                     var rnd = new Random();
-                    int offset = rnd.Next(10, 100);
+                    var offset = rnd.Next(10, 100);
 
-                    SiteStructs.LatLong latlong = GeoData.GetLatLongForCountryPostal(uad.Country, uad.PostalCode);
+                    var latlong = GeoData.GetLatLongForCountryPostal(uad.Country, uad.PostalCode);
 
                     if (latlong.latitude != 0 && latlong.longitude != 0)
                     {
@@ -357,14 +357,14 @@ namespace DasKlub.Controllers
                 if (pl.LookingUserAccountID != pl.LookedAtUserAccountID) pl.Create();
 
 
-                ArrayList al = ProfileLog.GetRecentProfileViews(_ua.UserAccountID);
+                var al = ProfileLog.GetRecentProfileViews(_ua.UserAccountID);
 
                 if (al != null && al.Count > 0)
                 {
                     var uas = new UserAccounts();
 
-                    foreach (UserAccount viewwer in al.Cast<int>().Select(ID =>
-                                                                          new UserAccount(ID))
+                    foreach (var viewwer in al.Cast<int>().Select(id =>
+                                                                          new UserAccount(id))
                                                       .Where(viewwer => !viewwer.IsLockedOut && viewwer.IsApproved)
                                                       .TakeWhile(viewwer => uas.Count < Maxcountusers))
                     {
@@ -375,7 +375,7 @@ namespace DasKlub.Controllers
                 }
             }
 
-            UserAccountVideos uavs = null;
+            UserAccountVideos uavs;
 
             if (_ua.UserAccountID > 0)
             {
@@ -493,9 +493,7 @@ namespace DasKlub.Controllers
 
                 sngss.GetSongsForArtist(art.ArtistID);
 
-                var snrcd = new SongRecord();
-
-                foreach (Song sn1 in sngss)
+                foreach (var sn1 in sngss)
                 {
                     vids.GetVideosForSong(sn1.SongID);
                 }
@@ -617,17 +615,20 @@ namespace DasKlub.Controllers
 
             if (_ua.UserAccountID != 0 && !string.IsNullOrWhiteSpace(message))
             {
-                MembershipUser mu = Membership.GetUser();
+                var mu = Membership.GetUser();
 
-                var comment = new WallMessage
-                    {
-                        Message = Server.HtmlEncode(message),
-                        ToUserAccountID = toUserAccountID,
-                        FromUserAccountID = Convert.ToInt32(mu.ProviderUserKey),
-                        CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey)
-                    };
+                if (mu != null)
+                {
+                    var comment = new WallMessage
+                        {
+                            Message = Server.HtmlEncode(message),
+                            ToUserAccountID = toUserAccountID,
+                            FromUserAccountID = Convert.ToInt32(mu.ProviderUserKey),
+                            CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey)
+                        };
 
-                comment.Create();
+                    comment.Create();
+                }
             }
 
             return RedirectToAction("ProfileDetail", new {@userName = _ua.UserName});

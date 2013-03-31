@@ -19,7 +19,7 @@ using System.Web.UI.WebControls;
 
 namespace BootBaronLib.AppSpec.DasKlub.BLL
 {
-    public class MasterPageHelper
+    public static class MasterPageHelper
     {
         #region Master page
 

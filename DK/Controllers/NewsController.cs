@@ -171,7 +171,7 @@ namespace DasKlub.Controllers
                 cloud1.DataSource = theDs;
                 cloud1.MinFontSize = 14;
                 cloud1.MaxFontSize = 30;
-                cloud1.FontUnit = "px";
+                cloud1.FontUnit = @"px";
 
                 htmlCloud = cloud1.HTML();
 

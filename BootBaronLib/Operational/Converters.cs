@@ -16,9 +16,7 @@
 
 using System;
 using System.Data;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace BootBaronLib.Operational
 {
@@ -57,7 +55,7 @@ namespace BootBaronLib.Operational
         /// <summary>
         ///     Convert the object to a date from the database and set it to 1/1/1900
         /// </summary>
-        /// <param name="columnName"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         public static DateTime DateFromObj(object value)
         {
@@ -102,7 +100,7 @@ namespace BootBaronLib.Operational
         /// <summary>
         ///     Convert the object to a boolean if possible, false otherwise
         /// </summary>
-        /// <param name="columnName"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         public static bool BoolFromObj(object value)
         {
@@ -266,28 +264,6 @@ namespace BootBaronLib.Operational
         #endregion
 
         #endregion
-
-        public static string XmlUnicode(string p)
-        {
-            string input = HttpUtility.HtmlEncode(p);
-            var output = new StringBuilder(input.Length);
-
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (input[i] == '&')
-                {
-                    int startOfEntity = i; // just for easier reading
-                    int endOfEntity = input.IndexOf(';', startOfEntity);
-                    string entity = input.Substring(startOfEntity, endOfEntity - startOfEntity);
-                    int unicodeNumber = (HttpUtility.HtmlDecode(entity)[0]);
-                    output.Append("&#" + unicodeNumber + ";");
-                    i = endOfEntity; // continue parsing after the end of the entity
-                }
-                else
-                    output.Append(input[i]);
-            }
-            return output.ToString();
-        }
 
         /// <summary>
         ///     Gets a URL accessible dash spaced string
