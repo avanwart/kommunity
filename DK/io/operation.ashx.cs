@@ -724,9 +724,6 @@ namespace DasKlub.io
                     #endregion
 
                     break;
-                default:
-                    // ?
-                    break;
             }
         }
 
@@ -736,7 +733,7 @@ namespace DasKlub.io
             get { return false; }
         }
 
-        private void SendNotificationEmail(int userTo, SiteEnums.ResponseType rsp, int statusUpdateID)
+        private static void SendNotificationEmail(int userTo, SiteEnums.ResponseType rsp, int statusUpdateID)
         {
             var uaTo = new UserAccount(userTo);
 
@@ -785,7 +782,7 @@ namespace DasKlub.io
         }
 
 
-        public CalendarItems GetCitms(Events tds, DateTime dtBegin, DateTime dtEnd, bool isMonth)
+        private CalendarItems GetCitms(Events tds, DateTime dtBegin, DateTime dtEnd, bool isMonth)
         {
             var citms = new CalendarItems();
             CalendarItem citm = null;

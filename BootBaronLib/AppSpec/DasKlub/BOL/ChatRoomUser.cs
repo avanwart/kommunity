@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Text;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
@@ -144,7 +145,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             return DbAct.ExecuteNonQuery(comm) > 0;
         }
 
-        public override void Get(DataRow dr)
+        public override sealed void Get(DataRow dr)
         {
             base.Get(dr);
 
@@ -225,17 +226,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+            foreach (var cru in from DataRow dr in dt.Rows select new ChatRoomUser(dr))
             {
-                ChatRoomUser cru = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    cru = new ChatRoomUser(dr);
-                    Add(cru);
-                }
-
-                Sort((ChatRoomUser x, ChatRoomUser y) => (x.CreateDate.CompareTo(y.CreateDate)));
+                Add(cru);
             }
+
+            Sort((x, y) => (x.CreateDate.CompareTo(y.CreateDate)));
         }
     }
 }

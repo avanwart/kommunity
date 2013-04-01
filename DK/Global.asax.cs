@@ -791,10 +791,12 @@ namespace DasKlub
         }
 
 
-        protected void Application_Start()
+        public void Application_Start()
         {
+            // Register the default hubs route: ~/signalr
             RouteTable.Routes.MapHubs();
-
+        
+            
             XmlConfigurator.Configure();
 
             Log.Info("Application Started");
@@ -803,6 +805,8 @@ namespace DasKlub
             {
                 ClearBadVideos();
             }
+
+          
 
             Application[SiteEnums.ApplicationVariableNames.LogError.ToString()] = true;
 
@@ -954,14 +958,14 @@ vv1.ProviderKey)), true) where sss != null where !Convert.ToBoolean(sss) select 
             }
         }
 
-        private abstract class MyConnection : PersistentConnection
-        {
-            protected Task OnReceivedAsync(string clientId, string data)
-            {
-                // Broadcast data to all clients
-                return Connection.Broadcast(data);
-            }
-        }
+        //private abstract class MyConnection : PersistentConnection
+        //{
+        //    protected Task OnReceivedAsync(string clientId, string data)
+        //    {
+        //        // Broadcast data to all clients
+        //        return Connection.Broadcast(data);
+        //    }
+        //}
     }
 
     /// <summary>
@@ -984,6 +988,17 @@ vv1.ProviderKey)), true) where sss != null where !Convert.ToBoolean(sss) select 
         {
             //db
             UserAccounts.UpdateWhoIsOnline();
+
+            var chatters = new ChatRoomUsers(); 
+            chatters.GetChattingUsers();
+
+            foreach (var chatUser in from chatUser in chatters let user =
+                                                  new UserAccount(chatUser.CreatedByUserID) where !user.IsOnLine select chatUser)
+            {
+                chatUser.DeleteChatRoomUser();
+            }
+
+
         }
     }
 }
