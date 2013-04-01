@@ -12,17 +12,23 @@
 }
 <div class="row">
     <div class="span4">
-        @{ Html.RenderPartial("_registerControls"); }
         
-        <hr />
-        <h5>@Messages.NewestUsers</h5>
-              
-        @Html.Raw(ViewBag.NewestUsers)
+        @{ Html.RenderPartial("_registerControls"); }
+       
         <div class="clear"></div>
         <hr />
-        <h5>@Messages.NewestPhotos</h5>
-        @Html.Raw(ViewBag.PhotoList)
           
+        @{ Html.RenderPartial("_AdBanner"); }
+        
+        
+  @if (HttpContext.Current.Request.IsAuthenticated)
+  {
+      Html.RenderPartial("_videoSubmit");
+
+  }       
+
+  
+       
         <div class="clear">
         </div>
         <br />
@@ -41,25 +47,26 @@
     <div class="span8">
         <div class="row">
       
-            <div class="span4">
+            <div class="span8">
              
 
                 @Html.Raw(SiteDomain.GetSiteDomainValue(
                     SiteEnums.SiteBrandType.HOMEC,
                     Utilities.GetCurrentLanguageCode())) 
 
-                <hr />
+        @*        <hr />
                 
-                @{ Html.RenderPartial("_AdBanner"); }
-                <hr /> 
-                <h5>@Messages.NewestVideos</h5>  <div class="gallery">
-                                                     @Html.Raw(ViewBag.NewestVideos)</div>
-                <div class="clear"></div>
-                          
-            
-                <a name="submit_video"></a>
+                @{ Html.RenderPartial("_AdBanner"); }*@
+               
+           
+    @*                      
+              <h4>@Messages.News</h4>
+                <hr style="margin-top: 0; padding-top: 0;" />
+                <div class="news_list" id="article_list">
+                    @Html.Raw(ViewBag.RecentArticles)*@
+               @* <a name="submit_video"></a>*@
 
-                <div style="background-color: #000; border: 3px solid #FFF; border-radius: 15px; margin: 5px; padding: 5px;">
+                 
                     @* <h5>@Messages.SubmitYourYouTubeVideoLinkHere</h5>
                     @using (Html.BeginForm("videosubmit", "Home", FormMethod.Post))
                     {
@@ -74,72 +81,38 @@
                     }*@
 
 
-                    @{ Html.RenderPartial("_videoSubmit"); }
-                </div>
-
+                
+                
 
   
             </div>
-     
+@*     
 
             <div class="span4">
                 @{ Html.RenderPartial("_LoginControls"); }
-             
-                <hr />
-                @{ Html.RenderPartial("_AdBanner3"); } 
-                  
-                <h4>@Messages.News</h4>
-                <hr style="margin-top: 0; padding-top: 0;" />
-                <div class="news_list" id="article_list">
-                    @Html.Raw(ViewBag.RecentArticles)
-                </div>
-                <a href="@Url.Content("~/news")">@Messages.SeeMoreNews</a>
-
-      
-
-                @*            <a class="m_over" href="http://dasklub.com/news/centhron-s-das-klub-industrial-dance-top-10">
-              <img src="http://i.imgur.com/IJk6A.jpg" /></a>
-            <br />
-              [Processing Top 10 Winners Video]
-              <br />*@
-
-     
-
-
-
-                @*
-                <br />
-                <i>
-                   @Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                   BootBaronLib.Enums.SiteEnums.SiteBrandType.TAGLN,
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))</i>
-
-                                
-                                            
-                
-     *@
-   
-            </div>
-            @*      <div class="row">
-          <div class="span4">
-         
- <br />
-
-             
-            </div> 
-        </div>*@
         
-            @*   <div class="row">
-        <div class="span8">
- 
+                <hr />
+                        <h5>@Messages.NewestUsers</h5>   
+                @Html.Raw(ViewBag.NewestUsers)
+                
+          <div class="clear"></div>
+                <hr />
+                
+                   <div class="gallery">
+                      <h5>@Messages.NewestVideos</h5>   
+                    @Html.Raw(ViewBag.NewestVideos)
+                </div>
+              <div class="clear"></div>
+                <hr />
+                
+                <h5>@Messages.NewestPhotos</h5>
+        @Html.Raw(ViewBag.PhotoList)
 
-        <h5>
-        @Messages.CurentContestEntries</h5>
-        <div class="contest_videos">
-        @Html.Raw(ViewBag.ContestVideoList)
-        </div>
-        </div>
-        </div>*@
+               
+   
+            </div>*@
+           
+         
  
 
             <div class="clear">

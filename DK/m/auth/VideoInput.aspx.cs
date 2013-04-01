@@ -25,10 +25,11 @@ using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using Google.GData.Client;
-using Google.YouTube;
+
 using HttpUtility = System.Web.HttpUtility;
 using Utilities = BootBaronLib.Operational.Utilities;
 using Video = BootBaronLib.AppSpec.DasKlub.BOL.Video;
+using Google.YouTube;
 
 namespace DasKlub.m.auth
 {
@@ -134,13 +135,10 @@ namespace DasKlub.m.auth
                 /// publish date 
                 var yousettings =
                     new YouTubeRequestSettings("You Manager", devkey, username, password);
-                YouTubeRequest yourequest;
-                Uri Url;
-                Google.YouTube.Video video;
 
-                yourequest = new YouTubeRequest(yousettings);
-                Url = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.ProviderKey);
-                video = new Google.YouTube.Video();
+                var yourequest = new YouTubeRequest(yousettings);
+                var Url = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.ProviderKey);
+                var video = new Google.YouTube.Video();
                 video = yourequest.Retrieve<Google.YouTube.Video>(Url);
                 vid.PublishDate = video.YouTubeEntry.Published;
 

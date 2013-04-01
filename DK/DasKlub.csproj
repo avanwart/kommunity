@@ -61,8 +61,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Google.GData.Client.2.1.0.0\lib\Google.GData.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Google.GData.YouTube, Version=2.1.0.0, Culture=neutral, PublicKeyToken=af04a32718ae8833, processorArchitecture=MSIL">
+    <Reference Include="Google.GData.Extensions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Google.GData.Extensions.2.1.0.0\lib\Google.GData.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.YouTube">
       <HintPath>..\packages\Google.GData.YouTube.2.1.0.0\lib\Google.GData.YouTube.dll</HintPath>
     </Reference>
     <Reference Include="LitS3">
@@ -449,6 +452,9 @@
     <Content Include="Content\images\userstatus\keyboard_small.png" />
     <Content Include="Content\images\users\defaultuser.png" />
     <Content Include="Content\images\users\defaultuserthumb.png" />
+    <Content Include="Content\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\nicEditorIcons.gif" />
     <Content Include="Content\mediaelement\background.png" />
     <Content Include="Content\mediaelement\bigplay.png" />
     <Content Include="Content\mediaelement\bigplay.svg" />
@@ -676,7 +682,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="_app_offline.htm" />
     <Content Include="Views\Store\Index.cshtml" />
-    <Content Include="Views\Home\_videoSubmit.cshtml" />
+    <Content Include="Views\Shared\_videoSubmit.cshtml" />
     <Content Include="Views\profile\_wallMessages.cshtml" />
     <Content Include="Views\Shared\FooterContent.cshtml" />
     <Content Include="Views\Shared\HeadContainer.cshtml" />

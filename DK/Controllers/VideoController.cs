@@ -165,6 +165,45 @@ namespace DasKlub.Controllers
 
             LoadFilteredVideos(false);
 
+
+            
+            var cndss = BootBaronLib.AppSpec.DasKlub.BOL.VideoContest.Contest.GetCurrentContest();
+            var cvids = new ContestVideos();
+
+            var vidsInContest = new Videos();
+            vidsInContest.AddRange(cvids.Select(cv1 => new Video(cv1.VideoID)));
+
+            vidsInContest.Sort((p1, p2) => p2.PublishDate.CompareTo(p1.PublishDate));
+
+            var sngrcds3 = new SongRecords();
+            sngrcds3.AddRange(vidsInContest.Select(v1 => new SongRecord(v1)));
+
+            ViewBag.ContestVideoList = sngrcds3.VideosList();
+            ViewBag.CurrentContest = cndss;
+
+            // video typesa
+            var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
+            var mps = new MultiProperties(propTyp.PropertyTypeID);
+            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
+
+
+            ViewBag.VideoTypes = mps;
+
+            // person types
+            propTyp = new PropertyType(SiteEnums.PropertyTypeCode.HUMAN);
+            mps = new MultiProperties(propTyp.PropertyTypeID);
+            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
+
+            ViewBag.PersonTypes = mps;
+
+            //// footage types
+            propTyp = new PropertyType(SiteEnums.PropertyTypeCode.FOOTG);
+            mps = new MultiProperties(propTyp.PropertyTypeID);
+            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
+
+
+            ViewBag.FootageTypes = mps;
+
             return View();
         }
 

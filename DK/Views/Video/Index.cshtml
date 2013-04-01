@@ -30,21 +30,16 @@
             </div>
           
         </div>
-
+        <hr />
         <div class="row">
-            <div class="span8">
-                <br />
-                <a href="@Url.Content("~/video/contests")">@Messages.Contests</a>
-                <br />
-                <br />
-            </div>
+           
         </div>
 
     </div>
 
     <div class="span4">
-            
-  
+           
+    <a class="btn btn-primary" href="@Url.Content("~/video/contests")">@Messages.Contests</a>
       
     </div>
      
@@ -199,6 +194,9 @@
                
     </div>
     <div class="span4">
+        <hr />
+
+        @{ Html.RenderPartial("_videoSubmit"); } 
         <hr />
         @{ Html.RenderPartial("_AdBanner2"); } 
     </div>

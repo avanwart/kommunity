@@ -56,7 +56,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         #region constants
 
-        public const string ARTISTIMAGEPREFIX = "~/Content/artists/";
+        public const string Artistimageprefix = "~/Content/artists/";
 
         #endregion
 

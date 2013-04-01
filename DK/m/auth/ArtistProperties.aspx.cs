@@ -144,7 +144,7 @@ namespace DasKlub.m.auth
                 string saveS = string.Empty;
                 Image imgPhoto = null;
                 Color theBGColor = Color.Black;
-                string fileRoot = ArtistProperty.ARTISTIMAGEPREFIX;
+                string fileRoot = ArtistProperty.Artistimageprefix;
                 Guid fileGuid = Guid.NewGuid();
 
                 if (ddlBGColor.SelectedValue.ToLower() == "black")
@@ -175,7 +175,7 @@ namespace DasKlub.m.auth
                 imgPhoto = ImageResize.FixedSize(imgPhoto, 300, 300, theBGColor);
                 saveS = fileRoot + artprop.ArtistID.ToString() + "/" + fileGuid.ToString() + "_main.jpg";
 
-                string artistFolder = ArtistProperty.ARTISTIMAGEPREFIX + artprop.ArtistID.ToString();
+                string artistFolder = ArtistProperty.Artistimageprefix + artprop.ArtistID.ToString();
 
                 if (!Directory.Exists(artistFolder))
                 {

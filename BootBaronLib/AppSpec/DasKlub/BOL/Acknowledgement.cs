@@ -91,7 +91,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             // the result is their ID
             // execute the stored procedure
-            string result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
@@ -129,14 +129,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public void GetAcknowledgement(int statusUpdateID, int userAccountID)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetAcknowledgement";
 
             comm.AddParameter("userAccountID", userAccountID);
             comm.AddParameter("statusUpdateID", statusUpdateID);
 
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt.Rows.Count == 1)
             {
@@ -206,7 +206,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (Acknowledgement art in from DataRow dr in dt.Rows select new Acknowledgement(dr))
+            foreach (var art in from DataRow dr in dt.Rows select new Acknowledgement(dr))
             {
                 Add(art);
             }

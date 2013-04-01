@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Web;
 using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.BaseTypes;
@@ -50,7 +51,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         #endregion
 
-        public override void Get(DataRow dr)
+        public override sealed void Get(DataRow dr)
         {
             try
             {
@@ -115,7 +116,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
         public void GetArtistsForEvent(int eventID)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetArtistsForEvent";
 
@@ -125,16 +126,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (ArtistEvent atd in from DataRow dr in dt.Rows select new ArtistEvent(dr))
             {
-                ArtistEvent atd = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    atd = new ArtistEvent(dr);
-
-                    Add(atd);
-                }
+                Add(atd);
             }
         }
 

@@ -79,7 +79,7 @@ namespace DasKlub.Controllers
         {
             var model = new Contents();
 
-            model.GetContentAllPageWiseKey(pageNumber, PageSize, key);
+            model.GetContentAllPageWiseKey(pageNumber, PageSize, key.Replace("-", " "));
 
             if (model.Count == 0)
             {

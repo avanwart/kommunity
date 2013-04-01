@@ -48,7 +48,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
         public bool Set()
         {
             if (SiteDomainID == 0) return Create() > 0;
-            else return Update();
+            return Update();
         }
 
         public static string GetSiteDomainValue(SiteEnums.SiteBrandType propertyType, string language)

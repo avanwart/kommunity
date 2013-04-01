@@ -13,12 +13,12 @@
 
 
  
-        <div id="page-header" class="sixteen columns">
-            <span class="supertagline" style="margin: 8px 0 20px;">@ViewBag.TagName</span>
+        <div id="page-header" >
+            <span   style="margin: 8px 0 20px;">@ViewBag.TagName</span>
      
             <hr />
         </div>
-        <div class="eleven columns content" id="article_list">
+        <div   id="article_list">
    
             @foreach (Content cnt in Model)
             {
@@ -39,11 +39,11 @@
         }
     </div>
     <div class="span4">
-        <div class="five columns sidebar" id="article_tags">
-            <h3 class="widget-title">@Messages.FilterNewsByTag</h3>
+        <div  id="article_tags">
+            <h3  >@Messages.FilterNewsByTag</h3>
             <p>
                 @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))</p>
-            <hr class="partial-bottom" />
+            <hr   />
             @{ Html.RenderPartial("_AdBanner2"); }
         </div>
     </div>

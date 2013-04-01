@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
 using BootBaronLib.Operational;
@@ -88,7 +89,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         #region methods
 
-        public override void Get(DataRow dr)
+        public override sealed void Get(DataRow dr)
         {
             try
             {
@@ -173,15 +174,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                Song sng = null;
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-                foreach (DataRow dr in dt.Rows)
-                {
-                    sng = new Song(dr);
-                    Add(sng);
-                }
+            foreach (var sng in from DataRow dr in dt.Rows select new Song(dr))
+            {
+                Add(sng);
             }
         }
 
@@ -189,27 +186,20 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
         public void GetSongsForVideo(int videoID)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetSongsForVideo";
 
             comm.AddParameter("videoID", videoID);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+            foreach (var sng in from DataRow dr in dt.Rows select new Song(dr) {RankOrder = FromObj.IntFromObj(dr["rankOrder"])})
             {
-                Song sng = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    sng = new Song(dr);
-                    sng.RankOrder = FromObj.IntFromObj(dr["rankOrder"]);
-
-                    Add(sng);
-                }
+                Add(sng);
             }
         }
     }

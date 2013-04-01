@@ -154,11 +154,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public string DisplayName
         {
-            get
-            {
-                if (!string.IsNullOrEmpty(AltName)) return AltName;
-                else return Name;
-            }
+            get { return !string.IsNullOrEmpty(AltName) ? AltName : Name; }
         }
 
         public Uri UrlTo
@@ -218,20 +214,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
             comm.AddParameter("altName", AltName);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
                 return 0;
             }
-            else
-            {
-                ArtistID = Convert.ToInt32(result);
+            ArtistID = Convert.ToInt32(result);
 
-                return ArtistID;
-            }
+            return ArtistID;
         }
 
         public override bool Update()

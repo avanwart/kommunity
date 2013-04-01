@@ -151,7 +151,8 @@
     </div>
     <div class="span7">
         <div class="row" style="margin-left: 0;">
-            @{ Html.RenderPartial("_AdBanner"); }
+  @*          @{ Html.RenderPartial("_AdBanner"); }*@
+           
             <h2>@Messages.StatusUpdate</h2>
              
             <hr />
@@ -193,8 +194,12 @@
         </div>
     </div>
     <div class="span2">
-
+        
+            <h5>@Messages.NewestUsers</h5>   
+                @Html.Raw(ViewBag.NewestUsers)
+        
         <div class="clear"></div>
+        <hr />
         @{ Html.RenderPartial("_AdBanner2"); } 
 
 
@@ -329,7 +334,7 @@
             }
 
 
-            setInterval(loadNewContent, 15000);
+            //setInterval(loadNewContent, 15000);
 
         </script>
     }

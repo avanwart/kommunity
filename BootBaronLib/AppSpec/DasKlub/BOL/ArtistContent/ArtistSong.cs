@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Web;
-using BootBaronLib.Interfaces;
 using BootBaronLib.Operational;
 using BootBaronLib.Resources;
 using BootBaronLib.Values;
@@ -28,7 +27,7 @@ using BootBaronLib.Values;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 {
-    public class SongRecord  
+    public class SongRecord
     {
         #region properties
 
@@ -187,11 +186,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
                     // sort oldest 1st 
                     sngs.Sort((p1, p2) => p1.RankOrder.CompareTo(p2.RankOrder));
 
-                    int cnt = 1;
+                    var cnt = 1;
 
                     Songs = new ArrayList();
 
-                    foreach (Song sng in sngs)
+                    foreach (var sng in sngs)
                     {
                         Songs.Add(sng.SongID);
 
@@ -215,8 +214,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public string SongDisplayNoLink2
         {
-            set { _songDisplayNoLink2 = value; }
-
             get
             {
                 var vid = new Video(VideoID);
@@ -235,7 +232,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
                     Songs = new ArrayList();
 
-                    foreach (Song sng in sngs)
+                    foreach (var sng in sngs)
                     {
                         Songs.Add(sng.SongID);
 
@@ -435,7 +432,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
             sb.Append("<ul>");
 
-            var i = 1;
+            int i = 1;
 
             foreach (SongRecord v in this)
             {
@@ -533,7 +530,7 @@ name=""video_delete_id"" class=""btn btn-danger"" type=""submit""
             }
 
 
-            foreach (var v in this)
+            foreach (SongRecord v in this)
             {
                 sb.Append(@"<li class=""vid_preview"">");
                 sb.Append(@"<div class=""image"">");
@@ -574,7 +571,7 @@ name=""video_delete_id"" class=""btn btn-danger"" type=""submit""
             }
 
 
-            foreach (var v in this)
+            foreach (SongRecord v in this)
             {
                 sb.Append(@"<li class=""video_page_list_item"">");
 

@@ -758,18 +758,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             var contentTagList = new DataTable();
 
             contentTagList.Columns.Add("keyword_id", typeof (int));
-            ;
             contentTagList.Columns.Add("keyword_value", typeof (string));
             contentTagList.Columns.Add("keyword_count", typeof (int));
             contentTagList.Columns.Add("keyword_url", typeof (string));
 
-            int keyword_id = 1;
+            int keywordID = 1;
 
             foreach (var tag in keywordsDict)
             {
-                keyword_id++;
+                keywordID++;
 
-                contentTagList.Rows.Add(keyword_id, tag.Key, tag.Value, VirtualPathUtility.ToAbsolute("~/news/tag/" +
+                contentTagList.Rows.Add(keywordID, tag.Key, tag.Value, VirtualPathUtility.ToAbsolute("~/news/tag/" +
                                                                                                       FromString.URLKey(
                                                                                                           tag.Key)
                                                                             ));
@@ -821,12 +820,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             }
 
 
-            var keywordsDict2 = new Dictionary<string, int>();
-
-            foreach (var tag in keywordsDict)
-            {
-                if (tag.Value > 1) keywordsDict2.Add(tag.Key, tag.Value);
-            }
+            var keywordsDict2 = keywordsDict.Where(tag => tag.Value > 1).ToDictionary(tag => tag.Key, tag => tag.Value);
 
             keywordsDict2 =
                 (from entry in keywordsDict2 orderby entry.Key ascending select entry).ToDictionary(pair => pair.Key,
@@ -835,18 +829,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             var contentTagList = new DataTable();
 
             contentTagList.Columns.Add("keyword_id", typeof (int));
-            ;
             contentTagList.Columns.Add("keyword_value", typeof (string));
             contentTagList.Columns.Add("keyword_count", typeof (int));
             contentTagList.Columns.Add("keyword_url", typeof (string));
 
-            int keyword_id = 1;
+            var keywordID = 1;
 
             foreach (var tag in keywordsDict2)
             {
-                keyword_id++;
+                keywordID++;
 
-                contentTagList.Rows.Add(keyword_id, tag.Key, tag.Value, VirtualPathUtility.ToAbsolute("~/news/tag/" +
+                contentTagList.Rows.Add(keywordID, tag.Key, tag.Value, VirtualPathUtility.ToAbsolute("~/news/tag/" +
                                                                                                       FromString.URLKey(
                                                                                                           tag.Key)
                                                                             ));
@@ -876,17 +869,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             comm.AddParameter("PageSize", pageSize);
             comm.AddParameter("language", language);
 
-            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                Content content = null;
-
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
                 {
-                    content = new Content(dr);
                     Add(content);
                 }
             }
@@ -913,17 +903,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             comm.AddParameter("PageSize", pageSize);
 
 
-            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                Content content = null;
-
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
                 {
-                    content = new Content(dr);
                     Add(content);
                 }
             }
@@ -950,17 +937,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             comm.AddParameter("key", key);
 
 
-            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                Content content = null;
-
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
                 {
-                    content = new Content(dr);
                     Add(content);
                 }
             }
@@ -978,19 +962,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
 
             comm.AddParameter("createdByUserID", createdByUserID);
 
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+            foreach (Content cnt in from DataRow dr in dt.Rows select new Content(dr))
             {
-                Content cnt = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    cnt = new Content(dr);
-
-                    Add(cnt);
-                }
+                Add(cnt);
             }
         }
 

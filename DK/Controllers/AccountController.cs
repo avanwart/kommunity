@@ -3083,6 +3083,10 @@ namespace DasKlub.Controllers
                 return RedirectToAction("LogOff");
             }
 
+            var uas = new UserAccounts();
+            uas.GetNewestUsers();
+            ViewBag.NewestUsers = uas.ToUnorderdList;
+
             _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
             ViewBag.CurrentUser = _ua.ToUnorderdListItem;

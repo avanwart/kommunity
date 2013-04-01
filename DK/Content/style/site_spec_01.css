@@ -858,3 +858,38 @@ a.play_button:hover { background-position: center bottom; }
 }
 
  /* theme */
+ 
+ 
+ .status_post {  border: 5px double #222222; background-color: #000000}
+ 
+.notification_list li { list-style-type: lower-greek; color: #F89406}
+
+.post_content { color: #00FF1E;}
+
+ input[type=text], input[type=url], input[type=email], input[type=password], select, textarea { background-color: #000000; color: #00ff1e}
+
+ .status_count_applaud { color: #01e836}
+
+
+ 
+ 
+ .status_count_applaud { color:#468847;}
+ .status_count_beatdown {color:  #B94A48;}
+ 
+ .status_comment_count_applaud {color: #468847;}
+ .status_comment_count_beatdown { color: #B94A48}
+ 
+ .status_comment_count {color: #C09853;}
+
+
+
+
+.navbar-inverse .navbar-inner
+{
+background-image: -webkit-linear-gradient(top,#222,#000);
+
+}
+
+textarea { border-style: dashed;}
+
+.line_space { line-height: 2em}

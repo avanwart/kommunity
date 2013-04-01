@@ -138,42 +138,50 @@ namespace DasKlub.Controllers
                 Response.Redirect("~/videosubmission.aspx?statustype=P");
                 return new EmptyResult();
             }
+ 
+                var vid = new Video("YT", vidKey) {ProviderCode = "YT"};
 
 
             try
             {
-               
+                var yousettings = new YouTubeRequestSettings("You Manager", _devkey, _username, _password);
 
-                var vid = new Video("YT", vidKey) {ProviderCode = "YT"};
+                var yourequest = new YouTubeRequest(yousettings);
+                var entryUri = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", vidKey));
+
+                Google.YouTube.Video video2 = yourequest.Retrieve<Google.YouTube.Video>(entryUri);
+                vid.Duration = (float) Convert.ToDouble(video2.YouTubeEntry.Duration.Seconds);
+                vid.ProviderUserKey = video2.Uploader;
+                vid.PublishDate = video2.YouTubeEntry.Published;
+            }
+            catch (GDataRequestException)
+            {
+                vid.IsEnabled = false;
+                vid.Update();
+                //litVideo.Text = string.Empty;
+                // return;
+
+                // invalid 
+                vir.StatusType = 'I';
+                Response.Redirect("~/videosubmission.aspx?statustype=I");
+                return new EmptyResult();
+            }
+            catch (ClientFeedException ex)
+            {
+                vir.StatusType = 'I';
+                Response.Redirect("~/videosubmission.aspx?statustype=I");
+                return new EmptyResult();
+
+            }
+            catch
+            {
+                vir.StatusType = 'I';
+                Response.Redirect("~/videosubmission.aspx?statustype=I");
+                return new EmptyResult();
+            }
 
 
-                try
-                {
-                    var yousettings = new YouTubeRequestSettings("You Manager", _devkey, _username, _password);
-
-                    var yourequest = new YouTubeRequest(yousettings);
-                    var entryUri = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", vidKey));
-
-                    var video2 = yourequest.Retrieve<Google.YouTube.Video>(entryUri);
-                    vid.Duration = (float) Convert.ToDouble(video2.YouTubeEntry.Duration.Seconds);
-                    vid.ProviderUserKey = video2.Uploader;
-                    vid.PublishDate = video2.YouTubeEntry.Published;
-                }
-                catch (GDataRequestException)
-                {
-                    vid.IsEnabled = false;
-                    vid.Update();
-                    //litVideo.Text = string.Empty;
-                    // return;
-
-                    // invalid 
-                    vir.StatusType = 'I';
-                    Response.Redirect("~/videosubmission.aspx?statustype=I");
-                    return new EmptyResult();
-                }
-
-
-                vid.VolumeLevel = 5;
+            vid.VolumeLevel = 5;
                 // vid.HumanType = personType;
 
 
@@ -359,17 +367,14 @@ namespace DasKlub.Controllers
                 {
                     Response.Redirect(vid.VideoURL); // just send them to it
                 }
-            }
-            catch
-            {
+            
+           
                 //              lblStatus.Text = ex.Message;
 
                 //{
-                Response.Redirect("~/videosubmission.aspx?statustype=I");
-                return new EmptyResult();
+        
                 //}
-            }
-
+           
 
             //Video v1 = new Video();
 
@@ -439,6 +444,37 @@ namespace DasKlub.Controllers
             // CONTESTS
 
 
+
+            //// 
+            //var pitms = new PhotoItems {UseThumb = true, ShowTitle = false};
+            //pitms.GetPhotoItemsPageWise(1, 4);
+
+            //ViewBag.PhotoList = pitms.ToUnorderdList;
+
+            //var cnts = new Contents();
+            //cnts.GetContentPageWiseAll(1, 3);
+
+            //ViewBag.RecentArticles = cnts.ToUnorderdList;
+
+            //var uas = new UserAccounts();
+            //uas.GetNewestUsers();
+            //ViewBag.NewestUsers = uas.ToUnorderdList;
+
+
+            //var newestVideos = new Videos();
+            //newestVideos.GetMostRecentVideos();
+            //var newSongs = new SongRecords();
+            //newSongs.AddRange(newestVideos.Select(v1 => new SongRecord(v1)));
+
+            //ViewBag.NewestVideos = newSongs.VideosList();
+
+
+            //var vid = new Video(Video.RandomVideoIDVideo());
+
+            //ViewBag.RandomVideoKey = vid.ProviderKey;
+
+
+
             var cndss = Contest.GetCurrentContest();
             var cvids = new ContestVideos();
 
@@ -453,36 +489,6 @@ namespace DasKlub.Controllers
 
             ViewBag.ContestVideoList = sngrcds3.VideosList();
             ViewBag.CurrentContest = cndss;
-
-
-            // 
-            var pitms = new PhotoItems {UseThumb = true, ShowTitle = false};
-            pitms.GetPhotoItemsPageWise(1, 4);
-
-            ViewBag.PhotoList = pitms.ToUnorderdList;
-
-            var cnts = new Contents();
-            cnts.GetContentPageWiseAll(1, 3);
-
-            ViewBag.RecentArticles = cnts.ToUnorderdList;
-
-            var uas = new UserAccounts();
-            uas.GetNewestUsers();
-            ViewBag.NewestUsers = uas.ToUnorderdList;
-
-
-            var newestVideos = new Videos();
-            newestVideos.GetMostRecentVideos();
-            var newSongs = new SongRecords();
-            newSongs.AddRange(newestVideos.Select(v1 => new SongRecord(v1)));
-
-            ViewBag.NewestVideos = newSongs.VideosList();
-
-
-            var vid = new Video(Video.RandomVideoIDVideo());
-
-            ViewBag.RandomVideoKey = vid.ProviderKey;
-
 
             // video typesa
             var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
@@ -511,6 +517,7 @@ namespace DasKlub.Controllers
             return View();
         }
 
+     
 
         public ActionResult Contact()
         {

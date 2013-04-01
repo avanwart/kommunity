@@ -166,10 +166,12 @@
         }
     </div>
     <div class="span4">
-        <div id="article_tags" class="widget simple-flickr-photostream">
-            <h3 class="widget-title">@Messages.FilterNewsByTag
+        <div id="article_tags" >
+            <h3  >@Messages.FilterNewsByTag
             </h3>
+                  <p class="line_space">
             @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))
+                      </p>
         </div>
         <hr />
 
