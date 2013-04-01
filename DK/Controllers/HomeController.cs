@@ -166,7 +166,7 @@ namespace DasKlub.Controllers
                 Response.Redirect("~/videosubmission.aspx?statustype=I");
                 return new EmptyResult();
             }
-            catch (ClientFeedException ex)
+            catch (ClientFeedException)
             {
                 vir.StatusType = 'I';
                 Response.Redirect("~/videosubmission.aspx?statustype=I");

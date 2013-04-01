@@ -24,11 +24,11 @@
 
         <h3 class="title main_title">@Model.Title</h3>
            
-        <hr class="half-bottom" />
+        <hr  />
         @Messages.Language:
         <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
              
-        <div class="meta">
+        <div >
             @Messages.Published:
             <span title="@Model.ReleaseDate.ToString("o")">
                 @Utilities.TimeElapsedMessage(Model.ReleaseDate)</span>
@@ -103,9 +103,9 @@
         }
         else
         {
-            <img class="aligncenter" style="background-color: #FFF; padding: 5px;" src="@Html.S3ContentPath(Model.ContentPhotoURL)" alt="@Model.Title" />
+            <img   style="background-color: #FFF; padding: 5px;" src="@Html.S3ContentPath(Model.ContentPhotoURL)" alt="@Model.Title" />
         }
-        <div class="the_content post type-post hentry excerpt clearfix">
+        <div class=" clearfix">
             <hr />
           
             <div class="superquote">
@@ -123,7 +123,7 @@
             </article>
         </div>
         <br />
-        <hr class="remove-top" />
+        <hr   />
         @{ Html.RenderPartial("_AdBanner"); }
         <hr />
         <div id="respond">
