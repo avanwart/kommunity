@@ -14,21 +14,20 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-using System;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection;
 using BootBaronLib.AppSpec.DasKlub.BOL.Logging;
-using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
 using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using Google.GData.Client;
 using Google.YouTube;
+using System;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Security;
 using HttpUtility = System.Web.HttpUtility;
 using Utilities = BootBaronLib.Operational.Utilities;
 using Video = BootBaronLib.AppSpec.DasKlub.BOL.Video;
@@ -38,13 +37,9 @@ namespace DasKlub.Controllers
     [HandleError]
     public class HomeController : Controller
     {
-        private readonly string _devkey = GeneralConfigs.YouTubeDevKey;
-        private readonly string _password = GeneralConfigs.YouTubeDevPass;
-        private readonly string _username = GeneralConfigs.YouTubeDevUser;
 
-        #region Variables
 
-        #endregion
+      
 
         #region Json
 
@@ -95,6 +90,11 @@ namespace DasKlub.Controllers
         public ActionResult VideoSubmit(string video, string videoType, string personType,
                                         string footageType, string band, string song, string contestID)
         {
+
+            string _devkey = GeneralConfigs.YouTubeDevKey;
+            string _password = GeneralConfigs.YouTubeDevPass;
+            string _username = GeneralConfigs.YouTubeDevUser;
+
             if (string.IsNullOrWhiteSpace(video))
             {
                 Response.Redirect("~/videosubmission.aspx?statustype=I");

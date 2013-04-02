@@ -172,8 +172,7 @@ task -name Rebuild -depends Clean, Build -description "Cleans and builds the sol
 
 task -name UnitTest -depends Rebuild -description "Runs unit tests" -action { 
     exec  {
-#      & $MSTestLocation  /testcontainer:$testDLLLocation
-Write-Host "Not implemented" -BackgroundColor Yellow -ForegroundColor Black
+   & $MSTestLocation  /testcontainer:$testDLLLocation
     }
 };
 

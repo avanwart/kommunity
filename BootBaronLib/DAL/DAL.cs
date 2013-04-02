@@ -22,16 +22,8 @@ using BootBaronLib.Operational;
 
 namespace BootBaronLib.DAL
 {
-    /// <summary>
-    ///     Generic data access functionality to be accessed from the business tier (CreateCommand,
-    ///     ExecuteSelectCommand, ExecuteNonQuery, ExecuteScalar, ExecuteMultipleTableSelectCommand)
-    /// </summary>
     public static class DbAct
     {
-        #region constructor
-
-        #endregion
-
         #region Public Static methods
 
         #region core DB actions
