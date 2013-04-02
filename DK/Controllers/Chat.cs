@@ -6,6 +6,7 @@ using Microsoft.AspNet.SignalR;
 using System.Linq;
 using SignalRChat.Common;
 using System.Web.Security;
+using System.Web;
 
 
 
@@ -86,6 +87,8 @@ namespace DasKlub.Controllers
 
         public void SendMessageToAll(string userName, string message)
         {
+            message = HttpUtility.HtmlEncode(message);
+
             var mu = Membership.GetUser();
 
             if (mu != null)
@@ -98,7 +101,6 @@ namespace DasKlub.Controllers
                 chatMessage.Create();
             }
 
-            // store last 100 messages in cache
             AddMessageinCache(userName, message);
 
             // Broad cast message
@@ -107,6 +109,7 @@ namespace DasKlub.Controllers
 
         public void SendPrivateMessage(string toUserId, string message)
         {
+            message = HttpUtility.HtmlEncode(message);
 
             var fromUserId = Context.ConnectionId;
 
@@ -149,7 +152,12 @@ namespace DasKlub.Controllers
 
         #region private Messages
 
-        private void AddMessageinCache(string userName, string message)
+        /// <summary>
+        // store last 100 messages in cache
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="message"></param>
+        private static void AddMessageinCache(string userName, string message)
         {
             CurrentMessage.Add(new MessageDetail { UserName = userName, Message = message });
 
