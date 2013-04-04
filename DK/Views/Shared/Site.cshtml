@@ -156,12 +156,12 @@
                                   ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
                             {
                                 <li class="active"><a class="current_page_item" href="@Url.Content("~/video")">
-                                                       <i class="icon-film"></i> @Messages.Video</a> </li>
+                                                       <i class="icon-film"></i> @Messages.Videos</a> </li>
                             }
                             else
                             {
                                 <li><a href="@Url.Content("~/video")">
-                                        <i class="icon-film"></i> @Messages.Video</a> </li>
+                                        <i class="icon-film"></i> @Messages.Videos</a> </li>
                             }
                             @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "radio")
                             {

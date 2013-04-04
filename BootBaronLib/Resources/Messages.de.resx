@@ -653,7 +653,7 @@
     <value>Keine Ergebnisse</value>
   </data>
   <data name="UploadingUsers" xml:space="preserve">
-    <value>von mitglied hochgeladen</value>
+    <value>von Mitgliedern hochgeladen</value>
   </data>
   <data name="VideoType" xml:space="preserve">
     <value>Video Type</value>
@@ -1070,7 +1070,7 @@
     <value>Administrator</value>
   </data>
   <data name="Alien" xml:space="preserve">
-    <value>Außerirdische</value>
+    <value>Außerirdisch</value>
   </data>
   <data name="Applaud" xml:space="preserve">
     <value>Applaudieren</value>
@@ -1121,7 +1121,7 @@
     <value>Sie interessieren sich für</value>
   </data>
   <data name="LookingForFriends" xml:space="preserve">
-    <value>Freunden Suchen</value>
+    <value>Freunde suchend</value>
   </data>
   <data name="MaleAndFemale" xml:space="preserve">
     <value>Männliche und weibliche</value>
@@ -1157,7 +1157,7 @@
     <value>Roboter</value>
   </data>
   <data name="SingleAndLooking" xml:space="preserve">
-    <value>Ledig und suchen</value>
+    <value>ledig und suchend</value>
   </data>
   <data name="Song" xml:space="preserve">
     <value>Lied</value>
@@ -1289,7 +1289,7 @@
     <value>Datenschutz</value>
   </data>
   <data name="SubmitYourYouTubeVideoLinkHere" xml:space="preserve">
-    <value>Senden Sie Ihre YouTube-Video Link hier</value>
+    <value>Senden Sie Ihr YouTube-Video hier</value>
   </data>
   <data name="TermsAndCondtions" xml:space="preserve">
     <value>Impressum/Nutzungsbedingungen</value>
@@ -1490,7 +1490,7 @@
     <value>Gruppe</value>
   </data>
   <data name="Interview" xml:space="preserve">
-    <value>interview</value>
+    <value>Interview</value>
   </data>
   <data name="Live" xml:space="preserve">
     <value>live</value>
@@ -1559,7 +1559,7 @@
     <value>Bild</value>
   </data>
   <data name="Tutorial" xml:space="preserve">
-    <value>Lernprogramm</value>
+    <value>Tutorials</value>
   </data>
   <data name="Polish" xml:space="preserve">
     <value>polnisch (polski)</value>
