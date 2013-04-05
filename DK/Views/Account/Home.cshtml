@@ -158,25 +158,25 @@
             <hr />
             @using (Html.BeginForm("home", "Account", FormMethod.Post, new {enctype = "multipart/form-data"}))
             {
-                <div class="span4" style="margin: 0;">
-                    <textarea placeholder="@Messages.LatestUpdate..." id="message_text" rows="4" name="message" style="width: 80%;" class="input-xlarge"></textarea>
+                <div class="span5" style="margin: 0;">
+                    <textarea placeholder="@Messages.LatestUpdate..." id="message_text" rows="2" name="message" style="width: 90%;" class="input-xlarge"></textarea>
                 </div>
 
 
                 <div class="span2" style="margin: 0;">
                     <img
-                        class="upload_photo"
+                     
                         alt="@Messages.Photo" title="@Messages.Photo" src="@Url.Content("~/content/images/icons/icon_photo.png")"  />
-                    <div style="color: #08C; display: inline;"  class="upload_photo">@Messages.UploadPhoto</div>
-                    <div class="upload_photo_input" style="display: none">
+                    <div style="color: #08C; display: inline;" class="upload_photo" >@Messages.UploadPhoto</div>
+                    <div class="upload_photo_input"  style="display: none">
                         <input type="file" id="fileUpload" name="file" style="float: left;" />
                         <br />
                     </div>
-                    <br />
+                   
                     <br />
                     <button type="submit" id="submit_post" class="btn btn-success">@Messages.Submit</button>
-                    <br />
-          
+                   
+          <br />
                 </div>
             }
             <a name="most_recent"></a>
