@@ -246,7 +246,7 @@ exec {
 
 task -name WaitingVideo -description "Loads YouTube waiting video" -action {
 exec {
-    Start-Process chrome "http://www.youtube.com/watch?v=2adpSbKGZMY"
+    Write-Host "Starting..."
 }
 }
 
@@ -272,8 +272,7 @@ task -name Deploy -depends WaitingVideo, DeployPackage  -description "Hits the h
  |_|_|_\__,_\__|_||_|_|_||_\___| |_/__/ |_| \___\__,_\__,_|\_, |
                                                            |__/   
                                                                            " 
-
-        Start-Process chrome "http://www.youtube.com/watch?v=jPau4rJFQHY"            
+      
         Start-Process chrome $statusCheckURL
         }
 

@@ -159,7 +159,7 @@
             @using (Html.BeginForm("home", "Account", FormMethod.Post, new {enctype = "multipart/form-data"}))
             {
                 <div class="span4" style="margin: 0;">
-                    <textarea id="message_text" rows="4" name="message" style="width: 80%;" class="input-xlarge expand65-600"></textarea>
+                    <textarea placeholder="@Messages.LatestUpdate..." id="message_text" rows="4" name="message" style="width: 80%;" class="input-xlarge"></textarea>
                 </div>
 
 
