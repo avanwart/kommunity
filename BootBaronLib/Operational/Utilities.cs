@@ -369,16 +369,19 @@ namespace BootBaronLib.Operational
             {
                 if (match.Value.Contains(@"//www.youtube.com/embed/")) continue; // because it might be embeded
 
-                if (string.IsNullOrEmpty(linkText))
-                {
-                    txt = txt.Replace(match.Value,
-                                      @"<a target=""_blank"" href='" + match.Value + "'>" + match.Value + "</a>");
-                }
-                else
-                {
-                    txt = txt.Replace(match.Value,
-                                      @"<a target=""_blank"" href='" + match.Value + "'>" + linkText + "</a>");
-                }
+                //if (string.IsNullOrEmpty(linkText))
+                //{
+                //    txt = txt.Replace(match.Value,
+                //                      @"<a target=""_blank"" href='" + match.Value + "'>" + match.Value + "</a>");
+                //}
+                //else
+                //{
+                //    txt = txt.Replace(match.Value,
+                //                      @"<a target=""_blank"" href='" + match.Value + "'>" + linkText + "</a>");
+                //}
+
+                txt = txt.Replace(match.Value,
+                                  string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>", match.Value, Messages.Link));
             }
 
 
