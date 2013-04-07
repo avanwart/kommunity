@@ -334,7 +334,7 @@ namespace BootBaronLib.Operational
         /// <returns></returns>
         public static string MakeLink(string txt)
         {
-            return MakeLink(txt, string.Empty);
+            return MakeLink(txt);
         }
 
 
@@ -351,7 +351,7 @@ namespace BootBaronLib.Operational
         /// </summary>
         /// <param name="txt"></param>
         /// <returns></returns>
-        private static string MakeLink(string txt, string linkText)
+        private static string MakeLink(string txt)
         {
             // BUG: NOT GETTING HTTPS URLS
             var regx =

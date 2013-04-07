@@ -683,10 +683,10 @@
     <value>Uploader</value>
   </data>
   <data name="BandsYouHaveSeenLive" xml:space="preserve">
-    <value>Band die sie gesehen haben</value>
+    <value>Band, die Sie live sehen haben</value>
   </data>
   <data name="BandsYouWantToSeeLiveOrJustListenTo" xml:space="preserve">
-    <value>Band die sie Live sehen möchten</value>
+    <value>Band, die Sie live sehen möchten</value>
   </data>
   <data name="PostalCode" xml:space="preserve">
     <value>Postleitzahl</value>
@@ -1265,7 +1265,7 @@
     <value>Landkarte</value>
   </data>
   <data name="FeaturedModel" xml:space="preserve">
-    <value>Model vorstellung</value>
+    <value>Modelvorstellung</value>
   </data>
   <data name="Inbox" xml:space="preserve">
     <value>Posteingang</value>
@@ -1364,10 +1364,10 @@
     <value>Alles Gute zum Geburtstag</value>
   </data>
   <data name="AddAsCyberAssociate" xml:space="preserve">
-    <value>Fügen Sie als Cyber-Mitarbeiterin</value>
+    <value>Hinzufügen als Cyber-MitarbeiterIn</value>
   </data>
   <data name="AddAsRealLifeContact" xml:space="preserve">
-    <value>Fügen Sie als wirklichen Leben Kontakt (IRL)</value>
+    <value>Hinzufügen als RealLife-Kontakt (IRL)</value>
   </data>
   <data name="Music" xml:space="preserve">
     <value>Musik</value>
