@@ -334,7 +334,7 @@ namespace BootBaronLib.Operational
         /// <returns></returns>
         public static string MakeLink(string txt)
         {
-            return MakeLink(txt);
+            return MakeLink(txt, string.Empty);
         }
 
 
@@ -350,8 +350,9 @@ namespace BootBaronLib.Operational
         ///     http://weblogs.asp.net/farazshahkhan/archive/2008/08/09/regex-to-find-url-within-text-and-make-them-as-link.aspx
         /// </summary>
         /// <param name="txt"></param>
+        /// <param name="linkText"></param>
         /// <returns></returns>
-        private static string MakeLink(string txt)
+        private static string MakeLink(string txt, string linkText)
         {
             // BUG: NOT GETTING HTTPS URLS
             var regx =
