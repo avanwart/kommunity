@@ -16,6 +16,7 @@
 //   limitations under the License.
 
 using System;
+ 
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
@@ -50,7 +51,7 @@ namespace DBMigrator
         {
             Console.WriteLine("RUNNING MIGRATIONS FOR CONNECTION NAME: " + connectionName);
 
-            var configuration = new Configuration();
+            var configuration = new  Configuration();
 
             configuration.TargetDatabase =
                 new DbConnectionInfo(connectionName);

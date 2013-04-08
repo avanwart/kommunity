@@ -102,6 +102,7 @@
     <Compile Include="AppSpec\DasKlub\BOL\ArtistContent\ArtistProperty.cs" />
     <Compile Include="AppSpec\DasKlub\BOL\ArtistContent\ArtistSong.cs" />
     <Compile Include="AppSpec\DasKlub\BOL\ArtistContent\ArtistEvents.cs" />
+    <Compile Include="AppSpec\DasKlub\BOL\Birthday.cs" />
     <Compile Include="AppSpec\DasKlub\BOL\BlackIP.cs" />
     <Compile Include="AppSpec\DasKlub\BOL\BlockedUser.cs" />
     <Compile Include="AppSpec\DasKlub\BOL\CalendarItem.cs" />

@@ -178,7 +178,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             return DbAct.ExecuteNonQuery(comm) > 0;
         }
 
-        public override void Get(int userAccountID)
+        public override sealed void Get(int userAccountID)
         {
             UserAccountID = userAccountID;
 
@@ -210,7 +210,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
         }
 
-        public override void Get(DataRow dr)
+        public override sealed void Get(DataRow dr)
         {
             try
             {
@@ -266,14 +266,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             if (HttpContext.Current.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
-                DbCommand comm = DbAct.CreateCommand();
+                var comm = DbAct.CreateCommand();
                 // set the stored procedure name
                 comm.CommandText = "up_GetUserAccountFromUsername";
 
                 comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserName), UserName);
 
                 // execute the stored procedure
-                DataTable dt = DbAct.ExecuteSelectCommand(comm);
+                var dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
                 if (dt != null && dt.Rows.Count > 0)
@@ -304,20 +304,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         /// <param name="mu"></param>
         public UserAccount(MembershipUser mu)
         {
-            if (mu != null)
+            if (mu == null) return;
+
+            // get a configured DbCommand object
+            var comm = DbAct.CreateCommand();
+
+            comm.AddParameter("UserAccountID", Convert.ToInt32(mu.ProviderUserKey));
+
+            var dt = DbAct.ExecuteSelectCommand(comm);
+
+            // was something returned?
+            if (dt != null && dt.Rows.Count > 0)
             {
-                // get a configured DbCommand object
-                DbCommand comm = DbAct.CreateCommand();
-
-                comm.AddParameter("UserAccountID", Convert.ToInt32(mu.ProviderUserKey));
-
-                DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-                // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    Get(dt.Rows[0]);
-                }
+                Get(dt.Rows[0]);
             }
         }
 
@@ -860,14 +859,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     }
                 }
 
-                if (!string.IsNullOrWhiteSpace(s3.AccessKeyID) &&
-                    !string.IsNullOrWhiteSpace(s3.SecretAccessKey) &&
-                    !string.IsNullOrWhiteSpace(up1.FullProfilePicURL))
+                if (string.IsNullOrWhiteSpace(s3.AccessKeyID) || string.IsNullOrWhiteSpace(s3.SecretAccessKey) ||
+                    string.IsNullOrWhiteSpace(up1.FullProfilePicURL)) continue;
+                if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, up1.FullProfilePicURL))
                 {
-                    if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, up1.FullProfilePicURL))
-                    {
-                        s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, up1.FullProfilePicURL);
-                    }
+                    s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, up1.FullProfilePicURL);
                 }
             }
 
@@ -908,7 +904,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             var pitms = new PhotoItems();
             pitms.GetUserPhotos(UserAccountID);
 
-            foreach (PhotoItem pitm1 in pitms)
+            foreach (var pitm1 in pitms)
             {
                 if (!string.IsNullOrWhiteSpace(s3.AccessKeyID) &&
                     !string.IsNullOrWhiteSpace(s3.SecretAccessKey) &&
@@ -952,7 +948,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             var uabs = new BlockedUsers();
             uabs.GetBlockedUsers(UserAccountID);
 
-            foreach (BlockedUser uab1 in uabs)
+            foreach (var uab1 in uabs)
             {
                 uab1.Delete();
             }
@@ -965,7 +961,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             uavs.GetPlaylistVideosForPlaylistAll(plyslt.PlaylistID);
 
-            foreach (PlaylistVideo plv1 in uavs)
+            foreach (var plv1 in uavs)
             {
                 plv1.Delete();
             }
@@ -987,9 +983,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 }
             }
 
-            string[] roles = Roles.GetRolesForUser(UserName);
+            var roles = Roles.GetRolesForUser(UserName);
 
-            foreach (string role1 in roles)
+            foreach (var role1 in roles)
             {
                 Roles.RemoveUserFromRole(UserName, role1);
             }
@@ -998,7 +994,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             contents.GetContentForUser(UserAccountID);
 
-            foreach (Content c1 in contents)
+            foreach (var c1 in contents)
             {
                 c1.Delete();
             }
@@ -1020,7 +1016,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
@@ -1087,7 +1083,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                 if (IncludeStartAndEndTags) sb.Append(@"<ul class=""user_list"">");
 
-                foreach (UserAccount ua in this)
+                foreach (var ua in this)
                 {
                     sb.Append(ua.ToUnorderdListItem);
                 }

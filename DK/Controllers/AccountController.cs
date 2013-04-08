@@ -3111,7 +3111,7 @@ namespace DasKlub.Controllers
 
                 ViewBag.Notifications = suns;
 
-                foreach (StatusUpdateNotification sun1 in suns)
+                foreach (var sun1 in suns)
                 {
                     sun1.IsRead = true;
                     sun1.Update();
@@ -3149,14 +3149,11 @@ namespace DasKlub.Controllers
                 = new StatusUpdate(
                     StatusComments.GetMostCommentedOnStatus(DateTime.UtcNow.AddDays(-7)));
 
-            bool isAlreadyCommented = false;
+            var isAlreadyCommented = false;
 
-            foreach (StatusUpdate ssr1 in applauseResult)
+            foreach (StatusUpdate ssr1 in applauseResult.Where(ssr1 => commentResponse.StatusUpdateID == ssr1.StatusUpdateID))
             {
-                if (commentResponse.StatusUpdateID == ssr1.StatusUpdateID)
-                {
-                    isAlreadyCommented = true;
-                }
+                isAlreadyCommented = true;
             }
 
             if (!isAlreadyCommented && beatDownResult.StatusUpdateID != commentResponse.StatusUpdateID &&
@@ -3165,6 +3162,13 @@ namespace DasKlub.Controllers
                 // only show if the most commented is different from most beat down or applauded
                 ViewBag.MostCommented = commentResponse;
             }
+
+
+            var bdays = new Birhtdays();
+            bdays.GetBirhtdays(1);
+
+            if (bdays.Count > 0)
+                ViewBag.BirthDates = bdays;
 
             return View();
         }

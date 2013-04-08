@@ -32,7 +32,7 @@ using BootBaronLib.Values;
 
 namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
-    public class StatusUpdate : BaseIUserLogCRUD, ICacheName, IUnorderdListItem 
+    public class StatusUpdate : BaseIUserLogCRUD, ICacheName, IUnorderdListItem
     {
         #region constructors
 
@@ -56,7 +56,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         private string _message = string.Empty;
         private char _statusType = char.MinValue;
-        public int StatusUpdateID { get; set; }
+        public int StatusUpdateID { get; private set; }
 
 
         public bool IsMobile { get; set; }
@@ -69,10 +69,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public string Message
         {
-            get
-            {
-                if (_message == null) return _message;
-                else return _message.Trim();
+            get {
+                return _message == null ? _message : _message.Trim();
             }
             set { _message = value; }
         }
@@ -290,7 +288,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
         }
 
-        public bool PhotoDisplay { get; set; }
+        public bool PhotoDisplay { private get; set; }
 
         public string JSONResponse
         {
@@ -426,17 +424,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 }
                 sb.Append("<br />");
 
-                if (PhotoItemID == null)
-                {
-                    sb.AppendFormat(@"<div class=""post_content"">{0}</div>",
-                                    Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(Message)));
-                }
-                else
-                {
-                    //  sb.AppendFormat(@"<div class=""post_content"">{0}</div>", FromString.ReplaceNewLineWithHTML(this.Message));
-                    sb.AppendFormat(@"<div class=""post_content"">{0}</div>",
-                                    Utilities.MakeLink(FromString.ReplaceNewLineWithHTML(Message)));
-                }
+                sb.AppendFormat(@"<div class=""post_content"">{0}</div>",
+                                PhotoItemID == null
+                                    ? Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(Message))
+                                    : Utilities.MakeLink(FromString.ReplaceNewLineWithHTML(Message)));
 
                 #endregion
 
@@ -604,20 +595,16 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsMobile), IsMobile);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
                 return 0;
             }
-            else
-            {
-                StatusUpdateID = Convert.ToInt32(result);
+            StatusUpdateID = Convert.ToInt32(result);
 
-                return StatusUpdateID;
-            }
+            return StatusUpdateID;
         }
 
         public override bool Delete()
@@ -688,7 +675,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public void RemoveCache()
         {
-            return;
         }
 
         #endregion
@@ -701,7 +687,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public bool IncludeStartAndEndTags
         {
-            get { return _includeStartAndEndTags; }
+            private get { return _includeStartAndEndTags; }
             set { _includeStartAndEndTags = value; }
         }
 
@@ -732,7 +718,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             string output = null;
 
-            string cacheName = "MostFrequentStatusMessages";
+            const string cacheName = "MostFrequentStatusMessages";
 
             if (HttpContext.Current != null && HttpContext.Current.Cache[cacheName] == null)
             {
@@ -769,12 +755,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                         }
                     }
 
-                    List<KeyValuePair<string, int>> myList = bandCount.ToList();
+                    var myList = bandCount.ToList();
 
                     myList.Sort(
-                        delegate(KeyValuePair<string, int> firstPair,
-                                 KeyValuePair<string, int> nextPair)
-                            { return nextPair.Value.CompareTo(firstPair.Value); }
+                        (firstPair, nextPair) => nextPair.Value.CompareTo(firstPair.Value)
                         );
 
                     var sb = new StringBuilder();
@@ -810,7 +794,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public void GetMostAcknowledgedStatus(int daysBack, char acknowledgementType /* TODO: USE ENUMS*/)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetMostAcknowledgedStatus";
 
@@ -819,18 +803,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-            StatusUpdate su = null;
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (var su in from DataRow dr in dt.Rows select new StatusUpdate(FromObj.IntFromObj(dr["statusUpdateID"])))
             {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    su = new StatusUpdate(FromObj.IntFromObj(dr["statusUpdateID"]));
-                    Add(su);
-                }
+                Add(su);
             }
         }
 
@@ -854,15 +834,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                StatusUpdate statup = null;
-
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                foreach (var statup in from DataRow dr in ds.Tables[0].Rows select new StatusUpdate(dr))
                 {
-                    statup = new StatusUpdate(dr);
                     Add(statup);
                 }
             }
@@ -901,14 +878,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (var art in from DataRow dr in dt.Rows select new StatusUpdate(dr))
             {
-                StatusUpdate art = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    art = new StatusUpdate(dr);
-                    Add(art);
-                }
+                Add(art);
             }
         }
 
@@ -924,14 +898,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (var art in from DataRow dr in dt.Rows select new StatusUpdate(dr))
             {
-                StatusUpdate art = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    art = new StatusUpdate(dr);
-                    Add(art);
-                }
+                Add(art);
             }
         }
 
@@ -946,14 +917,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+            
+            foreach (var art in from DataRow dr in dt.Rows select new StatusUpdate(dr))
             {
-                StatusUpdate art = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    art = new StatusUpdate(dr);
-                    Add(art);
-                }
+                Add(art);
             }
         }
     }

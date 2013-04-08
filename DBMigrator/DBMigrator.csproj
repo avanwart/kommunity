@@ -38,6 +38,7 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Data" />
@@ -67,6 +68,10 @@
     <Compile Include="Migrations\201303242032014_FindUserFilter.Designer.cs">
       <DependentUpon>201303242032014_FindUserFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304080214135_BirthDates.cs" />
+    <Compile Include="Migrations\201304080214135_BirthDates.Designer.cs">
+      <DependentUpon>201304080214135_BirthDates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201303242032014_FindUserFilter.resx">
       <DependentUpon>201303242032014_FindUserFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304080214135_BirthDates.resx">
+      <DependentUpon>201304080214135_BirthDates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

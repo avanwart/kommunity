@@ -200,6 +200,44 @@
         
         <div class="clear"></div>
         <hr />
+        
+        
+        @if (ViewBag.BirthDates != null)
+        {
+            <h6>@Messages.HappyBirthday</h6>
+
+            <ul>
+            @foreach (Birthday bday in ViewBag.BirthDates)
+            {
+   <li>
+                   @{ var ua = new UserAccount(Convert.ToInt32(bday.UserAccountID)); }
+                    
+<a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
+
+
+@{ string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName); }
+        
+    
+       @Html.Raw(coName)
+       
+              @{ var uad = new UserAccountDetail();uad.GetUserAccountDeailForUser(ua.UserAccountID); }
+       
+       @if (uad.DisplayAge)
+       {
+           <i>@bday.AgeAfter</i>
+       }
+          
+   </li>
+            }
+                </ul>
+        }
+        
+         
+        <div class="clear"></div>
+        <hr />
+        
+        
+
         @{ Html.RenderPartial("_AdBanner2"); } 
 
 
