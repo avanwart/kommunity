@@ -882,7 +882,8 @@ a.play_button:hover { background-position: center bottom; }
  .status_comment_count {color: #C09853;}
 
 
-
+ .birthdays li { list-style-type: none;padding-left: 0;margin-left: 0; }
+ ul.birthdays {  padding-left: 0;margin-left: 0; }
 
 .navbar-inverse .navbar-inner
 {

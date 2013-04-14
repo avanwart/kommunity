@@ -20,7 +20,7 @@ namespace DasKlub
             //  VideoCount();
 
 
-            //SendMassMail();
+         //   SendMassMail();
         }
 
         private static void SendMassMail()
@@ -41,71 +41,24 @@ namespace DasKlub
                 sb.AppendLine();
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.AppendLine("|> This is the official Das Klub 2013 Quarter 1 Update. <| ");
+                sb.AppendLine();
+                sb.AppendLine("Das Klub Presents: Vault-113 Dance Contest");
                 sb.AppendLine();
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.AppendLine("Our Accomplishments:");
+                sb.AppendLine("-Rules/ Prizes: http://dasklub.com/news/vault-113-industrial-dance-contest");
                 sb.AppendLine();
+                sb.AppendLine("-Edited and raw videos will be judged as different contests (2 total winners)");
                 sb.AppendLine();
-                sb.AppendLine("-Completed Just Deux Industrial Dance Contest (36 entries) [ winners: http://dasklub.com/news/just-deux-top-6-winners ]");
+                sb.AppendLine("-This is the last Das Klub Dance Contest of 2013 and probably the last one ever!");
                 sb.AppendLine();
-                sb.AppendLine("-Started and Recently Completed T3RR0R 3RR0R Industrial Dance Contest (28 entries) [ winners: http://dasklub.com/news/t3rr0r-3rr0r-das-klub-dance-contest-winners ]");
+                sb.AppendLine("-Deadline: 2013-05-20");
                 sb.AppendLine();
-                sb.AppendLine("-Achieved over 1,000,000 video views on all Das Klub related videos on YouTube/ have more than 50 countries on dasklub.com [ details: http://dasklub.com/news/admin-announcement ]");
-                sb.AppendLine();
-                sb.AppendLine("-Gained over 10,000 Facebook faces [ https://www.facebook.com/dasklub ]");
-                sb.AppendLine();
-                sb.AppendLine("-Started Featured Kommunity Member, this includes selected site member interviews (3 so far) [ http://dasklub.com/news/tag/featured-member ]");
-                sb.AppendLine();
-                sb.AppendLine("-Moved Das Klub open souce code for entire website from Codeplex to GitHub [ https://github.com/dasklub ]");
-                sb.AppendLine();
-                sb.AppendLine(@"-Updated Das Klub design layout to ""Cyborg"", added new chatroom, improved language support and find user filter saving");
-                sb.AppendLine();
-                sb.AppendLine("-Officially announced trip to Kinetik Festival May 23nd - May 26th [ http://festival-kinetik.net/ ]");
+                sb.AppendLine("-Winners announced at Kinetik Festival");
                 sb.AppendLine();
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("Your Statistics To Date:");
-                sb.AppendLine();
-                sb.AppendLine();
-
-               var allUserStatusUpdates = new StatusUpdates();
-                allUserStatusUpdates.GetAllUserStatusUpdates(ua1.UserAccountID);
-
-                var totalApplauds = 0;
-                var totalBeatDowns = 0;
-                var totalStatusPosts = 0;
-                foreach (StatusUpdate su1 in allUserStatusUpdates)
-                {
-                    totalStatusPosts++;
-
-                    var acknowledgements = new Acknowledgements();
-                    acknowledgements.GetAcknowledgementsForStatus(su1.StatusUpdateID);
-
-                    foreach (var acknowledgement in acknowledgements)
-                    {
-                        if (acknowledgement.AcknowledgementType == 'A')
-                        {
-                            totalApplauds++;
-                        }
-                        else
-                        {
-                            totalBeatDowns++;
-                        }
-                    }
-                }
-
-
-                sb.AppendFormat(@"-Total stautus updates: {0}", totalStatusPosts);
-                sb.AppendLine();
-                sb.AppendFormat(@"-Total applauds received on status updates: {0}", totalApplauds);
-                sb.AppendLine();
-                sb.AppendFormat(@"-Total beatdowns received on status updates: {0}", totalBeatDowns);
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("Spring Greetings,");
+                sb.AppendLine("Dance Now Or Never,");
                 sb.AppendLine();
                 sb.AppendLine("[ admin ] | RMW");
                 sb.AppendLine();
@@ -126,7 +79,7 @@ namespace DasKlub
 
                 if (!uad.EmailMessages) continue;
 
-                if (Utilities.SendMail(ua1.EMail, ua1.UserName + " [ Das Klub Q-1 Update ]", sb.ToString()))
+                if (Utilities.SendMail(ua1.EMail, "The Last Das Klub Dance Contest EVER?", sb.ToString()))
                 {
                     totalSent++;
                 }
