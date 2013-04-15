@@ -103,7 +103,9 @@
         }
         else
         {
-            <img   style="background-color: #FFF; padding: 5px;" src="@Html.S3ContentPath(Model.ContentPhotoURL)" alt="@Model.Title" />
+            <div style="text-align: center">
+                <img   style="background-color: #FFF; padding: 5px;" src="@Html.S3ContentPath(Model.ContentPhotoURL)" alt="@Model.Title" />
+                </div>
         }
         <div class=" clearfix">
             <hr />
