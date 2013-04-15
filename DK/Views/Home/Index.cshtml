@@ -47,14 +47,33 @@
     <div class="span8">
         <div class="row">
       
-            <div class="span8">
+            <div class="span9">
              
+                <div class="span8" >
+               
 
                 @Html.Raw(SiteDomain.GetSiteDomainValue(
                     SiteEnums.SiteBrandType.HOMEC,
                     Utilities.GetCurrentLanguageCode())) 
+                      <hr />
+                </div>
+                
+                
+                
+                <div class="row">
+                    <div class="clear"></div>
+                  
+                    @foreach (var content in ViewBag.RecentArticles)
+                    {
+                        <div class="span3">
+                            <ul class="list_less">
+                                @Html.Raw(content.ToUnorderdListItem)
+                            </ul>
+                        </div>
+                    }
+                </div>
 
-        @*        <hr />
+                @*   
                 
                 @{ Html.RenderPartial("_AdBanner"); }*@
                
@@ -155,6 +174,7 @@
 
 
 }
+
 
 
 

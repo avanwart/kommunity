@@ -54,6 +54,8 @@ namespace DasKlub.Controllers
 
             contests.GetAll();
 
+            contests.Sort((p1, p2) => p2.BeginDate.CompareTo(p1.BeginDate));
+
             return View(contests);
         }
 

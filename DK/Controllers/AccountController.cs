@@ -175,11 +175,11 @@ namespace DasKlub.Controllers
             {
                 var b = new Bitmap(imageFile.InputStream);
 
-                string fileNameFull = Utilities.CreateUniqueContentFilename(imageFile);
+                var fileNameFull = Utilities.CreateUniqueContentFilename(imageFile);
 
-                Image imgPhoto = ImageResize.FixedSize(b, 600, 400, Color.Black);
+                var imgPhoto = ImageResize.FixedSize(b, 600, 400, Color.Black);
 
-                Stream maker = imgPhoto.ToAStream(ImageFormat.Jpeg);
+                var maker = imgPhoto.ToAStream(ImageFormat.Jpeg);
 
                 s3.AddObject(
                     maker,
@@ -2287,12 +2287,10 @@ namespace DasKlub.Controllers
                     sb.AppendLine();
                     sb.AppendLine("I am the site creator/ admin");
                     sb.AppendLine();
-                    sb.AppendLine("Useful member links:");
-                    sb.AppendLine(string.Format("Status Updates (where most of the action happens): {0}/account/home",
-                                                GeneralConfigs.SiteDomain));
-                    sb.AppendLine(string.Format("Who's online now: {0}/findusers/online", GeneralConfigs.SiteDomain));
                     sb.AppendLine();
-                    sb.AppendLine("Send mail if you have questions.");
+                    sb.AppendLine(
+                        "Make sure to read this article on How To Use Das Klub: http://dasklub.com/news/how-to-use-das-klub"); 
+                    sb.AppendLine();
                     sb.AppendLine();
                     sb.AppendLine("- RMW");
                     sb.AppendLine();
@@ -3164,11 +3162,11 @@ namespace DasKlub.Controllers
             }
 
 
-            var bdays = new Birhtdays();
-            bdays.GetBirhtdays(1);
+            //var bdays = new Birhtdays();
+            //bdays.GetBirhtdays(1);
 
-            if (bdays.Count > 0)
-                ViewBag.BirthDates = bdays;
+            //if (bdays.Count > 0)
+            //    ViewBag.BirthDates = bdays;
 
             return View();
         }

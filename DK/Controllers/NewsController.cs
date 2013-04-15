@@ -38,7 +38,7 @@ namespace DasKlub.Controllers
         {
             var model = new Contents();
 
-            model.GetContentPageWiseAll(pageNumber, PageSize);
+            model.GetContentPageWiseReleaseAll(pageNumber, PageSize);
 
             var sb = new StringBuilder();
 
@@ -60,7 +60,7 @@ namespace DasKlub.Controllers
 
             var model = new Contents();
 
-            model.GetContentPageWise(pageNumber, PageSize, lang);
+            model.GetContentPageWiseRelease(pageNumber, PageSize, lang);
 
             var sb = new StringBuilder();
 
@@ -84,7 +84,7 @@ namespace DasKlub.Controllers
             if (model.Count == 0)
             {
                 // this might have had a dash in it
-                model.GetContentAllPageWiseKey(1, PageSize, ViewBag.KeyName);
+                model.GetContentPageWiseKeyRelease(1, PageSize, ViewBag.KeyName);
 
                 if (model.Count == 0)
                 {
@@ -113,7 +113,7 @@ namespace DasKlub.Controllers
 
             var model = new Contents();
 
-            model.GetContentPageWise(1, PageSize, lang);
+            model.GetContentPageWiseRelease(1, PageSize, lang);
 
             LoadTagCloud();
 
@@ -128,8 +128,7 @@ namespace DasKlub.Controllers
         {
             var model = new Contents();
 
-            //model.GetContentPageWise(1, pageSize, Utilities.GetCurrentLanguageCode());
-            model.GetContentPageWiseAll(1, PageSize);
+            model.GetContentPageWiseRelease(1, PageSize, Utilities.GetCurrentLanguageCode());
 
             LoadTagCloud();
 
@@ -307,12 +306,12 @@ namespace DasKlub.Controllers
 
             var model = new Contents();
 
-            model.GetContentAllPageWiseKey(1, PageSize, key);
+            model. GetContentPageWiseKeyRelease(1, PageSize, key);
 
             if (model.Count == 0)
             {
                 // this might have had a dash in it
-                model.GetContentAllPageWiseKey(1, PageSize, ViewBag.KeyName);
+                model.GetContentPageWiseKeyRelease(1, PageSize, ViewBag.KeyName);
 
                 if (model.Count == 0)
                 {

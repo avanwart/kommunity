@@ -412,6 +412,8 @@ li.playlist_mod ul { list-style-type: none; }
 
 #article_list li { list-style-type: none; }
 
+ ul.list_less { list-style-type: none; }
+
 table td.full_row {
     color: #DDD;
     text-align: center;

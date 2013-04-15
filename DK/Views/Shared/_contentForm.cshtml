@@ -29,6 +29,20 @@
         
             @Html.CSSClassValidationMessageFor(m => m.MetaKeywords)
         </div>
+        
+                <div class="editor-label">
+            @Html.LabelFor(m => m.MetaDescription)   <i>@Messages.BriefDescription</i>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(m => m.MetaDescription, new {@style = "width:500px;height:75px"})
+            @Html.CSSClassValidationMessageFor(m => m.MetaDescription)
+            
+            
+        
+             
+        </div>
+        
+
         <div class="editor-label">
             @Html.LabelFor(m => m.ContentPhotoThumbURL)  (.jpg) <i>(@Messages.Required)</i>
         </div>
@@ -113,6 +127,12 @@
             @Html.LabelFor(m => m.Language)
         </div>
         <div class="editor-field">
+            
+            
+            
+          
+       
+
    
             @{
                 IOrderedEnumerable<SelectListItem> listItems = Enum.GetValues(typeof (SiteEnums.SiteLanguages)).OfType<Enum>().Select(e =>
@@ -125,8 +145,8 @@
                 string prefix = "Language";
                 int index = 0;
 
-
-                foreach (SelectListItem li in listItems)
+                  <select id="langugue_option" class="span3"  name="Language">
+               @foreach (SelectListItem li in listItems)
                 {
                     string fieldName = string.Format(CultureInfo.InvariantCulture,
                                                      "{0}_{1}", prefix, index++);
@@ -134,50 +154,41 @@
                     if (Model.Language.ToLower() == li.Value.ToLower() || string.IsNullOrWhiteSpace(Model.Language) && li.Value.ToLower() ==
                         Utilities.GetCurrentLanguageCode().ToLower())
                     {
-                        li.Selected = true;
-                    }
-                    <div style="float: left; padding-right: 25px;">
-                        @Html.RadioButton(prefix, li.Value, li.Selected, new {@id = fieldName})
-                        @Html.Label(fieldName, li.Text)</div>
-                }
 
+                        <option selected="selected" value="@li.Value" >@li.Text</option>
+                    }
+                    else
+                    {
+                        
+                          <option value="@li.Value" >@li.Text</option>
+                    }
+                   
+                       
+                }
+    </select>
                 <div class="clear">
                 </div>
                 <br />
             }
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(m => m.MetaDescription)   <i>@Messages.BriefDescription</i>
-        </div>
-        <div class="editor-field">
-            @Html.TextAreaFor(m => m.MetaDescription, new {@style = "width:500px;height:75px"})
-            @Html.CSSClassValidationMessageFor(m => m.MetaDescription)
-             
-        </div>
+
         <script type="text/javascript" src="@Url.Content("~/content/script/nicEdit.js")"> </script>
         <div class="editor-label">
             @Html.LabelFor(m => m.Detail)
         </div>
         <div class="editor-field">
-            <script type="text/javascript">
-                var area1;
-
-                function toggleArea1() {
-                    if (!area1) {
-                        area1 = new nicEditor({ fullPanel: true }).panelInstance('Detail',
-                            { hasPanel: true });
-                    } else {
-                        area1.removeInstance('Detail');
-                        area1 = null;
-                    }
-                }
-
-                bkLib.onDomLoaded(function() { toggleArea1(); });
-            </script>
-            <textarea style="background-color: #FFF; min-height: 200px; width: 700px;" id="Detail" name="Detail"
-                      cols="100">@Model.ContentDetail</textarea>
-            @*     @Html.TextAreaFor(m => m.Detail, new { @style = "width:500px;height:300px" })*@
+            
+     
+            
+            
+            <textarea class="ckeditor" name="Detail">@if(Model != null){ @Model.Detail}</textarea>
+            
+            
+            
             @Html.CSSClassValidationMessageFor(m => m.Detail)
+            
+            <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+
         </div>
     </fieldset>
 </div>

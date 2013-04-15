@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Web;
 using BootBaronLib.AppSpec.DasKlub.BLL;
 using BootBaronLib.BaseTypes;
@@ -130,7 +131,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             }
         }
 
-        public override void Get(DataRow dr)
+        public override sealed void Get(DataRow dr)
         {
             try
             {
@@ -223,14 +224,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
             }
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+            
+            foreach (Contest cont in from DataRow dr in dt.Rows select new Contest(dr))
             {
-                Contest cont = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    cont = new Contest(dr);
-                    Add(cont);
-                }
+                Add(cont);
             }
         }
 

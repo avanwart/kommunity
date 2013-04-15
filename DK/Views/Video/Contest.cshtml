@@ -2,8 +2,9 @@
     ViewBag.Title = ViewBag.ContestName;
 }
 
-<div class="vid_filter_block">
-
+<div class="row">
+<div class="span8">
+    @{ Html.RenderPartial("_AdBanner"); }
     <h2>@ViewBag.ContestName</h2>
     <hr />
     <br />
@@ -11,4 +12,8 @@
         @Html.Raw(Model.VideosList())
     </div>
     <div class="clear"></div>
+    </div>
+    <div class="span4">
+            @{ Html.RenderPartial("_AdBanner2"); }
+        </div>
 </div>

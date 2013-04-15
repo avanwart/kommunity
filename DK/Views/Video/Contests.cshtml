@@ -5,17 +5,20 @@
 }
 <div class="row">
     <div class="span8">
+                @{ Html.RenderPartial("_AdBanner"); }
         <h2>@Messages.Contests</h2>
         <hr />
         <ul>
             @foreach (Contest c1 in Model)
             {
                 <li>
-                    <a href="@Url.Content("~/video/contest/" + c1.ContestKey)">@c1.Name</a></li>
+                    <a href="@Url.Content("~/video/contest/" + c1.ContestKey)">@c1.Name</a> <i>@c1.BeginDate.ToString("yyyy-MM-dd") - @c1.DeadLine.ToString("yyyy-MM-dd")</i></li>
             }
         </ul>
     </div>
 
-    <div class="span4"></div>
+    <div class="span4">
+            @{ Html.RenderPartial("_AdBanner2"); }
+        </div>
 
 </div>

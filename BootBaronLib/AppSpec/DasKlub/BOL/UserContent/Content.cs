@@ -177,7 +177,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
 
         [Display(ResourceType = typeof (Messages), Name = "ReleaseDate")]
         [DataType(DataType.Time)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:s}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:u}")]
         public DateTime ReleaseDate
         {
             get { return _releaseDate; }
@@ -884,6 +884,107 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
             return recordCount;
         }
 
+        public int GetContentPageWiseRelease(int pageIndex, int pageSize, string language)
+        {
+            // get a configured DbCommand object
+            DbCommand comm = DbAct.CreateCommand();
+            // set the stored procedure name
+            comm.CommandText = "up_GetContentPageWiseRelease";
+
+            DbParameter param = comm.CreateParameter();
+            param.ParameterName = "@RecordCount";
+            //http://stackoverflow.com/questions/3759285/ado-net-the-size-property-has-an-invalid-size-of-0
+            param.Size = 1000;
+            param.Direction = ParameterDirection.Output;
+            comm.Parameters.Add(param);
+
+            comm.AddParameter("PageIndex", pageIndex);
+            comm.AddParameter("PageSize", pageSize);
+            comm.AddParameter("language", language);
+
+            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+
+            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
+                {
+                    Add(content);
+                }
+            }
+
+            return recordCount;
+        }
+
+
+        public int GetContentPageWiseReleaseAll(int pageIndex, int pageSize )
+        {
+            // get a configured DbCommand object
+            DbCommand comm = DbAct.CreateCommand();
+            // set the stored procedure name
+            comm.CommandText = "up_GetContentPageWiseReleaseAll";
+
+            DbParameter param = comm.CreateParameter();
+            param.ParameterName = "@RecordCount";
+            //http://stackoverflow.com/questions/3759285/ado-net-the-size-property-has-an-invalid-size-of-0
+            param.Size = 1000;
+            param.Direction = ParameterDirection.Output;
+            comm.Parameters.Add(param);
+
+            comm.AddParameter("PageIndex", pageIndex);
+            comm.AddParameter("PageSize", pageSize);
+ 
+
+            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+
+            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
+                {
+                    Add(content);
+                }
+            }
+
+            return recordCount;
+        }
+
+
+        public int  GetContentPageWiseKeyRelease(int pageIndex, int pageSize,   string key)
+        {
+            // get a configured DbCommand object
+            DbCommand comm = DbAct.CreateCommand();
+            // set the stored procedure name
+            comm.CommandText = "up_GetContentPageWiseKeyRelease";
+
+            DbParameter param = comm.CreateParameter();
+            param.ParameterName = "@RecordCount";
+            //http://stackoverflow.com/questions/3759285/ado-net-the-size-property-has-an-invalid-size-of-0
+            param.Size = 1000;
+            param.Direction = ParameterDirection.Output;
+            comm.Parameters.Add(param);
+
+            comm.AddParameter("PageIndex", pageIndex);
+            comm.AddParameter("PageSize", pageSize);
+            comm.AddParameter("key", key);
+
+            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+
+            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
+                {
+                    Add(content);
+                }
+            }
+
+            return recordCount;
+        }
+
 
         public int GetContentPageWiseAll(int pageIndex, int pageSize)
         {
@@ -1001,19 +1102,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
         public void GetAllActiveContent()
         {
             var cntss = new Contents();
-            cntss.GetAll();
-
-            Clear();
-
-            DateTime currentTime = DateTime.UtcNow;
-
-            foreach (Content cnt in cntss)
-            {
-                if (cnt.ReleaseDate < currentTime) // forget about the future ones
-                {
-                    Add(cnt);
-                }
-            }
+            cntss.GetContentPageWiseRelease(1, 10000, string.Empty);
         }
 
 

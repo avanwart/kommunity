@@ -72,6 +72,14 @@
     <Compile Include="Migrations\201304080214135_BirthDates.Designer.cs">
       <DependentUpon>201304080214135_BirthDates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304150346059_ReleasePageContent.cs" />
+    <Compile Include="Migrations\201304150346059_ReleasePageContent.Designer.cs">
+      <DependentUpon>201304150346059_ReleasePageContent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201304150410184_GetContentPageWiseReleaseAll.cs" />
+    <Compile Include="Migrations\201304150410184_GetContentPageWiseReleaseAll.Designer.cs">
+      <DependentUpon>201304150410184_GetContentPageWiseReleaseAll.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,6 +111,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304080214135_BirthDates.resx">
       <DependentUpon>201304080214135_BirthDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304150346059_ReleasePageContent.resx">
+      <DependentUpon>201304150346059_ReleasePageContent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304150410184_GetContentPageWiseReleaseAll.resx">
+      <DependentUpon>201304150410184_GetContentPageWiseReleaseAll.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

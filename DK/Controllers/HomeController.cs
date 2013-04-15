@@ -18,6 +18,7 @@ using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection;
 using BootBaronLib.AppSpec.DasKlub.BOL.Logging;
+using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
 using BootBaronLib.Configs;
 using BootBaronLib.Operational;
@@ -451,10 +452,10 @@ namespace DasKlub.Controllers
 
             //ViewBag.PhotoList = pitms.ToUnorderdList;
 
-            //var cnts = new Contents();
-            //cnts.GetContentPageWiseAll(1, 3);
+            var cnts = new Contents();
+            cnts.GetContentPageWiseReleaseAll(1, 3);
 
-            //ViewBag.RecentArticles = cnts.ToUnorderdList;
+            ViewBag.RecentArticles = cnts;
 
             //var uas = new UserAccounts();
             //uas.GetNewestUsers();
