@@ -61,13 +61,24 @@
                         {
                             <a href="@forumCat.LatestForumPost.UserAccount.UrlTo.ToString()">@forumCat.LatestForumPost.UserAccount.UserName</a>
                         }
+                        else
+                        {
+                            <i>@Messages.New</i>
+                            
+                        }
                     </div>
                   
                     
                     <div class="span2">
-                        @if (forumCat.LatestForumPost != null)
+                        @if (forumCat.LatestForumPost != null && forumCat.LatestForumPost.CreateDate != DateTime.MinValue)
                         {
-                            <i>@Utilities.TimeElapsedMessage(forumCat.LatestForumPost.CreateDate)</i>
+                           
+                            <span   title="@FromDate.DateToYYYY_MM_DD(forumCat.LatestForumPost.CreateDate)">@Utilities.TimeElapsedMessage(forumCat.LatestForumPost.CreateDate)</span>
+                        }
+                          else
+                        {
+                            <i>@Messages.New</i>
+                            
                         }
                     </div>
                     
@@ -78,6 +89,7 @@
                         {
                             <a class="btn btn-mini" href="@forumCat.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
                         }
+        
                     </div>
 
                 </div>

@@ -6,7 +6,7 @@
  
  
 <div class="row">
-    <div class="span8" >
+    <div class="span9" >
       
         <div class="row">
             <div class="span8">
@@ -41,11 +41,13 @@
                       <div class="row">
                          <a name="@forumCat.ForumPostID"></a>
                           
-                                  <div class="span1 user_icons">
-                                      @Html.Raw(forumCat.UserAccount.ToUnorderdListItem) 
-                                  </div>
+                          <div class="span2 user_icons">
+                              <ul>
+                              @Html.Raw(forumCat.UserAccount.ToUnorderdListItem) 
+                                  </ul>
+                          </div>
                           <div class="span6">
-                              <i>@Utilities.TimeElapsedMessage(forumCat.CreateDate)</i>
+                              <span title="@FromDate.DateToYYYY_MM_DD(forumCat.CreateDate)">@Utilities.TimeElapsedMessage(forumCat.CreateDate)</span>
                               <br />
                               <br />
                               <p>
@@ -89,10 +91,18 @@
             <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/" + pageNumber.ToString())">@pageNumber.ToString()</a>
         }
     }
-}
+    
+            
+            
+        }
+        
+        
+        <hr />
+        
+              <a href="~/forum">Forum</a> &gt; <a href="@ViewBag.Forum.ForumURL">@ViewBag.Forum.Title</a> &gt; @ViewBag.Title
     </div>
 
-    <div class="span4"  >
+    <div class="span3"  >
             @{ Html.RenderPartial("_AdBanner2"); }
     </div>
 </div>

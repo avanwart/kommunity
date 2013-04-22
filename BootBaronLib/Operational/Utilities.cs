@@ -270,7 +270,7 @@ namespace BootBaronLib.Operational
                 // less than 2 minutes ago
                 timeElapsed = string.Format("{0}", Messages.AboutOneMinuteAgo);
             }
-            else if (elapsed.TotalMinutes < 60)
+            else if (elapsed.TotalMinutes < 120)
             {
                 // minutes old
 

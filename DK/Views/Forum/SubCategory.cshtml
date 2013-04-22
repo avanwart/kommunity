@@ -100,7 +100,7 @@
                     <div class="span2">
                         @if (post.LatestForumPost != null && post.TotalPosts > 0)
                         {
-                            <i>@Utilities.TimeElapsedMessage(post.LatestForumPost.CreateDate)</i>
+                            <span title="@FromDate.DateToYYYY_MM_DD(post.LatestForumPost.CreateDate)">@Utilities.TimeElapsedMessage(post.LatestForumPost.CreateDate)</span>
                         }
                         else
                         {

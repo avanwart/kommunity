@@ -1405,23 +1405,26 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 var sb = new StringBuilder(100);
                 var ua = new UserAccount(UserAccountID);
 
+
+                sb.AppendFormat(@"<span class=""profile_username""><a title=""{0}"" class=""m_over"" href=""{1}"">", ua.UserName, VirtualPathUtility.ToAbsolute("~/" + ua.UserName));
+                sb.Append(ua.UserName);
+                sb.Append(@"</span></a>");
+                sb.Append("<br />");
+
                 sb.Append(UserFace);
 
                 sb.Append("<br />");
 
+ 
                 sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" />", Sex,
                                 VirtualPathUtility.ToAbsolute("~/content/images/sex/" + SexLetter.ToString() + ".png"));
 
-                // sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" class=""flag_bg sprite-{2}_small"" />", this.CountryName, this.CountryFlagThumb, this.Country);
-
                 sb.AppendFormat(@"<div title=""{0}"" class=""sprites sprite-{1}_small""></div>", CountryName, Country);
-
 
                 // hack: latin isn't supported
                 sb.AppendFormat(@"<span title=""{1}"" class=""default_lang"">{0}</span>",
                                 (DefaultLanguage == "FO") ? "LA" : DefaultLanguage,
                                 Utilities.GetLanguageNameForCode(DefaultLanguage));
-                //sb.Append("&nbsp;");
                 _getJustOne = true;
                 sb.Append(SiteBages);
 

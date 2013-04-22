@@ -656,6 +656,7 @@ li {
 .user_list {
     margin: 0;
     padding: 0;
+
 }
 
 .user_list li {
@@ -665,6 +666,8 @@ li {
     margin: 3px;
     padding-bottom: 12px;
     width: 90px;
+    margin-bottom: 12px;
+      
 }
 
 .user_list a { font-size: 10px; }
@@ -898,3 +901,5 @@ textarea { border-style: dashed;}
 .line_space { line-height: 2em}
 
 .user_icons li { list-style-type: none; }
+
+.profile_username { font-size: .7em;}
