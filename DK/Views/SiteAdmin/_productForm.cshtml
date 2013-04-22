@@ -48,7 +48,7 @@
             }
         </div>
         <div class="editor-label">
-            @Html.LabelFor(m => m.Category)
+            @Html.LabelFor(m => m.ForumCategory)
         </div>
         <div class="editor-field">
             @Html.DropDownList("departmentList",
@@ -56,15 +56,15 @@
                                               (Model.Department != null) ? Model.Department.DepartmentID : 0),
                                Messages.DashSelect)
 
-            @Html.DropDownList("Category.CategoryID",
+            @Html.DropDownList("ForumCategory.ForumCategoryID",
                                new SelectList(ViewBag.CategoriesForDepartment,
                                               "categoryID", "Name",
-                                              (Model.Category != null) ?
-                                                  Model.Category.CategoryID : 0),
+                                              (Model.ForumCategory != null) ?
+                                                  Model.ForumCategory.ForumCategoryID : 0),
                                Messages.DashSelect)
               
                  
-            @((object) Html.CSSClassValidationMessageFor(m => m.Category.CategoryID))
+            @((object) Html.CSSClassValidationMessageFor(m => m.ForumCategory.ForumCategoryID))
         </div>
         <div class="editor-label">
             @Html.LabelFor(m => m.Taxonomy)

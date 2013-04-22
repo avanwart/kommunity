@@ -1,0 +1,167 @@
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL.UserContent
+@using BootBaronLib.Operational
+@using BootBaronLib.Resources
+@model ICollection<DasKlub.Models.Forum.ForumSubCategory>
+
+
+<div class="row">
+    <div class="span12">
+
+
+        <div class="row">
+            <div class="span6">
+                <h5>&lt; <a href="~/forum">Forum</a></h5>
+                <h3>@ViewBag.Title</h3>
+                <p>
+
+                    @Html.Raw(Utilities.MakeLink(FromString.ReplaceNewLineWithHTML( ViewBag.Forum.Description)))
+                </p>
+            </div>
+            <div class="span6">
+                @{ Html.RenderPartial("_AdBanner"); }
+            </div>
+        </div>
+
+
+
+
+
+        <hr />
+        @*        @if (Model != null)
+        {
+            <ul>
+                @foreach (var forumCat in Model)
+                {
+                    <li><a href="@forumCat.SubForumURL.ToString()">@forumCat.Title</a> </li>
+                }
+
+            </ul>
+
+        }
+        *@
+
+
+
+
+
+        @if (Model != null)
+        {
+            <div class="row">
+
+
+
+                <div class="span3">
+                    <b>Thread</b>
+
+                </div>
+                <div class="span1">
+                    <b>Posts</b>
+                </div>
+                <div class="span2">
+                    <b>Last Member</b>
+                </div>
+
+                <div class="span2">
+                    <b>Last Replied</b>
+                </div>
+
+                <div class="span2">
+                    <b>Last Reply</b>
+                </div>
+
+                </div>
+                <hr />
+
+            foreach (var post in Model.Where(post => post != null && post.ForumCategory != null))
+            {
+                <div class="row">
+                    <div class="span3">
+                        <a href="@post.SubForumURL.ToString()">@post.Title</a>
+
+                    </div>
+                    <div class="span1">
+                        @post.TotalPosts
+                    </div>
+
+                    <div class="span2">
+                        @if (post.LatestForumPost != null && post.LatestForumPost.UserAccount != null && post.TotalPosts > 0)
+                        {
+                            <a href="@post.LatestForumPost.UserAccount.UrlTo.ToString()">@post.LatestForumPost.UserAccount.UserName</a>
+                        }
+                        else
+                        {
+                            <i>
+                                @Messages.New
+                            </i>
+                        }
+                    </div>
+
+
+                    <div class="span2">
+                        @if (post.LatestForumPost != null && post.TotalPosts > 0)
+                        {
+                            <i>@Utilities.TimeElapsedMessage(post.LatestForumPost.CreateDate)</i>
+                        }
+                        else
+                        {
+                            <i>
+                                @Messages.New
+                            </i>
+                        }
+                    </div>
+
+
+
+                    <div class="span2">
+                        @if (post.LatestForumPost != null && post.LatestForumPost.ForumPostURL != null)
+                        {
+                            <a class="btn btn-mini" href="@post.LatestForumPost.ForumPostURL.ToString()">Latest post</a>
+                        }
+                    </div>
+
+                </div>
+                <br />
+            }
+        }       
+        
+        
+        
+        
+        
+        
+        
+
+        <hr />
+                @{
+    int pageSize = Convert.ToInt32(ViewBag.PageCount);
+
+    for (var pageNumber = 1; pageNumber <= pageSize; pageNumber++)
+    {
+        if (ViewBag.PageNumber == 1 && pageSize == 1)
+        {break;}
+
+
+        if (ViewBag.PageNumber == pageNumber )
+        {
+                    @pageNumber
+        }
+        else
+        {
+                    <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/page/" +  pageNumber.ToString())">@pageNumber.ToString()</a>
+        }
+    }
+                }
+
+
+                <hr />
+
+
+                <a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew</a>
+                <br />
+
+
+
+            </div>
+ 
+    </div>
+ 

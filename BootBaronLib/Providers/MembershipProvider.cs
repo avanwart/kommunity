@@ -232,7 +232,7 @@ namespace BootBaronLib.Providers
             // Initialize SqlConnection.
             ConnectionStringSettings connectionStringSettings =
                 ConfigurationManager.ConnectionStrings[config["connectionStringName"]];
-            if (connectionStringSettings == null || connectionStringSettings.ConnectionString.Trim() == "")
+            if (connectionStringSettings == null || connectionStringSettings.ConnectionString.Trim() == string.Empty)
             {
                 throw new ProviderException("Connection string cannot be blank.");
             }

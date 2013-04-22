@@ -81,7 +81,7 @@ namespace DasKlub
                 new
                     {
                         controller = "Video",
-                        action = "Category",
+                        action = "ForumCategory",
                         id = ""
                     }
                 );
@@ -773,6 +773,115 @@ namespace DasKlub
                         action = "UserPhoto"
                     }
                 );
+
+            #region forum
+
+
+
+
+            routes.MapRoute("delete_forum_post", "forum/deleteforumpost/{forumPostID}",
+                            new
+                                {
+                                    controller = "Forum",
+                                    action = "DeleteForumPost"
+                                }
+                );
+
+
+            routes.MapRoute("delete_sub_forum", "forum/deletesubforum/{forumSubCategoryID}",
+                            new
+                            {
+                                controller = "Forum",
+                                action = "DeleteSubForum"
+                            }
+                );
+
+            routes.MapRoute("forum_create", "forum/create",
+                            new
+                                {
+                                    controller = "Forum",
+                                    action = "CreateForum"
+                                }
+                );
+
+            routes.MapRoute("forum", "forum",
+                            new
+                                {
+                                    controller = "Forum",
+                                    action = "Index"
+                                }
+                );
+
+            routes.MapRoute("sub_forum_create", "forum/{key}/create",
+                new
+                {
+                    controller = "Forum",
+                    action = "CreateSubCategory"
+                }
+    );
+
+
+            routes.MapRoute("sub_forum_post", "forum/{key}/{subKey}",
+                            new
+                                {
+                                    controller = "Forum",
+                                    action = "ForumPost"
+                                }
+                );
+
+
+            routes.MapRoute("sub_forum_pag1e", "forum/{key}/{pageNumber}",
+                new
+                {
+                    controller = "Forum",
+                    action = "SubCategory"
+                }
+    );
+
+            routes.MapRoute("sub_forum_page2", "forum/{key}/page/{pageNumber}",
+    new
+    {
+        controller = "Forum",
+        action = "SubCategory"
+    }
+);
+
+
+
+
+            routes.MapRoute("sub_forum_post_create", "forum/{key}/{subKey}/create",
+                            new
+                            {
+                                controller = "Forum",
+                                action = "CreateForumPost"
+                            }
+                );
+
+
+
+            routes.MapRoute("sub_forum", "forum/{key}",
+                            new
+                                {
+                                    controller = "Forum",
+                                    action = "SubCategory"
+                                }
+                );
+
+
+
+
+
+
+
+            routes.MapRoute("sub_forum_post_page", "forum/{key}/{subKey}/{pageNumber}",
+                            new
+                                {
+                                    controller = "Forum",
+                                    action = "ForumPost"
+                                }
+                );
+
+            #endregion
 
 
             // dispays the user profile

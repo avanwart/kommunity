@@ -18,7 +18,7 @@ using System.Configuration;
 
 namespace BootBaronLib.Configs
 {
-    public class DataBaseConfigs
+    public static class DataBaseConfigs
     {
         #region constructors
 
@@ -26,9 +26,9 @@ namespace BootBaronLib.Configs
         {
             // database
             _dbConnectionString =
-                ConfigurationManager.ConnectionStrings["SQLDatabaseConnection"].ConnectionString;
+                ConfigurationManager.ConnectionStrings["DasKlubDBContext"].ConnectionString;
             _dbProviderName =
-                ConfigurationManager.ConnectionStrings["SQLDatabaseConnection"].ProviderName;
+                ConfigurationManager.ConnectionStrings["DasKlubDBContext"].ProviderName;
         }
 
         #endregion

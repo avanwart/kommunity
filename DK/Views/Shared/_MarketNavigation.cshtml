@@ -10,7 +10,7 @@
 
             depts.GetAll();
 
-            var catg = new BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Category();
+            var catg = new BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.ForumCategory();
             Categories catgs = null;
 
             foreach (BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Department d1 in depts)
@@ -30,9 +30,9 @@
                             catgs.GetCategoriesForDepartment(d1.DepartmentID);
                         }
                         @{
-                            foreach (BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Category c1 in catgs)
+                            foreach (BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.ForumCategory c1 in catgs)
                             {
-                                <li@if (ViewBag.CurrentCat == c1.CategoryKey)
+                                <li@if (ViewBag.CurrentCat == c1.ForumCategoryKey)
                                    {
                                        <text> class="current_cat"</text>
                                    }><a href="@c1.UrlTo.ToString()">@c1.DisplayName</a></li>

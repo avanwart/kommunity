@@ -1,0 +1,98 @@
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL.UserContent
+@using BootBaronLib.Operational
+@using BootBaronLib.Resources
+@using BootBaronLib.Values
+@model ICollection<DasKlub.Models.Forum.ForumPost>
+ 
+ 
+<div class="row">
+    <div class="span8" >
+      
+        <div class="row">
+            <div class="span8">
+                    <h5><a href="~/forum">Forum</a> &gt; <a href="@ViewBag.Forum.ForumURL">@ViewBag.Forum.Title</a></h5>
+                <h3>@ViewBag.Title</h3>
+                <p>
+                    @Html.Raw(Utilities.MakeLink(FromString.ReplaceNewLineWithHTML( ViewBag.SubForum.Description)))
+                </p>
+                
+                Posted By: <a href="@ViewBag.SubForum.UserAccount.UrlTo.ToString()">@ViewBag.SubForum.UserAccount.UserName</a>
+                <i>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</i>
+                
+                
+                  @if (ViewBag.UserID == ViewBag.SubForum.UserAccount.UserAccountID)
+                              {
+                                  @Html.ActionLink(Messages.Delete, "DeleteSubForum", new {@forumSubCategoryID = ViewBag.SubForum.ForumSubCategoryID },
+                          new { onclick = "return confirm('" + Messages.Delete + "');" });
+                              }
+            </div>
+            
+        </div>
+            
+      
+        @if (Model != null && Model.Count > 0)
+        {   
+           
+            <hr />
+                <br />
+               foreach (var forumCat in Model)
+                { 
+              
+                      <div class="row">
+                         <a name="@forumCat.ForumPostID"></a>
+                          
+                                  <div class="span1 user_icons">
+                                      @Html.Raw(forumCat.UserAccount.ToUnorderdListItem) 
+                                  </div>
+                          <div class="span6">
+                              <i>@Utilities.TimeElapsedMessage(forumCat.CreateDate)</i>
+                              <br />
+                              <br />
+                              <p>
+                                  @Html.Raw(Utilities.MakeLink(FromString.ReplaceNewLineWithHTML( forumCat.Detail)))
+                              </p>
+                              @if (ViewBag.UserID == forumCat.CreatedByUserID)
+                              {
+                                  @Html.ActionLink(Messages.Delete, "DeleteForumPost", new {@forumPostID = forumCat.ForumPostID},
+                          new { onclick = "return confirm('" + Messages.Delete + "');" });
+                              }
+                          </div>
+                           
+                  
+                          </div>
+                <hr />
+                }
+         
+
+        }
+                  <br />
+         <a  class="btn btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/create")">@Messages.Reply</a>
+        
+          <br />
+         
+         <hr />
+        @{
+    int pageSize = Convert.ToInt32(ViewBag.PageCount);
+
+    for (var pageNumber = 1; pageNumber <= pageSize; pageNumber++)
+    {
+        if (ViewBag.PageNumber == 1 && pageSize == 1)
+        {break;}
+
+
+        if (ViewBag.PageNumber == pageNumber )
+        {
+            @pageNumber
+        }
+        else
+        {
+            <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/" + pageNumber.ToString())">@pageNumber.ToString()</a>
+        }
+    }
+}
+    </div>
+
+    <div class="span4"  >
+            @{ Html.RenderPartial("_AdBanner2"); }
+    </div>
+</div>

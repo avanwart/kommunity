@@ -116,8 +116,8 @@ namespace DasKlub.Controllers
                 var nvcKey =
                     HttpUtility.ParseQueryString(vir.RequestURL.Replace("http://www.youtube.com/watch?", string.Empty));
 
-                vir.VideoKey = nvcKey["v"];
-                vidKey = nvcKey["v"];
+                vidKey = nvcKey["v"].Replace("#", string.Empty).Replace("!", string.Empty);
+                vir.VideoKey = vidKey;
             }
             else
             {
@@ -150,12 +150,12 @@ namespace DasKlub.Controllers
                 var yourequest = new YouTubeRequest(yousettings);
                 var entryUri = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", vidKey));
 
-                Google.YouTube.Video video2 = yourequest.Retrieve<Google.YouTube.Video>(entryUri);
+                var video2 = yourequest.Retrieve<Google.YouTube.Video>(entryUri);
                 vid.Duration = (float) Convert.ToDouble(video2.YouTubeEntry.Duration.Seconds);
                 vid.ProviderUserKey = video2.Uploader;
                 vid.PublishDate = video2.YouTubeEntry.Published;
             }
-            catch (GDataRequestException)
+            catch (GDataRequestException gdx)
             {
                 vid.IsEnabled = false;
                 vid.Update();
@@ -165,19 +165,22 @@ namespace DasKlub.Controllers
                 // invalid 
                 vir.StatusType = 'I';
                 Response.Redirect("~/videosubmission.aspx?statustype=I");
+                Utilities.LogError("invalid link", gdx);
                 return new EmptyResult();
             }
-            catch (ClientFeedException)
+            catch (ClientFeedException cfe)
             {
                 vir.StatusType = 'I';
                 Response.Redirect("~/videosubmission.aspx?statustype=I");
+                Utilities.LogError("invalid link", cfe);
                 return new EmptyResult();
 
             }
-            catch
+            catch (Exception ex)
             {
                 vir.StatusType = 'I';
                 Response.Redirect("~/videosubmission.aspx?statustype=I");
+                Utilities.LogError("invalid link", ex);
                 return new EmptyResult();
             }
 

@@ -74,7 +74,7 @@ task -name ValidateConfigs -depends  ListConfigs   -description "Validates that 
  
     assert( 'debug', 'release' -contains $msBuildConfig) `
     "Invalid msBuildConfig: $msBuildConfig, must be: 'debug' or 'release'"
-  assert( 'q', 'quiet', 'm', 'minimal', 'n', 'normal', 'd', 'detailed', 'diag', 'diagnostic' -contains $msBuildVerbosity) `
+    assert( 'q', 'quiet', 'm', 'minimal', 'n', 'normal', 'd', 'detailed', 'diag', 'diagnostic' -contains $msBuildVerbosity) `
     "Invalid msBuildVerbosity: $msBuildVerbosity, must be:  'q', 'quiet', 'm', 'minimal', 'n', 'normal', 'd', 'detailed', 'diag' or 'diagnostic'"
     assert( $solutionLocation -ne $null -and $solutionLocation -ne '') `
     "solutionLocation is blank"
@@ -245,9 +245,10 @@ exec {
 };
 
 task -name WaitingVideo -description "Loads YouTube waiting video" -action {
-exec {
-    Write-Host "Starting..."
-}
+
+    Write-Host "Resetting last exit code..."
+    $LASTEXITCODE = 0
+
 }
 
 
@@ -273,7 +274,7 @@ task -name Deploy -depends WaitingVideo, DeployPackage  -description "Hits the h
                                                            |__/   
                                                                            " 
       
-        Start-Process chrome $statusCheckURL
+       # Start-Process chrome $statusCheckURL
         }
 
      }

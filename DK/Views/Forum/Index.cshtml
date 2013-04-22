@@ -1,0 +1,93 @@
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL.UserContent
+@using BootBaronLib.Operational
+@using BootBaronLib.Resources
+@model ICollection<DasKlub.Models.Forum.ForumCategory>
+ 
+@{
+    ViewBag.Title = "Forum";
+}
+ 
+<div class="row">
+    <div class="span12" >
+      
+        <div class="row">
+            <div class="span3">
+                <h2>Forum</h2>
+            </div>
+            <div class="span5">
+                @{ Html.RenderPartial("_AdBanner"); }
+            </div>
+        </div>
+
+        <hr />
+        @if (Model != null)
+        {
+            <div class="row">
+                <div class="span3">
+                    <b>Topic</b>
+                            
+                </div>
+                <div class="span1">
+                    <b>Threads</b>             
+                </div>
+                  <div class="span2">
+                     <b>Last Member</b>             
+                </div>
+                
+                                <div class="span2">
+                    <b>Last Replied</b>
+                </div>
+              
+                <div class="span2">
+                    <b>Last Reply</b>
+                </div>
+
+            </div>
+            <hr />
+        
+            foreach (var forumCat in Model.Where(forumCat => forumCat != null && forumCat.LatestForumPost != null))
+            {
+                <div class="row">
+                    <div class="span3">
+                        <a href="@forumCat.ForumURL.ToString()">@forumCat.Title</a> 
+                            
+                    </div>
+                    <div class="span1">
+                        @forumCat.TotalPosts
+                    </div>
+                    
+                    <div class="span2">
+                        @if (forumCat.LatestForumPost != null && forumCat.LatestForumPost.UserAccount != null)
+                        {
+                            <a href="@forumCat.LatestForumPost.UserAccount.UrlTo.ToString()">@forumCat.LatestForumPost.UserAccount.UserName</a>
+                        }
+                    </div>
+                  
+                    
+                    <div class="span2">
+                        @if (forumCat.LatestForumPost != null)
+                        {
+                            <i>@Utilities.TimeElapsedMessage(forumCat.LatestForumPost.CreateDate)</i>
+                        }
+                    </div>
+                    
+
+               
+                    <div class="span2">
+                        @if (forumCat.LatestForumPost != null && forumCat.LatestForumPost.ForumPostURL != null)
+                        {
+                            <a class="btn btn-mini" href="@forumCat.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
+                        }
+                    </div>
+
+                </div>
+                <br />
+            }
+        }
+         
+
+       
+    </div>
+
+</div>
+  

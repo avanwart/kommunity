@@ -18,7 +18,7 @@ using System.Configuration;
 
 namespace BootBaronLib.Configs
 {
-    public class GeneralConfigs
+    public static class GeneralConfigs
     {
         static GeneralConfigs()
         {

@@ -896,3 +896,5 @@ background-image: -webkit-linear-gradient(top,#222,#000);
 textarea { border-style: dashed;}
 
 .line_space { line-height: 2em}
+
+.user_icons li { list-style-type: none; }

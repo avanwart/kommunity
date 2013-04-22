@@ -19,37 +19,22 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Transactions;
-
+using DasKlub.Models;
+ 
 namespace DBMigrator.Migrations
 {
-    /// <summary>
-    ///     Does nothing
-    /// </summary>
-    public class DasKlubContext : DbContext
+    public   class Configuration : DbMigrationsConfiguration<DasKlubDBContext>
     {
-        static DasKlubContext()
-        {
-            Database.SetInitializer<DasKlubContext>(null);
-        }
-    }
-
-    internal sealed class Configuration : DbMigrationsConfiguration<DasKlubContext>
-    {
-        public static bool RunSeed = false;
+        private const bool RunSeed = false;
 
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DasKlubContext context)
+        protected override void Seed(DasKlubDBContext context)
         {
-            if (!RunSeed)
-            {
-                Console.WriteLine("SEED OFF");
-                return;
-            }
-
+            
             Console.WriteLine("RUNNING SEED METHOD");
 
             // inserts mandatory values
@@ -436,11 +421,11 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
         }
     }
 
-    public class DropCreateDatabaseTables : IDatabaseInitializer<DasKlubContext>
+    public   class DropCreateDatabaseTables : IDatabaseInitializer<DasKlubDBContext>
     {
         #region IDatabaseInitializer<Context> Members
 
-        public void InitializeDatabase(DasKlubContext context)
+        public void InitializeDatabase(DasKlubDBContext context)
         {
             bool dbExists;
 
@@ -480,7 +465,7 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
 
         #region Methods
 
-        protected virtual void Seed(DasKlubContext context)
+        private void Seed(DasKlubDBContext context)
         {
             /// TODO: put here your seed creation
         }

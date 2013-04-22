@@ -14,7 +14,7 @@
 
 <div class="row">
     <div class="span8">
-        @{ Html.RenderPartial("_AdBanner"); }
+      
 
         @if (Model.Reply != null && Model.Reply.ContentCommentID > 0)
         {
@@ -28,39 +28,44 @@
         @Messages.Language:
         <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
              
-        <div >
-            @Messages.Published:
-            <span title="@Model.ReleaseDate.ToString("o")">
-                @Utilities.TimeElapsedMessage(Model.ReleaseDate)</span>
-            <br />
-            @Messages.Tagged:
-            @Html.Raw(Model.TagLinks)
-
-            @if (Model.CreatedByUserID > 0)
-            {
-                var ua =
-                    new UserAccount(Model.CreatedByUserID);
-
-                var uad =
-                    new UserAccountDetail();
-                uad.GetUserAccountDeailForUser(ua.UserAccountID);
-
+        <div class="row" >
+            <div class="span3">
+                @Messages.Published:
+                <span title="@Model.ReleaseDate.ToString("o")">
+                    @Utilities.TimeElapsedMessage(Model.ReleaseDate)</span>
                 <br />
+                @Messages.Tagged:
+                @Html.Raw(Model.TagLinks)
 
-                <span>@Messages.From: <a href="@ua.UrlTo.ToString()">
-                                          @ua.UserName</a>     <a href="@ua.UrlTo.ToString()">
-                                                                   @Html.Raw(ua.TinyUserIcon)</a></span>
+                @if (Model.CreatedByUserID > 0)
+                {
+                    var ua =
+                        new UserAccount(Model.CreatedByUserID);
 
-                string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
+                    var uad =
+                        new UserAccountDetail();
+                    uad.GetUserAccountDeailForUser(ua.UserAccountID);
 
-                @Html.Raw(coName)
-            }
-                  
-            <br />  
+                    <br />
+
+                    <span>@Messages.From: <a href="@ua.UrlTo.ToString()">
+                                              @ua.UserName</a>     <a href="@ua.UrlTo.ToString()">
+                                                                       @Html.Raw(ua.TinyUserIcon)</a></span>
+
+                    string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
+
+                    @Html.Raw(coName)
+                }
+            </div>
+            <div class="span5">
+                  @{ Html.RenderPartial("_AdBanner"); }
+
+            </div>
+              
         </div>
         <hr />
 
-
+         <div style="text-align: center">
         @if (!string.IsNullOrEmpty(Model.ContentVideoURL))
         {
             <div class="video_player" id="video_player">
@@ -103,14 +108,15 @@
         }
         else
         {
-            <div style="text-align: center">
+           
                 <img   style="background-color: #FFF; padding: 5px;" src="@Html.S3ContentPath(Model.ContentPhotoURL)" alt="@Model.Title" />
-                </div>
+             
         }
+                </div>
         <div class=" clearfix">
             <hr />
           
-            <div class="superquote">
+            <div class="superquote" style="text-align: center">
                 @Model.MetaDescription
           
             </div>

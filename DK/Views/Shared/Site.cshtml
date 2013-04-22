@@ -137,7 +137,34 @@
                     <div class="nav-collapse">
                         <ul class="nav the-icons">
                             <li><a href="@Url.Content("~/")" class="site_name">@GeneralConfigs.SiteName</a></li>
-
+                            
+                                            @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "news" &&
+                                 ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
+                            {
+                                <li class="active"><a  
+                            
+                            
+                                                       href="@Url.Content("~/news")">
+                                                       <i class="icon-th-list"></i> @Messages.News</a> </li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Content("~/news")">
+                                        <i class="icon-th-list"></i> @Messages.News</a> </li>
+                            }
+                            
+                                        
+                            @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "forum" &&
+                                  ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
+                            {
+                                <li class="active"><a class="current_page_item" href="@Url.Content("~/forum")">
+                                                       <i class="icon-flag"></i>Forum</a> </li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Content("~/forum")">
+                                        <i class="icon-flag"></i>Forum</a> </li>
+                            }
 
                             <li
                   
@@ -185,20 +212,7 @@
                                         <i class="icon-camera"></i> @Messages.Photos</a> </li>
                             }
 
-                            @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "news" &&
-                                 ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
-                            {
-                                <li class="active"><a  
-                            
-                            
-                                                       href="@Url.Content("~/news")">
-                                                       <i class="icon-th-list"></i> @Messages.News</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="@Url.Content("~/news")">
-                                        <i class="icon-th-list"></i> @Messages.News</a> </li>
-                            }
+
 
                             @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "store" &&
                                   ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))

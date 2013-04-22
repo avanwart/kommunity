@@ -128,7 +128,7 @@ namespace DasKlub.Controllers
         {
             var model = new Contents();
 
-            model.GetContentPageWiseRelease(1, PageSize, Utilities.GetCurrentLanguageCode());
+            model.GetContentPageWiseReleaseAll(1, PageSize);
 
             LoadTagCloud();
 
