@@ -55,6 +55,7 @@
     <Compile Include="Domain\StateInfo.cs" />
     <Compile Include="Forum\ForumCategory.cs" />
     <Compile Include="Forum\ForumPost.cs" />
+    <Compile Include="Forum\ForumPostNotification.cs" />
     <Compile Include="Forum\ForumSubCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

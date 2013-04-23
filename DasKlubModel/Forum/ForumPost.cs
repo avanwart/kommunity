@@ -23,7 +23,9 @@ namespace DasKlub.Models.Forum
         public UserAccount UserAccount { get; set; }
 
         [NotMapped]
-        public Uri ForumPostURL { get; set; } 
-    
+        public Uri ForumPostURL { get; set; }
+
+        [NotMapped]
+        public bool IsNewPost { get; set; }
     }
 }

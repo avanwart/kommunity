@@ -101,6 +101,10 @@
     <Compile Include="Migrations\201304210557243_ForumPropertyUniqueKeys.Designer.cs">
       <DependentUpon>201304210557243_ForumPropertyUniqueKeys.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201304230240066_ForumPostNotification.cs" />
+    <Compile Include="Migrations\201304230240066_ForumPostNotification.Designer.cs">
+      <DependentUpon>201304230240066_ForumPostNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -150,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304210557243_ForumPropertyUniqueKeys.resx">
       <DependentUpon>201304210557243_ForumPropertyUniqueKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201304230240066_ForumPostNotification.resx">
+      <DependentUpon>201304230240066_ForumPostNotification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

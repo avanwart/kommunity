@@ -115,7 +115,15 @@
                     <div class="span2">
                         @if (post.LatestForumPost != null && post.LatestForumPost.ForumPostURL != null)
                         {
-                            <a class="btn btn-mini" href="@post.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
+                          
+                            if (post.LatestForumPost.IsNewPost)
+                            {
+                                   <a class="btn btn-mini btn-success" href="@post.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-mini" href="@post.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
+                            }
                         }
                     </div>
 

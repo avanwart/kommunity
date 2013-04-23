@@ -25,6 +25,7 @@ namespace DasKlub.Models
         public DbSet<ForumCategory> ForumCategory { get; set; }
         public DbSet<ForumSubCategory> ForumSubCategory { get; set; }
         public DbSet<ForumPost> ForumPost { get; set; }
+        public DbSet<ForumPostNotification> ForumPostNotification { get; set; }
 
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{
