@@ -23,7 +23,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using BootBaronLib.Configs;
 
-namespace DasKlub.Helpers
+namespace DasKlub.Web.Helpers
 {
     public static class HtmlHelpers
     {
@@ -39,8 +39,8 @@ namespace DasKlub.Helpers
         public static MvcHtmlString QueryAsHiddenFields(this HtmlHelper htmlHelper)
         {
             var result = new StringBuilder();
-            var query = htmlHelper.ViewContext.HttpContext.Request.QueryString;
-            foreach (var key in query.Keys.Cast<string>().Where(key => key != null))
+            NameValueCollection query = htmlHelper.ViewContext.HttpContext.Request.QueryString;
+            foreach (string key in query.Keys.Cast<string>().Where(key => key != null))
             {
                 result.Append(htmlHelper.Hidden(key, query[key]).ToHtmlString());
             }
@@ -50,8 +50,8 @@ namespace DasKlub.Helpers
 
         public static MvcHtmlString S3ContentPath(this HtmlHelper helper, string filePath)
         {
-            var bucket = AmazonCloudConfigs.AmazonBucketName;
-            var url = string.Format(AmazonCloudConfigs.AmazonCloudDomain, bucket, filePath);
+            string bucket = AmazonCloudConfigs.AmazonBucketName;
+            string url = string.Format(AmazonCloudConfigs.AmazonCloudDomain, bucket, filePath);
             return new MvcHtmlString(url);
         }
     }

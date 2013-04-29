@@ -28,7 +28,7 @@ using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using IntrepidStudios;
 
-namespace DasKlub.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class NewsController : Controller
     {
@@ -42,7 +42,7 @@ namespace DasKlub.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (var cnt in model)
+            foreach (Content cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
@@ -64,7 +64,7 @@ namespace DasKlub.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (var cnt in model)
+            foreach (Content cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
@@ -95,7 +95,7 @@ namespace DasKlub.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (var cnt in model)
+            foreach (Content cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
@@ -241,7 +241,7 @@ namespace DasKlub.Controllers
         [HttpGet]
         public ActionResult DeleteComment(int commentID)
         {
-            var mu = Membership.GetUser();
+            MembershipUser mu = Membership.GetUser();
 
             var model = new ContentComment(commentID);
 
@@ -259,7 +259,7 @@ namespace DasKlub.Controllers
         [HttpPost]
         public ActionResult Detail(FormCollection fc, int contentID)
         {
-            var mu = Membership.GetUser();
+            MembershipUser mu = Membership.GetUser();
 
             LoadTagCloud();
 
@@ -283,10 +283,11 @@ namespace DasKlub.Controllers
                 return View(model);
             }
 
-            var hasBeenSaid = false;
+            bool hasBeenSaid = false;
 
-            foreach (var cmt in model.Comments.Where(cmt => cmt.CreatedByUserID == model.Reply.CreatedByUserID &&
-                                                                       cmt.Detail == model.Reply.Detail))
+            foreach (
+                ContentComment cmt in model.Comments.Where(cmt => cmt.CreatedByUserID == model.Reply.CreatedByUserID &&
+                                                                  cmt.Detail == model.Reply.Detail))
             {
                 hasBeenSaid = true;
             }
@@ -306,7 +307,7 @@ namespace DasKlub.Controllers
 
             var model = new Contents();
 
-            model. GetContentPageWiseKeyRelease(1, PageSize, key);
+            model.GetContentPageWiseKeyRelease(1, PageSize, key);
 
             if (model.Count == 0)
             {

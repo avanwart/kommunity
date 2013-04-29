@@ -1,6 +1,5 @@
 using System;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using DasKlub.Models.Domain;
 using DasKlub.Models.Forum;
@@ -8,18 +7,18 @@ using DasKlub.Models.Forum;
 
 namespace DasKlub.Models 
 {
-    public partial class DasKlubDBContext : DbContext
+    public partial class DasKlubDBContext : BaseContext<DasKlubDBContext>
     {
-        static DasKlubDBContext()
-        {
-            Database.SetInitializer<DasKlubDBContext>(null);
-        }
+        //static DasKlubDBContext()
+        //{
+        //    Database.SetInitializer<DasKlubDBContext>(null);
+        //}
 
-        public DasKlubDBContext()
-           // : base("Name=DasKlubDBContext")
-            : base("DasKlubDBContext")
-        {
-        }
+        //public DasKlubDBContext()
+        //   // : base("Name=DasKlubDBContext")
+        //    : base("DasKlubDBContext")
+        //{
+        //}
 
 
         public DbSet<ForumCategory> ForumCategory { get; set; }

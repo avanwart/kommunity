@@ -18,14 +18,14 @@ using System;
 using System.Web.UI;
 using BootBaronLib.Resources;
 
-namespace DasKlub
+namespace DasKlub.Web
 {
     public partial class VideoSubmission : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Request.QueryString["statustype"])) return;
-            var rslt = Request.QueryString["statustype"];
+            string rslt = Request.QueryString["statustype"];
 
             switch (rslt)
             {

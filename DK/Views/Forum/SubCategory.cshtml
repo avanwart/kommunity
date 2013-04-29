@@ -1,6 +1,6 @@
-﻿@using BootBaronLib.AppSpec.DasKlub.BOL.UserContent
-@using BootBaronLib.Operational
+﻿@using BootBaronLib.Operational
 @using BootBaronLib.Resources
+@using DasKlub.Models.Forum
 @model ICollection<DasKlub.Models.Forum.ForumSubCategory>
 
 
@@ -14,7 +14,7 @@
                 <h3>@ViewBag.Title</h3>
                 <p>
 
-                    @Html.Raw(Utilities.MakeLink(FromString.ReplaceNewLineWithHTML( ViewBag.Forum.Description)))
+                    @Html.Raw(Utilities.MakeLink(FromString.ReplaceNewLineWithHTML(ViewBag.Forum.Description)))
                 </p>
             </div>
             <div class="span6">
@@ -69,10 +69,10 @@
                     <b>Last Reply</b>
                 </div>
 
-                </div>
-                <hr />
+            </div>
+            <hr />
 
-            foreach (var post in Model.Where(post => post != null && post.ForumCategory != null))
+            foreach (ForumSubCategory post in Model.Where(post => post != null && post.ForumCategory != null))
             {
                 <div class="row">
                     <div class="span3">
@@ -115,10 +115,9 @@
                     <div class="span2">
                         @if (post.LatestForumPost != null && post.LatestForumPost.ForumPostURL != null)
                         {
-                          
                             if (post.LatestForumPost.IsNewPost)
                             {
-                                   <a class="btn btn-mini btn-success" href="@post.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
+                                <a class="btn btn-mini btn-success" href="@post.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
                             }
                             else
                             {
@@ -140,36 +139,37 @@
         
 
         <hr />
-                @{
-    int pageSize = Convert.ToInt32(ViewBag.PageCount);
+        @{
+            int pageSize = Convert.ToInt32(ViewBag.PageCount);
 
-    for (var pageNumber = 1; pageNumber <= pageSize; pageNumber++)
-    {
-        if (ViewBag.PageNumber == 1 && pageSize == 1)
-        {break;}
-
-
-        if (ViewBag.PageNumber == pageNumber )
-        {
-                    @pageNumber
-        }
-        else
-        {
-                    <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/page/" +  pageNumber.ToString())">@pageNumber.ToString()</a>
-        }
-    }
+            for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
+            {
+                if (ViewBag.PageNumber == 1 && pageSize == 1)
+                {
+                    break;
                 }
 
 
-                <hr />
+                if (ViewBag.PageNumber == pageNumber)
+                {
+                    @pageNumber
+                }
+                else
+                {
+                    <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/page/" + pageNumber.ToString())">@pageNumber.ToString()</a>
+                }
+            }
+        }
 
 
-                <a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew</a>
-                <br />
+        <hr />
+
+
+        <a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew</a>
+        <br />
 
 
 
-            </div>
- 
     </div>
  
+</div>

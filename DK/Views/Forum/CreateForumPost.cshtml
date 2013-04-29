@@ -3,7 +3,6 @@
 
 @{
     ViewBag.Title = "Create Post In Forum: " + ViewBag.Forum.Title;
-  
 }
  
 
@@ -19,13 +18,12 @@
             </div>
             <div class="span5">
                 @{ Html.RenderPartial("_AdBanner"); }
-                </div>
+            </div>
         </div>
 
         <hr />
         @using (Html.BeginForm("CreateForumPost", "Forum"))
         {
-         
             <fieldset>
                 <legend>
                     @ViewBag.Forum.Title &gt;
@@ -35,32 +33,32 @@
                     @Html.LabelFor(model => model.Detail)
                 </div>
                 <div class="editor-field">
-                      @Html.TextAreaFor(model => model.Detail, new { @class = "whatever-class", @cols = 80, @rows = 10 })
+                    @Html.TextAreaFor(model => model.Detail, new {@class = "whatever-class", @cols = 80, @rows = 10})
                     @Html.ValidationMessageFor(model => model.Detail)
                     <input type="hidden" name="forumSubCategoryID" value="@ViewBag.SubForum.ForumSubCategoryID" />
                 </div>
                         
-                      <p><button class="btn btn-success" type="submit">@Messages.Submit</button></p>
+                <p><button class="btn btn-success" type="submit">@Messages.Submit</button></p>
             </fieldset>
         }
  
         
     </div>
 
-  <div class="span4"  >
-            @{ Html.RenderPartial("_AdBanner2"); }
+    <div class="span4"  >
+        @{ Html.RenderPartial("_AdBanner2"); }
     </div>
 </div>
  
 
- @section _javascript {
+@section _javascript {
 
 
-     <script type="text/javascript">
-         $(document).ready(function() {
+    <script type="text/javascript">
+        $(document).ready(function() {
 
-             $("#Detail").focus();
+            $("#Detail").focus();
 
-         });
-     </script>
- }
+        });
+    </script>
+}

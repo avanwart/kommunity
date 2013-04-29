@@ -89,7 +89,7 @@
         return this;
     };
 
-})(jQuery); 
+})(jQuery);
 
 
 // initialize all expanding textareas

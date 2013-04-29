@@ -1,0 +1,89 @@
+@model IEnumerable<DasKlub.Models.Forum.ForumCategory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            CreatedByUserID
+        </th>
+        <th>
+            UpdatedByUserID
+        </th>
+        <th>
+            CreateDate
+        </th>
+        <th>
+            UpdateDate
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Key
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            ForumURL
+        </th>
+        <th>
+            LatestForumPost
+        </th>
+        <th>
+            TotalPosts
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ForumCategoryID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ForumCategoryID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ForumCategoryID })
+        </td>
+        <td>
+			@item.CreatedByUserID
+        </td>
+        <td>
+			@item.UpdatedByUserID
+        </td>
+        <td>
+			@String.Format("{0:g}", item.CreateDate)
+        </td>
+        <td>
+			@String.Format("{0:g}", item.UpdateDate)
+        </td>
+        <td>
+			@item.Title
+        </td>
+        <td>
+			@item.Key
+        </td>
+        <td>
+			@item.Description
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.ForumURL).ToString()
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.LatestForumPost).ToString()
+        </td>
+        <td>
+			@item.TotalPosts
+        </td>
+    </tr>
+}
+
+</table>
+
+

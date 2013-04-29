@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Text;
+using System.Web;
 using System.Web.UI;
 using System.Xml;
 using BootBaronLib.AppSpec.DasKlub.BOL;
@@ -9,7 +9,6 @@ using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
 using BootBaronLib.Operational;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Web;
 
 namespace DasKlub
 {
@@ -20,17 +19,18 @@ namespace DasKlub
             //  VideoCount();
 
 
-         //   SendMassMail();
+            //   SendMassMail();
         }
 
         private static void SendMassMail()
         {
-            var totalSent = 0;
+            int totalSent = 0;
 
             var uas = new UserAccounts();
             uas.GetAll();
 
-            foreach (var ua1 in uas.OrderBy(x => x.CreateDate))//.Where(ua1 => ua1.CreateDate <= DateTime.UtcNow.AddDays(-5)))
+            foreach (UserAccount ua1 in uas.OrderBy(x => x.CreateDate))
+                //.Where(ua1 => ua1.CreateDate <= DateTime.UtcNow.AddDays(-5)))
             {
                 // if( ContestVideo.IsUserContestVoted(ua1.UserAccountID, 9) )continue;
 
@@ -71,7 +71,8 @@ namespace DasKlub
                 sb.AppendLine();
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.AppendLine("To unsubscribe from all future email communication, go to: http://dasklub.com/unsubscribe.aspx");
+                sb.AppendLine(
+                    "To unsubscribe from all future email communication, go to: http://dasklub.com/unsubscribe.aspx");
 
                 var uad = new UserAccountDetail();
                 uad.GetUserAccountDeailForUser(ua1.UserAccountID);
@@ -97,7 +98,7 @@ namespace DasKlub
             int count = 0;
             int totalVids = 0;
 
-            foreach (var c1 in conts)
+            foreach (Contest c1 in conts)
             {
                 var cv = new ContestVideo();
                 var cvs = new ContestVideos();
@@ -108,10 +109,12 @@ namespace DasKlub
                           into v1 let doc = new XmlDocument()
                           select
                               Utilities.GETRequest(
-                                  new Uri("http://gdata.youtube.com/feeds/api/videos/" + v1.ProviderKey + @"?v=2&alt=json"))
+                                  new Uri("http://gdata.youtube.com/feeds/api/videos/" + v1.ProviderKey +
+                                          @"?v=2&alt=json"))
                           into s where !string.IsNullOrWhiteSpace(s) select (JObject) JsonConvert.DeserializeObject(s)
                           into JObj select JObj["entry"]
-                          into entry from thumbnail in entry["yt$statistics"] where !thumbnail.ToString().Contains("fav")
+                          into entry from thumbnail in entry["yt$statistics"]
+                          where !thumbnail.ToString().Contains("fav")
                           select
                               Convert.ToInt32(thumbnail.ToString()
                                                        .Replace(@"""viewCount"": """, string.Empty)

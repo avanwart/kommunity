@@ -268,7 +268,7 @@ var nicEditorConfig = bkClass.extend({
     },
     iconsPath: '/content/images/nicEditorIcons.gif',
     buttonList: ['save', 'bold', 'italic', 'underline', 'left', 'center', 'right', 'justify', 'ol', 'ul', 'fontSize', 'fontFamily', 'fontFormat', 'indent', 'outdent', 'image', 'upload', 'link', 'unlink', 'forecolor', 'bgcolor'],
-    iconList: { "bgcolor": 1, "forecolor": 2, "bold": 3, "center": 4, "hr": 5, "indent": 6, "italic": 7, "justify": 8, "left": 9, "ol": 10, "outdent": 11, "removeformat": 12, "right": 13, "save": 24, "strikethrough": 15, "subscript": 16, "superscript": 17, "ul": 18, "underline": 19, "image": 20, "link": 21, "unlink": 22, "close": 23, "arrow": 25 }	
+    iconList: { "bgcolor": 1, "forecolor": 2, "bold": 3, "center": 4, "hr": 5, "indent": 6, "italic": 7, "justify": 8, "left": 9, "ol": 10, "outdent": 11, "removeformat": 12, "right": 13, "save": 24, "strikethrough": 15, "subscript": 16, "superscript": 17, "ul": 18, "underline": 19, "image": 20, "link": 21, "unlink": 22, "close": 23, "arrow": 25 }
 });
 ;
 var nicEditors = {
@@ -1083,7 +1083,7 @@ nicEditors.registerPlugin(nicPlugin, nicColorOptions);
 var nicImageOptions = {
     buttons: {
         'image': { name: 'Add Image', type: 'nicImageButton', tags: ['IMG'] }
-    }	
+    }
 };
 
 var nicImageButton = nicEditorAdvancedButton.extend({

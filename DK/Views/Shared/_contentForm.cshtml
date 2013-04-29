@@ -2,7 +2,8 @@
 @using BootBaronLib.Operational
 @using BootBaronLib.Resources
 @using BootBaronLib.Values
-@using DasKlub.Helpers
+
+@using DasKlub.Web.Helpers
 @model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content
 @Html.HiddenFor(model => model.ContentID)
 <div>
@@ -30,7 +31,7 @@
             @Html.CSSClassValidationMessageFor(m => m.MetaKeywords)
         </div>
         
-                <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(m => m.MetaDescription)   <i>@Messages.BriefDescription</i>
         </div>
         <div class="editor-field">
@@ -145,27 +146,23 @@
                 string prefix = "Language";
                 int index = 0;
 
-                  <select id="langugue_option" class="span3"  name="Language">
-               @foreach (SelectListItem li in listItems)
-                {
-                    string fieldName = string.Format(CultureInfo.InvariantCulture,
-                                                     "{0}_{1}", prefix, index++);
-
-                    if (Model.Language.ToLower() == li.Value.ToLower() || string.IsNullOrWhiteSpace(Model.Language) && li.Value.ToLower() ==
-                        Utilities.GetCurrentLanguageCode().ToLower())
+                <select id="langugue_option" class="span3"  name="Language">
+                    @foreach (SelectListItem li in listItems)
                     {
+                        string fieldName = string.Format(CultureInfo.InvariantCulture,
+                                                         "{0}_{1}", prefix, index++);
 
-                        <option selected="selected" value="@li.Value" >@li.Text</option>
+                        if (Model.Language.ToLower() == li.Value.ToLower() || string.IsNullOrWhiteSpace(Model.Language) && li.Value.ToLower() ==
+                            Utilities.GetCurrentLanguageCode().ToLower())
+                        {
+                            <option selected="selected" value="@li.Value" >@li.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@li.Value" >@li.Text</option>
+                        }
                     }
-                    else
-                    {
-                        
-                          <option value="@li.Value" >@li.Text</option>
-                    }
-                   
-                       
-                }
-    </select>
+                </select>
                 <div class="clear">
                 </div>
                 <br />
@@ -181,13 +178,16 @@
      
             
             
-            <textarea class="ckeditor" name="Detail">@if(Model != null){ @Model.Detail}</textarea>
+            <textarea class="ckeditor" name="Detail">@if (Model != null)
+                                                     {
+                                                         @Model.Detail
+                                                     }</textarea>
             
             
             
             @Html.CSSClassValidationMessageFor(m => m.Detail)
             
-            <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+            <script src="~/Scripts/ckeditor/ckeditor.js"> </script>
 
         </div>
     </fieldset>

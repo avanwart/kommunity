@@ -66,7 +66,7 @@ namespace DasKlub.io
 
                     #region status_update
 
-                    var key = context.Request.QueryString[SiteEnums.QueryStringNames.status_update_id.ToString()];
+                    string key = context.Request.QueryString[SiteEnums.QueryStringNames.status_update_id.ToString()];
 
                     if (string.IsNullOrEmpty(key))
                     {
@@ -75,7 +75,7 @@ namespace DasKlub.io
                                 SiteEnums.QueryStringNames.most_applauded_status_update_id.ToString()];
                     }
 
-                    var statusUpdateID = Convert.ToInt32(key);
+                    int statusUpdateID = Convert.ToInt32(key);
 
                     StatusUpdate statup;
 
@@ -329,7 +329,7 @@ namespace DasKlub.io
 
                             statComs.GetAllStatusCommentsForUpdate(statusUpdateID);
 
-                            foreach (var sc1 in statComs)
+                            foreach (StatusComment sc1 in statComs)
                             {
                                 sun = new StatusUpdateNotification();
 
@@ -443,7 +443,10 @@ namespace DasKlub.io
                         preFilter.GetAllStatusCommentsForUpdate(statusUpdateID);
 
                         var statComs = new StatusComments();
-                        statComs.AddRange(preFilter.Where(su1 => !BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID)));
+                        statComs.AddRange(
+                            preFilter.Where(
+                                su1 =>
+                                !BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID)));
 
                         statComs.IncludeStartAndEndTags = true;
 
@@ -457,7 +460,7 @@ namespace DasKlub.io
                     else if (!string.IsNullOrEmpty(
                         context.Request.QueryString[SiteEnums.QueryStringNames.comment_page.ToString()]))
                     {
-                        var pcount =
+                        int pcount =
                             Convert.ToInt32(
                                 context.Request.QueryString[
                                     SiteEnums.QueryStringNames.comment_page.ToString()]);
@@ -470,10 +473,13 @@ namespace DasKlub.io
 
                         preFilter.GetStatusUpdatesPageWise(pcount, 1);
 
- 
+
                         mu = Membership.GetUser();
 
-                        statups.AddRange(preFilter.Where(su1 => !BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID)));
+                        statups.AddRange(
+                            preFilter.Where(
+                                su1 =>
+                                !BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID)));
 
                         statups.IncludeStartAndEndTags = false;
 

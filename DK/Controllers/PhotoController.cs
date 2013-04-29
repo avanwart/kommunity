@@ -21,7 +21,7 @@ using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Configs;
 using LitS3;
 
-namespace DasKlub.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class PhotosController : Controller
     {

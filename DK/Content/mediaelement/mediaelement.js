@@ -119,7 +119,7 @@ mejs.Utility = {
         tc_in_seconds = (tc_hh * 3600) + (tc_mm * 60) + tc_ss + tc_ff;
 
         return tc_in_seconds;
-    },	
+    },
 
     convertSMPTEtoSeconds: function(SMPTE) {
         if (typeof SMPTE != 'string')
@@ -573,9 +573,9 @@ mejs.PluginMediaElement.prototype = {
                 this.pluginApi.seekTo(time);
             } else {
                 this.pluginApi.setCurrentTime(time);
-            }			
-			
-			
+            }
+
+
             this.currentTime = time;
         }
     },
@@ -778,7 +778,7 @@ Default options
 */
 mejs.MediaElementDefaults = {
     // allows testing on HTML5, flash, silverlight
-	// auto: attempts to detect what the browser can do
+    // auto: attempts to detect what the browser can do
 	// auto_plugin: prefer plugins and then attempt native HTML5
 	// native: forces HTML5 playback
 	// shim: disallows HTML5, will attempt either Flash or Silverlight
@@ -1008,7 +1008,7 @@ mejs.HtmlMediaElementShim = {
                         // test if user has the correct plugin version
 
                         // for youtube/vimeo
-                        if (pluginInfo.version == null ||							
+                        if (pluginInfo.version == null ||
                             mejs.PluginDetector.hasPluginVersion(pluginName, pluginInfo.version)) {
 
                             // test for plugin playback types
@@ -1242,8 +1242,8 @@ mejs.HtmlMediaElementShim = {
                         'width="' + width + '" ' +
                         'height="' + height + '"></embed>';
             }
-            break;			
-        case 'youtube':				
+            break;
+        case 'youtube':
             var videoId = playback.url.substr(playback.url.lastIndexOf('=') + 1);
             youtubeSettings = {
                 container: container,
@@ -1261,7 +1261,7 @@ mejs.HtmlMediaElementShim = {
                 mejs.YouTubeApi.enqueueIframe(youtubeSettings);
             }
 
-            break;			
+            break;
         // DEMO Code. Does NOT work.
         case 'vimeo':
             //console.log('vimeoid');
@@ -1546,7 +1546,7 @@ mejs.YouTubeApi = {
             break;
         case 5:
             // cued?
-            break;			
+            break;
         }
 
     }

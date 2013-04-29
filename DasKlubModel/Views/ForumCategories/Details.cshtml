@@ -1,0 +1,47 @@
+@model DasKlub.Models.Forum.ForumCategory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>ForumCategory</legend>
+
+    <div class="display-label">CreatedByUserID</div>
+    <div class="display-field">@Model.CreatedByUserID</div>
+
+    <div class="display-label">UpdatedByUserID</div>
+    <div class="display-field">@Model.UpdatedByUserID</div>
+
+    <div class="display-label">CreateDate</div>
+    <div class="display-field">@String.Format("{0:g}", Model.CreateDate)</div>
+
+    <div class="display-label">UpdateDate</div>
+    <div class="display-field">@String.Format("{0:g}", Model.UpdateDate)</div>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">@Model.Title</div>
+
+    <div class="display-label">Key</div>
+    <div class="display-field">@Model.Key</div>
+
+    <div class="display-label">Description</div>
+    <div class="display-field">@Model.Description</div>
+
+    <div class="display-label">ForumURL</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.ForumURL).ToString()</div>
+
+    <div class="display-label">LatestForumPost</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.LatestForumPost).ToString()</div>
+
+    <div class="display-label">TotalPosts</div>
+    <div class="display-field">@Model.TotalPosts</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ForumCategoryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

@@ -3,7 +3,7 @@
 @using BootBaronLib.Operational
 @using BootBaronLib.Resources
 @using BootBaronLib.Values
-@using DasKlub.Helpers
+@using DasKlub.Web.Helpers
 @{
     ViewBag.Title = Messages.StatusUpdate;
     Layout = "~/Views/Shared/Site.cshtml";
@@ -158,9 +158,9 @@
                     <h2>@Messages.StatusUpdate</h2>
                 </div>
                 <div class="span4">
-                @{ Html.RenderPartial("_AdBanner"); }
+                    @{ Html.RenderPartial("_AdBanner"); }
                 </div>
-                </div>
+            </div>
              
             <hr />
             @using (Html.BeginForm("home", "Account", FormMethod.Post, new {enctype = "multipart/form-data"}))
@@ -183,7 +183,7 @@
                     <br />
                     <button type="submit" id="submit_post" class="btn btn-success">@Messages.Submit</button>
                    
-          <br />
+                    <br />
                 </div>
             }
             <a name="most_recent"></a>
@@ -202,11 +202,11 @@
     </div>
     <div class="span2">
         
-            <h5>@Messages.NewestUsers</h5>   
-                @Html.Raw(ViewBag.NewestUsers)
+        <h5>@Messages.NewestUsers</h5>   
+        @Html.Raw(ViewBag.NewestUsers)
         
 
-@*        
+        @*        
         @if (ViewBag.BirthDates != null)
         {   
                  <div class="clear"></div>
@@ -379,8 +379,7 @@
 
             }
 
-
-            //setInterval(loadNewContent, 15000);
+        //setInterval(loadNewContent, 15000);
 
         </script>
     }

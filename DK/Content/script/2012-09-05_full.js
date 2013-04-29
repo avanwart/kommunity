@@ -3040,7 +3040,8 @@ function getParameterByName(a) {
                    for (var h = 0; h < f.length; h++)
                        if (f[h] == d[g].element[0]) {
                            d[g].proportions.height = 0;
-                           continue; a
+                           continue;
+                           a;
                        }
                    d[g].visible = d[g].element.css("display") != "none";
                    if (!d[g].visible) continue;

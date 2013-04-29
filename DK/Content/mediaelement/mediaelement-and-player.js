@@ -119,7 +119,7 @@ mejs.Utility = {
         tc_in_seconds = (tc_hh * 3600) + (tc_mm * 60) + tc_ss + tc_ff;
 
         return tc_in_seconds;
-    },	
+    },
 
     convertSMPTEtoSeconds: function(SMPTE) {
         if (typeof SMPTE != 'string')
@@ -573,9 +573,9 @@ mejs.PluginMediaElement.prototype = {
                 this.pluginApi.seekTo(time);
             } else {
                 this.pluginApi.setCurrentTime(time);
-            }			
-			
-			
+            }
+
+
             this.currentTime = time;
         }
     },
@@ -778,7 +778,7 @@ Default options
 */
 mejs.MediaElementDefaults = {
     // allows testing on HTML5, flash, silverlight
-	// auto: attempts to detect what the browser can do
+    // auto: attempts to detect what the browser can do
 	// auto_plugin: prefer plugins and then attempt native HTML5
 	// native: forces HTML5 playback
 	// shim: disallows HTML5, will attempt either Flash or Silverlight
@@ -1008,7 +1008,7 @@ mejs.HtmlMediaElementShim = {
                         // test if user has the correct plugin version
 
                         // for youtube/vimeo
-                        if (pluginInfo.version == null ||							
+                        if (pluginInfo.version == null ||
                             mejs.PluginDetector.hasPluginVersion(pluginName, pluginInfo.version)) {
 
                             // test for plugin playback types
@@ -1242,8 +1242,8 @@ mejs.HtmlMediaElementShim = {
                         'width="' + width + '" ' +
                         'height="' + height + '"></embed>';
             }
-            break;			
-        case 'youtube':				
+            break;
+        case 'youtube':
             var videoId = playback.url.substr(playback.url.lastIndexOf('=') + 1);
             youtubeSettings = {
                 container: container,
@@ -1261,7 +1261,7 @@ mejs.HtmlMediaElementShim = {
                 mejs.YouTubeApi.enqueueIframe(youtubeSettings);
             }
 
-            break;			
+            break;
         // DEMO Code. Does NOT work.
         case 'vimeo':
             //console.log('vimeoid');
@@ -1546,7 +1546,7 @@ mejs.YouTubeApi = {
             break;
         case 5:
             // cued?
-            break;			
+            break;
         }
 
     }
@@ -1996,7 +1996,7 @@ if (typeof jQuery != 'undefined') {
     };
 
     // actual player
-    mejs.MediaElementPlayer.prototype = {		
+    mejs.MediaElementPlayer.prototype = {
         hasFocus: false,
 
         controlsAreVisible: true,
@@ -2134,8 +2134,8 @@ if (typeof jQuery != 'undefined') {
                 // create MediaElementShim
                 meOptions.pluginWidth = t.height;
                 meOptions.pluginHeight = t.width;
-            }			
-			
+            }
+
 
             // create MediaElement shim
             mejs.MediaElement(t.$media[0], meOptions);
@@ -3212,7 +3212,7 @@ if (typeof jQuery != 'undefined') {
 
             var t = this,
                 mode = (t.isVideo) ? t.options.videoVolume : t.options.audioVolume,
-                mute = (mode == 'horizontal') ?				
+                mute = (mode == 'horizontal') ?
                     // horizontal version
                     $('<div class="mejs-button mejs-volume-button mejs-mute">' +
                         '<button type="button" aria-controls="' + t.id + '" title="' + t.options.muteText + '"></button>' +
@@ -3223,7 +3223,7 @@ if (typeof jQuery != 'undefined') {
                         '<div class="mejs-horizontal-volume-handle"></div>' + // handle
                         '</div>'
                     )
-                        .appendTo(controls) :				
+                        .appendTo(controls) :
                     // vertical version
                     $('<div class="mejs-button mejs-volume-button mejs-mute">' +
                         '<button type="button" aria-controls="' + t.id + '" title="' + t.options.muteText + '"></button>' +
@@ -3261,11 +3261,11 @@ if (typeof jQuery != 'undefined') {
                     // position slider 
                     if (mode == 'vertical') {
                         var// height of the full size volume slider background
-                            totalHeight = volumeTotal.height(),						
+                            totalHeight = volumeTotal.height(),
                             // top/left of full size volume slider background
-                            totalPosition = volumeTotal.position(),						
+                            totalPosition = volumeTotal.position(),
                             // the new top position based on the current volume
-						// 70% volume on 100px height == top:30px
+                            // 70% volume on 100px height == top:30px
                             newTop = totalHeight - (totalHeight * volume);
 
                         // handle
@@ -3276,9 +3276,9 @@ if (typeof jQuery != 'undefined') {
                         volumeCurrent.css('top', totalPosition.top + newTop);
                     } else {
                         var// height of the full size volume slider background
-                            totalWidth = volumeTotal.width(),						
+                            totalWidth = volumeTotal.width(),
                             // top/left of full size volume slider background
-                            totalPosition = volumeTotal.position(),						
+                            totalPosition = volumeTotal.position(),
                             // the new left position based on the current volume
                             newLeft = totalWidth * volume;
 
@@ -3850,7 +3850,7 @@ if (typeof jQuery != 'undefined') {
         tracksText: 'Captions/Subtitles'
     });
 
-    $.extend(MediaElementPlayer.prototype, {	
+    $.extend(MediaElementPlayer.prototype, {
         hasChapters: false,
 
         buildtracks: function(player, controls, layers, media) {
@@ -3932,7 +3932,7 @@ if (typeof jQuery != 'undefined') {
             player.trackToLoad = -1;
             player.selectedTrack = null;
             player.isLoadingTrack = false;
-			
+
 
             // add to list
             for (i = 0; i < player.tracks.length; i++) {
@@ -4122,7 +4122,7 @@ if (typeof jQuery != 'undefined') {
                 i,
                 dur,
                 //width,
-				//left,
+                //left,
                 percent = 0,
                 usedPercent = 0;
 

@@ -53,7 +53,7 @@ window.Modernizr = (function(window, document, undefined) {
      * The enableHTML5 toggle option is DEPRECATED as per 1.6, and will be
      * replaced in 2.0 in lieu of the modular, configurable nature of 2.0.
      */
-        enableHTML5 = true,    
+        enableHTML5 = true,
         docElement = document.documentElement,
         docHead = document.head || document.getElementsByTagName('head')[0],
         /**
@@ -65,13 +65,13 @@ window.Modernizr = (function(window, document, undefined) {
         /**
      * Create the input element for various Web Forms feature tests.
      */
-        inputElem = document.createElement('input'),    
-        smile = ':)',    
-        tostring = Object.prototype.toString,    
+        inputElem = document.createElement('input'),
+        smile = ':)',
+        tostring = Object.prototype.toString,
         // List of property values to set for css tests. See ticket #21
         prefixes = ' -webkit- -moz- -o- -ms- -khtml- '.split(' '),
         // Following spec is to expose vendor-specific style properties as:
-    //   elem.style.WebkitBorderRadius
+        //   elem.style.WebkitBorderRadius
     // and the following would be incorrect:
     //   elem.style.webkitBorderRadius
     
@@ -84,8 +84,8 @@ window.Modernizr = (function(window, document, undefined) {
         ns = { 'svg': 'http://www.w3.org/2000/svg' },
         tests = {},
         inputs = {},
-        attrs = {},    
-        classes = [],    
+        attrs = {},
+        classes = [],
         featurename, // used in testing loop
     
     
@@ -109,7 +109,7 @@ window.Modernizr = (function(window, document, undefined) {
 
             return !!ret;
 
-        },    
+        },
         /**
       * isEventSupported determines if a given element supports the given event
       * function from http://yura.thinkweb2.com/isEventSupported/
@@ -765,7 +765,7 @@ window.Modernizr = (function(window, document, undefined) {
                         bool = defaultView.getComputedStyle &&
                             defaultView.getComputedStyle(inputElem, null).WebkitAppearance !== 'textfield' &&
                             // Mobile android web browser has false positive, so must
-                              // check the height to see if the widget is actually there.
+                            // check the height to see if the widget is actually there.
                             (inputElem.offsetHeight !== 0);
 
                         docElement.removeChild(inputElem);
@@ -822,9 +822,9 @@ window.Modernizr = (function(window, document, undefined) {
     }
 
     // input tests need to run.
-    if (!ret.input) webforms();    
+    if (!ret.input) webforms();
 
-   
+
     // Per 1.6: deprecated API is still accesible for now:
     ret.crosswindowmessaging = ret.postmessage;
     ret.historymanagement = ret.history;

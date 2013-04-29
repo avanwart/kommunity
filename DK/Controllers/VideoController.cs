@@ -27,11 +27,13 @@ using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
 using BootBaronLib.Values;
 using IntrepidStudios;
 
-namespace DasKlub.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class VideoController : Controller
     {
         #region Variables
+
+        private const int PageSize = 50;
 
         private readonly char[] _letters = new[]
             {
@@ -41,7 +43,6 @@ namespace DasKlub.Controllers
 
         private char _chosen = ' ';
         private Contest _contest;
-        private const int PageSize = 50;
         private Videos _toShow = new Videos();
         private int _videoPageNumber = 1;
 
@@ -87,7 +88,8 @@ namespace DasKlub.Controllers
         {
             var letters = new[]
                 {
-                    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U'
+                    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+                    'U'
                     , 'V', 'W', 'X', 'Y', 'Z'
                 };
 
@@ -97,13 +99,14 @@ namespace DasKlub.Controllers
 
             sb.Append(@"<div class=""letter_group""><ul>");
 
-            foreach (var ch2 in letters)
+            foreach (char ch2 in letters)
             {
                 sb.Append("<li>");
 
 
                 sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                    "~/video/bands/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())), Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
+                    "~/video/bands/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())),
+                                Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
 
 
                 sb.Append("</li>");
@@ -124,7 +127,8 @@ namespace DasKlub.Controllers
                 sb.Append("<li>");
 
                 sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                    "~/video/users/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())), Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
+                    "~/video/users/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())),
+                                Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
 
                 sb.Append("</li>");
             }
@@ -168,8 +172,7 @@ namespace DasKlub.Controllers
             LoadFilteredVideos(false);
 
 
-            
-            var cndss = BootBaronLib.AppSpec.DasKlub.BOL.VideoContest.Contest.GetCurrentContest();
+            Contest cndss = BootBaronLib.AppSpec.DasKlub.BOL.VideoContest.Contest.GetCurrentContest();
             var cvids = new ContestVideos();
 
             var vidsInContest = new Videos();
@@ -301,14 +304,16 @@ namespace DasKlub.Controllers
             //cloud1.MinColor = "#000000";
             //cloud1.MaxColor = "#000000";
 
-            DataSet theDs = firstLetter == "0" ? Artists.GetArtistCloudByNonLetter() : Artists.GetArtistCloudByLetter(firstLetter);
+            DataSet theDs = firstLetter == "0"
+                                ? Artists.GetArtistCloudByNonLetter()
+                                : Artists.GetArtistCloudByLetter(firstLetter);
             cloud1.DataSource = theDs;
 
             cloud1.MinFontSize = 14;
             cloud1.MaxFontSize = 30;
             cloud1.FontUnit = "px";
 
-            foreach (var chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
+            foreach (char chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
             {
                 _chosen = chl;
             }
@@ -318,7 +323,7 @@ namespace DasKlub.Controllers
             sb.Append(@"<div class=""letter_group""><ul>");
 
 
-            foreach (var ch2 in _letters)
+            foreach (char ch2 in _letters)
             {
                 sb.Append("<li>");
 
@@ -332,8 +337,8 @@ namespace DasKlub.Controllers
                 else
                 {
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                        "~/video/bands/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())), 
-                        Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
+                        "~/video/bands/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())),
+                                    Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
                 }
 
                 sb.Append("</li>");
@@ -365,14 +370,14 @@ namespace DasKlub.Controllers
             //cloud1.MaxColor = "#000000";
 
 
-            var theDs = Videos.GetAccountCloudByLetter(firstLetter);
+            DataSet theDs = Videos.GetAccountCloudByLetter(firstLetter);
 
             cloud1.DataSource = theDs;
             cloud1.MinFontSize = 14;
             cloud1.MaxFontSize = 30;
             cloud1.FontUnit = "px";
 
-            foreach (var chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
+            foreach (char chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
             {
                 _chosen = chl;
             }
@@ -382,11 +387,12 @@ namespace DasKlub.Controllers
             sb.Append(@"<div class=""letter_group""><ul>");
 
 
-            foreach (var ch2 in _letters)
+            foreach (char ch2 in _letters)
             {
                 sb.Append("<li>");
 
-                if (Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()) == Convert.ToChar(_chosen.ToString(CultureInfo.InvariantCulture).ToLower()))
+                if (Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()) ==
+                    Convert.ToChar(_chosen.ToString(CultureInfo.InvariantCulture).ToLower()))
                 {
                     sb.Append("<b>");
                     sb.Append(ch2);
@@ -395,8 +401,8 @@ namespace DasKlub.Controllers
                 else
                 {
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                        "~/video/users/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())), 
-                        Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
+                        "~/video/users/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())),
+                                    Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
                 }
 
                 sb.Append("</li>");

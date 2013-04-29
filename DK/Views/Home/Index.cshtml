@@ -1,7 +1,6 @@
 ﻿@using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
 @using BootBaronLib.Configs
 @using BootBaronLib.Operational
-@using BootBaronLib.Resources
 @using BootBaronLib.Values
 @{
     ViewBag.Title = SiteDomain.GetSiteDomainValue(
@@ -21,11 +20,10 @@
         @{ Html.RenderPartial("_AdBanner"); }
         
         
-  @if (HttpContext.Current.Request.IsAuthenticated)
-  {
-      Html.RenderPartial("_videoSubmit");
-
-  }       
+        @if (HttpContext.Current.Request.IsAuthenticated)
+        {
+            Html.RenderPartial("_videoSubmit");
+        }       
 
   
        
@@ -52,10 +50,10 @@
                 <div class="span8" >
                
 
-                @Html.Raw(SiteDomain.GetSiteDomainValue(
-                    SiteEnums.SiteBrandType.HOMEC,
-                    Utilities.GetCurrentLanguageCode())) 
-                      <hr />
+                    @Html.Raw(SiteDomain.GetSiteDomainValue(
+                        SiteEnums.SiteBrandType.HOMEC,
+                        Utilities.GetCurrentLanguageCode())) 
+                    <hr />
                 </div>
                 
                 
@@ -78,15 +76,15 @@
                 @{ Html.RenderPartial("_AdBanner"); }*@
                
            
-    @*                      
+                @*                      
               <h4>@Messages.News</h4>
                 <hr style="margin-top: 0; padding-top: 0;" />
                 <div class="news_list" id="article_list">
                     @Html.Raw(ViewBag.RecentArticles)*@
-               @* <a name="submit_video"></a>*@
+                @* <a name="submit_video"></a>*@
 
                  
-                    @* <h5>@Messages.SubmitYourYouTubeVideoLinkHere</h5>
+                @* <h5>@Messages.SubmitYourYouTubeVideoLinkHere</h5>
                     @using (Html.BeginForm("videosubmit", "Home", FormMethod.Post))
                     {
                          <div class="span3">
@@ -105,7 +103,7 @@
 
   
             </div>
-@*     
+            @*     
 
             <div class="span4">
                 @{ Html.RenderPartial("_LoginControls"); }
@@ -209,15 +207,12 @@
 
 
         });
-        
 
-        $(document).ready(function () {
+
+        $(document).ready(function() {
             $("#UserName").focus();
         });
 
     </script>
 
 }
-
-
- 

@@ -40,9 +40,10 @@ using BootBaronLib.Operational;
 using BootBaronLib.Resources;
 using BootBaronLib.Values;
 using DasKlub.Models;
+using DasKlub.Web.Models;
 using LitS3;
 
-namespace DasKlub.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class AccountController : Controller
     {
@@ -175,11 +176,11 @@ namespace DasKlub.Controllers
             {
                 var b = new Bitmap(imageFile.InputStream);
 
-                var fileNameFull = Utilities.CreateUniqueContentFilename(imageFile);
+                string fileNameFull = Utilities.CreateUniqueContentFilename(imageFile);
 
-                var imgPhoto = ImageResize.FixedSize(b, 600, 400, Color.Black);
+                Image imgPhoto = ImageResize.FixedSize(b, 600, 400, Color.Black);
 
-                var maker = imgPhoto.ToAStream(ImageFormat.Jpeg);
+                Stream maker = imgPhoto.ToAStream(ImageFormat.Jpeg);
 
                 s3.AddObject(
                     maker,
@@ -2289,7 +2290,7 @@ namespace DasKlub.Controllers
                     sb.AppendLine();
                     sb.AppendLine();
                     sb.AppendLine(
-                        "Make sure to read this article on How To Use Das Klub: http://dasklub.com/news/how-to-use-das-klub"); 
+                        "Make sure to read this article on How To Use Das Klub: http://dasklub.com/news/how-to-use-das-klub");
                     sb.AppendLine();
                     sb.AppendLine();
                     sb.AppendLine("- RMW");
@@ -3094,7 +3095,10 @@ namespace DasKlub.Controllers
             preFilter.GetStatusUpdatesPageWise(1, PageSize);
 
             var sus = new StatusUpdates();
-            sus.AddRange(preFilter.Where(su1 => !BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockingUser(_ua.UserAccountID, su1.UserAccountID)));
+            sus.AddRange(
+                preFilter.Where(
+                    su1 =>
+                    !BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockingUser(_ua.UserAccountID, su1.UserAccountID)));
 
             sus.IncludeStartAndEndTags = false;
             ViewBag.StatusUpdateList = string.Format(@"<ul id=""status_update_list_items"">{0}</ul>", sus.ToUnorderdList);
@@ -3109,7 +3113,7 @@ namespace DasKlub.Controllers
 
                 ViewBag.Notifications = suns;
 
-                foreach (var sun1 in suns)
+                foreach (StatusUpdateNotification sun1 in suns)
                 {
                     sun1.IsRead = true;
                     sun1.Update();
@@ -3147,9 +3151,11 @@ namespace DasKlub.Controllers
                 = new StatusUpdate(
                     StatusComments.GetMostCommentedOnStatus(DateTime.UtcNow.AddDays(-7)));
 
-            var isAlreadyCommented = false;
+            bool isAlreadyCommented = false;
 
-            foreach (StatusUpdate ssr1 in applauseResult.Where(ssr1 => commentResponse.StatusUpdateID == ssr1.StatusUpdateID))
+            foreach (
+                StatusUpdate ssr1 in applauseResult.Where(ssr1 => commentResponse.StatusUpdateID == ssr1.StatusUpdateID)
+                )
             {
                 isAlreadyCommented = true;
             }

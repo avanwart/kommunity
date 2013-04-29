@@ -1,3 +1,4 @@
+ 
 using System.Data.Entity.Migrations;
 
 namespace DBMigrator.Migrations

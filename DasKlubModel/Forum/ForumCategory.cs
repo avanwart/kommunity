@@ -39,7 +39,7 @@ namespace DasKlub.Models.Forum
         [Required]
         public string Description { get; set; }
 
-        public virtual ICollection<ForumSubCategory> ForumSubCategory { get; set; }
+        protected virtual ICollection<ForumSubCategory> ForumSubCategory { get; set; }
 
         [NotMapped]
         public Uri ForumURL

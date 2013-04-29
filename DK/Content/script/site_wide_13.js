@@ -202,7 +202,7 @@ $(document).ready(function() {
             // Gets default image dimensions
             if (!options.width) options.width = overlay.width(); //imgPreloader.width;
             if (!options.height) options.height = overlay.height(); //imgPreloader.height;
-             
+
 
             // Creates frame ima
             $('<img />').attr({
@@ -384,9 +384,9 @@ $(document).ready(function() {
         $.froll.init();
     });
 
-})(jQuery); 
+})(jQuery);
 
-  
+
 ////////////////////////////////////////////// tool tip
 
 
@@ -488,7 +488,7 @@ function hideTooltip() {
     dhtmlgoodies_tooltip.style.display = 'none';
     dhtmlgoodies_tooltipShadow.style.display = 'none';
     if (tooltip_is_msie) dhtmlgoodies_iframe.style.display = 'none';
-}   
+}
 
 
 ////////////////////////////////////////////// video image roll preview
@@ -740,7 +740,7 @@ dT();
     $.history = self;
 })(jQuery);
 
-  
+
 ////////////////////////////////////////////// html helper
 
 function htmlEncode(value) {
@@ -774,7 +774,7 @@ var level = 50;
 var youtubeVideoWidth = 300;
 var youtubeVideoHeight = 300;
 var loadFromHash = true;
-var autoPlay = 1; 
+var autoPlay = 1;
 
 
 // This function is called when an error is thrown by the player
@@ -823,9 +823,9 @@ function loadJSONVideo(jVid) {
 
             player.loadVideoById(jVid.ProviderKey, jVid.StartTime, 'default');
         }
-    }        
+    }
 
-        
+
     vidDefault = jVid;
     setInterval(updateytplayerInfo, 1000);
 
@@ -921,7 +921,7 @@ function getComments(commentsURL, startIndex) {
         }
     });
 }
-     
+
 
 function beginTime(videoID) {
 
@@ -938,7 +938,7 @@ function beginTime(videoID) {
     return startTime;
 }
 
-     
+
 function updateytplayerInfo() {
 
     if (typeof player.getCurrentTime != 'function') {
@@ -957,7 +957,7 @@ function updateytplayerInfo() {
 function onPlayerPlaybackQualityChange() {
 
 }
- 
+
 
 function onPlayerReady(evt) {
     if (autoPlay == 1) evt.target.playVideo();
@@ -991,10 +991,10 @@ function onPlayerReady(evt) {
 
 
 })(jQuery);
-     
+
 
 function goForwardNewVideo() {
-            
+
 
     done = true;
 
@@ -1127,7 +1127,7 @@ function playNewVideo(key) {
 
     }
 
- 
+
 //    loadJSONVideo(getJSONVideo(key));
 
 //     if ( key != currentKey )
@@ -1224,7 +1224,7 @@ function onYouTubePlayerAPIReady() {
 //                });
 }
 
-     
+
 ////////////////////////////////////////////// mute button  
 
 
@@ -1385,7 +1385,7 @@ $(function() {
 $('#red_submit').click(function() {
     $('#video_form').submit();
 });
-                     
+
 
 $("#Password").keyup(function(event) {
     if (event.keyCode == 13) {
@@ -1393,7 +1393,7 @@ $("#Password").keyup(function(event) {
     }
 });
 
-    
+
 //Button disable when Click
 $(".disable_when_clicked").click(function() {
     $(this).attr("disabled", true);

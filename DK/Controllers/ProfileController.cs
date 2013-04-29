@@ -31,8 +31,9 @@ using BootBaronLib.Operational;
 using BootBaronLib.Resources;
 using BootBaronLib.Values;
 using DasKlub.Models;
+using DasKlub.Web.Models;
 
-namespace DasKlub.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class ProfileController : Controller
     {
@@ -264,16 +265,18 @@ namespace DasKlub.Controllers
                     model.DisplayOnMap = uad.ShowOnMapLegal;
 
                     var rnd = new Random();
-                    var offset = rnd.Next(10, 100);
+                    int offset = rnd.Next(10, 100);
 
-                    var latlong = GeoData.GetLatLongForCountryPostal(uad.Country, uad.PostalCode);
+                    SiteStructs.LatLong latlong = GeoData.GetLatLongForCountryPostal(uad.Country, uad.PostalCode);
 
                     if (latlong.latitude != 0 && latlong.longitude != 0)
                     {
                         model.Latitude =
-                            Convert.ToDecimal(latlong.latitude + Convert.ToDouble("0.00" + offset)).ToString(CultureInfo.InvariantCulture);
+                            Convert.ToDecimal(latlong.latitude + Convert.ToDouble("0.00" + offset))
+                                   .ToString(CultureInfo.InvariantCulture);
                         model.Longitude =
-                            Convert.ToDecimal(latlong.longitude + Convert.ToDouble("0.00" + offset)).ToString(CultureInfo.InvariantCulture);
+                            Convert.ToDecimal(latlong.longitude + Convert.ToDouble("0.00" + offset))
+                                   .ToString(CultureInfo.InvariantCulture);
                     }
                     else
                     {
@@ -357,13 +360,13 @@ namespace DasKlub.Controllers
                 if (pl.LookingUserAccountID != pl.LookedAtUserAccountID) pl.Create();
 
 
-                var al = ProfileLog.GetRecentProfileViews(_ua.UserAccountID);
+                ArrayList al = ProfileLog.GetRecentProfileViews(_ua.UserAccountID);
 
                 if (al != null && al.Count > 0)
                 {
                     var uas = new UserAccounts();
 
-                    foreach (var viewwer in al.Cast<int>().Select(id =>
+                    foreach (UserAccount viewwer in al.Cast<int>().Select(id =>
                                                                           new UserAccount(id))
                                                       .Where(viewwer => !viewwer.IsLockedOut && viewwer.IsApproved)
                                                       .TakeWhile(viewwer => uas.Count < Maxcountusers))
@@ -493,7 +496,7 @@ namespace DasKlub.Controllers
 
                 sngss.GetSongsForArtist(art.ArtistID);
 
-                foreach (var sn1 in sngss)
+                foreach (Song sn1 in sngss)
                 {
                     vids.GetVideosForSong(sn1.SongID);
                 }
@@ -615,7 +618,7 @@ namespace DasKlub.Controllers
 
             if (_ua.UserAccountID != 0 && !string.IsNullOrWhiteSpace(message))
             {
-                var mu = Membership.GetUser();
+                MembershipUser mu = Membership.GetUser();
 
                 if (mu != null)
                 {

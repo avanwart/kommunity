@@ -1,4 +1,5 @@
-﻿@using BootBaronLib.Resources
+﻿@using BootBaronLib.Configs
+@using BootBaronLib.Resources
 @{
     ViewBag.Title = Messages.ChatRoom;
 }
@@ -6,182 +7,141 @@
  
 <style>
  
- .content { background-color: #000;}
-    .submitButton
-    {
+    .content { background-color: #000; }
+
+    .submitButton {
         background-color: #d7e5e4;
         border: #5f9482 solid 1px;
-        padding: 4px;
         cursor: pointer;
+        padding: 4px;
     }
 
-    .submitButton:hover
-    {
-        background-color: #e1e1e1;
-    }
+    .submitButton:hover { background-color: #e1e1e1; }
 
-    .login
-    {
-        width: 250px;
+    .login {
+        border: solid 2px #5f9482;
+        color: #1e4638;
         margin-left: auto;
         margin-right: auto;
         padding: 10px;
-        border: solid 2px #5f9482;
-        color: #1e4638;
+        width: 250px;
     }
 
-    .login .textBox
-    {
-        width: 240px;
-    }
+    .login .textBox { width: 240px; }
 
 
-    .login #divButton
-    {
+    .login #divButton {
         padding: 4px;
         text-align: right;
     }
 
-    .chatRoom
-    {
-        width: 650px;
+    .chatRoom {
+        border: solid 1px gray;
         margin-left: auto;
         margin-right: auto;
-        border: solid 1px gray;
+        width: 650px;
     }
 
-    .chatRoom .title
-    {
+    .chatRoom .title {
+        background-color: #d7e5e4;
+        border-bottom: solid 1px #5f9482;
         font-size: 16px;
         font-weight: bold;
         padding: 8px;
-        background-color: #d7e5e4;
-        border-bottom: solid 1px #5f9482;
     }
 
-    .chatRoom .content
-    {
-        height: 300px;
+    .chatRoom .content {
         clear: both;
+        height: 300px;
     }
 
-    .chatRoom .content .chatWindow
-    {
-        float: left;
-        width: 409px;
-        height: 300px;
+    .chatRoom .content .chatWindow {
         border-right: solid 1px #5f9482;
-        overflow-y: scroll;
-    }
-
-    .chatRoom .content .chatWindow .message
-    {
-        padding: 4px;
-    }
-
-    .chatRoom .content .chatWindow .message .userName
-    {
-        font-weight: bold;
-    }
-
-    .chatRoom .content .users
-    {
-        float: right;
-        width: 240px;
+        float: left;
         height: 300px;
+        overflow-y: scroll;
+        width: 409px;
     }
 
-    .chatRoom .content .users .user
-    {
-        display: block;
-        cursor: pointer;
-        padding: 4px;
+    .chatRoom .content .chatWindow .message { padding: 4px; }
+
+    .chatRoom .content .chatWindow .message .userName { font-weight: bold; }
+
+    .chatRoom .content .users {
+        float: right;
+        height: 300px;
+        width: 240px;
+    }
+
+    .chatRoom .content .users .user {
         background-color: #f9f9f9;
         border-bottom: solid 1px #5f9482;
-    }
-
-    .chatRoom .content .users .loginUser
-    {
+        cursor: pointer;
         display: block;
         padding: 4px;
-        color: gray;
+    }
+
+    .chatRoom .content .users .loginUser {
         border-bottom: solid 1px #5f9482;
+        color: gray;
+        display: block;
+        padding: 4px;
     }
 
-    .chatRoom .content .users .user:hover
-    {
-        background-color: #e1e1e1;
-    }
+    .chatRoom .content .users .user:hover { background-color: #e1e1e1; }
 
-    .chatRoom .messageBar
-    {
+    .chatRoom .messageBar {
         border-top: solid 1px gray;
         padding: 4px;
     }
 
-    .chatRoom .messageBar .textbox
-    {
-        width: 550px;
-    }
+    .chatRoom .messageBar .textbox { width: 550px; }
 
-    .disconnect
-    {
-        position: absolute;
-        margin: 10px;
+    .disconnect {
         background-color: #ffcbcb;
-        padding: 4px;
         border: solid 1px red;
+        margin: 10px;
+        padding: 4px;
+        position: absolute;
     }
 
 
-    .draggable
-    {
-        position: absolute;
+    .draggable {
         border: #5f9482 solid 1px !important;
+        position: absolute;
         width: 250px;
     }
 
-    .draggable .header
-    {
-        cursor: move;
+    .draggable .header {
         background-color: #d7e5e4;
         border-bottom: #5f9482 solid 1px;
         color: #1e4638;
+        cursor: move;
     }
 
-    .draggable .selText
-    {
+    .draggable .selText {
         color: black;
         padding: 4px;
     }
 
-    .draggable .messageArea
-    {
-        width: 250px;
-        overflow-y: scroll;
-        height: 200px;
+    .draggable .messageArea {
         border-bottom: #5f9482 solid 1px;
-    }
-
-    .draggable .messageArea .message
-    {
-        padding: 4px;
-    }
-
-    .draggable .buttonBar
-    {
+        height: 200px;
+        overflow-y: scroll;
         width: 250px;
-        padding:4px;
     }
 
-    .draggable .buttonBar .msgText
-    {
-        width: 172px;
+    .draggable .messageArea .message { padding: 4px; }
+
+    .draggable .buttonBar {
+        padding: 4px;
+        width: 250px;
     }
 
-    .draggable .buttonBar .button
-    {
-        margin-left:4px;
+    .draggable .buttonBar .msgText { width: 172px; }
+
+    .draggable .buttonBar .button {
+        margin-left: 4px;
         width: 55px;
     }
 
@@ -195,56 +155,56 @@
 
 
  
-  <div class="row">
-      <div class="span8">
-              <h2>@Messages.ChatRoom</h2>
-          <div id="divContainer">
+<div class="row">
+    <div class="span8">
+        <h2>@Messages.ChatRoom</h2>
+        <div id="divContainer">
          
 
-              <div id="divChat" class="chatRoom">
-                  <div class="title">
+            <div id="divChat" class="chatRoom">
+                <div class="title">
                     @Messages.Hello [<span id='spanUser'></span>]
 
-                  </div>
-                  <div class="content">
-                      <div id="divChatWindow" class="chatWindow">
-                      </div>
-                      <div id="divusers" class="users">
-                      </div>
-                  </div>
-                  <div class="messageBar">
-                      <input class="textbox" type="text" id="txtMessage" />
-                      <input id="btnSendMsg" type="button" value="Send" class="  btn btn-success" />
-                  </div>
-              </div>
+                </div>
+                <div class="content">
+                    <div id="divChatWindow" class="chatWindow">
+                    </div>
+                    <div id="divusers" class="users">
+                    </div>
+                </div>
+                <div class="messageBar">
+                    <input class="textbox" type="text" id="txtMessage" />
+                    <input id="btnSendMsg" type="button" value="Send" class="  btn btn-success" />
+                </div>
+            </div>
 
-              <input id="hdId" type="hidden" />
-              <input id="hdUserName" type="hidden" />
-          </div>
-      </div>
+            <input id="hdId" type="hidden" />
+            <input id="hdUserName" type="hidden" />
+        </div>
+    </div>
       
-  <div class="span4">
-      </div>
-  </div>
+    <div class="span4">
+    </div>
+</div>
 @section _javascript {
 
     
-    <script src="~/Scripts/ui/jquery.ui.core.js"></script>
-    <script src="~/Scripts/ui/jquery.ui.widget.js"></script>
-    <script src="~/Scripts/ui/jquery.ui.mouse.js"></script>
-    <script src="~/Scripts/ui/jquery.ui.draggable.js"></script>
-    <script src="~/Scripts/ui/jquery.ui.resizable.js"></script>
+    <script src="~/Scripts/ui/jquery.ui.core.js"> </script>
+    <script src="~/Scripts/ui/jquery.ui.widget.js"> </script>
+    <script src="~/Scripts/ui/jquery.ui.mouse.js"> </script>
+    <script src="~/Scripts/ui/jquery.ui.draggable.js"> </script>
+    <script src="~/Scripts/ui/jquery.ui.resizable.js"> </script>
 
     <!--Reference the SignalR library. -->
-    <script src="~/Scripts/jquery.signalR-1.0.1.js"></script>
+    <script src="~/Scripts/jquery.signalR-1.0.1.js"> </script>
     
     <!--Reference the autogenerated SignalR hub script. -->
-    <script src="~/signalr/hubs"></script>
+    <script src="~/signalr/hubs"> </script>
     
        
     <script type="text/javascript">
 
-        $(function () {
+        $(function() {
 
             setScreen(false);
 
@@ -254,7 +214,7 @@
             registerClientMethods(chatHub);
 
             // Start Hub
-            $.connection.hub.start().done(function () {
+            $.connection.hub.start().done(function() {
 
                 registerEvents(chatHub);
             });
@@ -270,7 +230,7 @@
         function registerEvents(chatHub) {
 
             chatHub.server.connect('@Membership.GetUser().UserName');
-            
+
             //$("#btnStartChat").click(function () {
 
             //    var name = $("#txtNickName").val();
@@ -284,7 +244,7 @@
             //});
 
 
-            $('#btnSendMsg').click(function () {
+            $('#btnSendMsg').click(function() {
 
                 var msg = $("#txtMessage").val();
                 if (msg.length > 0) {
@@ -296,13 +256,13 @@
             });
 
 
-            $("#txtNickName").keypress(function (e) {
+            $("#txtNickName").keypress(function(e) {
                 if (e.which == 13) {
                     $("#btnStartChat").click();
                 }
             });
 
-            $("#txtMessage").keypress(function (e) {
+            $("#txtMessage").keypress(function(e) {
                 if (e.which == 13) {
                     $('#btnSendMsg').click();
                 }
@@ -314,7 +274,7 @@
         function registerClientMethods(chatHub) {
 
             // Calls when user successfully logged in
-            chatHub.client.onConnected = function (id, userName, allUsers, messages) {
+            chatHub.client.onConnected = function(id, userName, allUsers, messages) {
 
                 setScreen(true);
 
@@ -336,11 +296,11 @@
 
 
             }; // On New User Connected
-            chatHub.client.onNewUserConnected = function (id, name) {
+            chatHub.client.onNewUserConnected = function(id, name) {
 
                 AddUser(chatHub, id, name);
             }; // On User Disconnected
-            chatHub.client.onUserDisconnected = function (id, userName) {
+            chatHub.client.onUserDisconnected = function(id, userName) {
 
                 $('#' + id).remove();
 
@@ -355,11 +315,11 @@
                 $(disc).fadeIn(200).delay(2000).fadeOut(200);
 
             };
-            chatHub.client.messageReceived = function (userName, message) {
+            chatHub.client.messageReceived = function(userName, message) {
 
                 AddMessage(userName, message);
             };
-            chatHub.client.sendPrivateMessage = function (windowId, fromUserName, message) {
+            chatHub.client.sendPrivateMessage = function(windowId, fromUserName, message) {
 
                 var ctrId = 'private_' + windowId;
 
@@ -387,14 +347,13 @@
 
             if (userId == id) {
 
-                code = $('<div class="loginUser"><a target="_blank" href="@BootBaronLib.Configs.GeneralConfigs.SiteDomain/' + name + '">' + name + "</a></div>");
+                code = $('<div class="loginUser"><a target="_blank" href="@GeneralConfigs.SiteDomain/' + name + '">' + name + "</a></div>");
 
-            }
-            else {
+            } else {
 
                 code = $('<a id="' + id + '" class="user" >' + name + '<a>');
 
-                $(code).dblclick(function () {
+                $(code).dblclick(function() {
 
                     var id = $(this).attr('id');
 
@@ -432,11 +391,9 @@
                 '<div  style="float:right;">' +
                 '<img id="imgDelete"  style="cursor:pointer;" src="/Images/delete.png"/>' +
                 '</div>' +
-
                 '<span class="selText" rel="0">' + userName + '</span>' +
                 '</div>' +
                 '<div id="divMessage" class="messageArea">' +
-
                 '</div>' +
                 '<div class="buttonBar">' +
                 '<input id="txtPrivateMessage" class="msgText" type="text"   />' +
@@ -447,12 +404,12 @@
             var $div = $(div);
 
             // DELETE BUTTON IMAGE
-            $div.find('#imgDelete').click(function () {
+            $div.find('#imgDelete').click(function() {
                 $('#' + ctrId).remove();
             });
 
             // Send Button event
-            $div.find("#btnSendMessage").click(function () {
+            $div.find("#btnSendMessage").click(function() {
 
                 $textBox = $div.find("#txtPrivateMessage");
                 var msg = $textBox.val();
@@ -464,7 +421,7 @@
             });
 
             // Text Box event
-            $div.find("#txtPrivateMessage").keypress(function (e) {
+            $div.find("#txtPrivateMessage").keypress(function(e) {
                 if (e.which == 13) {
                     $div.find("#btnSendMessage").click();
                 }
@@ -478,9 +435,8 @@
             $('#divContainer').prepend($div);
 
             $div.draggable({
-
                 handle: ".header",
-                stop: function () {
+                stop: function() {
 
                 }
             });
@@ -495,10 +451,10 @@
 
     </script>
     
-        <script>
-            $(document).ready(function () {
-                $("#txtMessage").focus();
-            });
+    <script>
+        $(document).ready(function() {
+            $("#txtMessage").focus();
+        });
     </script>
     
 }

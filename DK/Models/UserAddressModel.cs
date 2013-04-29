@@ -18,7 +18,7 @@
 using System.ComponentModel.DataAnnotations;
 using BootBaronLib.Resources;
 
-namespace DasKlub.Models
+namespace DasKlub.Web.Models
 {
     public class UserAddressModel
     {

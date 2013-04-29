@@ -18,7 +18,7 @@ using System.Text;
 using System.Web.Mvc;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 
-namespace DasKlub.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class ChatController : Controller
     {
@@ -30,7 +30,7 @@ namespace DasKlub.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (var cnt in crs)
+            foreach (ChatRoom cnt in crs)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }

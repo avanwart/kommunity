@@ -25,11 +25,10 @@ using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using Google.GData.Client;
-
+using Google.YouTube;
 using HttpUtility = System.Web.HttpUtility;
 using Utilities = BootBaronLib.Operational.Utilities;
 using Video = BootBaronLib.AppSpec.DasKlub.BOL.Video;
-using Google.YouTube;
 
 namespace DasKlub.m.auth
 {

@@ -2,15 +2,16 @@
 @using BootBaronLib.AppSpec.DasKlub.BOL.UserContent
 @using BootBaronLib.Resources
 @using BootBaronLib.Values
-@using DasKlub.Helpers
+
+@using DasKlub.Web.Helpers
 @model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Contents
 @{
     ViewBag.Title = Messages.ManageNews;
 }
-         @{ Html.RenderPartial("_AdBanner"); }
+@{ Html.RenderPartial("_AdBanner"); }
 <h2>@Messages.ManageNews</h2>
 <hr />
-@Html.ActionLink(Messages.CreateNew, "CreateArticle",null,  new {@class = "btn btn-primary"})
+@Html.ActionLink(Messages.CreateNew, "CreateArticle", null, new {@class = "btn btn-primary"})
 <table>
     <tr>
         <th>@Messages.Photo
@@ -27,7 +28,7 @@
         <th>
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (Content item in Model)
     {
         <tr>
             <td>

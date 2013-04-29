@@ -3,7 +3,8 @@
 @using BootBaronLib.AppSpec.DasKlub.BOL.UserContent
 @using BootBaronLib.Operational
 @using BootBaronLib.Resources
-@using DasKlub.Helpers
+
+@using DasKlub.Web.Helpers
 @model BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content
 
 @{
@@ -58,61 +59,59 @@
                 }
             </div>
             <div class="span5">
-                  @{ Html.RenderPartial("_AdBanner"); }
+                @{ Html.RenderPartial("_AdBanner"); }
 
             </div>
               
         </div>
         <hr />
 
-         <div style="text-align: center">
-        @if (!string.IsNullOrEmpty(Model.ContentVideoURL))
-        {
-            <div class="video_player" id="video_player">
-                <video 
+        <div style="text-align: center">
+            @if (!string.IsNullOrEmpty(Model.ContentVideoURL))
+            {
+                <div class="video_player" id="video_player">
+                    <video 
              
-                    id="product_video" width="@ViewBag.VideoWidth" height="@ViewBag.VideoHeight"  
-                    poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload="none"
+                        id="product_video" width="@ViewBag.VideoWidth" height="@ViewBag.VideoHeight"  
+                        poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload="none"
                    
-                    >
-                    <!-- MP4 source must come first for iOS -->
-                    <source type="video/mp4" src="@Html.S3ContentPath(Model.ContentVideoURL)" />
-                    <!-- WebM for Firefox 4 and Opera -->
-                    @if (!string.IsNullOrWhiteSpace(Model.ContentVideoURL2))
-                    {
-                        <source type="video/webm" src="@Html.S3ContentPath(Model.ContentVideoURL2)" />
-                    }
-                    @*		<!-- OGG for Firefox 3 -->
+                        >
+                        <!-- MP4 source must come first for iOS -->
+                        <source type="video/mp4" src="@Html.S3ContentPath(Model.ContentVideoURL)" />
+                        <!-- WebM for Firefox 4 and Opera -->
+                        @if (!string.IsNullOrWhiteSpace(Model.ContentVideoURL2))
+                        {
+                            <source type="video/webm" src="@Html.S3ContentPath(Model.ContentVideoURL2)" />
+                        }
+                        @*		<!-- OGG for Firefox 3 -->
 	<source type="video/ogg" src="/content/media/echo-hereweare.ogv" />
 
 	<!-- Fallback flash player for no-HTML5 browsers with JavaScript turned off -->*@
 
 
             
-                    <object  width="@ViewBag.VideoWidth"   height="@ViewBag.VideoHeight"  type="application/x-shockwave-flash"
-                             data="@Url.Content("~/content/mediaelement/flashmediaelement.swf")">
-                        <param name="movie" value="@Url.Content("~/content/mediaelement/flashmediaelement.swf")" />
-                        <param name="flashvars" value="controls=true&amp;file=@Html.S3ContentPath(Model.ContentVideoURL)" />
-                        <!-- Image as a last resort -->
-                        <img src="@Html.S3ContentPath(Model.ContentPhotoURL)"  
-                             width="@ViewBag.VideoWidth"   height="@ViewBag.VideoHeight"  
+                        <object  width="@ViewBag.VideoWidth"   height="@ViewBag.VideoHeight"  type="application/x-shockwave-flash"
+                                 data="@Url.Content("~/content/mediaelement/flashmediaelement.swf")">
+                            <param name="movie" value="@Url.Content("~/content/mediaelement/flashmediaelement.swf")" />
+                            <param name="flashvars" value="controls=true&amp;file=@Html.S3ContentPath(Model.ContentVideoURL)" />
+                            <!-- Image as a last resort -->
+                            <img src="@Html.S3ContentPath(Model.ContentPhotoURL)"  
+                                 width="@ViewBag.VideoWidth"   height="@ViewBag.VideoHeight"  
                                 
-                             alt="@Messages.Video" 
-                             title="@Messages.NoVideoPlaybackCapabilities"  />
-                    </object>  
+                                 alt="@Messages.Video" 
+                                 title="@Messages.NoVideoPlaybackCapabilities"  />
+                        </object>  
                      
                     
                    
-                </video>
-            </div>
-        }
-        else
-        {
-           
-                <img   style="background-color: #FFF; padding: 5px;" src="@Html.S3ContentPath(Model.ContentPhotoURL)" alt="@Model.Title" />
-             
-        }
+                    </video>
                 </div>
+            }
+            else
+            {
+                <img   style="background-color: #FFF; padding: 5px;" src="@Html.S3ContentPath(Model.ContentPhotoURL)" alt="@Model.Title" />
+            }
+        </div>
         <div class=" clearfix">
             <hr />
           
@@ -177,9 +176,9 @@
         <div id="article_tags" >
             <h3  >@Messages.FilterNewsByTag
             </h3>
-                  <p class="line_space">
-            @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))
-                      </p>
+            <p class="line_space">
+                @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))
+            </p>
         </div>
         <hr />
 
@@ -294,10 +293,10 @@
                     // automatically selects a <track> element
                     //startLanguage: '@Thread.CurrentThread.CurrentUICulture.Parent.IetfLanguageTag',
                     // a list of languages to auto-translate via Google
-                //translations:[], 
+                    //translations:[], 
                 
-                // a dropdownlist of automatic translations
-                //translationSelector: false,
+                    // a dropdownlist of automatic translations
+                    //translationSelector: false,
                 // key for tranlsations
                 //googleApiKey: ''
                 });

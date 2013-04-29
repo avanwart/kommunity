@@ -32,7 +32,7 @@
         <link rel="shortcut icon" href="@Url.Content("~/content/images/brand/favicon.ico")" />
         <title>@ViewBag.Title : [@GeneralConfigs.SiteName]</title>
   
-      @*  @Styles.Render("~/Content/css_head1")*@
+        @*  @Styles.Render("~/Content/css_head1")*@
 
         <style type="text/css">
             body {
@@ -48,6 +48,8 @@
               padding-top: 65px;
         </text>
                 }
+                
+                
                 
                 
                 
@@ -106,6 +108,7 @@
                            { <text>href="@Url.Content("~/content/images/brand/logo.png")"</text>
     }
     
+    
                                  />
                                  <meta id="thumb_icon" property="og:image"  @if (!string.IsNullOrEmpty(ViewBag.ThumbIcon))
     {<text>content="</text>@Html.Raw(ViewBag.ThumbIcon)<text>"</text> }
@@ -138,20 +141,7 @@
                         <ul class="nav the-icons">
                             <li><a href="@Url.Content("~/")" class="site_name">@GeneralConfigs.SiteName</a></li>
                             
-                                            @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "news" &&
-                                 ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
-                            {
-                                <li class="active"><a  
-                            
-                            
-                                                       href="@Url.Content("~/news")">
-                                                       <i class="icon-th-list"></i> @Messages.News</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="@Url.Content("~/news")">
-                                        <i class="icon-th-list"></i> @Messages.News</a> </li>
-                            }
+                                     
                             
                                         
                             @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "forum" &&
@@ -164,6 +154,22 @@
                             {
                                 <li><a href="@Url.Content("~/forum")">
                                         <i class="icon-flag"></i> Forum</a> </li>
+                            }
+                            
+                            
+                            @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "news" &&
+                                 ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
+                            {
+                                <li class="active"><a  
+                            
+                            
+                                                       href="@Url.Content("~/news")">
+                                                       <i class="icon-th-list"></i> @Messages.News</a> </li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Content("~/news")">
+                                        <i class="icon-th-list"></i> @Messages.News</a> </li>
                             }
 
                             <li

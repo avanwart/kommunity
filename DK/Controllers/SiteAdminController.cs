@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,9 +31,10 @@ using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using DasKlub.Models;
+using DasKlub.Web.Models;
 using LitS3;
 
-namespace DasKlub.Controllers
+namespace DasKlub.Web.Controllers
 {
     [Authorize(Roles = "admin")]
     public class SiteAdminController : Controller
@@ -296,11 +298,11 @@ namespace DasKlub.Controllers
                 {
                     var b = new Bitmap(imageFile.InputStream);
 
-                    var fileNameFull = Utilities.CreateUniqueContentFilename(imageFile);
+                    string fileNameFull = Utilities.CreateUniqueContentFilename(imageFile);
 
-                    var imgPhoto = ImageResize.FixedSize(b, 600, 400, Color.Black);
+                    Image imgPhoto = ImageResize.FixedSize(b, 600, 400, Color.Black);
 
-                    var maker = imgPhoto.ToAStream(ImageFormat.Jpeg);
+                    Stream maker = imgPhoto.ToAStream(ImageFormat.Jpeg);
 
                     s3.AddObject(
                         maker,
@@ -421,7 +423,7 @@ namespace DasKlub.Controllers
             }
             else
             {
-                var pageNumber = Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]);
+                int pageNumber = Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]);
 
                 totalRecords = model.GetContentPageWiseAll(pageNumber, pageSize);
             }
@@ -437,7 +439,7 @@ namespace DasKlub.Controllers
 
         private void LoadAllRoles()
         {
-            var allRoles = Role.GetAllRoles();
+            string[] allRoles = Role.GetAllRoles();
 
             ViewBag.AllRoles = allRoles;
         }
@@ -495,7 +497,7 @@ namespace DasKlub.Controllers
             // delete all their roles
             UserAccountRole.DeleteUserRoles(userAccountID);
 
-            foreach (var thenewRole in roleOption.Select(newRole => new Role(newRole)))
+            foreach (Role thenewRole in roleOption.Select(newRole => new Role(newRole)))
             {
                 UserAccountRole.AddUserToRole(userAccountID, thenewRole.RoleID);
             }

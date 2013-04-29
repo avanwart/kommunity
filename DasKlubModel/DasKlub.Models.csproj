@@ -41,7 +41,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseContext.cs" />
+    <Compile Include="Controllers\ForumCategoriesController.cs" />
     <Compile Include="DasKlubDBContext.cs" />
     <Compile Include="Domain\ForumContext.cs" />
     <Compile Include="Domain\StateInfo.cs" />
@@ -57,11 +58,152 @@
     <Compile Include="Forum\ForumPost.cs" />
     <Compile Include="Forum\ForumPostNotification.cs" />
     <Compile Include="Forum\ForumSubCategory.cs" />
+    <Compile Include="Models\Acknowledgement.cs" />
+    <Compile Include="Models\Artist.cs" />
+    <Compile Include="Models\ArtistEvent.cs" />
+    <Compile Include="Models\ArtistProperty.cs" />
+    <Compile Include="Models\BlackIPID.cs" />
+    <Compile Include="Models\BlockedUser.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\ChatRoom.cs" />
+    <Compile Include="Models\ChatRoomUser.cs" />
+    <Compile Include="Models\ClickAudit.cs" />
+    <Compile Include="Models\ClickLog.cs" />
+    <Compile Include="Models\Color.cs" />
+    <Compile Include="Models\Content.cs" />
+    <Compile Include="Models\ContentComment.cs" />
+    <Compile Include="Models\ContentType.cs" />
+    <Compile Include="Models\Contest.cs" />
+    <Compile Include="Models\ContestVideo.cs" />
+    <Compile Include="Models\ContestVideoVote.cs" />
+    <Compile Include="Models\DasKlubDBContext.cs" />
+    <Compile Include="Models\DasKlubModelsContext.cs" />
+    <Compile Include="Models\DirectMessage.cs" />
+    <Compile Include="Models\ErrorLog.cs" />
+    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\EventCycle.cs" />
+    <Compile Include="Models\ForumCategoryRepository.cs" />
+    <Compile Include="Models\HostedVideoLog.cs" />
+    <Compile Include="Models\InterestedIn.cs" />
+    <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\Log4Net.cs" />
+    <Compile Include="Models\Mapping\AcknowledgementMap.cs" />
+    <Compile Include="Models\Mapping\ArtistEventMap.cs" />
+    <Compile Include="Models\Mapping\ArtistMap.cs" />
+    <Compile Include="Models\Mapping\ArtistPropertyMap.cs" />
+    <Compile Include="Models\Mapping\BlackIPIDMap.cs" />
+    <Compile Include="Models\Mapping\BlockedUserMap.cs" />
+    <Compile Include="Models\Mapping\CategoryMap.cs" />
+    <Compile Include="Models\Mapping\ChatRoomMap.cs" />
+    <Compile Include="Models\Mapping\ChatRoomUserMap.cs" />
+    <Compile Include="Models\Mapping\ClickAuditMap.cs" />
+    <Compile Include="Models\Mapping\ClickLogMap.cs" />
+    <Compile Include="Models\Mapping\ColorMap.cs" />
+    <Compile Include="Models\Mapping\ContentCommentMap.cs" />
+    <Compile Include="Models\Mapping\ContentMap.cs" />
+    <Compile Include="Models\Mapping\ContentTypeMap.cs" />
+    <Compile Include="Models\Mapping\ContestMap.cs" />
+    <Compile Include="Models\Mapping\ContestVideoMap.cs" />
+    <Compile Include="Models\Mapping\ContestVideoVoteMap.cs" />
+    <Compile Include="Models\Mapping\DirectMessageMap.cs" />
+    <Compile Include="Models\Mapping\ErrorLogMap.cs" />
+    <Compile Include="Models\Mapping\EventCycleMap.cs" />
+    <Compile Include="Models\Mapping\EventMap.cs" />
+    <Compile Include="Models\Mapping\HostedVideoLogMap.cs" />
+    <Compile Include="Models\Mapping\InterestedInMap.cs" />
+    <Compile Include="Models\Mapping\LanguageMap.cs" />
+    <Compile Include="Models\Mapping\Log4NetMap.cs" />
+    <Compile Include="Models\Mapping\MultiPropertyMap.cs" />
+    <Compile Include="Models\Mapping\PhotoItemMap.cs" />
+    <Compile Include="Models\Mapping\PlaylistMap.cs" />
+    <Compile Include="Models\Mapping\PlaylistVideoMap.cs" />
+    <Compile Include="Models\Mapping\ProfileLogMap.cs" />
+    <Compile Include="Models\Mapping\PropertyTypeMap.cs" />
+    <Compile Include="Models\Mapping\RelationshipStatuMap.cs" />
+    <Compile Include="Models\Mapping\RoleMap.cs" />
+    <Compile Include="Models\Mapping\RSSItemMap.cs" />
+    <Compile Include="Models\Mapping\RssResourceMap.cs" />
+    <Compile Include="Models\Mapping\SiteCommentMap.cs" />
+    <Compile Include="Models\Mapping\SiteDomainMap.cs" />
+    <Compile Include="Models\Mapping\SizeMap.cs" />
+    <Compile Include="Models\Mapping\SizeTypeMap.cs" />
+    <Compile Include="Models\Mapping\SongMap.cs" />
+    <Compile Include="Models\Mapping\SongPropertyMap.cs" />
+    <Compile Include="Models\Mapping\StatusCommentAcknowledgementMap.cs" />
+    <Compile Include="Models\Mapping\StatusCommentMap.cs" />
+    <Compile Include="Models\Mapping\StatusMap.cs" />
+    <Compile Include="Models\Mapping\StatusUpdateMap.cs" />
+    <Compile Include="Models\Mapping\StatusUpdateNotificationMap.cs" />
+    <Compile Include="Models\Mapping\UserAccountDetailMap.cs" />
+    <Compile Include="Models\Mapping\UserAccountMap.cs" />
+    <Compile Include="Models\Mapping\UserAccountMetMap.cs" />
+    <Compile Include="Models\Mapping\UserAccountVideoMap.cs" />
+    <Compile Include="Models\Mapping\UserAddressMap.cs" />
+    <Compile Include="Models\Mapping\UserConnectionMap.cs" />
+    <Compile Include="Models\Mapping\UserPhotoMap.cs" />
+    <Compile Include="Models\Mapping\VenueMap.cs" />
+    <Compile Include="Models\Mapping\VideoLogMap.cs" />
+    <Compile Include="Models\Mapping\VideoMap.cs" />
+    <Compile Include="Models\Mapping\VideoRequestMap.cs" />
+    <Compile Include="Models\Mapping\VideoSongMap.cs" />
+    <Compile Include="Models\Mapping\VideoVoteMap.cs" />
+    <Compile Include="Models\Mapping\VoteMap.cs" />
+    <Compile Include="Models\Mapping\vwUserSearchFilterMap.cs" />
+    <Compile Include="Models\Mapping\WallMessageMap.cs" />
+    <Compile Include="Models\Mapping\WishListMap.cs" />
+    <Compile Include="Models\Mapping\YouAreMap.cs" />
+    <Compile Include="Models\Mapping\ZoneMap.cs" />
+    <Compile Include="Models\MultiProperty.cs" />
+    <Compile Include="Models\PhotoItem.cs" />
+    <Compile Include="Models\Playlist.cs" />
+    <Compile Include="Models\PlaylistVideo.cs" />
+    <Compile Include="Models\ProfileLog.cs" />
+    <Compile Include="Models\PropertyType.cs" />
+    <Compile Include="Models\RelationshipStatu.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\RSSItem.cs" />
+    <Compile Include="Models\RssResource.cs" />
+    <Compile Include="Models\SiteComment.cs" />
+    <Compile Include="Models\SiteDomain.cs" />
+    <Compile Include="Models\Size.cs" />
+    <Compile Include="Models\SizeType.cs" />
+    <Compile Include="Models\Song.cs" />
+    <Compile Include="Models\SongProperty.cs" />
+    <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\StatusComment.cs" />
+    <Compile Include="Models\StatusCommentAcknowledgement.cs" />
+    <Compile Include="Models\StatusUpdate.cs" />
+    <Compile Include="Models\StatusUpdateNotification.cs" />
+    <Compile Include="Models\UserAccount.cs" />
+    <Compile Include="Models\UserAccountDetail.cs" />
+    <Compile Include="Models\UserAccountMet.cs" />
+    <Compile Include="Models\UserAccountVideo.cs" />
+    <Compile Include="Models\UserAddress.cs" />
+    <Compile Include="Models\UserConnection.cs" />
+    <Compile Include="Models\UserPhoto.cs" />
+    <Compile Include="Models\Venue.cs" />
+    <Compile Include="Models\Video.cs" />
+    <Compile Include="Models\VideoLog.cs" />
+    <Compile Include="Models\VideoRequest.cs" />
+    <Compile Include="Models\VideoSong.cs" />
+    <Compile Include="Models\VideoVote.cs" />
+    <Compile Include="Models\Vote.cs" />
+    <Compile Include="Models\vwUserSearchFilter.cs" />
+    <Compile Include="Models\WallMessage.cs" />
+    <Compile Include="Models\WishList.cs" />
+    <Compile Include="Models\YouAre.cs" />
+    <Compile Include="Models\Zone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Views\ForumCategories\Create.cshtml" />
+    <None Include="Views\ForumCategories\Delete.cshtml" />
+    <None Include="Views\ForumCategories\Details.cshtml" />
+    <None Include="Views\ForumCategories\Edit.cshtml" />
+    <None Include="Views\ForumCategories\Index.cshtml" />
+    <None Include="Views\ForumCategories\_CreateOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BootBaronLib\BootBaronLib.csproj">
@@ -69,8 +211,15 @@
       <Name>BootBaronLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Forum\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <PropertyGroup>
+<PostBuildEvent>
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

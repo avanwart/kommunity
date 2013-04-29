@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m/auth/Shared/Main.Master" AutoEventWireup="true"
-         CodeBehind="ArtistTD.aspx.cs" Inherits="DasKlub.m.auth.ArtistTD" %>
+         CodeBehind="ArtistTD.aspx.cs" Inherits="DasKlub.Web.m.auth.ArtistTD" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

@@ -15,6 +15,7 @@
 //   limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -25,8 +26,9 @@ using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using DasKlub.Models;
+using DasKlub.Web.Models;
 
-namespace DasKlub.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class FindUsersController : Controller
     {
@@ -41,7 +43,7 @@ namespace DasKlub.Controllers
 
         private void InterestIdentityViewBags()
         {
-            var interins = UserAccountDetail.GetDistinctInterests();
+            InterestedIns interins = UserAccountDetail.GetDistinctInterests();
             if (interins != null)
             {
                 interins.Sort(
@@ -49,7 +51,7 @@ namespace DasKlub.Controllers
                 ViewBag.InterestedIns = interins.Select(x => new {x.InterestedInID, x.LocalizedName});
             }
 
-            var relationshipStatuses = UserAccountDetail.GetDistinctRelationshipStatus();
+            RelationshipStatuses relationshipStatuses = UserAccountDetail.GetDistinctRelationshipStatus();
             if (relationshipStatuses != null)
             {
                 relationshipStatuses.Sort(
@@ -58,17 +60,17 @@ namespace DasKlub.Controllers
                     relationshipStatuses.Select(x => new {x.RelationshipStatusID, x.LocalizedName});
             }
 
-            var youAres = UserAccountDetail.GetDistinctYouAres();
+            YouAres youAres = UserAccountDetail.GetDistinctYouAres();
             if (youAres != null)
             {
                 youAres.Sort((p1, p2) => String.Compare(p1.LocalizedName, p2.LocalizedName, StringComparison.Ordinal));
                 ViewBag.YouAres = youAres.Select(x => new {x.YouAreID, x.LocalizedName});
             }
 
-            var countries = UserAccountDetail.GetDistinctUserCountries();
+            List<SiteEnums.CountryCodeISO> countries = UserAccountDetail.GetDistinctUserCountries();
             if (countries != null)
             {
-                var countryOptions = countries.Where(
+                Dictionary<string, string> countryOptions = countries.Where(
                     value => value != SiteEnums.CountryCodeISO.U0 && value
                              != SiteEnums.CountryCodeISO.RD)
                                                                      .ToDictionary(value => value.ToString(),
@@ -77,7 +79,7 @@ namespace DasKlub.Controllers
                                                                                        Utilities.GetEnumDescription(
                                                                                            value)));
 
-                var items = from k in countryOptions.Keys
+                IOrderedEnumerable<string> items = from k in countryOptions.Keys
                                                    orderby countryOptions[k] ascending
                                                    select k;
 
@@ -86,14 +88,14 @@ namespace DasKlub.Controllers
             }
 
 
-            var languages = UserAccountDetail.GetDistinctUserLanguages();
+            List<SiteEnums.SiteLanguages> languages = UserAccountDetail.GetDistinctUserLanguages();
             if (languages == null) return;
-            var languageOptions = languages.ToDictionary(value => value.ToString(),
+            Dictionary<string, string> languageOptions = languages.ToDictionary(value => value.ToString(),
                                                                                 value =>
                                                                                 Utilities.ResourceValue(
                                                                                     Utilities.GetEnumDescription(value)));
 
-            var languagesitems = from k in languageOptions.Keys
+            IOrderedEnumerable<string> languagesitems = from k in languageOptions.Keys
                                                         orderby languageOptions[k] ascending
                                                         select k;
 
@@ -118,20 +120,20 @@ namespace DasKlub.Controllers
             // random
             var rle = new Role(SiteEnums.RoleTypes.cyber_girl.ToString());
 
-            var girlModels = UserAccountRole.GetUsersInRole(rle.RoleID);
+            UserAccounts girlModels = UserAccountRole.GetUsersInRole(rle.RoleID);
 
             if (girlModels != null && girlModels.Count > 0)
             {
                 girlModels.Shuffle();
 
-                var featuredModel = girlModels[0];
+                UserAccount featuredModel = girlModels[0];
 
                 var featuredPhoto = new UserAccountDetail();
                 featuredPhoto.GetUserAccountDeailForUser(featuredModel.UserAccountID);
 
-                var photoNumber = Utilities.RandomNumber(1, 4);
+                int photoNumber = Utilities.RandomNumber(1, 4);
 
-                var photoPath = featuredPhoto.FullProfilePicURL;
+                string photoPath = featuredPhoto.FullProfilePicURL;
 
                 if (photoNumber > 1)
                 {
@@ -141,7 +143,7 @@ namespace DasKlub.Controllers
 
                     if (ups.Count > 0)
                     {
-                        foreach (var up1 in ups.Where(up1 => (up1.RankOrder + 1) == photoNumber))
+                        foreach (UserPhoto up1 in ups.Where(up1 => (up1.RankOrder + 1) == photoNumber))
                         {
                             photoPath = up1.FullProfilePicURL;
                             break;
@@ -187,7 +189,7 @@ namespace DasKlub.Controllers
 
             _userPageNumber = pageNumber;
 
-            var currentLang = Utilities.GetCurrentLanguageCode();
+            string currentLang = Utilities.GetCurrentLanguageCode();
 
             Thread.CurrentThread.CurrentUICulture =
                 CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());

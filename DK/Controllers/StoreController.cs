@@ -16,7 +16,7 @@
 
 using System.Web.Mvc;
 
-namespace DasKlub.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class StoreController : Controller
     {

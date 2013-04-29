@@ -21,7 +21,6 @@ properties {
     if ( $webprojectBinLocation -eq $null) { $webprojectBinLocation = ''}
   
     #Package
-    if ( $packageName -eq $null){ $packageName = ''}
     if ( $packageOutputDir -eq $null) { $packageOutputDir =  '.\buildartifacts\' }
      
     #Deployment
@@ -86,12 +85,8 @@ task -name ValidateConfigs -depends  ListConfigs   -description "Validates that 
     "migrateApplicationDLL is blank"
     assert( $migrateExeLocation -ne $null -and $migrateExeLocation -ne '') `
     "migrateExeLocation is blank"
-    assert( $dbUpdate -ne $null -and $dbUpdate -ne '') `
-    "dbUpdate is blank"
-    assert( $webprojectBinLocation -ne $null -and $webprojectBinLocation -ne '') `
+     assert( $webprojectBinLocation -ne $null -and $webprojectBinLocation -ne '') `
     "webprojectBinLocation is blank"
-    assert( $packageName -ne $null -and $packageName -ne '') `
-    "packageName is blank"
     assert( $packageOutputDir -ne $null -and $packageOutputDir -ne '') `
     "packageOutputDir is blank"
     assert( $msDeployURL -ne $null -and $msDeployURL -ne '') `
@@ -136,10 +131,7 @@ task -name ListConfigs -description "Lists configs"   -action {
        Write-Host '$migrateApplicationDLL = ' $migrateApplicationDLL -ForegroundColor Magenta
        Write-Host '$migrateExeLocation = ' $migrateExeLocation -ForegroundColor Magenta
        Write-Host '$removeMigrateLoation = ' $removeMigrateLoation -ForegroundColor Magenta
-       Write-Host '$dbUpdate = ' $dbUpdate -ForegroundColor Magenta
        Write-Host '$webprojectBinLocation = ' $webprojectBinLocation -ForegroundColor Magenta
-       Write-Host '$packageName = ' $packageName -ForegroundColor Magenta
-       Write-Host '$packageOutputDir = ' $packageOutputDir -ForegroundColor Magenta
        Write-Host '$msDeployURL = ' $msDeployURL -ForegroundColor Magenta
        Write-Host '$msDeployUserName = ' $msDeployUserName -ForegroundColor Magenta
        Write-Host '$msDeployPassword = ' $msDeployPassword -ForegroundColor Magenta
@@ -172,7 +164,9 @@ task -name Rebuild -depends Clean, Build -description "Cleans and builds the sol
 
 task -name UnitTest -depends Rebuild -description "Runs unit tests" -action { 
     exec  {
-   & $MSTestLocation  /testcontainer:$testDLLLocation
+     
+
+   & $MSTestLocation   /testcontainer:$testDLLLocation /detail:debugtrace /runconfig:$testSettings
     }
 };
 
@@ -211,7 +205,7 @@ task -name DeployPackage -depends PackageZip, MigrateDB -description "Deploys pa
                     /P:UserName=$msDeployUserName `
                     /P:Password=$msDeployPassword `
                     /p:DeployIisAppPath=$deployIisAppPath  `
-                    /verbosity:$msBuildVerbosity 
+                    /verbosity:$msBuildVerbosity
 
         }
         else 

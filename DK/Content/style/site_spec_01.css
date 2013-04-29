@@ -412,7 +412,7 @@ li.playlist_mod ul { list-style-type: none; }
 
 #article_list li { list-style-type: none; }
 
- ul.list_less { list-style-type: none; }
+ul.list_less { list-style-type: none; }
 
 table td.full_row {
     color: #DDD;
@@ -469,7 +469,7 @@ input.blur {
     border-top: none;
     box-shadow: rgba(255, 255, 255, 0.07) 0 1px 0;
     line-height: 25px;
-    padding-bottom: 15px;                 
+    padding-bottom: 15px;
 }
                  
                  
@@ -656,7 +656,6 @@ li {
 .user_list {
     margin: 0;
     padding: 0;
-
 }
 
 .user_list li {
@@ -664,10 +663,9 @@ li {
     height: 95px;
     list-style-type: none;
     margin: 3px;
-    padding-bottom: 12px;
-    width: 90px;
     margin-bottom: 18px;
-      
+    padding-bottom: 12px;
+    width: 90px;      
 }
 
 .user_list a { font-size: 10px; }
@@ -697,7 +695,7 @@ li {
 ul.photo_navs a:hover img {
     border: 3px solid #08C;
     filter: alpha(opacity=60); /* For IE8 and earlier */
-    opacity: 0.6;                                 
+    opacity: 0.6;
 }
 
 ul.photo_item_list img { border: 3px solid transparent; }
@@ -705,7 +703,7 @@ ul.photo_item_list img { border: 3px solid transparent; }
 ul.photo_item_list a:hover img {
     border: 3px solid #08C;
     filter: alpha(opacity=60); /* For IE8 and earlier */
-    opacity: 0.6;                                 
+    opacity: 0.6;
 }
 
 a.m_over img { border: 3px solid transparent; }
@@ -865,41 +863,56 @@ a.play_button:hover { background-position: center bottom; }
  /* theme */
  
  
- .status_post {  border: 5px double #222222; background-color: #000000}
- 
-.notification_list li { list-style-type: lower-greek; color: #F89406}
-
-.post_content { color: #00FF1E;}
-
- input[type=text], input[type=url], input[type=email], input[type=password], select, textarea { background-color: #000000; color: #00ff1e}
-
- .status_count_applaud { color: #01e836}
-
-
- 
- 
- .status_count_applaud { color:#468847;}
- .status_count_beatdown {color:  #B94A48;}
- 
- .status_comment_count_applaud {color: #468847;}
- .status_comment_count_beatdown { color: #B94A48}
- 
- .status_comment_count {color: #C09853;}
-
-
- .birthdays li { list-style-type: none;padding-left: 0;margin-left: 0; }
- ul.birthdays {  padding-left: 0;margin-left: 0; }
-
-.navbar-inverse .navbar-inner
-{
-background-image: -webkit-linear-gradient(top,#222,#000);
-
+.status_post {
+    background-color: #000000;
+    border: 5px double #222222;
 }
 
-textarea { border-style: dashed;}
+.notification_list li {
+    color: #F89406;
+    list-style-type: lower-greek;
+}
 
-.line_space { line-height: 2em}
+.post_content { color: #00FF1E; }
+
+input[type=text], input[type=url], input[type=email], input[type=password], select, textarea {
+    background-color: #000000;
+    color: #00ff1e
+}
+
+.status_count_applaud { color: #01e836 }
+
+
+ 
+ 
+.status_count_applaud { color: #468847; }
+
+.status_count_beatdown { color: #B94A48; }
+
+.status_comment_count_applaud { color: #468847; }
+
+.status_comment_count_beatdown { color: #B94A48 }
+
+.status_comment_count { color: #C09853; }
+
+
+.birthdays li {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+ul.birthdays {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.navbar-inverse .navbar-inner { background-image: -webkit-linear-gradient(top, #222, #000); }
+
+textarea { border-style: dashed; }
+
+.line_space { line-height: 2em }
 
 .user_icons li { list-style-type: none; }
 
-.profile_username { font-size: .7em;}
+.profile_username { font-size: .7em; }

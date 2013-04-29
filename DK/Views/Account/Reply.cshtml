@@ -1,11 +1,12 @@
-﻿@using BootBaronLib.Resources
+﻿@using BootBaronLib.Configs
+@using BootBaronLib.Resources
 @{
     ViewBag.Title = Messages.Reply;
 }
 <div class="row">
     <div class="span8">
         @{ Html.RenderPartial("_AdBanner"); }
-        <h2>@Messages.SendMessage : <a href="@BootBaronLib.Configs.GeneralConfigs.SiteDomain/@ViewBag.DisplayName">@ViewBag.DisplayName</a></h2>
+        <h2>@Messages.SendMessage : <a href="@GeneralConfigs.SiteDomain/@ViewBag.DisplayName">@ViewBag.DisplayName</a></h2>
         <hr />
         <ul>@Html.Raw(ViewBag.CurrentUser)</ul>
         <br />

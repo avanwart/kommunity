@@ -1,28 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using Microsoft.AspNet.SignalR;
-using System.Linq;
 using SignalRChat.Common;
-using System.Web.Security;
-using System.Web;
-
-
 
 namespace DasKlub.Common
 {
     public class MessageDetail
     {
-
         public string UserName { get; set; }
 
         public string Message { get; set; }
-
     }
 }
-
-
 
 namespace DasKlub.Common
 {
@@ -40,8 +34,8 @@ namespace DasKlub.Controllers
     {
         #region Data Members
 
-        static readonly List<UserDetail> ConnectedUsers = new List<UserDetail>();
-        static readonly List<MessageDetail> CurrentMessage = new List<MessageDetail>();
+        private static readonly List<UserDetail> ConnectedUsers = new List<UserDetail>();
+        private static readonly List<MessageDetail> CurrentMessage = new List<MessageDetail>();
 
         #endregion
 
@@ -49,11 +43,11 @@ namespace DasKlub.Controllers
 
         public void Connect(string userName)
         {
-            var mu = Membership.GetUser();
-            var id = Context.ConnectionId;
+            MembershipUser mu = Membership.GetUser();
+            string id = Context.ConnectionId;
 
             if (ConnectedUsers.Count(x => x.ConnectionId == id) != 0) return;
-            ConnectedUsers.Add(new UserDetail { ConnectionId = id, UserName = userName });
+            ConnectedUsers.Add(new UserDetail {ConnectionId = id, UserName = userName});
 
             if (mu != null)
             {
@@ -63,7 +57,7 @@ namespace DasKlub.Controllers
 
                 if (enterRoom.RoomID == 0)
                 {
-                    enterRoom = new ChatRoomUser()
+                    enterRoom = new ChatRoomUser
                         {
                             CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
                             ConnectionCode = id
@@ -89,14 +83,14 @@ namespace DasKlub.Controllers
         {
             message = HttpUtility.HtmlEncode(message);
 
-            var mu = Membership.GetUser();
+            MembershipUser mu = Membership.GetUser();
 
             if (mu != null)
             {
-                var chatMessage = new ChatRoom()
+                var chatMessage = new ChatRoom
                     {
-                        CreatedByUserID         =  Convert.ToInt32(mu.ProviderUserKey),
-                        ChatMessage             = message
+                        CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
+                        ChatMessage = message
                     };
                 chatMessage.Create();
             }
@@ -111,10 +105,10 @@ namespace DasKlub.Controllers
         {
             message = HttpUtility.HtmlEncode(message);
 
-            var fromUserId = Context.ConnectionId;
+            string fromUserId = Context.ConnectionId;
 
-            var toUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserId);
-            var fromUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
+            UserDetail toUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserId);
+            UserDetail fromUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
 
             if (toUser == null || fromUser == null) return;
             // send to 
@@ -126,14 +120,12 @@ namespace DasKlub.Controllers
 
         public override Task OnDisconnected()
         {
-           
-
-            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+            UserDetail item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
             if (item != null)
             {
                 ConnectedUsers.Remove(item);
 
-                var id = Context.ConnectionId;
+                string id = Context.ConnectionId;
                 Clients.All.onUserDisconnected(id, item.UserName);
 
                 var exitRoom = new ChatRoomUser();
@@ -141,25 +133,22 @@ namespace DasKlub.Controllers
                 exitRoom.DeleteChatRoomUser();
             }
 
-      
-            
 
             return base.OnDisconnected();
         }
-
 
         #endregion
 
         #region private Messages
 
-        /// <summary>
         // store last 100 messages in cache
+        /// <summary>
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="message"></param>
         private static void AddMessageinCache(string userName, string message)
         {
-            CurrentMessage.Add(new MessageDetail { UserName = userName, Message = message });
+            CurrentMessage.Add(new MessageDetail {UserName = userName, Message = message});
 
             if (CurrentMessage.Count > 100)
                 CurrentMessage.RemoveAt(0);
@@ -167,6 +156,7 @@ namespace DasKlub.Controllers
 
         #endregion
     }
+
     //public class Chat : Hub 
     //{
     //    public Task Connect()

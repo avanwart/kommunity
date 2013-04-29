@@ -42,7 +42,7 @@
             self.element
                 .addClass("ui-accordion ui-widget ui-helper-reset")
                 // in lack of child-selectors in CSS
-			// we need to mark top-LIs in a UL-accordion for some IE-fix
+                // we need to mark top-LIs in a UL-accordion for some IE-fix
                 .children("li")
                 .addClass("ui-accordion-li-fix");
 

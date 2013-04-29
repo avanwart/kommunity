@@ -20,7 +20,6 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -33,9 +32,8 @@ using BootBaronLib.Values;
 using DasKlub.App_Start;
 using log4net;
 using log4net.Config;
-using   Microsoft.AspNet.SignalR ;
 
-namespace DasKlub
+namespace DasKlub.Web
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -53,8 +51,6 @@ namespace DasKlub
 
         private static void RegisterRoutes(RouteCollection routes)
         {
-
-
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.IgnoreRoute("{*favicon}", new {favicon = "(.*/)?favicon.ico(/.*)"});
@@ -776,9 +772,6 @@ namespace DasKlub
 
             #region forum
 
-
-
-
             routes.MapRoute("delete_forum_post", "forum/deleteforumpost/{forumPostID}",
                             new
                                 {
@@ -790,10 +783,10 @@ namespace DasKlub
 
             routes.MapRoute("delete_sub_forum", "forum/deletesubforum/{forumSubCategoryID}",
                             new
-                            {
-                                controller = "Forum",
-                                action = "DeleteSubForum"
-                            }
+                                {
+                                    controller = "Forum",
+                                    action = "DeleteSubForum"
+                                }
                 );
 
             routes.MapRoute("forum_create", "forum/create",
@@ -813,12 +806,12 @@ namespace DasKlub
                 );
 
             routes.MapRoute("sub_forum_create", "forum/{key}/create",
-                new
-                {
-                    controller = "Forum",
-                    action = "CreateSubCategory"
-                }
-    );
+                            new
+                                {
+                                    controller = "Forum",
+                                    action = "CreateSubCategory"
+                                }
+                );
 
 
             routes.MapRoute("sub_forum_post", "forum/{key}/{subKey}",
@@ -831,32 +824,29 @@ namespace DasKlub
 
 
             routes.MapRoute("sub_forum_pag1e", "forum/{key}/{pageNumber}",
-                new
-                {
-                    controller = "Forum",
-                    action = "SubCategory"
-                }
-    );
+                            new
+                                {
+                                    controller = "Forum",
+                                    action = "SubCategory"
+                                }
+                );
 
             routes.MapRoute("sub_forum_page2", "forum/{key}/page/{pageNumber}",
-    new
-    {
-        controller = "Forum",
-        action = "SubCategory"
-    }
-);
-
-
+                            new
+                                {
+                                    controller = "Forum",
+                                    action = "SubCategory"
+                                }
+                );
 
 
             routes.MapRoute("sub_forum_post_create", "forum/{key}/{subKey}/create",
                             new
-                            {
-                                controller = "Forum",
-                                action = "CreateForumPost"
-                            }
+                                {
+                                    controller = "Forum",
+                                    action = "CreateForumPost"
+                                }
                 );
-
 
 
             routes.MapRoute("sub_forum", "forum/{key}",
@@ -868,11 +858,6 @@ namespace DasKlub
                 );
 
 
-
-
-
-
-
             routes.MapRoute("sub_forum_post_page", "forum/{key}/{subKey}/{pageNumber}",
                             new
                                 {
@@ -882,7 +867,6 @@ namespace DasKlub
                 );
 
             #endregion
-
 
             // dispays the user profile
             routes.MapRoute(
@@ -904,8 +888,8 @@ namespace DasKlub
         {
             // Register the default hubs route: ~/signalr
             RouteTable.Routes.MapHubs();
-        
-            
+
+
             XmlConfigurator.Configure();
 
             Log.Info("Application Started");
@@ -915,7 +899,6 @@ namespace DasKlub
                 ClearBadVideos();
             }
 
-          
 
             Application[SiteEnums.ApplicationVariableNames.LogError.ToString()] = true;
 
@@ -959,14 +942,14 @@ namespace DasKlub
         {
             HttpContext.Current.Response.Cache.SetNoServerCaching(); //.SetMaxAge(TimeSpan.FromDays(366));
 
-            var browserLanguage = GeneralConfigs.DefaultLanguage;
+            string browserLanguage = GeneralConfigs.DefaultLanguage;
 
             if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
             {
                 browserLanguage = Request.UserLanguages[0];
             }
 
-            var language = GeneralConfigs.DefaultLanguage;
+            string language = GeneralConfigs.DefaultLanguage;
 
             if (HttpContext.Current == null) return;
             if (!string.IsNullOrWhiteSpace(Request.QueryString[SiteEnums.QueryStringNames.language.ToString()]))
@@ -979,7 +962,7 @@ namespace DasKlub
             }
             else if (Request.Cookies[SiteEnums.CookieName.Usersetting.ToString()] != null)
             {
-                var hc = Request.Cookies[SiteEnums.CookieName.Usersetting.ToString()];
+                HttpCookie hc = Request.Cookies[SiteEnums.CookieName.Usersetting.ToString()];
 
                 if (hc != null)
                 {
@@ -990,7 +973,10 @@ namespace DasKlub
             {
                 language = browserLanguage.Substring(0, 2);
 
-                var isImplmented = Enum.GetValues(typeof (SiteEnums.SiteLanguages)).Cast<SiteEnums.SiteLanguages>().Any(possibleLang => possibleLang.ToString() == language.ToUpper());
+                bool isImplmented =
+                    Enum.GetValues(typeof (SiteEnums.SiteLanguages))
+                        .Cast<SiteEnums.SiteLanguages>()
+                        .Any(possibleLang => possibleLang.ToString() == language.ToUpper());
 
                 if (!isImplmented)
                 {
@@ -1013,7 +999,7 @@ namespace DasKlub
 
         protected void Application_Error()
         {
-            var exception = Server.GetLastError();
+            Exception exception = Server.GetLastError();
             var httpException = exception as HttpException;
 
             //Utilities.LogError(httpException);
@@ -1058,9 +1044,14 @@ namespace DasKlub
 
             vids.GetAll();
 
-            foreach (var vv1 in from vv1 in vids where vv1.IsEnabled let sss = Utilities.GETRequest(new Uri(
-string.Format("http://i3.ytimg.com/vi/{0}/1.jpg",
-vv1.ProviderKey)), true) where sss != null where !Convert.ToBoolean(sss) select vv1)
+            foreach (Video vv1 in from vv1 in vids
+                                  where vv1.IsEnabled
+                                  let sss = Utilities.GETRequest(new Uri(
+                                                                     string.Format("http://i3.ytimg.com/vi/{0}/1.jpg",
+                                                                                   vv1.ProviderKey)), true)
+                                  where sss != null
+                                  where !Convert.ToBoolean(sss)
+                                  select vv1)
             {
                 vv1.IsEnabled = false;
                 vv1.Update();
@@ -1089,7 +1080,7 @@ vv1.ProviderKey)), true) where sss != null where !Convert.ToBoolean(sss) select 
             if (null == _threadingTimer)
             {
                 _threadingTimer = new Timer(CheckData,
-                                           HttpContext.Current, 0, GeneralConfigs.PostInterval);
+                                            HttpContext.Current, 0, GeneralConfigs.PostInterval);
             }
         }
 
@@ -1098,16 +1089,17 @@ vv1.ProviderKey)), true) where sss != null where !Convert.ToBoolean(sss) select 
             //db
             UserAccounts.UpdateWhoIsOnline();
 
-            var chatters = new ChatRoomUsers(); 
+            var chatters = new ChatRoomUsers();
             chatters.GetChattingUsers();
 
-            foreach (var chatUser in from chatUser in chatters let user =
-                                                  new UserAccount(chatUser.CreatedByUserID) where !user.IsOnLine select chatUser)
+            foreach (ChatRoomUser chatUser in from chatUser in chatters
+                                              let user =
+                                                  new UserAccount(chatUser.CreatedByUserID)
+                                              where !user.IsOnLine
+                                              select chatUser)
             {
                 chatUser.DeleteChatRoomUser();
             }
-
-
         }
     }
 }

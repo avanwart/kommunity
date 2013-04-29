@@ -30,7 +30,7 @@ namespace DasKlub.App_Start
                 "~/Scripts/scrollpagination.js",
                 //"~/Scripts/textarea_expander.js",
                 "~/content/script/site_wide_13.js",
-               // "~/scripts/jquery.signalR-{version}.js",
+                // "~/scripts/jquery.signalR-{version}.js",
                 "~/content/mediaelement/mediaelement-and-player.js"
                             ));
 
@@ -56,9 +56,9 @@ namespace DasKlub.App_Start
             //                ));
 
             bundles.Add(new StyleBundle("~/Content/style/css_head2").Include(
-                     "~/content/style/cyborg_theme.css",
-               "~/content/bootstrap-responsive.css",
-              //  "~/content/style/darkstrap.css",
+                "~/content/style/cyborg_theme.css",
+                "~/content/bootstrap-responsive.css",
+                //  "~/content/style/darkstrap.css",
                 "~/content/style/jquery-ui-{version}.custom.css",
                 "~/content/style/flag_sprites.css",
                 "~/content/style/site_spec_01.css"

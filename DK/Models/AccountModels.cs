@@ -22,12 +22,12 @@ using System.Web.Mvc;
 using System.Web.Security;
 using BootBaronLib.Resources;
 
-namespace DasKlub.Models
+namespace DasKlub.Web.Models
 {
 
     #region Models
 
-    public   class ChangePasswordModel
+    public class ChangePasswordModel
     {
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof (Messages))]
         [DataType(DataType.Password)]
@@ -48,7 +48,7 @@ namespace DasKlub.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public   class LogOnModel
+    public class LogOnModel
     {
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof (Messages))]
         [Display(ResourceType = typeof (Messages), Name = "UserName")]
@@ -65,7 +65,7 @@ namespace DasKlub.Models
     }
 
 
-    public   class RegisterModel
+    public class RegisterModel
     {
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof (Messages))]
         [StringLength(15, ErrorMessageResourceName = "UserNameBetween4and15Characters", MinimumLength = 4

@@ -24,11 +24,12 @@ namespace BootBaronLib.Configs
 
         static DataBaseConfigs()
         {
+            const string connectionStringName = "DasKlubDB";
             // database
             _dbConnectionString =
-                ConfigurationManager.ConnectionStrings["DasKlubDBContext"].ConnectionString;
+                ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
             _dbProviderName =
-                ConfigurationManager.ConnectionStrings["DasKlubDBContext"].ProviderName;
+                ConfigurationManager.ConnectionStrings[connectionStringName].ProviderName;
         }
 
         #endregion

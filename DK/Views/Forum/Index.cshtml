@@ -1,6 +1,6 @@
-﻿@using BootBaronLib.AppSpec.DasKlub.BOL.UserContent
-@using BootBaronLib.Operational
+﻿@using BootBaronLib.Operational
 @using BootBaronLib.Resources
+@using DasKlub.Models.Forum
 @model ICollection<DasKlub.Models.Forum.ForumCategory>
  
 @{
@@ -30,11 +30,11 @@
                 <div class="span1">
                     <b>Threads</b>             
                 </div>
-                  <div class="span2">
-                     <b>Last Member</b>             
+                <div class="span2">
+                    <b>Last Member</b>             
                 </div>
                 
-                                <div class="span2">
+                <div class="span2">
                     <b>Last Replied</b>
                 </div>
               
@@ -44,8 +44,8 @@
 
             </div>
             <hr />
-        
-            foreach (var forumCat in Model.Where(forumCat => forumCat != null && forumCat.LatestForumPost != null))
+
+            foreach (ForumCategory forumCat in Model.Where(forumCat => forumCat != null && forumCat.LatestForumPost != null))
             {
                 <div class="row">
                     <div class="span3">
@@ -64,7 +64,6 @@
                         else
                         {
                             <i>@Messages.New</i>
-                            
                         }
                     </div>
                   
@@ -72,13 +71,11 @@
                     <div class="span2">
                         @if (forumCat.LatestForumPost != null && forumCat.LatestForumPost.CreateDate != DateTime.MinValue)
                         {
-                           
                             <span   title="@FromDate.DateToYYYY_MM_DD(forumCat.LatestForumPost.CreateDate)">@Utilities.TimeElapsedMessage(forumCat.LatestForumPost.CreateDate)</span>
                         }
-                          else
+                        else
                         {
                             <i>@Messages.New</i>
-                            
                         }
                     </div>
                     
@@ -89,7 +86,7 @@
                         {
                             if (forumCat.LatestForumPost.IsNewPost)
                             {
-                                   <a class="btn btn-mini btn-success" href="@forumCat.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
+                                <a class="btn btn-mini btn-success" href="@forumCat.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
                             }
                             else
                             {
@@ -109,4 +106,3 @@
     </div>
 
 </div>
-  

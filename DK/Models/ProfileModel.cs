@@ -17,7 +17,7 @@
 using System;
 using System.Collections;
 
-namespace DasKlub.Models
+namespace DasKlub.Web.Models
 {
     public class ProfileModel
     {

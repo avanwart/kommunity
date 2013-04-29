@@ -14,6 +14,11 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+using System;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection;
@@ -25,23 +30,15 @@ using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using Google.GData.Client;
 using Google.YouTube;
-using System;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Security;
 using HttpUtility = System.Web.HttpUtility;
 using Utilities = BootBaronLib.Operational.Utilities;
 using Video = BootBaronLib.AppSpec.DasKlub.BOL.Video;
 
-namespace DasKlub.Controllers
+namespace DasKlub.Web.Controllers
 {
     [HandleError]
     public class HomeController : Controller
     {
-
-
-      
-
         #region Json
 
         public JsonResult Download(char link)
@@ -55,7 +52,7 @@ namespace DasKlub.Controllers
                         IpAddress = Request.UserHostAddress
                     };
 
-                var mu = Membership.GetUser();
+                MembershipUser mu = Membership.GetUser();
 
                 if (mu != null)
                 {
@@ -91,7 +88,6 @@ namespace DasKlub.Controllers
         public ActionResult VideoSubmit(string video, string videoType, string personType,
                                         string footageType, string band, string song, string contestID)
         {
-
             string _devkey = GeneralConfigs.YouTubeDevKey;
             string _password = GeneralConfigs.YouTubeDevPass;
             string _username = GeneralConfigs.YouTubeDevUser;
@@ -103,7 +99,7 @@ namespace DasKlub.Controllers
             }
             var vir = new VideoRequest {RequestURL = video};
 
-            var vidKey = string.Empty;
+            string vidKey = string.Empty;
 
             vir.RequestURL = vir.RequestURL.Replace("https", "http");
 
@@ -113,7 +109,7 @@ namespace DasKlub.Controllers
             }
             else if (vir.RequestURL.Contains("http://www.youtube.com/watch?"))
             {
-                var nvcKey =
+                NameValueCollection nvcKey =
                     HttpUtility.ParseQueryString(vir.RequestURL.Replace("http://www.youtube.com/watch?", string.Empty));
 
                 vidKey = nvcKey["v"].Replace("#", string.Empty).Replace("!", string.Empty);
@@ -139,8 +135,8 @@ namespace DasKlub.Controllers
                 Response.Redirect("~/videosubmission.aspx?statustype=P");
                 return new EmptyResult();
             }
- 
-                var vid = new Video("YT", vidKey) {ProviderCode = "YT"};
+
+            var vid = new Video("YT", vidKey) {ProviderCode = "YT"};
 
 
             try
@@ -174,7 +170,6 @@ namespace DasKlub.Controllers
                 Response.Redirect("~/videosubmission.aspx?statustype=I");
                 Utilities.LogError("invalid link", cfe);
                 return new EmptyResult();
-
             }
             catch (Exception ex)
             {
@@ -186,199 +181,199 @@ namespace DasKlub.Controllers
 
 
             vid.VolumeLevel = 5;
-                // vid.HumanType = personType;
+            // vid.HumanType = personType;
 
 
-                //    t(string video, string videoType, string personType,
-                //string footageType, string band, string song, string contestID)
+            //    t(string video, string videoType, string personType,
+            //string footageType, string band, string song, string contestID)
 
 
-                //  vid.VideoType = videoType;
+            //  vid.VideoType = videoType;
 
 
-                //vid.Duration = (float)Convert.ToDouble(txtDuration.Text);
-                //vid.Intro = (float)Convert.ToDouble(txtSecondsIn.Text);
-                //vid.LengthFromStart = (float)Convert.ToDouble(txtElasedEnd.Text);
-                //vid.ProviderCode = ddlVideoProvider.SelectedValue;
-                //vid.ProviderUserKey = txtUserName.Text;
-                //vid.VolumeLevel = Convert.ToInt32(ddlVolumeLevel.SelectedValue);
-                //vid.IsEnabled = chkEnabled.Checked;
-                //// vid.IsHidden = chkHidden.Checked;
-                //vid.EnableTrim = chkEnabled.Checked;
+            //vid.Duration = (float)Convert.ToDouble(txtDuration.Text);
+            //vid.Intro = (float)Convert.ToDouble(txtSecondsIn.Text);
+            //vid.LengthFromStart = (float)Convert.ToDouble(txtElasedEnd.Text);
+            //vid.ProviderCode = ddlVideoProvider.SelectedValue;
+            //vid.ProviderUserKey = txtUserName.Text;
+            //vid.VolumeLevel = Convert.ToInt32(ddlVolumeLevel.SelectedValue);
+            //vid.IsEnabled = chkEnabled.Checked;
+            //// vid.IsHidden = chkHidden.Checked;
+            //vid.EnableTrim = chkEnabled.Checked;
 
-                ///// publish date 
-                //YouTubeRequestSettings yousettings =
-                //    new YouTubeRequestSettings("You Manager", devkey, username, password);
-                //YouTubeRequest yourequest;
-                //Uri Url;
+            ///// publish date 
+            //YouTubeRequestSettings yousettings =
+            //    new YouTubeRequestSettings("You Manager", devkey, username, password);
+            //YouTubeRequest yourequest;
+            //Uri Url;
 
-                //yourequest = new YouTubeRequest(yousettings);
-                //Url = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.ProviderKey);
-                //video = new Google.YouTube.Video();
-                //video = yourequest.Retrieve<Google.YouTube.Video>(Url);
-                //vid.PublishDate = video.YouTubeEntry.Published;
+            //yourequest = new YouTubeRequest(yousettings);
+            //Url = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.ProviderKey);
+            //video = new Google.YouTube.Video();
+            //video = yourequest.Retrieve<Google.YouTube.Video>(Url);
+            //vid.PublishDate = video.YouTubeEntry.Published;
 
-                if (string.IsNullOrWhiteSpace(vid.ProviderKey))
-                {
-                    // invalid 
-                    vir.StatusType = 'I';
-                    Response.Redirect("~/videosubmission.aspx?statustype=I");
-                    return new EmptyResult();
-                }
+            if (string.IsNullOrWhiteSpace(vid.ProviderKey))
+            {
+                // invalid 
+                vir.StatusType = 'I';
+                Response.Redirect("~/videosubmission.aspx?statustype=I");
+                return new EmptyResult();
+            }
 
-                if (vid.VideoID == 0)
-                {
-                    vid.IsHidden = false;
-                    vid.IsEnabled = true;
-                    vid.Create();
-                }
-                else
-                {
-                    vid.Update();
-                }
-
-
-                // if there is a contest, add it now since there is an id
-                int subContestID;
-                if (!string.IsNullOrWhiteSpace(contestID) && int.TryParse(contestID, out subContestID) &&
-                    subContestID > 0)
-                {
-                    //TODO: check if it already is in the contest
-
-                    ContestVideo.DeleteVideoFromAllContests(vid.VideoID);
-
-                    var cv = new ContestVideo {ContestID = subContestID, VideoID = vid.VideoID};
-
-                    cv.Create();
-                }
-                else
-                {
-                    // TODO: JUST REMOVE FROM CURRENT CONTEST, NOT ALL
-                    ContestVideo.DeleteVideoFromAllContests(vid.VideoID);
-                }
-
-                // vid type
-
-                var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
-                var mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-                MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
-                mp.RemoveCache();
-                MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(videoType), vid.VideoID);
-
-                // human
-
-                propTyp = new PropertyType(SiteEnums.PropertyTypeCode.HUMAN);
-                mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-                MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
-                mp.RemoveCache();
-                MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(personType), vid.VideoID);
+            if (vid.VideoID == 0)
+            {
+                vid.IsHidden = false;
+                vid.IsEnabled = true;
+                vid.Create();
+            }
+            else
+            {
+                vid.Update();
+            }
 
 
-                // footage
+            // if there is a contest, add it now since there is an id
+            int subContestID;
+            if (!string.IsNullOrWhiteSpace(contestID) && int.TryParse(contestID, out subContestID) &&
+                subContestID > 0)
+            {
+                //TODO: check if it already is in the contest
 
-                propTyp = new PropertyType(SiteEnums.PropertyTypeCode.FOOTG);
-                mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-                MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
-                mp.RemoveCache();
-                MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(footageType), vid.VideoID);
+                ContestVideo.DeleteVideoFromAllContests(vid.VideoID);
 
+                var cv = new ContestVideo {ContestID = subContestID, VideoID = vid.VideoID};
 
-                //// guitar
-                //if (!string.IsNullOrWhiteSpace(this.ddlGuitarType.SelectedValue)
-                //    && this.ddlGuitarType.SelectedValue != selectText)
-                //{
-                //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.GUITR);
-                //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-                //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
-                //    mp.RemoveCache();
-                //    MultiPropertyVideo.AddMultiPropertyVideo(
-                //        Convert.ToInt32(ddlGuitarType.SelectedValue), vid.VideoID);
-                //}
+                cv.Create();
+            }
+            else
+            {
+                // TODO: JUST REMOVE FROM CURRENT CONTEST, NOT ALL
+                ContestVideo.DeleteVideoFromAllContests(vid.VideoID);
+            }
 
-                //// Language
-                //if (!string.IsNullOrWhiteSpace(this.ddlLanguage.SelectedValue)
-                //    && this.ddlLanguage.SelectedValue != selectText)
-                //{
-                //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.LANGE);
-                //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-                //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
-                //    mp.RemoveCache();
-                //    MultiPropertyVideo.AddMultiPropertyVideo(
-                //        Convert.ToInt32(ddlLanguage.SelectedValue), vid.VideoID);
-                //}
+            // vid type
 
+            var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
+            var mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
+            MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
+            mp.RemoveCache();
+            MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(videoType), vid.VideoID);
 
-                //// genre
-                //if (!string.IsNullOrWhiteSpace(this.ddlGenre.SelectedValue)
-                //    && this.ddlGenre.SelectedValue != selectText)
-                //{
-                //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.GENRE);
-                //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-                //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
-                //    mp.RemoveCache();
-                //    MultiPropertyVideo.AddMultiPropertyVideo(
-                //        Convert.ToInt32(ddlGenre.SelectedValue), vid.VideoID);
-                //}
+            // human
 
-                //// difficulty
-                //if (!string.IsNullOrWhiteSpace(this.ddlDifficultyLevel.SelectedValue)
-                //    && this.ddlDifficultyLevel.SelectedValue != selectText)
-                //{
-                //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.DIFFC);
-                //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-                //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
-                //    mp.RemoveCache();
-                //    MultiPropertyVideo.AddMultiPropertyVideo(
-                //        Convert.ToInt32(this.ddlDifficultyLevel.SelectedValue), vid.VideoID);
-                //}
-
-                //VideoSong.DeleteSongsForVideo(vid.VideoID);
-
-                // song 1
-
-                var artst = new Artist(band.Trim());
-
-                if (artst.ArtistID == 0)
-                {
-                    artst.GetArtistByAltname(band.Trim());
-                }
-
-                if (artst.ArtistID == 0)
-                {
-                    artst.Name = band.Trim();
-                    artst.AltName = FromString.URLKey(artst.Name);
-                    artst.Create();
-                }
+            propTyp = new PropertyType(SiteEnums.PropertyTypeCode.HUMAN);
+            mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
+            MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
+            mp.RemoveCache();
+            MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(personType), vid.VideoID);
 
 
-                var sng = new Song(artst.ArtistID, song.Trim());
+            // footage
+
+            propTyp = new PropertyType(SiteEnums.PropertyTypeCode.FOOTG);
+            mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
+            MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
+            mp.RemoveCache();
+            MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(footageType), vid.VideoID);
 
 
-                if (sng.SongID == 0)
-                {
-                    sng.Name = sng.Name.Trim();
-                    sng.SongKey = FromString.URLKey(sng.Name);
-                    sng.Create();
-                }
+            //// guitar
+            //if (!string.IsNullOrWhiteSpace(this.ddlGuitarType.SelectedValue)
+            //    && this.ddlGuitarType.SelectedValue != selectText)
+            //{
+            //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.GUITR);
+            //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
+            //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
+            //    mp.RemoveCache();
+            //    MultiPropertyVideo.AddMultiPropertyVideo(
+            //        Convert.ToInt32(ddlGuitarType.SelectedValue), vid.VideoID);
+            //}
 
-                VideoSong.AddVideoSong(sng.SongID, vid.VideoID, 1);
+            //// Language
+            //if (!string.IsNullOrWhiteSpace(this.ddlLanguage.SelectedValue)
+            //    && this.ddlLanguage.SelectedValue != selectText)
+            //{
+            //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.LANGE);
+            //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
+            //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
+            //    mp.RemoveCache();
+            //    MultiPropertyVideo.AddMultiPropertyVideo(
+            //        Convert.ToInt32(ddlLanguage.SelectedValue), vid.VideoID);
+            //}
 
-                //  RefreshLists();
 
-                //                lblStatus.Text = "OK";
+            //// genre
+            //if (!string.IsNullOrWhiteSpace(this.ddlGenre.SelectedValue)
+            //    && this.ddlGenre.SelectedValue != selectText)
+            //{
+            //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.GENRE);
+            //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
+            //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
+            //    mp.RemoveCache();
+            //    MultiPropertyVideo.AddMultiPropertyVideo(
+            //        Convert.ToInt32(ddlGenre.SelectedValue), vid.VideoID);
+            //}
 
-                if (vid.VideoID > 0)
-                {
-                    Response.Redirect(vid.VideoURL); // just send them to it
-                }
-            
-           
-                //              lblStatus.Text = ex.Message;
+            //// difficulty
+            //if (!string.IsNullOrWhiteSpace(this.ddlDifficultyLevel.SelectedValue)
+            //    && this.ddlDifficultyLevel.SelectedValue != selectText)
+            //{
+            //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.DIFFC);
+            //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
+            //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
+            //    mp.RemoveCache();
+            //    MultiPropertyVideo.AddMultiPropertyVideo(
+            //        Convert.ToInt32(this.ddlDifficultyLevel.SelectedValue), vid.VideoID);
+            //}
 
-                //{
-        
-                //}
-           
+            //VideoSong.DeleteSongsForVideo(vid.VideoID);
+
+            // song 1
+
+            var artst = new Artist(band.Trim());
+
+            if (artst.ArtistID == 0)
+            {
+                artst.GetArtistByAltname(band.Trim());
+            }
+
+            if (artst.ArtistID == 0)
+            {
+                artst.Name = band.Trim();
+                artst.AltName = FromString.URLKey(artst.Name);
+                artst.Create();
+            }
+
+
+            var sng = new Song(artst.ArtistID, song.Trim());
+
+
+            if (sng.SongID == 0)
+            {
+                sng.Name = sng.Name.Trim();
+                sng.SongKey = FromString.URLKey(sng.Name);
+                sng.Create();
+            }
+
+            VideoSong.AddVideoSong(sng.SongID, vid.VideoID, 1);
+
+            //  RefreshLists();
+
+            //                lblStatus.Text = "OK";
+
+            if (vid.VideoID > 0)
+            {
+                Response.Redirect(vid.VideoURL); // just send them to it
+            }
+
+
+            //              lblStatus.Text = ex.Message;
+
+            //{
+
+            //}
+
 
             //Video v1 = new Video();
 
@@ -448,7 +443,6 @@ namespace DasKlub.Controllers
             // CONTESTS
 
 
-
             //// 
             //var pitms = new PhotoItems {UseThumb = true, ShowTitle = false};
             //pitms.GetPhotoItemsPageWise(1, 4);
@@ -478,8 +472,7 @@ namespace DasKlub.Controllers
             //ViewBag.RandomVideoKey = vid.ProviderKey;
 
 
-
-            var cndss = Contest.GetCurrentContest();
+            Contest cndss = Contest.GetCurrentContest();
             var cvids = new ContestVideos();
 
 
@@ -521,7 +514,6 @@ namespace DasKlub.Controllers
             return View();
         }
 
-     
 
         public ActionResult Contact()
         {
