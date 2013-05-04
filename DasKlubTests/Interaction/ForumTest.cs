@@ -4,7 +4,7 @@ using DasKlub.Models;
 using DasKlub.Models.Forum;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DasKlubTests.IntegrationTests
+namespace DasKlubTests.Interaction
 {
     [TestClass]
     public class ForumTest

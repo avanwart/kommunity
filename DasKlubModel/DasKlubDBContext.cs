@@ -9,32 +9,10 @@ namespace DasKlub.Models
 {
     public partial class DasKlubDBContext : BaseContext<DasKlubDBContext>
     {
-        //static DasKlubDBContext()
-        //{
-        //    Database.SetInitializer<DasKlubDBContext>(null);
-        //}
-
-        //public DasKlubDBContext()
-        //   // : base("Name=DasKlubDBContext")
-        //    : base("DasKlubDBContext")
-        //{
-        //}
-
-
-        public DbSet<ForumCategory> ForumCategory { get; set; }
-        public DbSet<ForumSubCategory> ForumSubCategory { get; set; }
-        public DbSet<ForumPost> ForumPost { get; set; }
-        public DbSet<ForumPostNotification> ForumPostNotification { get; set; }
-
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-
-        //    modelBuilder.Configurations.Add(new ForumCategory());
-        //    modelBuilder.Configurations.Add(new ForumSubCategory());
-        //    modelBuilder.Configurations.Add(new ForumPost());
-        //}
-
-
+        public IDbSet<ForumCategory>            ForumCategory           { get; set; }
+        public IDbSet<ForumSubCategory>         ForumSubCategory        { get; set; }
+        public IDbSet<ForumPost>                ForumPost               { get; set; }
+        public IDbSet<ForumPostNotification>    ForumPostNotification   { get; set; }
 
         public override int SaveChanges()
         {

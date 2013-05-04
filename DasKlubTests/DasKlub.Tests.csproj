@@ -67,8 +67,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="IntegrationTests\ForumTest.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="Interaction\ForumTest.cs" />
+    <Compile Include="Unit\Controllers\HomeControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

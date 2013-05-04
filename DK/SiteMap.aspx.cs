@@ -16,14 +16,17 @@
 
 using System;
 using System.Collections;
+using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Xml;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
+using DasKlub.Models;
 
-namespace DasKlub
+namespace DasKlub.Web
 {
     public partial class SiteMap : Page
     {
@@ -41,12 +44,63 @@ namespace DasKlub
 
             // home
             writer.WriteStartElement("url");
-            writer.WriteElementString("loc", "http://DasKlub.com/");
+            writer.WriteElementString("loc", "http://dasklub.com/");
             writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", DateTime.UtcNow));
             writer.WriteElementString("changefreq", "weekly");
             writer.WriteElementString("priority", "1.0");
             writer.WriteEndElement();
             writer.WriteString("\r\n"); //newline 
+
+
+
+            using (var context = new DasKlubDBContext())
+            {
+
+                var forumCategory = context.ForumCategory
+                                           .OrderBy(x => x.CreateDate)
+                                           .ToList();
+
+                foreach (var category in forumCategory)
+                {
+                    writer.WriteStartElement("url");
+                    writer.WriteElementString("loc", category.ForumURL.ToString());
+                    writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", category.CreateDate));
+                    writer.WriteElementString("changefreq", "weekly");
+                    writer.WriteElementString("priority", "0.8");
+                    writer.WriteEndElement();
+                    writer.WriteString("\r\n"); //newline 
+
+                    var category1 = category;
+                    var subForums = context.ForumSubCategory.Where(x => x.ForumCategoryID == category1.ForumCategoryID);
+
+                    foreach (var forumPost in subForums)
+                    {
+                        writer.WriteStartElement("url");
+                        writer.WriteElementString("loc", forumPost.SubForumURL.ToString());
+                        writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", forumPost.CreateDate));
+                        writer.WriteElementString("changefreq", "weekly");
+                        writer.WriteElementString("priority", "0.8");
+                        writer.WriteEndElement();
+                        writer.WriteString("\r\n"); //newline 
+
+                        //var s1 = context.ForumPost.Where(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID);
+
+                        //foreach (var f1 in s1)
+                        //{
+                        //    f1.ForumPostURL =
+                        //   new Uri(forumPost.SubForumURL + "/" + 
+
+                        //    writer.WriteStartElement("url");
+                        //    writer.WriteElementString("loc", f1.ForumPostURL.ToString());
+                        //    writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", f1.CreateDate));
+                        //    writer.WriteElementString("changefreq", "weekly");
+                        //    writer.WriteElementString("priority", "0.8");
+                        //    writer.WriteEndElement();
+                        //    writer.WriteString("\r\n"); //newline 
+                        //}
+                    }
+                }
+            }
 
             var artis = new Artists();
             artis.GetAll();
@@ -54,7 +108,7 @@ namespace DasKlub
             foreach (Artist app in artis)
             {
                 writer.WriteStartElement("url");
-                writer.WriteElementString("loc", "http://DasKlub.com/" + app.URLOfArtist);
+                writer.WriteElementString("loc", "http://dasklub.com/" + app.URLOfArtist);
                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", app.UpdateDate));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.8");
@@ -67,7 +121,7 @@ namespace DasKlub
             foreach (string app in userAccounts)
             {
                 writer.WriteStartElement("url");
-                writer.WriteElementString("loc", "http://DasKlub.com/" + app);
+                writer.WriteElementString("loc", "http://dasklub.com/" + app);
                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", DateTime.UtcNow));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.7");
@@ -86,7 +140,7 @@ namespace DasKlub
                 //  if (a1 == ua1.UserName) continue;// already added as a video
 
                 writer.WriteStartElement("url");
-                writer.WriteElementString("loc", "http://DasKlub.com/" + ua1.UserName.Replace(" ", "-"));
+                writer.WriteElementString("loc", "http://dasklub.com/" + ua1.UserName.Replace(" ", "-"));
                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", ua1.LastActivityDate));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.7");
@@ -109,7 +163,7 @@ namespace DasKlub
                 //  if (a1 == ua1.UserName) continue;// already added as a video
 
                 writer.WriteStartElement("url");
-                writer.WriteElementString("loc", "http://DasKlub.com/news/" + c1.ContentKey);
+                writer.WriteElementString("loc", "http://dasklub.com/news/" + c1.ContentKey);
                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", c1.ReleaseDate));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.8");

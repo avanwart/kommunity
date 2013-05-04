@@ -10,7 +10,7 @@ using BootBaronLib.Operational;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace DasKlub
+namespace DasKlub.Web
 {
     public partial class MassMail : Page
     {
@@ -19,7 +19,7 @@ namespace DasKlub
             //  VideoCount();
 
 
-            //   SendMassMail();
+            // SendMassMail();
         }
 
         private static void SendMassMail()
@@ -42,23 +42,23 @@ namespace DasKlub
                 sb.AppendLine();
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.AppendLine("Das Klub Presents: Vault-113 Dance Contest");
+                sb.AppendLine("Want to own a limited edition T-Shirt? (limited to only 20)");
                 sb.AppendLine();
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.AppendLine("-Rules/ Prizes: http://dasklub.com/news/vault-113-industrial-dance-contest");
+                sb.AppendLine("Go to: http://igg.me/at/dasklub-dance-t-shirt and click on the: Request T-Shirt perk button. If we reach the target goal of $666 by May 31st, we will make it for you and mail it to you in your size no matter where you live. We want to keep this simple and get it done. Only donate the $33 amount, no other amount is entitled to the T-Shirt. If we don't reach funding then you get your money back, you have nothing to lose!");
                 sb.AppendLine();
-                sb.AppendLine("-Edited and raw videos will be judged as different contests (2 total winners)");
+                //sb.AppendLine("-Edited and raw videos will be judged as different contests (2 total winners)");
+                //sb.AppendLine();
+                //sb.AppendLine("-This is the last Das Klub Dance Contest of 2013 and probably the last one ever!");
+                //sb.AppendLine();
+                //sb.AppendLine("-Deadline: 2013-05-20");
+                //sb.AppendLine();
+                //sb.AppendLine("-Winners announced at Kinetik Festival");
                 sb.AppendLine();
-                sb.AppendLine("-This is the last Das Klub Dance Contest of 2013 and probably the last one ever!");
-                sb.AppendLine();
-                sb.AppendLine("-Deadline: 2013-05-20");
-                sb.AppendLine();
-                sb.AppendLine("-Winners announced at Kinetik Festival");
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("Dance Now Or Never,");
+                sb.AppendLine("Now Or Never,");
                 sb.AppendLine();
                 sb.AppendLine("[ admin ] | RMW");
                 sb.AppendLine();
@@ -80,7 +80,7 @@ namespace DasKlub
 
                 if (!uad.EmailMessages) continue;
 
-                if (Utilities.SendMail(ua1.EMail, "The Last Das Klub Dance Contest EVER?", sb.ToString()))
+                if (Utilities.SendMail(ua1.EMail, "LIMITED EDITION T-Shirt (only 20)", sb.ToString()))
                 {
                     totalSent++;
                 }

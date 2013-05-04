@@ -43,16 +43,16 @@ namespace DasKlub.Web.Controllers
                 context.Configuration.ProxyCreationEnabled = false;
                 context.Configuration.LazyLoadingEnabled = false;
 
-                List<ForumCategory> forumCategory = context.ForumCategory
+                var forumCategory = context.ForumCategory
                                                            .OrderBy(x => x.CreateDate)
                                                            .ToList();
 
-                foreach (ForumCategory category in forumCategory)
+                foreach (var category in forumCategory)
                 {
                     var lastPostForum = new ForumPost();
 
-                    ForumCategory category1 = category;
-                    IQueryable<ForumSubCategory> subForums =
+                    var category1 = category;
+                    var subForums =
                         context.ForumSubCategory.Where(x => x.ForumCategoryID == category1.ForumCategoryID);
 
 
@@ -126,11 +126,11 @@ namespace DasKlub.Web.Controllers
                 context.Configuration.ProxyCreationEnabled = false;
                 context.Configuration.LazyLoadingEnabled = false;
 
-                ForumCategory forum = context.ForumCategory.First(x => x.Key == key);
+                var forum = context.ForumCategory.First(x => x.Key == key);
                 ViewBag.Title = forum.Title;
                 ViewBag.Forum = forum;
 
-                List<ForumSubCategory> forumSubCategory = context.ForumSubCategory
+                var forumSubCategory = context.ForumSubCategory
                                                                  .Where(x => x.ForumCategoryID == forum.ForumCategoryID)
                                                                  .OrderByDescending(x => x.CreateDate)
                                                                  .Skip(PageSize*(pageNumber - 1))
