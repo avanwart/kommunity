@@ -1,7 +1,9 @@
 ﻿@using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
 @using BootBaronLib.Configs
 @using BootBaronLib.Operational
+@using BootBaronLib.Resources
 @using BootBaronLib.Values
+@using DasKlub.Models.Forum
 @{
     ViewBag.Title = SiteDomain.GetSiteDomainValue(
         SiteEnums.SiteBrandType.TAGLN,
@@ -30,11 +32,7 @@
         <div class="clear">
         </div>
         <br />
-
- 
-      
-        @*  <a href="@Url.Content("~/account/home")" class="btn-inverse btn">@Messages.UploadPhoto</a>*@
-        @*<a href="@Url.Content("~/photos")">@Messages.MorePhotos</a>*@
+         
         <br />
         @if (GeneralConfigs.IsGiveAway)
         {
@@ -58,80 +56,49 @@
                 
                 
            
-
-                @*   
-                     
-                <div class="row">
-                    <div class="clear"></div>
-                  
-                    @foreach (var content in ViewBag.RecentArticles)
-                    {
-                        <div class="span3">
-                            <ul class="list_less">
-                                @Html.Raw(content.ToUnorderdListItem)
-                            </ul>
-                        </div>
-                    }
-                </div>
-                @{ Html.RenderPartial("_AdBanner"); }*@
-               
-           
-                @*                      
-              <h4>@Messages.News</h4>
-                <hr style="margin-top: 0; padding-top: 0;" />
-                <div class="news_list" id="article_list">
-                    @Html.Raw(ViewBag.RecentArticles)*@
-                @* <a name="submit_video"></a>*@
-
-                 
-                @* <h5>@Messages.SubmitYourYouTubeVideoLinkHere</h5>
-                    @using (Html.BeginForm("videosubmit", "Home", FormMethod.Post))
-                    {
-                         <div class="span3">
-                        <a href="http://youtube.com" target="_blank">
-                       
-                        <img src="@Url.Content("~/content/images/social/you_tube.png")" />  </a>
-                           
-                        <input class="input-small " placeholder="http://www.youtube.com/watch?v=530x1vuuuQw" type="text" name="video" />
-                        <button class="btn btn-success">@Messages.Submit</button>
-                          </div>   <div class="clear"></div>
-                    }*@
-
-
-                
-                
-
-  
-            </div>
-            @*     
-
-            <div class="span4">
-                @{ Html.RenderPartial("_LoginControls"); }
-        
-                <hr />
-                        <h5>@Messages.NewestUsers</h5>   
-                @Html.Raw(ViewBag.NewestUsers)
-                
-          <div class="clear"></div>
-                <hr />
-                
-                   <div class="gallery">
-                      <h5>@Messages.NewestVideos</h5>   
-                    @Html.Raw(ViewBag.NewestVideos)
-                </div>
-              <div class="clear"></div>
-                <hr />
-                
-                <h5>@Messages.NewestPhotos</h5>
-        @Html.Raw(ViewBag.PhotoList)
-
-               
-   
-            </div>*@
-           
-         
  
 
+  
+         
+      @if (ViewBag.MostRecentThreads != null)
+      {
+    <div class="clear">
+            </div>
+                  <h4>Newest Threads</h4>
+          foreach (ForumSubCategory post in ViewBag.MostRecentThreads)
+          {
+              <div class="row">
+        
+                  <div class="span2 user_icons">
+                    
+                      
+                          <ul>
+                          @Html.Raw(post.UserAccount.ToUnorderdListItem)
+                              </ul>
+                      
+                 
+                   
+                  </div>
+                  
+                  
+                    <div class="span4">
+ <b>
+ <a href="@post.SubForumURL.ToString()">@post.Title</a></b>                    
+                        <br />
+                        <span title="@FromDate.DateToYYYY_MM_DD(post.CreateDate)"><i>@Utilities.TimeElapsedMessage(post.CreateDate)</i>&nbsp; - Replies: @post.TotalPosts</span>
+                          <br /><br />
+                        <p>
+                            
+                                        @Html.Raw(Utilities.MakeLink(FromString.ReplaceNewLineWithHTML(post.Description)))
+                        </p>
+                    </div>
+               
+  
+              </div>
+              <hr />
+          }
+      }
+   </div>
             <div class="clear">
             </div>
 

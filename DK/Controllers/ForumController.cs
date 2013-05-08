@@ -20,7 +20,8 @@ namespace DasKlub.Web.Controllers
         private readonly MembershipUser _mu;
 
         // If you are using Dependency Injection, you can delete the following constructor
-        public ForumController() : this(new ForumCategoryRepository())
+        public ForumController()
+            : this(new ForumCategoryRepository())
         {
         }
 
@@ -29,12 +30,6 @@ namespace DasKlub.Web.Controllers
             _forumcategoryRepository = forumcategoryRepository;
             _mu = Membership.GetUser();
         }
-
-
-        //public ForumController()
-        //{
-        //    _mu = Membership.GetUser();
-        //}
 
         public ActionResult Index()
         {
@@ -56,21 +51,21 @@ namespace DasKlub.Web.Controllers
                         context.ForumSubCategory.Where(x => x.ForumCategoryID == category1.ForumCategoryID);
 
 
-                    foreach (ForumSubCategory forumSubCategory in subForums)
+                    foreach (var forumSubCategory in subForums)
                     {
                         category.TotalPosts++;
 
-                        ForumPost lastPost =
+                        var lastPost =
                             context.ForumPost.Where(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID)
                                    .OrderByDescending(x => x.CreateDate)
                                    .FirstOrDefault();
 
                         if (lastPost == null) continue;
 
-                        int forumSubPostCount =
+                        var forumSubPostCount =
                             context.ForumPost.Count(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID);
 
-                        int pageCount = (forumSubPostCount + PageSize - 1)/PageSize;
+                        var pageCount = (forumSubPostCount + PageSize - 1) / PageSize;
 
                         lastPost.ForumPostURL =
                             new Uri(forumSubCategory.SubForumURL + "/" +
@@ -85,9 +80,9 @@ namespace DasKlub.Web.Controllers
 
                         if (_mu != null)
                         {
-                            int userID = Convert.ToInt32(_mu.ProviderUserKey);
+                            var userID = Convert.ToInt32(_mu.ProviderUserKey);
 
-                            ForumPostNotification isNew =
+                            var isNew =
                                 context.ForumPostNotification.FirstOrDefault(
                                     x =>
                                     x.ForumSubCategoryID == lastPost.ForumSubCategoryID &&
@@ -110,10 +105,10 @@ namespace DasKlub.Web.Controllers
 
         private void GetValue(string key, string subKey, DasKlubDBContext context)
         {
-            ForumCategory forum = context.ForumCategory.First(x => x.Key == key);
+            var forum = context.ForumCategory.First(x => x.Key == key);
             ViewBag.Forum = forum;
 
-            ForumSubCategory subForum = context.ForumSubCategory.First(x => x.Key == subKey);
+            var subForum = context.ForumSubCategory.First(x => x.Key == subKey);
             ViewBag.SubForum = subForum;
         }
 
@@ -133,30 +128,29 @@ namespace DasKlub.Web.Controllers
                 var forumSubCategory = context.ForumSubCategory
                                                                  .Where(x => x.ForumCategoryID == forum.ForumCategoryID)
                                                                  .OrderByDescending(x => x.CreateDate)
-                                                                 .Skip(PageSize*(pageNumber - 1))
+                                                                 .Skip(PageSize * (pageNumber - 1))
                                                                  .Take(PageSize).ToList();
 
-                ForumCategory forumCategory = context.ForumCategory.First(x => x.Key == key);
+                var forumCategory = context.ForumCategory.First(x => x.Key == key);
 
                 ViewBag.Forum = forumCategory;
 
-                int totalCount = context.ForumSubCategory.Count(x => x.ForumCategoryID == forum.ForumCategoryID);
+                var totalCount = context.ForumSubCategory.Count(x => x.ForumCategoryID == forum.ForumCategoryID);
 
-                ViewBag.PageCount = (totalCount + PageSize - 1)/PageSize;
+                ViewBag.PageCount = (totalCount + PageSize - 1) / PageSize;
 
                 ViewBag.PageNumber = pageNumber;
 
-                foreach (ForumSubCategory thread in forumSubCategory)
+                foreach (var thread in forumSubCategory)
                 {
                     var lastPostForum = new ForumPost();
 
-                    ForumSubCategory thread1 = thread;
-                    IQueryable<ForumSubCategory> subForums =
-                        context.ForumSubCategory.Where(x => x.ForumSubCategoryID == thread1.ForumSubCategoryID);
+                    var thread1 = thread;
+                    var subForums = context.ForumSubCategory.Where(x => x.ForumSubCategoryID == thread1.ForumSubCategoryID);
 
-                    foreach (ForumSubCategory forumPost in subForums)
+                    foreach (var forumPost in subForums)
                     {
-                        ForumPost lastPost =
+                        var lastPost =
                             context.ForumPost.Where(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID)
                                    .OrderByDescending(x => x.CreateDate)
                                    .FirstOrDefault();
@@ -165,13 +159,11 @@ namespace DasKlub.Web.Controllers
                         if (lastPostForum.ForumPostID != 0 && (lastPost.CreateDate <= lastPostForum.CreateDate))
                             continue;
 
-                        int forumSubPostCount =
-                            context.ForumPost.Count(
-                                x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID);
+                        var forumSubPostCount = context.ForumPost.Count(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID);
 
                         thread.TotalPosts += forumSubPostCount;
 
-                        int pageCount = (forumSubPostCount + PageSize - 1)/PageSize;
+                        var pageCount = (forumSubPostCount + PageSize - 1) / PageSize;
 
                         lastPost.ForumPostURL =
                             new Uri(forumPost.SubForumURL + "/" +
@@ -184,9 +176,9 @@ namespace DasKlub.Web.Controllers
 
                         if (_mu != null)
                         {
-                            int userID = Convert.ToInt32(_mu.ProviderUserKey);
+                            var userID = Convert.ToInt32(_mu.ProviderUserKey);
 
-                            ForumPostNotification isNew =
+                            var isNew =
                                 context.ForumPostNotification.FirstOrDefault(
                                     x =>
                                     x.ForumSubCategoryID == lastPost.ForumSubCategoryID &&
@@ -215,13 +207,6 @@ namespace DasKlub.Web.Controllers
             ViewBag.Forum = _forumcategoryRepository.Find(key);
 
             return View();
-
-            //using (var context = new ForumCategoryRepository())
-            //{
-            //    ViewBag.Forum = context.ForumCategory.Find(key);
-
-            //    return View();
-            //}
         }
 
 
@@ -237,7 +222,7 @@ namespace DasKlub.Web.Controllers
                 {
                     if (model == null) return new EmptyResult();
 
-                    ForumCategory forum = context.ForumCategory.First(x => x.Key == model.Key);
+                    var forum = context.ForumCategory.First(x => x.Key == model.Key);
 
                     ViewBag.Forum = forum;
 
@@ -255,12 +240,12 @@ namespace DasKlub.Web.Controllers
                     context.ForumSubCategory.Add(model);
 
                     var notification = new ForumPostNotification
-                        {
-                            CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey),
-                            IsRead = true,
-                            UserAccountID = Convert.ToInt32(_mu.ProviderUserKey),
-                            ForumSubCategoryID = model.ForumSubCategoryID
-                        };
+                    {
+                        CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey),
+                        IsRead = true,
+                        UserAccountID = Convert.ToInt32(_mu.ProviderUserKey),
+                        ForumSubCategoryID = model.ForumSubCategoryID
+                    };
 
                     context.ForumPostNotification.Add(notification);
 
@@ -279,8 +264,7 @@ namespace DasKlub.Web.Controllers
         {
             using (var context = new DasKlubDBContext())
             {
-                ForumSubCategory forumPost =
-                    context.ForumSubCategory.First(x => x.ForumSubCategoryID == forumSubCategoryID);
+                var forumPost = context.ForumSubCategory.First(x => x.ForumSubCategoryID == forumSubCategoryID);
 
                 if (Convert.ToInt32(_mu.ProviderUserKey) == forumPost.CreatedByUserID)
                 {
@@ -362,26 +346,26 @@ namespace DasKlub.Web.Controllers
                 context.Configuration.ProxyCreationEnabled = false;
                 context.Configuration.LazyLoadingEnabled = false;
 
-                ForumCategory forum = context.ForumCategory.First(x => x.Key == key);
+                var forum = context.ForumCategory.First(x => x.Key == key);
                 ViewBag.Forum = forum;
 
-                ForumSubCategory subForum = context.ForumSubCategory.First(x => x.Key == subKey);
+                var subForum = context.ForumSubCategory.First(x => x.Key == subKey);
                 subForum.UserAccount = new UserAccount(subForum.CreatedByUserID);
 
                 ViewBag.SubForum = subForum;
 
-                List<ForumPost> forumPost = context.ForumPost
+                var forumPost = context.ForumPost
                                                    .Where(x => x.ForumSubCategoryID == subForum.ForumSubCategoryID)
                                                    .OrderBy(x => x.CreateDate)
-                                                   .Skip(PageSize*(pageNumber - 1))
+                                                   .Skip(PageSize * (pageNumber - 1))
                                                    .Take(PageSize).ToList();
 
                 ViewBag.Title = subForum.Title;
 
                 if (_mu != null)
                 {
-                    int userID = Convert.ToInt32(_mu.ProviderUserKey);
-                    ForumPostNotification forumPostNotification =
+                    var userID = Convert.ToInt32(_mu.ProviderUserKey);
+                    var forumPostNotification =
                         context.ForumPostNotification.FirstOrDefault(
                             x =>
                             x.ForumSubCategoryID == subForum.ForumSubCategoryID &&
@@ -395,13 +379,13 @@ namespace DasKlub.Web.Controllers
                     }
                 }
 
-                int totalCount = context.ForumPost.Count(x => x.ForumSubCategoryID == subForum.ForumSubCategoryID);
+                var totalCount = context.ForumPost.Count(x => x.ForumSubCategoryID == subForum.ForumSubCategoryID);
 
-                ViewBag.PageCount = (totalCount + PageSize - 1)/PageSize;
+                ViewBag.PageCount = (totalCount + PageSize - 1) / PageSize;
 
                 ViewBag.PageNumber = pageNumber;
 
-                foreach (ForumPost post in forumPost)
+                foreach (var post in forumPost)
                 {
                     post.UserAccount = new UserAccount(post.CreatedByUserID);
                 }
@@ -415,8 +399,7 @@ namespace DasKlub.Web.Controllers
         {
             using (var context = new DasKlubDBContext())
             {
-                ForumSubCategory subForum =
-                    context.ForumSubCategory.First(x => x.ForumSubCategoryID == forumSubCategoryID);
+                var subForum = context.ForumSubCategory.First(x => x.ForumSubCategoryID == forumSubCategoryID);
 
                 if (!ModelState.IsValid)
                 {
@@ -431,29 +414,25 @@ namespace DasKlub.Web.Controllers
                 model.CreatedByUserID = ua.UserAccountID;
                 context.ForumPost.Add(model);
 
-                ForumPostNotification currentUserNotification =
-                    context.ForumPostNotification.FirstOrDefault(
-                        x => x.ForumSubCategoryID == forumSubCategoryID && x.UserAccountID == ua.UserAccountID);
+                var currentUserNotification = context.ForumPostNotification.FirstOrDefault(x => x.ForumSubCategoryID == forumSubCategoryID && x.UserAccountID == ua.UserAccountID);
 
                 if (currentUserNotification == null || currentUserNotification.ForumPostNotificationID == 0)
                 {
                     var notification = new ForumPostNotification
-                        {
-                            CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey),
-                            IsRead = true,
-                            UserAccountID = Convert.ToInt32(_mu.ProviderUserKey),
-                            ForumSubCategoryID = forumSubCategoryID
-                        };
+                    {
+                        CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey),
+                        IsRead = true,
+                        UserAccountID = Convert.ToInt32(_mu.ProviderUserKey),
+                        ForumSubCategoryID = forumSubCategoryID
+                    };
 
                     context.ForumPostNotification.Add(notification);
                 }
 
 
-                List<ForumPostNotification> allUserNotifications =
-                    context.ForumPostNotification.Where(x => x.ForumSubCategoryID == forumSubCategoryID).ToList();
+                var allUserNotifications = context.ForumPostNotification.Where(x => x.ForumSubCategoryID == forumSubCategoryID).ToList();
 
-                foreach (
-                    ForumPostNotification forumPostNotification in
+                foreach (var forumPostNotification in
                         allUserNotifications.Where(
                             forumPostNotification => forumPostNotification.UserAccountID != ua.UserAccountID))
                 {
@@ -477,7 +456,7 @@ namespace DasKlub.Web.Controllers
         {
             using (var context = new DasKlubDBContext())
             {
-                ForumPost forumPost = context.ForumPost.First(x => x.ForumPostID == forumPostID);
+                var forumPost = context.ForumPost.First(x => x.ForumPostID == forumPostID);
 
                 if (Convert.ToInt32(_mu.ProviderUserKey) == forumPost.CreatedByUserID)
                 {

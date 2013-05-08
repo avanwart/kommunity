@@ -279,7 +279,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         private bool _allInInbox = true;
         private bool _includeStartAndEndTags = true;
-        private int messagereturncount = 20;
+        private const int messagereturncount = 20;
 
         public bool IsChat { get; set; }
 
@@ -541,17 +541,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public static int GetDirectMessagesToUserCount(MembershipUser mu)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetDirectMessagesToUserCount";
 
             comm.AddParameter("toUserAccountID", Convert.ToInt32(mu.ProviderUserKey));
 
             // execute the stored procedure
-            string rslt = DbAct.ExecuteScalar(comm);
+            var rslt = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(rslt) && Convert.ToInt32(rslt) == 0) return 0;
-            else return Convert.ToInt32(rslt);
+            return Convert.ToInt32(rslt);
         }
     }
 }

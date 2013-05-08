@@ -51,7 +51,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             if (string.IsNullOrEmpty(ipAddress)) return true;
 
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_IsIPBlocked";
 

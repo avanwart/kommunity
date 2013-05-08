@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -28,6 +29,9 @@ using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
 using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
+using DasKlub.Models;
+using DasKlub.Models.Forum;
+using DasKlub.Models.Models;
 using Google.GData.Client;
 using Google.YouTube;
 using HttpUtility = System.Web.HttpUtility;
@@ -39,6 +43,10 @@ namespace DasKlub.Web.Controllers
     [HandleError]
     public class HomeController : Controller
     {
+
+        private readonly IForumCategoryRepository _forumcategoryRepository;
+
+
         #region Json
 
         public JsonResult Download(char link)
@@ -69,6 +77,17 @@ namespace DasKlub.Web.Controllers
         }
 
         #endregion
+
+
+         public HomeController()
+            : this(new ForumCategoryRepository())
+        {
+        }
+
+         private HomeController(IForumCategoryRepository forumcategoryRepository)
+        {
+            _forumcategoryRepository = forumcategoryRepository;
+        }
 
         #region Actions
 
@@ -155,8 +174,6 @@ namespace DasKlub.Web.Controllers
             {
                 vid.IsEnabled = false;
                 vid.Update();
-                //litVideo.Text = string.Empty;
-                // return;
 
                 // invalid 
                 vir.StatusType = 'I';
@@ -181,37 +198,6 @@ namespace DasKlub.Web.Controllers
 
 
             vid.VolumeLevel = 5;
-            // vid.HumanType = personType;
-
-
-            //    t(string video, string videoType, string personType,
-            //string footageType, string band, string song, string contestID)
-
-
-            //  vid.VideoType = videoType;
-
-
-            //vid.Duration = (float)Convert.ToDouble(txtDuration.Text);
-            //vid.Intro = (float)Convert.ToDouble(txtSecondsIn.Text);
-            //vid.LengthFromStart = (float)Convert.ToDouble(txtElasedEnd.Text);
-            //vid.ProviderCode = ddlVideoProvider.SelectedValue;
-            //vid.ProviderUserKey = txtUserName.Text;
-            //vid.VolumeLevel = Convert.ToInt32(ddlVolumeLevel.SelectedValue);
-            //vid.IsEnabled = chkEnabled.Checked;
-            //// vid.IsHidden = chkHidden.Checked;
-            //vid.EnableTrim = chkEnabled.Checked;
-
-            ///// publish date 
-            //YouTubeRequestSettings yousettings =
-            //    new YouTubeRequestSettings("You Manager", devkey, username, password);
-            //YouTubeRequest yourequest;
-            //Uri Url;
-
-            //yourequest = new YouTubeRequest(yousettings);
-            //Url = new Uri("http://gdata.youtube.com/feeds/api/videos/" + vid.ProviderKey);
-            //video = new Google.YouTube.Video();
-            //video = yourequest.Retrieve<Google.YouTube.Video>(Url);
-            //vid.PublishDate = video.YouTubeEntry.Published;
 
             if (string.IsNullOrWhiteSpace(vid.ProviderKey))
             {
@@ -278,57 +264,6 @@ namespace DasKlub.Web.Controllers
             MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(footageType), vid.VideoID);
 
 
-            //// guitar
-            //if (!string.IsNullOrWhiteSpace(this.ddlGuitarType.SelectedValue)
-            //    && this.ddlGuitarType.SelectedValue != selectText)
-            //{
-            //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.GUITR);
-            //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-            //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
-            //    mp.RemoveCache();
-            //    MultiPropertyVideo.AddMultiPropertyVideo(
-            //        Convert.ToInt32(ddlGuitarType.SelectedValue), vid.VideoID);
-            //}
-
-            //// Language
-            //if (!string.IsNullOrWhiteSpace(this.ddlLanguage.SelectedValue)
-            //    && this.ddlLanguage.SelectedValue != selectText)
-            //{
-            //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.LANGE);
-            //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-            //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
-            //    mp.RemoveCache();
-            //    MultiPropertyVideo.AddMultiPropertyVideo(
-            //        Convert.ToInt32(ddlLanguage.SelectedValue), vid.VideoID);
-            //}
-
-
-            //// genre
-            //if (!string.IsNullOrWhiteSpace(this.ddlGenre.SelectedValue)
-            //    && this.ddlGenre.SelectedValue != selectText)
-            //{
-            //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.GENRE);
-            //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-            //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
-            //    mp.RemoveCache();
-            //    MultiPropertyVideo.AddMultiPropertyVideo(
-            //        Convert.ToInt32(ddlGenre.SelectedValue), vid.VideoID);
-            //}
-
-            //// difficulty
-            //if (!string.IsNullOrWhiteSpace(this.ddlDifficultyLevel.SelectedValue)
-            //    && this.ddlDifficultyLevel.SelectedValue != selectText)
-            //{
-            //    propTyp = new PropertyType(SiteEnums.PropertyTypeCode.DIFFC);
-            //    mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-            //    MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
-            //    mp.RemoveCache();
-            //    MultiPropertyVideo.AddMultiPropertyVideo(
-            //        Convert.ToInt32(this.ddlDifficultyLevel.SelectedValue), vid.VideoID);
-            //}
-
-            //VideoSong.DeleteSongsForVideo(vid.VideoID);
-
             // song 1
 
             var artst = new Artist(band.Trim());
@@ -358,80 +293,10 @@ namespace DasKlub.Web.Controllers
 
             VideoSong.AddVideoSong(sng.SongID, vid.VideoID, 1);
 
-            //  RefreshLists();
-
-            //                lblStatus.Text = "OK";
-
             if (vid.VideoID > 0)
             {
                 Response.Redirect(vid.VideoURL); // just send them to it
             }
-
-
-            //              lblStatus.Text = ex.Message;
-
-            //{
-
-            //}
-
-
-            //Video v1 = new Video();
-
-            //if (!string.IsNullOrEmpty(vir.VideoKey))
-            //{
-            //    v1 = new Video("YT", vir.VideoKey);
-            //}
-
-            //if (v1.VideoID > 0 && v1.IsEnabled)
-            //{
-            //     Response.Redirect(v1.VideoURL);// just send them to it
-            //     return new EmptyResult();
-            //}
-
-            //vir.GetVideoRequest();
-
-            //if (vir.StatusType == 'W')
-            //{
-            //    Response.Redirect("~/videosubmission.aspx?statustype=W");
-            //    return new EmptyResult();
-            //}
-            //else if (vir.StatusType == 'R')
-            //{
-            //     Response.Redirect("~/videosubmission.aspx?statustype=R");
-            //     return new EmptyResult();
-            //}
-
-            //vir.StatusType = 'W';
-            //vir.Create();
-            // Response.Redirect("~/videosubmission.aspx?statustype=W");
-            // return new EmptyResult();
-
-            //if (vir.StatusType == 'W')
-            //{
-            //    Response.Redirect("~/videosubmission.aspx?statustype=W");
-            //    return new EmptyResult();
-            //}
-            //else if (vir.StatusType == 'R')
-            //{
-            //    Response.Redirect("~/videosubmission.aspx?statustype=R");
-            //    return new EmptyResult();
-            //}
-            //else
-            //{
-            //    v1 = new Video("YT", vir.VideoKey);
-
-            //    if (v1.VideoID > 0 && v1.IsEnabled)
-            //    {
-            //        Response.Redirect(v1.VideoURL);// just send them to it
-            //    }
-            //    else
-            //    {
-            //        vir.StatusType = 'W';
-            //        vir.Create();
-            //        Response.Redirect("~/videosubmission.aspx?statustype=W");
-            //        return new EmptyResult();
-            //    }
-            //}
 
 
             return new EmptyResult();
@@ -440,39 +305,32 @@ namespace DasKlub.Web.Controllers
 
         public ActionResult Index()
         {
+            using (var context = new DasKlubDBContext())
+            {
+                var newThreads = context.ForumSubCategory.OrderByDescending(x => x.CreateDate).Take(5).ToList();
+
+                foreach (var forumSubCategory in newThreads)
+                {
+                    forumSubCategory.UserAccount = new UserAccount(forumSubCategory.CreatedByUserID);
+                    forumSubCategory.ForumCategory =
+                        context.ForumCategory.FirstOrDefault(x => x.ForumCategoryID == forumSubCategory.ForumCategoryID);
+                    forumSubCategory.TotalPosts =
+                        context.ForumPost.Count(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID);
+
+                }
+
+                ViewBag.MostRecentThreads = newThreads;
+
+            }
+
             // CONTESTS
-
-
-            //// 
-            //var pitms = new PhotoItems {UseThumb = true, ShowTitle = false};
-            //pitms.GetPhotoItemsPageWise(1, 4);
-
-            //ViewBag.PhotoList = pitms.ToUnorderdList;
 
             var cnts = new Contents();
             cnts.GetContentPageWiseReleaseAll(1, 3);
 
             ViewBag.RecentArticles = cnts;
 
-            //var uas = new UserAccounts();
-            //uas.GetNewestUsers();
-            //ViewBag.NewestUsers = uas.ToUnorderdList;
-
-
-            //var newestVideos = new Videos();
-            //newestVideos.GetMostRecentVideos();
-            //var newSongs = new SongRecords();
-            //newSongs.AddRange(newestVideos.Select(v1 => new SongRecord(v1)));
-
-            //ViewBag.NewestVideos = newSongs.VideosList();
-
-
-            //var vid = new Video(Video.RandomVideoIDVideo());
-
-            //ViewBag.RandomVideoKey = vid.ProviderKey;
-
-
-            Contest cndss = Contest.GetCurrentContest();
+            var cndss = Contest.GetCurrentContest();
             var cvids = new ContestVideos();
 
 

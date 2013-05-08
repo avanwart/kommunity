@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Globalization;
 using System.Text;
 using BootBaronLib.BaseTypes;
 using BootBaronLib.DAL;
@@ -61,6 +62,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public ChatRoom()
         {
+            
         }
 
 
@@ -88,7 +90,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
         }
 
-        public override void Get(DataRow dr)
+        public override sealed void Get(DataRow dr)
         {
             base.Get(dr);
 
@@ -178,7 +180,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                     Add(content);
                 }
 
-                Sort((ChatRoom x, ChatRoom y) => (x.CreateDate.CompareTo(y.CreateDate)));
+                Sort((x, y) => (x.CreateDate.CompareTo(y.CreateDate)));
             }
         }
     }

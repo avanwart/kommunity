@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BootBaronLib.DAL;
 using BootBaronLib.Operational;
 
@@ -19,15 +16,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         }
 
 
-        public int UserAccountID { get; set; }
+        private int UserAccountID { get; set; }
 
-        public DateTime Birthdate { get; set; }
+        private DateTime Birthdate { get; set; }
 
-        public int AgeNow { get; set; }
+        private int AgeNow { get; set; }
 
-        public int AgeAfter { get; set; }
+        private int AgeAfter { get; set; }
 
-        public  void Get(DataRow dr)
+        private void Get(DataRow dr)
         {
 
             UserAccountID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => UserAccountID)]);
