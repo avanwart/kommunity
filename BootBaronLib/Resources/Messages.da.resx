@@ -1684,4 +1684,7 @@
   <data name="Votes" xml:space="preserve">
     <value>stemmer</value>
   </data>
+  <data name="LastReply" xml:space="preserve">
+    <value>Last Reply</value>
+  </data>
 </root>

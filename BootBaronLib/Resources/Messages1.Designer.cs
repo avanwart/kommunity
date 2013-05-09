@@ -2221,6 +2221,15 @@ namespace BootBaronLib.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Reply.
+        /// </summary>
+        public static string LastReply {
+            get {
+                return ResourceManager.GetString("LastReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Latest news.
         /// </summary>
         public static string LatestNews {
