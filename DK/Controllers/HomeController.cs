@@ -316,7 +316,8 @@ namespace DasKlub.Web.Controllers
                         context.ForumCategory.FirstOrDefault(x => x.ForumCategoryID == forumSubCategory.ForumCategoryID);
                     forumSubCategory.TotalPosts =
                         context.ForumPost.Count(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID);
-                    forumSubCategory.LatestForumPost = context.ForumPost.OrderByDescending(x => x.CreateDate).FirstOrDefault();
+                    forumSubCategory.LatestForumPost =
+                        context.ForumPost.OrderByDescending(x => x.CreateDate).FirstOrDefault(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID);
 
                 }
 

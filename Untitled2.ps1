@@ -1,4 +1,4 @@
-
+﻿
 if ( Test-Path .\configs.ps1 )
 {
     Include ".\configs.ps1"
@@ -68,6 +68,18 @@ TaskTearDown {
  
 #tasks
 
+task -name MAKEITWORK -action { 
+
+Out-File -FilePath ".\test2.txt" -Append
+
+
+Write-Host "trying..." -BackgroundColor Magenta -ForegroundColor Black
+Write-Host $MSTestLocation
+
+
+
+Start-Sleep -s 7
+};
 
  
 task -name ValidateConfigs -depends  ListConfigs   -description "Validates that configs which require a value, have a value" -action {
@@ -285,33 +297,3 @@ task -name Deploy -depends WaitingVideo, DeployPackage  -description "Hits the h
 };
 
 task -name default  -depends ListConfigs 
-
-
-
-task -name maintask -action { 
-
-
-
-
-
-
-
-
-
-
-
-#Remove-Job * 
-exec { 
- 
-
-
- 
-$foo = {param($bar) invoke-psake "D:\repos\dasklub\web\untitled2.ps1"   MAKEITWORK  -properties @{"MSTestLocation"=$bar}}
-
-Start-Job -ScriptBlock $foo -ArgumentList "HEY" # | wait-job | receive-job
-
-
-}
-
-};
-

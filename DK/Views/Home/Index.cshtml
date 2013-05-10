@@ -85,7 +85,14 @@
  <b>
  <a href="@post.SubForumURL.ToString()">@post.Title</a></b>                    
                         <br />
-                        <span title="@FromDate.DateToYYYY_MM_DD(post.CreateDate)"><i>@Messages.LastReply: @Utilities.TimeElapsedMessage(post.CreateDate)</i>&nbsp; - Replies: @post.TotalPosts</span>
+                        @if (post.LatestForumPost != null)
+                        {
+                            <span title="@FromDate.DateToYYYY_MM_DD(post.LatestForumPost.CreateDate)"><i>@Messages.LastReply: @Utilities.TimeElapsedMessage(post.LatestForumPost.CreateDate)</i>&nbsp; - Replies: @post.TotalPosts</span>
+                        }
+                        else
+                        {
+                               <span title="@FromDate.DateToYYYY_MM_DD(post.CreateDate)"><i>@Messages.CreatedOn: @Utilities.TimeElapsedMessage(post.CreateDate)</i> </span>
+                        }
                           <br /><br />
                         <p>
                             
