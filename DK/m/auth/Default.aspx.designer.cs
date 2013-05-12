@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DasKlub.m.auth
+namespace DasKlub.Web.m.auth
 {
 
 

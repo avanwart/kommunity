@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DasKlub.m.auth.Shared {
+namespace DasKlub.Web.m.auth.Shared {
     
     
     public partial class Main {
