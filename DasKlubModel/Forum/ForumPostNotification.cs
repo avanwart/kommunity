@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DasKlub.Models.Domain;
+using DasKlub.Web.Models.Domain;
 
-namespace DasKlub.Models.Forum
+namespace DasKlub.Web.Models.Forum
 {
     public class ForumPostNotification : StateInfo
     {

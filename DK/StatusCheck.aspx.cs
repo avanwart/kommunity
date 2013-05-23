@@ -26,7 +26,7 @@ using System.Web.UI;
 using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 
-namespace DasKlub
+namespace DasKlub.Web
 {
     public partial class StatusCheck : Page
     {

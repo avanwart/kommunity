@@ -22,7 +22,7 @@ using System.Web.UI.WebControls;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.Operational;
 
-namespace DasKlub.Web.m.auth
+namespace DasKlub.Web.Web.m.auth
 {
     public partial class SongProperties : Page
     {

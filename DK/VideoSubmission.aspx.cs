@@ -18,7 +18,7 @@ using System;
 using System.Web.UI;
 using BootBaronLib.Resources;
 
-namespace DasKlub.Web
+namespace DasKlub.Web.Web
 {
     public partial class VideoSubmission : Page
     {

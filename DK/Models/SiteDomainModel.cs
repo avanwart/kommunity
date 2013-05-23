@@ -14,7 +14,7 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-namespace DasKlub.Web.Models
+namespace DasKlub.Web.Web.Models
 {
     public class SiteDomainModel
     {

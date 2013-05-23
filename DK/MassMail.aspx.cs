@@ -10,7 +10,7 @@ using BootBaronLib.Operational;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace DasKlub.Web
+namespace DasKlub.Web.Web
 {
     public partial class MassMail : Page
     {

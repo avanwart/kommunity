@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DasKlub {
+namespace DasKlub.Web {
     
     
     public partial class UnSubscribe {

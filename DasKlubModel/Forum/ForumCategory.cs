@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web;
 using BootBaronLib.Operational;
-using DasKlub.Models.Domain;
+using DasKlub.Web.Models.Domain;
 
-namespace DasKlub.Models.Forum
+namespace DasKlub.Web.Models.Forum
 {
     public class ForumCategory : StateInfo
     {

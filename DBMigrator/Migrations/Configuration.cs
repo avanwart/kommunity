@@ -19,7 +19,7 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Transactions;
-using DasKlub.Models;
+using DasKlub.Web.Models;
  
 namespace DBMigrator.Migrations
 {

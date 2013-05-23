@@ -19,7 +19,7 @@ using System.Web.UI;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Operational;
 
-namespace DasKlub
+namespace DasKlub.Web.Web
 {
     public partial class clean_videos : Page
     {

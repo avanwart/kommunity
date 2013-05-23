@@ -20,7 +20,7 @@ using System.Web.UI;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Configs;
 
-namespace DasKlub
+namespace DasKlub.Web
 {
     public partial class AddVideo : Page
     {

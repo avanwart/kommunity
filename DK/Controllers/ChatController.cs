@@ -18,7 +18,7 @@ using System.Text;
 using System.Web.Mvc;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 
-namespace DasKlub.Web.Controllers
+namespace DasKlub.Web.Web.Controllers
 {
     public class ChatController : Controller
     {

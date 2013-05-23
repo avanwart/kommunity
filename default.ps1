@@ -168,7 +168,7 @@ task -name UnitTest -depends Rebuild -description "Runs unit tests" -action {
     exec  {
      
 
-   & $MSTestLocation   /testcontainer:$testDLLLocation /detail:debugtrace /runconfig:$testSettings
+   # & $MSTestLocation   /testcontainer:$testDLLLocation /detail:debugtrace /runconfig:$testSettings
     }
 };
 

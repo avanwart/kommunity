@@ -29,11 +29,11 @@ using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
-using DasKlub.App_Start;
+using DasKlub.Web.App_Start;
 using log4net;
 using log4net.Config;
 
-namespace DasKlub.Web
+namespace DasKlub.Web.Web
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801

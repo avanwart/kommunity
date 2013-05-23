@@ -17,7 +17,7 @@
 using System;
 using System.Web.UI;
 
-namespace DasKlub.Web.m.auth
+namespace DasKlub.Web.Web.m.auth
 {
     public partial class Default : Page
     {

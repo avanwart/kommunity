@@ -1,1 +1,1 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="operation.ashx.cs" Class="DasKlub.io.operation" %>
+﻿<%@ WebHandler Language="C#" CodeBehind="operation.ashx.cs" Class="DasKlub.Web.io.operation" %>

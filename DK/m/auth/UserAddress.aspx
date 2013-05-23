@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m/auth/Shared/Main.Master" AutoEventWireup="true" CodeBehind="UserAddress.aspx.cs" Inherits="DasKlub.Web.m.auth.UserAddress" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/m/auth/Shared/Main.Master" AutoEventWireup="true" CodeBehind="UserAddress.aspx.cs" Inherits="DasKlub.Web.Web.m.auth.UserAddress" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

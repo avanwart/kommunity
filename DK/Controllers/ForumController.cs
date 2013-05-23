@@ -7,11 +7,11 @@ using System.Web.Mvc;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Operational;
-using DasKlub.Models;
-using DasKlub.Models.Forum;
-using DasKlub.Models.Models;
+using DasKlub.Web.Models;
+using DasKlub.Web.Models.Forum;
+using DasKlub.Web.Models.Models;
 
-namespace DasKlub.Web.Controllers
+namespace DasKlub.Web.Web.Controllers
 {
     public class ForumController : Controller
     {

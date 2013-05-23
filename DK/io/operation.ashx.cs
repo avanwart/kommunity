@@ -28,7 +28,7 @@ using BootBaronLib.Resources;
 using BootBaronLib.Values;
 using LitS3;
 
-namespace DasKlub.io
+namespace DasKlub.Web.io
 {
     public class operation : IHttpHandler
     {

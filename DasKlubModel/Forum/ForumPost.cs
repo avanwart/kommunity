@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using BootBaronLib.AppSpec.DasKlub.BOL;
-using DasKlub.Models.Domain;
+using DasKlub.Web.Models.Domain;
 
-namespace DasKlub.Models.Forum
+namespace DasKlub.Web.Models.Forum
 {
     public class ForumPost : StateInfo
     {

@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace DasKlub.Models.Models
+namespace DasKlub.Web.Models.Models
 {
     public class DasKlubModelsContext : DasKlubDBContext
     {
@@ -15,8 +15,8 @@ namespace DasKlub.Models.Models
         // code to the Application_Start method in your Global.asax file.
         // Note: this will destroy and re-create your database with every model change.
         // 
-        // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<DasKlub.Models.Models.DasKlubModelsContext>());
+        // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<DasKlub.Web.Models.Models.DasKlubModelsContext>());
 
-     //   public DbSet<DasKlub.Models.Forum.ForumCategory> ForumCategories { get; set; }
+     //   public DbSet<DasKlub.Web.Models.Forum.ForumCategory> ForumCategories { get; set; }
     }
 }

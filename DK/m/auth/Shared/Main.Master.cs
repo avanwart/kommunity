@@ -17,7 +17,7 @@
 using System;
 using System.Web.UI;
 
-namespace DasKlub.Web.m.auth.Shared
+namespace DasKlub.Web.Web.m.auth.Shared
 {
     public partial class Main : MasterPage
     {

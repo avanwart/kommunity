@@ -21,7 +21,7 @@ using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
 
-namespace DasKlub.Web.m.auth
+namespace DasKlub.Web.Web.m.auth
 {
     public partial class UserAddress : Page
     {

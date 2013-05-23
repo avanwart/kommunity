@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="VideoSubmission.aspx.cs" Inherits="DasKlub.Web.VideoSubmission" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="VideoSubmission.aspx.cs" Inherits="DasKlub.Web.Web.VideoSubmission" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 

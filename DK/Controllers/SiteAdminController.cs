@@ -30,11 +30,11 @@ using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
-using DasKlub.Models;
 using DasKlub.Web.Models;
+using DasKlub.Web.Web.Models;
 using LitS3;
 
-namespace DasKlub.Web.Controllers
+namespace DasKlub.Web.Web.Controllers
 {
     [Authorize(Roles = "admin")]
     public class SiteAdminController : Controller

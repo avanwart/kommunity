@@ -3,7 +3,7 @@ using System.Web.UI;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Values;
 
-namespace DasKlub
+namespace DasKlub.Web
 {
     public partial class UnSubscribe : Page
     {

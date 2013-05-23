@@ -18,7 +18,7 @@ using System;
 using System.Web.UI;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 
-namespace DasKlub
+namespace DasKlub.Web
 {
     public partial class AffReport : Page
     {

@@ -29,16 +29,16 @@ using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
 using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
-using DasKlub.Models;
-using DasKlub.Models.Forum;
-using DasKlub.Models.Models;
+using DasKlub.Web.Models;
+using DasKlub.Web.Models.Forum;
+using DasKlub.Web.Models.Models;
 using Google.GData.Client;
 using Google.YouTube;
 using HttpUtility = System.Web.HttpUtility;
 using Utilities = BootBaronLib.Operational.Utilities;
 using Video = BootBaronLib.AppSpec.DasKlub.BOL.Video;
 
-namespace DasKlub.Web.Controllers
+namespace DasKlub.Web.Web.Controllers
 {
     [HandleError]
     public class HomeController : Controller
@@ -319,10 +319,24 @@ namespace DasKlub.Web.Controllers
                     forumSubCategory.LatestForumPost =
                         context.ForumPost.OrderByDescending(x => x.CreateDate).FirstOrDefault(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID);
 
+                    // TODO: CHECK IF THIS IS UNREAD BY THE USER AND LINK TO THE LAST POST IN THE THREAD
                 }
 
                 ViewBag.MostRecentThreads = newThreads;
 
+                // TODO: most popular this week
+                var lastWEek = DateTime.UtcNow.AddDays(-7);
+                var mostPopularThisWeek =
+                    context.ForumPost
+                    .Where(x => x.CreateDate > lastWEek)
+                    .GroupBy(x => x.ForumSubCategoryID)
+                    .OrderByDescending(y => y.Count())
+                    .ToList().FirstOrDefault();
+
+                if (mostPopularThisWeek != null  )
+                {
+                    
+                }
             }
 
             // CONTESTS

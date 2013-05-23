@@ -5,10 +5,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
-using DasKlub.Models.Forum;
+using DasKlub.Web.Models.Forum;
 using EntityState = System.Data.Entity.EntityState;
 
-namespace DasKlub.Models.Models
+namespace DasKlub.Web.Models.Models
 { 
     public class ForumCategoryRepository : IForumCategoryRepository
     {

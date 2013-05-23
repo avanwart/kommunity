@@ -8,7 +8,7 @@ using BootBaronLib.AppSpec.DasKlub.BOL;
 using Microsoft.AspNet.SignalR;
 using SignalRChat.Common;
 
-namespace DasKlub.Common
+namespace DasKlub.Web.Common
 {
     public class MessageDetail
     {
@@ -18,7 +18,7 @@ namespace DasKlub.Common
     }
 }
 
-namespace DasKlub.Common
+namespace DasKlub.Web.Common
 {
     public class UserDetail
     {
@@ -27,7 +27,7 @@ namespace DasKlub.Common
     }
 }
 
-namespace DasKlub.Controllers
+namespace DasKlub.Web.Controllers
 {
     [Authorize]
     public class ChatHub : Hub

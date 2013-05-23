@@ -24,9 +24,9 @@ using System.Xml;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
-using DasKlub.Models;
+using DasKlub.Web.Models;
 
-namespace DasKlub.Web
+namespace DasKlub.Web.Web
 {
     public partial class SiteMap : Page
     {

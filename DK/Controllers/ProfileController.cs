@@ -30,10 +30,10 @@ using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using BootBaronLib.Operational;
 using BootBaronLib.Resources;
 using BootBaronLib.Values;
-using DasKlub.Models;
 using DasKlub.Web.Models;
+using DasKlub.Web.Web.Models;
 
-namespace DasKlub.Web.Controllers
+namespace DasKlub.Web.Web.Controllers
 {
     public class ProfileController : Controller
     {

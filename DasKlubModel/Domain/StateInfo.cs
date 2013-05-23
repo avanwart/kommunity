@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DasKlub.Models.Domain
+namespace DasKlub.Web.Models.Domain
 {
     public class StateInfo
     {

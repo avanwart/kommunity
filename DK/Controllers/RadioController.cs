@@ -16,7 +16,7 @@
 
 using System.Web.Mvc;
 
-namespace DasKlub.Web.Controllers
+namespace DasKlub.Web.Web.Controllers
 {
     public class RadioController : Controller
     {

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DasKlub.Web {
+namespace DasKlub.Web.Web {
     
     
     public partial class VideoSubmission {

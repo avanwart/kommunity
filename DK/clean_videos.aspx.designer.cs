@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DasKlub {
+namespace DasKlub.Web.Web {
     
     
     public partial class clean_videos {

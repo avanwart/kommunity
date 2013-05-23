@@ -3,10 +3,10 @@
 //using System.Linq;
 //using System.Web;
 //using System.Web.Mvc;
-//using DasKlub.Models.Forum;
-//using DasKlub.Models.Models;
+//using DasKlub.Web.Models.Forum;
+//using DasKlub.Web.Models.Models;
 
-//namespace DasKlub.Models.Controllers
+//namespace DasKlub.Web.Models.Controllers
 //{   
 //    public class ForumCategoriesController : Controller
 //    {

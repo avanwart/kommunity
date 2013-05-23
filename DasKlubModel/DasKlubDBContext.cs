@@ -1,11 +1,11 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
-using DasKlub.Models.Domain;
-using DasKlub.Models.Forum;
+using DasKlub.Web.Models.Domain;
+using DasKlub.Web.Models.Forum;
 
 
-namespace DasKlub.Models 
+namespace DasKlub.Web.Models 
 {
     public partial class DasKlubDBContext : BaseContext<DasKlubDBContext>
     {
