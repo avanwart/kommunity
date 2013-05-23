@@ -40,10 +40,9 @@ using BootBaronLib.Operational;
 using BootBaronLib.Resources;
 using BootBaronLib.Values;
 using DasKlub.Web.Models;
-using DasKlub.Web.Web.Models;
 using LitS3;
 
-namespace DasKlub.Web.Web.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class AccountController : Controller
     {

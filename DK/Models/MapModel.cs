@@ -16,7 +16,7 @@
 
 using System.Collections.Generic;
 
-namespace DasKlub.Web.Web.Models
+namespace DasKlub.Web.Models
 {
     public class MapModel
     {

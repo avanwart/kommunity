@@ -21,7 +21,7 @@ using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.Operational;
 
-namespace DasKlub.Web.Web.m.auth
+namespace DasKlub.Web.m.auth
 {
     public partial class ArtistTD : Page
     {

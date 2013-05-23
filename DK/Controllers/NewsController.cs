@@ -28,7 +28,7 @@ using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using IntrepidStudios;
 
-namespace DasKlub.Web.Web.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class NewsController : Controller
     {

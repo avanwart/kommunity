@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UnSubscribe.aspx.cs" Inherits="DasKlub.Web.Web.UnSubscribe" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UnSubscribe.aspx.cs" Inherits="DasKlub.Web.UnSubscribe" %>
 
 <!DOCTYPE html>
 

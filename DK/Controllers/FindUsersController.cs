@@ -26,9 +26,8 @@ using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using DasKlub.Web.Models;
-using DasKlub.Web.Web.Models;
 
-namespace DasKlub.Web.Web.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class FindUsersController : Controller
     {

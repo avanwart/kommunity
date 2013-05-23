@@ -27,7 +27,7 @@ using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
 using BootBaronLib.Values;
 using IntrepidStudios;
 
-namespace DasKlub.Web.Web.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class VideoController : Controller
     {

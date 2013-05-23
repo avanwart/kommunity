@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
@@ -11,7 +10,7 @@ using DasKlub.Web.Models;
 using DasKlub.Web.Models.Forum;
 using DasKlub.Web.Models.Models;
 
-namespace DasKlub.Web.Web.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class ForumController : Controller
     {

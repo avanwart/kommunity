@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using DasKlub.Web.Web.Controllers;
+using DasKlub.Web.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DasKlubTests.Unit.Controllers

@@ -30,7 +30,7 @@ using HttpUtility = System.Web.HttpUtility;
 using Utilities = BootBaronLib.Operational.Utilities;
 using Video = BootBaronLib.AppSpec.DasKlub.BOL.Video;
 
-namespace DasKlub.Web.Web.m.auth
+namespace DasKlub.Web.m.auth
 {
     public partial class VideoInput : Page
     {

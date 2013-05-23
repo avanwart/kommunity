@@ -25,9 +25,9 @@ using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
-using DasKlub.Web.Web.Models;
+using DasKlub.Web.Models;
 
-namespace DasKlub.Web.Web.Controllers
+namespace DasKlub.Web.Controllers
 {
     public class MapController : Controller
     {

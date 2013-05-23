@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web.UI;
@@ -26,7 +25,7 @@ using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using DasKlub.Web.Models;
 
-namespace DasKlub.Web.Web
+namespace DasKlub.Web
 {
     public partial class SiteMap : Page
     {

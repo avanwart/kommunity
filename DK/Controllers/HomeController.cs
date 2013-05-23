@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.Specialized;
-using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -30,7 +29,6 @@ using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
 using DasKlub.Web.Models;
-using DasKlub.Web.Models.Forum;
 using DasKlub.Web.Models.Models;
 using Google.GData.Client;
 using Google.YouTube;
@@ -38,7 +36,7 @@ using HttpUtility = System.Web.HttpUtility;
 using Utilities = BootBaronLib.Operational.Utilities;
 using Video = BootBaronLib.AppSpec.DasKlub.BOL.Video;
 
-namespace DasKlub.Web.Web.Controllers
+namespace DasKlub.Web.Controllers
 {
     [HandleError]
     public class HomeController : Controller

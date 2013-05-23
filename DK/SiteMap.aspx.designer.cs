@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DasKlub.Web.Web {
+namespace DasKlub.Web {
     
     
     public partial class SiteMap {
