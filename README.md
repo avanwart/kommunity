@@ -8,6 +8,8 @@ IDK = Industrial Dance Kommunity;
 Installing
 ----------------------
 
+0. Download: http://www.microsoft.com/en-ca/download/details.aspx?id=29062
+
 1. Run the .sql script against a SQL Server 2012 DB to create the database and initial schema.
 
 2. Create a configs.ps1 file at the root with all the variables in the Psake script default1.ps1. Run: "Invoke-psake .\default.ps1" to see all the variables. 
