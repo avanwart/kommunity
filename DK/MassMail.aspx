@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MassMail.aspx.cs" Inherits="DasKlub.DasKlub.Web.ModelsMassMail" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MassMail.aspx.cs" Inherits="DasKlub.Web.MassMail" %>
 
 <!DOCTYPE html>
 

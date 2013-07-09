@@ -10,7 +10,7 @@ using BootBaronLib.Operational;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace DasKlub.Web.Web
+namespace DasKlub.Web
 {
     public partial class MassMail : Page
     {
@@ -19,7 +19,7 @@ namespace DasKlub.Web.Web
             //  VideoCount();
 
 
-            // SendMassMail();
+           //  SendMassMail();
         }
 
         private static void SendMassMail()
@@ -42,11 +42,11 @@ namespace DasKlub.Web.Web
                 sb.AppendLine();
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.AppendLine("Want to own a limited edition T-Shirt? (limited to only 20)");
+                sb.AppendLine("Support Das Klub and be ELITE!");
                 sb.AppendLine();
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.AppendLine("Go to: http://igg.me/at/dasklub-dance-t-shirt and click on the: Request T-Shirt perk button. If we reach the target goal of $666 by May 31st, we will make it for you and mail it to you in your size no matter where you live. We want to keep this simple and get it done. Only donate the $33 amount, no other amount is entitled to the T-Shirt. If we don't reach funding then you get your money back, you have nothing to lose!");
+                sb.AppendLine("Go to: http://dasklub.com/store and BUY the NEW Gear and Skulls T-Shirt. It's an amazing design that will start conversations and turn heads... and make them fall off.");
                 sb.AppendLine();
                 //sb.AppendLine("-Edited and raw videos will be judged as different contests (2 total winners)");
                 //sb.AppendLine();
@@ -58,7 +58,7 @@ namespace DasKlub.Web.Web
                 sb.AppendLine();
                 sb.AppendLine();
                 sb.AppendLine();
-                sb.AppendLine("Now Or Never,");
+                sb.AppendLine("Support the cause or get out of the way,");
                 sb.AppendLine();
                 sb.AppendLine("[ admin ] | RMW");
                 sb.AppendLine();
@@ -78,9 +78,10 @@ namespace DasKlub.Web.Web
                 uad.GetUserAccountDeailForUser(ua1.UserAccountID);
 
 
-                if (!uad.EmailMessages) continue;
+                if (!uad.EmailMessages || ua1.UserName.Trim().ToLower().Contains("necromatrix") || uad.Sex.Trim() != "Male"
+                    || ua1.UserName.ToLower().Contains("edinblack")) continue;
 
-                if (Utilities.SendMail(ua1.EMail, "LIMITED EDITION T-Shirt (only 20)", sb.ToString()))
+                if (Utilities.SendMail(ua1.EMail, "New Das Klub Male T-Shirt", sb.ToString()))
                 {
                     totalSent++;
                 }

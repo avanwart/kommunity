@@ -158,7 +158,7 @@ namespace DasKlub.Web.Controllers
 
             try
             {
-                var yousettings = new YouTubeRequestSettings("You Manager", _devkey, _username, _password);
+                var yousettings = new YouTubeRequestSettings("Das Klub", _devkey);
 
                 var yourequest = new YouTubeRequest(yousettings);
                 var entryUri = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", vidKey));

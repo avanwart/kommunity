@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DasKlub.DasKlub.Web {
+namespace DasKlub.Web {
     
     
-    public partial class ModelsMassMail {
+    public partial class MassMail {
         
         /// <summary>
         /// form1 control.

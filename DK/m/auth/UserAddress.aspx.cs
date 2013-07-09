@@ -63,18 +63,19 @@ namespace DasKlub.Web.m.auth
         {
             // update address 
 
-            uadd = new BootBaronLib.AppSpec.DasKlub.BOL.UserAddress(Convert.ToInt32(hfUserAddressID.Value));
-
-            uadd.AddressLine1 = txtAddressLine1.Text;
-            uadd.AddressLine2 = txtAddressLine2.Text;
-            uadd.AddressLine3 = txtAddressLine3.Text;
-            uadd.City = txtCity.Text;
-            uadd.FirstName = txtFirstName.Text;
-            uadd.LastName = txtLastName.Text;
-            uadd.PostalCode = txtPostalCode.Text;
-            uadd.Region = txtRegion.Text;
-            uadd.CountryISO = ddlCountry.SelectedValue;
-            uadd.UserAccountID = Convert.ToInt32(txtUserID.Text);
+            uadd = new BootBaronLib.AppSpec.DasKlub.BOL.UserAddress(Convert.ToInt32(hfUserAddressID.Value))
+                {
+                    AddressLine1 = txtAddressLine1.Text,
+                    AddressLine2 = txtAddressLine2.Text,
+                    AddressLine3 = txtAddressLine3.Text,
+                    City = txtCity.Text,
+                    FirstName = txtFirstName.Text,
+                    LastName = txtLastName.Text,
+                    PostalCode = txtPostalCode.Text,
+                    Region = txtRegion.Text,
+                    CountryISO = ddlCountry.SelectedValue,
+                    UserAccountID = Convert.ToInt32(txtUserID.Text)
+                };
 
             if (!string.IsNullOrEmpty(ddlAddressStatus.SelectedValue))
             {
