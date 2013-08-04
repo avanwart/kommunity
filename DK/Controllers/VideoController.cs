@@ -15,7 +15,6 @@
 //   limitations under the License.
 
 using System;
-using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -65,41 +64,27 @@ namespace DasKlub.Web.Controllers
         public ActionResult Contest(string key)
         {
             _contest = new Contest();
-
             _contest.GetContestByKey(key);
-
             var convids = new ContestVideos();
-
             convids.GetContestVideosForContest(_contest.ContestID);
-
             ViewBag.ContestName = _contest.Name;
-
-
             var sngrcs = new SongRecords();
             sngrcs.AddRange(convids.Select(vi => new Video(vi.VideoID)).Select(vidCon => new SongRecord(vidCon)));
-
-
             sngrcs.Sort((p1, p2) => p2.VideoID.CompareTo(p1.VideoID));
 
             return View(sngrcs);
         }
 
+        /// <summary>
+        /// Gets bands and users
+        /// </summary>
         private void LoadUserBandViewBag()
         {
-            var letters = new[]
-                {
-                    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-                    'U'
-                    , 'V', 'W', 'X', 'Y', 'Z'
-                };
-
-            ////// BANDS
-
             var sb = new StringBuilder();
 
             sb.Append(@"<div class=""letter_group""><ul>");
 
-            foreach (char ch2 in letters)
+            foreach (var ch2 in _letters)
             {
                 sb.Append("<li>");
 
@@ -116,13 +101,10 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.LetterOfBands = sb.ToString();
 
-            //// USERS 
-
             sb = new StringBuilder();
-
             sb.Append(@"<div class=""letter_group""><ul>");
-
-            foreach (char ch2 in letters)
+            
+            foreach (var ch2 in _letters)
             {
                 sb.Append("<li>");
 
@@ -171,15 +153,11 @@ namespace DasKlub.Web.Controllers
 
             LoadFilteredVideos(false);
 
-
-            Contest cndss = BootBaronLib.AppSpec.DasKlub.BOL.VideoContest.Contest.GetCurrentContest();
+            var cndss = BootBaronLib.AppSpec.DasKlub.BOL.VideoContest.Contest.GetCurrentContest();
             var cvids = new ContestVideos();
-
             var vidsInContest = new Videos();
             vidsInContest.AddRange(cvids.Select(cv1 => new Video(cv1.VideoID)));
-
             vidsInContest.Sort((p1, p2) => p2.PublishDate.CompareTo(p1.PublishDate));
-
             var sngrcds3 = new SongRecords();
             sngrcds3.AddRange(vidsInContest.Select(v1 => new SongRecord(v1)));
 
@@ -190,7 +168,6 @@ namespace DasKlub.Web.Controllers
             var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
             var mps = new MultiProperties(propTyp.PropertyTypeID);
             mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
-
 
             ViewBag.VideoTypes = mps;
 
@@ -206,7 +183,6 @@ namespace DasKlub.Web.Controllers
             mps = new MultiProperties(propTyp.PropertyTypeID);
             mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
 
-
             ViewBag.FootageTypes = mps;
 
             return View();
@@ -217,7 +193,6 @@ namespace DasKlub.Web.Controllers
             int? personType = null;
             int? footageType = null;
             int? videoType = null;
-
 
             if (!string.IsNullOrEmpty(
                 Request.QueryString[SiteEnums.QueryStringNames.videoType.ToString()]))
@@ -251,7 +226,6 @@ namespace DasKlub.Web.Controllers
 
                 ViewBag.VideosFiltered = sngrcs.VideosPageList();
             }
-
 
             // video types
             var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
@@ -301,10 +275,8 @@ namespace DasKlub.Web.Controllers
                     DataCountField = "keyword_count",
                     DataURLField = "keyword_url"
                 };
-            //cloud1.MinColor = "#000000";
-            //cloud1.MaxColor = "#000000";
 
-            DataSet theDs = firstLetter == "0"
+            var theDs = firstLetter == "0"
                                 ? Artists.GetArtistCloudByNonLetter()
                                 : Artists.GetArtistCloudByLetter(firstLetter);
             cloud1.DataSource = theDs;
@@ -323,7 +295,7 @@ namespace DasKlub.Web.Controllers
             sb.Append(@"<div class=""letter_group""><ul>");
 
 
-            foreach (char ch2 in _letters)
+            foreach (var ch2 in _letters)
             {
                 sb.Append("<li>");
 
@@ -366,18 +338,15 @@ namespace DasKlub.Web.Controllers
                     DataCountField = "keyword_count",
                     DataURLField = "keyword_url"
                 };
-            //cloud1.MinColor = "#000000";
-            //cloud1.MaxColor = "#000000";
 
-
-            DataSet theDs = Videos.GetAccountCloudByLetter(firstLetter);
+            var theDs = Videos.GetAccountCloudByLetter(firstLetter);
 
             cloud1.DataSource = theDs;
             cloud1.MinFontSize = 14;
             cloud1.MaxFontSize = 30;
             cloud1.FontUnit = "px";
 
-            foreach (char chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
+            foreach (var chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
             {
                 _chosen = chl;
             }
@@ -387,7 +356,7 @@ namespace DasKlub.Web.Controllers
             sb.Append(@"<div class=""letter_group""><ul>");
 
 
-            foreach (char ch2 in _letters)
+            foreach (var ch2 in _letters)
             {
                 sb.Append("<li>");
 

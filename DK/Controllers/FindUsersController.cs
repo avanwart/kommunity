@@ -42,7 +42,7 @@ namespace DasKlub.Web.Controllers
 
         private void InterestIdentityViewBags()
         {
-            InterestedIns interins = UserAccountDetail.GetDistinctInterests();
+            var interins = UserAccountDetail.GetDistinctInterests();
             if (interins != null)
             {
                 interins.Sort(
@@ -50,7 +50,7 @@ namespace DasKlub.Web.Controllers
                 ViewBag.InterestedIns = interins.Select(x => new {x.InterestedInID, x.LocalizedName});
             }
 
-            RelationshipStatuses relationshipStatuses = UserAccountDetail.GetDistinctRelationshipStatus();
+            var relationshipStatuses = UserAccountDetail.GetDistinctRelationshipStatus();
             if (relationshipStatuses != null)
             {
                 relationshipStatuses.Sort(
@@ -59,28 +59,24 @@ namespace DasKlub.Web.Controllers
                     relationshipStatuses.Select(x => new {x.RelationshipStatusID, x.LocalizedName});
             }
 
-            YouAres youAres = UserAccountDetail.GetDistinctYouAres();
+            var youAres = UserAccountDetail.GetDistinctYouAres();
             if (youAres != null)
             {
                 youAres.Sort((p1, p2) => String.Compare(p1.LocalizedName, p2.LocalizedName, StringComparison.Ordinal));
                 ViewBag.YouAres = youAres.Select(x => new {x.YouAreID, x.LocalizedName});
             }
 
-            List<SiteEnums.CountryCodeISO> countries = UserAccountDetail.GetDistinctUserCountries();
+            var countries = UserAccountDetail.GetDistinctUserCountries();
             if (countries != null)
             {
-                Dictionary<string, string> countryOptions = countries.Where(
-                    value => value != SiteEnums.CountryCodeISO.U0 && value
-                             != SiteEnums.CountryCodeISO.RD)
+                var countryOptions = countries.Where(value => value != SiteEnums.CountryCodeISO.U0 && value != SiteEnums.CountryCodeISO.RD)
                                                                      .ToDictionary(value => value.ToString(),
                                                                                    value =>
                                                                                    Utilities.ResourceValue(
                                                                                        Utilities.GetEnumDescription(
                                                                                            value)));
 
-                IOrderedEnumerable<string> items = from k in countryOptions.Keys
-                                                   orderby countryOptions[k] ascending
-                                                   select k;
+                var items = from k in countryOptions.Keys orderby countryOptions[k] ascending select k;
 
 
                 ViewBag.CountryOptions = items;
@@ -115,24 +111,22 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.FilteredUsers = _uas.ToUnorderdList;
 
-
-            // random
             var rle = new Role(SiteEnums.RoleTypes.cyber_girl.ToString());
 
-            UserAccounts girlModels = UserAccountRole.GetUsersInRole(rle.RoleID);
+            var girlModels = UserAccountRole.GetUsersInRole(rle.RoleID);
 
             if (girlModels != null && girlModels.Count > 0)
             {
                 girlModels.Shuffle();
 
-                UserAccount featuredModel = girlModels[0];
+                var featuredModel = girlModels[0];
 
                 var featuredPhoto = new UserAccountDetail();
                 featuredPhoto.GetUserAccountDeailForUser(featuredModel.UserAccountID);
 
-                int photoNumber = Utilities.RandomNumber(1, 4);
+                var photoNumber = Utilities.RandomNumber(1, 4);
 
-                string photoPath = featuredPhoto.FullProfilePicURL;
+                var photoPath = featuredPhoto.FullProfilePicURL;
 
                 if (photoNumber > 1)
                 {
@@ -142,7 +136,7 @@ namespace DasKlub.Web.Controllers
 
                     if (ups.Count > 0)
                     {
-                        foreach (UserPhoto up1 in ups.Where(up1 => (up1.RankOrder + 1) == photoNumber))
+                        foreach (var up1 in ups.Where(up1 => (up1.RankOrder + 1) == photoNumber))
                         {
                             photoPath = up1.FullProfilePicURL;
                             break;
@@ -150,18 +144,16 @@ namespace DasKlub.Web.Controllers
                     }
                 }
 
-                // random border color with random user pic from their 3 photos
-                string[] colorBorder = GeneralConfigs.RandomColors.Split(',');
+                var colorBorder = GeneralConfigs.RandomColors.Split(',');
 
                 var rnd = new Random();
-                string[] myRandomArray = colorBorder.OrderBy(x => rnd.Next()).ToArray();
+                var myRandomArray = colorBorder.OrderBy(x => rnd.Next()).ToArray();
 
                 ViewBag.FeaturedModel = string.Format(@"
 <a class=""m_over"" href=""{1}"">
 <img src=""{0}"" class=""featured_user"" style="" border: 2px dashed {2}; "" /></a>", photoPath,
                                                       featuredModel.UrlTo, myRandomArray[0]);
             }
-
 
             return View(model);
         }
@@ -224,26 +216,6 @@ namespace DasKlub.Web.Controllers
             UserAccountDetail uad;
             if (_mu != null)
             {
-                // there aren't enough results for this filter
-
-                //ua = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
-                //uad = new UserAccountDetail();
-                //uad.GetUserAccountDeailForUser(ua.UserAccountID);
-
-                //model.InterestedInID = ReverseInterestYouAreByName(uad.YouAreID);
-                //model.RelationshipStatusID = uad.RelationshipStatusID;
-                //model.YouAreID = ReverseYouAreByInterestName(uad.InterestedInID);
-                //model.Lang = uad.DefaultLanguage;
-                //model.PostalCode = uad.PostalCode;
-                //model.Country = uad.Country;
-
-                //if (uad.YearsOld > model.AgeTo)
-                //{
-                //    // they are old(er)
-                //    model.AgeFrom = 30;
-                //    model.AgeTo = 69;
-                //}
-
                 if (!isAjax)
                 {
                     uad = new UserAccountDetail();

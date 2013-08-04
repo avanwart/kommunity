@@ -43,7 +43,6 @@ namespace DasKlub.Web
         //Here is the once-per-class call to initialize the log object
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-
         private static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
@@ -886,10 +885,7 @@ namespace DasKlub.Web
 
         public void Application_Start()
         {
-            // Register the default hubs route: ~/signalr
             RouteTable.Routes.MapHubs();
-
-
             XmlConfigurator.Configure();
 
             Log.Info("Application Started");
@@ -899,57 +895,44 @@ namespace DasKlub.Web
                 ClearBadVideos();
             }
 
-
             Application[SiteEnums.ApplicationVariableNames.LogError.ToString()] = true;
 
             TimerStarter.StartTimer();
-
             AreaRegistration.RegisterAllAreas();
-
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-
             DefaultModelBinder.ResourceClassKey = "Messages";
-
-            //System.Threading.Timer ChatRoomsCleanerTimer =
-            //    new System.Threading.Timer(
-            //        new TimerCallback(ChatEngine.CleanChatRooms), null, 1200000, 1200000);
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(Request.QueryString[SiteEnums.QueryStringNames.language.ToString()]) &&
-                User != null)
-            {
-                MembershipUser mu = Membership.GetUser();
+            if (string.IsNullOrWhiteSpace(Request.QueryString[SiteEnums.QueryStringNames.language.ToString()]) ||
+                User == null) return;
+            var mu = Membership.GetUser();
 
-                if (mu != null)
-                {
-                    var uad = new UserAccountDetail();
-                    uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+            if (mu == null) return;
+            var uad = new UserAccountDetail();
+            uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
 
-                    string language = Request.QueryString[SiteEnums.QueryStringNames.language.ToString()];
+            var language = Request.QueryString[SiteEnums.QueryStringNames.language.ToString()];
 
-                    uad.DefaultLanguage = language;
-                    uad.Update();
-                }
-            }
+            uad.DefaultLanguage = language;
+            uad.Update();
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             HttpContext.Current.Response.Cache.SetNoServerCaching(); //.SetMaxAge(TimeSpan.FromDays(366));
 
-            string browserLanguage = GeneralConfigs.DefaultLanguage;
+            var browserLanguage = GeneralConfigs.DefaultLanguage;
 
             if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
             {
                 browserLanguage = Request.UserLanguages[0];
             }
 
-            string language = GeneralConfigs.DefaultLanguage;
+            var language = GeneralConfigs.DefaultLanguage;
 
             if (HttpContext.Current == null) return;
             if (!string.IsNullOrWhiteSpace(Request.QueryString[SiteEnums.QueryStringNames.language.ToString()]))
@@ -962,7 +945,7 @@ namespace DasKlub.Web
             }
             else if (Request.Cookies[SiteEnums.CookieName.Usersetting.ToString()] != null)
             {
-                HttpCookie hc = Request.Cookies[SiteEnums.CookieName.Usersetting.ToString()];
+                var hc = Request.Cookies[SiteEnums.CookieName.Usersetting.ToString()];
 
                 if (hc != null)
                 {
@@ -973,7 +956,7 @@ namespace DasKlub.Web
             {
                 language = browserLanguage.Substring(0, 2);
 
-                bool isImplmented =
+                var isImplmented =
                     Enum.GetValues(typeof (SiteEnums.SiteLanguages))
                         .Cast<SiteEnums.SiteLanguages>()
                         .Any(possibleLang => possibleLang.ToString() == language.ToUpper());
@@ -999,7 +982,7 @@ namespace DasKlub.Web
 
         protected void Application_Error()
         {
-            Exception exception = Server.GetLastError();
+            var exception = Server.GetLastError();
             var httpException = exception as HttpException;
 
             //Utilities.LogError(httpException);
@@ -1044,7 +1027,7 @@ namespace DasKlub.Web
 
             vids.GetAll();
 
-            foreach (Video vv1 in from vv1 in vids
+            foreach (var vv1 in from vv1 in vids
                                   where vv1.IsEnabled
                                   let sss = Utilities.GETRequest(new Uri(
                                                                      string.Format("http://i3.ytimg.com/vi/{0}/1.jpg",
@@ -1057,15 +1040,6 @@ namespace DasKlub.Web
                 vv1.Update();
             }
         }
-
-        //private abstract class MyConnection : PersistentConnection
-        //{
-        //    protected Task OnReceivedAsync(string clientId, string data)
-        //    {
-        //        // Broadcast data to all clients
-        //        return Connection.Broadcast(data);
-        //    }
-        //}
     }
 
     /// <summary>
@@ -1079,8 +1053,7 @@ namespace DasKlub.Web
         {
             if (null == _threadingTimer)
             {
-                _threadingTimer = new Timer(CheckData,
-                                            HttpContext.Current, 0, GeneralConfigs.PostInterval);
+                _threadingTimer = new Timer(CheckData, HttpContext.Current, 0, GeneralConfigs.PostInterval);
             }
         }
 
@@ -1092,7 +1065,7 @@ namespace DasKlub.Web
             var chatters = new ChatRoomUsers();
             chatters.GetChattingUsers();
 
-            foreach (ChatRoomUser chatUser in from chatUser in chatters
+            foreach (var chatUser in from chatUser in chatters
                                               let user =
                                                   new UserAccount(chatUser.CreatedByUserID)
                                               where !user.IsOnLine

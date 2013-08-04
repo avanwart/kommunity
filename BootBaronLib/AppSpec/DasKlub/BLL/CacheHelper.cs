@@ -35,14 +35,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
     }
 
     /// <summary>
-    ///     Extension methods for HttpContext.Current.Cache
+    ///     Extension methods for HttpRuntime.Cache
     /// </summary>
     public static class CacheExtension
     {
         #region variables
 
         private static CacheItemRemovedCallback onRemove;
-        //static bool itemRemoved = false;
         private static CacheItemRemovedReason reasonRemoved;
 
         #endregion
@@ -53,7 +52,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         {
             if (HttpContext.Current != null)
             {
-                if (HttpContext.Current.Cache[cacheName] == null) return false;
+                if (HttpRuntime.Cache[cacheName] == null) return false;
                 else return true;
             }
             return false;
@@ -69,16 +68,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         {
             if (HttpContext.Current != null)
             {
-                if (HttpContext.Current.Cache[cacheName] == null)
-
-                    return null;
-                else
-                {
-                    return
-                        HttpContext.Current.Cache.Get(cacheName);
-                }
+                return HttpRuntime.Cache[cacheName] == null ? null : HttpRuntime.Cache.Get(cacheName);
             }
-            else return null;
+            return null;
         }
 
         /// <summary>
@@ -90,14 +82,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         /// <param name="cacheName"></param>
         public static void AddObjToCache(this Cache cache, object obj, string cacheName)
         {
-            //onRemove += new CacheItemRemovedCallback(RemovedCallback);
             onRemove = RemovedCallback;
 
             if (HttpContext.Current != null && obj != null && !string.IsNullOrEmpty(cacheName))
             {
-                //HttpContext.Current.Cache.DeleteCacheObj(cacheName);
-
-                HttpContext.Current.Cache.Add(cacheName,
+                HttpRuntime.Cache.Add(cacheName,
                                               obj,
                                               null,
                                               Cache.NoAbsoluteExpiration,
@@ -110,14 +99,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
 
         public static void AddObjToCache(this Cache cache, object obj, string cacheName, int minutes)
         {
-            //onRemove += new CacheItemRemovedCallback(RemovedCallback);
             onRemove = RemovedCallback;
 
             if (HttpContext.Current != null && obj != null && !string.IsNullOrEmpty(cacheName))
             {
-                //HttpContext.Current.Cache.DeleteCacheObj(cacheName);
-
-                HttpContext.Current.Cache.Add(cacheName,
+                HttpRuntime.Cache.Add(cacheName,
                                               obj,
                                               null,
                                               DateTime.UtcNow.AddMinutes(minutes),
@@ -136,9 +122,9 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         {
             if (HttpContext.Current != null &&
                 !string.IsNullOrEmpty(keyName) &&
-                HttpContext.Current.Cache[keyName] != null)
+                HttpRuntime.Cache[keyName] != null)
             {
-                HttpContext.Current.Cache.Remove(keyName);
+                HttpRuntime.Cache.Remove(keyName);
             }
         }
 

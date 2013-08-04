@@ -121,7 +121,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
         {
             ArtistID = artistID;
 
-            if (HttpContext.Current.Cache[CacheName] == null)
+            if (HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -135,13 +135,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
                 if (dt.Rows.Count == 1)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                    HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+                Get((DataRow) HttpRuntime.Cache[CacheName]);
             }
         }
 
@@ -255,7 +255,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+            HttpRuntime.Cache.DeleteCacheObj(CacheName);
         }
 
         #endregion
@@ -270,7 +270,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+            HttpRuntime.Cache.DeleteCacheObj(CacheName);
         }
 
         public static DataSet GetArtistCloudByLetter(string letter)
@@ -346,7 +346,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public void GetAll()
         {
-            if (HttpContext.Current.Cache[CacheName] == null)
+            if (HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -366,12 +366,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
                         Add(art);
                     }
 
-                    HttpContext.Current.Cache.AddObjToCache(this, CacheName);
+                    HttpRuntime.Cache.AddObjToCache(this, CacheName);
                 }
             }
             else
             {
-                var arts = (Artists) HttpContext.Current.Cache[CacheName];
+                var arts = (Artists) HttpRuntime.Cache[CacheName];
 
                 foreach (Artist uad in arts) Add(uad);
             }

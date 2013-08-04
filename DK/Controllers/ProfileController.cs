@@ -40,6 +40,14 @@ namespace DasKlub.Web.Controllers
         public static readonly int PageSize = 25;
         private PhotoItem _pitm;
         private UserAccount _ua;
+        private MembershipUser _mu;
+
+        public ProfileController()
+        {
+            _mu = Membership.GetUser();
+
+            if (_mu != null) _ua = new UserAccount(_mu.UserName);
+        }
 
         private void LoadCurrentImagesViewBag(int userAccountID)
         {
@@ -86,8 +94,6 @@ namespace DasKlub.Web.Controllers
             uad.BandsSeen = ContentLinker.InsertBandLinks(uad.BandsSeen, false);
             uad.BandsToSee = ContentLinker.InsertBandLinks(uad.BandsToSee, false);
 
-            MembershipUser mu = Membership.GetUser();
-
             var model = new ProfileModel();
 
             if (_ua.UserAccountID > 0)
@@ -97,12 +103,12 @@ namespace DasKlub.Web.Controllers
                 model.CreateDate = _ua.CreateDate;
             }
 
-            if (mu != null)
+            if (_mu != null)
             {
-                ViewBag.IsBlocked = BlockedUser.IsBlockedUser(_ua.UserAccountID, Convert.ToInt32(mu.ProviderUserKey));
-                ViewBag.IsBlocking = BlockedUser.IsBlockedUser(Convert.ToInt32(mu.ProviderUserKey), _ua.UserAccountID);
+                ViewBag.IsBlocked = BlockedUser.IsBlockedUser(_ua.UserAccountID, Convert.ToInt32(_mu.ProviderUserKey));
+                ViewBag.IsBlocking = BlockedUser.IsBlockedUser(Convert.ToInt32(_mu.ProviderUserKey), _ua.UserAccountID);
 
-                if (_ua.UserAccountID == Convert.ToInt32(mu.ProviderUserKey))
+                if (_ua.UserAccountID == Convert.ToInt32(_mu.ProviderUserKey))
                 {
                     model.IsViewingSelf = true;
                 }
@@ -110,12 +116,12 @@ namespace DasKlub.Web.Controllers
                 {
                     var ucon = new UserConnection();
 
-                    ucon.GetUserToUserConnection(Convert.ToInt32(mu.ProviderUserKey), _ua.UserAccountID);
+                    ucon.GetUserToUserConnection(Convert.ToInt32(_mu.ProviderUserKey), _ua.UserAccountID);
 
                     model.UserConnectionID = ucon.UserConnectionID;
 
 
-                    if (BlockedUser.IsBlockedUser(Convert.ToInt32(mu.ProviderUserKey), _ua.UserAccountID))
+                    if (BlockedUser.IsBlockedUser(Convert.ToInt32(_mu.ProviderUserKey), _ua.UserAccountID))
                     {
                         return RedirectToAction("index", "home");
                     }
@@ -253,7 +259,7 @@ namespace DasKlub.Web.Controllers
                 if (uad.ShowOnMapLegal)
                 {
                     // because of the foreign cultures, numbers need to stay in the English version unless a javascript encoding could be added
-                    string currentLang = Utilities.GetCurrentLanguageCode();
+                    var currentLang = Utilities.GetCurrentLanguageCode();
 
                     Thread.CurrentThread.CurrentUICulture =
                         CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
@@ -266,7 +272,7 @@ namespace DasKlub.Web.Controllers
                     var rnd = new Random();
                     int offset = rnd.Next(10, 100);
 
-                    SiteStructs.LatLong latlong = GeoData.GetLatLongForCountryPostal(uad.Country, uad.PostalCode);
+                    var latlong = GeoData.GetLatLongForCountryPostal(uad.Country, uad.PostalCode);
 
                     if (latlong.latitude != 0 && latlong.longitude != 0)
                     {
@@ -303,7 +309,7 @@ namespace DasKlub.Web.Controllers
             var irlContacts = new UserAccounts();
             var cyberAssociates = new UserAccounts();
 
-            foreach (UserConnection uc1 in ucons.Where(uc1 => uc1.IsConfirmed))
+            foreach (var uc1 in ucons.Where(uc1 => uc1.IsConfirmed))
             {
                 UserAccount userCon;
                 switch (uc1.StatusType)
@@ -334,46 +340,43 @@ namespace DasKlub.Web.Controllers
 
             if (cyberAssociates.Count > 0)
             {
-                // ViewBag.CyberAssociatesCount = Convert.ToString( CyberAssociates.Count );
                 model.CyberFriendCount = cyberAssociates.Count;
             }
 
-            mu = Membership.GetUser();
+ 
             UserAccountDetail uadLooker = null;
 
-            if (mu != null)
+            if (_mu != null)
             {
                 uadLooker = new UserAccountDetail();
-                uadLooker.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
+                uadLooker.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
             }
 
-            if (mu != null && _ua.UserAccountID > 0 &&
+            if (_mu != null && _ua.UserAccountID > 0 &&
                 uadLooker.EnableProfileLogging && uad.EnableProfileLogging)
             {
                 var pl = new ProfileLog
                     {
                         LookedAtUserAccountID = _ua.UserAccountID,
-                        LookingUserAccountID = Convert.ToInt32(mu.ProviderUserKey)
+                        LookingUserAccountID = Convert.ToInt32(_mu.ProviderUserKey)
                     };
 
                 if (pl.LookingUserAccountID != pl.LookedAtUserAccountID) pl.Create();
 
 
-                ArrayList al = ProfileLog.GetRecentProfileViews(_ua.UserAccountID);
+                var al = ProfileLog.GetRecentProfileViews(_ua.UserAccountID);
 
                 if (al != null && al.Count > 0)
                 {
                     var uas = new UserAccounts();
 
-                    foreach (UserAccount viewwer in al.Cast<int>().Select(id =>
+                    foreach (var viewwer in al.Cast<int>().Select(id =>
                                                                           new UserAccount(id))
                                                       .Where(viewwer => !viewwer.IsLockedOut && viewwer.IsApproved)
                                                       .TakeWhile(viewwer => uas.Count < Maxcountusers))
                     {
                         uas.Add(viewwer);
                     }
-
-                    // model.ViewingUsers = uas.ToUnorderdList;
                 }
             }
 
@@ -395,10 +398,9 @@ namespace DasKlub.Web.Controllers
 
                     sngrcds2.IsUserSelected = true;
 
-                    ViewBag.UserFavorites = sngrcds2.VideosList(); //.ListOfVideos();
+                    ViewBag.UserFavorites = sngrcds2.VideosList(); 
                 }
             }
-
 
             // this is either a youtube user or this is a band
             var art = new Artist();
@@ -420,7 +422,7 @@ namespace DasKlub.Web.Controllers
                 uavs = new UserAccountVideos();
                 uavs.GetRecentUserAccountVideos(_ua.UserAccountID, 'U');
 
-                foreach (Video f2 in uavs.Select(uav1 => new Video(uav1.VideoID)).Where(f2 => !vids.Contains(f2)))
+                foreach (var f2 in uavs.Select(uav1 => new Video(uav1.VideoID)).Where(f2 => !vids.Contains(f2)))
                 {
                     vids.Add(f2);
                 }
@@ -495,23 +497,20 @@ namespace DasKlub.Web.Controllers
 
                 sngss.GetSongsForArtist(art.ArtistID);
 
-                foreach (Song sn1 in sngss)
+                foreach (var sn1 in sngss)
                 {
                     vids.GetVideosForSong(sn1.SongID);
                 }
             }
 
-
             vids.Sort((p1, p2) => p2.PublishDate.CompareTo(p1.PublishDate));
-
-
             sngrs.AddRange(vids.Select(v1 => new SongRecord(v1)));
 
-            if (mu != null && _ua.UserAccountID != Convert.ToInt32(mu.ProviderUserKey))
+            if (_mu != null && _ua.UserAccountID != Convert.ToInt32(_mu.ProviderUserKey))
             {
                 var uc1 = new UserConnection();
 
-                uc1.GetUserToUserConnection(_ua.UserAccountID, Convert.ToInt32(mu.ProviderUserKey));
+                uc1.GetUserToUserConnection(_ua.UserAccountID, Convert.ToInt32(_mu.ProviderUserKey));
 
                 if (uc1.UserConnectionID > 0)
                 {
@@ -568,9 +567,8 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public ActionResult DeleteWallItem(int wallItemID)
         {
-            var wallItem = new WallMessage();
+            var wallItem = new WallMessage {WallMessageID = wallItemID};
 
-            wallItem.WallMessageID = wallItemID;
             wallItem.Delete();
 
             return RedirectToAction("Visitors", "Account");
@@ -582,22 +580,20 @@ namespace DasKlub.Web.Controllers
 
             if (Request.UrlReferrer != null)
             {
-                string referrring = Request.UrlReferrer.ToString();
-                string[] partsOfreferring = referrring.Split('/');
+                var referrring = Request.UrlReferrer.ToString();
+                var partsOfreferring = referrring.Split('/');
                 var ua = new UserAccount(partsOfreferring[partsOfreferring.Length - 1]);
 
                 var wallItems = new WallMessages();
 
                 wallItems.GetWallMessagessPageWise(pageNumber, 5, ua.UserAccountID);
-
-                MembershipUser mu = Membership.GetUser();
-
-                if (mu != null && Convert.ToInt32(mu.ProviderUserKey) == ua.UserAccountID)
+ 
+                if (_mu != null && Convert.ToInt32(_mu.ProviderUserKey) == ua.UserAccountID)
                 {
                     wallItems.IsUsersWall = true;
                 }
 
-                foreach (WallMessage cnt in wallItems)
+                foreach (var cnt in wallItems)
                 {
                     cnt.IsUsersWall = wallItems.IsUsersWall;
                     sb.Append(cnt.ToUnorderdListItem);
@@ -617,16 +613,14 @@ namespace DasKlub.Web.Controllers
 
             if (_ua.UserAccountID != 0 && !string.IsNullOrWhiteSpace(message))
             {
-                MembershipUser mu = Membership.GetUser();
-
-                if (mu != null)
+                if (_mu != null)
                 {
                     var comment = new WallMessage
                         {
                             Message = Server.HtmlEncode(message),
                             ToUserAccountID = toUserAccountID,
-                            FromUserAccountID = Convert.ToInt32(mu.ProviderUserKey),
-                            CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey)
+                            FromUserAccountID = Convert.ToInt32(_mu.ProviderUserKey),
+                            CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey)
                         };
 
                     comment.Create();

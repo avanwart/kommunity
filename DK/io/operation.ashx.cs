@@ -15,6 +15,7 @@
 //   limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -34,21 +35,6 @@ namespace DasKlub.Web.io
     {
         public void ProcessRequest(HttpContext context)
         {
-            //        context.Response.ContentType = "text/plain";
-
-
-            //    context.Response.CacheControl = "no-cache";
-
-            // context.Response.AddHeader("Pragma", "no-cache");
-
-            // //context.Response.AddHeader("Pragma", "no-store");
-
-            // //context.Response.AddHeader("cache-control", "no-cache");
-
-            //context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-
-            // context.Response.Cache.SetNoServerCaching();
-
             if (string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.param_type.ToString()]))
                 return;
 
@@ -56,7 +42,6 @@ namespace DasKlub.Web.io
                                                                context.Request.QueryString[
                                                                    SiteEnums.QueryStringNames.param_type.ToString()]);
 
-            //  Dictionary<string, Subgurim.Chat.Usuario> usrrs = null;
             StringBuilder sb;
             MembershipUser mu;
 
@@ -747,32 +732,28 @@ namespace DasKlub.Web.io
 
             uad.GetUserAccountDeailForUser(uaTo.UserAccountID);
 
-            string language = Utilities.GetCurrentLanguageCode();
-            // change language for message to
+            var language = Utilities.GetCurrentLanguageCode();
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
+            string typeGiven;
 
-
-            string typeGiven = string.Empty;
-
-            if (rsp == SiteEnums.ResponseType.A)
+            switch (rsp)
             {
-                typeGiven = Messages.Applauded;
-            }
-            else if (rsp == SiteEnums.ResponseType.B)
-            {
-                typeGiven = Messages.BeatenDown;
-            }
-            else if (rsp == SiteEnums.ResponseType.C)
-            {
-                typeGiven = Messages.Commented;
-            }
-            else
-            {
-                typeGiven = Messages.Unknown;
+                case SiteEnums.ResponseType.A:
+                    typeGiven = Messages.Applauded;
+                    break;
+                case SiteEnums.ResponseType.B:
+                    typeGiven = Messages.BeatenDown;
+                    break;
+                case SiteEnums.ResponseType.C:
+                    typeGiven = Messages.Commented;
+                    break;
+                default:
+                    typeGiven = Messages.Unknown;
+                    break;
             }
 
-            string statupMess = typeGiven + Environment.NewLine + Environment.NewLine + GeneralConfigs.SiteDomain +
+            var statupMess = typeGiven + Environment.NewLine + Environment.NewLine + GeneralConfigs.SiteDomain +
                                 VirtualPathUtility.ToAbsolute("~/account/statusupdate/" + statusUpdateID.ToString());
 
             if (uad.EmailMessages)
@@ -788,19 +769,18 @@ namespace DasKlub.Web.io
         }
 
 
-        private CalendarItems GetCitms(Events tds, DateTime dtBegin, DateTime dtEnd, bool isMonth)
+        private CalendarItems GetCitms(IEnumerable<Event> tds, DateTime dtBegin, DateTime dtEnd, bool isMonth)
         {
             var citms = new CalendarItems();
-            CalendarItem citm = null;
-            EventCycle evcyc = null;
 
             // need to display the whole month so that it can get the reoccuring ones
             var dtBeginMonth = new DateTime(dtBegin.Year, dtBegin.Month, 1);
-            DateTime dtEndMonth = dtBegin.AddMonths(1).AddDays(-1);
+            var dtEndMonth = dtBegin.AddMonths(1).AddDays(-1);
 
 
-            foreach (Event td in tds)
+            foreach (var td in tds)
             {
+                CalendarItem citm = null;
                 if (td.IsEnabled && !td.IsReoccuring)
                 {
                     citm = new CalendarItem(td);
@@ -808,9 +788,9 @@ namespace DasKlub.Web.io
                 }
                 else if (td.IsEnabled && td.IsReoccuring)
                 {
-                    evcyc = new EventCycle(td.EventCycleID);
+                    var evcyc = new EventCycle(td.EventCycleID);
 
-                    int amt = 0;
+                    var amt = 0;
 
                     switch (evcyc.EventCode)
                     {
@@ -845,30 +825,28 @@ namespace DasKlub.Web.io
                         case "FFR":
                             for (DateTime date = dtBeginMonth; date <= dtEndMonth; date = date.AddDays(1))
                             {
-                                if (date.DayOfWeek == DayOfWeek.Friday)
+                                if (date.DayOfWeek != DayOfWeek.Friday) continue;
+                                if (!isMonth && dtBegin.DayOfWeek == DayOfWeek.Friday &&
+                                    dtBegin.Day == date.Day)
                                 {
-                                    if (!isMonth && dtBegin.DayOfWeek == DayOfWeek.Friday &&
-                                        dtBegin.Day == date.Day)
-                                    {
-                                        td.LocalTimeBegin = date;
-                                        citm = new CalendarItem(td);
-                                        citms.Add(citm);
-                                        break;
-                                    }
-                                    else if (isMonth)
-                                    {
-                                        td.LocalTimeBegin = date;
-                                        citm = new CalendarItem(td);
-                                        citms.Add(citm);
-                                    }
+                                    td.LocalTimeBegin = date;
+                                    citm = new CalendarItem(td);
+                                    citms.Add(citm);
                                     break;
                                 }
+                                if (isMonth)
+                                {
+                                    td.LocalTimeBegin = date;
+                                    citm = new CalendarItem(td);
+                                    citms.Add(citm);
+                                }
+                                break;
                             }
 
                             break;
                         case "SFR":
 
-                            for (DateTime date = dtBeginMonth; date <= dtEndMonth; date = date.AddDays(1))
+                            for (var date = dtBeginMonth; date <= dtEndMonth; date = date.AddDays(1))
                             {
                                 if (amt < 1 && date.DayOfWeek == DayOfWeek.Friday)
                                 {
@@ -884,7 +862,7 @@ namespace DasKlub.Web.io
                                         citms.Add(citm);
                                         break;
                                     }
-                                    else if (isMonth)
+                                    if (isMonth)
                                     {
                                         td.LocalTimeBegin = date;
                                         citm = new CalendarItem(td);
@@ -900,7 +878,7 @@ namespace DasKlub.Web.io
 
                         case "MON":
 
-                            for (DateTime date = dtBeginMonth; date <= dtEndMonth; date = date.AddDays(1))
+                            for (var date = dtBeginMonth; date <= dtEndMonth; date = date.AddDays(1))
                             {
                                 if (!isMonth && dtBegin.DayOfWeek == DayOfWeek.Monday)
                                 {
@@ -909,15 +887,11 @@ namespace DasKlub.Web.io
                                     citms.Add(citm);
                                     break;
                                 }
-                                else if (isMonth)
-                                {
-                                    if (date.DayOfWeek == DayOfWeek.Monday)
-                                    {
-                                        td.LocalTimeBegin = date;
-                                        citm = new CalendarItem(td);
-                                        citms.Add(citm);
-                                    }
-                                }
+                                if (!isMonth) continue;
+                                if (date.DayOfWeek != DayOfWeek.Monday) continue;
+                                td.LocalTimeBegin = date;
+                                citm = new CalendarItem(td);
+                                citms.Add(citm);
                             }
 
                             break;
@@ -925,7 +899,7 @@ namespace DasKlub.Web.io
 
                         case "TUE":
 
-                            for (DateTime date = dtBeginMonth; date <= dtEndMonth; date = date.AddDays(1))
+                            for (var date = dtBeginMonth; date <= dtEndMonth; date = date.AddDays(1))
                             {
                                 if (!isMonth && dtBegin.DayOfWeek == DayOfWeek.Tuesday)
                                 {
@@ -934,15 +908,11 @@ namespace DasKlub.Web.io
                                     citms.Add(citm);
                                     break;
                                 }
-                                else if (isMonth)
-                                {
-                                    if (date.DayOfWeek == DayOfWeek.Tuesday)
-                                    {
-                                        td.LocalTimeBegin = date;
-                                        citm = new CalendarItem(td);
-                                        citms.Add(citm);
-                                    }
-                                }
+                                if (!isMonth) continue;
+                                if (date.DayOfWeek != DayOfWeek.Tuesday) continue;
+                                td.LocalTimeBegin = date;
+                                citm = new CalendarItem(td);
+                                citms.Add(citm);
                             }
 
                             break;
@@ -950,7 +920,7 @@ namespace DasKlub.Web.io
 
                         case "WED":
 
-                            for (DateTime date = dtBeginMonth; date <= dtEndMonth; date = date.AddDays(1))
+                            for (var date = dtBeginMonth; date <= dtEndMonth; date = date.AddDays(1))
                             {
                                 if (!isMonth && dtBegin.DayOfWeek == DayOfWeek.Wednesday)
                                 {

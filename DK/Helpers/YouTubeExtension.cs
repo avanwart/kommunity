@@ -20,7 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
-namespace DasKlub.Web.Controllers
+namespace DasKlub.Web.Helpers
 {
     [Serializable]
     [DebuggerStepThrough]

@@ -720,7 +720,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             const string cacheName = "MostFrequentStatusMessages";
 
-            if (HttpContext.Current != null && HttpContext.Current.Cache[cacheName] == null)
+            if (HttpContext.Current != null && HttpRuntime.Cache[cacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -779,12 +779,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                     output = sb.ToString();
 
-                    HttpContext.Current.Cache.AddObjToCache(output, cacheName);
+                    HttpRuntime.Cache.AddObjToCache(output, cacheName);
                 }
             }
             else
             {
-                output = (string) HttpContext.Current.Cache[cacheName];
+                output = (string) HttpRuntime.Cache[cacheName];
             }
 
 

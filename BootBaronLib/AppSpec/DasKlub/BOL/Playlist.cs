@@ -184,7 +184,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             PlaylistID = playlistID;
 
-            if (HttpContext.Current.Cache[CacheName] == null)
+            if (HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -201,13 +201,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                 if (dt.Rows.Count == 1)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                    HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+                Get((DataRow) HttpRuntime.Cache[CacheName]);
             }
         }
 
@@ -222,7 +222,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+            HttpRuntime.Cache.DeleteCacheObj(CacheName);
         }
 
         #endregion

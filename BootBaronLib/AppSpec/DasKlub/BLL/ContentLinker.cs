@@ -26,64 +26,20 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         private static string InsertBandLinks(string input)
         {
             if (string.IsNullOrEmpty(input)) return string.Empty;
-
-
-            string[] bands = input.Split(',');
-
+            var bands = input.Split(',');
             var sb = new StringBuilder(100);
-
             var total = 0;
 
             foreach (var art in from b1 in bands where !string.IsNullOrWhiteSpace(b1) select new Artist(b1))
             {
                 total++;
 
-                if (art.ArtistID > 0)
-                {
-                    if (total == bands.Length)
-                    {
-                        sb.AppendFormat(@"{0} ", art.HyperLinkToArtist);
-                    }
-                    else
-                    {
-                        sb.AppendFormat(@"{0}, ", art.HyperLinkToArtist);
-                    }
-                }
-                else
-                {
-                    if (total == bands.Length)
-                    {
-                        sb.AppendFormat(@"{0} ", art.Name);
-                    }
-                    else
-                    {
-                        sb.AppendFormat(@"{0}, ", art.Name);
-                    }
-                }
+                sb.AppendFormat(total == bands.Length ? @"{0} " : @"{0}, ",
+                                art.ArtistID > 0 ? art.HyperLinkToArtist : art.Name);
             }
 
             return sb.ToString();
-
-            //Artists arts = new Artists();
-            //arts.GetAll();
-
-            //string[] bands;
-
-            //foreach (Artist a1 in arts)
-            //{
-            //    if (a1.IsHidden || input.Contains(a1.HyperLinkToArtist)) continue;
-
-            //    bands = input.Split(',');
-
-            //    foreach (string b1 in bands)
-            //    {
-            //        input += ReplaceString(b1, a1.Name, a1.HyperLinkToArtist, StringComparison.CurrentCultureIgnoreCase);
-            //    }
-            //}
-
-            //return input;
         }
-
 
         public static string InsertBandLinks(string input, bool enforceCase)
         {
@@ -93,37 +49,18 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
             {
                 return InsertBandLinks(input);
             }
-            else
-            {
-                var arts = new Artists();
-                arts.GetAll();
+            var arts = new Artists();
+            arts.GetAll();
 
-                foreach (Artist a1 in arts)
-                {
-                    if (a1.IsHidden) continue;
-
-
-                    input = input.Replace(a1.Name, a1.HyperLinkToArtist);
-
-                    //if (!string.IsNullOrEmpty(a1.Name))
-                    //{
-                    //    input = input.Replace(a1.Name, a1.HyperLinkToArtist);
-                    //}
-                    //else
-                    //{
-                    //    input = input.Replace(a1.Name, a1.HyperLinkToArtist);
-                    //}
-                }
-                return input;
-            }
+            return arts.Where(a1 => !a1.IsHidden).Aggregate(input, (current, a1) => current.Replace(a1.Name, a1.HyperLinkToArtist));
         }
 
         public static string ReplaceString(string str, string oldValue, string newValue, StringComparison comparison)
         {
             var sb = new StringBuilder(100);
+            var previousIndex = 0;
+            var index = str.IndexOf(oldValue, comparison);
 
-            int previousIndex = 0;
-            int index = str.IndexOf(oldValue, comparison);
             while (index != -1)
             {
                 sb.Append(str.Substring(previousIndex, index - previousIndex));

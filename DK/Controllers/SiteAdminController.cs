@@ -89,12 +89,13 @@ namespace DasKlub.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var siteDomain = new SiteDomain();
-
-                siteDomain.Description = model.Description;
-                siteDomain.Language = (model.Language == null) ? string.Empty : model.Language;
-                siteDomain.PropertyType = model.PropertyType;
-                siteDomain.SiteDomainID = model.SiteDomainID;
+                var siteDomain = new SiteDomain
+                    {
+                        Description = model.Description,
+                        Language = model.Language ?? string.Empty,
+                        PropertyType = model.PropertyType,
+                        SiteDomainID = model.SiteDomainID
+                    };
 
                 siteDomain.Set();
             }
@@ -179,7 +180,7 @@ namespace DasKlub.Web.Controllers
             }
             else
             {
-                int pageNumber = Convert.ToInt32(Request.QueryString[
+                var pageNumber = Convert.ToInt32(Request.QueryString[
                     SiteEnums.QueryStringNames.pg.ToString()]);
 
                 totalRecords = model.GetCommentsPageWise(pageNumber, pageSize);
@@ -267,13 +268,13 @@ namespace DasKlub.Web.Controllers
 
             TryUpdateModel(model);
 
-            ////// begin: amazon
-            var acl = CannedAcl.PublicRead;
+            const CannedAcl acl = CannedAcl.PublicRead;
 
-            var s3 = new S3Service();
-
-            s3.AccessKeyID = AmazonCloudConfigs.AmazonAccessKey;
-            s3.SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey;
+            var s3 = new S3Service
+                {
+                    AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                    SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+                };
 
 
             if (ModelState.IsValid)
@@ -323,9 +324,9 @@ namespace DasKlub.Web.Controllers
 
                     // resized
 
-                    string fileNameThumb = Utilities.CreateUniqueContentFilename(imageFile);
+                    var fileNameThumb = Utilities.CreateUniqueContentFilename(imageFile);
 
-                    Image imgPhotoThumb = ImageResize.FixedSize(b, 350, 250, Color.Black);
+                    var imgPhotoThumb = ImageResize.FixedSize(b, 350, 250, Color.Black);
 
                     maker = imgPhotoThumb.ToAStream(ImageFormat.Jpeg);
 
@@ -422,7 +423,7 @@ namespace DasKlub.Web.Controllers
             }
             else
             {
-                int pageNumber = Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]);
+                var pageNumber = Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]);
 
                 totalRecords = model.GetContentPageWiseAll(pageNumber, pageSize);
             }
@@ -438,7 +439,7 @@ namespace DasKlub.Web.Controllers
 
         private void LoadAllRoles()
         {
-            string[] allRoles = Role.GetAllRoles();
+            var allRoles = Role.GetAllRoles();
 
             ViewBag.AllRoles = allRoles;
         }
@@ -496,7 +497,7 @@ namespace DasKlub.Web.Controllers
             // delete all their roles
             UserAccountRole.DeleteUserRoles(userAccountID);
 
-            foreach (Role thenewRole in roleOption.Select(newRole => new Role(newRole)))
+            foreach (var thenewRole in roleOption.Select(newRole => new Role(newRole)))
             {
                 UserAccountRole.AddUserToRole(userAccountID, thenewRole.RoleID);
             }

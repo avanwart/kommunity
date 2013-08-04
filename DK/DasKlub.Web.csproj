@@ -195,7 +195,7 @@
     <Compile Include="Controllers\SiteAdminController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
-    <Compile Include="Controllers\YouTubeExtension.cs" />
+    <Compile Include="Helpers\YouTubeExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

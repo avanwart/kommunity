@@ -95,7 +95,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             InterestedInID = uniqueID;
 
-            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheName] == null)
+            if (HttpContext.Current == null || HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -110,14 +110,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 // was something returned?
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    if (HttpContext.Current != null) HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                    if (HttpContext.Current != null) HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
 
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+                Get((DataRow) HttpRuntime.Cache[CacheName]);
             }
         }
 
@@ -135,7 +135,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         public void GetAll()
         {
-            if (HttpContext.Current == null || HttpContext.Current.Cache[GetType().FullName] == null)
+            if (HttpContext.Current == null || HttpRuntime.Cache[GetType().FullName] == null)
             {
                 DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
@@ -154,12 +154,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                         Add(art);
                     }
 
-                    HttpContext.Current.Cache.AddObjToCache(dt, GetType().FullName);
+                    HttpRuntime.Cache.AddObjToCache(dt, GetType().FullName);
                 }
             }
             else
             {
-                var dt = (DataTable) HttpContext.Current.Cache[GetType().FullName];
+                var dt = (DataTable) HttpRuntime.Cache[GetType().FullName];
 
                 if (dt != null && dt.Rows.Count > 0)
                 {

@@ -141,18 +141,18 @@ namespace BootBaronLib.Operational
             {
                 var doc = new HtmlDocument();
 
-                if (HttpContext.Current.Cache["top_week_picks"] == null)
+                if (HttpRuntime.Cache["top_week_picks"] == null)
                 {
                     using (var wc = new WebClient())
                     {
                         string topPicks = wc.DownloadString(
                             "http://store.vampirefreaks.com/?cat=monthly+top+sellers&aff=dasklub&cols=1&numitems=1000");
 
-                        HttpContext.Current.Cache.AddObjToCache(topPicks, "top_week_picks");
+                        HttpRuntime.Cache.AddObjToCache(topPicks, "top_week_picks");
                     }
                 }
 
-                doc.LoadHtml((string) HttpContext.Current.Cache["top_week_picks"]);
+                doc.LoadHtml((string) HttpRuntime.Cache["top_week_picks"]);
 
                 var adChoices = new Dictionary<int, string>();
 
@@ -549,7 +549,7 @@ namespace BootBaronLib.Operational
             double totalSecondsDif = 0;
             const string cacheName = "db_time";
 
-            if (HttpContext.Current != null && HttpContext.Current.Cache[cacheName] == null)
+            if (HttpContext.Current != null && HttpRuntime.Cache[cacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -563,11 +563,11 @@ namespace BootBaronLib.Operational
 
                 totalSecondsDif = span.TotalSeconds;
 
-                HttpContext.Current.Cache.AddObjToCache(totalSecondsDif, cacheName);
+                HttpRuntime.Cache.AddObjToCache(totalSecondsDif, cacheName);
             }
             else
             {
-                if (HttpContext.Current != null) totalSecondsDif = (double) HttpContext.Current.Cache[cacheName];
+                if (HttpContext.Current != null) totalSecondsDif = (double) HttpRuntime.Cache[cacheName];
             }
 
 

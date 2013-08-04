@@ -100,12 +100,12 @@ namespace DasKlub.Web.m.auth
         {
             try
             {
-                //IDictionaryEnumerator enumerator = HttpContext.Current.Cache.GetEnumerator();
+                //IDictionaryEnumerator enumerator = HttpRuntime.Cache.GetEnumerator();
 
                 //while (enumerator.MoveNext())
                 //{
 
-                //    HttpContext.Current.Cache.Remove(enumerator.Key.ToString());
+                //    HttpRuntime.Cache.Remove(enumerator.Key.ToString());
 
                 //}
 

@@ -62,7 +62,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             PropertyTypeCode = propertyTypeCode;
 
             if (HttpContext.Current == null ||
-                HttpContext.Current.Cache[CacheName] == null)
+                HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -79,14 +79,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 {
                     if (HttpContext.Current != null)
                     {
-                        HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                        HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     }
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+                Get((DataRow) HttpRuntime.Cache[CacheName]);
             }
         }
 

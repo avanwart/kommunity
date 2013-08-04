@@ -42,7 +42,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+            HttpRuntime.Cache.DeleteCacheObj(CacheName);
         }
 
         public bool Set()
@@ -212,7 +212,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
             PropertyType = propertyType;
             Language = language;
 
-            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheName] == null)
+            if (HttpContext.Current == null || HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -232,7 +232,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
 
                     if (HttpContext.Current != null)
                     {
-                        HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                        HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     }
                 }
                 else
@@ -253,12 +253,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
                     table.Rows.Add(DateTime.MinValue, DateTime.MinValue, 0, 0, 0, string.Empty, string.Empty,
                                    string.Empty);
 
-                    HttpContext.Current.Cache.AddObjToCache(table.Rows[0], CacheName);
+                    HttpRuntime.Cache.AddObjToCache(table.Rows[0], CacheName);
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+                Get((DataRow) HttpRuntime.Cache[CacheName]);
             }
         }
 
@@ -266,7 +266,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
         {
             PropertyType = propertyType;
 
-            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheName] == null)
+            if (HttpContext.Current == null || HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -281,14 +281,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
                 // was something returned?
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    if (HttpContext.Current != null) HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                    if (HttpContext.Current != null) HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
 
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+                Get((DataRow) HttpRuntime.Cache[CacheName]);
             }
         }
 

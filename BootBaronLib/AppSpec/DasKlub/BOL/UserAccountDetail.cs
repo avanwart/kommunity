@@ -998,7 +998,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             UserAccountID = userAccountID;
 
-            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheNameAlt] == null)
+            if (HttpContext.Current == null || HttpRuntime.Cache[CacheNameAlt] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -1017,14 +1017,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 // was something returned?
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    if (HttpContext.Current != null) HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheNameAlt);
+                    if (HttpContext.Current != null) HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheNameAlt);
 
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[CacheNameAlt]);
+                Get((DataRow) HttpRuntime.Cache[CacheNameAlt]);
             }
         }
 
@@ -1032,7 +1032,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             UserAccountDetailID = userAccountDetailID;
 
-            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheName] == null)
+            if (HttpContext.Current == null || HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -1052,13 +1052,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     if (HttpContext.Current != null)
-                        HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                        HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+                Get((DataRow) HttpRuntime.Cache[CacheName]);
             }
         }
 
@@ -1193,8 +1193,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             if (HttpContext.Current != null)
             {
-                HttpContext.Current.Cache.DeleteCacheObj(CacheName);
-                HttpContext.Current.Cache.DeleteCacheObj(CacheNameAlt);
+                HttpRuntime.Cache.DeleteCacheObj(CacheName);
+                HttpRuntime.Cache.DeleteCacheObj(CacheNameAlt);
             }
         }
 

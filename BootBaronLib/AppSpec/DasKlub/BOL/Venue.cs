@@ -219,7 +219,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+            HttpRuntime.Cache.DeleteCacheObj(CacheName);
         }
 
         #endregion
@@ -228,7 +228,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             VenueID = venueID;
 
-            if (HttpContext.Current.Cache[CacheName] == null)
+            if (HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -242,13 +242,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                 if (dt.Rows.Count == 1)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                    HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+                Get((DataRow) HttpRuntime.Cache[CacheName]);
             }
         }
 
@@ -418,7 +418,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public void GetAll()
         {
-            if (HttpContext.Current.Cache[CacheName] == null)
+            if (HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -438,12 +438,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                         Add(ven);
                     }
 
-                    HttpContext.Current.Cache.AddObjToCache(this, CacheName);
+                    HttpRuntime.Cache.AddObjToCache(this, CacheName);
                 }
             }
             else
             {
-                var uads = (Venues) HttpContext.Current.Cache[CacheName];
+                var uads = (Venues) HttpRuntime.Cache[CacheName];
 
                 foreach (Venue ven in uads) Add(ven);
             }
@@ -494,7 +494,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+            HttpRuntime.Cache.DeleteCacheObj(CacheName);
         }
 
         #endregion

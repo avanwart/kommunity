@@ -104,7 +104,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+            HttpRuntime.Cache.DeleteCacheObj(CacheName);
         }
 
         #endregion

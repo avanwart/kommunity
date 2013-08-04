@@ -203,7 +203,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
         {
             DataTable dt = null;
 
-            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheName] == null)
+            if (HttpContext.Current == null || HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -215,12 +215,12 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
 
                 if (HttpContext.Current != null)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt, CacheName);
+                    HttpRuntime.Cache.AddObjToCache(dt, CacheName);
                 }
             }
             else
             {
-                dt = (DataTable) HttpContext.Current.Cache[CacheName];
+                dt = (DataTable) HttpRuntime.Cache[CacheName];
             }
 
             // was something returned?

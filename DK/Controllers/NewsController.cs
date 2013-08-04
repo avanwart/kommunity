@@ -15,7 +15,6 @@
 //   limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -33,6 +32,16 @@ namespace DasKlub.Web.Controllers
     public class NewsController : Controller
     {
         private const int PageSize = 5;
+        private readonly MembershipUser _mu;
+
+        public NewsController()
+        {
+            LoadTagCloud();
+
+            LoadLang();
+
+            _mu = Membership.GetUser();
+        }
 
         public JsonResult Items(int pageNumber)
         {
@@ -42,7 +51,7 @@ namespace DasKlub.Web.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (Content cnt in model)
+            foreach (var cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
@@ -64,7 +73,7 @@ namespace DasKlub.Web.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (Content cnt in model)
+            foreach (var cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
@@ -92,10 +101,9 @@ namespace DasKlub.Web.Controllers
                 }
             }
 
-
             var sb = new StringBuilder();
 
-            foreach (Content cnt in model)
+            foreach (var cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
@@ -115,10 +123,6 @@ namespace DasKlub.Web.Controllers
 
             model.GetContentPageWiseRelease(1, PageSize, lang);
 
-            LoadTagCloud();
-
-            LoadLang();
-
             ViewBag.EnableLoadingMore = (model.Count >= PageSize);
 
             return View(model);
@@ -130,22 +134,16 @@ namespace DasKlub.Web.Controllers
 
             model.GetContentPageWiseReleaseAll(1, PageSize);
 
-            LoadTagCloud();
-
-            LoadLang();
-
             return View(model);
         }
 
         private void LoadLang()
         {
-            Dictionary<string, string> dict = Contents.GetDistinctNewsLanguages();
+            var dict = Contents.GetDistinctNewsLanguages();
 
             if (dict == null) return;
 
-            Dictionary<string, string> sortedDict =
-                (from entry in dict orderby entry.Value ascending select entry).ToDictionary(pair => pair.Key,
-                                                                                             pair => pair.Value);
+            var sortedDict = (from entry in dict orderby entry.Value ascending select entry).ToDictionary(pair => pair.Key, pair => pair.Value);
 
             ViewBag.Langs = sortedDict;
         }
@@ -209,14 +207,9 @@ namespace DasKlub.Web.Controllers
             ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ? 285 : 600;
 
             var model = new Content(key);
-
-
+            
             ViewBag.ThumbIcon = Utilities.S3ContentPath(model.ContentPhotoThumbURL);
-
-
-            LoadTagCloud();
-
-
+            
             var otherNews = new Content();
 
             otherNews.GetPreviousNews(model.ReleaseDate);
@@ -233,7 +226,6 @@ namespace DasKlub.Web.Controllers
                 ViewBag.NextNews = otherNews.ToUnorderdListItem;
             }
 
-
             return View(model);
         }
 
@@ -241,13 +233,11 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult DeleteComment(int commentID)
         {
-            MembershipUser mu = Membership.GetUser();
-
             var model = new ContentComment(commentID);
 
             var content = new Content(model.ContentID);
 
-            if (mu == null || model.CreatedByUserID != Convert.ToInt32(mu.ProviderUserKey)) return new EmptyResult();
+            if (_mu == null || model.CreatedByUserID != Convert.ToInt32(_mu.ProviderUserKey)) return new EmptyResult();
 
             model.Delete();
 
@@ -259,16 +249,12 @@ namespace DasKlub.Web.Controllers
         [HttpPost]
         public ActionResult Detail(FormCollection fc, int contentID)
         {
-            MembershipUser mu = Membership.GetUser();
-
-            LoadTagCloud();
-
             var model = new Content(contentID)
                 {
                     Reply = new ContentComment {StatusType = Convert.ToChar(SiteEnums.CommentStatus.C.ToString())}
                 };
 
-            if (mu != null) model.Reply.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+            if (_mu != null) model.Reply.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
             model.Reply.ContentID = contentID;
             model.Reply.IpAddress = Request.UserHostAddress;
 
@@ -283,10 +269,9 @@ namespace DasKlub.Web.Controllers
                 return View(model);
             }
 
-            bool hasBeenSaid = false;
+            var hasBeenSaid = false;
 
-            foreach (
-                ContentComment cmt in model.Comments.Where(cmt => cmt.CreatedByUserID == model.Reply.CreatedByUserID &&
+            foreach (var cmt in model.Comments.Where(cmt => cmt.CreatedByUserID == model.Reply.CreatedByUserID &&
                                                                   cmt.Detail == model.Reply.Detail))
             {
                 hasBeenSaid = true;
@@ -323,9 +308,7 @@ namespace DasKlub.Web.Controllers
             ViewBag.EnableLoadingMore = (model.Count < PageSize);
 
             ViewBag.TagName = key;
-
-            LoadTagCloud();
-
+ 
             return View(model);
         }
     }

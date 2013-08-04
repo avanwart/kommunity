@@ -96,7 +96,6 @@
     <Compile Include="AppSpec\DasKlub\BLL\CacheHelper.cs" />
     <Compile Include="AppSpec\DasKlub\BLL\cGoogleMap.cs" />
     <Compile Include="AppSpec\DasKlub\BLL\ContentLinker.cs" />
-    <Compile Include="AppSpec\DasKlub\BLL\MasterPageHelper.cs" />
     <Compile Include="AppSpec\DasKlub\BOL\Acknowledgement.cs" />
     <Compile Include="AppSpec\DasKlub\BOL\ArtistContent\Artist.cs" />
     <Compile Include="AppSpec\DasKlub\BOL\ArtistContent\ArtistProperty.cs" />

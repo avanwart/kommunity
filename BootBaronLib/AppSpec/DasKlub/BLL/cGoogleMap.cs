@@ -187,15 +187,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         public string IconImage
         {
             get { return _icon; }
+            
             private set
             {
-                //Get physical path of icon image. Necessary for Bitmap object.
-                string sIconImage = value;
+                var sIconImage = value;
                 if (sIconImage == "")
                     return;
-                string imageIconPhysicalPath = cCommon.GetLocalPath() + sIconImage.Replace("/", "\\");
-                //Find width and height of icon using Bitmap image.
-
+                var imageIconPhysicalPath = cCommon.GetLocalPath() + sIconImage.Replace("/", "\\");
 
                 using (Image img = Image.FromFile(imageIconPhysicalPath))
                 {
@@ -275,7 +273,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         public static GooglePoints CloneMe(GooglePoints prev)
         {
             var p = new GooglePoints();
-            for (int i = 0; i < prev.Count; i++)
+            for (var i = 0; i < prev.Count; i++)
             {
                 p.Add(new GooglePoint(prev[i].ID, prev[i].Latitude, prev[i].Longitude, prev[i].IconImage,
                                       prev[i].InfoHTML, prev[i].ToolTip, prev[i].Draggable));
@@ -351,7 +349,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BLL
         {
             unchecked
             {
-                int hashCode = (_colorcode != null ? _colorcode.GetHashCode() : 0);
+                var hashCode = (_colorcode != null ? _colorcode.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ (_gpoints != null ? _gpoints.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ (_id != null ? _id.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ (_linestatus != null ? _linestatus.GetHashCode() : 0);

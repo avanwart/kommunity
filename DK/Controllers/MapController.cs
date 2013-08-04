@@ -57,7 +57,7 @@ namespace DasKlub.Web.Controllers
         {
             var usa = new CultureInfo("en-US");
 
-            MembershipUser mu = Membership.GetUser();
+            var mu = Membership.GetUser();
 
             var userLatLong = new SiteStructs.LatLong {latitude = 0, longitude = 0};
             UserAccountDetail uad;
@@ -67,30 +67,20 @@ namespace DasKlub.Web.Controllers
                 var ua = new UserAccount(mu.UserName);
                 uad = new UserAccountDetail();
                 uad.GetUserAccountDeailForUser(ua.UserAccountID);
-                //if (!string.IsNullOrEmpty(uad.PostalCode))
-                //{
-                //    userLatLong = GeoData.GetLatLongForCountryPostal(uad.Country, uad.PostalCode);
-                //}
-
                 userLatLong.longitude = Convert.ToDouble(uad.Longitude);
                 userLatLong.latitude = Convert.ToDouble(uad.Latitude);
             }
 
             var rnd = new Random();
-
-
-            // map
-
             var mapPoints = new MapModel {MapPoints = new List<MapPoint>()};
 
             MapPoint mPoint;
-
-            // users
+            
             var uas = new UserAccounts();
             uas.GetMappableUsers();
-
+            
             // because of the foreign cultures, numbers need to stay in the English version unless a javascript encoding could be added
-            string currentLang = Utilities.GetCurrentLanguageCode();
+            var currentLang = Utilities.GetCurrentLanguageCode();
 
             Thread.CurrentThread.CurrentUICulture =
                 CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
@@ -107,7 +97,7 @@ namespace DasKlub.Web.Controllers
                 if (uad.Longitude == null || uad.Latitude == null || uad.Longitude == 0 || uad.Latitude == 0) continue;
 
                 mPoint = new MapPoint();
-                int offset = rnd.Next(10, 100);
+                var offset = rnd.Next(10, 100);
 
                 // BUG: language adding incorrect
                 mPoint.Latitude = Convert.ToDouble(Convert.ToDecimal(uad.Latitude) + Convert.ToDecimal("0.00" + offset));
@@ -121,13 +111,10 @@ namespace DasKlub.Web.Controllers
                 mapPoints.MapPoints.Add(mPoint);
             }
 
-
-            // venues
-
             var vnus = new Venues();
             vnus.GetAll();
 
-            foreach (Venue v1 in vnus.Where(v1 => v1.Latitude != 0 && v1.Longitude != 0))
+            foreach (var v1 in vnus.Where(v1 => v1.Latitude != 0 && v1.Longitude != 0))
             {
                 mPoint = new MapPoint
                     {
@@ -139,11 +126,8 @@ namespace DasKlub.Web.Controllers
                 mapPoints.MapPoints.Add(mPoint);
             }
 
-            string longI = userLatLong.longitude.ToString(usa);
-
-            string latI = userLatLong.latitude.ToString(usa);
-
-
+            var longI = userLatLong.longitude.ToString(usa);
+            var latI = userLatLong.latitude.ToString(usa);
             var sb = new StringBuilder();
 
             sb.Append(@"
@@ -189,33 +173,24 @@ namespace DasKlub.Web.Controllers
         var details = [];
         var iconType = [];");
 
+            var iso = Encoding.GetEncoding("ISO-8859-1");
+            var utf8 = Encoding.UTF8;
 
-            Encoding iso = Encoding.GetEncoding("ISO-8859-1");
-            Encoding utf8 = Encoding.UTF8;
-
-
-            foreach (MapPoint mp1 in mapPoints.MapPoints)
+            foreach (var mp1 in mapPoints.MapPoints)
             {
                 if (mp1.Latitude == 0 || mp1.Longitude == 0) continue;
 
-                byte[] utfBytes = utf8.GetBytes(mp1.Message.Replace(@"'", @"\'"));
-                byte[] isoBytes = Encoding.Convert(utf8, iso, utfBytes);
-                string msg = iso.GetString(isoBytes);
+                var utfBytes = utf8.GetBytes(mp1.Message.Replace(@"'", @"\'"));
+                var isoBytes = Encoding.Convert(utf8, iso, utfBytes);
+                var msg = iso.GetString(isoBytes);
 
                 longI = mp1.Latitude.ToString(usa);
-
                 latI = mp1.Longitude.ToString(usa);
-
-//                sb.AppendFormat(@" 
-                //ltlng.push(new google.maps.LatLng({0}, {1}));
                 sb.Append(@" ltlng.push(new google.maps.LatLng(");
                 sb.Append(longI);
                 sb.Append(" , ");
                 sb.Append(latI);
                 sb.Append(@" )); ");
-
-                //  {0}, {1}));
-
                 sb.AppendFormat(@" details.push('{0}');
                     iconType.push('{1}');
                     ",
@@ -254,10 +229,8 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.MapScript = sb.ToString();
 
-
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(currentLang);
-
 
             return View();
         }

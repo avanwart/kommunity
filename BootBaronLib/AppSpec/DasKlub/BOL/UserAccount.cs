@@ -182,7 +182,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             UserAccountID = userAccountID;
 
-            if (HttpContext.Current == null || HttpContext.Current.Cache[CacheName] == null)
+            if (HttpContext.Current == null || HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -199,14 +199,14 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 {
                     if (HttpContext.Current != null)
                     {
-                        HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                        HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     }
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+                Get((DataRow) HttpRuntime.Cache[CacheName]);
             }
         }
 
@@ -263,7 +263,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             UserName = username;
 
-            if (HttpContext.Current.Cache[CacheName] == null)
+            if (HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 var comm = DbAct.CreateCommand();
@@ -278,13 +278,13 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 // was something returned?
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    HttpContext.Current.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                    HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     Get(dt.Rows[0]);
                 }
             }
             else
             {
-                Get((DataRow) HttpContext.Current.Cache[CacheName]);
+                Get((DataRow) HttpRuntime.Cache[CacheName]);
             }
         }
 
@@ -653,20 +653,20 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             if (HttpContext.Current == null) return;
 
-            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+            HttpRuntime.Cache.DeleteCacheObj(CacheName);
 
             // remove username cache
             int useraccountID = UserAccountID;
             UserAccountID = 0;
 
-            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+            HttpRuntime.Cache.DeleteCacheObj(CacheName);
 
             // remove user account id cache
             string username = UserName;
             UserName = string.Empty;
             UserAccountID = useraccountID;
 
-            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+            HttpRuntime.Cache.DeleteCacheObj(CacheName);
 
             UserName = username;
             UserAccountID = useraccountID;
@@ -1473,7 +1473,7 @@ DROP TABLE #Results
 
         public void GetOnlineUsers()
         {
-            //if (HttpContext.Current.Cache[this.CacheName] == null)
+            //if (HttpRuntime.Cache[this.CacheName] == null)
             //{
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -1493,13 +1493,13 @@ DROP TABLE #Results
                     Add(art);
                 }
 
-                // HttpContext.Current.Cache.AddObjToCache(this, this.CacheName);
+                // HttpRuntime.Cache.AddObjToCache(this, this.CacheName);
             }
         }
 
         public void GetMappableUsers()
         {
-            if (HttpContext.Current.Cache[CacheName] == null)
+            if (HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
                 DbCommand comm = DbAct.CreateCommand();
@@ -1517,12 +1517,12 @@ DROP TABLE #Results
                         Add(art);
                     }
 
-                    HttpContext.Current.Cache.AddObjToCache(this, CacheName);
+                    HttpRuntime.Cache.AddObjToCache(this, CacheName);
                 }
             }
             else
             {
-                var uads = (UserAccounts) HttpContext.Current.Cache[CacheName];
+                var uads = (UserAccounts) HttpRuntime.Cache[CacheName];
 
                 foreach (UserAccount uad in uads) Add(uad);
             }
@@ -1532,7 +1532,7 @@ DROP TABLE #Results
 
         public void GetAll()
         {
-            //if (HttpContext.Current.Cache[this.CacheName] == null)
+            //if (HttpRuntime.Cache[this.CacheName] == null)
             //{
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -1552,12 +1552,12 @@ DROP TABLE #Results
                     Add(art);
                 }
 
-                // HttpContext.Current.Cache.AddObjToCache(this, this.CacheName);
+                // HttpRuntime.Cache.AddObjToCache(this, this.CacheName);
             }
             //}
             //else
             //{
-            //    UserAccounts uads = (UserAccounts)HttpContext.Current.Cache[this.CacheName];
+            //    UserAccounts uads = (UserAccounts)HttpRuntime.Cache[this.CacheName];
 
             //    foreach (UserAccount uad in uads) this.Add(uad);
             //}
@@ -1574,7 +1574,7 @@ DROP TABLE #Results
 
         public void RemoveCache()
         {
-            HttpContext.Current.Cache.DeleteCacheObj(CacheName);
+            HttpRuntime.Cache.DeleteCacheObj(CacheName);
         }
 
         #endregion

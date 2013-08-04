@@ -120,7 +120,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             bool rslt;
 
 
-            if (HttpContext.Current.Cache[cacheName] == null)
+            if (HttpRuntime.Cache[cacheName] == null)
             {
                 DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
@@ -132,11 +132,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 // execute the stored procedure
                 rslt = DbAct.ExecuteScalar(comm) == "1";
 
-                HttpContext.Current.Cache.AddObjToCache(rslt, cacheName);
+                HttpRuntime.Cache.AddObjToCache(rslt, cacheName);
             }
             else
             {
-                rslt = (bool) HttpContext.Current.Cache[cacheName];
+                rslt = (bool) HttpRuntime.Cache[cacheName];
             }
             return rslt;
         }
@@ -147,7 +147,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             bool rslt;
 
-            if (HttpContext.Current.Cache[cacheName] == null)
+            if (HttpRuntime.Cache[cacheName] == null)
             {
                 DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
@@ -159,11 +159,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 // execute the stored procedure
                 rslt = DbAct.ExecuteScalar(comm) == "1";
 
-                HttpContext.Current.Cache.AddObjToCache(rslt, cacheName);
+                HttpRuntime.Cache.AddObjToCache(rslt, cacheName);
             }
             else
             {
-                rslt = (bool) HttpContext.Current.Cache[cacheName];
+                rslt = (bool) HttpRuntime.Cache[cacheName];
             }
             return rslt;
         }
