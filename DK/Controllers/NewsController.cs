@@ -18,6 +18,7 @@ using System;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BLL;
@@ -153,7 +154,7 @@ namespace DasKlub.Web.Controllers
             const string cacheName = "ArticleTagCloud";
             string htmlCloud;
 
-            if (HttpContext.Cache[cacheName] == null)
+            if (HttpRuntime.Cache[cacheName] == null)
             {
                 var cloud1 = new Cloud
                     {
@@ -172,11 +173,11 @@ namespace DasKlub.Web.Controllers
 
                 htmlCloud = cloud1.HTML();
 
-                HttpContext.Cache.AddObjToCache(htmlCloud, cacheName);
+                HttpRuntime.Cache.AddObjToCache(htmlCloud, cacheName);
             }
             else
             {
-                htmlCloud = (string) HttpContext.Cache[cacheName];
+                htmlCloud = (string) HttpRuntime.Cache[cacheName];
             }
 
             ViewBag.CloudTags = htmlCloud;

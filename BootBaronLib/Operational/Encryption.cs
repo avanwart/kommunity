@@ -60,8 +60,7 @@ namespace BootBaronLib.Operational
         ///     random and it will fall with the range determined by the
         ///     function parameters.
         /// </remarks>
-        public static string Generate(int minLength,
-                                      int maxLength)
+        public static string Generate(int minLength, int maxLength)
         {
             // Make sure that input parameters are valid.
             if (minLength <= 0 || maxLength <= 0 || minLength > maxLength)
