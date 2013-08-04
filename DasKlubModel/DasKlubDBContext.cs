@@ -1,8 +1,8 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
+using DasKlub.Models.Forum;
 using DasKlub.Web.Models.Domain;
-using DasKlub.Web.Models.Forum;
 
 
 namespace DasKlub.Web.Models 

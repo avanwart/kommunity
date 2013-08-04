@@ -15,6 +15,7 @@
 //   limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
@@ -28,6 +29,7 @@ using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
 using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
+using DasKlub.Models.Forum;
 using DasKlub.Web.Models;
 using DasKlub.Web.Models.Models;
 using Google.GData.Client;
@@ -105,9 +107,7 @@ namespace DasKlub.Web.Controllers
         public ActionResult VideoSubmit(string video, string videoType, string personType,
                                         string footageType, string band, string song, string contestID)
         {
-            string _devkey = GeneralConfigs.YouTubeDevKey;
-            string _password = GeneralConfigs.YouTubeDevPass;
-            string _username = GeneralConfigs.YouTubeDevUser;
+            var devkey = GeneralConfigs.YouTubeDevKey;
 
             if (string.IsNullOrWhiteSpace(video))
             {
@@ -158,7 +158,7 @@ namespace DasKlub.Web.Controllers
 
             try
             {
-                var yousettings = new YouTubeRequestSettings("Das Klub", _devkey);
+                var yousettings = new YouTubeRequestSettings("Das Klub", devkey);
 
                 var yourequest = new YouTubeRequest(yousettings);
                 var entryUri = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", vidKey));
@@ -305,22 +305,56 @@ namespace DasKlub.Web.Controllers
         {
             using (var context = new DasKlubDBContext())
             {
-                var newThreads = context.ForumSubCategory.OrderByDescending(x => x.CreateDate).Take(5).ToList();
+                var newestThreads = context.ForumSubCategory.OrderByDescending(x => x.CreateDate).Take(20);
+                var subItems = new Dictionary<int, DateTime>();
+                var forumFeed = new  List<ForumFeedModel>();
 
-                foreach (var forumSubCategory in newThreads)
+                foreach (var post in newestThreads)
                 {
-                    forumSubCategory.UserAccount = new UserAccount(forumSubCategory.CreatedByUserID);
-                    forumSubCategory.ForumCategory =
-                        context.ForumCategory.FirstOrDefault(x => x.ForumCategoryID == forumSubCategory.ForumCategoryID);
-                    forumSubCategory.TotalPosts =
-                        context.ForumPost.Count(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID);
-                    forumSubCategory.LatestForumPost =
-                        context.ForumPost.OrderByDescending(x => x.CreateDate).FirstOrDefault(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID);
-
-                    // TODO: CHECK IF THIS IS UNREAD BY THE USER AND LINK TO THE LAST POST IN THE THREAD
+                    if (!subItems.ContainsKey(post.ForumSubCategoryID))
+                    {
+                        subItems.Add(post.ForumSubCategoryID, post.CreateDate);
+                    }
                 }
 
-                ViewBag.MostRecentThreads = newThreads;
+                var newestPosts = context.ForumPost.OrderByDescending(x => x.CreateDate).Take(20);
+
+                foreach (var post in newestPosts)
+                {
+                    if (!subItems.ContainsKey(post.ForumSubCategoryID))
+                    {
+                        subItems.Add(post.ForumSubCategoryID, post.CreateDate);
+                    }
+                    else if (subItems[post.ForumSubCategoryID] < post.CreateDate)
+                    {
+                        subItems[post.ForumSubCategoryID] = post.CreateDate;
+                    }
+                }
+
+
+                foreach (var post in subItems)
+                {
+                    var forumFeeItem = new ForumFeedModel();
+
+                    forumFeeItem.ForumSubCategory =
+                        context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == post.Key);
+                    forumFeeItem.LastPosted = post.Value;
+                    forumFeeItem.ForumCategory =
+                        context.ForumCategory.FirstOrDefault(x => x.ForumCategoryID == forumFeeItem.ForumSubCategory.ForumCategoryID);
+
+                    forumFeed.Add(forumFeeItem);
+                }
+
+                forumFeed = forumFeed.OrderByDescending(x => x.LastPosted).Take(10).ToList();
+               
+
+                ViewBag.ForumFeed = forumFeed;
+
+                /////////-----------------
+
+
+
+                ViewBag.MostRecentThreads = newestThreads;
 
                 // TODO: most popular this week
                 var lastWEek = DateTime.UtcNow.AddDays(-7);

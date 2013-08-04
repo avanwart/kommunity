@@ -3,7 +3,8 @@
 @using BootBaronLib.Operational
 @using BootBaronLib.Resources
 @using BootBaronLib.Values
-@using DasKlub.Web.Models.Forum
+@using DasKlub.Models.Forum
+ 
 @{
     ViewBag.Title = SiteDomain.GetSiteDomainValue(
         SiteEnums.SiteBrandType.TAGLN,
@@ -14,31 +15,17 @@
 <div class="row">
     <div class="span4">
         
-        @{ Html.RenderPartial("_registerControls"); }
-       
-        <div class="clear"></div>
-        <hr />
-          
-        @{ Html.RenderPartial("_AdBanner"); }
+     
         
-        
-        @if (HttpContext.Current.Request.IsAuthenticated)
-        {
-            Html.RenderPartial("_videoSubmit");
-        }       
-
+                    @Html.Raw(SiteDomain.GetSiteDomainValue(
+                        SiteEnums.SiteBrandType.HOMEC,
+                        Utilities.GetCurrentLanguageCode())) 
   
        
         <div class="clear">
         </div>
         <br />
-         
-        <br />
-        @if (GeneralConfigs.IsGiveAway)
-        {
-            <a class="m_over" href="@Url.Content("~/account/useraddress")">
-                <img  src="@Url.Content("~/Content/images/stills/giveaway.jpg")" /></a>
-        }
+  
     </div>
     <div class="span8">
         <div class="row">
@@ -47,13 +34,11 @@
              
                 <div class="span8" >
                
-
-                    @Html.Raw(SiteDomain.GetSiteDomainValue(
-                        SiteEnums.SiteBrandType.HOMEC,
+                                        @Html.Raw(SiteDomain.GetSiteDomainValue(
+                        SiteEnums.SiteBrandType.HOMET,
                         Utilities.GetCurrentLanguageCode())) 
                     <hr />
-                </div>
-                
+             
                 
            
  
@@ -64,47 +49,38 @@
       {
     <div class="clear">
             </div>
-                  <h4>Newest Threads</h4>
-          foreach (ForumSubCategory post in ViewBag.MostRecentThreads)
+          <h5>New Posts</h5>
+
+          <table class="table table-condensed table-striped">
+          @foreach (DasKlub.Web.Models.ForumFeedModel forumFeedModel in ViewBag.ForumFeed)
           {
-              <div class="row">
-        
-                  <div class="span2 user_icons">
-                    
+                  <tr>
+                      <td  >
+                           <b>
+                               <a href="@forumFeedModel.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a></b>   
+                          <br /> 
+                          <i style="font-size: 10px">@Html.Raw(forumFeedModel.ForumCategory.Title)</i>
+                          <br />
                       
-                          <ul>
-                          @Html.Raw(post.UserAccount.ToUnorderdListItem)
-                              </ul>
-                      
+                      </td>
                  
-                   
-                  </div>
-                  
-                  
-                    <div class="span4">
- <b>
- <a href="@post.SubForumURL.ToString()">@post.Title</a></b>                    
-                        <br />
-                        @if (post.LatestForumPost != null)
-                        {
-                            <span title="@FromDate.DateToYYYY_MM_DD(post.LatestForumPost.CreateDate)"><i>@Messages.LastReply: @Utilities.TimeElapsedMessage(post.LatestForumPost.CreateDate)</i>&nbsp; - Replies: @post.TotalPosts</span>
-                        }
-                        else
-                        {
-                               <span title="@FromDate.DateToYYYY_MM_DD(post.CreateDate)"><i>@Messages.CreatedOn: @Utilities.TimeElapsedMessage(post.CreateDate)</i> </span>
-                        }
-                          <br /><br />
-                        <p>
-                            
-                                        @Html.Raw(Utilities.MakeLink(FromString.ReplaceNewLineWithHTML(post.Description)))
-                        </p>
-                    </div>
-               
-  
-              </div>
-              <hr />
+                      <td>
+                      <span title="@forumFeedModel.LastPosted.ToString("u")">
+                          @Html.Raw(Utilities.TimeElapsedMessage(forumFeedModel.LastPosted))
+                          </span>
+                      </td>
+                      <td>
+                      @*    @Html.Raw(forumFeedModel.LastFrom.UserName)*@
+                      </td>
+                  </tr>
           }
+          </table>
+          
+          
+ 
       }
+                       </div>
+                
    </div>
             <div class="clear">
             </div>

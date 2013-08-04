@@ -1,9 +1,7 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using DasKlub.Web.Models.Forum;
+﻿using System.Data.Entity;
+using DasKlub.Models.Forum;
 
-namespace DasKlub.Web.Models.Domain
+namespace DasKlub.Models.Domain
 {
     public class ForumContext : DbContext
     {

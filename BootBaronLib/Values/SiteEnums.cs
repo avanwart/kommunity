@@ -479,7 +479,10 @@ namespace BootBaronLib.Values
             ///     Home center/ canvas
             /// </summary>
             HOMEC,
-
+            /// <summary>
+            ///     Home title
+            /// </summary>
+            HOMET,
             /// <summary>
             ///     Radio stations -desktop
             /// </summary>

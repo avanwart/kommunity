@@ -1,7 +1,8 @@
 ﻿@using BootBaronLib.Operational
 @using BootBaronLib.Resources
-@using DasKlub.Web.Models.Forum
-@model ICollection<DasKlub.Web.Models.Forum.ForumPost>
+@using DasKlub.Models.Forum
+
+@model ICollection<DasKlub.Models.Forum.ForumPost>
  
  
 <div class="row">
@@ -70,28 +71,44 @@
         <br />
          
         <hr />
+        
+
         @{
             int pageSize = Convert.ToInt32(ViewBag.PageCount);
 
             for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
             {
-                if (ViewBag.PageNumber == 1 && pageSize == 1)
+                   <ul class="pager" style="float:left">
+@*  <li><a href="#">&laquo;</a></li>*@
+ 
+
+                   @if (ViewBag.PageNumber == 1 && pageSize == 1)
                 {
                     break;
                 }
 
 
-                if (ViewBag.PageNumber == pageNumber)
+                @if (ViewBag.PageNumber == pageNumber)
                 {
-                    @pageNumber
+                    <li>
+                        <a href="#" style="color: #000;background-color: #696969">   @pageNumber</a>
+                    </li>
                 }
                 else
                 {
-                    <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/" + pageNumber.ToString())">@pageNumber.ToString()</a>
+                      <li> 
+
+                          <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/" + pageNumber.ToString())">@pageNumber.ToString()</a>
+                          </li>
                 }
-            }
-        }
-        
+               
+                       
+                            
+@*  <li><a href="#">&raquo;</a></li>*@
+                   </ul>
+                }
+                   }
+        <div class="clear"></div>
         
         <hr />
         

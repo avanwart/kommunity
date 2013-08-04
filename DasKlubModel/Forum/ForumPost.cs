@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using DasKlub.Web.Models.Domain;
 
-namespace DasKlub.Web.Models.Forum
+namespace DasKlub.Models.Forum
 {
     public class ForumPost : StateInfo
     {

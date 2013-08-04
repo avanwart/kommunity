@@ -2292,6 +2292,10 @@ namespace DasKlub.Web.Controllers
                         "Make sure to read this article on How To Use Das Klub: http://dasklub.com/news/how-to-use-das-klub");
                     sb.AppendLine();
                     sb.AppendLine();
+                    sb.AppendLine(
+                        "Feel free to introduce yourself on the forum: http://dasklub.com/forum/i-don-t-know-random-off-topic/introduce-yourself or start your own threads.");
+                    sb.AppendLine();
+                    sb.AppendLine();
                     sb.AppendLine("- RMW");
                     sb.AppendLine();
                     sb.AppendLine("[ automatic e-mail ]");
@@ -2304,7 +2308,7 @@ namespace DasKlub.Web.Controllers
 
                     dm.Create();
 
-                    return RedirectToAction("editprofile", "Account");
+                    return RedirectToAction("Home", "Account");
                 }
                 ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
             }

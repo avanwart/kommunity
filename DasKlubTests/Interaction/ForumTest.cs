@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
+using DasKlub.Models.Forum;
 using DasKlub.Web.Models;
-using DasKlub.Web.Models.Forum;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DasKlubTests.Interaction

@@ -7,7 +7,7 @@ using System.Web;
 using BootBaronLib.Operational;
 using DasKlub.Web.Models.Domain;
 
-namespace DasKlub.Web.Models.Forum
+namespace DasKlub.Models.Forum
 {
     public class ForumCategory : StateInfo
     {

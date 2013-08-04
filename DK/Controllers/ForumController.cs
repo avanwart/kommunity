@@ -6,8 +6,8 @@ using System.Web.Mvc;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Operational;
+using DasKlub.Models.Forum;
 using DasKlub.Web.Models;
-using DasKlub.Web.Models.Forum;
 using DasKlub.Web.Models.Models;
 
 namespace DasKlub.Web.Controllers

@@ -8,7 +8,7 @@ using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Operational;
 using DasKlub.Web.Models.Domain;
 
-namespace DasKlub.Web.Models.Forum
+namespace DasKlub.Models.Forum
 {
     public class ForumSubCategory : StateInfo
     {

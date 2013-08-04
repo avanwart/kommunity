@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DasKlub.Web.Models.Domain;
+﻿using DasKlub.Web.Models.Domain;
 
-namespace DasKlub.Web.Models.Forum
+namespace DasKlub.Models.Forum
 {
     public class ForumPostNotification : StateInfo
     {
