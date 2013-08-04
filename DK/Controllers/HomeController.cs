@@ -16,8 +16,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection;
@@ -40,16 +42,20 @@ namespace DasKlub.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IForumCategoryRepository _forumcategoryRepository;
+        private readonly MembershipUser _mu;
+
 
         public HomeController()
             : this(new ForumCategoryRepository())
         {
+            _mu = Membership.GetUser();
         }
 
-         private HomeController(IForumCategoryRepository forumcategoryRepository)
-         {
-             _forumcategoryRepository = forumcategoryRepository;
-         }
+        private HomeController(IForumCategoryRepository forumcategoryRepository)
+        {
+            _mu = Membership.GetUser();
+            _forumcategoryRepository = forumcategoryRepository;
+        }
 
         #region Actions
 
@@ -262,9 +268,74 @@ namespace DasKlub.Web.Controllers
 
         public ActionResult Index()
         {
+            UserAccount ua = null;
+
+            if (_mu != null)
+            {
+                ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
+            }
+
             using (var context = new DasKlubDBContext())
             {
-                var newestThreads = context.ForumSubCategory.OrderByDescending(x => x.CreateDate).Take(20);
+                var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
+                var mostPopularThisWeek =
+                    context.ForumPost
+                    .Where(x => x.CreateDate > oneWeekAgo)
+                    .GroupBy(x => x.ForumSubCategoryID)
+                    .OrderByDescending(y => y.Count())
+                    .ToList().FirstOrDefault();
+
+                if (mostPopularThisWeek != null)
+                {
+                    var topForumThreadOfTheWeek =
+                        context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == mostPopularThisWeek.Key);
+                    var topFeedItem = new ForumFeedModel {ForumSubCategory = topForumThreadOfTheWeek};
+                    topFeedItem.ForumCategory =
+                        context.ForumCategory.FirstOrDefault(
+                            x => x.ForumCategoryID == topFeedItem.ForumSubCategory.ForumCategoryID);
+                    var mostRecentPostToTopThread = context.ForumPost.OrderByDescending(x => x.CreateDate)
+                                                           .FirstOrDefault(
+                                                               x =>
+                                                               x.ForumSubCategoryID ==
+                                                               topFeedItem.ForumSubCategory.ForumSubCategoryID);
+                    if (mostRecentPostToTopThread != null)
+                        topFeedItem.LastPosted = mostRecentPostToTopThread.CreateDate;
+
+                    if (ua != null)
+                    {
+                        var isNew =
+                            context.ForumPostNotification.FirstOrDefault(
+                                x =>
+                                x.ForumSubCategoryID == topForumThreadOfTheWeek.ForumSubCategoryID &&
+                                x.UserAccountID == ua.UserAccountID);
+
+                        if (isNew != null && !isNew.IsRead)
+                        {
+                            topFeedItem.IsNewPost = true;
+
+                            var forumSubPostCount =
+                                context.ForumPost.Count(
+                                    x => x.ForumSubCategoryID == topFeedItem.ForumSubCategory.ForumSubCategoryID);
+
+                            var pageCount = (forumSubPostCount + ForumController.PageSize - 1)/ForumController.PageSize;
+
+                            if (mostRecentPostToTopThread != null)
+                                topFeedItem.URLTo =
+                                    new Uri(topFeedItem.ForumSubCategory.SubForumURL + "/" +
+                                            ((pageCount > 1)
+                                                 ? pageCount.ToString(CultureInfo.InvariantCulture)
+                                                 : string.Empty) + "#" +
+                                            mostRecentPostToTopThread.ForumPostID.ToString(CultureInfo.InvariantCulture));
+                        }
+                    }
+                    ViewBag.TopThreadOfTheWeek = topFeedItem;
+                }
+
+
+                var newestThreads = context.ForumSubCategory
+                                            .OrderByDescending(x => x.CreateDate)
+                                            .Where(x => x.ForumSubCategoryID != mostPopularThisWeek.Key)
+                                            .Take(20);
                 var subItems = new Dictionary<int, DateTime>();
                 var forumFeed = new  List<ForumFeedModel>();
 
@@ -276,7 +347,11 @@ namespace DasKlub.Web.Controllers
                     }
                 }
 
-                var newestPosts = context.ForumPost.OrderByDescending(x => x.CreateDate).Take(20);
+                var newestPosts = context.ForumPost.GroupBy(x => x.ForumSubCategoryID)
+                                         .Select(y => y.OrderByDescending(x => x.CreateDate).FirstOrDefault())
+                                         .Where(x => x.ForumSubCategoryID != mostPopularThisWeek.Key)
+                                         .OrderByDescending(i => i.CreateDate)
+                                         .Take(10);
 
                 foreach (var post in newestPosts)
                 {
@@ -300,34 +375,53 @@ namespace DasKlub.Web.Controllers
                     forumFeeItem.ForumCategory =
                         context.ForumCategory.FirstOrDefault(x => x.ForumCategoryID == forumFeeItem.ForumSubCategory.ForumCategoryID);
 
+
+                    if (ua != null)
+                    {
+                        var isNew =
+                            context.ForumPostNotification.FirstOrDefault(
+                                x =>
+                                x.ForumSubCategoryID == forumFeeItem.ForumSubCategory.ForumSubCategoryID &&
+                                x.UserAccountID == ua.UserAccountID);
+
+                        if (isNew != null && !isNew.IsRead)
+                        {
+                            forumFeeItem.IsNewPost = true;
+
+                            var forumSubPostCount =
+                                context.ForumPost.Count(
+                                    x => x.ForumSubCategoryID == forumFeeItem.ForumSubCategory.ForumSubCategoryID);
+
+                            var pageCount = (forumSubPostCount + ForumController.PageSize - 1) / ForumController.PageSize;
+
+                            var mostRecentPostToTopThread = context.ForumPost.OrderByDescending(x => x.CreateDate)
+                                       .FirstOrDefault(
+                                           x =>
+                                           x.ForumSubCategoryID ==
+                                           forumFeeItem.ForumSubCategory.ForumSubCategoryID);
+
+                            if (mostRecentPostToTopThread != null)
+                                forumFeeItem.URLTo =
+                                    new Uri(forumFeeItem.ForumSubCategory.SubForumURL + "/" +
+                                            ((pageCount > 1)
+                                                 ? pageCount.ToString(CultureInfo.InvariantCulture)
+                                                 : string.Empty) + "#" +
+                                            mostRecentPostToTopThread.ForumPostID.ToString(CultureInfo.InvariantCulture));
+                        }
+                    }
+
                     forumFeed.Add(forumFeeItem);
                 }
 
-                forumFeed = forumFeed.OrderByDescending(x => x.LastPosted).Take(10).ToList();
+                forumFeed = forumFeed.OrderByDescending(x => x.LastPosted).Take(9).ToList();
                 ViewBag.ForumFeed = forumFeed;
                 ViewBag.MostRecentThreads = newestThreads;
-
-                // TODO: most popular this week
-                var lastWEek = DateTime.UtcNow.AddDays(-7);
-                var mostPopularThisWeek =
-                    context.ForumPost
-                    .Where(x => x.CreateDate > lastWEek)
-                    .GroupBy(x => x.ForumSubCategoryID)
-                    .OrderByDescending(y => y.Count())
-                    .ToList().FirstOrDefault();
-
-                if (mostPopularThisWeek != null  )
-                {
-                    
-                }
             }
-
           
             var cnts = new Contents();
             cnts.GetContentPageWiseReleaseAll(1, 5);
 
             ViewBag.RecentArticles = cnts;
-             
 
             return View();
         }

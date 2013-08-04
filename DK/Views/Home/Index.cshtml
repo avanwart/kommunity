@@ -29,7 +29,7 @@
         {
             <h5>@Messages.News</h5>
             <dl>
-            @foreach ( BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content newsItem in ViewBag.RecentArticles)
+            @foreach (BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content newsItem in ViewBag.RecentArticles)
             {
                 <dt>
                     @newsItem.Reply
@@ -65,15 +65,65 @@
       {
     <div class="clear">
             </div>
-          <h5>New Posts</h5>
+         
 
-          <table class="table table-condensed table-striped">
-          @foreach (DasKlub.Web.Models.ForumFeedModel forumFeedModel in ViewBag.ForumFeed)
-          {
+    <h5>Newest Forum Posts</h5>
+                 <table class="table table-condensed table-striped" >
+                      
+             @if (ViewBag.TopThreadOfTheWeek != null)
+             {
+                                 <tr style="border: 2px  #f89406 dashed" >
+                                     <td  >
+                                         
+                                         <b>
+                                             Popular: 
+                                             @if (ViewBag.TopThreadOfTheWeek.IsNewPost)
+                                             {
+                                                    <a style="color:#00FF1E" href="@ViewBag.TopThreadOfTheWeek.URLTo.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
+                                             }
+                                             else
+                                             {
+                                                 <a href="@ViewBag.TopThreadOfTheWeek.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
+                                             }
+                                         </b>   
+                                         <br /> 
+                                         <i style="font-size: 10px">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumCategory.Title)</i>
+                                         <br />
+                      
+                                     </td>
+                 
+                                     @if (ViewBag.TopThreadOfTheWeek.LastPosted != null)
+                                     {
+                                         <td>
+                                             <span title="@ViewBag.TopThreadOfTheWeek.LastPosted.ToString("u")">
+                                                 @Html.Raw(Utilities.TimeElapsedMessage(ViewBag.TopThreadOfTheWeek.LastPosted))
+                                             </span> 
+                                         </td>
+                                     }
+                     
+                  </tr> 
+                     
+                  
+             }
+              
+         
+        
+              @foreach (DasKlub.Web.Models.ForumFeedModel forumFeedModel in ViewBag.ForumFeed)
+              {
                   <tr>
                       <td  >
-                           <b>
-                               <a href="@forumFeedModel.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a></b>   
+                          <b>
+                               
+                                            @if (forumFeedModel.IsNewPost)
+                                             {
+                                                    <a style="color:#00FF1E" href="@forumFeedModel.URLTo.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
+                                             }
+                                             else
+                                             {
+                                                 <a href="@forumFeedModel.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
+                                             }
+                          </b>
+
                           <br /> 
                           <i style="font-size: 10px">@Html.Raw(forumFeedModel.ForumCategory.Title)</i>
                           <br />
@@ -81,15 +131,13 @@
                       </td>
                  
                       <td>
-                      <span title="@forumFeedModel.LastPosted.ToString("u")">
-                          @Html.Raw(Utilities.TimeElapsedMessage(forumFeedModel.LastPosted))
+                          <span title="@forumFeedModel.LastPosted.ToString("u")">
+                              @Html.Raw(Utilities.TimeElapsedMessage(forumFeedModel.LastPosted))
                           </span>
                       </td>
-                      <td>
-             
-                      </td>
+                    
                   </tr>
-          }
+              }
           </table>
           
           
@@ -149,36 +197,5 @@
         SiteEnums.SiteBrandType.HOMEB,
         Utilities.GetCurrentLanguageCode()))
 
-    <script type="text/javascript">
-        $("#download1").click(function() {
-
-
-            $.post($rootUrl + 'home/download', { link: 'z' },
-                function(data) {
-
-
-                });
-
-
-        });
-
-        $("#download2").click(function() {
-
-
-            $.post($rootUrl + 'home/download', { link: 'f' },
-                function(data) {
-
-
-                });
-
-
-        });
-
-
-        $(document).ready(function() {
-            $("#UserName").focus();
-        });
-
-    </script>
 
 }

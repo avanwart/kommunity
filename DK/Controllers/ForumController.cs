@@ -14,7 +14,7 @@ namespace DasKlub.Web.Controllers
 {
     public class ForumController : Controller
     {
-        private const int PageSize = 10;
+        public const int PageSize = 10;
         private readonly IForumCategoryRepository _forumcategoryRepository;
         private readonly MembershipUser _mu;
 

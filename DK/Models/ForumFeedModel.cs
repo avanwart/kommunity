@@ -1,19 +1,25 @@
 ﻿using System;
-using BootBaronLib.AppSpec.DasKlub.BOL;
 using DasKlub.Models.Forum;
 
 namespace DasKlub.Web.Models
 {
     public class ForumFeedModel
     {
-        public UserAccount LastFrom { get; set; }
-
         public DateTime LastPosted { get; set; }
 
         public ForumCategory ForumCategory { get; set; }
 
         public ForumSubCategory ForumSubCategory { get; set; }
 
-        public int PostsToThread { get; set; }
+        /// <summary>
+        /// When it's an authenciated user, say if it's new to them
+        /// </summary>
+        public bool IsNewPost { get; set; }
+
+        /// <summary>
+        /// Use this property when they are authenticated, the URL should be
+        /// to the last post on the last page
+        /// </summary>
+        public Uri URLTo { get; set; }
     }
 }
