@@ -22,6 +22,7 @@ using System.ComponentModel;
 using System.Data.Common;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Resources;
@@ -112,7 +113,7 @@ namespace BootBaronLib.Operational
             // Initialise the string builder
             var result = new StringBuilder(100);
             // Loop through each of the values to diminish the number
-            for (int i = 0; i < 13; i++)
+            for (var i = 0; i < 13; i++)
             {
                 // If the number being converted is less than the test value, append
                 // the corresponding numeral or numeral pair to the resultant string
@@ -130,83 +131,6 @@ namespace BootBaronLib.Operational
         public static string URLAuthority()
         {
             return "http://" + HttpContext.Current.Request.Url.Authority;
-        }
-
-
-        public static string RandomAdvertisement()
-        {
-            var sb1 = new StringBuilder(100);
-
-            try
-            {
-                var doc = new HtmlDocument();
-
-                if (HttpRuntime.Cache["top_week_picks"] == null)
-                {
-                    using (var wc = new WebClient())
-                    {
-                        string topPicks = wc.DownloadString(
-                            "http://store.vampirefreaks.com/?cat=monthly+top+sellers&aff=dasklub&cols=1&numitems=1000");
-
-                        HttpRuntime.Cache.AddObjToCache(topPicks, "top_week_picks");
-                    }
-                }
-
-                doc.LoadHtml((string) HttpRuntime.Cache["top_week_picks"]);
-
-                var adChoices = new Dictionary<int, string>();
-
-                var itemCnt = 0;
-
-                foreach (var table in doc.DocumentNode.SelectNodes("//table"))
-                {
-                    foreach (var row in table.SelectNodes("tr"))
-                    {
-                        var link1And2 = string.Empty;
-
-                        var linkText = string.Empty;
-                        foreach (var cell in row.SelectNodes("th|td"))
-                        {
-                            var regx =
-                                new Regex(
-                                    "http://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?",
-                                    RegexOptions.IgnoreCase);
-
-                            MatchCollection mactches = regx.Matches(cell.InnerHtml);
-                            linkText = cell.InnerText;
-
-                            foreach (Match match in mactches)
-                            {
-                                link1And2 += match.Value + "|";
-                            }
-                        }
-
-                        itemCnt++;
-
-                        adChoices.Add(itemCnt, linkText + "|" + link1And2);
-                    }
-                }
-
-
-                var randObj = new Random();
-
-                string[] parts = adChoices[randObj.Next(0, adChoices.Count - 1)].Split('|');
-
-                if (parts != null && parts.Length > 3 &&
-                    !string.IsNullOrWhiteSpace(parts[0]) &&
-                    !string.IsNullOrWhiteSpace(parts[1]) &&
-                    !string.IsNullOrWhiteSpace(parts[2]))
-                {
-                    sb1.AppendFormat(
-                        @"<a rel=""nofollow"" class=""m_over"" href=""{0}"" target=""_blank""><img style=""width:100px;height:100px"" src=""{1}"" alt=""{2}"" title=""{2}"" /></a>",
-                        parts[1], parts[2], parts[0]);
-                }
-            }
-            catch
-            {
-            }
-
-            return sb1.ToString();
         }
 
         public static string S3ContentPath(string filePath)
@@ -306,15 +230,15 @@ namespace BootBaronLib.Operational
                 timeElapsed
                     = string.Format(Messages.MonthsAgo, (int) Math.Round(elapsed.TotalDays/30));
             }
-            else if (elapsed.TotalDays > 365 && elapsed.TotalDays < 730)
+            else if (elapsed.TotalDays < (365 * 2))
             {
                 // 1 year 
-                timeElapsed = string.Format(Messages.YearAgo, (int) Math.Round(elapsed.TotalDays/365.24));
+                timeElapsed = string.Format(Messages.YearAgo, (int)Math.Round(elapsed.TotalDays / 365.2425));
             }
             else
             {
                 // over a year old
-                timeElapsed = string.Format(Messages.YearsAgo, (int) Math.Round(elapsed.TotalDays/365.24));
+                timeElapsed = string.Format(Messages.YearsAgo, (int)Math.Round(elapsed.TotalDays / 365.2425));
             }
 
             return timeElapsed;

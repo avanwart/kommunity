@@ -65,14 +65,7 @@ namespace DasKlub.Web.m.auth
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(hfArtistID.Value))
-            {
-                art = new Artist();
-            }
-            else
-            {
-                art = new Artist(Convert.ToInt32(hfArtistID.Value));
-            }
+            art = string.IsNullOrEmpty(hfArtistID.Value) ? new Artist() : new Artist(Convert.ToInt32(hfArtistID.Value));
 
             art.IsHidden = chkIsHidden.Checked;
 
@@ -84,11 +77,11 @@ namespace DasKlub.Web.m.auth
             {
                 if (art.Create() > 0)
                 {
-                    MasterPageHelper.SetMainMasterPageMessageText(Page, "Artist created", true);
+                    
                 }
                 else
                 {
-                    MasterPageHelper.SetMainMasterPageMessageText(Page, "Artist not created", false);
+                  
                     return;
                 }
             }
@@ -96,11 +89,11 @@ namespace DasKlub.Web.m.auth
             {
                 if (art.Update())
                 {
-                    MasterPageHelper.SetMainMasterPageMessageText(Page, "Artist updated", true);
+                    
                 }
                 else
                 {
-                    MasterPageHelper.SetMainMasterPageMessageText(Page, "Artist updated", false);
+  
                     return;
                 }
             }

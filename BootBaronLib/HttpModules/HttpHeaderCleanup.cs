@@ -29,7 +29,6 @@ namespace BootBaronLib.HttpModules
 
         public void Dispose()
         {
-            // throw new NotImplementedException();
         }
 
         public void Init(HttpApplication context)
@@ -51,7 +50,5 @@ namespace BootBaronLib.HttpModules
         }
 
         #endregion
-
-        //  <add name="HttpHeaderClearnUp" type="FT.HttpModules.HttpHeaderCleanup" />
     }
 }

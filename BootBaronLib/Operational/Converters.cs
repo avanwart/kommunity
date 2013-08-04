@@ -272,7 +272,7 @@ namespace BootBaronLib.Operational
         /// <returns></returns>
         public static string URLKey(string p)
         {
-            string pname = Regex.Replace(p, @"[\W_-[#]]+", " ");
+            var pname = Regex.Replace(p, @"[\W_-[#]]+", " ");
             return pname.Trim().Replace("  ", " ").Replace(" ", "-").Replace("%", string.Empty).ToLower();
             // TODO: FULL REGEX
         }

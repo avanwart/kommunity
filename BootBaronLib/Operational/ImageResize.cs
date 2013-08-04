@@ -89,7 +89,6 @@ namespace BootBaronLib.Operational
             const int sourceY = 0;
             var destX = 0;
             var destY = 0;
-
             float nPercent = 0;
             float nPercentW = 0;
             float nPercentH = 0;
@@ -132,11 +131,9 @@ namespace BootBaronLib.Operational
 
             var destWidth = (int) (sourceWidth*nPercent);
             var destHeight = (int) (sourceHeight*nPercent);
-
             var bmPhoto = new Bitmap(width, height, PixelFormat.Format24bppRgb);
             bmPhoto.SetResolution(imgPhoto.HorizontalResolution, imgPhoto.VerticalResolution);
-
-            Graphics grPhoto = Graphics.FromImage(bmPhoto);
+            var grPhoto = Graphics.FromImage(bmPhoto);
             grPhoto.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
             grPhoto.DrawImage(imgPhoto,

@@ -22,8 +22,6 @@ namespace BootBaronLib.Configs
     {
         static GeneralConfigs()
         {
-            // other
-
             _mailServer = ConfigurationManager.AppSettings["MailServer"];
 
             _enableErrorLogEmail = bool.Parse(ConfigurationManager.AppSettings["EnableErrorLogEmail"]);

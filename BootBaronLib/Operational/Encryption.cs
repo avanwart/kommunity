@@ -75,7 +75,6 @@ namespace BootBaronLib.Operational
                     PasswordCharsLcase.ToCharArray(),
                     PasswordCharsUcase.ToCharArray(),
                     PasswordCharsNumeric.ToCharArray(),
-                    //PASSWORD_CHARS_SPECIAL.ToCharArray()
                 };
 
             // Use this array to track the number of unused characters in each
