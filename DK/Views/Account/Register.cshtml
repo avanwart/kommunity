@@ -1,4 +1,7 @@
-﻿@using BootBaronLib.Resources
+﻿@using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
+@using BootBaronLib.Operational
+@using BootBaronLib.Resources
+@using BootBaronLib.Values
 
 @{
     ViewBag.Title = Messages.Register;
@@ -13,6 +16,14 @@
     </div>
     <div class="span4">
         @*@{Html.RenderPartial("_AdBanner2"); }*@
+        
+        
+                    @Html.Raw(SiteDomain.GetSiteDomainValue(
+                        SiteEnums.SiteBrandType.MISSN,
+                        Utilities.GetCurrentLanguageCode())) 
+  
+        
+
         <img src="@Url.Content("~/content/images/stills/bouncer.jpg")" title="@Messages.Register" alt="@Messages.Register" />
     </div>
 </div>

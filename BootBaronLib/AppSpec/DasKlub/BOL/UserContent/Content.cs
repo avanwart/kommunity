@@ -657,18 +657,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
 
                 int i = 0;
 
-                foreach (Content con in this)
+                foreach (var con in this)
                 {
-                    //if (i % 2 == 1)
-                    //{
-                    //    sb.Append(con.ToUnorderdListItem.Replace(@"<li class=""review_item"">",
-                    //        @"<li class=""review_item alt_review"">"));
-                    //}
-                    //else
-                    //{
-                    //    sb.Append(con.ToUnorderdListItem);
-                    //}
-
                     sb.Append(con.ToUnorderdListItem);
 
                     i++;
@@ -682,24 +672,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
 
         public static Dictionary<string, string> GetDistinctNewsLanguages()
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetDistinctNewsLanguages";
-
-
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt == null || dt.Rows.Count == 0) return null;
 
             var dict = new Dictionary<string, string>();
 
-            string lang = string.Empty;
-
             foreach (DataRow dr in dt.Rows)
             {
-                lang = FromObj.StringFromObj(dr["language"]);
+                string lang = FromObj.StringFromObj(dr["language"]);
                 if (!string.IsNullOrWhiteSpace(lang))
                 {
                     dict.Add(lang, Utilities.GetLanguageNameForCode(lang));

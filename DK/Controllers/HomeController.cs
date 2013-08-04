@@ -16,20 +16,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection;
-using BootBaronLib.AppSpec.DasKlub.BOL.Logging;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
 using BootBaronLib.Configs;
 using BootBaronLib.Operational;
 using BootBaronLib.Values;
-using DasKlub.Models.Forum;
 using DasKlub.Web.Models;
 using DasKlub.Web.Models.Models;
 using Google.GData.Client;
@@ -43,51 +39,17 @@ namespace DasKlub.Web.Controllers
     [HandleError]
     public class HomeController : Controller
     {
-
         private readonly IForumCategoryRepository _forumcategoryRepository;
 
-
-        #region Json
-
-        public JsonResult Download(char link)
-        {
-            if (Request.Url != null)
-            {
-                var cl = new ClickLog
-                    {
-                        CurrentURL = Request.Url.ToString(),
-                        ClickType = link,
-                        IpAddress = Request.UserHostAddress
-                    };
-
-                MembershipUser mu = Membership.GetUser();
-
-                if (mu != null)
-                {
-                    cl.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
-                }
-
-                cl.Create();
-            }
-
-            return Json(new
-                {
-                    Result = 1
-                });
-        }
-
-        #endregion
-
-
-         public HomeController()
+        public HomeController()
             : this(new ForumCategoryRepository())
         {
         }
 
          private HomeController(IForumCategoryRepository forumcategoryRepository)
-        {
-            _forumcategoryRepository = forumcategoryRepository;
-        }
+         {
+             _forumcategoryRepository = forumcategoryRepository;
+         }
 
         #region Actions
 
@@ -126,8 +88,7 @@ namespace DasKlub.Web.Controllers
             }
             else if (vir.RequestURL.Contains("http://www.youtube.com/watch?"))
             {
-                NameValueCollection nvcKey =
-                    HttpUtility.ParseQueryString(vir.RequestURL.Replace("http://www.youtube.com/watch?", string.Empty));
+                var nvcKey = HttpUtility.ParseQueryString(vir.RequestURL.Replace("http://www.youtube.com/watch?", string.Empty));
 
                 vidKey = nvcKey["v"].Replace("#", string.Empty).Replace("!", string.Empty);
                 vir.VideoKey = vidKey;
@@ -139,7 +100,6 @@ namespace DasKlub.Web.Controllers
                 Response.Redirect("~/videosubmission.aspx?statustype=I");
                 return new EmptyResult();
             }
-
 
             if (string.IsNullOrWhiteSpace(videoType) ||
                 string.IsNullOrWhiteSpace(personType) ||
@@ -300,7 +260,6 @@ namespace DasKlub.Web.Controllers
             return new EmptyResult();
         }
 
-
         public ActionResult Index()
         {
             using (var context = new DasKlubDBContext())
@@ -331,14 +290,13 @@ namespace DasKlub.Web.Controllers
                     }
                 }
 
-
-                foreach (var post in subItems)
+                foreach (var forumFeeItem in subItems.Select(post => new ForumFeedModel
+                    {
+                        ForumSubCategory =
+                            context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == post.Key),
+                        LastPosted = post.Value
+                    }))
                 {
-                    var forumFeeItem = new ForumFeedModel();
-
-                    forumFeeItem.ForumSubCategory =
-                        context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == post.Key);
-                    forumFeeItem.LastPosted = post.Value;
                     forumFeeItem.ForumCategory =
                         context.ForumCategory.FirstOrDefault(x => x.ForumCategoryID == forumFeeItem.ForumSubCategory.ForumCategoryID);
 
@@ -346,14 +304,7 @@ namespace DasKlub.Web.Controllers
                 }
 
                 forumFeed = forumFeed.OrderByDescending(x => x.LastPosted).Take(10).ToList();
-               
-
                 ViewBag.ForumFeed = forumFeed;
-
-                /////////-----------------
-
-
-
                 ViewBag.MostRecentThreads = newestThreads;
 
                 // TODO: most popular this week
@@ -371,51 +322,12 @@ namespace DasKlub.Web.Controllers
                 }
             }
 
-            // CONTESTS
-
+          
             var cnts = new Contents();
-            cnts.GetContentPageWiseReleaseAll(1, 3);
+            cnts.GetContentPageWiseReleaseAll(1, 5);
 
             ViewBag.RecentArticles = cnts;
-
-            var cndss = Contest.GetCurrentContest();
-            var cvids = new ContestVideos();
-
-
-            var vidsInContest = new Videos();
-            vidsInContest.AddRange(cvids.Select(cv1 => new Video(cv1.VideoID)));
-
-            vidsInContest.Sort((p1, p2) => p2.PublishDate.CompareTo(p1.PublishDate));
-
-            var sngrcds3 = new SongRecords();
-            sngrcds3.AddRange(vidsInContest.Select(v1 => new SongRecord(v1)));
-
-            ViewBag.ContestVideoList = sngrcds3.VideosList();
-            ViewBag.CurrentContest = cndss;
-
-            // video typesa
-            var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
-            var mps = new MultiProperties(propTyp.PropertyTypeID);
-            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
-
-
-            ViewBag.VideoTypes = mps;
-
-            // person types
-            propTyp = new PropertyType(SiteEnums.PropertyTypeCode.HUMAN);
-            mps = new MultiProperties(propTyp.PropertyTypeID);
-            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
-
-            ViewBag.PersonTypes = mps;
-
-            //// footage types
-            propTyp = new PropertyType(SiteEnums.PropertyTypeCode.FOOTG);
-            mps = new MultiProperties(propTyp.PropertyTypeID);
-            mps.Sort((p1, p2) => String.Compare(p1.DisplayName, p2.DisplayName, StringComparison.Ordinal));
-
-
-            ViewBag.FootageTypes = mps;
-
+             
 
             return View();
         }

@@ -398,7 +398,8 @@ namespace DasKlub.Web.Controllers
         {
             using (var context = new DasKlubDBContext())
             {
-                var subForum = context.ForumSubCategory.First(x => x.ForumSubCategoryID == forumSubCategoryID);
+                var subForum = context.ForumSubCategory
+                                      .First(x => x.ForumSubCategoryID == forumSubCategoryID);
 
                 if (!ModelState.IsValid)
                 {
@@ -413,7 +414,8 @@ namespace DasKlub.Web.Controllers
                 model.CreatedByUserID = ua.UserAccountID;
                 context.ForumPost.Add(model);
 
-                var currentUserNotification = context.ForumPostNotification.FirstOrDefault(x => x.ForumSubCategoryID == forumSubCategoryID && x.UserAccountID == ua.UserAccountID);
+                var currentUserNotification = context.ForumPostNotification
+                                                     .FirstOrDefault(x => x.ForumSubCategoryID == forumSubCategoryID && x.UserAccountID == ua.UserAccountID);
 
                 if (currentUserNotification == null || currentUserNotification.ForumPostNotificationID == 0)
                 {
@@ -427,7 +429,6 @@ namespace DasKlub.Web.Controllers
 
                     context.ForumPostNotification.Add(notification);
                 }
-
 
                 var allUserNotifications = context.ForumPostNotification.Where(x => x.ForumSubCategoryID == forumSubCategoryID).ToList();
 
@@ -448,7 +449,6 @@ namespace DasKlub.Web.Controllers
                 return new EmptyResult();
             }
         }
-
 
         [Authorize]
         public ActionResult DeleteForumPost(int forumPostID)

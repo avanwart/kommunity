@@ -2141,12 +2141,10 @@ namespace DasKlub.Web.Controllers
         {
             if (Utilities.IsSpamIP(Request.UserHostAddress))
             {
-                // they are a duplicate IP and are no being referred by an existing user
                 ModelState.AddModelError("", Messages.Invalid + @": " + Messages.Account);
                 return View(model);
             }
 
-            // ignore old browsers and duplicate IPs
             if
                 (
                 Request.Browser.Type == "IE3" ||
@@ -2160,15 +2158,14 @@ namespace DasKlub.Web.Controllers
                 Response.Redirect("http://browsehappy.com/");
                 return View();
             }
+
             if (!GeneralConfigs.EnableSameIP &&
                 UserAccount.IsAccountIPTaken(Request.UserHostAddress) &&
                 string.IsNullOrEmpty(model.RefUser))
             {
-                // they are a duplicate IP and are no being referred by an existing user
                 ModelState.AddModelError("", Messages.Invalid + @": " + Messages.Account);
                 return View(model);
             }
-
 
             TryUpdateModel(model);
 
@@ -2214,11 +2211,7 @@ namespace DasKlub.Web.Controllers
                     }
                 }
 
-
-                model.UserName = model.UserName.Replace(" ", string.Empty).Replace(":", string.Empty)
-                    /* still annoying errors */;
-
-                // Attempt to register the user
+                model.UserName = model.UserName.Replace(" ", string.Empty).Replace(":", string.Empty);
                 MembershipCreateStatus createStatus;
 
                 Membership.CreateUser(model.UserName, model.NewPassword, model.Email, "Q", "A", true, out createStatus);
@@ -2275,7 +2268,6 @@ namespace DasKlub.Web.Controllers
 
 
                     var dm = new DirectMessage {IsRead = false};
-
                     var admin = new UserAccount(GeneralConfigs.AdminUserName);
 
                     dm.FromUserAccountID = admin.UserAccountID;
@@ -2315,7 +2307,6 @@ namespace DasKlub.Web.Controllers
 
             return View(model);
         }
-
 
         public ActionResult Register()
         {
@@ -2973,9 +2964,9 @@ namespace DasKlub.Web.Controllers
 
             su.GetMostRecentUserStatus(_ua.UserAccountID);
 
-            DateTime startTime = Utilities.GetDataBaseTime();
+            var startTime = Utilities.GetDataBaseTime();
 
-            TimeSpan span = startTime.Subtract(su.CreateDate);
+            var span = startTime.Subtract(su.CreateDate);
 
             // TODO: this is not working properly, preventing posts
             if (su.Message == message && file == null)
@@ -2999,12 +2990,11 @@ namespace DasKlub.Web.Controllers
 
                 var pitem = new PhotoItem {CreatedByUserID = _ua.UserAccountID, Title = message};
 
-                // full
                 Image fullPhoto = b;
 
-                string fileNameFull = Utilities.CreateUniqueContentFilename(file);
+                var fileNameFull = Utilities.CreateUniqueContentFilename(file);
 
-                Stream maker = fullPhoto.ToAStream(ImageFormat.Jpeg);
+                var maker = fullPhoto.ToAStream(ImageFormat.Jpeg);
 
                 s3.AddObject(
                     maker,
@@ -3040,7 +3030,7 @@ namespace DasKlub.Web.Controllers
 
                 thumbPhoto = ImageResize.Crop(thumbPhoto, 150, 150, ImageResize.AnchorPosition.Center);
 
-                string fileNameThumb = Utilities.CreateUniqueContentFilename(file);
+                var fileNameThumb = Utilities.CreateUniqueContentFilename(file);
 
                 maker = thumbPhoto.ToAStream(ImageFormat.Jpeg);
 
@@ -3067,10 +3057,8 @@ namespace DasKlub.Web.Controllers
 
             if (Request.Browser.IsMobileDevice)
             {
-                // this will bring them to the post
                 return new RedirectResult(Url.Action("Home") + "#most_recent");
             }
-            // the menu prevents brining to post correctly
             return RedirectToAction("Home");
         }
 
@@ -3123,7 +3111,6 @@ namespace DasKlub.Web.Controllers
                 }
             }
 
-
             var applauseResult = new StatusUpdates();
             applauseResult.GetMostAcknowledgedStatus(7, 'A');
             if (applauseResult.Count > 0)
@@ -3134,7 +3121,7 @@ namespace DasKlub.Web.Controllers
             var beatDownResult = new StatusUpdate();
             beatDownResult.GetMostAcknowledgedStatus(7, 'B');
 
-            bool isAlreadyApplauded = false;
+            var isAlreadyApplauded = false;
 
             if (beatDownResult.StatusUpdateID > 0)
             {
@@ -3148,17 +3135,14 @@ namespace DasKlub.Web.Controllers
             {
                 ViewBag.MostBeatDown = beatDownResult;
             }
-
-            //
+            
             var commentResponse
                 = new StatusUpdate(
                     StatusComments.GetMostCommentedOnStatus(DateTime.UtcNow.AddDays(-7)));
 
-            bool isAlreadyCommented = false;
+            var isAlreadyCommented = false;
 
-            foreach (
-                StatusUpdate ssr1 in applauseResult.Where(ssr1 => commentResponse.StatusUpdateID == ssr1.StatusUpdateID)
-                )
+            foreach (var ssr1 in applauseResult.Where(ssr1 => commentResponse.StatusUpdateID == ssr1.StatusUpdateID))
             {
                 isAlreadyCommented = true;
             }
@@ -3166,16 +3150,8 @@ namespace DasKlub.Web.Controllers
             if (!isAlreadyCommented && beatDownResult.StatusUpdateID != commentResponse.StatusUpdateID &&
                 commentResponse.StatusUpdateID > 0)
             {
-                // only show if the most commented is different from most beat down or applauded
                 ViewBag.MostCommented = commentResponse;
             }
-
-
-            //var bdays = new Birhtdays();
-            //bdays.GetBirhtdays(1);
-
-            //if (bdays.Count > 0)
-            //    ViewBag.BirthDates = bdays;
 
             return View();
         }
@@ -3204,7 +3180,7 @@ namespace DasKlub.Web.Controllers
                 _mu = Membership.GetUser(ua.UserName);
                 if (_mu != null)
                 {
-                    string newPassword = _mu.ResetPassword();
+                    var newPassword = _mu.ResetPassword();
 
                     Utilities.SendMail(email, AmazonCloudConfigs.SendFromEmail, Messages.PasswordReset,
                                        Messages.UserName + ": " + ua.UserName + Environment.NewLine +

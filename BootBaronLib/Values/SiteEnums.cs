@@ -439,7 +439,10 @@ namespace BootBaronLib.Values
             ///     Script at the bottom of the homepage
             /// </summary>
             HOMEB,
-
+            /// <summary>
+            /// Mission statement
+            /// </summary>
+            MISSN,
             /// <summary>
             ///     Business address
             /// </summary>
