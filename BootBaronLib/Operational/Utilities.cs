@@ -261,12 +261,9 @@ namespace BootBaronLib.Operational
             return MakeLink(txt, string.Empty);
         }
 
-
         public static string MakeLink(string txt, bool replaceLines)
         {
-            if (!replaceLines) return MakeLink(txt);
-            else
-                return MakeLink(txt).Replace("\r\n", "<br />");
+            return !replaceLines ? MakeLink(txt) : MakeLink(txt).Replace("\r\n", "<br />");
         }
 
 
@@ -278,37 +275,25 @@ namespace BootBaronLib.Operational
         /// <returns></returns>
         private static string MakeLink(string txt, string linkText)
         {
-            // BUG: NOT GETTING HTTPS URLS
+            // force all https to http
+            if (txt.Contains("https://"))
+                txt = txt.Replace("https://", "http://");
+
             var regx =
-                //new Regex("(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?",  RegexOptions.IgnoreCase);
                 new Regex(
                     "http://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?",
                     RegexOptions.IgnoreCase);
 
-            //  Regex regx = new Regex(@"(http|https)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", RegexOptions.IgnoreCase);
-
-
-            MatchCollection mactches = regx.Matches(txt);
+            var mactches = regx.Matches(txt);
 
             foreach (Match match in mactches)
             {
                 if (match.Value.Contains(@"//www.youtube.com/embed/")) continue; // because it might be embeded
 
-                //if (string.IsNullOrEmpty(linkText))
-                //{
-                //    txt = txt.Replace(match.Value,
-                //                      @"<a target=""_blank"" href='" + match.Value + "'>" + match.Value + "</a>");
-                //}
-                //else
-                //{
-                //    txt = txt.Replace(match.Value,
-                //                      @"<a target=""_blank"" href='" + match.Value + "'>" + linkText + "</a>");
-                //}
-
+                 
                 txt = txt.Replace(match.Value,
                                   string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>", match.Value, Messages.Link));
             }
-
 
             return txt;
         }
@@ -338,7 +323,7 @@ namespace BootBaronLib.Operational
             var lang =
                 (SiteEnums.SiteLanguages) Enum.Parse(typeof (SiteEnums.SiteLanguages), defaultLanguage.ToUpper());
 
-            string langKey = GetEnumDescription(lang);
+            var langKey = GetEnumDescription(lang);
 
             return ResourceValue(langKey);
         }

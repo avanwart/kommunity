@@ -68,48 +68,56 @@
         <br />
         <a  class="btn btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/create")">@Messages.Reply</a>
         
-        <br />
-         
-        <hr />
+      
         
 
         @{
             int pageSize = Convert.ToInt32(ViewBag.PageCount);
 
-            for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
+            if (pageSize > 1)
             {
-                   <ul class="pager" style="float:left">
-@*  <li><a href="#">&laquo;</a></li>*@
+                  <br />
+         
+        <hr />
+
+                for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
+                {
+                    <ul class="pager" style="float: left">
+                        @*  <li><a href="#">&laquo;</a></li>*@
  
 
-                   @if (ViewBag.PageNumber == 1 && pageSize == 1)
-                {
-                    break;
-                }
+                        @if (ViewBag.PageNumber == 1 && pageSize == 1)
+                        {
+                            break;
+                        }
 
 
-                @if (ViewBag.PageNumber == pageNumber)
-                {
-                    <li>
-                        <a href="#" style="color: #000;background-color: #696969">   @pageNumber</a>
-                    </li>
-                }
-                else
-                {
-                      <li> 
+                        @if (ViewBag.PageNumber == pageNumber)
+                        {
+                            <li>
+                                <a href="#" style="color: #000; background-color: #696969">   @pageNumber</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li> 
 
-                          <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/" + pageNumber.ToString())">@pageNumber.ToString()</a>
-                          </li>
-                }
+                                <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/" + pageNumber.ToString())">@pageNumber.ToString()</a>
+                            </li>
+                        }
                
                        
                             
-@*  <li><a href="#">&raquo;</a></li>*@
-                   </ul>
+                        @*  <li><a href="#">&raquo;</a></li>*@
+                    </ul>
                 }
-                   }
-        <div class="clear"></div>
+            }
+
+            <div class="clear"></div>
+        }
+            <hr />
         
+           @{ Html.RenderPartial("_AdBanner"); }
         <hr />
         
         <a href="~/forum">Forum</a> &gt; <a href="@ViewBag.Forum.ForumURL">@ViewBag.Forum.Title</a> &gt; @ViewBag.Title

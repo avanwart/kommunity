@@ -30,7 +30,7 @@ namespace DasKlub.Web.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (ChatRoom cnt in crs)
+            foreach (var cnt in crs)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
@@ -52,7 +52,7 @@ namespace DasKlub.Web.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (ChatRoomUser cnt in crus)
+            foreach (var cnt in crus)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
@@ -63,9 +63,6 @@ namespace DasKlub.Web.Controllers
                 });
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
     }
 }
