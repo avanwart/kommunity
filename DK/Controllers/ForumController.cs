@@ -3,10 +3,12 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web.Mvc;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.Operational;
+using BootBaronLib.Values;
 using DasKlub.Models.Forum;
 using DasKlub.Web.Models;
 using DasKlub.Web.Models.Models;
@@ -400,6 +402,8 @@ namespace DasKlub.Web.Controllers
         {
             using (var context = new DasKlubDBContext())
             {
+                var currentLang = Utilities.GetCurrentLanguageCode();
+
                 var subForum = context.ForumSubCategory
                                       .First(x => x.ForumSubCategoryID == forumSubCategoryID);
 
@@ -448,6 +452,14 @@ namespace DasKlub.Web.Controllers
 
                     if (!notifiedUserDetails.EmailMessages) continue;
 
+                  
+
+                    Thread.CurrentThread.CurrentUICulture =
+                        CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+                    Thread.CurrentThread.CurrentCulture =
+                        CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+
+
                     var title = ua.UserName + " => " + subForum.Title;
                     var body = new StringBuilder(100);
                     body.Append(Messages.New);
@@ -466,6 +478,9 @@ namespace DasKlub.Web.Controllers
                 }
 
                 context.SaveChanges();
+
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(currentLang);
 
                 Response.Redirect(subForum.SubForumURL.ToString());
 

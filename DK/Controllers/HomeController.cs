@@ -423,6 +423,11 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.RecentArticles = cnts;
 
+            //var topUsers = new UserAccounts(); // can't be right
+            //topUsers.GetMostApplaudedLast30Days();
+
+            //ViewBag.TopUsersOfTheMonth = topUsers;
+
             return View();
         }
 

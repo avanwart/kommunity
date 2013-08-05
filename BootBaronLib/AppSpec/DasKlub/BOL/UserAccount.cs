@@ -1295,6 +1295,41 @@ DROP TABLE #Results
             return totalResults;
         }
 
+        /// <summary>
+        /// Get the top people from acknowledgements on statuses and comments
+        /// </summary>
+        public void GetMostApplaudedLast30Days()
+        {
+
+            var comm = DbAct.CreateCommand(true);
+
+            comm.CommandText = @"   select top 7 [userAccountID], sum(total) total from (
+SELECT  [userAccountID]
+     ,count(*) total
+  FROM  [StatusCommentAcknowledgement]
+  where acknowledgementtype = 'A'
+  and createdate between dateadd(day,  -30, GETUTCDATE()) and getutcdate()
+    group by useraccountid union all
+    SELECT  
+      [userAccountID]
+     ,count(*) total
+  FROM  Acknowledgement
+    where acknowledgementtype = 'A'
+  and createdate between dateadd(day,  -30, GETUTCDATE()) and getutcdate()
+
+    group by useraccountid
+
+)  x group by useraccountid
+order by total desc";
+            var dt = DbAct.ExecuteSelectCommand(comm);
+
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (var ua in from DataRow dr in dt.Rows select new UserAccount(FromObj.IntFromObj(dr["userAccountID"])))
+            {
+                Add(ua);
+            }
+        }
 
         public void GetNewestUsers()
         {

@@ -46,7 +46,7 @@
     <div class="span8">
         <div class="row">
       
-            <div class="span9">
+            <div class="span8">
              
                 <div class="span8" >
                
@@ -72,14 +72,15 @@
                       
              @if (ViewBag.TopThreadOfTheWeek != null)
              {
-                                 <tr style="border: 2px  #f89406 dashed" >
-                                     <td  >
+                                 <tr   >
+                                     <td   >
                                          
                                          <b>
-                                             Popular: 
+                                             <span style="color:#f89406">
+                                             Popular: </span>
                                              @if (ViewBag.TopThreadOfTheWeek.IsNewPost)
                                              {
-                                                    <a style="color:#00FF1E" href="@ViewBag.TopThreadOfTheWeek.URLTo.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
+                                                 <a style="color:#00FF1E" href="@ViewBag.TopThreadOfTheWeek.URLTo.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
                                              }
                                              else
                                              {
@@ -94,7 +95,7 @@
                  
                                      @if (ViewBag.TopThreadOfTheWeek.LastPosted != null)
                                      {
-                                         <td>
+                                       <td     >
                                              <span title="@ViewBag.TopThreadOfTheWeek.LastPosted.ToString("u")">
                                                  @Html.Raw(Utilities.TimeElapsedMessage(ViewBag.TopThreadOfTheWeek.LastPosted))
                                              </span> 
@@ -148,7 +149,19 @@
    </div>
             <div class="clear">
             </div>
-
+            
+            @if (ViewBag.TopUsersOfTheMonth != null)
+            {
+                 <div class="span8">
+                    <div class="well">
+             <h5>Most Applauded Users Last 30 Days</h5>
+                        @Html.Raw(ViewBag.TopUsersOfTheMonth.ToUnorderdList)
+                          <div class="clear">
+              </div>
+                </div>
+                    </div>
+                   
+            }
         </div>
   
         @section _css {

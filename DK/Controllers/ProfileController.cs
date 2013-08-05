@@ -624,6 +624,14 @@ namespace DasKlub.Web.Controllers
                         };
 
                     comment.Create();
+
+                    var uad = new UserAccountDetail();
+                    uad.GetUserAccountDeailForUser(_ua.UserAccountID);
+
+                    if (uad.EmailMessages)
+                    {
+                        Utilities.SendMail(_ua.EMail, "Wall Post From: " + _mu.UserName, _ua.UrlTo.ToString());
+                    }
                 }
             }
 
