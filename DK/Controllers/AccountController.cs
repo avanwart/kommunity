@@ -46,6 +46,12 @@ namespace DasKlub.Web.Controllers
 {
     public class AccountController : Controller
     {
+
+        public AccountController()
+        {
+            _mu = Membership.GetUser();
+        }
+
         #region variables
 
         private const int PageSize = 5;
@@ -66,8 +72,6 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public ActionResult DeleteArticle(int? id)
         {
-            _mu = Membership.GetUser();
-
             if (id != null && id > 0)
             {
                 var model = new Content(
@@ -121,8 +125,6 @@ namespace DasKlub.Web.Controllers
             HttpPostedFileBase videoFile,
             HttpPostedFileBase videoFile2)
         {
-            _mu = Membership.GetUser();
-
             var model = new Content();
 
             if (contentID != null && contentID > 0)
@@ -160,7 +162,7 @@ namespace DasKlub.Web.Controllers
 
             if (model.ContentID == 0)
             {
-                _mu = Membership.GetUser();
+                
                 if (_mu != null) model.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
 
                 if (model.ReleaseDate == DateTime.MinValue)
@@ -260,9 +262,7 @@ namespace DasKlub.Web.Controllers
 
                     model.Set();
                 }
-// ReSharper disable EmptyGeneralCatchClause
                 catch (Exception)
-// ReSharper restore EmptyGeneralCatchClause
                 {
                 }
             }
@@ -331,22 +331,19 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public ActionResult Articles()
         {
-            _mu = Membership.GetUser();
-
-            int totalRecords = 0;
+            var totalRecords = 0;
             const int pageSize = 10;
             var model = new Contents();
 
             if (string.IsNullOrEmpty(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]))
             {
-                //totalRecords = 
                 if (_mu != null) model.GetContentForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
                 model.Sort((p1, p2) => p2.ReleaseDate.CompareTo(p1.ReleaseDate));
             }
             else
             {
-                int pageNumber = Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]);
+                var pageNumber = Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]);
 
                 totalRecords = model.GetContentPageWiseAll(pageNumber, pageSize);
             }
@@ -496,7 +493,7 @@ namespace DasKlub.Web.Controllers
         [HttpPost]
         public ActionResult VideoVote(int videoVote)
         {
-            _mu = Membership.GetUser();
+            
 
             Contest contest = Contest.GetLastContest();
 
@@ -538,7 +535,7 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.Contest = contest;
 
-            _mu = Membership.GetUser();
+            
 
             if (_mu != null &&
                 (ContestVideo.IsUserContestVoted(Convert.ToInt32(_mu.ProviderUserKey), contest.ContestID) &&
@@ -582,7 +579,7 @@ namespace DasKlub.Web.Controllers
         [HttpPost]
         public ActionResult UserDeletion(NameValueCollection postedData)
         {
-            _mu = Membership.GetUser();
+            
             if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
             if (_ua.IsAdmin)
@@ -611,7 +608,7 @@ namespace DasKlub.Web.Controllers
             NameValueCollection qury = Request.QueryString;
             var userToBe = new UserAccount(qury["username"]);
             var ucToSet = new UserConnection();
-            _mu = Membership.GetUser();
+            
 
             MembershipUser membershipUser = Membership.GetUser();
             if (membershipUser != null)
@@ -757,7 +754,7 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult DeleteContact(int userConnectionID)
         {
-            _mu = Membership.GetUser();
+            
 
             _ucon = new UserConnection(userConnectionID);
 
@@ -787,7 +784,7 @@ namespace DasKlub.Web.Controllers
         public ActionResult ManageVideos(NameValueCollection nvc)
         {
             if (nvc == null) throw new ArgumentNullException("nvc");
-            _mu = Membership.GetUser();
+            
             if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
             ViewBag.UserName = _ua.UserName;
 
@@ -813,7 +810,7 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult ManageVideos()
         {
-            _mu = Membership.GetUser();
+            
 
             var uavs = new UserAccountVideos();
             if (_mu != null) uavs.GetVideosForUserAccount(Convert.ToInt32(_mu.ProviderUserKey), 'U');
@@ -839,7 +836,7 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult MyUsers()
         {
-            _mu = Membership.GetUser();
+            
 
             if (_mu != null)
             {
@@ -937,7 +934,7 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult Visitors()
         {
-            _mu = Membership.GetUser();
+            
             _uad = new UserAccountDetail();
             if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
@@ -980,7 +977,7 @@ namespace DasKlub.Web.Controllers
         private void LoadVisitorsView(string userName)
         {
             const int maxcountusers = 100;
-            _mu = Membership.GetUser();
+            
             _uad = new UserAccountDetail();
             if (userName != null) _ua = new UserAccount(userName);
             _uad.GetUserAccountDeailForUser(_ua.UserAccountID);
@@ -1036,7 +1033,7 @@ namespace DasKlub.Web.Controllers
         {
             LoadCountries();
 
-            _mu = Membership.GetUser();
+            
             if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
             _uad = new UserAccountDetail();
@@ -1075,7 +1072,7 @@ namespace DasKlub.Web.Controllers
         {
             LoadCountries();
 
-            _mu = Membership.GetUser();
+            
             if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
 
@@ -1119,7 +1116,7 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult BlockedUsers()
         {
-            _mu = Membership.GetUser();
+            
 
             if (_mu != null) _ua = new UserAccount(_mu.UserName);
 
@@ -1145,7 +1142,7 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult ReportUser(int userAccountID)
         {
-            _mu = Membership.GetUser();
+            
 
             _ua = new UserAccount(userAccountID);
 
@@ -1164,7 +1161,7 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult BlockedUser(int userAccountID)
         {
-            _mu = Membership.GetUser();
+            
 
             var bu = new BlockedUser();
 
@@ -1213,7 +1210,7 @@ namespace DasKlub.Web.Controllers
         {
             ViewBag.IsValid = true;
 
-            _mu = Membership.GetUser();
+            
 
             _uad = new UserAccountDetail();
 
@@ -1295,7 +1292,7 @@ namespace DasKlub.Web.Controllers
             LoadCountries();
             InterestIdentityViewBags();
 
-            _mu = Membership.GetUser();
+            
 
             if (_mu != null)
             {
@@ -1426,7 +1423,7 @@ namespace DasKlub.Web.Controllers
         {
             string str = Request.Form["delete_photo"];
 
-            _mu = Membership.GetUser();
+            
             _uad = new UserAccountDetail();
             if (_mu != null) _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
 
@@ -1513,7 +1510,7 @@ namespace DasKlub.Web.Controllers
         [HttpPost]
         public ActionResult EditPhoto(HttpPostedFileBase file)
         {
-            _mu = Membership.GetUser();
+            
             UserPhoto up1 = null;
             int swapID;
 
@@ -1748,7 +1745,7 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult EditPhoto()
         {
-            _mu = Membership.GetUser();
+            
             _uad = new UserAccountDetail();
             if (_mu != null)
             {
@@ -1794,7 +1791,7 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public JsonResult OutboxMailItems(int pageNumber)
         {
-            _mu = Membership.GetUser();
+            
 
             var model = new DirectMessages();
 
@@ -1820,7 +1817,7 @@ namespace DasKlub.Web.Controllers
                 string[] partsOfreferring = referrring.Split('/');
                 var ua = new UserAccount(partsOfreferring[partsOfreferring.Length - 1]);
 
-                _mu = Membership.GetUser();
+                
 
                 var model = new DirectMessages();
 
@@ -1846,7 +1843,7 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public JsonResult MailItems(int pageNumber)
         {
-            _mu = Membership.GetUser();
+            
 
             var model = new DirectMessages();
 
@@ -1875,7 +1872,7 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult Inbox()
         {
-            _mu = Membership.GetUser();
+            
 
             var model = new DirectMessages();
 
@@ -1903,7 +1900,7 @@ namespace DasKlub.Web.Controllers
             string msg = Request.Form["message"];
 
             _ua = new UserAccount(displayname);
-            _mu = Membership.GetUser();
+            
 
             if (_mu != null && (string.IsNullOrEmpty(msg) ||
                                 BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockedUser(_ua.UserAccountID,
@@ -1967,7 +1964,7 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult Outbox()
         {
-            _mu = Membership.GetUser();
+            
 
             var model = new DirectMessages();
 
@@ -1987,7 +1984,7 @@ namespace DasKlub.Web.Controllers
         {
             ViewBag.DisplayName = userName;
 
-            _mu = Membership.GetUser();
+            
             _ua = new UserAccount(userName);
 
             var model = new DirectMessages();
@@ -2009,7 +2006,7 @@ namespace DasKlub.Web.Controllers
         public ActionResult Playlist(NameValueCollection nvc)
         {
             if (nvc == null) throw new ArgumentNullException("nvc");
-            _mu = Membership.GetUser();
+            
             if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
             ViewBag.UserName = _ua.UserName;
 
@@ -2102,7 +2099,7 @@ namespace DasKlub.Web.Controllers
             ViewBag.VideoHeight = (Request.Browser.IsMobileDevice) ? 100 : 277;
             ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ? 225 : 400;
 
-            _mu = Membership.GetUser();
+            
             if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
             ViewBag.UserName = _ua.UserName;
@@ -2358,7 +2355,7 @@ namespace DasKlub.Web.Controllers
         {
             ViewBag.IsValid = true;
 
-            _mu = Membership.GetUser();
+            
 
             _uad = new UserAccountDetail();
 
@@ -2376,7 +2373,7 @@ namespace DasKlub.Web.Controllers
         {
             ViewBag.IsValid = true;
 
-            _mu = Membership.GetUser();
+            
             if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
             _uad = new UserAccountDetail();
@@ -2430,7 +2427,7 @@ namespace DasKlub.Web.Controllers
                     _uad = new UserAccountDetail();
 
                     _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
-                    _mu = Membership.GetUser();
+                    
 
                     ViewBag.UserAccountDetail = _uad;
                     ViewBag.Membership = _mu;
@@ -2470,7 +2467,7 @@ namespace DasKlub.Web.Controllers
             _uad = new UserAccountDetail();
 
             _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
-            _mu = Membership.GetUser();
+            
 
             ViewBag.UserAccountDetail = _uad;
             ViewBag.Membership = _mu;
@@ -2582,7 +2579,7 @@ namespace DasKlub.Web.Controllers
             else if (Request.Form["status_update_id_beat"] != null ||
                      Request.Form["status_update_id_applaud"] != null)
             {
-                _mu = Membership.GetUser();
+                
 
                 if (_mu != null)
                 {
@@ -2800,7 +2797,7 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public ActionResult RotateStatusImage(int statusUpdateID)
         {
-            _mu = Membership.GetUser();
+            
 
             var su = new StatusUpdate(statusUpdateID);
 
@@ -2902,7 +2899,7 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public JsonResult StatusUpdates(int pageNumber)
         {
-            _mu = Membership.GetUser();
+            
 
             if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
@@ -2953,8 +2950,6 @@ namespace DasKlub.Web.Controllers
             }
 
             if (message != null) message = message.Trim();
-
-            _mu = Membership.GetUser();
 
             if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
@@ -3066,8 +3061,6 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public ActionResult Home()
         {
-            _mu = Membership.GetUser();
-
             if (_mu == null)
             {
                 return RedirectToAction("LogOff");
@@ -3099,12 +3092,11 @@ namespace DasKlub.Web.Controllers
 
             if (suns.Count > 0)
             {
-                suns.Sort(
-                    (p1, p2) => p1.CreateDate.CompareTo(p2.CreateDate));
+                suns.Sort((p1, p2) => p1.CreateDate.CompareTo(p2.CreateDate));
 
                 ViewBag.Notifications = suns;
 
-                foreach (StatusUpdateNotification sun1 in suns)
+                foreach (var sun1 in suns)
                 {
                     sun1.IsRead = true;
                     sun1.Update();
@@ -3112,14 +3104,14 @@ namespace DasKlub.Web.Controllers
             }
 
             var applauseResult = new StatusUpdates();
-            applauseResult.GetMostAcknowledgedStatus(7, 'A');
+            applauseResult.GetMostAcknowledgedStatus(7, SiteEnums.AcknowledgementType.A);
             if (applauseResult.Count > 0)
             {
                 ViewBag.MostApplauded = applauseResult;
             }
 
             var beatDownResult = new StatusUpdate();
-            beatDownResult.GetMostAcknowledgedStatus(7, 'B');
+            beatDownResult.GetMostAcknowledgedStatus(7, SiteEnums.AcknowledgementType.B);
 
             var isAlreadyApplauded = false;
 

@@ -22,57 +22,28 @@ namespace BootBaronLib.Configs
     {
         static GeneralConfigs()
         {
-            _mailServer = ConfigurationManager.AppSettings["MailServer"];
-
             _enableErrorLogEmail = bool.Parse(ConfigurationManager.AppSettings["EnableErrorLogEmail"]);
-
             _useNetworkForMail = bool.Parse(ConfigurationManager.AppSettings["UseNetworkForMail"]);
-
             _postInterval = int.Parse(ConfigurationManager.AppSettings["PostInterval"]);
             _siteDomain = ConfigurationManager.AppSettings["SiteDomain"];
-
             _payPalPDTKey = ConfigurationManager.AppSettings["PayPalPDTKey"];
             _payPalURL = ConfigurationManager.AppSettings["PayPalURL"];
-
             _emailSettingsURL = ConfigurationManager.AppSettings["EmailSettingsURL"];
-
             _sendToErrorEmail = ConfigurationManager.AppSettings["SendToErrorEmail"];
-
             _googleAPIKey = ConfigurationManager.AppSettings["GoogleAPIKey"];
-
-
-            _photoToEmail = ConfigurationManager.AppSettings["PhotoToEmail"];
-            _photoToPassword = ConfigurationManager.AppSettings["PhotoToPassword"];
-
             _defaultLanguage = ConfigurationManager.AppSettings["DefaultLanguage"];
-
-
             _siteName = ConfigurationManager.AppSettings["SiteName"];
-
-
             _facebookLink = ConfigurationManager.AppSettings["FacebookLink"];
             _twitterLink = ConfigurationManager.AppSettings["TwitterLink"];
             _youtubeLink = ConfigurationManager.AppSettings["YoutubeLink"];
-
             _defaultVideo = ConfigurationManager.AppSettings["DefaultVideo"];
-
             _enableVideoCheck = bool.Parse(ConfigurationManager.AppSettings["EnableVideoCheck"]);
-
-            _photoMailPort = int.Parse(ConfigurationManager.AppSettings["PhotoMailPort"]);
-
             _minimumAge = int.Parse(ConfigurationManager.AppSettings["MinimumAge"]);
             _userChatRoomSessionTimeout = int.Parse(ConfigurationManager.AppSettings["UserChatRoomSessionTimeout"]);
-
-
             _randomColors = ConfigurationManager.AppSettings["RandomColors"];
-
             _adminUserName = ConfigurationManager.AppSettings["AdminUserName"];
-
             _isGiveAway = bool.Parse(ConfigurationManager.AppSettings["IsGiveAway"]);
-
             _enableSameIP = bool.Parse(ConfigurationManager.AppSettings["EnableSameIP"]);
-
-
             _youTubeDevKey = ConfigurationManager.AppSettings["YouTubeDevKey"];
             _youTubeDevUser = ConfigurationManager.AppSettings["YouTubeDevUser"];
             _youTubeDevPass = ConfigurationManager.AppSettings["YouTubeDevPass"];
@@ -81,80 +52,38 @@ namespace BootBaronLib.Configs
         #region readonly variables 
 
         private static readonly bool _isGiveAway;
-
-
         private static readonly int _userChatRoomSessionTimeout;
-
-
         private static readonly bool _enableSameIP;
-
-
         private static readonly string _adminUserName = string.Empty;
-
-
         private static readonly int _minimumAge;
-
         private static readonly string _defaultVideo = string.Empty;
-
-
         private static readonly string _siteName = string.Empty;
-
-
         private static readonly string _googleAPIKey = string.Empty;
-
-
-        private static readonly string _photoToEmail = string.Empty;
-
-
         private static readonly string _nonWebFilePath = string.Empty;
-        private static readonly string _mailServer = string.Empty;
         private static readonly bool _enableErrorLogEmail;
         private static readonly string _errorLogFilename = string.Empty;
-
-
         private static readonly bool _useNetworkForMail;
-
         private static readonly int _postInterval;
-
-
         private static readonly string _siteDomain = string.Empty;
         private static readonly string _payPalPDTKey = string.Empty;
         private static readonly string _payPalURL = string.Empty;
-
         private static readonly string _emailSettingsURL = string.Empty;
-
         private static readonly string _sendToErrorEmail = string.Empty;
-
-
         private static readonly string _defaultLanguage = string.Empty;
-
-
         private static readonly bool _enableVideoCheck;
-
-
-        private static readonly int _photoMailPort = 995;
-
-
         private static readonly string _facebookLink = string.Empty;
         private static readonly string _twitterLink = string.Empty;
         private static readonly string _youtubeLink = string.Empty;
-
         private static readonly string _randomColors = string.Empty;
-
-
         private static readonly string _youTubeDevKey = string.Empty;
-
-
         private static readonly string _youTubeDevUser = string.Empty;
-
-
         private static readonly string _youTubeDevPass = string.Empty;
 
         #endregion
 
         #region properties
 
-        private static readonly string _photoToPassword = string.Empty;
+ 
 
         public static bool EnableSameIP
         {
@@ -205,12 +134,7 @@ namespace BootBaronLib.Configs
         {
             get { return _youtubeLink; }
         }
-
-        public static int PhotoMailPort
-        {
-            get { return _photoMailPort; }
-        }
-
+ 
         public static string DefaultVideo
         {
             get { return _defaultVideo; }
@@ -239,16 +163,7 @@ namespace BootBaronLib.Configs
             get { return _defaultLanguage; }
         }
 
-        public static string PhotoToEmail
-        {
-            get { return _photoToEmail; }
-        }
-
-        public static string PhotoToPassword
-        {
-            get { return _photoToPassword; }
-        }
-
+      
 
         public static string GoogleAPIKey
         {
@@ -303,11 +218,7 @@ namespace BootBaronLib.Configs
             get { return _enableErrorLogEmail; }
         }
 
-        public static string MailServer
-        {
-            get { return _mailServer; }
-        }
-
+     
         public static string NonWebFilePath
         {
             get { return _nonWebFilePath; }

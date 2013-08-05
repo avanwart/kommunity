@@ -302,10 +302,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 if (StatusUpdateID == 0 || UserAccountID == 0) return string.Empty;
 
                 var sb = new StringBuilder(100);
-
-                string statusCss = string.Empty;
                 var ua = new UserAccount(UserAccountID);
-                bool isUsersPost = false;
+                var isUsersPost = false;
 
                 if (HttpContext.Current.Request.IsAuthenticated)
                 {
@@ -316,7 +314,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                         isUsersPost = true;
                     }
                 }
-
 
                 sb.AppendFormat(@"<li class=""status_post"" id=""status_update_id_{0}"">", StatusUpdateID);
 
@@ -340,7 +337,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                             sb.AppendFormat(@"<br /><span class=""rotate_photo""><a href=""{0}"">{1}</a></span>",
                                             VirtualPathUtility.ToAbsolute(
                                                 "~/account/RotateStatusImage?statusUpdateID=" +
-                                                StatusUpdateID.ToString()),
+                                                StatusUpdateID),
                                             Messages.RotatePhoto);
                         }
                     }
@@ -412,7 +409,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                                     Messages.FromDesktop);
                 }
 
-                string timeElapsed = Utilities.TimeElapsedMessage(CreateDate);
+                var timeElapsed = Utilities.TimeElapsedMessage(CreateDate);
 
 
                 sb.AppendFormat(@"<i title=""{1}"">{0}</i>", timeElapsed, CreateDate.ToString("o"));
@@ -517,7 +514,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             }
         }
 
-        public void GetMostAcknowledgedStatus(int daysBack, char acknowledgementType)
+        public void GetMostAcknowledgedStatus(int daysBack, SiteEnums.AcknowledgementType acknowledgementType)
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -525,7 +522,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             comm.CommandText = "up_GetMostAcknowledgedStatus";
 
             comm.AddParameter("daysBack", daysBack);
-            comm.AddParameter("acknowledgementType", acknowledgementType);
+            comm.AddParameter("acknowledgementType", Convert.ToChar(acknowledgementType.ToString()));
 
 
             // execute the stored procedure
@@ -594,9 +591,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => ZoneID), ZoneID);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsMobile), IsMobile);
 
-            // the result is their ID
-            // execute the stored procedure
-            string result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
@@ -611,17 +606,10 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             if (StatusUpdateID == 0) return false;
 
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_DeleteStatusUpdate";
-
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusUpdateID), StatusUpdateID);
-
             RemoveCache();
-
-            // execute the stored procedure
 
             return DbAct.ExecuteNonQuery(comm) > 0;
         }
@@ -631,14 +619,11 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         {
             UserAccountID = userAccountID;
 
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetMostRecentUserStatus";
-
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
 
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -702,8 +687,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                 if (IncludeStartAndEndTags) sb.Append(@"<ul>");
 
-
-                foreach (StatusUpdate su in this)
+                foreach (var su in this)
                 {
                     sb.Append(su.ToUnorderdListItem);
                 }
@@ -791,21 +775,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             return output;
         }
 
-        public void GetMostAcknowledgedStatus(int daysBack, char acknowledgementType /* TODO: USE ENUMS*/)
+        public void GetMostAcknowledgedStatus(int daysBack, SiteEnums.AcknowledgementType acknowledgementType)
         {
-            // get a configured DbCommand object
             var comm = DbAct.CreateCommand();
-            // set the stored procedure name
             comm.CommandText = "up_GetMostAcknowledgedStatus";
-
             comm.AddParameter("daysBack", daysBack);
-            comm.AddParameter("acknowledgementType", acknowledgementType);
-
-
-            // execute the stored procedure
+            comm.AddParameter("acknowledgementType", Convert.ToChar(acknowledgementType.ToString()));
+            
             var dt = DbAct.ExecuteSelectCommand(comm);
 
-            // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
             foreach (var su in from DataRow dr in dt.Rows select new StatusUpdate(FromObj.IntFromObj(dr["statusUpdateID"])))

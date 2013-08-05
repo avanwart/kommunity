@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -467,12 +468,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 "(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?",
                 RegexOptions.IgnoreCase);
 
-            MatchCollection mactches = regx.Matches(txt);
-            NameValueCollection nvcKey = null;
-            string vidKey = string.Empty;
-            string theLink = string.Empty;
-            int height = 500;
-            int width = 400;
+            var mactches = regx.Matches(txt);
+            var height = 500;
 
             if (HttpContext.Current != null && HttpContext.Current.Request.Browser.IsMobileDevice)
             {
@@ -481,18 +478,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             foreach (Match match in mactches)
             {
+                string theLink;
+                string vidKey;
                 if (match.Value.Contains("http://www.youtube.com/watch?"))
                 {
-                    nvcKey =
-                        HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
+                    NameValueCollection nvcKey = HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
 
                     vidKey = nvcKey["v"];
                     theLink = match.Value;
 
                     txt = txt.Replace(theLink,
                                       string.Format(@"<div class=""you_tube_iframe"">
-                        <iframe width=""100%""  height=""{2}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
-                                                    vidKey, width, height));
+                        <iframe width=""100%""  height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
+                                                    vidKey, height));
                 }
                 else if (match.Value.Contains("http://youtu.be/"))
                 {
@@ -501,8 +499,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                     txt = txt.Replace(theLink,
                                       string.Format(@"<div class=""you_tube_iframe"">
-                        <iframe width=""100%""  height=""{2}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
-                                                    vidKey, width, height));
+                        <iframe width=""100%""  height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
+                                                    vidKey, height));
                 }
             }
 
@@ -513,72 +511,28 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public static string IFrameVideo(string txt)
         {
-            var regx = new Regex(
-                "(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?",
-                RegexOptions.IgnoreCase);
-
-            MatchCollection mactches = regx.Matches(txt);
-            NameValueCollection nvcKey = null;
-            string vidKey = string.Empty;
-            string theLink = string.Empty;
-            int height = 500;
-            int width = 400;
-
-            if (HttpContext.Current != null && HttpContext.Current.Request.Browser.IsMobileDevice)
-            {
-                height = 200;
-            }
-
-            foreach (Match match in mactches)
-            {
-                if (match.Value.Contains("http://www.youtube.com/watch?"))
-                {
-                    nvcKey =
-                        HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
-
-                    vidKey = nvcKey["v"];
-                    theLink = match.Value;
-
-                    txt = txt.Replace(theLink,
-                                      string.Format(@"<div class=""you_tube_iframe"">
-                        <iframe width=""100%""  height=""{2}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
-                                                    vidKey, width, height));
-                }
-                else if (match.Value.Contains("http://youtu.be/"))
-                {
-                    vidKey = match.Value.Replace("http://youtu.be/", string.Empty);
-                    theLink = match.Value;
-
-                    txt = txt.Replace(theLink,
-                                      string.Format(@"<div class=""you_tube_iframe"">
-                        <iframe width=""100%""  height=""{2}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
-                                                    vidKey, width, height));
-                }
-                else
-                {
-                    // txt = Utilities.MakeLink(txt, "LINK");
-                    txt = txt.Replace(match.Value,
-                                      string.Format(@"<a target=""_blank"" href='{0}'>{1}</a>", match.Value,
-                                                    Messages.Link));
-                }
-            }
-
-
-            return txt;
+            return IFrameVideo(txt, 500, 0);
         }
 
-
         public static string IFrameVideo(string txt, int height)
+        {
+            return IFrameVideo(txt, height, 0);
+        }
+
+        /// <summary>
+        /// Converts text to text with HTML links and YouTube iframes
+        /// </summary>
+        /// <param name="txt"></param>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public static string IFrameVideo(string txt, int height, int width)
         {
             var regx = new Regex(
                 "(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?",
                 RegexOptions.IgnoreCase);
 
-            MatchCollection mactches = regx.Matches(txt);
-            NameValueCollection nvcKey = null;
-            string vidKey = string.Empty;
-            string theLink = string.Empty;
-
+            var mactches = regx.Matches(txt);
 
             if (HttpContext.Current != null && HttpContext.Current.Request.Browser.IsMobileDevice)
             {
@@ -587,18 +541,19 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
             foreach (Match match in mactches)
             {
+                string vidKey;
+                string theLink;
                 if (match.Value.Contains("http://www.youtube.com/watch?"))
                 {
-                    nvcKey =
-                        HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
+                    var nvcKey = HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
 
                     vidKey = nvcKey["v"];
                     theLink = match.Value;
 
                     txt = txt.Replace(theLink,
                                       string.Format(@"<div class=""you_tube_iframe"">
-                        <iframe width=""100%""  height=""{2}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
-                                                    vidKey, 0, height));
+                        <iframe width=""{2}""  height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
+                                                    vidKey, height, ((width == 0) ? (object)"100%" : width)));
                 }
                 else if (match.Value.Contains("http://youtu.be/"))
                 {
@@ -607,58 +562,33 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
                     txt = txt.Replace(theLink,
                                       string.Format(@"<div class=""you_tube_iframe"">
-                        <iframe width=""100%""  height=""{2}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
-                                                    vidKey, 0, height));
+                        <iframe width=""{2}""  height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
+                                vidKey, height, ((width == 0) ? (object) "100%" : width) ));
                 }
                 else
                 {
-                    // txt = Utilities.MakeLink(txt, "LINK");
                     txt = txt.Replace(match.Value,
                                       string.Format(@"<a target=""_blank"" href='{0}'>{1}</a>", match.Value,
                                                     Messages.Link));
                 }
             }
 
-
             return txt;
         }
 
-
         public static string GetRandomJSON(string vidID)
-        {
-            //Video vid = new Video(vidID, "YT");
-            //vid.GetRandomVideo();
-
-            //SongRecord sngr = new SongRecord(vid);
-
-            ////sngr.GetRelatedVideos = false;
-
-            //return sngr.JSONResponse;
-
-
+        { 
             var vid = new Video("YT", vidID);
-            var sngrcd = new SongRecord(vid);
-
             var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.HUMAN);
             var mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-
-            string genreName = mp.Name;
-
-            int genreID = mp.MultiPropertyID;
-
+            var genreID = mp.MultiPropertyID;
             propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
             mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-
-            int vidTypeID = mp.MultiPropertyID;
-
+            var vidTypeID = mp.MultiPropertyID;
             var vid1 = new Video();
-
             vid1.GetRelatedVideo(genreID, vidTypeID, vid.VideoID);
-
             var sngrcs = new SongRecords();
-            SongRecord sngrcd2 = null;
-
-            sngrcd2 = new SongRecord(vid1);
+            var sngrcd2 = new SongRecord(vid1);
             sngrcs.Add(sngrcd2);
 
             return sngrcd2.JSONResponse;
@@ -667,19 +597,15 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public void GetRelatedVideo(int multiPropertyIDGenre, int multiPropertyIDVidType, int videoID)
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
+            
             comm.CommandText = "up_GetRelatedVideo";
-
             comm.AddParameter("multiPropertyIDGenre", multiPropertyIDGenre);
             comm.AddParameter("multiPropertyIDVidType", multiPropertyIDVidType);
             comm.AddParameter("currentVideoID", videoID);
 
-            // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
-            // was something returned?
             if (dt != null && dt.Rows.Count > 0)
             {
                 Get(dt.Rows[0]);
@@ -778,23 +704,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
     {
         public static ArrayList GetDistinctUsers()
         {
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetDistinctUsers";
 
-            // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
+            var dt = DbAct.ExecuteSelectCommand(comm);
             var alist = new ArrayList();
-
-            // was something returned?
+            
             if (dt != null && dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    alist.Add(
-                        FromObj.StringFromObj(
-                            dr["providerUserKey"]));
+                    alist.Add(FromObj.StringFromObj(dr["providerUserKey"]));
                 }
             }
 
@@ -804,128 +724,75 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 
         public void GetMostWatchedVideos(int daysBack)
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetMostWatchedVideos";
-
             comm.AddParameter("daysBack", daysBack);
 
-            // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
-            // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (var vid in from DataRow dr in dt.Rows select new Video(FromObj.IntFromObj(dr["videoID"])))
             {
-                Video vid = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    vid =
-                        new Video(
-                            FromObj.IntFromObj(dr["videoID"])
-                            );
-
-                    Add(vid);
-                }
+                Add(vid);
             }
         }
 
 
         public void GetMostRecentVideos()
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetMostRecentVideos";
+            var dt = DbAct.ExecuteSelectCommand(comm);
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-            // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-            // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            foreach (var vid in from DataRow dr in dt.Rows select new Video(dr))
             {
-                Video vid = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    vid = new Video(dr);
-
-                    Add(vid);
-                }
+                Add(vid);
             }
         }
 
 
         public static DataSet GetAccountCloudByLetter(string letter)
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetAccountCloudByLetter";
-
             comm.AddParameter("firstLetter", letter);
-
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
+            var dt = DbAct.ExecuteSelectCommand(comm);
             var ds = new DataSet();
-
             ds.Tables.Add(dt);
-
             return ds;
         }
 
 
         public void GetVideosForSong(int songID)
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetVideosForSong";
-
             comm.AddParameter("songID", songID);
+            var dt = DbAct.ExecuteSelectCommand(comm);
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-            // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-            // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            foreach (var vid in from DataRow dr in dt.Rows select new Video(dr))
             {
-                Video vid = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    vid = new Video(dr);
-
-                    Add(vid);
-                }
+                Add(vid);
             }
         }
 
 
         public void GetAllVideosByUser(string providerUserKey)
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetAllVideosByUser";
-
             comm.AddParameter("providerUserKey", providerUserKey);
 
-            // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
-            // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (var vid in from DataRow dr in dt.Rows select new Video(dr))
             {
-                Video vid = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    vid = new Video(dr);
-
-                    Add(vid);
-                }
+                Add(vid);
             }
         }
 
@@ -933,27 +800,17 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         public static Videos GetRandoms(Videos list)
         {
             var rng = new Random();
-            for (int i = list.Count - 1; i > 0; i--)
+            for (var i = list.Count - 1; i > 0; i--)
             {
-                int swapIndex = rng.Next(i + 1);
-                if (swapIndex != i)
-                {
-                    //Changed this from "object" to "T" in order to support generics.
-                    object tmp = list[swapIndex];
-                    list[swapIndex] = list[i];
-                    list[i] = (Video) tmp;
-                }
+                var swapIndex = rng.Next(i + 1);
+                if (swapIndex == i) continue;
+                object tmp = list[swapIndex];
+                list[swapIndex] = list[i];
+                list[i] = (Video) tmp;
             }
 
             return list;
         }
-
-        //public static IEnumerable<T> Randomize<T>(this IEnumerable<T> source)
-        //{
-        //    Random rnd = new Random();
-        //    return source.OrderBy<T, int>((item) => rnd.Next());
-        //}
-
 
         public void GetVideosForPropertyType2(int multiPropertyID1, int multiPropertyID2)
         {
@@ -966,7 +823,7 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
             comm.AddParameter("multiPropertyID2", multiPropertyID2);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
@@ -1036,222 +893,6 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
                 }
             }
         }
-
-
-//        public static bool HasResults(int p, int? footageType, int? videoType)
-//        {
-//             ArrayList allFilters = new ArrayList();
-
-//            if (guitarType != null && guitarType != 0) allFilters.Add(Convert.ToInt32(guitarType));
-//            if (humanType != null && humanType != 0) allFilters.Add(Convert.ToInt32(humanType));
-//            if (footageType != null && footageType != 0) allFilters.Add(Convert.ToInt32(footageType));
-//            if (genreType != null && genreType != 0) allFilters.Add(Convert.ToInt32(genreType));
-//            if (videoType != null && videoType != 0) allFilters.Add(Convert.ToInt32(videoType));
-//            if (difficultyLevel != null && difficultyLevel != 0) allFilters.Add(Convert.ToInt32(difficultyLevel));
-//            if (languge != null && languge != 0) allFilters.Add(Convert.ToInt32(languge));
-
-//            StringBuilder sb = new StringBuilder(100);
-
-//            sb.AppendFormat(@"
-// 
-//SET NOCOUNT ON; 
-//IF EXISTS (
-//
-//SELECT
-//vid.[videoID] 
-//FROM Video vid  
-//
-//  ");
-//            if (allFilters.Count > 0)
-//            {
-//                sb.AppendFormat(@" INNER JOIN [MultiPropertyVideo] mpv ON mpv.videoID = vid.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' AND MPV.multiPropertyID = {0}", allFilters[0]);
-
-//                if (allFilters.Count > 1)
-//                {
-//                    sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid2.[videoID] FROM Video vid2 INNER JOIN [MultiPropertyVideo] mpv2 on  mpv2.videoID = vid2.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv2.multiPropertyID = {0} )", allFilters[1]);
-
-//                    if (allFilters.Count > 2)
-//                    {
-//                        sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid3.[videoID] FROM Video vid3 INNER JOIN [MultiPropertyVideo] mpv3 on  mpv3.videoID = vid3.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv3.multiPropertyID = {0} )", allFilters[2]);
-
-//                        if (allFilters.Count > 3)
-//                        {
-//                            sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid4.[videoID] FROM Video vid4 INNER JOIN [MultiPropertyVideo] mpv4 on  mpv4.videoID = vid4.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv4.multiPropertyID = {0} )", allFilters[3]);
-
-//                            if (allFilters.Count > 4)
-//                            {
-//                                sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid5.[videoID] FROM Video vid5 INNER JOIN [MultiPropertyVideo] mpv5 on  mpv5.videoID = vid5.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv5.multiPropertyID = {0} )", allFilters[4]);
-
-//                                if (allFilters.Count > 5)
-//                                {
-//                                    sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid6.[videoID] FROM Video vid6 INNER JOIN [MultiPropertyVideo] mpv6 on  mpv6.videoID = vid6.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv6.multiPropertyID = {0} )", allFilters[5]);
-
-//                                    if (allFilters.Count > 6)
-//                                    {
-//                                        sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid7.[videoID] FROM Video vid7 INNER JOIN [MultiPropertyVideo] mpv7 on mpv7.videoID = vid7.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv7.multiPropertyID = {0} )", allFilters[6]);
-//                                    }
-//                                }
-//                            }
-//                        }
-
-
-//                    }
-
-
-//                }
-//            }
-//            else
-//            {
-//                sb.Append(@" 
-//WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' ");
-//            }
-
-//            sb.Append(@" 
-//)
-//  BEGIN 
-//  SELECT 1
-//  END
-//  ELSE SELECT 0");
-
-//            bool hasResults = false;
-
-//            // get a configured DbCommand object
-//            DbCommand comm = DbAct.CreateCommand(true);
-
-//            // set the stored procedure name
-//            comm.CommandText = sb.ToString();
-
-//            // execute the stored procedure
-//            hasResults = DbAct.ExecuteScalar(comm) == "1";
-
-//            return hasResults;
-//        }
-
-
-//        public int GetListFilter(int pageNumber, int resultSize, int? guitarType, int? humanType, int? footageType, int? genreType, int? videoType, int? difficultyLevel, int? languge)
-//        {
-//            ArrayList allFilters = new ArrayList();
-
-//            if (guitarType != null && guitarType != 0) allFilters.Add(Convert.ToInt32(guitarType));
-//            if (humanType != null && humanType != 0) allFilters.Add(Convert.ToInt32(humanType));
-//            if (footageType != null && footageType != 0) allFilters.Add(Convert.ToInt32(footageType));
-//            if (genreType != null && genreType != 0) allFilters.Add(Convert.ToInt32(genreType));
-//            if (videoType != null && videoType != 0) allFilters.Add(Convert.ToInt32(videoType));
-//            if (difficultyLevel != null && difficultyLevel != 0) allFilters.Add(Convert.ToInt32(difficultyLevel));
-//            if (languge != null && languge != 0) allFilters.Add(Convert.ToInt32(languge));
-
-
-//            StringBuilder sb = new StringBuilder(100);
-
-//            sb.AppendFormat(@"
-//
-//DECLARE  @PageIndex INT = {0}
-//DECLARE  @PageSize INT = {1}
-//
-//SET NOCOUNT ON; 
-//SELECT ROW_NUMBER() OVER 
-//( ORDER BY publishdate DESC  ) AS RowNumber 
-//,vid.[videoID], [videoKey], [providerKey], [providerUserKey],
-//[providerCode], vid.[updatedByUserID], vid.[createDate], 
-//vid.[updateDate], 
-//vid.[createdByUserID], [isHidden], [isEnabled], [statusID], [duration], [intro], 
-//[lengthFromStart], [volumeLevel], enableTrim, publishdate
-//INTO #Results
-//FROM Video vid  ", pageNumber, resultSize);
-
-//            if (allFilters.Count > 0)
-//            {
-//                sb.AppendFormat(@" INNER JOIN [MultiPropertyVideo] mpv ON mpv.videoID = vid.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' AND MPV.multiPropertyID = {0}", allFilters[0]);
-
-//                if (allFilters.Count > 1)
-//                {
-//                    sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid2.[videoID] FROM Video vid2 INNER JOIN [MultiPropertyVideo] mpv2 on  mpv2.videoID = vid2.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv2.multiPropertyID = {0} )", allFilters[1]);
-
-//                    if (allFilters.Count > 2)
-//                    {
-//                        sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid3.[videoID] FROM Video vid3 INNER JOIN [MultiPropertyVideo] mpv3 on  mpv3.videoID = vid3.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv3.multiPropertyID = {0} )", allFilters[2]);
-
-//                        if (allFilters.Count > 3)
-//                        {
-//                            sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid4.[videoID] FROM Video vid4 INNER JOIN [MultiPropertyVideo] mpv4 on  mpv4.videoID = vid4.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv4.multiPropertyID = {0} )", allFilters[3]);
-
-//                            if (allFilters.Count > 4)
-//                            {
-//                                sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid5.[videoID] FROM Video vid5 INNER JOIN [MultiPropertyVideo] mpv5 on  mpv5.videoID = vid5.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv5.multiPropertyID = {0} )", allFilters[4]);
-
-//                                if (allFilters.Count > 5)
-//                                {
-//                                    sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid6.[videoID] FROM Video vid6 INNER JOIN [MultiPropertyVideo] mpv6 on  mpv6.videoID = vid6.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv6.multiPropertyID = {0} )", allFilters[5]);
-
-//                                    if (allFilters.Count > 6)
-//                                    {
-//                                        sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid7.[videoID] FROM Video vid7 INNER JOIN [MultiPropertyVideo] mpv7 on  mpv7.videoID = vid7.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv7.multiPropertyID = {0} )", allFilters[6]);
-//                                    }
-//                                }
-//                            }
-//                        }
-
-
-//                    }
-
-
-//                }
-//            }
-//            else 
-//            {
-//                sb.Append(@" 
-//WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' ");
-//            }
-
-//            sb.Append(@" 
-//SELECT  COUNT(*) as 'totalResults'
-//FROM #Results
-//
-//SELECT * FROM #Results
-//WHERE RowNumber BETWEEN(@PageIndex -1)
-//* @PageSize + 1 AND(((@PageIndex -1) * @PageSize + 1) + @PageSize) - 1
-//
-//DROP TABLE #Results");
-
-//            int totalResults = 0;
-
-//            // get a configured DbCommand object
-//            DbCommand comm = DbAct.CreateCommand(true);
-
-//            // set the stored procedure name
-//            comm.CommandText = sb.ToString();
-//            //comm.CommandType = CommandType.Text;
-
-//            // execute the stored procedure
-//            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
-
-//            if (ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
-//            {
-//                totalResults = FromObj.IntFromObj(ds.Tables[0].Rows[0]["totalResults"]);
-
-//                Video v1 = null;
-
-//                foreach (DataRow dr in ds.Tables[1].Rows)
-//                {
-//                    v1 = new Video(dr);
-//                    this.Add(v1);
-//                }
-//            }
-
-//            return totalResults;
-//        }
 
         public int GetListFilter(int pageNumber, int resultSize, int? humanType, int? footageType, int? videoType)
         {
@@ -1344,27 +985,17 @@ WHERE RowNumber BETWEEN(@PageIndex -1)
 
 DROP TABLE #Results");
 
-            int totalResults = 0;
-
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand(true);
-
-            // set the stored procedure name
+            var totalResults = 0;
+            var comm = DbAct.CreateCommand(true);
             comm.CommandText = sb.ToString();
-            //comm.CommandType = CommandType.Text;
-
-            // execute the stored procedure
-            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
             if (ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
             {
                 totalResults = FromObj.IntFromObj(ds.Tables[0].Rows[0]["totalResults"]);
 
-                Video v1 = null;
-
-                foreach (DataRow dr in ds.Tables[1].Rows)
+                foreach (var v1 in from DataRow dr in ds.Tables[1].Rows select new Video(dr))
                 {
-                    v1 = new Video(dr);
                     Add(v1);
                 }
             }
@@ -1454,16 +1085,10 @@ WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' ");
   END
   ELSE SELECT 0");
 
-            bool hasResults = false;
-
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand(true);
-
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand(true);
             comm.CommandText = sb.ToString();
-
-            // execute the stored procedure
-            hasResults = DbAct.ExecuteScalar(comm) == "1";
+            
+            var hasResults = DbAct.ExecuteScalar(comm) == "1";
 
             return hasResults;
         }
@@ -1472,260 +1097,18 @@ WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' ");
 
         public void GetAll()
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetAllVideos";
+            var dt = DbAct.ExecuteSelectCommand(comm);
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-            // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-            // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            foreach (var vid in from DataRow dr in dt.Rows select new Video(dr))
             {
-                Video vid = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    vid = new Video(dr);
-                    Add(vid);
-                }
+                Add(vid);
             }
         }
 
         #endregion
 
-//        public int GetListFilter(int pageNumber, int resultSize, int? guitarType, int? humanType, int? footageType, int? genreType, int? videoType, int? difficultyLevel, int? languge)
-//        {
-//            ArrayList allFilters = new ArrayList();
-
-//            if (guitarType != null && guitarType != 0) allFilters.Add(Convert.ToInt32(guitarType));
-//            if (humanType != null && humanType != 0) allFilters.Add(Convert.ToInt32(humanType));
-//            if (footageType != null && footageType != 0) allFilters.Add(Convert.ToInt32(footageType));
-//            if (genreType != null && genreType != 0) allFilters.Add(Convert.ToInt32(genreType));
-//            if (videoType != null && videoType != 0) allFilters.Add(Convert.ToInt32(videoType));
-//            if (difficultyLevel != null && difficultyLevel != 0) allFilters.Add(Convert.ToInt32(difficultyLevel));
-//            if (languge != null && languge != 0) allFilters.Add(Convert.ToInt32(languge));
-
-
-//            StringBuilder sb = new StringBuilder(100);
-
-//            sb.AppendFormat(@"
-//
-//DECLARE  @PageIndex INT = {0}
-//DECLARE  @PageSize INT = {1}
-//
-//SET NOCOUNT ON; 
-//SELECT ROW_NUMBER() OVER 
-//( ORDER BY publishdate DESC  ) AS RowNumber 
-//,vid.[videoID], [videoKey], [providerKey], [providerUserKey],
-//[providerCode], vid.[updatedByUserID], vid.[createDate], 
-//vid.[updateDate], 
-//vid.[createdByUserID], [isHidden], [isEnabled], [statusID], [duration], [intro], 
-//[lengthFromStart], [volumeLevel], enableTrim, publishdate
-//INTO #Results
-//FROM Video vid  ", pageNumber, resultSize);
-
-//            if (allFilters.Count > 0)
-//            {
-//                sb.AppendFormat(@" INNER JOIN [MultiPropertyVideo] mpv ON mpv.videoID = vid.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' AND MPV.multiPropertyID = {0}", allFilters[0]);
-
-//                if (allFilters.Count > 1)
-//                {
-//                    sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid2.[videoID] FROM Video vid2 INNER JOIN [MultiPropertyVideo] mpv2 on  mpv2.videoID = vid2.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv2.multiPropertyID = {0} )", allFilters[1]);
-
-//                    if (allFilters.Count > 2)
-//                    {
-//                        sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid3.[videoID] FROM Video vid3 INNER JOIN [MultiPropertyVideo] mpv3 on  mpv3.videoID = vid3.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv3.multiPropertyID = {0} )", allFilters[2]);
-
-//                        if (allFilters.Count > 3)
-//                        {
-//                            sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid4.[videoID] FROM Video vid4 INNER JOIN [MultiPropertyVideo] mpv4 on  mpv4.videoID = vid4.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv4.multiPropertyID = {0} )", allFilters[3]);
-
-//                            if (allFilters.Count > 4)
-//                            {
-//                                sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid5.[videoID] FROM Video vid5 INNER JOIN [MultiPropertyVideo] mpv5 on  mpv5.videoID = vid5.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv5.multiPropertyID = {0} )", allFilters[4]);
-
-//                                if (allFilters.Count > 5)
-//                                {
-//                                    sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid6.[videoID] FROM Video vid6 INNER JOIN [MultiPropertyVideo] mpv6 on  mpv6.videoID = vid6.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv6.multiPropertyID = {0} )", allFilters[5]);
-
-//                                    if (allFilters.Count > 6)
-//                                    {
-//                                        sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid7.[videoID] FROM Video vid7 INNER JOIN [MultiPropertyVideo] mpv7 on  mpv7.videoID = vid7.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv7.multiPropertyID = {0} )", allFilters[6]);
-//                                    }
-//                                }
-//                            }
-//                        }
-
-
-//                    }
-
-
-//                }
-//            }
-//            else 
-//            {
-//                sb.Append(@" 
-//WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' ");
-//            }
-
-//            sb.Append(@" 
-//SELECT  COUNT(*) as 'totalResults'
-//FROM #Results
-//
-//SELECT * FROM #Results
-//WHERE RowNumber BETWEEN(@PageIndex -1)
-//* @PageSize + 1 AND(((@PageIndex -1) * @PageSize + 1) + @PageSize) - 1
-//
-//DROP TABLE #Results");
-
-//            int totalResults = 0;
-
-//            // get a configured DbCommand object
-//            DbCommand comm = DbAct.CreateCommand(true);
-
-//            // set the stored procedure name
-//            comm.CommandText = sb.ToString();
-//            //comm.CommandType = CommandType.Text;
-
-//            // execute the stored procedure
-//            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
-
-//            if (ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
-//            {
-//                totalResults = FromObj.IntFromObj(ds.Tables[0].Rows[0]["totalResults"]);
-
-//                Video v1 = null;
-
-//                foreach (DataRow dr in ds.Tables[1].Rows)
-//                {
-//                    v1 = new Video(dr);
-//                    this.Add(v1);
-//                }
-//            }
-
-//            return totalResults;
-//        }
-
-//        public int GetListFilter(int pageNumber, int resultSize, int? humanType, int? footageType, int? videoType)
-//        {
-//            ArrayList allFilters = new ArrayList();
-
-//            if (humanType != null && humanType != 0) allFilters.Add(Convert.ToInt32(humanType));
-//            if (footageType != null && footageType != 0) allFilters.Add(Convert.ToInt32(footageType));
-//            if (videoType != null && videoType != 0) allFilters.Add(Convert.ToInt32(videoType));
-
-
-//            StringBuilder sb = new StringBuilder(100);
-
-//            sb.AppendFormat(@"
-//
-//DECLARE  @PageIndex INT = {0}
-//DECLARE  @PageSize INT = {1}
-//
-//SET NOCOUNT ON; 
-//SELECT ROW_NUMBER() OVER 
-//( ORDER BY publishdate DESC  ) AS RowNumber 
-//,vid.[videoID], [videoKey], [providerKey], [providerUserKey],
-//[providerCode], vid.[updatedByUserID], vid.[createDate], 
-//vid.[updateDate], 
-//vid.[createdByUserID], [isHidden], [isEnabled], [statusID], [duration], [intro], 
-//[lengthFromStart], [volumeLevel], enableTrim, publishdate
-//INTO #Results
-//FROM Video vid  ", pageNumber, resultSize);
-
-//            if (allFilters.Count > 0)
-//            {
-//                sb.AppendFormat(@" INNER JOIN [MultiPropertyVideo] mpv ON mpv.videoID = vid.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' AND MPV.multiPropertyID = {0}", allFilters[0]);
-
-//                if (allFilters.Count > 1)
-//                {
-//                    sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid2.[videoID] FROM Video vid2 INNER JOIN [MultiPropertyVideo] mpv2 on  mpv2.videoID = vid2.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv2.multiPropertyID = {0} )", allFilters[1]);
-
-//                    if (allFilters.Count > 2)
-//                    {
-//                        sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid3.[videoID] FROM Video vid3 INNER JOIN [MultiPropertyVideo] mpv3 on  mpv3.videoID = vid3.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv3.multiPropertyID = {0} )", allFilters[2]);
-
-//                        if (allFilters.Count > 3)
-//                        {
-//                            sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid4.[videoID] FROM Video vid4 INNER JOIN [MultiPropertyVideo] mpv4 on  mpv4.videoID = vid4.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv4.multiPropertyID = {0} )", allFilters[3]);
-
-//                            if (allFilters.Count > 4)
-//                            {
-//                                sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid5.[videoID] FROM Video vid5 INNER JOIN [MultiPropertyVideo] mpv5 on  mpv5.videoID = vid5.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv5.multiPropertyID = {0} )", allFilters[4]);
-
-//                                if (allFilters.Count > 5)
-//                                {
-//                                    sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid6.[videoID] FROM Video vid6 INNER JOIN [MultiPropertyVideo] mpv6 on  mpv6.videoID = vid6.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv6.multiPropertyID = {0} )", allFilters[5]);
-
-//                                    if (allFilters.Count > 6)
-//                                    {
-//                                        sb.AppendFormat(@"
-//and  vid.videoID in ( SELECT vid7.[videoID] FROM Video vid7 INNER JOIN [MultiPropertyVideo] mpv7 on  mpv7.videoID = vid7.VideoID WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' and mpv7.multiPropertyID = {0} )", allFilters[6]);
-//                                    }
-//                                }
-//                            }
-//                        }
-
-
-//                    }
-
-
-//                }
-//            }
-//            else
-//            {
-//                sb.Append(@" 
-//WHERE isHidden = 0 AND isEnabled = 1 AND providerCode = 'YT' ");
-//            }
-
-//            sb.Append(@" 
-//SELECT  COUNT(*) as 'totalResults'
-//FROM #Results
-//
-//SELECT * FROM #Results
-//WHERE RowNumber BETWEEN(@PageIndex -1)
-//* @PageSize + 1 AND(((@PageIndex -1) * @PageSize + 1) + @PageSize) - 1
-//
-//DROP TABLE #Results");
-
-//            int totalResults = 0;
-
-//            // get a configured DbCommand object
-//            DbCommand comm = DbAct.CreateCommand(true);
-
-//            // set the stored procedure name
-//            comm.CommandText = sb.ToString();
-//            //comm.CommandType = CommandType.Text;
-
-//            // execute the stored procedure
-//            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
-
-//            if (ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
-//            {
-//                totalResults = FromObj.IntFromObj(ds.Tables[0].Rows[0]["totalResults"]);
-
-//                Video v1 = null;
-
-//                foreach (DataRow dr in ds.Tables[1].Rows)
-//                {
-//                    v1 = new Video(dr);
-//                    this.Add(v1);
-//                }
-//            }
-
-//            return totalResults;
-//        }
     }
 }
