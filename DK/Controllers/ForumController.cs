@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
 using BootBaronLib.AppSpec.DasKlub.BOL;
@@ -9,6 +10,7 @@ using BootBaronLib.Operational;
 using DasKlub.Models.Forum;
 using DasKlub.Web.Models;
 using DasKlub.Web.Models.Models;
+using BootBaronLib.Resources;
 
 namespace DasKlub.Web.Controllers
 {
@@ -431,6 +433,8 @@ namespace DasKlub.Web.Controllers
                 }
 
                 var allUserNotifications = context.ForumPostNotification.Where(x => x.ForumSubCategoryID == forumSubCategoryID).ToList();
+              
+                subForum.ForumCategory = context.ForumCategory.First(x => x.ForumCategoryID == subForum.ForumCategoryID);
 
                 foreach (var forumPostNotification in
                         allUserNotifications.Where(
@@ -438,11 +442,30 @@ namespace DasKlub.Web.Controllers
                 {
                     forumPostNotification.IsRead = false;
                     context.Entry(forumPostNotification).State = EntityState.Modified;
+                    var notifiedUser = new UserAccount(forumPostNotification.UserAccountID);
+                    var notifiedUserDetails = new UserAccountDetail();
+                    notifiedUserDetails.GetUserAccountDeailForUser(forumPostNotification.UserAccountID);
+
+                    if (!notifiedUserDetails.EmailMessages) continue;
+
+                    var title = ua.UserName + " => " + subForum.Title;
+                    var body = new StringBuilder(100);
+                    body.Append(Messages.New);
+                    body.Append(": ");
+                    body.Append(subForum.SubForumURL);
+                    body.AppendLine();
+                    body.AppendLine();
+                    body.Append(model.Detail);
+                    body.AppendLine();
+                    body.AppendLine();
+                    body.Append(Messages.Reply);
+                    body.Append(": ");
+                    body.AppendFormat("{0}/create", subForum.SubForumURL);
+
+                    Utilities.SendMail(notifiedUser.EMail, title, body.ToString());
                 }
 
                 context.SaveChanges();
-
-                subForum.ForumCategory = context.ForumCategory.First(x => x.ForumCategoryID == subForum.ForumCategoryID);
 
                 Response.Redirect(subForum.SubForumURL.ToString());
 

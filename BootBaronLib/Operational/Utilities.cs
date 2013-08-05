@@ -383,25 +383,20 @@ namespace BootBaronLib.Operational
                 fromEmail = fromEmail.Trim();
 
                 // check amazon's settings for your email mail limits
-                var amConfig = new AmazonSimpleEmailServiceConfig {UseSecureStringForAwsSecretKey = false};
-
-                var amzClient =
-                    new AmazonSimpleEmailServiceClient(AmazonCloudConfigs.AmazonAccessKey,
-                                                       AmazonCloudConfigs.AmazonSecretKey, amConfig);
+                var amzClient = new AmazonSimpleEmailServiceClient(AmazonCloudConfigs.AmazonAccessKey, AmazonCloudConfigs.AmazonSecretKey);
                 var to = new ArrayList {toEmail};
 
                 var dest = new Destination();
                 //dest.WithBccAddresses((string[])to.ToArray(typeof(string)));
                 dest.WithToAddresses((string[]) to.ToArray(typeof (string)));
 
-                var bdy = new Body();
-                bdy.Text = new Content(body); //use plain text, not html
+                var bdy = new Body {Text = new Content(body)};
                 var title = new Content(subject);
                 var message = new Message(title, bdy);
-                var ser = new SendEmailRequest(AmazonCloudConfigs.SendFromEmail, dest, message);
+                var ser = new SendEmailRequest(fromEmail, dest, message);
 
-                SendEmailResponse seResponse = amzClient.SendEmail(ser);
-                SendEmailResult seResult = seResponse.SendEmailResult;
+                var seResponse = amzClient.SendEmail(ser);
+                var seResult = seResponse.SendEmailResult;
 
                 return true;
             }

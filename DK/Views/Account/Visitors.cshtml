@@ -31,8 +31,8 @@
         }
     </div>
     <div class="span4">
-        @Html.ActionLink(Messages.ManageNews, "Articles", "Account")
-        <br />
+   
+     
         @if (ViewBag.AdminLink != null)
         {
             <div class="clear">
@@ -42,6 +42,10 @@
             <br />
 
             <ul>
+                <li>
+                
+                @Html.ActionLink(Messages.ManageNews, "Articles", "Account")
+                    </li>
                 <li><a href="@Url.Content("~/siteadmin/sitebranding")">@Messages.Website: @Messages.Settings</a></li>
               
                 <li><a href="@Url.Content("~/siteadmin/articles")">@Messages.Settings</a></li>

@@ -16,72 +16,62 @@ namespace DasKlub.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //  VideoCount();
+            var sb = new StringBuilder(100);
 
+            sb.AppendFormat("Hello,");
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("The Das Klub Forum has been revitalized!");
+            sb.AppendLine();
+            sb.AppendLine("Go to: http://dasklub.com and see the newest and most popular forum threads.");
+            sb.AppendLine();
+            sb.AppendLine("More detail: http://dasklub.com/forum");
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("How it works:");
+            sb.AppendLine();
+            sb.AppendLine(
+                "When you leave a post, other users subscribed to that post get a notification email. You can see a link in green when on http://dasklub.com for any forum post you're subscribed to that you you haven't read.");
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("Guten Tanzen,");
+            sb.AppendLine();
+            sb.AppendLine("| The Admin |");
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("Contact Email: info@dasklub.com");
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine(
+                "To unsubscribe from all future email communication, go to: http://dasklub.com/unsubscribe.aspx");
 
-           //  SendMassMail();
+           // SendMassMail(sb.ToString());
         }
 
-        private static void SendMassMail()
+        private static void SendMassMail(string message)
         {
-            int totalSent = 0;
+            var totalSent = 0;
 
             var uas = new UserAccounts();
             uas.GetAll();
 
-            foreach (UserAccount ua1 in uas.OrderBy(x => x.CreateDate))
+            foreach (var ua1 in uas.OrderBy(x => x.CreateDate))
                 //.Where(ua1 => ua1.CreateDate <= DateTime.UtcNow.AddDays(-5)))
             {
-                // if( ContestVideo.IsUserContestVoted(ua1.UserAccountID, 9) )continue;
-
-
-                var sb = new StringBuilder(100);
-
-                sb.AppendFormat("Hello {0},", ua1.UserName);
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("Support Das Klub and be ELITE!");
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("Go to: http://dasklub.com/store and BUY the NEW Gear and Skulls T-Shirt. It's an amazing design that will start conversations and turn heads... and make them fall off.");
-                sb.AppendLine();
-                //sb.AppendLine("-Edited and raw videos will be judged as different contests (2 total winners)");
-                //sb.AppendLine();
-                //sb.AppendLine("-This is the last Das Klub Dance Contest of 2013 and probably the last one ever!");
-                //sb.AppendLine();
-                //sb.AppendLine("-Deadline: 2013-05-20");
-                //sb.AppendLine();
-                //sb.AppendLine("-Winners announced at Kinetik Festival");
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("Support the cause or get out of the way,");
-                sb.AppendLine();
-                sb.AppendLine("[ admin ] | RMW");
-                sb.AppendLine();
-                sb.AppendLine("Contact Email: info@dasklub.com");
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine(
-                    "To unsubscribe from all future email communication, go to: http://dasklub.com/unsubscribe.aspx");
-
+                
                 var uad = new UserAccountDetail();
                 uad.GetUserAccountDeailForUser(ua1.UserAccountID);
 
-
-                if (!uad.EmailMessages || ua1.UserName.Trim().ToLower().Contains("necromatrix") || uad.Sex.Trim() != "Male"
-                    || ua1.UserName.ToLower().Contains("edinblack")) continue;
-
-                if (Utilities.SendMail(ua1.EMail, "New Das Klub Male T-Shirt", sb.ToString()))
+                if (!uad.EmailMessages || ua1.UserName != "bootlegbaron") continue;
+                 
+                if (Utilities.SendMail(ua1.EMail, "Das Klub Forum Revitalized!", message))
                 {
                     totalSent++;
                 }

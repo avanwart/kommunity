@@ -455,8 +455,7 @@ namespace DasKlub.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-
-            MembershipUser membershipUser = Membership.GetUser();
+            var membershipUser = Membership.GetUser();
             if (membershipUser != null)
                 _ua = new UserAccount(membershipUser.UserName) {IsOnLine = false, SigningOut = true};
             _ua.Update();

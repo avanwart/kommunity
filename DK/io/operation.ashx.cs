@@ -60,7 +60,7 @@ namespace DasKlub.Web.io
                                 SiteEnums.QueryStringNames.most_applauded_status_update_id.ToString()];
                     }
 
-                    int statusUpdateID = Convert.ToInt32(key);
+                    var statusUpdateID = Convert.ToInt32(key);
 
                     StatusUpdate statup;
 
@@ -131,7 +131,7 @@ namespace DasKlub.Web.io
                                     sun.Update();
                                 }
 
-                                SendNotificationEmail(statup.UserAccountID, rspType, sun.StatusUpdateID);
+                                SendNotificationEmail(statup.UserAccountID, Convert.ToInt32(mu.ProviderUserKey), rspType, sun.StatusUpdateID);
                             }
 
                             context.Response.Write(@"{""StatusAcks"": """ +
@@ -158,15 +158,15 @@ namespace DasKlub.Web.io
                     {
                         mu = Membership.GetUser();
 
-                        var ack = new StatusCommentAcknowledgement();
-
-                        ack.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
-                        ack.UserAccountID = Convert.ToInt32(mu.ProviderUserKey);
-                        ack.AcknowledgementType =
-                            Convert.ToChar(
-                                context.Request.QueryString[
-                                    SiteEnums.QueryStringNames.stat_update_comment_rsp.ToString()]);
-                        ack.StatusCommentID = statusUpdateID; // this is really the commentID (or should be)
+                        var ack = new StatusCommentAcknowledgement
+                            {
+                                CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
+                                UserAccountID = Convert.ToInt32(mu.ProviderUserKey),
+                                AcknowledgementType = Convert.ToChar(
+                                    context.Request.QueryString[
+                                        SiteEnums.QueryStringNames.stat_update_comment_rsp.ToString()]),
+                                StatusCommentID = statusUpdateID
+                            };
 
                         var statcomup = new StatusComment(statusUpdateID);
 
@@ -220,7 +220,7 @@ namespace DasKlub.Web.io
                                 }
 
 
-                                SendNotificationEmail(statup.UserAccountID, rspType, sun.StatusUpdateID);
+                                SendNotificationEmail(statup.UserAccountID, Convert.ToInt32(mu.ProviderUserKey), rspType, sun.StatusUpdateID);
                             }
 
                             context.Response.Write(@"{""StatusAcks"": """ +
@@ -260,8 +260,6 @@ namespace DasKlub.Web.io
                                 StatusUpdateID = statusUpdateID,
                                 UserAccountID = Convert.ToInt32(mu.ProviderUserKey)
                             };
-
-                        //statCom.GetStatusCommentMessage(); // ? ignore this duplicate now
 
                         // TODO: CHECK IF THERE IS A RECENT MESSAGE THAT IS THE SAME
                         if (statCom.StatusCommentID == 0)
@@ -306,8 +304,7 @@ namespace DasKlub.Web.io
                                     sun.Update();
                                 }
 
-                                SendNotificationEmail(statup.UserAccountID, SiteEnums.ResponseType.C,
-                                                      sun.StatusUpdateID);
+                                SendNotificationEmail(statup.UserAccountID, Convert.ToInt32(mu.ProviderUserKey), SiteEnums.ResponseType.C, sun.StatusUpdateID);
                             }
 
                             var statComs = new StatusComments();
@@ -724,9 +721,17 @@ namespace DasKlub.Web.io
             get { return false; }
         }
 
-        private static void SendNotificationEmail(int userTo, SiteEnums.ResponseType rsp, int statusUpdateID)
+        /// <summary>
+        /// Sends email notification for status updates
+        /// </summary>
+        /// <param name="userTo"></param>
+        /// <param name="userFrom"></param>
+        /// <param name="rsp"></param>
+        /// <param name="statusUpdateID"></param>
+        private static void SendNotificationEmail(int userTo, int userFrom, SiteEnums.ResponseType rsp, int statusUpdateID)
         {
             var uaTo = new UserAccount(userTo);
+            var uaFrom = new UserAccount(userFrom);
 
             var uad = new UserAccountDetail();
 
@@ -753,15 +758,22 @@ namespace DasKlub.Web.io
                     break;
             }
 
-            var statupMess = typeGiven + Environment.NewLine + Environment.NewLine + GeneralConfigs.SiteDomain +
-                                VirtualPathUtility.ToAbsolute("~/account/statusupdate/" + statusUpdateID.ToString());
+            var statupMess = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", 
+                typeGiven,
+                Environment.NewLine + Environment.NewLine, 
+                GeneralConfigs.SiteDomain, 
+                    VirtualPathUtility.ToAbsolute("~/account/statusupdate/"), 
+                    statusUpdateID,
+                Environment.NewLine + Environment.NewLine,
+                Messages.From + Environment.NewLine + Environment.NewLine,
+                uaFrom.UrlTo
+                );
+
+            var title = string.Format("{0} -> {1}", uaFrom.UserName, typeGiven);
 
             if (uad.EmailMessages)
             {
-                Utilities.SendMail(uaTo.EMail, Messages.New + ": " + Messages.Notifications,
-                                   Messages.New + ": " + Messages.Notifications + Environment.NewLine +
-                                   Environment.NewLine +
-                                   statupMess);
+                Utilities.SendMail(uaTo.EMail, title, statupMess);
             }
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(language);

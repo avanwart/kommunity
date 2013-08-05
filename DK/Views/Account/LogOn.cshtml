@@ -12,10 +12,10 @@
         <h2>@Messages.SignIn</h2>
         <hr />
         <p>
-            @Html.ActionLink(Messages.Register, "Register", null, new {@class = "btn"}) 
+            @Html.ActionLink(Messages.Register, "Register", null, new {@class = "btn btn-primary"}) 
         </p>
 
-
+        @* TODO: GET USERS TO SIGN UP WITH THEIR REDIRECT URL*@
 
         @Html.ValidationSummary(true, Messages.PleaseCorrectTheErrors)
 
