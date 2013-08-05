@@ -325,6 +325,10 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\bootstrap-glyphicons.css" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
+    <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphiconshalflings-regular.svg" />
     <Content Include="Content\images\acknowledgement\applaud.png" />
     <Content Include="Content\images\acknowledgement\applaud_check.png" />
     <Content Include="Content\images\acknowledgement\beat.png" />
@@ -348,8 +352,6 @@
     <Content Include="Content\images\brand\smalllogo.png" />
     <Content Include="Content\images\countries\flag_sprite.png" />
     <Content Include="Content\images\error\death_caution.png" />
-    <Content Include="Content\images\glyphicons-halflings-white.png" />
-    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\icons\b_day_hat.png" />
     <Content Include="Content\images\icons\iconrss.gif" />
     <Content Include="Content\images\icons\icon_compass.png" />
@@ -516,6 +518,10 @@
     <Content Include="Content\script\jquery.ui.widget.js" />
     <Content Include="Content\script\jquery.unobtrusive-ajax.js" />
     <Content Include="Content\script\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Content\fonts\glyphiconshalflings-regular.woff" />
+    <Content Include="Content\fonts\glyphiconshalflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphiconshalflings-regular.otf" />
+    <Content Include="Content\fonts\glyphiconshalflings-regular.eot" />
     <None Include="Content\script\jquery.validate-vsdoc.js" />
     <Content Include="Content\script\jquery.validate.js" />
     <Content Include="Content\script\jquery.validate.min.js" />

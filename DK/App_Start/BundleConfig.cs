@@ -57,9 +57,7 @@ namespace DasKlub.Web.App_Start
 
             bundles.Add(new StyleBundle("~/Content/style/css_head2").Include(
                 "~/content/style/cyborg_theme.css",
-                //"~/content/style/fb_bs.css",
                 "~/content/bootstrap-responsive.css",
-                //  "~/content/style/darkstrap.css",
                 "~/content/style/jquery-ui-{version}.custom.css",
                 "~/content/style/flag_sprites.css",
                 "~/content/style/site_spec_01.css"

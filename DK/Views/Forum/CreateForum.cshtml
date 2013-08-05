@@ -45,7 +45,7 @@
                   
                 </div>
                 
-                <p><button class="btn btn-success" type="submit">@Messages.Submit</button></p>
+                <p><button class="btn btn-success" id="submit_post" type="submit">@Messages.Submit</button></p>
             </fieldset>
         }
  
@@ -67,5 +67,14 @@
             $("#Title").focus();
 
         });
+        
+         
+            $('#submit_post').click(function(event) {
+
+                $(this).attr("disabled", true);
+                $(this).parents('form').submit();
+            });
+
     </script>
+     
 }
