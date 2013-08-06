@@ -279,11 +279,11 @@ namespace DasKlub.Web.Controllers
             {
                 var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
                 var mostPopularThisWeek =
-                                        context.ForumPost
-                                        .Where(x => x.CreateDate > oneWeekAgo)
-                                        .GroupBy(x => x.ForumSubCategoryID)
-                                        .OrderByDescending(y => y.Count())
-                                        .ToList().FirstOrDefault();
+                    context.ForumPost
+                           .Where(x => x.CreateDate > oneWeekAgo)
+                           .GroupBy(x => x.ForumSubCategoryID)
+                           .OrderByDescending(y => y.Count())
+                           .ToList().FirstOrDefault();
 
                 if (mostPopularThisWeek != null)
                 {
@@ -333,11 +333,11 @@ namespace DasKlub.Web.Controllers
 
 
                 var newestThreads = context.ForumSubCategory
-                                            .OrderByDescending(x => x.CreateDate)
-                                            .Where(x => x.ForumSubCategoryID != mostPopularThisWeek.Key)
-                                            .Take(20);
+                                           .OrderByDescending(x => x.CreateDate)
+                                           .Where(x => x.ForumSubCategoryID != mostPopularThisWeek.Key)
+                                           .Take(20);
                 var subItems = new Dictionary<int, DateTime>();
-                var forumFeed = new  List<ForumFeedModel>();
+                var forumFeed = new List<ForumFeedModel>();
 
                 foreach (var post in newestThreads)
                 {
@@ -367,12 +367,14 @@ namespace DasKlub.Web.Controllers
 
                 foreach (var forumFeedItem in subItems.Select(post => new ForumFeedModel
                     {
-                        ForumSubCategory = context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == post.Key),
+                        ForumSubCategory =
+                            context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == post.Key),
                         LastPosted = post.Value
                     }))
                 {
                     forumFeedItem.ForumCategory =
-                        context.ForumCategory.FirstOrDefault(x => x.ForumCategoryID == forumFeedItem.ForumSubCategory.ForumCategoryID);
+                        context.ForumCategory.FirstOrDefault(
+                            x => x.ForumCategoryID == forumFeedItem.ForumSubCategory.ForumCategoryID);
 
                     if (ua != null)
                     {
@@ -390,13 +392,13 @@ namespace DasKlub.Web.Controllers
                                 context.ForumPost.Count(
                                     x => x.ForumSubCategoryID == forumFeedItem.ForumSubCategory.ForumSubCategoryID);
 
-                            var pageCount = (forumSubPostCount + ForumController.PageSize - 1) / ForumController.PageSize;
+                            var pageCount = (forumSubPostCount + ForumController.PageSize - 1)/ForumController.PageSize;
 
                             var mostRecentPostToTopThread = context.ForumPost.OrderByDescending(x => x.CreateDate)
-                                       .FirstOrDefault(
-                                           x =>
-                                           x.ForumSubCategoryID ==
-                                           forumFeedItem.ForumSubCategory.ForumSubCategoryID);
+                                                                   .FirstOrDefault(
+                                                                       x =>
+                                                                       x.ForumSubCategoryID ==
+                                                                       forumFeedItem.ForumSubCategory.ForumSubCategoryID);
 
                             if (mostRecentPostToTopThread != null)
                                 forumFeedItem.URLTo =
@@ -414,17 +416,32 @@ namespace DasKlub.Web.Controllers
                 forumFeed = forumFeed.OrderByDescending(x => x.LastPosted).Take(9).ToList();
                 ViewBag.ForumFeed = forumFeed;
                 ViewBag.MostRecentThreads = newestThreads;
+
+                var last30Days = DateTime.UtcNow.AddDays(-30);
+                var mostPostsInForum =
+                    (from b in context.ForumPost
+                    where b.CreateDate < DateTime.UtcNow && b.CreateDate > last30Days
+                    group b by b.CreatedByUserID
+                    into grp
+                    orderby grp.Count() descending 
+                    select  grp.Key).Take(7).ToList();
+
+                var topForumUsers = new UserAccounts();
+
+                topForumUsers.AddRange(mostPostsInForum.Select(topForumUser => new UserAccount(topForumUser)));
+
+                ViewBag.TopForumUsersOfTheMonth = topForumUsers;
             }
-          
+
             var cnts = new Contents();
             cnts.GetContentPageWiseReleaseAll(1, 5);
 
             ViewBag.RecentArticles = cnts;
 
-             var topUsers = new UserAccounts(); // can't be right
-             topUsers.GetMostApplaudedLast30Days();
+            var topUsers = new UserAccounts();
+            topUsers.GetMostApplaudedLast30Days();
 
-             ViewBag.TopUsersOfTheMonth = topUsers;
+            ViewBag.TopUsersOfTheMonth = topUsers;
 
             return View();
         }
