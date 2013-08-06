@@ -35,14 +35,14 @@ namespace DasKlub.Web.Controllers
         {
             ViewBag.MapHeight = Request.Browser.IsMobileDevice ? "300px" : "500px";
 
-
             return View();
         }
 
         public string HTMLEncodeSpecialChars(string text)
         {
             var sb = new StringBuilder();
-            foreach (char c in text)
+
+            foreach (var c in text)
             {
                 if (c > 127) // special chars
                     sb.Append(String.Format("&#{0};", (int) c));
@@ -56,10 +56,9 @@ namespace DasKlub.Web.Controllers
         public ActionResult Frame()
         {
             var usa = new CultureInfo("en-US");
-
             var mu = Membership.GetUser();
-
             var userLatLong = new SiteStructs.LatLong {latitude = 0, longitude = 0};
+
             UserAccountDetail uad;
 
             if (mu != null)

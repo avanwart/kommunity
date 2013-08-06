@@ -15,7 +15,6 @@
 //   limitations under the License.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -82,15 +81,16 @@ namespace DasKlub.Web.Controllers
                 ViewBag.CountryOptions = items;
             }
 
+            var languages = UserAccountDetail.GetDistinctUserLanguages();
 
-            List<SiteEnums.SiteLanguages> languages = UserAccountDetail.GetDistinctUserLanguages();
             if (languages == null) return;
-            Dictionary<string, string> languageOptions = languages.ToDictionary(value => value.ToString(),
+
+            var languageOptions = languages.ToDictionary(value => value.ToString(),
                                                                                 value =>
                                                                                 Utilities.ResourceValue(
                                                                                     Utilities.GetEnumDescription(value)));
 
-            IOrderedEnumerable<string> languagesitems = from k in languageOptions.Keys
+            var languagesitems = from k in languageOptions.Keys
                                                         orderby languageOptions[k] ascending
                                                         select k;
 

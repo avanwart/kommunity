@@ -440,25 +440,22 @@ namespace DasKlub.Web.Controllers
               
                 subForum.ForumCategory = context.ForumCategory.First(x => x.ForumCategoryID == subForum.ForumCategoryID);
 
-                foreach (var forumPostNotification in
-                        allUserNotifications.Where(
-                            forumPostNotification => forumPostNotification.UserAccountID != ua.UserAccountID))
+                Thread.CurrentThread.CurrentUICulture =
+                   CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+                Thread.CurrentThread.CurrentCulture =
+                    CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+
+                foreach (var forumPostNotification in allUserNotifications.Where(forumPostNotification => forumPostNotification.UserAccountID != ua.UserAccountID))
                 {
                     forumPostNotification.IsRead = false;
+                    forumPostNotification.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
                     context.Entry(forumPostNotification).State = EntityState.Modified;
+
                     var notifiedUser = new UserAccount(forumPostNotification.UserAccountID);
                     var notifiedUserDetails = new UserAccountDetail();
                     notifiedUserDetails.GetUserAccountDeailForUser(forumPostNotification.UserAccountID);
 
                     if (!notifiedUserDetails.EmailMessages) continue;
-
-                  
-
-                    Thread.CurrentThread.CurrentUICulture =
-                        CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
-                    Thread.CurrentThread.CurrentCulture =
-                        CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
-
 
                     var title = ua.UserName + " => " + subForum.Title;
                     var body = new StringBuilder(100);

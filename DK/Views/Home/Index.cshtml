@@ -3,7 +3,7 @@
 @using BootBaronLib.Resources
 @using BootBaronLib.Values
 
- 
+
 @{
     ViewBag.Title = SiteDomain.GetSiteDomainValue(
         SiteEnums.SiteBrandType.TAGLN,
@@ -13,171 +13,170 @@
 }
 <div class="row">
     <div class="span4">
-        
-     
-        
-                    @Html.Raw(SiteDomain.GetSiteDomainValue(
+
+        @Html.Raw(SiteDomain.GetSiteDomainValue(
                         SiteEnums.SiteBrandType.HOMEC,
-                        Utilities.GetCurrentLanguageCode())) 
-  
-       
+                        Utilities.GetCurrentLanguageCode()))
+
+
         <div class="clear">
         </div>
         <br />
-        
+
         @if (ViewBag.RecentArticles != null)
         {
             <h5>@Messages.News</h5>
             <dl>
-            @foreach (BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content newsItem in ViewBag.RecentArticles)
-            {
-                <dt>
-                    @newsItem.Reply
-                    <a href="@newsItem.UrlTo.ToString()">
-                        @newsItem.Title</a>
-                </dt>
-                <dd title="@newsItem.CreateDate.ToString("u")">@Utilities.TimeElapsedMessage(newsItem.CreateDate) <i>@Messages.Comments : @newsItem.Comments.Count</i></dd>
+                @foreach (BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content newsItem in ViewBag.RecentArticles)
+                {
+                    <dt>
+                        @newsItem.Reply
+                        <a href="@newsItem.UrlTo.ToString()">
+                            @newsItem.Title</a>
+                    </dt>
+                    <dd title="@newsItem.CreateDate.ToString("u")">@Utilities.TimeElapsedMessage(newsItem.CreateDate) <i>@Messages.Comments : @newsItem.Comments.Count</i></dd>
   
-            }
+                }
             </dl>
         }
-  
+
     </div>
     <div class="span8">
         <div class="row">
-      
+
             <div class="span8">
-             
-                <div class="span8" >
-               
-                                        @Html.Raw(SiteDomain.GetSiteDomainValue(
+
+                <div class="span8">
+
+                    @Html.Raw(SiteDomain.GetSiteDomainValue(
                         SiteEnums.SiteBrandType.HOMET,
-                        Utilities.GetCurrentLanguageCode())) 
+                        Utilities.GetCurrentLanguageCode()))
                     <hr />
-             
-                
-           
- 
 
-  
-         
-      @if (ViewBag.MostRecentThreads != null)
-      {
-    <div class="clear">
-            </div>
+
+
+
+
+
+
+                    @if (ViewBag.MostRecentThreads != null)
+                    {
+                        <div class="clear">
+                        </div>
          
 
-    <h5>Newest Forum Posts</h5>
-                 <table class="table table-condensed table-striped" >
-                      
-             @if (ViewBag.TopThreadOfTheWeek != null)
-             {
-                                 <tr   >
-                                     <td   >
-                                         
-                                         <b>
-                                             <span style="color:#f89406">
-                                             Popular: </span>
-                                             @if (ViewBag.TopThreadOfTheWeek.IsNewPost)
-                                             {
-                                                 <a style="color:#00FF1E" href="@ViewBag.TopThreadOfTheWeek.URLTo.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
-                                             }
-                                             else
-                                             {
-                                                 <a href="@ViewBag.TopThreadOfTheWeek.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
-                                             }
-                                         </b>   
-                                         <br /> 
-                                         <i style="font-size: 10px">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumCategory.Title)</i>
-                                         <br />
-                      
-                                     </td>
-                 
-                                     @if (ViewBag.TopThreadOfTheWeek.LastPosted != null)
-                                     {
-                                       <td     >
-                                             <span title="@ViewBag.TopThreadOfTheWeek.LastPosted.ToString("u")">
-                                                 @Html.Raw(Utilities.TimeElapsedMessage(ViewBag.TopThreadOfTheWeek.LastPosted))
-                                             </span> 
-                                         </td>
-                                     }
-                     
-                  </tr> 
+                        <h5>Newest Forum Posts</h5>
+                        <table class="table table-condensed table-striped">
+
+                            @if (ViewBag.TopThreadOfTheWeek != null)
+                            {
+                                <tr>
+                                    <td>
+
+                                        <b>
+                                            <span class="bright_green">Popular: </span>
+                                            @if (ViewBag.TopThreadOfTheWeek.IsNewPost)
+                                            {
+                                                <a  class="notification_color" href="@ViewBag.TopThreadOfTheWeek.URLTo.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@ViewBag.TopThreadOfTheWeek.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
+                                            }
+                                        </b>
+                                        <br />
+                                        <i style="font-size: 10px">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumCategory.Title)</i>
+                                        <br />
+
+                                    </td>
+
+                                    @if (ViewBag.TopThreadOfTheWeek.LastPosted != null)
+                                    {
+                                        <td>
+                                            <span title="@ViewBag.TopThreadOfTheWeek.LastPosted.ToString("u")">
+                                                @Html.Raw(Utilities.TimeElapsedMessage(ViewBag.TopThreadOfTheWeek.LastPosted))
+                                            </span>
+                                        </td>
+                                    }
+
+                                </tr> 
                      
                   
-             }
-              
-         
-        
-              @foreach (DasKlub.Web.Models.ForumFeedModel forumFeedModel in ViewBag.ForumFeed)
-              {
-                  <tr>
-                      <td  >
-                          <b>
-                               
-                                            @if (forumFeedModel.IsNewPost)
-                                             {
-                                                    <a style="color:#00FF1E" href="@forumFeedModel.URLTo.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
-                                             }
-                                             else
-                                             {
-                                                 <a href="@forumFeedModel.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
-                                             }
-                          </b>
+                            }
 
-                          <br /> 
-                          <i style="font-size: 10px">@Html.Raw(forumFeedModel.ForumCategory.Title)</i>
-                          <br />
-                      
-                      </td>
-                 
-                      <td>
-                          <span title="@forumFeedModel.LastPosted.ToString("u")">
-                              @Html.Raw(Utilities.TimeElapsedMessage(forumFeedModel.LastPosted))
-                          </span>
-                      </td>
-                    
-                  </tr>
-              }
-          </table>
+
+
+                            @foreach (DasKlub.Web.Models.ForumFeedModel forumFeedModel in ViewBag.ForumFeed)
+                            {
+                                <tr>
+                                    <td>
+                                        <b>
+
+                                            @if (forumFeedModel.IsNewPost)
+                                            {
+                                                <a   class="notification_color" href="@forumFeedModel.URLTo.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@forumFeedModel.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
+                                            }
+                                        </b>
+
+                                        <br />
+                                        <i style="font-size: 10px">@Html.Raw(forumFeedModel.ForumCategory.Title)</i>
+                                        <br />
+
+                                    </td>
+
+                                    <td>
+                                        <span title="@forumFeedModel.LastPosted.ToString("u")">
+                                            @Html.Raw(Utilities.TimeElapsedMessage(forumFeedModel.LastPosted))
+                                        </span>
+                                    </td>
+
+                                </tr>
+                            }
+                        </table>
           
           
  
-      }
-                       </div>
-                
-   </div>
+                    }
+                </div>
+
+            </div>
             <div class="clear">
             </div>
-            
+
             @if (ViewBag.TopUsersOfTheMonth != null)
             {
-                 <div class="span8">
-                    <div class="well">
-             <h5>Most Applauded Users Last 30 Days</h5>
-                        @Html.Raw(ViewBag.TopUsersOfTheMonth.ToUnorderdList)
-                          <div class="clear">
-              </div>
+                <div class="span8">
+                    <div class="span8">
+                        <div class="well">
+                            <h5>Most Applauded Users In The Last 30 Days</h5>
+                            @Html.Raw(ViewBag.TopUsersOfTheMonth.ToUnorderdList)
+                            <div class="clear">
+                            </div>
+                        </div>
+                        </div>
                 </div>
-                    </div>
                    
             }
         </div>
-  
+
         @section _css {
             @if (Request.Browser.IsMobileDevice)
             {
-                <style type="text/css">
-                    .photo_item_list li img {
-                        height: 55px;
-                        width: 55px;
-                    }
+<style type="text/css">
+    .photo_item_list li img {
+        height: 55px;
+        width: 55px;
+    }
 
-                    .photo_item_list img {
-                        margin: 0;
-                        padding: 0;
-                    }
-                </style>
+    .photo_item_list img {
+        margin: 0;
+        padding: 0;
+    }
+</style>
             }
             <style type="text/css">
                 ul.photo_item_list {
@@ -192,7 +191,7 @@
 </div>
 @section _javascriptHead {
 
-  
+
     @Html.Raw(SiteDomain.GetSiteDomainValue(
         SiteEnums.SiteBrandType.HOMES,
         Utilities.GetCurrentLanguageCode()))

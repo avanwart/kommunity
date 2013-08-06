@@ -1,7 +1,7 @@
 ﻿@using BootBaronLib.Operational
 @using BootBaronLib.Resources
 @using DasKlub.Models.Forum
-@model ICollection<DasKlub.Models.Forum.ForumCategory>
+@model ICollection<ForumCategory>
  
 @{
     ViewBag.Title = "Forum";
@@ -86,7 +86,7 @@
                         {
                             if (forumCat.LatestForumPost.IsNewPost)
                             {
-                                <a class="btn btn-mini btn-success" href="@forumCat.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
+                                <a class="btn btn-mini btn-warning" href="@forumCat.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
                             }
                             else
                             {

@@ -352,8 +352,7 @@ namespace DasKlub.Web.Controllers
                 uadLooker.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
             }
 
-            if (_mu != null && _ua.UserAccountID > 0 &&
-                uadLooker.EnableProfileLogging && uad.EnableProfileLogging)
+            if (uadLooker != null && (_mu != null && _ua.UserAccountID > 0 && uadLooker.EnableProfileLogging && uad.EnableProfileLogging))
             {
                 var pl = new ProfileLog
                     {
@@ -362,7 +361,6 @@ namespace DasKlub.Web.Controllers
                     };
 
                 if (pl.LookingUserAccountID != pl.LookedAtUserAccountID) pl.Create();
-
 
                 var al = ProfileLog.GetRecentProfileViews(_ua.UserAccountID);
 

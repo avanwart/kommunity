@@ -115,7 +115,6 @@ namespace DasKlub.Web.Controllers
                 });
         }
 
-
         public ActionResult Lang(string lang)
         {
             ViewBag.Lang = lang;

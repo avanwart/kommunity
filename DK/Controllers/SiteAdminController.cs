@@ -494,7 +494,6 @@ namespace DasKlub.Web.Controllers
         {
             var ua = new UserAccount(userAccountID);
 
-            // delete all their roles
             UserAccountRole.DeleteUserRoles(userAccountID);
 
             foreach (var thenewRole in roleOption.Select(newRole => new Role(newRole)))

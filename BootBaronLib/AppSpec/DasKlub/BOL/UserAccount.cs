@@ -1303,29 +1303,32 @@ DROP TABLE #Results
 
             var comm = DbAct.CreateCommand(true);
 
-            comm.CommandText = @"   select top 7 [userAccountID], sum(total) total from (
-SELECT  [userAccountID]
+            comm.CommandText = @"   
+   select top 7  createdbyuserid, sum(total) total from (
+SELECT  sc.createdbyuserid
      ,count(*) total
-  FROM  [StatusCommentAcknowledgement]
+  FROM  [StatusCommentAcknowledgement] sca inner join StatusComment sc on sca.statuscommentid = sc.statuscommentid
   where acknowledgementtype = 'A'
-  and createdate between dateadd(day,  -30, GETUTCDATE()) and getutcdate()
-    group by useraccountid union all
-    SELECT  
-      [userAccountID]
+  and sc.createdate between dateadd(day,  -30, GETUTCDATE()) and getutcdate()
+    group by sc.createdbyuserid union all
+    SELECT  su.createdbyuserID
      ,count(*) total
-  FROM  Acknowledgement
+  FROM  Acknowledgement ack INNER join statusupdate su on ack.statusupdateid = su.statusupdateid
     where acknowledgementtype = 'A'
-  and createdate between dateadd(day,  -30, GETUTCDATE()) and getutcdate()
+  and ack.createdate between dateadd(day,  -30, GETUTCDATE()) and getutcdate()
 
-    group by useraccountid
+    group by su.createdbyuserid
 
-)  x group by useraccountid
-order by total desc";
+)  x group by  createdbyuserid
+order by total desc
+
+
+";
             var dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var ua in from DataRow dr in dt.Rows select new UserAccount(FromObj.IntFromObj(dr["userAccountID"])))
+            foreach (var ua in from DataRow dr in dt.Rows select new UserAccount(FromObj.IntFromObj(dr["createdbyuserid"])))
             {
                 Add(ua);
             }

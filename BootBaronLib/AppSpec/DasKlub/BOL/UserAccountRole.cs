@@ -14,8 +14,9 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
+using System.Linq;
 using BootBaronLib.DAL;
 using BootBaronLib.Operational;
 
@@ -23,59 +24,55 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
 {
     public class UserAccountRole
     {
+        /// <summary>
+        /// Deletes all user roles
+        /// </summary>
+        /// <param name="userAccountID"></param>
+        /// <returns></returns>
         public static bool DeleteUserRoles(int userAccountID)
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_DeleteUserRoles";
-
             comm.AddParameter("userAccountID", userAccountID);
-
-
-            // execute the stored procedure
+            
             return DbAct.ExecuteNonQuery(comm) > 0;
         }
 
-        public static UserAccounts GetUsersInRole(int roleID)
+        /// <summary>
+        /// Gets all the users in a role
+        /// </summary>
+        /// <param name="roleID"></param>
+        /// <returns></returns>
+        public static IList<UserAccount> GetUsersInRole(int roleID)
         {
             UserAccounts uars = null;
 
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetUsersInRole";
-
             comm.AddParameter("roleID", roleID);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
-            // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-            // was something returned?
             if (dt != null && dt.Rows.Count > 0)
             {
                 uars = new UserAccounts();
-                UserAccount art = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    art = new UserAccount(dr);
-                    uars.Add(art);
-                }
+
+                uars.AddRange(from DataRow dr in dt.Rows select new UserAccount(dr));
             }
             return uars;
         }
 
+        /// <summary>
+        /// Adds a user to an existing role
+        /// </summary>
+        /// <param name="userAccountID"></param>
+        /// <param name="roleID"></param>
+        /// <returns></returns>
         public static bool AddUserToRole(int userAccountID, int roleID)
         {
             if (userAccountID == 0 || roleID == 0) return false;
 
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_AddUserAccountRole";
-
-            // create a new parameter
             comm.AddParameter("userAccountID", userAccountID);
             comm.AddParameter("roleID", roleID);
 

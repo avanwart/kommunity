@@ -106,9 +106,9 @@ namespace BootBaronLib.Providers
 
             var allRoles = new ArrayList();
 
-            UserAccounts uas = UserAccountRole.GetUsersInRole(rle.RoleID);
+            var users = UserAccountRole.GetUsersInRole(rle.RoleID);
 
-            foreach (UserAccount ua1 in uas) allRoles.Add(ua1.UserName);
+            foreach (var ua1 in users) allRoles.Add(ua1.UserName);
 
             var stringArray = (string[]) allRoles.ToArray(typeof (string));
 
@@ -126,6 +126,7 @@ namespace BootBaronLib.Providers
             var isUserInRole = false;
 
             var userRoles = GetRolesForUser(username);
+
             foreach (var s in userRoles.Where(s => roleName == s))
             {
                 isUserInRole = true;

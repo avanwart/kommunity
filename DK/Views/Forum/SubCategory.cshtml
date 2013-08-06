@@ -2,12 +2,11 @@
 @using BootBaronLib.Resources
 @using DasKlub.Models.Forum
 
-@model ICollection<DasKlub.Models.Forum.ForumSubCategory>
+@model ICollection<ForumSubCategory>
 
 
 <div class="row">
     <div class="span12">
-
 
         <div class="row">
             <div class="span6">
@@ -23,15 +22,7 @@
             </div>
         </div>
 
-
-
-
-
         <hr />
-      
-
-
-
 
         @if (Model != null)
         {
@@ -106,7 +97,7 @@
                         {
                             if (post.LatestForumPost.IsNewPost)
                             {
-                                <a class="btn btn-mini btn-success" href="@post.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
+                                <a class="btn btn-mini btn-warning" href="@post.LatestForumPost.ForumPostURL.ToString()">Read Post</a>
                             }
                             else
                             {
@@ -119,13 +110,7 @@
                 <br />
             }
         }       
-        
-        
-        
-        
-        
-        
-        
+         
 
         <hr />
         @{

@@ -279,11 +279,11 @@ namespace DasKlub.Web.Controllers
             {
                 var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
                 var mostPopularThisWeek =
-                    context.ForumPost
-                    .Where(x => x.CreateDate > oneWeekAgo)
-                    .GroupBy(x => x.ForumSubCategoryID)
-                    .OrderByDescending(y => y.Count())
-                    .ToList().FirstOrDefault();
+                                        context.ForumPost
+                                        .Where(x => x.CreateDate > oneWeekAgo)
+                                        .GroupBy(x => x.ForumSubCategoryID)
+                                        .OrderByDescending(y => y.Count())
+                                        .ToList().FirstOrDefault();
 
                 if (mostPopularThisWeek != null)
                 {
@@ -365,32 +365,30 @@ namespace DasKlub.Web.Controllers
                     }
                 }
 
-                foreach (var forumFeeItem in subItems.Select(post => new ForumFeedModel
+                foreach (var forumFeedItem in subItems.Select(post => new ForumFeedModel
                     {
-                        ForumSubCategory =
-                            context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == post.Key),
+                        ForumSubCategory = context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == post.Key),
                         LastPosted = post.Value
                     }))
                 {
-                    forumFeeItem.ForumCategory =
-                        context.ForumCategory.FirstOrDefault(x => x.ForumCategoryID == forumFeeItem.ForumSubCategory.ForumCategoryID);
-
+                    forumFeedItem.ForumCategory =
+                        context.ForumCategory.FirstOrDefault(x => x.ForumCategoryID == forumFeedItem.ForumSubCategory.ForumCategoryID);
 
                     if (ua != null)
                     {
                         var isNew =
                             context.ForumPostNotification.FirstOrDefault(
                                 x =>
-                                x.ForumSubCategoryID == forumFeeItem.ForumSubCategory.ForumSubCategoryID &&
+                                x.ForumSubCategoryID == forumFeedItem.ForumSubCategory.ForumSubCategoryID &&
                                 x.UserAccountID == ua.UserAccountID);
 
                         if (isNew != null && !isNew.IsRead)
                         {
-                            forumFeeItem.IsNewPost = true;
+                            forumFeedItem.IsNewPost = true;
 
                             var forumSubPostCount =
                                 context.ForumPost.Count(
-                                    x => x.ForumSubCategoryID == forumFeeItem.ForumSubCategory.ForumSubCategoryID);
+                                    x => x.ForumSubCategoryID == forumFeedItem.ForumSubCategory.ForumSubCategoryID);
 
                             var pageCount = (forumSubPostCount + ForumController.PageSize - 1) / ForumController.PageSize;
 
@@ -398,11 +396,11 @@ namespace DasKlub.Web.Controllers
                                        .FirstOrDefault(
                                            x =>
                                            x.ForumSubCategoryID ==
-                                           forumFeeItem.ForumSubCategory.ForumSubCategoryID);
+                                           forumFeedItem.ForumSubCategory.ForumSubCategoryID);
 
                             if (mostRecentPostToTopThread != null)
-                                forumFeeItem.URLTo =
-                                    new Uri(forumFeeItem.ForumSubCategory.SubForumURL + "/" +
+                                forumFeedItem.URLTo =
+                                    new Uri(forumFeedItem.ForumSubCategory.SubForumURL + "/" +
                                             ((pageCount > 1)
                                                  ? pageCount.ToString(CultureInfo.InvariantCulture)
                                                  : string.Empty) + "#" +
@@ -410,7 +408,7 @@ namespace DasKlub.Web.Controllers
                         }
                     }
 
-                    forumFeed.Add(forumFeeItem);
+                    forumFeed.Add(forumFeedItem);
                 }
 
                 forumFeed = forumFeed.OrderByDescending(x => x.LastPosted).Take(9).ToList();
@@ -423,10 +421,10 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.RecentArticles = cnts;
 
-            //var topUsers = new UserAccounts(); // can't be right
-            //topUsers.GetMostApplaudedLast30Days();
+             var topUsers = new UserAccounts(); // can't be right
+             topUsers.GetMostApplaudedLast30Days();
 
-            //ViewBag.TopUsersOfTheMonth = topUsers;
+             ViewBag.TopUsersOfTheMonth = topUsers;
 
             return View();
         }
