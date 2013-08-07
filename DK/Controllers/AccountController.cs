@@ -966,7 +966,6 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult Visitors()
         {
-            
             _uad = new UserAccountDetail();
             if (_mu != null) _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
@@ -1000,8 +999,13 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.EnableProfileLogging = _uad.EnableProfileLogging;
 
-            LoadVisitorsView(_ua.UserName);
-
+            if (_mu != null && 
+                (Roles.IsUserInRole(_mu.UserName, SiteEnums.RoleTypes.supporter.ToString()) ||
+                 Roles.IsUserInRole(_mu.UserName, SiteEnums.RoleTypes.admin.ToString())
+                ))
+            {
+                LoadVisitorsView(_ua.UserName);
+            }
 
             return View();
         }
@@ -1013,45 +1017,48 @@ namespace DasKlub.Web.Controllers
             _uad = new UserAccountDetail();
             if (userName != null) _ua = new UserAccount(userName);
             _uad.GetUserAccountDeailForUser(_ua.UserAccountID);
+
             var uadLooker = new UserAccountDetail();
-            if (_mu != null)
+            if (_mu == null) return;
+            uadLooker.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
+
+            if (_mu == null || _ua.UserAccountID <= 0 || !_uad.EnableProfileLogging || !_uad.EnableProfileLogging)
+                return;
+            var al = ProfileLog.GetRecentProfileViews(_ua.UserAccountID);
+
+            if (al == null || al.Count <= 0) return;
+
+            var uas = new UserAccounts();
+
+            foreach (int id in al)
             {
-                uadLooker.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
+                var viewwer = new UserAccount(id);
+                if (viewwer.IsLockedOut || !viewwer.IsApproved) continue;
+                _uad = new UserAccountDetail();
+                _uad.GetUserAccountDeailForUser(id);
+                if (_uad.EnableProfileLogging == false) continue;
 
-                if (_mu != null && _ua.UserAccountID > 0 &&
-                    _uad.EnableProfileLogging && _uad.EnableProfileLogging)
-                {
-                    ArrayList al = ProfileLog.GetRecentProfileViews(_ua.UserAccountID);
+                if (uas.Count >= maxcountusers) break;
 
-                    if (al != null && al.Count > 0)
-                    {
-                        var uas = new UserAccounts();
-
-                        foreach (int id in al)
-                        {
-                            var viewwer = new UserAccount(id);
-                            if (viewwer.IsLockedOut || !viewwer.IsApproved) continue;
-                            _uad = new UserAccountDetail();
-                            _uad.GetUserAccountDeailForUser(id);
-                            if (_uad.EnableProfileLogging == false) continue;
-
-                            if (uas.Count >= maxcountusers) break;
-
-                            uas.Add(viewwer);
-                        }
-
-                        ViewBag.TheViewers = uas.ToUnorderdList;
-                    }
-                }
+                uas.Add(viewwer);
             }
+
+            ViewBag.TheViewers = uas.ToUnorderdList;
         }
 
         [Authorize]
         [HttpGet]
         public ActionResult ProfileVisitors(string userName)
         {
-            LoadVisitorsView(userName);
-
+            if (_mu != null && 
+                (
+                Roles.IsUserInRole(_mu.UserName, SiteEnums.RoleTypes.supporter.ToString() )
+                ||
+                Roles.IsUserInRole(_mu.UserName, SiteEnums.RoleTypes.admin.ToString())
+                ))
+            {
+                LoadVisitorsView(userName);
+            }
             return View();
         }
 
@@ -2363,6 +2370,11 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.UserAccountDetail = _uad;
             ViewBag.Membership = _mu;
+
+            ViewBag.CanBeStealth = (_mu != null &&
+                                     (Roles.IsUserInRole(_mu.UserName, SiteEnums.RoleTypes.supporter.ToString()) ||
+                                      Roles.IsUserInRole(_mu.UserName, SiteEnums.RoleTypes.admin.ToString())
+                                     ));
 
             return View(_uad);
         }

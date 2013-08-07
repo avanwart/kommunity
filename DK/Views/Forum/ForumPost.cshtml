@@ -1,4 +1,5 @@
-﻿@using BootBaronLib.AppSpec.DasKlub.BOL
+﻿@using System.Globalization
+@using BootBaronLib.AppSpec.DasKlub.BOL
 @using BootBaronLib.Operational
 @using BootBaronLib.Resources
 @using DasKlub.Models.Forum
@@ -67,52 +68,43 @@
         }
         <br />
         <a  class="btn btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/create")">@Messages.Reply</a>
+         
         
-      
-        
-
-        @{
+          @{
             int pageSize = Convert.ToInt32(ViewBag.PageCount);
 
             if (pageSize > 1)
             {
-                  <br />
-         
-        <hr />
+                <hr />
+            
+                <ul class="pager" style="float: left">
 
-                for (var pageNumber = 1; pageNumber <= pageSize; pageNumber++)
-                {
-                    <ul class="pager" style="float: left">
+                    @for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
+                    {
                         
-                        @if (ViewBag.PageNumber == 1 && pageSize == 1)
-                        {
-                            break;
-                        }
+                         if (ViewBag.PageNumber == pageNumber)
+                         {
+                             <li>
+                                 <a href="#" style="color: #000; background-color: #696969">@pageNumber</a>
+                             </li>
+                         }
+                         else
+                         {
+                             <li> 
 
+                                  <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/" + pageNumber.ToString())">@pageNumber.ToString(CultureInfo.InvariantCulture)</a>
+                             </li>
+                         }
 
-                        @if (ViewBag.PageNumber == pageNumber)
-                        {
-                            <li>
-                                <a href="#" style="color: #000; background-color: #696969">   @pageNumber</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li> 
-
-                                <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/" + pageNumber.ToString())">@pageNumber.ToString()</a>
-                            </li>
-                        }
-                
-                    </ul>
-                }
+                    }
+                </ul>
+                <div class="clear"></div>
             }
-
-            <div class="clear"></div>
         }
-            <hr />
+
+
         
-           @{ Html.RenderPartial("_AdBanner"); }
+        @{ Html.RenderPartial("_AdBanner"); }
         <hr />
         
         <a href="~/forum">Forum</a> &gt; <a href="@ViewBag.Forum.ForumURL">@ViewBag.Forum.Title</a> &gt; @ViewBag.Title

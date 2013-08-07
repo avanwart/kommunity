@@ -429,7 +429,8 @@ namespace BootBaronLib.Values
         {
             Unknown = 0,
             cyber_girl,
-            admin
+            admin,
+            supporter 
         }
 
       

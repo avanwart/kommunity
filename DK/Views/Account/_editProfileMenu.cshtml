@@ -18,11 +18,27 @@
                     <text>class="active" </text>
                 }
                 ><a href="@Url.Content("~/account/editphoto")">@Messages.ProfilePhotos</a> </li>
+            
+             
+            <li
+              
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "managevideos")
+                {
+                    <text>class="active" </text>
+                }
+                ><a href="@Url.Content("~/account/managevideos")">@Messages.Videos</a>
+            </li>
+          
+            
+            
+
             <li
                 @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "settings")
                 {
                     <text>class="active" </text>
                 }
                 ><a href="@Url.Content("~/account/settings")">@Messages.Settings</a> </li>
+            
+
         </ul>
     </div></div>

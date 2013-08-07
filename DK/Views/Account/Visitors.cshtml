@@ -28,6 +28,10 @@
             {
                 @Html.Raw(ViewBag.TheViewers)
             }
+            else
+            {
+                <span>You must be a supporter to see your viewers! <a href="~/store">Donate $10 or more with your account email</a></span>
+            }
         }
     </div>
     <div class="span4">

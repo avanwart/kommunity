@@ -16,7 +16,6 @@ namespace DasKlub.Web.Models
 
         public override int SaveChanges()
         {
-
             foreach (var entry in ChangeTracker.Entries()
                  .Where(x => x.Entity is StateInfo && x.State == EntityState.Added)
                  .Select(x => x.Entity as StateInfo))
