@@ -69,14 +69,14 @@
         <br />
         <a  class="btn btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/create")">@Messages.Reply</a>
          
-        
+           <hr />
+            
           @{
             int pageSize = Convert.ToInt32(ViewBag.PageCount);
 
             if (pageSize > 1)
             {
-                <hr />
-            
+             
                 <ul class="pager" style="float: left">
 
                     @for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
