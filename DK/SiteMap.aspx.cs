@@ -23,6 +23,7 @@ using System.Xml;
 using BootBaronLib.AppSpec.DasKlub.BOL;
 using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
 using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
+using DasKlub.Web.Controllers;
 using DasKlub.Web.Models;
 
 namespace DasKlub.Web
@@ -84,10 +85,11 @@ namespace DasKlub.Web
 
                         var totalCount =
                             context.ForumPost.Count(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID);
+                        var pageCount = (totalCount + ForumController.PageSize - 1) / ForumController.PageSize;
+                        
+                        if (pageCount <= 1) continue;
 
-                        if (totalCount <= 1) continue;
-
-                        for (var i = 2; i <= totalCount; i++)
+                        for (var i = 2; i <= pageCount; i++)
                         {
                             writer.WriteStartElement("url");
                             writer.WriteElementString("loc", string.Format("{0}/{1}", forumPost.SubForumURL, i));
