@@ -363,7 +363,7 @@ namespace DasKlub.Web.Controllers
                                                    .Skip(PageSize * (pageNumber - 1))
                                                    .Take(PageSize).ToList();
 
-                ViewBag.Title = subForum.Title;
+
 
                 if (_mu != null)
                 {
@@ -387,6 +387,8 @@ namespace DasKlub.Web.Controllers
                 ViewBag.PageCount = (totalCount + PageSize - 1) / PageSize;
 
                 ViewBag.PageNumber = pageNumber;
+
+                ViewBag.Title = string.Format("Page: {0} {1}", pageNumber, subForum.Title);
 
                 foreach (var post in forumPost)
                 {
