@@ -358,10 +358,10 @@ namespace DasKlub.Web.Controllers
                 ViewBag.SubForum = subForum;
 
                 var forumPost = context.ForumPost
-                                                   .Where(x => x.ForumSubCategoryID == subForum.ForumSubCategoryID)
-                                                   .OrderBy(x => x.CreateDate)
-                                                   .Skip(PageSize * (pageNumber - 1))
-                                                   .Take(PageSize).ToList();
+                                       .Where(x => x.ForumSubCategoryID == subForum.ForumSubCategoryID)
+                                       .OrderBy(x => x.CreateDate)
+                                       .Skip(PageSize*(pageNumber - 1))
+                                       .Take(PageSize).ToList();
 
 
 
@@ -384,12 +384,12 @@ namespace DasKlub.Web.Controllers
 
                 var totalCount = context.ForumPost.Count(x => x.ForumSubCategoryID == subForum.ForumSubCategoryID);
 
-                ViewBag.PageCount = (totalCount + PageSize - 1) / PageSize;
+                ViewBag.PageCount = (totalCount + PageSize - 1)/PageSize;
 
                 ViewBag.PageNumber = pageNumber;
 
-                ViewBag.PageTitle = string.Format("Page: {0} {1}", pageNumber, subForum.Title);
-                ViewBag.Title =   subForum.Title ;
+                ViewBag.PageTitle = subForum.Title;
+                ViewBag.Title = string.Format("Page: {0} {1}", pageNumber, subForum.Title);
 
                 foreach (var post in forumPost)
                 {
