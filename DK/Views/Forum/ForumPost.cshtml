@@ -12,14 +12,15 @@
       
         <div class="row">
             <div class="span8">
-                <h5>
-                    <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+          
+                <hr />
+                <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                         <a href="~/forum" itemprop="url"><span itemprop="title">Forum</span></a></span> &gt; 
                         <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                             <a href="@ViewBag.Forum.ForumURL"  itemprop="url"><span itemprop="title">@ViewBag.Forum.Title</span></a>
-                        </span>
+                        </span> &gt; @ViewBag.PageTitle
 
-                </h5>
+              <hr />
                 <h3>@ViewBag.PageTitle</h3>
                 <p>
                     @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(ViewBag.SubForum.Description), 200, 300))
@@ -114,7 +115,7 @@
         @{ Html.RenderPartial("_AdBanner"); }
         <hr />
         
-        <a href="~/forum">Forum</a> &gt; <a href="@ViewBag.Forum.ForumURL">@ViewBag.Forum.Title</a> &gt; @ViewBag.Title
+        <a href="~/forum">Forum</a> &gt; <a href="@ViewBag.Forum.ForumURL">@ViewBag.Forum.Title</a> &gt; @ViewBag.PageTitle
     </div>
 
     <div class="span3"  >
