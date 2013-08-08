@@ -543,8 +543,9 @@ li.status_post .span2 { margin-left: 0; }
 
 .navbar .nav > li > a.site_name {
     color: #FFF;
-    font-family: Lucida Sans Unicode, Lucida Grande, sans-serif, Verdana;
-    font-size: 18px;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 17px;
+    letter-spacing: 1px;
 }
                              
 /* google search */
