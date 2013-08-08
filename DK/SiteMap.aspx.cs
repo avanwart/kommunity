@@ -82,21 +82,21 @@ namespace DasKlub.Web
                         writer.WriteEndElement();
                         writer.WriteString("\r\n"); //newline 
 
-                        //var s1 = context.ForumPost.Where(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID);
+                        var totalCount =
+                            context.ForumPost.Count(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID);
 
-                        //foreach (var f1 in s1)
-                        //{
-                        //    f1.ForumPostURL =
-                        //   new Uri(forumPost.SubForumURL + "/" + 
+                        if (totalCount <= 1) continue;
 
-                        //    writer.WriteStartElement("url");
-                        //    writer.WriteElementString("loc", f1.ForumPostURL.ToString());
-                        //    writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", f1.CreateDate));
-                        //    writer.WriteElementString("changefreq", "weekly");
-                        //    writer.WriteElementString("priority", "0.8");
-                        //    writer.WriteEndElement();
-                        //    writer.WriteString("\r\n"); //newline 
-                        //}
+                        for (var i = 2; i <= totalCount; i++)
+                        {
+                            writer.WriteStartElement("url");
+                            writer.WriteElementString("loc", string.Format("{0}/{1}", forumPost.SubForumURL, i));
+                            writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", forumPost.CreateDate));
+                            writer.WriteElementString("changefreq", "weekly");
+                            writer.WriteElementString("priority", "0.8");
+                            writer.WriteEndElement();
+                            writer.WriteString("\r\n"); //newline 
+                        }
                     }
                 }
             }

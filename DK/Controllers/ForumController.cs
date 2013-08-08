@@ -392,6 +392,9 @@ namespace DasKlub.Web.Controllers
                 {
                     post.UserAccount = new UserAccount(post.CreatedByUserID);
                 }
+
+                ViewBag.MetaDescription = FromString.GetFixedLengthString(subForum.Description, 160);
+
                 return View(forumPost);
             }
         }

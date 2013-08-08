@@ -38,9 +38,9 @@ To add a database migration, the first thing that needs to be done is to ensure 
 Next, open up Package Manager Console in Visual Studio and run: 
 
 <pre>
-Add-Migration -Name NAMEOFMIGRATION -ProjectName DBMigrator -StartUpProjectName DBMigrator -ConnectionStringName DasKlubDB
+Add-Migration -Name NAMEOFMIGRATION -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -ConnectionStringName DasKlubDBContext
 
-Update-Database -ProjectName DBMigrator -StartUpProjectName DBMigrator -verbose
+Update-Database -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -verbose
 </pre>
  
 This will update the database to the newest state. 
@@ -52,11 +52,11 @@ It's best to wrap the SQL in a snippet like this:
 <pre>
     Sql(@"
     
-          EXEC sp_executesql N'
+        
             
             --THE_SQL_CODE
             
-          ';
+        
 
     ");
 </pre>

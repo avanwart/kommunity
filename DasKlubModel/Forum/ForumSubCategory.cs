@@ -42,7 +42,6 @@ namespace DasKlub.Models.Forum
         [Required]
         public string Title { get; set; }
 
-        [StringLength(420)]
         [Required]
         public string Description { get; set; }
 

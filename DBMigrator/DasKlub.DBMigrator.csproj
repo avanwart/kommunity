@@ -105,6 +105,10 @@
     <Compile Include="Migrations\201304230240066_ForumPostNotification.Designer.cs">
       <DependentUpon>201304230240066_ForumPostNotification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201308081953352_LengthenSubForumPost.cs" />
+    <Compile Include="Migrations\201308081953352_LengthenSubForumPost.Designer.cs">
+      <DependentUpon>201308081953352_LengthenSubForumPost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304230240066_ForumPostNotification.resx">
       <DependentUpon>201304230240066_ForumPostNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308081953352_LengthenSubForumPost.resx">
+      <DependentUpon>201308081953352_LengthenSubForumPost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
