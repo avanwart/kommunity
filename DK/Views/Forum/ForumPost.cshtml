@@ -20,22 +20,33 @@
                             <a href="@ViewBag.Forum.ForumURL"  itemprop="url"><span itemprop="title">@ViewBag.Forum.Title</span></a>
                         </span> &gt; @ViewBag.PageTitle
 
-              <hr />
-                <h3>@ViewBag.PageTitle</h3>
-                <p>
-                    @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(ViewBag.SubForum.Description), 200, 300))
-                </p>
+                <hr />
                 
-                Posted By: <a href="@ViewBag.SubForum.UserAccount.UrlTo.ToString()">@ViewBag.SubForum.UserAccount.UserName</a>
-                <i>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</i>
-                
-                
-                @if (ViewBag.UserID == ViewBag.SubForum.UserAccount.UserAccountID)
-                {
-                    @Html.ActionLink(Messages.Delete, "DeleteSubForum", new {@forumSubCategoryID = ViewBag.SubForum.ForumSubCategoryID},
-                                     new {onclick = "return confirm('" + Messages.Delete + "');"})
-                    ;
-                }
+                          @{
+                              int pageSize = Convert.ToInt32(ViewBag.PageCount);
+
+                              if (ViewBag.PageNumber == 1)
+                              {
+
+                                  <h3>@ViewBag.PageTitle</h3>
+                                  <p>
+                                      @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(ViewBag.SubForum.Description), 200, 300))
+                                  </p>
+                              <span>Posted By: </span> <a href = "@ViewBag.SubForum.UserAccount.UrlTo.ToString()" > @ViewBag.SubForum.UserAccount.UserName </a>
+                                  <i>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</i>
+
+
+                                  if (ViewBag.UserID == ViewBag.SubForum.UserAccount.UserAccountID)
+                                   {
+                                       @Html.ActionLink(Messages.Delete, "DeleteSubForum", new {@forumSubCategoryID = ViewBag.SubForum.ForumSubCategoryID},
+                                                        new {onclick = "return confirm('" + Messages.Delete + "');"})
+                                       ;
+                                   }
+                                   
+                                   <hr />
+                              }
+                                  
+                          }
             </div>
             
         </div>
@@ -43,7 +54,7 @@
       
         @if (Model != null && Model.Count > 0)
         {
-            <hr />
+        
             <br />
             foreach (var forumCat in Model)
             {
@@ -80,8 +91,7 @@
            <hr />
             
           @{
-            int pageSize = Convert.ToInt32(ViewBag.PageCount);
-
+        
             if (pageSize > 1)
             {
              
