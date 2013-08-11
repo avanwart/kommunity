@@ -132,6 +132,13 @@
                                  <a href="#" style="color: #000; background-color: #696969">@pageNumber</a>
                              </li>
                          }
+                         else if (pageNumber == 1)
+                         {
+                             <li> 
+
+                                 <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key)">@pageNumber.ToString(CultureInfo.InvariantCulture)</a>
+                             </li>
+                         }
                          else
                          {
                              <li> 

@@ -110,7 +110,7 @@ namespace DasKlub.Web
             {
                 writer.WriteStartElement("url");
                 writer.WriteElementString("loc", "http://dasklub.com/" + app.URLOfArtist);
-                writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", app.UpdateDate));
+                writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", app.CreateDate));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.8");
                 writer.WriteEndElement();
