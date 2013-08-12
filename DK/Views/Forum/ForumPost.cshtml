@@ -6,7 +6,9 @@
 
 @model ICollection<ForumPost>
  
- 
+          @{
+              int pageSize = Convert.ToInt32(ViewBag.PageCount);
+          }
 <div class="row">
     <div class="span9" >
       
@@ -18,13 +20,23 @@
                         <a href="~/forum" itemprop="url"><span itemprop="title">Forum</span></a></span> &gt; 
                         <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                             <a href="@ViewBag.Forum.ForumURL"  itemprop="url"><span itemprop="title">@ViewBag.Forum.Title</span></a>
-                        </span> &gt; @ViewBag.PageTitle
+                        </span> &gt;      @{
+                                              if (ViewBag.PageNumber == 1)
+                                              {
+                                                  <span>
+                                                  @ViewBag.PageTitle
+                                                  </span>
+                                              }
+                                              else
+                                              {
+                                                  <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key)">@ViewBag.PageTitle</a>
+                                              }
 
-                <hr />
+                                          }
+                                              <hr />
                 
-                          @{
-                              int pageSize = Convert.ToInt32(ViewBag.PageCount);
-
+                 
+                  @{
                               if (ViewBag.PageNumber == 1)
                               {
 
@@ -132,7 +144,19 @@
         @{ Html.RenderPartial("_AdBanner"); }
         <hr />
         
-        <a href="~/forum">Forum</a> &gt; <a href="@ViewBag.Forum.ForumURL">@ViewBag.Forum.Title</a> &gt; @ViewBag.PageTitle
+        <a href="~/forum">Forum</a> &gt; <a href="@ViewBag.Forum.ForumURL">@ViewBag.Forum.Title</a> &gt;   @{
+                                              if (ViewBag.PageNumber == 1)
+                                              {
+                                                  <span>
+                                                  @ViewBag.PageTitle
+                                                  </span>
+                                              }
+                                              else
+                                              {
+                                                  <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key)">@ViewBag.PageTitle</a>
+                                              }
+
+                                          }
     </div>
 
     <div class="span3"  >
