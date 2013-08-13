@@ -268,6 +268,15 @@ namespace DasKlub.Web.Controllers
 
         public ActionResult Index()
         {
+
+            var newestVideos = new Videos();
+            newestVideos.GetMostRecentVideos();
+
+            if (newestVideos.Count > 0)
+            {
+                ViewBag.NewestVideo = newestVideos[0].ProviderKey;
+            }
+
             UserAccount ua = null;
 
             if (_mu != null)

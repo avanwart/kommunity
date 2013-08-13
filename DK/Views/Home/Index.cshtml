@@ -13,11 +13,29 @@
 }
 <div class="row">
     <div class="span4">
+        
+        @if (ViewBag.NewestVideo != null)
+        {
+             <div style="text-align:center">
+ <b>@Messages.New</b>
+                 <br />
+                 
+<iframe width="100%" height="240" src="@Html.Raw("http://www.youtube.com/embed/"  + @ViewBag.NewestVideo )" frameborder="0" allowfullscreen></iframe>
 
-        @Html.Raw(SiteDomain.GetSiteDomainValue(
-                        SiteEnums.SiteBrandType.HOMEC,
-                        Utilities.GetCurrentLanguageCode()))
 
+<br />  
+
+<a class="btn btn-primary" href="/video">Submit Your Video</a>
+
+
+</div>
+        }
+        else
+        {
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.HOMEC,
+                Utilities.GetCurrentLanguageCode()))
+        }
 
         <div class="clear">
         </div>
