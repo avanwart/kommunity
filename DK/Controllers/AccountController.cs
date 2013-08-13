@@ -50,6 +50,7 @@ namespace DasKlub.Web.Controllers
         public AccountController()
         {
             _mu = Membership.GetUser();
+            CanBeStealth();
         }
 
         #region variables
@@ -2371,12 +2372,17 @@ namespace DasKlub.Web.Controllers
             ViewBag.UserAccountDetail = _uad;
             ViewBag.Membership = _mu;
 
-            ViewBag.CanBeStealth = (_mu != null &&
-                                     (Roles.IsUserInRole(_mu.UserName, SiteEnums.RoleTypes.supporter.ToString()) ||
-                                      Roles.IsUserInRole(_mu.UserName, SiteEnums.RoleTypes.admin.ToString())
-                                     ));
+   
 
             return View(_uad);
+        }
+
+        private void CanBeStealth()
+        {
+            ViewBag.CanBeStealth = (_mu != null &&
+                                    (Roles.IsUserInRole(_mu.UserName, SiteEnums.RoleTypes.supporter.ToString()) ||
+                                     Roles.IsUserInRole(_mu.UserName, SiteEnums.RoleTypes.admin.ToString())
+                                    ));
         }
 
         [HttpPost]
