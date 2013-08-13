@@ -269,12 +269,12 @@ namespace DasKlub.Web.Controllers
         public ActionResult Index()
         {
 
-            var newestVideos = new Videos();
-            newestVideos.GetMostRecentVideos();
+            var randomVideo = Video.RandomVideoIDVideo();
 
-            if (newestVideos.Count > 0)
+            if (randomVideo > 0)
             {
-                ViewBag.NewestVideo = newestVideos[0].ProviderKey;
+                var randomVid = new Video(randomVideo);
+                ViewBag.NewestVideo = randomVid.ProviderKey;
             }
 
             UserAccount ua = null;
