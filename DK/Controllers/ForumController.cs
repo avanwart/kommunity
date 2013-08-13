@@ -254,7 +254,7 @@ namespace DasKlub.Web.Controllers
 
                     context.SaveChanges();
 
-                    return RedirectToAction("SubCategory", "Forum", model.Key);
+                    return RedirectToAction("ForumPost", "Forum", new { subkey = model.Key,  key = forum.Key });
                 }
             }
 
@@ -446,6 +446,12 @@ namespace DasKlub.Web.Controllers
               
                 subForum.ForumCategory = context.ForumCategory.First(x => x.ForumCategoryID == subForum.ForumCategoryID);
 
+                if (context.ForumPost.FirstOrDefault(
+                    x => x.ForumSubCategoryID == forumSubCategoryID && x.Detail == model.Detail && x.CreatedByUserID == ua.UserAccountID) == null)
+                {
+                    context.SaveChanges();
+                }
+
                 Thread.CurrentThread.CurrentUICulture =
                    CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
                 Thread.CurrentThread.CurrentCulture =
@@ -479,8 +485,6 @@ namespace DasKlub.Web.Controllers
 
                     Utilities.SendMail(notifiedUser.EMail, title, body.ToString());
                 }
-
-                context.SaveChanges();
 
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(currentLang);
