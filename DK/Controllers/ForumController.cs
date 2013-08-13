@@ -447,49 +447,54 @@ namespace DasKlub.Web.Controllers
                 subForum.ForumCategory = context.ForumCategory.First(x => x.ForumCategoryID == subForum.ForumCategoryID);
 
                 if (context.ForumPost.FirstOrDefault(
-                    x => x.ForumSubCategoryID == forumSubCategoryID && x.Detail == model.Detail && x.CreatedByUserID == ua.UserAccountID) == null)
+                    x =>
+                    x.ForumSubCategoryID == forumSubCategoryID && x.Detail == model.Detail &&
+                    x.CreatedByUserID == ua.UserAccountID) == null)
                 {
                     context.SaveChanges();
+
+                    Thread.CurrentThread.CurrentUICulture =
+                        CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+                    Thread.CurrentThread.CurrentCulture =
+                        CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+
+                    foreach (
+                        var forumPostNotification in
+                            allUserNotifications.Where(
+                                forumPostNotification => forumPostNotification.UserAccountID != ua.UserAccountID))
+                    {
+                        forumPostNotification.IsRead = false;
+                        forumPostNotification.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
+                        context.Entry(forumPostNotification).State = EntityState.Modified;
+
+                        var notifiedUser = new UserAccount(forumPostNotification.UserAccountID);
+                        var notifiedUserDetails = new UserAccountDetail();
+                        notifiedUserDetails.GetUserAccountDeailForUser(forumPostNotification.UserAccountID);
+
+                        if (!notifiedUserDetails.EmailMessages) continue;
+
+                        var title = ua.UserName + " => " + subForum.Title;
+                        var body = new StringBuilder(100);
+                        body.Append(Messages.New);
+                        body.Append(": ");
+                        body.Append(subForum.SubForumURL);
+                        body.AppendLine();
+                        body.AppendLine();
+                        body.Append(model.Detail);
+                        body.AppendLine();
+                        body.AppendLine();
+                        body.Append(Messages.Reply);
+                        body.Append(": ");
+                        body.AppendFormat("{0}/create", subForum.SubForumURL);
+
+                        Utilities.SendMail(notifiedUser.EMail, title, body.ToString());
+                    }
+
+                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
+                    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(currentLang);
+
+                    Response.Redirect(subForum.SubForumURL.ToString());
                 }
-
-                Thread.CurrentThread.CurrentUICulture =
-                   CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
-                Thread.CurrentThread.CurrentCulture =
-                    CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
-
-                foreach (var forumPostNotification in allUserNotifications.Where(forumPostNotification => forumPostNotification.UserAccountID != ua.UserAccountID))
-                {
-                    forumPostNotification.IsRead = false;
-                    forumPostNotification.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
-                    context.Entry(forumPostNotification).State = EntityState.Modified;
-
-                    var notifiedUser = new UserAccount(forumPostNotification.UserAccountID);
-                    var notifiedUserDetails = new UserAccountDetail();
-                    notifiedUserDetails.GetUserAccountDeailForUser(forumPostNotification.UserAccountID);
-
-                    if (!notifiedUserDetails.EmailMessages) continue;
-
-                    var title = ua.UserName + " => " + subForum.Title;
-                    var body = new StringBuilder(100);
-                    body.Append(Messages.New);
-                    body.Append(": ");
-                    body.Append(subForum.SubForumURL);
-                    body.AppendLine();
-                    body.AppendLine();
-                    body.Append(model.Detail);
-                    body.AppendLine();
-                    body.AppendLine();
-                    body.Append(Messages.Reply);
-                    body.Append(": ");
-                    body.AppendFormat("{0}/create", subForum.SubForumURL);
-
-                    Utilities.SendMail(notifiedUser.EMail, title, body.ToString());
-                }
-
-                Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(currentLang);
-
-                Response.Redirect(subForum.SubForumURL.ToString());
 
                 return new EmptyResult();
             }
