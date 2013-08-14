@@ -1298,32 +1298,31 @@ DROP TABLE #Results
         /// <summary>
         /// Get the top people from acknowledgements on statuses and comments
         /// </summary>
-        public void GetMostApplaudedLast30Days()
+        public void GetMostApplaudedLastDays(int daysBack = 7)
         {
 
             var comm = DbAct.CreateCommand(true);
 
-            comm.CommandText = @"   
+            comm.CommandText = string.Format( @"   
    select top 7  createdbyuserid, sum(total) total from (
 SELECT  sc.createdbyuserid
      ,count(*) total
   FROM  [StatusCommentAcknowledgement] sca inner join StatusComment sc on sca.statuscommentid = sc.statuscommentid
   where acknowledgementtype = 'A'
-  and sc.createdate between dateadd(day,  -30, GETUTCDATE()) and getutcdate()
+  and sc.createdate between dateadd(day,  -{0}, GETUTCDATE()) and getutcdate()
     group by sc.createdbyuserid union all
     SELECT  su.createdbyuserID
      ,count(*) total
   FROM  Acknowledgement ack INNER join statusupdate su on ack.statusupdateid = su.statusupdateid
     where acknowledgementtype = 'A'
-  and ack.createdate between dateadd(day,  -30, GETUTCDATE()) and getutcdate()
+  and ack.createdate between dateadd(day,  -{0}, GETUTCDATE()) and getutcdate()
 
     group by su.createdbyuserid
 
 )  x group by  createdbyuserid
 order by total desc
+", daysBack);
 
-
-";
             var dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt == null || dt.Rows.Count <= 0) return;

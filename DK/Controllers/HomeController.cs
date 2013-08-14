@@ -268,9 +268,10 @@ namespace DasKlub.Web.Controllers
 
         public ActionResult Index()
         {
+            var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
 
             var randomVideo = Video.RandomVideoIDVideo();
-
+            
             if (randomVideo > 0)
             {
                 var randomVid = new Video(randomVideo);
@@ -286,7 +287,7 @@ namespace DasKlub.Web.Controllers
 
             using (var context = new DasKlubDBContext())
             {
-                var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
+                
                 var mostPopularThisWeek =
                     context.ForumPost
                            .Where(x => x.CreateDate > oneWeekAgo)
@@ -425,11 +426,10 @@ namespace DasKlub.Web.Controllers
                 forumFeed = forumFeed.OrderByDescending(x => x.LastPosted).Take(9).ToList();
                 ViewBag.ForumFeed = forumFeed;
                 ViewBag.MostRecentThreads = newestThreads;
-
-                var last30Days = DateTime.UtcNow.AddDays(-30);
+                
                 var mostPostsInForum =
                     (from b in context.ForumPost
-                    where b.CreateDate < DateTime.UtcNow && b.CreateDate > last30Days
+                     where b.CreateDate < DateTime.UtcNow && b.CreateDate > oneWeekAgo
                     group b by b.CreatedByUserID
                     into grp
                     orderby grp.Count() descending 
@@ -448,7 +448,7 @@ namespace DasKlub.Web.Controllers
             ViewBag.RecentArticles = cnts;
 
             var topUsers = new UserAccounts();
-            topUsers.GetMostApplaudedLast30Days();
+            topUsers.GetMostApplaudedLastDays();
 
             ViewBag.TopUsersOfTheMonth = topUsers;
 
