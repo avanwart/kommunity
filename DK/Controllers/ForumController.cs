@@ -451,8 +451,6 @@ namespace DasKlub.Web.Controllers
                     x.ForumSubCategoryID == forumSubCategoryID && x.Detail == model.Detail &&
                     x.CreatedByUserID == ua.UserAccountID) == null)
                 {
-                    context.SaveChanges();
-
                     Thread.CurrentThread.CurrentUICulture =
                         CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
                     Thread.CurrentThread.CurrentCulture =
@@ -489,6 +487,8 @@ namespace DasKlub.Web.Controllers
 
                         Utilities.SendMail(notifiedUser.EMail, title, body.ToString());
                     }
+
+                    context.SaveChanges();
 
                     Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
                     Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(currentLang);

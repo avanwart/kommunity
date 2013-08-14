@@ -1262,35 +1262,23 @@ DROP TABLE #Results
  ", pageNumber, resultSize, whereCondition);
             }
 
-
-            int totalResults = 0;
-
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand(true);
-
-            // set the stored procedure name
+            var totalResults = 0;
+            var comm = DbAct.CreateCommand(true);
             comm.CommandText = sb.ToString();
-            //comm.CommandType = CommandType.Text;
-
-            // execute the stored procedure
-            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
             {
                 totalResults = FromObj.IntFromObj(ds.Tables[0].Rows[0]["totalResults"]);
 
-                UserAccount ua = null;
-
-                foreach (DataRow dr in ds.Tables[1].Rows)
+                foreach (var ua in from DataRow dr in ds.Tables[1].Rows select new UserAccount(FromObj.IntFromObj(dr["userAccountID"])))
                 {
-                    ua = new UserAccount(FromObj.IntFromObj(dr["userAccountID"]));
                     Add(ua);
                 }
             }
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(currentLang);
-
 
             return totalResults;
         }
@@ -1588,16 +1576,7 @@ order by total desc
                     art = new UserAccount(dr);
                     Add(art);
                 }
-
-                // HttpRuntime.Cache.AddObjToCache(this, this.CacheName);
             }
-            //}
-            //else
-            //{
-            //    UserAccounts uads = (UserAccounts)HttpRuntime.Cache[this.CacheName];
-
-            //    foreach (UserAccount uad in uads) this.Add(uad);
-            //}
         }
 
         #endregion
