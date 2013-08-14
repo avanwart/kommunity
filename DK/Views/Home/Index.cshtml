@@ -151,12 +151,19 @@
                                 </tr>
                             }
                         </table>
-          
-          
-     <a class="btn btn-success" href="~/forum">Create Thread</a> 
-                        <br /> <br />
-                    }
-                </div>
+                        <div class="span8">
+                            
+                            <div class="span3">
+                                <a class="btn btn-success" href="~/forum">Create Thread</a>   
+                            </div>
+                            <div class="span4">
+                                @{ Html.RenderPartial("_AdBanner"); }
+      
+                            </div>
+                            </div>
+                            <br /> <br />
+                            }
+                        </div>
 
             </div>
             <div class="clear">
