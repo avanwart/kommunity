@@ -109,6 +109,10 @@
     <Compile Include="Migrations\201308081953352_LengthenSubForumPost.Designer.cs">
       <DependentUpon>201308081953352_LengthenSubForumPost.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201308150544516_WallMessageMessageColumnType.cs" />
+    <Compile Include="Migrations\201308150544516_WallMessageMessageColumnType.Designer.cs">
+      <DependentUpon>201308150544516_WallMessageMessageColumnType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -164,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201308081953352_LengthenSubForumPost.resx">
       <DependentUpon>201308081953352_LengthenSubForumPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308150544516_WallMessageMessageColumnType.resx">
+      <DependentUpon>201308150544516_WallMessageMessageColumnType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
