@@ -528,6 +528,8 @@ namespace BootBaronLib.AppSpec.DasKlub.BOL
         /// <returns></returns>
         public static string IFrameVideo(string txt, int height, int width)
         {
+            txt = txt.Replace("https://", "http://");
+
             var regx = new Regex(
                 "(http|https)://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?",
                 RegexOptions.IgnoreCase);
