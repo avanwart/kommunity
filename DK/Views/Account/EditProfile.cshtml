@@ -1,4 +1,5 @@
-﻿@using BootBaronLib.AppSpec.DasKlub.BOL
+﻿@using System.Globalization
+@using BootBaronLib.AppSpec.DasKlub.BOL
 @using BootBaronLib.Configs
 @using BootBaronLib.Operational
 @using BootBaronLib.Resources
@@ -75,13 +76,18 @@
                         }
                         @for (int i = 1; i <= 12; i++)
                         {
+                               var culture = CultureInfo.GetCultureInfo(Utilities.GetCurrentLanguageCode());
+                                var dateTimeInfo = DateTimeFormatInfo.GetInstance(culture);
+                                int monthNumber = i;
+                                string monthName = dateTimeInfo.GetMonthName(monthNumber);
+                          
                             if (Model.BirthDate.Month == i && Model.BirthDate != DateTime.MinValue)
                             {
-                                <option selected="selected" value="@i">@i.ToString("00")</option>
+                                <option selected="selected" value="@i">@monthName</option>
                             }
                             else
                             {
-                                <option value="@i">@i.ToString("00")</option>
+                                <option value="@i">@monthName</option>
                             }
                         }
                     </select>

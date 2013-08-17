@@ -1,6 +1,8 @@
 ﻿
+@using System.Globalization
 @using BootBaronLib.AppSpec.DasKlub.BOL
 @using BootBaronLib.Configs
+@using BootBaronLib.Operational
 @using BootBaronLib.Resources
 @using BootBaronLib.Values
 @model DasKlub.Web.Models.RegisterModel
@@ -59,7 +61,11 @@
                             <option selected="selected" value="">@Messages.Month</option>
                             @for (int i = 1; i <= 12; i++)
                             {
-                                <option value="@i">@i.ToString("00")</option>
+                                var culture = CultureInfo.GetCultureInfo(Utilities.GetCurrentLanguageCode());
+                                var dateTimeInfo = DateTimeFormatInfo.GetInstance(culture);
+                                int monthNumber = i;
+                                string monthName = dateTimeInfo.GetMonthName(monthNumber);
+                                <option value="@i">@monthName</option>
                             }
                         </select>
                         -
