@@ -16,7 +16,7 @@
 
 using System.ComponentModel;
 
-namespace BootBaronLib.Values
+namespace DasKlub.Lib.Values
 {
     /// <summary>
     ///     Enumerations created for use in the site

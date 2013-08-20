@@ -18,12 +18,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
-using BootBaronLib.BaseTypes;
-using BootBaronLib.DAL;
-using BootBaronLib.Operational;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
+using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Operational;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL
 {
     public class PlaylistVideo : BaseIUserLogCRUD
     {

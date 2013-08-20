@@ -22,10 +22,10 @@ using System.IO;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using BootBaronLib.AppSpec.DasKlub.BLL;
-using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
-using BootBaronLib.Operational;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BLL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Values;
 using Image = System.Drawing.Image;
 
 namespace DasKlub.Web.m.auth

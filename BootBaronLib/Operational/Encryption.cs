@@ -19,7 +19,7 @@ using System.Security.Cryptography;
 
 ///<see>http://69.10.233.10/KB/recipes/Encrypt_an_string.aspx</see>
 
-namespace BootBaronLib.Operational
+namespace DasKlub.Lib.Operational
 {
     /// <summary>
     ///     This class can generate random passwords, which do not include ambiguous

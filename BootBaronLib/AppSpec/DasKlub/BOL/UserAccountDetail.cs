@@ -22,15 +22,15 @@ using System.Data.Common;
 using System.Text;
 using System.Web;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BLL;
-using BootBaronLib.BaseTypes;
-using BootBaronLib.DAL;
-using BootBaronLib.Interfaces;
-using BootBaronLib.Operational;
-using BootBaronLib.Resources;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BLL;
+using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Interfaces;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Resources;
+using DasKlub.Lib.Values;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL
 {
     public class UserAccountDetail : BaseIUserLogCRUD, ICacheName
     {

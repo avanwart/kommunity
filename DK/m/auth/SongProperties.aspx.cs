@@ -19,8 +19,8 @@ using System.Collections;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
-using BootBaronLib.Operational;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
+using DasKlub.Lib.Operational;
 
 namespace DasKlub.Web.m.auth
 {

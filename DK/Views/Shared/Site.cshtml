@@ -1,9 +1,9 @@
 ﻿@using System.Web.Optimization
-@using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
-@using BootBaronLib.Configs
-@using BootBaronLib.Operational
-@using BootBaronLib.Resources
-@using BootBaronLib.Values
+@using DasKlub.Lib.AppSpec.DasKlub.BOL.DomainConnection
+@using DasKlub.Lib.Configs
+@using DasKlub.Lib.Operational
+@using DasKlub.Lib.Resources
+@using DasKlub.Lib.Values
 <!DOCTYPE html>
 
 @{
@@ -242,24 +242,24 @@
                             <li><a href="@Url.Content("~/map")">
                             <i class="icon-map-marker"></i>    @Messages.Map</a> </li>
                         }*@
-                            @*                        @if (!string.IsNullOrEmpty(BootBaronLib.Configs.GeneralConfigs.YoutubeLink))
+                            @*                        @if (!string.IsNullOrEmpty(DasKlub.Lib.Configs.GeneralConfigs.YoutubeLink))
                         {
                             <li><a style="padding-bottom: 0; margin-bottom: 0; padding-left: 0; padding-right: 0"
-                            target="_blank" href="@BootBaronLib.Configs.GeneralConfigs.YoutubeLink">
+                            target="_blank" href="@DasKlub.Lib.Configs.GeneralConfigs.YoutubeLink">
                                 <img   alt="You Tube" 
                         src="@Url.Content("~/content/images/social/yt_logo.png")" /></a> </li>
                         }
-                        @if (!string.IsNullOrEmpty(BootBaronLib.Configs.GeneralConfigs.FacebookLink))
+                        @if (!string.IsNullOrEmpty(DasKlub.Lib.Configs.GeneralConfigs.FacebookLink))
                         {
                             <li><a style="padding-bottom: 0; margin-bottom: 0; padding-left: 0; padding-right: 0"
-                            target="_blank" href="@BootBaronLib.Configs.GeneralConfigs.FacebookLink">
+                            target="_blank" href="@DasKlub.Lib.Configs.GeneralConfigs.FacebookLink">
                                 <img   alt="Facebook" 
                         src="@Url.Content("~/content/images/social/fb_logo.png")" /></a> </li>
                         }
-                        @if (!string.IsNullOrEmpty(BootBaronLib.Configs.GeneralConfigs.TwitterLink))
+                        @if (!string.IsNullOrEmpty(DasKlub.Lib.Configs.GeneralConfigs.TwitterLink))
                         {
                             <li><a style="padding-bottom: 0; margin-bottom: 0; padding-left: 0; padding-right: 0"
-                            target="_blank" href="@BootBaronLib.Configs.GeneralConfigs.TwitterLink">
+                            target="_blank" href="@DasKlub.Lib.Configs.GeneralConfigs.TwitterLink">
                                 <img   alt="Twitter" 
                         src="@Url.Content("~/content/images/social/tw_logo.png")" /></a> </li>
                         }*@
@@ -345,7 +345,7 @@
                                                 <text>selected="selected"</text>
                                             } value="@SiteEnums.SiteLanguages.SV.ToString()">@SiteEnums.SiteLanguages.SV.ToString()</option>
 
-                                    @*        <option @if (BootBaronLib.Operational.Utilities.GetCurrentLanguageCode() == "TR")
+                                    @*        <option @if (DasKlub.Lib.Operational.Utilities.GetCurrentLanguageCode() == "TR")
         { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.TR.ToString()">@SiteEnums.SiteLanguages.TR.ToString()</option>
 *@
                                     <option @if (Utilities.GetCurrentLanguageCode() == "ZH")

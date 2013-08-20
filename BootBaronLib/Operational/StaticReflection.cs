@@ -17,7 +17,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace BootBaronLib.Operational
+namespace DasKlub.Lib.Operational
 {
     public static class StaticReflection
     {

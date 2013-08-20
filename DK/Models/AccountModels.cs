@@ -20,7 +20,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
-using BootBaronLib.Resources;
+using DasKlub.Lib.Resources;
 
 namespace DasKlub.Web.Models
 {

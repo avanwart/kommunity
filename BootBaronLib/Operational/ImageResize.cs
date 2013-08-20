@@ -18,7 +18,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
-namespace BootBaronLib.Operational
+namespace DasKlub.Lib.Operational
 {
     /// <summary>
     ///     http://www.codeproject.com/news/191424/Resizing-an-Image-On-The-Fly-using-NET

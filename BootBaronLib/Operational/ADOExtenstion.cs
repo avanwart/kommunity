@@ -17,9 +17,9 @@
 using System;
 using System.Data;
 using System.Data.Common;
-using BootBaronLib.Configs;
+using DasKlub.Lib.Configs;
 
-namespace BootBaronLib.Operational
+namespace DasKlub.Lib.Operational
 {
     public static class ADOExtenstion
     {

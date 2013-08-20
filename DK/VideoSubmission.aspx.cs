@@ -16,7 +16,7 @@
 
 using System;
 using System.Web.UI;
-using BootBaronLib.Resources;
+using DasKlub.Lib.Resources;
 
 namespace DasKlub.Web
 {

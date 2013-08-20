@@ -17,10 +17,10 @@
 using System;
 using System.Data;
 using System.Data.Common;
-using BootBaronLib.Configs;
-using BootBaronLib.Operational;
+using DasKlub.Lib.Configs;
+using DasKlub.Lib.Operational;
 
-namespace BootBaronLib.DAL
+namespace DasKlub.Lib.DAL
 {
     public static class DbAct
     {

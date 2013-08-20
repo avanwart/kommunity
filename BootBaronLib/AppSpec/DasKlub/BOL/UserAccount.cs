@@ -26,18 +26,18 @@ using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BLL;
-using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
-using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
-using BootBaronLib.BaseTypes;
-using BootBaronLib.Configs;
-using BootBaronLib.DAL;
-using BootBaronLib.Interfaces;
-using BootBaronLib.Operational;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BLL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
+using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.Configs;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Interfaces;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Values;
 using LitS3;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL
 {
     public class UserAccount : BaseIUserLogCRUD, ICacheName, IUnorderdListItem, IURLTo
     {

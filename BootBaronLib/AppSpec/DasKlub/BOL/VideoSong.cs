@@ -15,10 +15,10 @@
 //   limitations under the License.
 
 using System.Data.Common;
-using BootBaronLib.DAL;
-using BootBaronLib.Operational;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Operational;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL
 {
     public class VideoSong
     {

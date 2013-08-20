@@ -23,12 +23,12 @@ using System.Text;
 using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Operational;
-using BootBaronLib.Resources;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Resources;
+using DasKlub.Lib.Values;
 
-namespace BootBaronLib.Providers
+namespace DasKlub.Lib.Providers
 {
     /// <summary>
     ///     The membership provider for the site

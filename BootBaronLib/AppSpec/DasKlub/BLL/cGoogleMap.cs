@@ -24,7 +24,7 @@ using System.Collections;
 using System.Drawing;
 using System.Web;
 
-namespace BootBaronLib.AppSpec.DasKlub.BLL
+namespace DasKlub.Lib.AppSpec.DasKlub.BLL
 {
     /// <summary>
     ///     Summary description for cGoogleMap

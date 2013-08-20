@@ -20,21 +20,21 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
-using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection;
-using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
-using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
-using BootBaronLib.Configs;
-using BootBaronLib.Operational;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.DomainConnection;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
+using DasKlub.Lib.Configs;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Values;
 using DasKlub.Web.Models;
 using DasKlub.Web.Models.Models;
 using Google.GData.Client;
 using Google.YouTube;
 using HttpUtility = System.Web.HttpUtility;
-using Utilities = BootBaronLib.Operational.Utilities;
-using Video = BootBaronLib.AppSpec.DasKlub.BOL.Video;
+using Utilities = DasKlub.Lib.Operational.Utilities;
+using Video = DasKlub.Lib.AppSpec.DasKlub.BOL.Video;
 
 namespace DasKlub.Web.Controllers
 {

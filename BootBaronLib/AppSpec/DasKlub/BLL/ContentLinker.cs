@@ -17,9 +17,9 @@
 using System;
 using System.Linq;
 using System.Text;
-using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
 
-namespace BootBaronLib.AppSpec.DasKlub.BLL
+namespace DasKlub.Lib.AppSpec.DasKlub.BLL
 {
     public class ContentLinker
     {

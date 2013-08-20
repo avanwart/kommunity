@@ -16,10 +16,10 @@
 
 using System;
 using System.Data;
-using BootBaronLib.Interfaces;
-using BootBaronLib.Operational;
+using DasKlub.Lib.Interfaces;
+using DasKlub.Lib.Operational;
 
-namespace BootBaronLib.BaseTypes
+namespace DasKlub.Lib.BaseTypes
 {
     /// <summary>
     ///     This is used so that all the CRUD and logging actions

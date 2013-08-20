@@ -17,11 +17,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using BootBaronLib.BaseTypes;
-using BootBaronLib.DAL;
-using BootBaronLib.Operational;
+using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Operational;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL.VideoContest
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest
 {
     public class ContestVideoVote : BaseIUserLogCRUD
     {

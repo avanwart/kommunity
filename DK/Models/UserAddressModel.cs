@@ -16,7 +16,7 @@
 //   limitations under the License.
 
 using System.ComponentModel.DataAnnotations;
-using BootBaronLib.Resources;
+using DasKlub.Lib.Resources;
 
 namespace DasKlub.Web.Models
 {

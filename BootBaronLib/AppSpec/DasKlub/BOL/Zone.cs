@@ -14,9 +14,9 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-using BootBaronLib.BaseTypes;
+using DasKlub.Lib.BaseTypes;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL
 {
     public class Zone : BaseIUserLogCRUD
     {

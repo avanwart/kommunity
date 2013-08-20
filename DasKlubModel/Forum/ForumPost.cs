@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using BootBaronLib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
 using DasKlub.Web.Models.Domain;
 
 namespace DasKlub.Models.Forum

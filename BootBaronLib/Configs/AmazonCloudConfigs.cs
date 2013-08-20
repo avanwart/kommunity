@@ -16,7 +16,7 @@
 
 using System.Configuration;
 
-namespace BootBaronLib.Configs
+namespace DasKlub.Lib.Configs
 {
     public class AmazonCloudConfigs
     {

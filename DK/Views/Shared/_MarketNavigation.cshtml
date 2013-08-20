@@ -10,10 +10,10 @@
 
             depts.GetAll();
 
-            var catg = new BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.ForumCategory();
+            var catg = new DasKlub.Lib.AppSpec.DasKlub.BOL.ProductItem.ForumCategory();
             Categories catgs = null;
 
-            foreach (BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Department d1 in depts)
+            foreach (DasKlub.Lib.AppSpec.DasKlub.BOL.ProductItem.Department d1 in depts)
             {
                 <li>@*<a href="#">@d1.Name</a>*@
 
@@ -26,11 +26,11 @@
                        }>
 
                         @{
-                            catgs = new BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.Categories();
+                            catgs = new DasKlub.Lib.AppSpec.DasKlub.BOL.ProductItem.Categories();
                             catgs.GetCategoriesForDepartment(d1.DepartmentID);
                         }
                         @{
-                            foreach (BootBaronLib.AppSpec.DasKlub.BOL.ProductItem.ForumCategory c1 in catgs)
+                            foreach (DasKlub.Lib.AppSpec.DasKlub.BOL.ProductItem.ForumCategory c1 in catgs)
                             {
                                 <li@if (ViewBag.CurrentCat == c1.ForumCategoryKey)
                                    {
@@ -61,10 +61,10 @@
           int catID = 0;
 
           if (!string.IsNullOrEmpty(
-              Request.QueryString[BootBaronLib.Enums.SiteEnums.QueryStringNames.cat.ToString()]))
+              Request.QueryString[DasKlub.Lib.Enums.SiteEnums.QueryStringNames.cat.ToString()]))
           {
               catID = Convert.ToInt32(
-                  Request.QueryString[BootBaronLib.Enums.SiteEnums.QueryStringNames.cat.ToString()]);
+                  Request.QueryString[DasKlub.Lib.Enums.SiteEnums.QueryStringNames.cat.ToString()]);
           }
                     
                     

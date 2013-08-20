@@ -18,7 +18,7 @@ using System;
 using System.Data;
 using System.Text.RegularExpressions;
 
-namespace BootBaronLib.Operational
+namespace DasKlub.Lib.Operational
 {
     /// <summary>
     ///     Converts objects to various types

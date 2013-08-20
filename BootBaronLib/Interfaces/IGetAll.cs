@@ -14,7 +14,7 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-namespace BootBaronLib.Interfaces
+namespace DasKlub.Lib.Interfaces
 {
     /// <summary>
     ///     Reflects that this object can get every row in the table without

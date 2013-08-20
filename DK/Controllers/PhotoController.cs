@@ -17,8 +17,8 @@
 using System;
 using System.Web.Mvc;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Configs;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.Configs;
 using LitS3;
 
 namespace DasKlub.Web.Controllers

@@ -14,7 +14,7 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-namespace BootBaronLib.Interfaces
+namespace DasKlub.Lib.Interfaces
 {
     /// <summary>
     ///     Sets relevants controls for reporting

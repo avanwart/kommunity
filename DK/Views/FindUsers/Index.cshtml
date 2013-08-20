@@ -1,7 +1,7 @@
-﻿@using BootBaronLib.Configs
-@using BootBaronLib.Operational
-@using BootBaronLib.Resources
-@using BootBaronLib.Values
+﻿@using DasKlub.Lib.Configs
+@using DasKlub.Lib.Operational
+@using DasKlub.Lib.Resources
+@using DasKlub.Lib.Values
 @model DasKlub.Web.Models.FindUsersModel
 @{
     ViewBag.Title = Messages.FindUsers;
@@ -14,7 +14,7 @@
         
         @*
            <div id="cse-search-form" style="float: right; width: 370px; margin-left: 3px;">
-                                @BootBaronLib.Resources.Messages.LoadingDotDotDot
+                                @DasKlub.Lib.Resources.Messages.LoadingDotDotDot
                             </div>
 
 
@@ -26,12 +26,12 @@
                                 ////////////////////////////////////////////// google search
 
 
-                                google.load('search', '1', { language: '@BootBaronLib.Operational.Utilities.GetCurrentLanguageCode().ToLower()' });
+                                google.load('search', '1', { language: '@DasKlub.Lib.Operational.Utilities.GetCurrentLanguageCode().ToLower()' });
                                 google.setOnLoadCallback(function () {
                                     var customSearchControl =
-                                     new google.search.CustomSearchControl('@Html.Raw(BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-                   BootBaronLib.Enums.SiteEnums.SiteBrandType.GOOGS,
-                   BootBaronLib.Operational.Utilities.GetCurrentLanguageCode()))');
+                                     new google.search.CustomSearchControl('@Html.Raw(DasKlub.Lib.AppSpec.DasKlub.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+                   DasKlub.Lib.Enums.SiteEnums.SiteBrandType.GOOGS,
+                   DasKlub.Lib.Operational.Utilities.GetCurrentLanguageCode()))');
                                     customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
                                     var options = new google.search.DrawOptions();
                                     options.setAutoComplete(true);

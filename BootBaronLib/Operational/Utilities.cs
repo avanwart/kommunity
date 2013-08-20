@@ -34,17 +34,17 @@ using System.Web.Security;
 using System.Web.UI.WebControls;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
-using BootBaronLib.AppSpec.DasKlub.BLL;
-using BootBaronLib.AppSpec.DasKlub.BOL.Logging;
-using BootBaronLib.Configs;
-using BootBaronLib.DAL;
-using BootBaronLib.Resources;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BLL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.Logging;
+using DasKlub.Lib.Configs;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Resources;
+using DasKlub.Lib.Values;
 using HtmlAgilityPack;
 using log4net;
 using Content = Amazon.SimpleEmail.Model.Content;
 
-namespace BootBaronLib.Operational
+namespace DasKlub.Lib.Operational
 {
     /// <summary>
     ///     Performs operations
@@ -85,7 +85,7 @@ namespace BootBaronLib.Operational
 
         public static string UrlPathResolver(string filePath)
         {
-            //   return string.Format("http://s3.amazonaws.com/{0}/{1}", BootBaronLib.Configs.AmazonCloudConfigs.AmazonBucketName, filePath);
+            //   return string.Format("http://s3.amazonaws.com/{0}/{1}", DasKlub.Lib.Configs.AmazonCloudConfigs.AmazonBucketName, filePath);
 
             if (string.IsNullOrEmpty(filePath)) return string.Empty;
 
@@ -528,7 +528,7 @@ namespace BootBaronLib.Operational
         {
             try
             {
-                var rm = new ResourceManager("BootBaronLib.Resources.Messages", Assembly.GetExecutingAssembly());
+                var rm = new ResourceManager("DasKlub.Lib.Resources.Messages", Assembly.GetExecutingAssembly());
 
                 return rm.GetString(resourceKey);
             }

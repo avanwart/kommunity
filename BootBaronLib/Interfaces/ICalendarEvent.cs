@@ -16,7 +16,7 @@
 
 using System;
 
-namespace BootBaronLib.Interfaces
+namespace DasKlub.Lib.Interfaces
 {
     public interface ICalendarEvent
     {

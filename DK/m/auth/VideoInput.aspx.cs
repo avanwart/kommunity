@@ -18,17 +18,17 @@ using System;
 using System.Collections.Specialized;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
-using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
-using BootBaronLib.Configs;
-using BootBaronLib.Operational;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
+using DasKlub.Lib.Configs;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Values;
 using Google.GData.Client;
 using Google.YouTube;
 using HttpUtility = System.Web.HttpUtility;
-using Utilities = BootBaronLib.Operational.Utilities;
-using Video = BootBaronLib.AppSpec.DasKlub.BOL.Video;
+using Utilities = DasKlub.Lib.Operational.Utilities;
+using Video = DasKlub.Lib.AppSpec.DasKlub.BOL.Video;
 
 namespace DasKlub.Web.m.auth
 {

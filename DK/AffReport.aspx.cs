@@ -16,7 +16,7 @@
 
 using System;
 using System.Web.UI;
-using BootBaronLib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
 
 namespace DasKlub.Web
 {

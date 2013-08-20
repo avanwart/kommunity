@@ -30,15 +30,15 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BLL;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
-using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
-using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
-using BootBaronLib.Configs;
-using BootBaronLib.Operational;
-using BootBaronLib.Resources;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BLL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
+using DasKlub.Lib.Configs;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Resources;
+using DasKlub.Lib.Values;
 using DasKlub.Web.Models;
 using LitS3;
 
@@ -900,7 +900,7 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.BlockedUsers =
                 _mu != null &&
-                BootBaronLib.AppSpec.DasKlub.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(_mu.ProviderUserKey));
+                DasKlub.Lib.AppSpec.DasKlub.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(_mu.ProviderUserKey));
 
 
             return View();
@@ -996,7 +996,7 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.BlockedUsers =
                 _mu != null &&
-                BootBaronLib.AppSpec.DasKlub.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(_mu.ProviderUserKey));
+                DasKlub.Lib.AppSpec.DasKlub.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(_mu.ProviderUserKey));
 
             ViewBag.EnableProfileLogging = _uad.EnableProfileLogging;
 
@@ -1918,7 +1918,7 @@ namespace DasKlub.Web.Controllers
 
 
             if (_mu != null && (string.IsNullOrEmpty(msg) ||
-                                BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockedUser(_ua.UserAccountID,
+                                DasKlub.Lib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockedUser(_ua.UserAccountID,
                                                                                            Convert.ToInt32(
                                                                                                _mu.ProviderUserKey)))
                 )
@@ -3100,7 +3100,7 @@ namespace DasKlub.Web.Controllers
             sus.AddRange(
                 preFilter.Where(
                     su1 =>
-                    !BootBaronLib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockingUser(_ua.UserAccountID, su1.UserAccountID)));
+                    !DasKlub.Lib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockingUser(_ua.UserAccountID, su1.UserAccountID)));
 
             sus.IncludeStartAndEndTags = false;
             ViewBag.StatusUpdateList = string.Format(@"<ul id=""status_update_list_items"">{0}</ul>", sus.ToUnorderdList);

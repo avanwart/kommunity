@@ -4,9 +4,9 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Xml;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.AppSpec.DasKlub.BOL.VideoContest;
-using BootBaronLib.Operational;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
+using DasKlub.Lib.Operational;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

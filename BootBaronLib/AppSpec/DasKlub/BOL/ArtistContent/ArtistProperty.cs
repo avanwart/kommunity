@@ -17,12 +17,12 @@
 using System;
 using System.Data;
 using System.Data.Common;
-using BootBaronLib.BaseTypes;
-using BootBaronLib.DAL;
-using BootBaronLib.Interfaces;
-using BootBaronLib.Operational;
+using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Interfaces;
+using DasKlub.Lib.Operational;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent
 {
     public class ArtistProperty : BaseIUserLogCRUD, ICacheName
     {

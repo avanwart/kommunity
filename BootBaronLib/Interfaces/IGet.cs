@@ -16,7 +16,7 @@
 
 using System.Data;
 
-namespace BootBaronLib.Interfaces
+namespace DasKlub.Lib.Interfaces
 {
     /// <summary>
     ///     Implementing this interface means you can take a datarow and

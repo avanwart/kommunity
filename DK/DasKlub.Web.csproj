@@ -109,6 +109,30 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack">
+      <HintPath>..\packages\ServiceStack.3.9.58\lib\net35\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Common">
+      <HintPath>..\packages\ServiceStack.Common.3.9.58\lib\net35\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>..\packages\ServiceStack.Common.3.9.58\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite">
+      <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.9.58\lib\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.SqlServer">
+      <HintPath>..\packages\ServiceStack.OrmLite.SqlServer.3.9.58\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Redis">
+      <HintPath>..\packages\ServiceStack.Redis.3.9.58\lib\net35\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>..\packages\ServiceStack.3.9.58\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\packages\ServiceStack.Text.3.9.58\lib\net35\ServiceStack.Text.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -192,6 +216,7 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RadioController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\SiteAdminController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
@@ -1077,6 +1102,7 @@
     <Content Include="Views\Forum\CreateForumPost.cshtml" />
     <Content Include="Views\Forum\ForumPost.cshtml" />
     <Content Include="Views\Forum\CreateForum.cshtml" />
+    <Content Include="Views\Shop\Index.cshtml" />
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
@@ -1092,9 +1118,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BootBaronLib\BootBaronLib.csproj">
+    <ProjectReference Include="..\BootBaronLib\DasKlub.Lib.csproj">
       <Project>{4A6CF1CC-4F7A-43D2-A9CD-07DB4D8C45CD}</Project>
-      <Name>BootBaronLib</Name>
+      <Name>DasKlub.Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\DasKlubModel\DasKlub.Models.csproj">
       <Project>{AE85A1D5-2E20-4A18-AC1B-C49E6ABFEC51}</Project>

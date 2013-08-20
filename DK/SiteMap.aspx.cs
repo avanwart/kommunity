@@ -20,9 +20,9 @@ using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Xml;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
-using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent;
 using DasKlub.Web.Controllers;
 using DasKlub.Web.Models;
 

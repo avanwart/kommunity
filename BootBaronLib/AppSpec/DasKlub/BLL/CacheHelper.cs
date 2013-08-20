@@ -21,7 +21,7 @@ using System.IO;
 using System.Web;
 using System.Web.Caching;
 
-namespace BootBaronLib.AppSpec.DasKlub.BLL
+namespace DasKlub.Lib.AppSpec.DasKlub.BLL
 {
     public static class OtherExt
     {

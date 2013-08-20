@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web;
-using BootBaronLib.Operational;
+using DasKlub.Lib.Operational;
 using DasKlub.Web.Models.Domain;
 
 namespace DasKlub.Models.Forum

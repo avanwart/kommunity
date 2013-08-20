@@ -17,8 +17,8 @@
 using System;
 using System.Web.Security;
 using System.Web.UI;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Configs;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.Configs;
 
 namespace DasKlub.Web
 {

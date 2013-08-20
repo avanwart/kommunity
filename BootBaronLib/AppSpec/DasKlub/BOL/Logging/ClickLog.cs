@@ -16,11 +16,11 @@
 
 using System;
 using System.Data.Common;
-using BootBaronLib.BaseTypes;
-using BootBaronLib.DAL;
-using BootBaronLib.Operational;
+using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Operational;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL.Logging
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL.Logging
 {
     public class ClickLog : BaseExistance
     {

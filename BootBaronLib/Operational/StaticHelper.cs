@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BootBaronLib.Operational
+namespace DasKlub.Lib.Operational
 {
     public static class StaticHelper
     {

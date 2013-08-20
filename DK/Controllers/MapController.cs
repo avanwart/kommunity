@@ -22,9 +22,9 @@ using System.Text;
 using System.Threading;
 using System.Web.Mvc;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Operational;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Values;
 using DasKlub.Web.Models;
 
 namespace DasKlub.Web.Controllers

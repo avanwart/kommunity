@@ -206,9 +206,9 @@
     <None Include="Views\ForumCategories\_CreateOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BootBaronLib\BootBaronLib.csproj">
+    <ProjectReference Include="..\BootBaronLib\DasKlub.Lib.csproj">
       <Project>{4A6CF1CC-4F7A-43D2-A9CD-07DB4D8C45CD}</Project>
-      <Name>BootBaronLib</Name>
+      <Name>DasKlub.Lib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

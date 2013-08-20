@@ -21,11 +21,11 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BLL;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
-using BootBaronLib.Operational;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BLL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Values;
 using IntrepidStudios;
 
 namespace DasKlub.Web.Controllers

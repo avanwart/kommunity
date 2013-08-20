@@ -19,13 +19,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Web;
-using BootBaronLib.Operational;
-using BootBaronLib.Resources;
-using BootBaronLib.Values;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Resources;
+using DasKlub.Lib.Values;
 
 //http://code.google.com/web/ajaxcrawling/docs/getting-started.html
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent
 {
     public class SongRecord
     {

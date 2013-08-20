@@ -18,10 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
-using BootBaronLib.Interfaces;
-using BootBaronLib.Operational;
+using DasKlub.Lib.Interfaces;
+using DasKlub.Lib.Operational;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL
 {
     public class CalendarItem : ICalendarEvent, IUnorderdListItem
     {

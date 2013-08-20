@@ -23,13 +23,13 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BLL;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.AppSpec.DasKlub.BOL.ArtistContent;
-using BootBaronLib.AppSpec.DasKlub.BOL.UserContent;
-using BootBaronLib.Operational;
-using BootBaronLib.Resources;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BLL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
+using DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Resources;
+using DasKlub.Lib.Values;
 using DasKlub.Web.Models;
 
 namespace DasKlub.Web.Controllers

@@ -19,11 +19,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-using BootBaronLib.DAL;
-using BootBaronLib.Operational;
-using BootBaronLib.Values;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Values;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL
 {
     /// <summary>
     ///     Location based data useful for getting the lat/long of a postal code

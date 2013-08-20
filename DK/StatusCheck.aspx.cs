@@ -23,8 +23,8 @@ using System.Text;
 using System.Web;
 using System.Web.Caching;
 using System.Web.UI;
-using BootBaronLib.Configs;
-using BootBaronLib.Operational;
+using DasKlub.Lib.Configs;
+using DasKlub.Lib.Operational;
 
 namespace DasKlub.Web
 {

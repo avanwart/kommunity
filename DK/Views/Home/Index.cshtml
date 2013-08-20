@@ -1,7 +1,7 @@
-﻿@using BootBaronLib.AppSpec.DasKlub.BOL.DomainConnection
-@using BootBaronLib.Operational
-@using BootBaronLib.Resources
-@using BootBaronLib.Values
+﻿@using DasKlub.Lib.AppSpec.DasKlub.BOL.DomainConnection
+@using DasKlub.Lib.Operational
+@using DasKlub.Lib.Resources
+@using DasKlub.Lib.Values
 
 
 @{
@@ -9,7 +9,7 @@
         SiteEnums.SiteBrandType.TAGLN,
         Utilities.GetCurrentLanguageCode());
 
-    ViewBag.MetaDescription = "Das Klub is an international industrial dance community which connects artists, dancers and creative people.";
+    ViewBag.MetaDescription = "Empowering dark artists and dancers.";
 }
 <div class="row">
     <div class="span4">
@@ -46,7 +46,7 @@
         {
             <h5>@Messages.News</h5>
             <dl>
-                @foreach (BootBaronLib.AppSpec.DasKlub.BOL.UserContent.Content newsItem in ViewBag.RecentArticles)
+                @foreach (DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent.Content newsItem in ViewBag.RecentArticles)
                 {
                     <dt>
                         @newsItem.Reply

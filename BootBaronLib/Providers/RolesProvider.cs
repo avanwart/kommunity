@@ -18,9 +18,9 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
 
-namespace BootBaronLib.Providers
+namespace DasKlub.Lib.Providers
 {
     public class DKRoleProvider : RoleProvider
     {

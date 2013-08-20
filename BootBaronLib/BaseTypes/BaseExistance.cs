@@ -16,7 +16,7 @@
 
 using System;
 
-namespace BootBaronLib.BaseTypes
+namespace DasKlub.Lib.BaseTypes
 {
     public abstract class BaseExistance
     {

@@ -1,9 +1,9 @@
 ﻿
-@using BootBaronLib.Operational
-@using BootBaronLib.Resources
+@using DasKlub.Lib.Operational
+@using DasKlub.Lib.Resources
 
 @using DasKlub.Web.Helpers
-@model  BootBaronLib.AppSpec.DasKlub.BOL.PhotoItem
+@model  DasKlub.Lib.AppSpec.DasKlub.BOL.PhotoItem
 @{
     ViewBag.Title = Model.Title;
     ViewBag.ThumbIcon = FromString.GetFixedLengthString(Html.S3ContentPath(Model.FilePathThumb).ToString(), 50);

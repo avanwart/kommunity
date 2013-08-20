@@ -17,7 +17,7 @@
 using System;
 using System.Web;
 
-namespace BootBaronLib.HttpModules
+namespace DasKlub.Lib.HttpModules
 {
     /// <summary>
     ///     For this to work,

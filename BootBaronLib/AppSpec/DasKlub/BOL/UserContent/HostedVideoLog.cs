@@ -16,10 +16,10 @@
 
 using System;
 using System.Data.Common;
-using BootBaronLib.DAL;
-using BootBaronLib.Operational;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Operational;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL.UserContent
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent
 {
     public class HostedVideoLog
     {

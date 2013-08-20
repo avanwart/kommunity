@@ -16,7 +16,7 @@
 
 using System;
 
-namespace BootBaronLib.Interfaces
+namespace DasKlub.Lib.Interfaces
 {
     /// <summary>
     ///     Represents ways to know when an action was taken

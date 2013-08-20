@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Operational;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.Operational;
 using Microsoft.AspNet.SignalR;
 using SignalRChat.Common;
 

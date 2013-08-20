@@ -21,14 +21,14 @@ using System.Data;
 using System.Data.Common;
 using System.Text;
 using System.Web;
-using BootBaronLib.AppSpec.DasKlub.BLL;
-using BootBaronLib.BaseTypes;
-using BootBaronLib.DAL;
-using BootBaronLib.Interfaces;
-using BootBaronLib.Operational;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BLL;
+using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Interfaces;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Values;
 
-namespace BootBaronLib.AppSpec.DasKlub.BOL
+namespace DasKlub.Lib.AppSpec.DasKlub.BOL
 {
     public class MultiProperty : BaseIUserLogCRUD, ICacheName, IDisplayName
     {

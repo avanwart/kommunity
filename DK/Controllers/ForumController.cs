@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading;
 using System.Web.Mvc;
 using System.Web.Security;
-using BootBaronLib.AppSpec.DasKlub.BOL;
-using BootBaronLib.Operational;
-using BootBaronLib.Values;
+using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Values;
 using DasKlub.Models.Forum;
 using DasKlub.Web.Models;
 using DasKlub.Web.Models.Models;
-using BootBaronLib.Resources;
+using DasKlub.Lib.Resources;
 
 namespace DasKlub.Web.Controllers
 {
