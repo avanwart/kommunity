@@ -25,7 +25,7 @@ Installing
 Coding
 ----------------------
 
-Commit your changes into a new branch for your work. 
+Fork the repo then open a pull request with the changes you've made that you want included in the source. 
 
 
 ----------------------
