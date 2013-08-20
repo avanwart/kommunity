@@ -1687,4 +1687,7 @@
   <data name="LastReply" xml:space="preserve">
     <value>Last Reply</value>
   </data>
+  <data name="OpenShop" xml:space="preserve">
+    <value>Open Shop</value>
+  </data>
 </root>

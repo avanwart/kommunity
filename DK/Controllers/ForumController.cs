@@ -9,6 +9,7 @@ using System.Web.Security;
 using DasKlub.Lib.AppSpec.DasKlub.BOL;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
+using DasKlub.Models;
 using DasKlub.Models.Forum;
 using DasKlub.Web.Models;
 using DasKlub.Web.Models.Models;
@@ -34,9 +35,13 @@ namespace DasKlub.Web.Controllers
             _mu = Membership.GetUser();
         }
 
+      
+
         public ActionResult Index()
         {
-            using (var context = new DasKlubDBContext())
+ 
+
+            using (var context = new DasKlubDbContext())
             {
                 context.Configuration.ProxyCreationEnabled = false;
                 context.Configuration.LazyLoadingEnabled = false;
@@ -106,7 +111,7 @@ namespace DasKlub.Web.Controllers
             }
         }
 
-        private void GetValue(string key, string subKey, DasKlubDBContext context)
+        private void GetValue(string key, string subKey, DasKlubDbContext context)
         {
             var forum = context.ForumCategory.First(x => x.Key == key);
             ViewBag.Forum = forum;
@@ -119,7 +124,7 @@ namespace DasKlub.Web.Controllers
 
         public ActionResult SubCategory(string key, int pageNumber = 1)
         {
-            using (var context = new DasKlubDBContext())
+            using (var context = new DasKlubDbContext())
             {
                 context.Configuration.ProxyCreationEnabled = false;
                 context.Configuration.LazyLoadingEnabled = false;
@@ -221,7 +226,7 @@ namespace DasKlub.Web.Controllers
             {
                 var ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
-                using (var context = new DasKlubDBContext())
+                using (var context = new DasKlubDbContext())
                 {
                     if (model == null) return new EmptyResult();
 
@@ -265,7 +270,7 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public ActionResult DeleteSubForum(int forumSubCategoryID)
         {
-            using (var context = new DasKlubDBContext())
+            using (var context = new DasKlubDbContext())
             {
                 var forumPost = context.ForumSubCategory.First(x => x.ForumSubCategoryID == forumSubCategoryID);
 
@@ -306,7 +311,7 @@ namespace DasKlub.Web.Controllers
 
                 if (!ua.IsAdmin) return new EmptyResult();
 
-                using (var context = new DasKlubDBContext())
+                using (var context = new DasKlubDbContext())
                 {
                     if (model != null)
                     {
@@ -328,7 +333,7 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public ActionResult CreateForumPost(string key, string subKey)
         {
-            using (var context = new DasKlubDBContext())
+            using (var context = new DasKlubDbContext())
             {
                 GetValue(key, subKey, context);
             }
@@ -342,7 +347,7 @@ namespace DasKlub.Web.Controllers
 
         public ActionResult ForumPost(string key, string subKey, int pageNumber = 1)
         {
-            using (var context = new DasKlubDBContext())
+            using (var context = new DasKlubDbContext())
             {
                 ViewBag.UserID = (_mu == null) ? 0 : Convert.ToInt32(_mu.ProviderUserKey);
 
@@ -406,7 +411,7 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public ActionResult CreateForumPost(ForumPost model, int forumSubCategoryID)
         {
-            using (var context = new DasKlubDBContext())
+            using (var context = new DasKlubDbContext())
             {
                 var currentLang = Utilities.GetCurrentLanguageCode();
 
@@ -503,7 +508,7 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public ActionResult DeleteForumPost(int forumPostID)
         {
-            using (var context = new DasKlubDBContext())
+            using (var context = new DasKlubDbContext())
             {
                 var forumPost = context.ForumPost.First(x => x.ForumPostID == forumPostID);
 

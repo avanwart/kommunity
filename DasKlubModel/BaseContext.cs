@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace DasKlub.Web.Models
+namespace DasKlub.Models
 {
     public class BaseContext<TContext> : DbContext where TContext : DbContext
     {

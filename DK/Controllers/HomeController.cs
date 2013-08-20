@@ -28,6 +28,7 @@ using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
+using DasKlub.Models;
 using DasKlub.Web.Models;
 using DasKlub.Web.Models.Models;
 using Google.GData.Client;
@@ -266,8 +267,18 @@ namespace DasKlub.Web.Controllers
             return new EmptyResult();
         }
 
+        public ActionResult ShopIndex()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
+            if (Request.RawUrl == "/")
+            {
+                return View("ShopIndex");
+            }
+
             var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
 
             var randomVideo = Video.RandomVideoIDVideo();
@@ -285,7 +296,7 @@ namespace DasKlub.Web.Controllers
                 ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
             }
 
-            using (var context = new DasKlubDBContext())
+            using (var context = new DasKlubDbContext())
             {
                 
                 var mostPopularThisWeek =

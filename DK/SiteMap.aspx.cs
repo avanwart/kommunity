@@ -23,6 +23,7 @@ using System.Xml;
 using DasKlub.Lib.AppSpec.DasKlub.BOL;
 using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
 using DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent;
+using DasKlub.Models;
 using DasKlub.Web.Controllers;
 using DasKlub.Web.Models;
 
@@ -53,7 +54,7 @@ namespace DasKlub.Web
 
 
 
-            using (var context = new DasKlubDBContext())
+            using (var context = new DasKlubDbContext())
             {
 
                 var forumCategory = context.ForumCategory

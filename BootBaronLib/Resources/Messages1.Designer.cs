@@ -2986,6 +2986,15 @@ namespace DasKlub.Lib.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Shop.
+        /// </summary>
+        public static string OpenShop {
+            get {
+                return ResourceManager.GetString("OpenShop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optional.
         /// </summary>
         public static string Optional {

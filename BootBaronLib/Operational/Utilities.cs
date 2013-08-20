@@ -384,20 +384,15 @@ namespace DasKlub.Lib.Operational
 
                 // check amazon's settings for your email mail limits
                 var amzClient = new AmazonSimpleEmailServiceClient(AmazonCloudConfigs.AmazonAccessKey, AmazonCloudConfigs.AmazonSecretKey);
-                var to = new ArrayList {toEmail};
-
                 var dest = new Destination();
-                //dest.WithBccAddresses((string[])to.ToArray(typeof(string)));
-                dest.WithToAddresses((string[]) to.ToArray(typeof (string)));
-
+                dest.ToAddresses.Add(toEmail);
                 var bdy = new Body {Text = new Content(body)};
                 var title = new Content(subject);
                 var message = new Message(title, bdy);
                 var ser = new SendEmailRequest(fromEmail, dest, message);
 
                 var seResponse = amzClient.SendEmail(ser);
-                var seResult = seResponse.SendEmailResult;
-
+                
                 return true;
             }
             catch

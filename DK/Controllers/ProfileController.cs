@@ -54,17 +54,22 @@ namespace DasKlub.Web.Controllers
             var ups = new UserPhotos();
             ups.GetUserPhotos(userAccountID);
 
-            if (ups.Count == 0)
+            switch (ups.Count)
             {
-                var up = new UserPhoto();
-                ups.Add(up);
-                up = new UserPhoto();
-                ups.Add(up);
-            }
-            else if (ups.Count == 1)
-            {
-                var up = new UserPhoto {RankOrder = 2};
-                ups.Add(up);
+                case 0:
+                    {
+                        var up = new UserPhoto();
+                        ups.Add(up);
+                        up = new UserPhoto();
+                        ups.Add(up);
+                    }
+                    break;
+                case 1:
+                    {
+                        var up = new UserPhoto {RankOrder = 2};
+                        ups.Add(up);
+                    }
+                    break;
             }
 
             if (!string.IsNullOrWhiteSpace(ups[0].PicURL))
@@ -73,11 +78,9 @@ namespace DasKlub.Web.Controllers
                 ViewBag.SecondUserPhotoThumb = ups[0].FullProfilePicThumbURL;
             }
 
-            if (!string.IsNullOrWhiteSpace(ups[1].PicURL))
-            {
-                ViewBag.ThirdUserPhotoFull = ups[1].FullProfilePicURL;
-                ViewBag.ThirdUserPhotoThumb = ups[1].FullProfilePicThumbURL;
-            }
+            if (string.IsNullOrWhiteSpace(ups[1].PicURL)) return;
+            ViewBag.ThirdUserPhotoFull = ups[1].FullProfilePicURL;
+            ViewBag.ThirdUserPhotoThumb = ups[1].FullProfilePicThumbURL;
         }
 
         [HttpGet]
@@ -220,8 +223,8 @@ namespace DasKlub.Web.Controllers
 
                 var displayContents = new Contents();
                 const int maxCont = 1;
-                int currentCount = 0;
-                foreach (Content ccn1 in conts)
+                var currentCount = 0;
+                foreach (var ccn1 in conts)
                 {
                     currentCount++;
                     if (maxCont >= currentCount)

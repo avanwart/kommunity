@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
+using DasKlub.Models;
 using DasKlub.Models.Forum;
-using DasKlub.Web.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DasKlubTests.Interaction
+namespace DasKlub.IntegrationTests
 {
     [TestClass]
     public class ForumTest
@@ -16,25 +16,25 @@ namespace DasKlubTests.Interaction
             var uniqueKey = Guid.NewGuid().ToString();
 
             // act
-            using (var context = new DasKlubDBContext())
+            using (var context = new DasKlubDbContext())
             {
                 context.ForumCategory.Add(new ForumCategory
-                    {
-                        Description = Guid.NewGuid().ToString(),
-                        Title = Guid.NewGuid().ToString(),
-                        Key = uniqueKey,
-                        CreatedByUserID =  0
-                    });
+                {
+                    Description = Guid.NewGuid().ToString(),
+                    Title = Guid.NewGuid().ToString(),
+                    Key = uniqueKey,
+                    CreatedByUserID = 0
+                });
 
                 context.SaveChanges();
             }
 
             // assert
-            using ( var context = new DasKlubDBContext())
+            using (var context = new DasKlubDbContext())
             {
                 Assert.IsNotNull(context.ForumCategory.FirstOrDefault().Key == uniqueKey);
             }
         }
- 
+
     }
 }

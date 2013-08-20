@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Web;
 using DasKlub.Lib.AppSpec.DasKlub.BOL;
 using DasKlub.Lib.Operational;
-using DasKlub.Web.Models.Domain;
+using DasKlub.Models.Domain;
 
 namespace DasKlub.Models.Forum
 {

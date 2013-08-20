@@ -1,0 +1,92 @@
+﻿@using DasKlub.Lib.Operational
+@using DasKlub.Lib.Values
+      <select id="langugue_option" class="span1" style="margin-left: 3px;margin-top: 8px">
+
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "AR")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.AR.ToString()">@SiteEnums.SiteLanguages.AR.ToString()</option>
+
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "CS")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.CS.ToString()">@SiteEnums.SiteLanguages.CS.ToString()</option>
+
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "DA")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.DA.ToString()">@SiteEnums.SiteLanguages.DA.ToString()</option>
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "DE")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.DE.ToString()">@SiteEnums.SiteLanguages.DE.ToString()</option>
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "EL")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.EL.ToString()">@SiteEnums.SiteLanguages.EL.ToString()</option>
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "EN")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.EN.ToString()">@SiteEnums.SiteLanguages.EN.ToString()</option>
+
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "ES")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.ES.ToString()">@SiteEnums.SiteLanguages.ES.ToString()</option>
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "FI")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.FI.ToString()">@SiteEnums.SiteLanguages.FI.ToString()</option>
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "FR")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.FR.ToString()">@SiteEnums.SiteLanguages.FR.ToString()</option>
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "HU")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.HU.ToString()">@SiteEnums.SiteLanguages.HU.ToString()</option>
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "IT")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.IT.ToString()">@SiteEnums.SiteLanguages.IT.ToString()</option>
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "JA")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.JA.ToString()">@SiteEnums.SiteLanguages.JA.ToString()</option>
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "KO")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.KO.ToString()">@SiteEnums.SiteLanguages.KO.ToString()</option>
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "NL")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.NL.ToString()">@SiteEnums.SiteLanguages.NL.ToString()</option>
+
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "PL")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.PL.ToString()">@SiteEnums.SiteLanguages.PL.ToString()</option>
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "PT")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.PT.ToString()">@SiteEnums.SiteLanguages.PT.ToString()</option>
+
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "RU")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.RU.ToString()">@SiteEnums.SiteLanguages.RU.ToString()</option>
+
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "SV")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.SV.ToString()">@SiteEnums.SiteLanguages.SV.ToString()</option>
+
+                                            @*        <option @if (DasKlub.Lib.Operational.Utilities.GetCurrentLanguageCode() == "TR")
+        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.TR.ToString()">@SiteEnums.SiteLanguages.TR.ToString()</option>
+*@
+                                            <option @if (Utilities.GetCurrentLanguageCode() == "ZH")
+                                                    {
+                                                        <text>selected="selected"</text>
+                                                    } value="@SiteEnums.SiteLanguages.ZH.ToString()">@SiteEnums.SiteLanguages.ZH.ToString()</option>
+
+                                        </select>

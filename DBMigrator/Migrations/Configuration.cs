@@ -19,11 +19,12 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Transactions;
+using DasKlub.Models;
 using DasKlub.Web.Models;
  
 namespace DBMigrator.Migrations
 {
-    public   class Configuration : DbMigrationsConfiguration<DasKlubDBContext>
+    public   class Configuration : DbMigrationsConfiguration<DasKlubDbContext>
     {
         private const bool RunSeed = false;
 
@@ -32,7 +33,7 @@ namespace DBMigrator.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DasKlubDBContext context)
+        protected override void Seed(DasKlubDbContext context)
         {
             
             Console.WriteLine("RUNNING SEED METHOD");
@@ -421,11 +422,11 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
         }
     }
 
-    public   class DropCreateDatabaseTables : IDatabaseInitializer<DasKlubDBContext>
+    public   class DropCreateDatabaseTables : IDatabaseInitializer<DasKlubDbContext>
     {
         #region IDatabaseInitializer<Context> Members
 
-        public void InitializeDatabase(DasKlubDBContext context)
+        public void InitializeDatabase(DasKlubDbContext context)
         {
             bool dbExists;
 
@@ -465,7 +466,7 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
 
         #region Methods
 
-        private void Seed(DasKlubDBContext context)
+        private void Seed(DasKlubDbContext context)
         {
             /// TODO: put here your seed creation
         }

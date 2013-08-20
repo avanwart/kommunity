@@ -1690,4 +1690,7 @@
   <data name="LastReply" xml:space="preserve">
     <value>Last Reply</value>
   </data>
+  <data name="OpenShop" xml:space="preserve">
+    <value>Shop eröffnen</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-﻿using DasKlub.Web.Models.Domain;
+﻿using DasKlub.Models.Domain;
 
 namespace DasKlub.Models.Forum
 {

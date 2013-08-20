@@ -154,4 +154,4 @@ $RECYCLE.BIN/
 App_Data/
 Web.Release.config
 buildartifacts/
-configs.ps1
+deployment/

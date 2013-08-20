@@ -29,7 +29,15 @@
                 ><a href="@Url.Content("~/account/managevideos")">@Messages.Videos</a>
             </li>
           
-            
+                        <li
+              
+                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "playlist")
+                {
+                    <text>class="active" </text>
+                }
+                ><a href="@Url.Content("~/account/playlist")">@Messages.Playlist</a>
+            </li>
+          
             
 
             <li

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using DasKlub.Models;
 
 namespace DasKlub.Web.Models.Models
 {
-    public class DasKlubModelsContext : DasKlubDBContext
+    public class DasKlubModelsContext : DasKlubDbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 

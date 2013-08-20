@@ -32,11 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.0-alpha3\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.0-beta1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.0-alpha3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.0-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact">
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.0.0-beta1\lib\net40\EntityFramework.SqlServerCompact.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -50,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseContext.cs" />
-    <Compile Include="Controllers\ForumCategoriesController.cs" />
     <Compile Include="DasKlubDBContext.cs" />
     <Compile Include="Domain\ForumContext.cs" />
     <Compile Include="Domain\StateInfo.cs" />
@@ -58,6 +62,8 @@
     <Compile Include="Forum\ForumPost.cs" />
     <Compile Include="Forum\ForumPostNotification.cs" />
     <Compile Include="Forum\ForumSubCategory.cs" />
+    <Compile Include="Invoice\InvoiceItem.cs" />
+    <Compile Include="Invoice\ShopInvoice.cs" />
     <Compile Include="Models\Acknowledgement.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\ArtistEvent.cs" />
@@ -193,17 +199,24 @@
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Models\YouAre.cs" />
     <Compile Include="Models\Zone.cs" />
+    <Compile Include="Order\Order.cs" />
+    <Compile Include="Order\OrderItemVariation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shopping\Category.cs" />
+    <Compile Include="Shopping\Item.cs" />
+    <Compile Include="Shopping\ItemImage.cs" />
+    <Compile Include="Shopping\ItemReview.cs" />
+    <Compile Include="Shopping\ItemTag.cs" />
+    <Compile Include="Shopping\ItemVariation.cs" />
+    <Compile Include="Shopping\ItemStat.cs" />
+    <Compile Include="Shopping\Shop.cs" />
+    <Compile Include="Shopping\ShoppingCart.cs" />
+    <Compile Include="Shopping\SubCategory.cs" />
+    <Compile Include="Shopping\Tag.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Views\ForumCategories\Create.cshtml" />
-    <None Include="Views\ForumCategories\Delete.cshtml" />
-    <None Include="Views\ForumCategories\Details.cshtml" />
-    <None Include="Views\ForumCategories\Edit.cshtml" />
-    <None Include="Views\ForumCategories\Index.cshtml" />
-    <None Include="Views\ForumCategories\_CreateOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BootBaronLib\DasKlub.Lib.csproj">

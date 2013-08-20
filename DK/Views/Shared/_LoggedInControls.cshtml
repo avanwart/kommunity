@@ -33,13 +33,7 @@
                      <i class="icon-user"></i>
                      @Html.Raw(Messages.ChatRoom)</a>
             </li> 
-            @*            <li
-                  
-@if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "home")
-{
-          <text>class="active" </text>
-}
-            ><a id="status_updates" href="@Url.Content("~/account/home")">@Html.Raw(Messages.StatusUpdate)</a> </li>*@
+    
             <li
                   
                 @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "inbox" ||
@@ -60,19 +54,11 @@
                      <i class="icon-list-alt"></i>
                      @Html.Raw(Messages.EditProfile)</a>
             </li>
-            <li
-                  
-                @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "playlist")
-                {
-                    <text>class="active" </text>
-                }
-                ><a href="@Url.Content("~/account/playlist")">
-                     <i class="icon-list"></i>
-                     @Html.Raw(Messages.Playlist)</a> </li>
+          
             <li
                   
                 @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "visitors" ||
-                     ViewContext.RouteData.Values["action"].ToString().ToLower() == "CyberAssociates" ||
+                     ViewContext.RouteData.Values["action"].ToString().ToLower() == "cyberassociates" ||
                      ViewContext.RouteData.Values["action"].ToString().ToLower() == "irlcontacts"
                     )
                 {

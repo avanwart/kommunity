@@ -16,5 +16,10 @@ namespace DasKlub.Web.Controllers
             return View();
         }
 
+        public ActionResult Item(int itemID, string key)
+        {
+            return View();
+        }
+
     }
 }

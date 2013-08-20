@@ -36,7 +36,7 @@
 
         <style type="text/css">
             body {
-                @if (HttpContext.Current.Request.IsAuthenticated)
+                @if (HttpContext.Current.Request.IsAuthenticated && Request.RawUrl != "/")
                 {
                     <text>
         padding-top: 115px;
@@ -138,226 +138,56 @@
                                  src="@Url.Content("~/Content/images/brand/smalllogo.png")" />
                         </a>
                     <div class="nav-collapse">
-                        <ul class="nav the-icons">
-                            <li><a href="@Url.Content("~/")" class="site_name" >@GeneralConfigs.SiteName</a></li>
-                            
-                                     
-                            
-                                        
-                            @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "forum" &&
+                        
+                       
+                            @if (Request.RawUrl == "/" && (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "home" &&
                                   ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
                             {
-                                <li class="active"><a class="current_page_item" href="@Url.Content("~/forum")">
-                                                       <i class="icon-flag"></i> Forum</a> </li>
+                                 
+                                
+                                <ul class="nav the-icons">
+                                     <li><a href="~/" class="site_name" >@GeneralConfigs.SiteName</a></li>
+                                    <li>
+                                        @{ Html.RenderPartial("_languageMenu"); }
+                                    </li>
+                                     <li>&nbsp;</li>
+                                   
+                                    <li >
+                                        <input placeholder="Product Search" type="text" name="search" style="margin-top: 8px;" />    
+                                        <button class="btn btn-primary" style="margin-top:0px;" >@Messages.Go</button>
+                                    </li>
+                                    
+                                    <li><a href="~/home/index">
+                                            <i class=" icon-user"></i> Kommunity</a> </li>
+                                        <li><a href="~/home/index">
+                                            <i class=" icon-signal"></i> @Messages.OpenShop</a> </li>
+
+@if (Request.IsAuthenticated)
+{
+    <li>
+                    
+        <a   href="@Url.Content("~/account/LogOff")"> <i class="icon-off"></i> @Html.Raw(Messages.SignOff)</a>
+
+              
+ 
+  
+    </li>
+}
+
+
+                                </ul>
+                             
+
                             }
-                            else
+                            else 
                             {
-                                <li><a href="@Url.Content("~/forum")">
-                                        <i class="icon-flag"></i> Forum</a> </li>
+                                Html.RenderPartial("_kommunityMenu");
+
+                                Html.RenderPartial("_LoggedInControls"); 
                             }
-                            
-                            
-                            @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "news" &&
-                                 ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
-                            {
-                                <li class="active"><a  
-                            
-                            
-                                                       href="@Url.Content("~/news")">
-                                                       <i class="icon-th-list"></i> @Messages.News</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="@Url.Content("~/news")">
-                                        <i class="icon-th-list"></i> @Messages.News</a> </li>
-                            }
+           
 
-                            <li
-                  
-                                @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "findusers" &&
-                                     ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
-                                {
-                                    <text>class="active" </text>
-                                }
-                                ><a href="@Url.Content("~/findusers")">
-                                     <i class="icon-search"></i>
-                                     @Messages.FindUsers</a> </li>
-
-                               
-
-                            @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "video" &&
-                                  ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
-                            {
-                                <li class="active"><a class="current_page_item" href="@Url.Content("~/video")">
-                                                       <i class="icon-film"></i> @Messages.Videos</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="@Url.Content("~/video")">
-                                        <i class="icon-film"></i> @Messages.Videos</a> </li>
-                            }
-                            @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "radio")
-                            {
-                                <li class="active"><a class="current_page_item " href="@Url.Content("~/radio")">
-                                                       <i class="icon-music"></i> @Messages.Radio</a> </li>
-                            }
-                            else
-                            {
-                                <li><a class="current_page_item " href="@Url.Content("~/radio")">
-                                        <i class="icon-music"></i> @Messages.Radio</a> </li>
-                            }
-                            @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "photos" &&
-                                  ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
-                            {
-                                <li class="active"><a class="current_page_item" href="@Url.Content("~/photos")">
-                                                       <i class="icon-camera"></i> @Messages.Photos</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="@Url.Content("~/photos")">
-                                        <i class="icon-camera"></i> @Messages.Photos</a> </li>
-                            }
-
-
-
-                            @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "store" &&
-                                  ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
-                            {
-                                <li class="active"><a class="current_page_item" href="@Url.Content("~/store")">
-                                                       <i class="icon-tag"></i> @Messages.Store</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="@Url.Content("~/store")">
-                                        <i class="icon-tag"></i> @Messages.Store</a> </li>
-                            }
-                            @*   @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "map")
-                        {
-                            <li class="active"><a  href="@Url.Content("~/map")">
-                          <i class="icon-map-marker"></i>  
-                            @Messages.Map</a> </li>
-                        }
-                        else
-                        {
-                            <li><a href="@Url.Content("~/map")">
-                            <i class="icon-map-marker"></i>    @Messages.Map</a> </li>
-                        }*@
-                            @*                        @if (!string.IsNullOrEmpty(DasKlub.Lib.Configs.GeneralConfigs.YoutubeLink))
-                        {
-                            <li><a style="padding-bottom: 0; margin-bottom: 0; padding-left: 0; padding-right: 0"
-                            target="_blank" href="@DasKlub.Lib.Configs.GeneralConfigs.YoutubeLink">
-                                <img   alt="You Tube" 
-                        src="@Url.Content("~/content/images/social/yt_logo.png")" /></a> </li>
-                        }
-                        @if (!string.IsNullOrEmpty(DasKlub.Lib.Configs.GeneralConfigs.FacebookLink))
-                        {
-                            <li><a style="padding-bottom: 0; margin-bottom: 0; padding-left: 0; padding-right: 0"
-                            target="_blank" href="@DasKlub.Lib.Configs.GeneralConfigs.FacebookLink">
-                                <img   alt="Facebook" 
-                        src="@Url.Content("~/content/images/social/fb_logo.png")" /></a> </li>
-                        }
-                        @if (!string.IsNullOrEmpty(DasKlub.Lib.Configs.GeneralConfigs.TwitterLink))
-                        {
-                            <li><a style="padding-bottom: 0; margin-bottom: 0; padding-left: 0; padding-right: 0"
-                            target="_blank" href="@DasKlub.Lib.Configs.GeneralConfigs.TwitterLink">
-                                <img   alt="Twitter" 
-                        src="@Url.Content("~/content/images/social/tw_logo.png")" /></a> </li>
-                        }*@
-                            <li>
-                                <select id="langugue_option" class="span1" style="margin-left: 3px;">
-
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "AR")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.AR.ToString()">@SiteEnums.SiteLanguages.AR.ToString()</option>
-
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "CS")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.CS.ToString()">@SiteEnums.SiteLanguages.CS.ToString()</option>
-
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "DA")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.DA.ToString()">@SiteEnums.SiteLanguages.DA.ToString()</option>
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "DE")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.DE.ToString()">@SiteEnums.SiteLanguages.DE.ToString()</option>
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "EL")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.EL.ToString()">@SiteEnums.SiteLanguages.EL.ToString()</option>
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "EN")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.EN.ToString()">@SiteEnums.SiteLanguages.EN.ToString()</option>
-
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "ES")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.ES.ToString()">@SiteEnums.SiteLanguages.ES.ToString()</option>
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "FI")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.FI.ToString()">@SiteEnums.SiteLanguages.FI.ToString()</option>
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "FR")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.FR.ToString()">@SiteEnums.SiteLanguages.FR.ToString()</option>
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "HU")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.HU.ToString()">@SiteEnums.SiteLanguages.HU.ToString()</option>
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "IT")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.IT.ToString()">@SiteEnums.SiteLanguages.IT.ToString()</option>
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "JA")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.JA.ToString()">@SiteEnums.SiteLanguages.JA.ToString()</option>
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "KO")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.KO.ToString()">@SiteEnums.SiteLanguages.KO.ToString()</option>
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "NL")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.NL.ToString()">@SiteEnums.SiteLanguages.NL.ToString()</option>
-
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "PL")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.PL.ToString()">@SiteEnums.SiteLanguages.PL.ToString()</option>
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "PT")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.PT.ToString()">@SiteEnums.SiteLanguages.PT.ToString()</option>
-
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "RU")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.RU.ToString()">@SiteEnums.SiteLanguages.RU.ToString()</option>
-
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "SV")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.SV.ToString()">@SiteEnums.SiteLanguages.SV.ToString()</option>
-
-                                    @*        <option @if (DasKlub.Lib.Operational.Utilities.GetCurrentLanguageCode() == "TR")
-        { <text>selected="selected"</text>} value="@SiteEnums.SiteLanguages.TR.ToString()">@SiteEnums.SiteLanguages.TR.ToString()</option>
-*@
-                                    <option @if (Utilities.GetCurrentLanguageCode() == "ZH")
-                                            {
-                                                <text>selected="selected"</text>
-                                            } value="@SiteEnums.SiteLanguages.ZH.ToString()">@SiteEnums.SiteLanguages.ZH.ToString()</option>
-
-                                </select>
-                            </li>
-            
-                        </ul>
-                        @{ Html.RenderPartial("_LoggedInControls"); }
+                 
                     </div>
                 </div>
             </div>
@@ -372,7 +202,7 @@
                 @Html.Raw(@"<a href=""" + GeneralConfigs.SiteDomain + @""">" + GeneralConfigs.SiteName + @"</a>")  |  
 
 
-                <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.ABOUT.ToString())">@Messages.About</a>  | <a href="@Url.Content("~/contact")">@Messages.Contact</a>  |
+                <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.ABOUT)">@Messages.About</a>  | <a href="@Url.Content("~/contact")">@Messages.Contact</a>  |
                 <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS.ToString())">@Messages.TermsAndCondtions</a> |  
                 <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.PRIPL.ToString())">@Messages.PrivacyPolicy</a>
 
@@ -383,24 +213,7 @@
  
 
   
-        @if (!Request.Browser.IsMobileDevice)
-        {
-        @*
-        var js1MediaBundleUrl = System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/jsfooter_desktop", true) + ".js";
-
-        <script type="text/javascript" src="@js1MediaBundleUrl" ></script>*@
-
-            @Scripts.Render("~/bundles/jsfooter_desktop")
-        }
-        else
-        {
-        @*
-        var js1MediaBundleUrl = System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/jsfooter_mobile", true) + ".js";
-
-        <script type="text/javascript" src="@js1MediaBundleUrl" ></script>*@
-
-            @Scripts.Render("~/bundles/jsfooter_mobile")
-        }
+        @(!Request.Browser.IsMobileDevice ? Scripts.Render("~/bundles/jsfooter_desktop") : Scripts.Render("~/bundles/jsfooter_mobile"))
     
         <script type="text/javascript">
             $(document).ready(function() {

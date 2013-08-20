@@ -1,13 +1,12 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
+using DasKlub.Models.Domain;
 using DasKlub.Models.Forum;
-using DasKlub.Web.Models.Domain;
 
-
-namespace DasKlub.Web.Models 
+namespace DasKlub.Models 
 {
-    public partial class DasKlubDBContext : BaseContext<DasKlubDBContext>
+    public partial class DasKlubDbContext : BaseContext<DasKlubDbContext>
     {
         public IDbSet<ForumCategory>            ForumCategory           { get; set; }
         public IDbSet<ForumSubCategory>         ForumSubCategory        { get; set; }
