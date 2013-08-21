@@ -43,18 +43,6 @@ namespace DasKlub.Web.App_Start
                 "~/content/mediaelement/mediaelement-and-player.js"
                             ));
 
-            //// Use the development version of Modernizr to develop with and learn from. Then, when you're
-            //// ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            //bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-            //            "~/Scripts/modernizr-*"));
-
-            //bundles.Add(new StyleBundle("~/Content/css_head1").Include(
-            //  //"~/content/bootstrap.css",
-            //   // "~/content/style/cyborg_theme.css"
-            //                //"~/content/style/docs.css",
-            //                //"~/content/style/prettify.css",
-            //                ));
-
             bundles.Add(new StyleBundle("~/Content/style/css_head2").Include(
                 "~/content/style/cyborg_theme.css",
                 "~/content/bootstrap-responsive.css",

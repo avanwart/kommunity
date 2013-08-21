@@ -3,7 +3,7 @@ namespace DBMigrator.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ForumTables : DbMigration
+    public partial class EntityFramework6Beta : DbMigration
     {
         public override void Up()
         {
@@ -12,8 +12,9 @@ namespace DBMigrator.Migrations
                 c => new
                     {
                         ForumCategoryID = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
-                        Description = c.String(),
+                        Title = c.String(nullable: false, maxLength: 50),
+                        Key = c.String(nullable: false, maxLength: 50),
+                        Description = c.String(nullable: false),
                         CreatedByUserID = c.Int(nullable: false),
                         UpdatedByUserID = c.Int(),
                         CreateDate = c.DateTime(nullable: false),
@@ -27,12 +28,13 @@ namespace DBMigrator.Migrations
                     {
                         ForumSubCategoryID = c.Int(nullable: false, identity: true),
                         ForumCategoryID = c.Int(nullable: false),
+                        Key = c.String(nullable: false, maxLength: 150),
+                        Title = c.String(nullable: false, maxLength: 150),
+                        Description = c.String(nullable: false),
                         CreatedByUserID = c.Int(nullable: false),
                         UpdatedByUserID = c.Int(),
                         CreateDate = c.DateTime(nullable: false),
                         UpdateDate = c.DateTime(),
-                        Title = c.String(),
-                        Description = c.String(),
                     })
                 .PrimaryKey(t => t.ForumSubCategoryID)
                 .ForeignKey("dbo.ForumCategories", t => t.ForumCategoryID, cascadeDelete: true)
@@ -43,7 +45,7 @@ namespace DBMigrator.Migrations
                 c => new
                     {
                         ForumPostID = c.Int(nullable: false, identity: true),
-                        Detail = c.String(),
+                        Detail = c.String(nullable: false),
                         ForumSubCategoryID = c.Int(nullable: false),
                         CreatedByUserID = c.Int(nullable: false),
                         UpdatedByUserID = c.Int(),
@@ -54,14 +56,41 @@ namespace DBMigrator.Migrations
                 .ForeignKey("dbo.ForumSubCategories", t => t.ForumSubCategoryID, cascadeDelete: true)
                 .Index(t => t.ForumSubCategoryID);
             
+            CreateTable(
+                "dbo.ForumPostNotifications",
+                c => new
+                    {
+                        ForumPostNotificationID = c.Int(nullable: false, identity: true),
+                        UserAccountID = c.Int(nullable: false),
+                        IsRead = c.Boolean(nullable: false),
+                        ForumSubCategoryID = c.Int(nullable: false),
+                        CreatedByUserID = c.Int(nullable: false),
+                        UpdatedByUserID = c.Int(),
+                        CreateDate = c.DateTime(nullable: false),
+                        UpdateDate = c.DateTime(),
+                    })
+                .PrimaryKey(t => t.ForumPostNotificationID)
+                .ForeignKey("dbo.ForumSubCategories", t => t.ForumSubCategoryID, cascadeDelete: true)
+                .Index(t => t.ForumSubCategoryID);
+            Sql(@"  EXEC sp_executesql N' ALTER TABLE ForumPostNotifications ADD CONSTRAINT uc_ForumNotificationKey UNIQUE ([UserAccountID], [ForumSubCategoryID])'; ");
+            Sql(@"ALTER TABLE dbo.WallMessage
+                  ALTER COLUMN [message] nvarchar(max)");
         }
         
         public override void Down()
         {
+            Sql(@"EXEC sp_executesql N' ALTER TABLE ForumPostNotifications DROP CONSTRAINT uc_ForumNotificationKey'; ");
+
+            Sql(@"ALTER TABLE dbo.WallMessage
+                  ALTER COLUMN [message]  varchar(max)");
+
+            DropForeignKey("dbo.ForumPostNotifications", "ForumSubCategoryID", "dbo.ForumSubCategories");
             DropForeignKey("dbo.ForumPosts", "ForumSubCategoryID", "dbo.ForumSubCategories");
             DropForeignKey("dbo.ForumSubCategories", "ForumCategoryID", "dbo.ForumCategories");
+            DropIndex("dbo.ForumPostNotifications", new[] { "ForumSubCategoryID" });
             DropIndex("dbo.ForumPosts", new[] { "ForumSubCategoryID" });
             DropIndex("dbo.ForumSubCategories", new[] { "ForumCategoryID" });
+            DropTable("dbo.ForumPostNotifications");
             DropTable("dbo.ForumPosts");
             DropTable("dbo.ForumSubCategories");
             DropTable("dbo.ForumCategories");

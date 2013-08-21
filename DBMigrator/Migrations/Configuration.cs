@@ -21,10 +21,10 @@ using System.Data.Entity.Migrations;
 using System.Transactions;
 using DasKlub.Models;
 using DasKlub.Web.Models;
- 
+
 namespace DBMigrator.Migrations
 {
-    public   class Configuration : DbMigrationsConfiguration<DasKlubDbContext>
+    public class Configuration : DbMigrationsConfiguration<DasKlubDbContext>
     {
         private const bool RunSeed = false;
 
@@ -35,7 +35,7 @@ namespace DBMigrator.Migrations
 
         protected override void Seed(DasKlubDbContext context)
         {
-            
+
             Console.WriteLine("RUNNING SEED METHOD");
 
             // inserts mandatory values
@@ -422,12 +422,13 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
         }
     }
 
-    public   class DropCreateDatabaseTables : IDatabaseInitializer<DasKlubDbContext>
+    public class DropCreateDatabaseTables : IDatabaseInitializer<DasKlubDbContext>
     {
         #region IDatabaseInitializer<Context> Members
 
         public void InitializeDatabase(DasKlubDbContext context)
         {
+            
             bool dbExists;
 
             using (new TransactionScope(TransactionScopeOption.Suppress))

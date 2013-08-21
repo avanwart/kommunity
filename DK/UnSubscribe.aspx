@@ -9,7 +9,7 @@
     <body>
         <form id="form1" runat="server">
             <div>
-                <h2>Enter email address to unsubscribe</h2>
+                <h2>Enter email address toEmail unsubscribe</h2>
                 <asp:literal runat="server" ID="litResult"></asp:literal>
                 <table>
                     <tr>

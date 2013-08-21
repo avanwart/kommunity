@@ -295,6 +295,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\IMailService.cs" />
+    <Compile Include="Services\MailService.cs" />
+    <Compile Include="Services\MockMailService.cs" />
     <Compile Include="Values\SiteStructs.cs" />
     <Compile Include="Values\SiteEnums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

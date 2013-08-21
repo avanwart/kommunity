@@ -38,6 +38,7 @@ using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Resources;
+using DasKlub.Lib.Services;
 using DasKlub.Lib.Values;
 using DasKlub.Web.Models;
 using LitS3;
@@ -46,9 +47,9 @@ namespace DasKlub.Web.Controllers
 {
     public class AccountController : Controller
     {
-
-        public AccountController()
+        public AccountController(IMailService mail)
         {
+            _mail = mail;
             _mu = Membership.GetUser();
             CanBeStealth();
         }
@@ -64,6 +65,7 @@ namespace DasKlub.Web.Controllers
         private UserConnection _ucon;
         private UserConnections _ucons;
         private UserPhotos _ups;
+        private IMailService _mail;
 
         #endregion
 
@@ -724,7 +726,7 @@ namespace DasKlub.Web.Controllers
             var currentLang = Utilities.GetCurrentLanguageCode();
 
             Thread.CurrentThread.CurrentUICulture =
-               CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+                CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
             Thread.CurrentThread.CurrentCulture =
                 CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
 
@@ -734,9 +736,12 @@ namespace DasKlub.Web.Controllers
 
             if (requestedUserDetails.EmailMessages)
             {
-                Utilities.SendMail(userToBe.EMail, Messages.ContactRequest + ": " + _mu.UserName,
-                                   Messages.ContactRequest + Environment.NewLine +
-                                   GeneralConfigs.SiteDomain);
+
+                _mail.SendMail(AmazonCloudConfigs.SendFromEmail,
+                               userToBe.EMail,
+                               string.Format("{0}: {1}", Messages.ContactRequest, _mu.UserName),
+                               string.Format("{0}{1}{2}", Messages.ContactRequest, Environment.NewLine,
+                                             GeneralConfigs.SiteDomain));
             }
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
@@ -1183,7 +1188,9 @@ namespace DasKlub.Web.Controllers
             _ua = new UserAccount(userAccountID);
 
             if (_mu != null)
-                Utilities.SendMail(GeneralConfigs.SendToErrorEmail, Messages.Report + ": " + Messages.UserAccount,
+                _mail.SendMail(
+                    AmazonCloudConfigs.SendFromEmail,
+                    GeneralConfigs.SendToErrorEmail, Messages.Report + ": " + Messages.UserAccount,
                                    string.Format("{0}{1}{1}{2}: {3}{1}{4}: {5}{1}{1}----------{1}{6}: {7}",
                                                  Messages.Report, Environment.NewLine,
                                                  Messages.UserName, _ua.UserName, Messages.UserAccount,
@@ -1964,7 +1971,9 @@ namespace DasKlub.Web.Controllers
             if (_uad.EmailMessages)
             {
                 if (_mu != null)
-                    Utilities.SendMail(_ua.EMail, Messages.From + ": " + _mu.UserName, sb.ToString());
+                    _mail.SendMail(
+                        AmazonCloudConfigs.SendFromEmail,
+                        _ua.EMail, string.Format("{0}: {1}", Messages.From, _mu.UserName), sb.ToString());
             }
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(language);
@@ -2261,7 +2270,7 @@ namespace DasKlub.Web.Controllers
                     sb.Append(Environment.NewLine);
                     sb.Append(GeneralConfigs.SiteDomain);
 
-                    Utilities.SendMail(ua.EMail, Messages.YourNewAccountIsReadyForUse, sb.ToString());
+                    _mail.SendMail(AmazonCloudConfigs.SendFromEmail, ua.EMail, Messages.YourNewAccountIsReadyForUse, sb.ToString());
 
                     // see if this is the 1st user
                     var recentUsers = new UserAccounts();
@@ -3190,7 +3199,7 @@ namespace DasKlub.Web.Controllers
                 {
                     var newPassword = _mu.ResetPassword();
 
-                    Utilities.SendMail(email, AmazonCloudConfigs.SendFromEmail, Messages.PasswordReset,
+                    _mail.SendMail(email, AmazonCloudConfigs.SendFromEmail, Messages.PasswordReset,
                                        Messages.UserName + ": " + ua.UserName + Environment.NewLine +
                                        Environment.NewLine + Messages.NewPassword + ": " + newPassword +
                                        Environment.NewLine +

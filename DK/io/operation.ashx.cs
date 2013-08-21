@@ -26,6 +26,7 @@ using DasKlub.Lib.AppSpec.DasKlub.BOL;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Resources;
+using DasKlub.Lib.Services;
 using DasKlub.Lib.Values;
 using LitS3;
 
@@ -33,6 +34,15 @@ namespace DasKlub.Web.io
 {
     public class operation : IHttpHandler
     {
+
+        private readonly IMailService _mail;
+
+        public operation(IMailService mail)
+        {
+            _mail = mail;
+        }
+
+
         public void ProcessRequest(HttpContext context)
         {
             if (string.IsNullOrEmpty(context.Request.QueryString[SiteEnums.QueryStringNames.param_type.ToString()]))
@@ -728,7 +738,7 @@ namespace DasKlub.Web.io
         /// <param name="userFrom"></param>
         /// <param name="rsp"></param>
         /// <param name="statusUpdateID"></param>
-        private static void SendNotificationEmail(int userTo, int userFrom, SiteEnums.ResponseType rsp, int statusUpdateID)
+        private   void SendNotificationEmail(int userTo, int userFrom, SiteEnums.ResponseType rsp, int statusUpdateID)
         {
             var uaTo = new UserAccount(userTo);
             var uaFrom = new UserAccount(userFrom);
@@ -773,7 +783,7 @@ namespace DasKlub.Web.io
 
             if (uad.EmailMessages)
             {
-                Utilities.SendMail(uaTo.EMail, title, statupMess);
+                _mail.SendMail(AmazonCloudConfigs.SendFromEmail, uaTo.EMail, title, statupMess);
             }
 
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(language);

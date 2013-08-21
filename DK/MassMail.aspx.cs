@@ -7,6 +7,7 @@ using System.Xml;
 using DasKlub.Lib.AppSpec.DasKlub.BOL;
 using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
 using DasKlub.Lib.Operational;
+using DasKlub.Lib.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -14,6 +15,13 @@ namespace DasKlub.Web
 {
     public partial class MassMail : Page
     {
+        private IMailService _mail;
+
+        public MassMail(IMailService mail)
+        {
+            _mail = mail;
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             var sb = new StringBuilder(100);
@@ -71,10 +79,10 @@ namespace DasKlub.Web
 
                 if (!uad.EmailMessages || ua1.UserName != "bootlegbaron") continue;
                  
-                if (Utilities.SendMail(ua1.EMail, "Das Klub Forum Revitalized!", message))
-                {
-                    totalSent++;
-                }
+                //if (_mail.SendMail(ua1.EMail, "Das Klub Forum Revitalized!", message))
+                //{
+                //    totalSent++;
+                //}
             }
 
             HttpContext.Current.Response.Write(totalSent);

@@ -12,18 +12,6 @@
                             </li>
             
 
-                            @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "store" &&
-                                  ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
-                            {
-                                <li class="active"><a class="current_page_item" href="~/shop">
-                                                       <i class="icon-tag"></i> Shop</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="~/shop">
-                                        <i class="icon-tag"></i> Shop</a> </li>
-                            }
-                                        
                             @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "forum" &&
                                   ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
                             {
@@ -99,6 +87,18 @@
                             }
 
 
-
+       
+                            @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "store" &&
+                                  ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
+                            {
+                                <li class="active"><a class="current_page_item" href="~/shop">
+                                                       <i class="icon-tag"></i> Shop</a> </li>
+                            }
+                            else
+                            {
+                                <li><a href="~/shop">
+                                        <i class="icon-tag"></i> Shop</a> </li>
+                            }
+                                        
                        
                         </ul>

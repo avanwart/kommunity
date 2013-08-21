@@ -8,10 +8,11 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DasKlub.Lib.AppSpec.DasKlub.BOL;
 using DasKlub.Lib.Operational;
+using DasKlub.Lib.Services;
 using DasKlub.Lib.Values;
 using DasKlub.Models;
 using DasKlub.Models.Forum;
-using DasKlub.Web.Models;
+using DasKlub.Models.Models;
 using DasKlub.Web.Models.Models;
 using DasKlub.Lib.Resources;
 
@@ -22,15 +23,17 @@ namespace DasKlub.Web.Controllers
         public const int PageSize = 10;
         private readonly IForumCategoryRepository _forumcategoryRepository;
         private readonly MembershipUser _mu;
+        private readonly IMailService _mail;
 
-        // If you are using Dependency Injection, you can delete the following constructor
         public ForumController()
-            : this(new ForumCategoryRepository())
+            : this(new ForumCategoryRepository(), new MailService())
         {
         }
 
-        private ForumController(IForumCategoryRepository forumcategoryRepository)
+
+        private ForumController(IForumCategoryRepository forumcategoryRepository, IMailService mail)
         {
+              _mail = mail;
             _forumcategoryRepository = forumcategoryRepository;
             _mu = Membership.GetUser();
         }
@@ -39,8 +42,6 @@ namespace DasKlub.Web.Controllers
 
         public ActionResult Index()
         {
- 
-
             using (var context = new DasKlubDbContext())
             {
                 context.Configuration.ProxyCreationEnabled = false;
@@ -379,12 +380,12 @@ namespace DasKlub.Web.Controllers
                             x.ForumSubCategoryID == subForum.ForumSubCategoryID &&
                             x.UserAccountID == userID);
 
-                    if (forumPostNotification != null)
-                    {
-                        forumPostNotification.IsRead = true;
-                        context.Entry(forumPostNotification).State = EntityState.Modified;
-                        context.SaveChanges();
-                    }
+                    //if (forumPostNotification != null)
+                    //{
+                    //    forumPostNotification.IsRead = true;
+                    //    context.Entry(forumPostNotification).State = EntityState.Modified;
+                    //    context.SaveChanges();
+                    //}
                 }
 
                 var totalCount = context.ForumPost.Count(x => x.ForumSubCategoryID == subForum.ForumSubCategoryID);
@@ -466,9 +467,9 @@ namespace DasKlub.Web.Controllers
                             allUserNotifications.Where(
                                 forumPostNotification => forumPostNotification.UserAccountID != ua.UserAccountID))
                     {
-                        forumPostNotification.IsRead = false;
-                        forumPostNotification.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
-                        context.Entry(forumPostNotification).State = EntityState.Modified;
+                    //    forumPostNotification.IsRead = false;
+                    //    forumPostNotification.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
+                    //    context.Entry(forumPostNotification).State = EntityState.Modified;
 
                         var notifiedUser = new UserAccount(forumPostNotification.UserAccountID);
                         var notifiedUserDetails = new UserAccountDetail();
@@ -490,7 +491,7 @@ namespace DasKlub.Web.Controllers
                         body.Append(": ");
                         body.AppendFormat("{0}/create", subForum.SubForumURL);
 
-                        Utilities.SendMail(notifiedUser.EMail, title, body.ToString());
+                        _mail.SendMail(Lib.Configs.AmazonCloudConfigs.SendFromEmail, notifiedUser.EMail, title, body.ToString());
                     }
 
                     context.SaveChanges();

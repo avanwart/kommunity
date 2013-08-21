@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Configuration;
+using System.Data.Entity;
 
 namespace DasKlub.Models
 {
@@ -9,11 +10,11 @@ namespace DasKlub.Models
             Database.SetInitializer<TContext>(null);
         }
 
-        protected BaseContext()
-            // : base("Name=DasKlubDBContext")
-            //: base("Name=DasKlubDB")
-            : base("DasKlubDB")
+        protected BaseContext(string con)
+            : base(con)
         {
+
         }
+       
     }
 }

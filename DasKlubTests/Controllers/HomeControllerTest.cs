@@ -1,8 +1,9 @@
 ﻿using System.Web.Mvc;
 using DasKlub.Web.Controllers;
+using DasKlub.Web.Models.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DasKlubTests.Unit.Controllers
+namespace DasKlub.UnitTests.Controllers
 {
     [TestClass]
     public class HomeControllerTest
@@ -11,7 +12,7 @@ namespace DasKlubTests.Unit.Controllers
         public void HomeContact_Invoked_IsNotNull()
         {
             // Arrange
-            var controller = new HomeController();
+            var controller = new HomeController( );
 
             // Act
             var result = controller.Contact() as ViewResult;

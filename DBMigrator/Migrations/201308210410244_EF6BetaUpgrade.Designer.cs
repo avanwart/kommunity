@@ -6,14 +6,14 @@ namespace DBMigrator.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.0.0-alpha3-20222")]
-    public sealed partial class ForumPostNotification : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.0.0-beta1-20501")]
+    public sealed partial class EF6BetaUpgrade : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ForumPostNotification));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(EF6BetaUpgrade));
         
         string IMigrationMetadata.Id
         {
-            get { return "201304230240066_ForumPostNotification"; }
+            get { return "201308210410244_EF6BetaUpgrade"; }
         }
         
         string IMigrationMetadata.Source

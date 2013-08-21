@@ -6,14 +6,14 @@ namespace DBMigrator.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.0.0-alpha3-20222")]
-    public sealed partial class ForumPropertyLengths : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.0.0-beta1-20501")]
+    public sealed partial class EntityFramework6Beta : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ForumPropertyLengths));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(EntityFramework6Beta));
         
         string IMigrationMetadata.Id
         {
-            get { return "201304210556460_ForumPropertyLengths"; }
+            get { return "201308210300244_EntityFramework6Beta"; }
         }
         
         string IMigrationMetadata.Source

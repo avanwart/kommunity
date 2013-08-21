@@ -230,15 +230,15 @@ namespace DasKlub.Lib.Operational
                 timeElapsed
                     = string.Format(Messages.MonthsAgo, (int) Math.Round(elapsed.TotalDays/30));
             }
-            else if (elapsed.TotalDays < (365 * 2))
+            else if (elapsed.TotalDays < (365*2))
             {
                 // 1 year 
-                timeElapsed = string.Format(Messages.YearAgo, (int)Math.Round(elapsed.TotalDays / 365.2425));
+                timeElapsed = string.Format(Messages.YearAgo, (int) Math.Round(elapsed.TotalDays/365.2425));
             }
             else
             {
                 // over a year old
-                timeElapsed = string.Format(Messages.YearsAgo, (int)Math.Round(elapsed.TotalDays / 365.2425));
+                timeElapsed = string.Format(Messages.YearsAgo, (int) Math.Round(elapsed.TotalDays/365.2425));
             }
 
             return timeElapsed;
@@ -290,7 +290,7 @@ namespace DasKlub.Lib.Operational
             {
                 if (match.Value.Contains(@"//www.youtube.com/embed/")) continue; // because it might be embeded
 
-                 
+
                 txt = txt.Replace(match.Value,
                                   string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>", match.Value, Messages.Link));
             }
@@ -328,81 +328,6 @@ namespace DasKlub.Lib.Operational
             return ResourceValue(langKey);
         }
 
-        #region mail
-
-        /// <summary>
-        ///     Sends a mail message with the default sender with appended message at
-        ///     the bottom
-        /// </summary>
-        /// <param name="toEmail"></param>
-        /// <param name="subject"></param>
-        /// <param name="body"></param>
-        /// <returns></returns>
-        public static bool SendMail(string toEmail, string subject, string body)
-        {
-            // append to the bottom of all messages a message that says not to reply
-            body =
-                Messages.DoNotRespondToThisEmail + Environment.NewLine +
-                "-----------------------------------------------" +
-                Environment.NewLine + Environment.NewLine +
-                body +
-                Environment.NewLine + Environment.NewLine + Environment.NewLine +
-                "-----------------------------------------------"
-                + Environment.NewLine
-                + Messages.EditYourEmailSettings
-                + Environment.NewLine
-                + Environment.NewLine
-                + GeneralConfigs.EmailSettingsURL
-                + Environment.NewLine
-                + Environment.NewLine + Messages.DoNotRespondToThisEmail;
-
-            return SendMail(toEmail, AmazonCloudConfigs.SendFromEmail, subject, body);
-        }
-
-
-        /// <summary>
-        ///     Sends a mail message
-        /// </summary>
-        /// <param name="toEmail"></param>
-        /// <param name="fromEmail"></param>
-        /// <param name="subject"></param>
-        /// <param name="body"></param>
-        /// <returns></returns>
-        /// <see
-        ///     cref=">http://www.neuraplex.com/Blog/tabid/125/EntryId/34/Amazon-SES-Simple-Email-Service-C-code-examples-ASP-NET-CODES.aspx" />
-        public static bool SendMail(string toEmail, string fromEmail, string subject, string body)
-        {
-            if (string.IsNullOrEmpty(toEmail) ||
-                string.IsNullOrEmpty(fromEmail) ||
-                string.IsNullOrEmpty(subject) ||
-                string.IsNullOrEmpty(body)) return false; // don't send if anything is missing
-
-            try
-            {
-                toEmail = toEmail.Trim();
-                fromEmail = fromEmail.Trim();
-
-                // check amazon's settings for your email mail limits
-                var amzClient = new AmazonSimpleEmailServiceClient(AmazonCloudConfigs.AmazonAccessKey, AmazonCloudConfigs.AmazonSecretKey);
-                var dest = new Destination();
-                dest.ToAddresses.Add(toEmail);
-                var bdy = new Body {Text = new Content(body)};
-                var title = new Content(subject);
-                var message = new Message(title, bdy);
-                var ser = new SendEmailRequest(fromEmail, dest, message);
-
-                var seResponse = amzClient.SendEmail(ser);
-                
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        #endregion
-
         #region SQL injection
 
         //Defines the set of characters that will be checked.
@@ -439,8 +364,6 @@ namespace DasKlub.Lib.Operational
 
         #endregion
 
-
-
         #region time
 
         public static DateTime GetDataBaseTime()
@@ -474,7 +397,6 @@ namespace DasKlub.Lib.Operational
         }
 
         #endregion
-
 
         #region listmod
 
@@ -578,8 +500,6 @@ namespace DasKlub.Lib.Operational
 
         #endregion
 
-
-
         #region math
 
         /// <summary>
@@ -611,216 +531,56 @@ namespace DasKlub.Lib.Operational
         #endregion
 
         #region error logging
-
-        /// <summary>
-        ///     A message to debug and the actual exception
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <param name="ex"></param>
-        public static void LogError(string msg, Exception ex)
-        {
-            LogError(msg, ex, true);
-        }
+ 
 
         /// <summary>
         ///     The base method that writes to the file system and sends mail
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="ex"></param>
-        /// <param name="sendMail"></param>
-        private static void LogError(string msg, Exception ex, bool sendMail)
+        private static void LogError(string msg, Exception ex)
         {
             Log.Error(msg, ex);
-
-            var exMessage = new StringBuilder();
-
             var context = HttpContext.Current;
 
-            string serverName;
-
-            if (context != null && context.Server.MachineName != null)
-            {
-                serverName = HttpContext.Current.Server.MachineName;
-            }
-            else
-            {
-                serverName = Environment.MachineName;
-            }
-
-            if (context != null)
-            {
-                if (ex != null)
-                {
-                    if (
-                        ex.Message.Contains(
-                            "A potentially dangerous Request.Path value was detected from the client (&)"))
-                        return; // probably a bot
-                }
-
-                if (ex != null &&
-                    (ex.Message.Contains(
-                        "A connection was successfully established with the server, but then an error occurred during the login process. (provider: TCP Provider, error: 0 - The specified network name is no longer available.)") ||
-                     ex.Message.Contains(
-                         "Message: A transport-level error has occurred when receiving results from the server") ||
-                     ex.Message.Contains(
-                         "A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)") ||
-                     ex.Message.Contains(
-                         "Timeout expired.")
-                    )
-                    )
-                {
-                    //System.Threading.Thread.Sleep(1000); // last time this was too long and crashed the site, hopefully this time that is not the case
-
-                    if (
-                        Convert.ToInt32(context.Application[SiteEnums.ApplicationVariableNames.ErrorCount.ToString()]) ==
-                        0)
-                    {
-                        //TODO: FIGURE THIS OUT, KEEPS EMAILING HUNDREDS OF TIMES
-                        //SendMail(
-                        //        Configs.GeneralConfigs.SendToErrorEmail,
-                        //        Configs.AmazonCloudConfigs.SendFromEmail, "DB CON DOWN: " + serverName, ex.ToString());
-
-                        context.Application[SiteEnums.ApplicationVariableNames.LogError.ToString()] = false;
-                    }
-
-
-                    Log.Fatal("Error logging everything");
-
-                    return; // do not log more
-                }
-                else
-                {
-                    Log.Debug("EXCEPTION", ex);
-                }
-            }
-
-            try
-            {
-                exMessage.Append("UTC: " + String.Format("{0:u}", DateTime.UtcNow));
-
-                if (!string.IsNullOrEmpty(msg))
-                {
-                    exMessage.Append("\n\n Debug Message: " + msg);
-                }
-
-
-                if (ex != null)
-                {
-                    // build the error message
-                    if (!string.IsNullOrEmpty(ex.Message))
-                    {
-                        exMessage.Append("\n\n Message: " + ex.Message);
-                    }
-                    if (!string.IsNullOrEmpty(ex.Source))
-                    {
-                        exMessage.Append("\n\n Source: " + ex.Source);
-                    }
-                    if (ex.TargetSite != null)
-                    {
-                        exMessage.Append("\n\n Method: " + ex.TargetSite);
-                    }
-                    if (!string.IsNullOrEmpty(ex.StackTrace))
-                    {
-                        exMessage.Append("\n\n Stack Trace: \n\n" + ex.StackTrace);
-                    }
-                    if (ex.InnerException != null)
-                    {
-                        exMessage.Append("\n\n Inner Exception: \n\n" + ex.InnerException);
-                    }
-                }
-
-
-                if (context != null)
-                {
-                    if (context.Request.UrlReferrer != null)
-                    {
-                        exMessage.Append("\n\n Previous Page: " + context.Request.UrlReferrer);
-                    }
-                    if (context.Request.UserHostAddress != null &&
-                        !string.IsNullOrEmpty(context.Request.UserHostAddress))
-                    {
-                        exMessage.Append("\n\n User Host Address: " + context.Request.UserHostAddress);
-                    }
-                    if (!string.IsNullOrEmpty(context.Request.UserAgent))
-                    {
-                        exMessage.Append("\n\n User Agent: " + context.Request.UserAgent);
-                    }
-                    if (context.Request.Browser != null)
-                    {
-                        exMessage.Append("\n\n Browser Version: " + context.Request.Browser.Version);
-                    }
-                    exMessage.Append("\n\n Headers: " + context.Request.Headers);
-                    if (!string.IsNullOrEmpty(context.Request.ApplicationPath))
-                    {
-                        exMessage.Append("\n\n Application Path: " + context.Request.ApplicationPath);
-                    }
-                    if (!string.IsNullOrEmpty(serverName))
-                    {
-                        exMessage.Append("\n\n Server Name: " + serverName);
-                    }
-                    else
-                    {
-                        serverName = string.Empty;
-                    }
-                    if (!string.IsNullOrEmpty(context.Request.RawUrl))
-                    {
-                        exMessage.Append("\n\n Page Location: " + context.Request.RawUrl);
-                    }
-                    if (!string.IsNullOrEmpty(context.Request.UserHostAddress))
-                    {
-                        exMessage.Append("\n\n Full Page URL: " + context.Request.Url);
-                    }
-                }
-            }
-            catch
-            {
-                //SendMail(
-                //      Configs.GeneralConfigs.SendToErrorEmail,
-                //      Configs.AmazonCloudConfigs.SendFromEmail,
-                //    "Error On: " +
-                //    serverName,
-                //    "EXCEPTION MAIN: " + exMessage.ToString() +
-                //    " EXCEPTION LOGGING: " + ex2.ToString());
-            }
-
-
-            if (GeneralConfigs.EnableErrorLogEmail && sendMail)
-            {
-                var messageError = exMessage.ToString();
-
-                if (messageError.ToLower().Contains("network") ||
-                    messageError.ToLower().Contains("timeout"))
-                {
-                    // annoying messages
-                    return;
-                }
-                SendMail(
-                    GeneralConfigs.SendToErrorEmail,
-                    AmazonCloudConfigs.SendFromEmail,
-                    "Error On: " + serverName, exMessage.ToString());
-            }
-
+            var exMessage = new StringBuilder();
             if (context == null) return;
 
-           
-            var el = new ErrorLog {Message = exMessage.ToString()};
-
-            if (el.Message.Contains("Timeout expired.")) return;
-
-            var mu = Membership.GetUser();
-
-            if (mu != null)
+            if (context.Request.UrlReferrer != null)
             {
-                el.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+                exMessage.Append("\n\n Previous Page: " + context.Request.UrlReferrer);
+            }
+            if (context.Request.UserHostAddress != null &&
+                !string.IsNullOrEmpty(context.Request.UserHostAddress))
+            {
+                exMessage.Append("\n\n User Host Address: " + context.Request.UserHostAddress);
+            }
+            if (!string.IsNullOrEmpty(context.Request.UserAgent))
+            {
+                exMessage.Append("\n\n User Agent: " + context.Request.UserAgent);
+            }
+            if (context.Request.Browser != null)
+            {
+                exMessage.Append("\n\n Browser Version: " + context.Request.Browser.Version);
+            }
+            exMessage.Append("\n\n Headers: " + context.Request.Headers);
+            if (!string.IsNullOrEmpty(context.Request.ApplicationPath))
+            {
+                exMessage.Append("\n\n Application Path: " + context.Request.ApplicationPath);
             }
 
-            el.Url = HttpContext.Current.Request.Url.ToString();
-            if (el.Message.ToLower().Contains("@transport-level") || el.Message.ToLower().Contains("@tcp-provider") ||
-                el.Message.ToLower().Contains("@network-related")) return;
-            el.ResponseCode = -1; // not following 
-            // hopeless database call else
-            el.Create();
+            if (!string.IsNullOrEmpty(context.Request.RawUrl))
+            {
+                exMessage.Append("\n\n Page Location: " + context.Request.RawUrl);
+            }
+            if (!string.IsNullOrEmpty(context.Request.UserHostAddress))
+            {
+                exMessage.Append("\n\n Full Page URL: " + context.Request.Url);
+            }
+
+            Log.Fatal(exMessage.ToString());
         }
+    
 
         /// <summary>
         ///     Log an exception to a file and mail it
@@ -828,7 +588,7 @@ namespace DasKlub.Lib.Operational
         /// <param name="ex"></param>
         public static void LogError(Exception ex)
         {
-            LogError(string.Empty, ex, true);
+            LogError(string.Empty, ex);
         }
 
         /// <summary>
@@ -848,7 +608,7 @@ namespace DasKlub.Lib.Operational
         /// <param name="sendEmail">if errors are being sent</param>
         private static void LogError(string msg, bool sendEmail)
         {
-            LogError(msg, null, sendEmail);
+            LogError(msg, null);
         }
 
         #endregion

@@ -54,10 +54,7 @@ namespace DasKlub.Lib.DAL
                             }
                             catch (Exception ex)
                             {
-                                if (command != null && command.CommandText != null)
-                                    Utilities.LogError("COMMAND: " + command.CommandText, ex);
-                                else
-                                    Utilities.LogError(ex);
+                                Utilities.LogError(ex);
 
                                 return null;
                             }
@@ -95,10 +92,7 @@ namespace DasKlub.Lib.DAL
                 }
                 catch (Exception ex)
                 {
-                    if (command != null && command.CommandText != null)
-                        Utilities.LogError("COMMAND: " + command.CommandText, ex);
-                    else
-                        Utilities.LogError(ex);
+                    Utilities.LogError(ex);
                 }
                 finally
                 {
@@ -130,10 +124,7 @@ namespace DasKlub.Lib.DAL
                 }
                 catch (Exception ex)
                 {
-                    if (command != null && command.CommandText != null)
-                        Utilities.LogError("COMMAND: " + command.CommandText, ex);
-                    else
-                        Utilities.LogError(ex);
+                    Utilities.LogError(ex);
                 }
                 finally
                 {
@@ -154,7 +145,7 @@ namespace DasKlub.Lib.DAL
         public static string ExecuteScalar(DbCommand command)
         {
             var value = string.Empty;
-            
+
             using (command)
             {
                 try
@@ -165,10 +156,7 @@ namespace DasKlub.Lib.DAL
                 }
                 catch (Exception ex)
                 {
-                    if (command != null && command.CommandText != null)
-                        Utilities.LogError("COMMAND: " + command.CommandText, ex);
-                    else
-                        Utilities.LogError(ex);
+                    Utilities.LogError(ex);
                 }
                 finally
                 {

@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using DasKlub.Models.Domain;
@@ -12,6 +13,12 @@ namespace DasKlub.Models
         public IDbSet<ForumSubCategory>         ForumSubCategory        { get; set; }
         public IDbSet<ForumPost>                ForumPost               { get; set; }
         public IDbSet<ForumPostNotification>    ForumPostNotification   { get; set; }
+
+        public DasKlubDbContext()
+            : base((ConfigurationManager.AppSettings["DatabaseName"] ?? "DasKlubDbContext"))
+           
+        {
+        }
 
         public override int SaveChanges()
         {

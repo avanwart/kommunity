@@ -17,7 +17,7 @@
     </head>
     <body>
         <form id="form1" runat="server">
-            <a href="http://dasklub.com">back to Das Klub</a>
+            <a href="http://dasklub.com">back toEmail Das Klub</a>
             <div>
                 <asp:Literal runat="server" ID="litUserName"></asp:Literal> REPORT
                 <br />

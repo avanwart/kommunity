@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
 using DasKlub.Models.Forum;
-using EntityState = System.Data.Entity.EntityState;
+using DasKlub.Web.Models.Models;
 
-namespace DasKlub.Web.Models.Models
+namespace DasKlub.Models.Models
 { 
     public class ForumCategoryRepository : IForumCategoryRepository
     {

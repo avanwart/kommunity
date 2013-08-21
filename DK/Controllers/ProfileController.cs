@@ -29,6 +29,7 @@ using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
 using DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Resources;
+using DasKlub.Lib.Services;
 using DasKlub.Lib.Values;
 using DasKlub.Web.Models;
 
@@ -40,12 +41,14 @@ namespace DasKlub.Web.Controllers
         public static readonly int PageSize = 25;
         private PhotoItem _pitm;
         private UserAccount _ua;
-        private MembershipUser _mu;
+        private readonly MembershipUser _mu;
+        private readonly IMailService _mail;
 
-        public ProfileController()
+        public ProfileController(IMailService mail)
         {
+            _mail = mail;
             _mu = Membership.GetUser();
-
+            
             if (_mu != null) _ua = new UserAccount(_mu.UserName);
         }
 
@@ -631,7 +634,7 @@ namespace DasKlub.Web.Controllers
 
                     if (uad.EmailMessages)
                     {
-                        Utilities.SendMail(_ua.EMail, "Wall Post From: " + _mu.UserName, _ua.UrlTo.ToString());
+                        _mail.SendMail(Lib.Configs.AmazonCloudConfigs.SendFromEmail, _ua.EMail, "Wall Post From: " + _mu.UserName, _ua.UrlTo.ToString());
                     }
                 }
             }

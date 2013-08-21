@@ -203,7 +203,7 @@
                     :
                 </td>
                 <td>
-                    Up to 5 songs in order of appearance
+                    Up toEmail 5 songs in order of appearance
                 </td>
             </tr>
             <tr>

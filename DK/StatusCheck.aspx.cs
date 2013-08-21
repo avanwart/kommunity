@@ -25,11 +25,14 @@ using System.Web.Caching;
 using System.Web.UI;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Operational;
+using DasKlub.Lib.Services;
 
 namespace DasKlub.Web
 {
     public partial class StatusCheck : Page
     {
+        private IMailService _mail;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             lblPing.Text = Utilities.GetIPForDomain("google.com");
@@ -109,7 +112,7 @@ namespace DasKlub.Web
             string resp = string.Empty;
 
             //////////// Email
-            if (Utilities.SendMail(GeneralConfigs.SendToErrorEmail, AmazonCloudConfigs.SendFromEmail, "subject", "body"))
+            if (_mail.SendMail(GeneralConfigs.SendToErrorEmail, AmazonCloudConfigs.SendFromEmail, "subject", "body"))
             {
                 lblEmail.ForeColor = Color.Green;
                 lblEmail.Text = "OK";

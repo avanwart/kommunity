@@ -16,11 +16,19 @@
 //   limitations under the License.
 
 using System;
- 
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
+using System.Data.SqlClient;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using DBMigrator.Migrations;
+using DasKlub.Lib.DAL;
+using DasKlub.Lib.Operational;
+using Configuration = DBMigrator.Migrations.Configuration;
 
 namespace DBMigrator
 {
@@ -28,12 +36,12 @@ namespace DBMigrator
     {
         public static bool RunSeed = false;
         public static int exitCode = -1;
+        public static string dbName = ConfigurationManager.AppSettings["DatabaseName"];
 
-
-        public static string dbName = "DasKlubContext";
-
+ 
         private static void Main(string[] args)
         {
+ 
             Database.SetInitializer(new DropCreateDatabaseTables());
 
             if (!Database.Exists(dbName))

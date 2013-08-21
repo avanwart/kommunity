@@ -15,7 +15,7 @@
         <script type="text/javascript">
             function confirmSubmit() {
 
-                var agree = confirm("Do you really want to delete this event?");
+                var agree = confirm("Do you really want toEmail delete this event?");
 
                 if (agree)
                     return true;

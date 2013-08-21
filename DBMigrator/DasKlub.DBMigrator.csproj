@@ -38,8 +38,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.0-beta1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.0.0-beta1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -48,6 +47,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Migrations\201211250725168_Initial.cs" />
@@ -78,41 +78,17 @@
     <Compile Include="Migrations\201304080214135_BirthDates.Designer.cs">
       <DependentUpon>201304080214135_BirthDates.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304150346059_ReleasePageContent.cs" />
-    <Compile Include="Migrations\201304150346059_ReleasePageContent.Designer.cs">
-      <DependentUpon>201304150346059_ReleasePageContent.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201304150410184_GetContentPageWiseReleaseAll.cs" />
     <Compile Include="Migrations\201304150410184_GetContentPageWiseReleaseAll.Designer.cs">
       <DependentUpon>201304150410184_GetContentPageWiseReleaseAll.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304202057579_ForumTables.cs" />
-    <Compile Include="Migrations\201304202057579_ForumTables.Designer.cs">
-      <DependentUpon>201304202057579_ForumTables.cs</DependentUpon>
+    <Compile Include="Migrations\201308210300244_EntityFramework6Beta.cs" />
+    <Compile Include="Migrations\201308210300244_EntityFramework6Beta.Designer.cs">
+      <DependentUpon>201308210300244_EntityFramework6Beta.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201304210240310_ForumRequiredTitleDetail.cs" />
-    <Compile Include="Migrations\201304210240310_ForumRequiredTitleDetail.Designer.cs">
-      <DependentUpon>201304210240310_ForumRequiredTitleDetail.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304210556460_ForumPropertyLengths.cs" />
-    <Compile Include="Migrations\201304210556460_ForumPropertyLengths.Designer.cs">
-      <DependentUpon>201304210556460_ForumPropertyLengths.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304210557243_ForumPropertyUniqueKeys.cs" />
-    <Compile Include="Migrations\201304210557243_ForumPropertyUniqueKeys.Designer.cs">
-      <DependentUpon>201304210557243_ForumPropertyUniqueKeys.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201304230240066_ForumPostNotification.cs" />
-    <Compile Include="Migrations\201304230240066_ForumPostNotification.Designer.cs">
-      <DependentUpon>201304230240066_ForumPostNotification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201308081953352_LengthenSubForumPost.cs" />
-    <Compile Include="Migrations\201308081953352_LengthenSubForumPost.Designer.cs">
-      <DependentUpon>201308081953352_LengthenSubForumPost.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201308150544516_WallMessageMessageColumnType.cs" />
-    <Compile Include="Migrations\201308150544516_WallMessageMessageColumnType.Designer.cs">
-      <DependentUpon>201308150544516_WallMessageMessageColumnType.cs</DependentUpon>
+    <Compile Include="Migrations\201308210410244_EF6BetaUpgrade.cs" />
+    <Compile Include="Migrations\201308210410244_EF6BetaUpgrade.Designer.cs">
+      <DependentUpon>201308210410244_EF6BetaUpgrade.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -146,38 +122,24 @@
     <EmbeddedResource Include="Migrations\201304080214135_BirthDates.resx">
       <DependentUpon>201304080214135_BirthDates.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304150346059_ReleasePageContent.resx">
-      <DependentUpon>201304150346059_ReleasePageContent.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304150410184_GetContentPageWiseReleaseAll.resx">
       <DependentUpon>201304150410184_GetContentPageWiseReleaseAll.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304202057579_ForumTables.resx">
-      <DependentUpon>201304202057579_ForumTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201308210300244_EntityFramework6Beta.resx">
+      <DependentUpon>201308210300244_EntityFramework6Beta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304210240310_ForumRequiredTitleDetail.resx">
-      <DependentUpon>201304210240310_ForumRequiredTitleDetail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304210556460_ForumPropertyLengths.resx">
-      <DependentUpon>201304210556460_ForumPropertyLengths.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304210557243_ForumPropertyUniqueKeys.resx">
-      <DependentUpon>201304210557243_ForumPropertyUniqueKeys.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201304230240066_ForumPostNotification.resx">
-      <DependentUpon>201304230240066_ForumPostNotification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201308081953352_LengthenSubForumPost.resx">
-      <DependentUpon>201308081953352_LengthenSubForumPost.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201308150544516_WallMessageMessageColumnType.resx">
-      <DependentUpon>201308150544516_WallMessageMessageColumnType.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201308210410244_EF6BetaUpgrade.resx">
+      <DependentUpon>201308210410244_EF6BetaUpgrade.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Initial\dk_script.sql" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BootBaronLib\DasKlub.Lib.csproj">
+      <Project>{4A6CF1CC-4F7A-43D2-A9CD-07DB4D8C45CD}</Project>
+      <Name>DasKlub.Lib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DasKlubModel\DasKlub.Models.csproj">
       <Project>{ae85a1d5-2e20-4a18-ac1b-c49e6abfec51}</Project>
       <Name>DasKlub.Models</Name>
