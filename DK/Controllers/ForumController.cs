@@ -467,9 +467,9 @@ namespace DasKlub.Web.Controllers
                             allUserNotifications.Where(
                                 forumPostNotification => forumPostNotification.UserAccountID != ua.UserAccountID))
                     {
-                    //    forumPostNotification.IsRead = false;
-                    //    forumPostNotification.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
-                    //    context.Entry(forumPostNotification).State = EntityState.Modified;
+                        forumPostNotification.IsRead = false;
+                        forumPostNotification.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
+                        context.Entry(forumPostNotification).State = EntityState.Modified;
 
                         var notifiedUser = new UserAccount(forumPostNotification.UserAccountID);
                         var notifiedUserDetails = new UserAccountDetail();

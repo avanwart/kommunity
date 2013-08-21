@@ -35,13 +35,17 @@ namespace DasKlub.Web.io
     public class operation : IHttpHandler
     {
 
-        private readonly IMailService _mail;
+        private IMailService _mail;
 
         public operation(IMailService mail)
         {
             _mail = mail;
         }
 
+        public operation( )
+        {
+             
+        }
 
         public void ProcessRequest(HttpContext context)
         {
@@ -783,6 +787,10 @@ namespace DasKlub.Web.io
 
             if (uad.EmailMessages)
             {
+                if (_mail == null)
+                {
+                    _mail = new MailService();
+                }
                 _mail.SendMail(AmazonCloudConfigs.SendFromEmail, uaTo.EMail, title, statupMess);
             }
 

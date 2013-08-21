@@ -153,5 +153,6 @@ $RECYCLE.BIN/
 # =========================
 App_Data/
 Web.Release.config
+Web.Production.config
 buildartifacts/
 deployment/

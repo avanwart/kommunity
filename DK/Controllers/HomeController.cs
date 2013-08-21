@@ -32,7 +32,6 @@ using DasKlub.Models;
 using DasKlub.Models.Forum;
 using DasKlub.Models.Models;
 using DasKlub.Web.Models;
-using DasKlub.Web.Models.Models;
 using Google.GData.Client;
 using Google.YouTube;
 using HttpUtility = System.Web.HttpUtility;
@@ -142,7 +141,6 @@ namespace DasKlub.Web.Controllers
                 vid.IsEnabled = false;
                 vid.Update();
 
-                // invalid 
                 vir.StatusType = 'I';
                 Response.Redirect("~/videosubmission.aspx?statustype=I");
              
@@ -155,7 +153,7 @@ namespace DasKlub.Web.Controllers
                  
                 return new EmptyResult();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 vir.StatusType = 'I';
                 Response.Redirect("~/videosubmission.aspx?statustype=I");
@@ -308,13 +306,13 @@ namespace DasKlub.Web.Controllers
 
                 if (mostPopularForumPosts != null)
                 {
-                    LoadMostPopularThisWeek(mostPopularForumPosts, context, ua);
+                    ViewBag.TopThreadOfTheWeek = LoadMostPopularThisWeek(mostPopularForumPosts, context, ua);
 
                     Dictionary<int, DateTime> subItems;
                     List<ForumFeedModel> forumFeed;
-                    var newestThreads = FetchNewestThreads(context, mostPopularForumPosts, out subItems, out forumFeed);
+                    var newestThreads = LoadNewestThreads(context, mostPopularForumPosts, out subItems, out forumFeed);
 
-                    LoadMostRecentThreads(subItems, context, ua, forumFeed, newestThreads);
+                    ViewBag.MostRecentThreads = LoadMostRecentThreads(subItems, context, ua, forumFeed, newestThreads);
 
                     var mostPostsInForum =
                         (from b in context.ForumPost
@@ -324,19 +322,23 @@ namespace DasKlub.Web.Controllers
                          orderby grp.Count() descending
                          select grp.Key).Take(7).ToList();
 
-                    LoadTopForumUsers(mostPostsInForum);
+                    ViewBag.TopForumUsersOfTheMonth =  LoadTopForumUsers(mostPostsInForum);
                 }
             }
 
-            LoadRecentArticles();
+            ViewBag.RecentArticles = LoadRecentArticles();
 
-            LoadTopUsers();
+            ViewBag.TopUsersOfTheMonth = LoadTopUsers();
 
             return View();
         }
 
-        private static List<ForumSubCategory> FetchNewestThreads(DasKlubDbContext context, IGrouping<int, ForumPost> mostPopularThisWeek, out Dictionary<int, DateTime> subItems,
-                                             out List<ForumFeedModel> forumFeed)
+        private static List<ForumSubCategory> LoadNewestThreads(
+                                                DasKlubDbContext context, 
+                                                IGrouping<int, ForumPost> mostPopularThisWeek, 
+                                                out Dictionary<int, DateTime> subItems,
+                                                out List<ForumFeedModel> forumFeed
+                                                )
         {
             var newestThreads = context.ForumSubCategory
                                        .OrderByDescending(x => x.CreateDate)
@@ -346,7 +348,7 @@ namespace DasKlub.Web.Controllers
             subItems = new Dictionary<int, DateTime>();
             forumFeed = new List<ForumFeedModel>();
 
-            Dictionary<int, DateTime> items = subItems;
+            var items = subItems;
             foreach (var post in newestThreads.Where(post => !items.ContainsKey(post.ForumSubCategoryID)))
             {
                 items.Add(post.ForumSubCategoryID, post.CreateDate);
@@ -372,34 +374,37 @@ namespace DasKlub.Web.Controllers
             return newestThreads;
         }
 
-        private void LoadTopUsers()
+        private UserAccounts LoadTopUsers()
         {
             var topUsers = new UserAccounts();
             topUsers.GetMostApplaudedLastDays();
 
-            ViewBag.TopUsersOfTheMonth = topUsers;
+            return topUsers;
         }
 
-        private void LoadRecentArticles()
+        private Contents LoadRecentArticles()
         {
             var cnts = new Contents();
             cnts.GetContentPageWiseReleaseAll(1, 5);
 
-            ViewBag.RecentArticles = cnts;
+            return cnts;
         }
 
-        private void LoadTopForumUsers(IEnumerable<int> mostPostsInForum)
+        private UserAccounts LoadTopForumUsers(IEnumerable<int> mostPostsInForum)
         {
             var topForumUsers = new UserAccounts();
 
             topForumUsers.AddRange(mostPostsInForum.Select(topForumUser => new UserAccount(topForumUser)));
 
-            ViewBag.TopForumUsersOfTheMonth = topForumUsers;
+             return topForumUsers;
         }
 
-        private void LoadMostPopularThisWeek(IGrouping<int, ForumPost> mostPopularThisWeek, DasKlubDbContext context, UserAccount ua)
+        private ForumFeedModel LoadMostPopularThisWeek(IGrouping<int, ForumPost> mostPopularThisWeek,
+                                                       DasKlubDbContext context, UserAccount ua)
         {
-            if (mostPopularThisWeek == null) return;
+            if (mostPopularThisWeek == null) return null;
+
+
             var topForumThreadOfTheWeek =
                 context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == mostPopularThisWeek.Key);
             var topFeedItem = new ForumFeedModel {ForumSubCategory = topForumThreadOfTheWeek};
@@ -434,17 +439,16 @@ namespace DasKlub.Web.Controllers
 
                     if (mostRecentPostToTopThread != null)
                         topFeedItem.URLTo =
-                            new Uri(topFeedItem.ForumSubCategory.SubForumURL + "/" +
-                                    ((pageCount > 1)
-                                         ? pageCount.ToString(CultureInfo.InvariantCulture)
-                                         : string.Empty) + "#" +
-                                    mostRecentPostToTopThread.ForumPostID.ToString(CultureInfo.InvariantCulture));
+                            new Uri(string.Format("{0}/{1}#{2}", topFeedItem.ForumSubCategory.SubForumURL, ((pageCount > 1)
+                                                                                                                                                                                                                     ? pageCount.ToString(CultureInfo.InvariantCulture)
+                                                                                                                                                                                                                     : string.Empty), mostRecentPostToTopThread.ForumPostID.ToString(CultureInfo.InvariantCulture)));
                 }
             }
-            ViewBag.TopThreadOfTheWeek = topFeedItem;
+
+            return topFeedItem;
         }
 
-        private void LoadMostRecentThreads(Dictionary<int, DateTime> subItems, DasKlubDbContext context, UserAccount ua, List<ForumFeedModel> forumFeed,
+        private List<ForumSubCategory> LoadMostRecentThreads(Dictionary<int, DateTime> subItems, DasKlubDbContext context, UserAccount ua, List<ForumFeedModel> forumFeed,
                                        List<ForumSubCategory> newestThreads)
         {
             foreach (var forumFeedItem in subItems.Select(post => new ForumFeedModel
@@ -497,7 +501,7 @@ namespace DasKlub.Web.Controllers
 
             forumFeed = forumFeed.OrderByDescending(x => x.LastPosted).Take(9).ToList();
             ViewBag.ForumFeed = forumFeed;
-            ViewBag.MostRecentThreads = newestThreads;
+            return newestThreads;
         }
 
 
