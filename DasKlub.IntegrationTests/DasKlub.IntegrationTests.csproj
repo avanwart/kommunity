@@ -95,7 +95,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Controllers\Forum\ForumContollerTest.cs" />
+    <Compile Include="Controllers\Forum\ForumControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

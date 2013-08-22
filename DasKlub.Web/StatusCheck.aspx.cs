@@ -38,6 +38,10 @@ namespace DasKlub.Web
             _mail = mail;
         }
 
+        public StatusCheck()
+        {
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             lblPing.Text = Utilities.GetIPForDomain("google.com");
