@@ -136,7 +136,7 @@ namespace DasKlub.Web.Controllers
                 vid.ProviderUserKey = video2.Uploader;
                 vid.PublishDate = video2.YouTubeEntry.Published;
             }
-            catch (GDataRequestException gdx)
+            catch (GDataRequestException)
             {
                 vid.IsEnabled = false;
                 vid.Update();
@@ -146,7 +146,7 @@ namespace DasKlub.Web.Controllers
              
                 return new EmptyResult();
             }
-            catch (ClientFeedException cfe)
+            catch (ClientFeedException)
             {
                 vir.StatusType = 'I';
                 Response.Redirect("~/videosubmission.aspx?statustype=I");

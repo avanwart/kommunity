@@ -20,8 +20,7 @@ namespace DasKlub.Lib.Services
             {
                 toEmail = toEmail.Trim();
                 fromEmail = fromEmail.Trim();
-
-                // check amazon's settings for your email mail limits
+                
                 var amzClient = new AmazonSimpleEmailServiceClient(AmazonCloudConfigs.AmazonAccessKey, AmazonCloudConfigs.AmazonSecretKey);
                 var dest = new Destination();
                 dest.ToAddresses.Add(toEmail);
@@ -30,11 +29,11 @@ namespace DasKlub.Lib.Services
                 var message = new Message(title, bdy);
                 var ser = new SendEmailRequest(fromEmail, dest, message);
 
-                var seResponse = amzClient.SendEmail(ser);
+                amzClient.SendEmail(ser);
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

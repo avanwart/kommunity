@@ -31,7 +31,12 @@ namespace DasKlub.Web
 {
     public partial class StatusCheck : Page
     {
-        private IMailService _mail;
+        private readonly IMailService _mail;
+
+        public StatusCheck(IMailService mail)
+        {
+            _mail = mail;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
