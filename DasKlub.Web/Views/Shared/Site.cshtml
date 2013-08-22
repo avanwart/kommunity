@@ -132,8 +132,8 @@
             <div class="navbar-inner">
                 <div class="container">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-                                                                                                     class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </a><a href="@Url.Content("~/")" class="brand">
+ class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    </a><a href="@Url.Content("~/")" style="margin-top:5px;" class="brand">
                             <img style="height: 39px;" alt="@GeneralConfigs.SiteName"
                                  src="@Url.Content("~/Content/images/brand/smalllogo.png")" />
                         </a>
@@ -147,14 +147,12 @@
                                 
                                 <ul class="nav the-icons">
                                      <li><a href="~/" class="site_name" >@GeneralConfigs.SiteName</a></li>
-                                    <li>
-                                        @{ Html.RenderPartial("_languageMenu"); }
-                                    </li>
+                                  
                                      <li>&nbsp;</li>
                                    
                                     <li >
-                                        <input placeholder="Product Search" type="text" name="search" style="margin-top: 8px;" />    
-                                        <button class="btn btn-primary" style="margin-top:0px;" >@Messages.Go</button>
+                                        <input placeholder="@Messages.Search" type="text" name="search" style="margin-top: 8px;" />    
+                                        <button class="btn btn-primary" style="margin-top:-3px;" >@Messages.Go</button>
                                     </li>
                                     
                                     <li><a href="~/home/index">
@@ -197,11 +195,14 @@
             @RenderBody()
             <footer>
                 <hr />
+                 @{ Html.RenderPartial("_languageMenu"); }    |
                 &copy; @string.Format(Messages.CopyrightAllRights, DateTime.UtcNow.Year, GeneralConfigs.SiteDomain) | 
 
                 @Html.Raw(@"<a href=""" + GeneralConfigs.SiteDomain + @""">" + GeneralConfigs.SiteName + @"</a>")  |  
 
-
+                
+                                      
+                                  
                 <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.ABOUT)">@Messages.About</a>  | <a href="@Url.Content("~/contact")">@Messages.Contact</a>  |
                 <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS.ToString())">@Messages.TermsAndCondtions</a> |  
                 <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.PRIPL.ToString())">@Messages.PrivacyPolicy</a>

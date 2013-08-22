@@ -6,11 +6,7 @@
                             <li><a href="~/" class="site_name" >@GeneralConfigs.SiteName</a></li>
                             
                                      
-                            
-                            <li>
-                            @{ Html.RenderPartial("_languageMenu"); }
-                            </li>
-            
+                        
 
                             @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "forum" &&
                                   ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
