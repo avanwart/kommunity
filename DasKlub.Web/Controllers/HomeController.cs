@@ -274,11 +274,7 @@ namespace DasKlub.Web.Controllers
 
         public ActionResult Index()
         {
-            if (Request.RawUrl == "/")
-            {
-                return View("ShopIndex");
-            }
-
+          
             var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
             var randomVideo = Video.RandomVideoIDVideo();
             

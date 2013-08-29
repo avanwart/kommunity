@@ -103,17 +103,17 @@
                                                 <text>content="@Messages.CreativeCommunity"</text>
                                             } />
         <link rel="image_src"  @if (!string.IsNullOrEmpty(ViewBag.ThumbIcon))
-    {<text>href="</text>@Html.Raw(ViewBag.ThumbIcon)<text>"</text> }
-                           else
-                           { <text>href="@Url.Content("~/content/images/brand/logo.png")"</text>
-    }
+                               {<text>href="</text>@Html.Raw(ViewBag.ThumbIcon)<text>"</text> }
+                               else
+                               { <text>href="@Url.Content("~/content/images/brand/logo.png")"</text>
+                               }
     
     
                                  />
                                  <meta id="thumb_icon" property="og:image"  @if (!string.IsNullOrEmpty(ViewBag.ThumbIcon))
-    {<text>content="</text>@Html.Raw(ViewBag.ThumbIcon)<text>"</text> }
-                                               else
-                                               {  <text>content="@Url.Content("~/content/images/brand/logo.png")"</text> } />
+                                                                            {<text>content="</text>@Html.Raw(ViewBag.ThumbIcon)<text>"</text> }
+                                                                            else
+                                                                            {  <text>content="@Url.Content("~/content/images/brand/logo.png")"</text> } />
 
 
         <script type="text/javascript">
@@ -140,52 +140,11 @@
                     <div class="nav-collapse">
                         
                        
-                            @if (Request.RawUrl == "/" && (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "home" &&
-                                  ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
-                            {
-                                 
-                                
-                                <ul class="nav the-icons">
-                                     <li><a href="~/" class="site_name" >@GeneralConfigs.SiteName</a></li>
-                                  
-                                     <li>&nbsp;</li>
-                                   
-                                    <li >
-                                        <input placeholder="@Messages.Search" type="text" name="search" style="margin-top: 8px;" />    
-                                        <button class="btn btn-primary" style="margin-top:-3px;" >@Messages.Go</button>
-                                    </li>
-                                    
-                                    <li><a href="~/home/index">
-                                            <i class=" icon-user"></i> Kommunity</a> </li>
-                                        <li><a href="~/home/index">
-                                            <i class=" icon-signal"></i> @Messages.OpenShop</a> </li>
+       
+                                @{Html.RenderPartial("_kommunityMenu");}
 
-@if (Request.IsAuthenticated)
-{
-    <li>
-                    
-        <a   href="@Url.Content("~/account/LogOff")"> <i class="icon-off"></i> @Html.Raw(Messages.SignOff)</a>
-
-              
- 
-  
-    </li>
-}
-
-
-                                </ul>
-                             
-
-                            }
-                            else 
-                            {
-                                Html.RenderPartial("_kommunityMenu");
-
-                                Html.RenderPartial("_LoggedInControls"); 
-                            }
-           
-
-                 
+                                @{ Html.RenderPartial("_LoggedInControls"); }
+                         
                     </div>
                 </div>
             </div>
@@ -198,7 +157,7 @@
                  @{ Html.RenderPartial("_languageMenu"); }    |
                 &copy; @string.Format(Messages.CopyrightAllRights, DateTime.UtcNow.Year, GeneralConfigs.SiteDomain) | 
 
-                @Html.Raw(@"<a href=""" + GeneralConfigs.SiteDomain + @""">" + GeneralConfigs.SiteName + @"</a>")  |  
+                @Html.Raw(string.Format(@"<a href=""{0}"">{1}</a>", GeneralConfigs.SiteDomain, GeneralConfigs.SiteName))  |  
 
                 
                                       
