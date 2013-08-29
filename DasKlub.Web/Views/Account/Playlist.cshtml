@@ -11,13 +11,18 @@
 }
 
 <div class="row">
+    
+      @{ Html.RenderPartial("_AdBanner"); }
+            <h2>@Messages.Playlist</h2>
+            <hr />
+            
+            @{ Html.RenderPartial("_editProfileMenu"); }
 
+    
     @if (string.IsNullOrEmpty(ViewBag.PlaylistVideos))
     {
         <div class="span8">
-            @{ Html.RenderPartial("_AdBanner"); }
-            <h2>@Messages.Playlist</h2>
-            <hr />
+          
 
             <span>@Messages.NoResults <a href="@Url.Content("~/video")">@Messages.Videos</a></span>
         </div>
@@ -25,10 +30,7 @@
     else
     {
         <div class="span8">
-            @{ Html.RenderPartial("_AdBanner"); }
-            <h2>@Messages.Playlist</h2>
-            <hr />
-
+           
             <div id="player">
             </div>
             <style type="text/css">
