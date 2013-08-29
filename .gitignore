@@ -155,5 +155,6 @@ App_Data/
 Web.Debug.config
 Web.Release.config
 Web.Production.config
+Web.Staging.config
 buildartifacts/
 deployment/

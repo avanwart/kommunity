@@ -34,9 +34,9 @@
   
         @*  @Styles.Render("~/Content/css_head1")*@
 
-        <style type="text/css">
+       <style type="text/css">
             body {
-                @if (HttpContext.Current.Request.IsAuthenticated && Request.RawUrl != "/")
+                @if (HttpContext.Current.Request.IsAuthenticated)
                 {
                     <text>
         padding-top: 115px;
