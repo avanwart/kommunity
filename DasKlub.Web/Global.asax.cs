@@ -25,17 +25,16 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
-using Bootstrap;
 using DasKlub.Lib.AppSpec.DasKlub.BOL;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
 using DasKlub.Web.App_Start;
-using DasKlub.Web.Controllers;
-using Ninject;
 using log4net;
 using log4net.Config;
+using Microsoft.AspNet.SignalR;// needed
 using System.Web.Http;
+ 
 
 namespace DasKlub.Web
 {
@@ -55,9 +54,12 @@ namespace DasKlub.Web
          
         public void Application_Start()
         {
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteTable.Routes.MapHubs();
+
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            
             XmlConfigurator.Configure();
 
             Log.Info("Application Started");
