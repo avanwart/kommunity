@@ -1,4 +1,6 @@
 ﻿@using DasKlub.Lib.AppSpec.DasKlub.BOL.DomainConnection
+@using DasKlub.Lib.BOL.DomainConnection
+@using DasKlub.Lib.BOL.UserContent
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
 @using DasKlub.Lib.Values
@@ -46,7 +48,7 @@
         {
             <h5>@Messages.News</h5>
             <dl>
-                @foreach (DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent.Content newsItem in ViewBag.RecentArticles)
+                @foreach (Content newsItem in ViewBag.RecentArticles)
                 {
                     <dt>
                         @newsItem.Reply

@@ -16,7 +16,7 @@
 
 using System.Text;
 using System.Web.Mvc;
-using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.BOL;
 
 namespace DasKlub.Web.Controllers
 {

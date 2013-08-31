@@ -242,7 +242,6 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\Chat.cs" />
     <Compile Include="Controllers\ForumController.cs" />
-    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
@@ -253,7 +252,6 @@
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RadioController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\SiteAdminController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\VideoController.cs" />

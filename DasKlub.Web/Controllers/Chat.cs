@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
-using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.BOL;
 using DasKlub.Lib.Operational;
 using Microsoft.AspNet.SignalR;
 using SignalRChat.Common;

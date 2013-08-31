@@ -21,7 +21,7 @@ using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.Security;
-using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.BOL;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Resources;

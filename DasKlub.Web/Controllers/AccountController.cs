@@ -29,11 +29,11 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using DasKlub.Lib.AppSpec.DasKlub.BLL;
-using DasKlub.Lib.AppSpec.DasKlub.BOL;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
+using DasKlub.Lib.BLL;
+using DasKlub.Lib.BOL;
+using DasKlub.Lib.BOL.ArtistContent;
+using DasKlub.Lib.BOL.UserContent;
+using DasKlub.Lib.BOL.VideoContest;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Resources;
@@ -886,7 +886,7 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.BlockedUsers =
                 _mu != null &&
-                Lib.AppSpec.DasKlub.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(_mu.ProviderUserKey));
+                Lib.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(_mu.ProviderUserKey));
 
 
             return View();
@@ -975,7 +975,7 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.BlockedUsers =
                 _mu != null &&
-                DasKlub.Lib.AppSpec.DasKlub.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(_mu.ProviderUserKey));
+                Lib.BOL.BlockedUsers.HasBlockedUsers(Convert.ToInt32(_mu.ProviderUserKey));
 
             ViewBag.EnableProfileLogging = _uad.EnableProfileLogging;
 
@@ -1883,7 +1883,7 @@ namespace DasKlub.Web.Controllers
             _ua = new UserAccount(displayname);
 
             if (_mu != null && (string.IsNullOrEmpty(msg) ||
-                                DasKlub.Lib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockedUser(_ua.UserAccountID,
+                                Lib.BOL.BlockedUser.IsBlockedUser(_ua.UserAccountID,
                                                                                            Convert.ToInt32(
                                                                                                _mu.ProviderUserKey)))
                 )
@@ -3048,7 +3048,7 @@ namespace DasKlub.Web.Controllers
             sus.AddRange(
                 preFilter.Where(
                     su1 =>
-                    !Lib.AppSpec.DasKlub.BOL.BlockedUser.IsBlockingUser(_ua.UserAccountID, su1.UserAccountID)));
+                    !Lib.BOL.BlockedUser.IsBlockingUser(_ua.UserAccountID, su1.UserAccountID)));
 
             sus.IncludeStartAndEndTags = false;
             ViewBag.StatusUpdateList = string.Format(@"<ul id=""status_update_list_items"">{0}</ul>", sus.ToUnorderdList);

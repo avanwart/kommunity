@@ -2,7 +2,7 @@
 @using DasKlub.Lib.Resources
 
 @using DasKlub.Web.Helpers
-@model  DasKlub.Lib.AppSpec.DasKlub.BOL.PhotoItem
+@model  DasKlub.Lib.BOL.PhotoItem
 @{
     ViewBag.Title = Model.Title;
     ViewBag.ThumbIcon = FromString.GetFixedLengthString(Html.S3ContentPath(Model.FilePathThumb).ToString(), 50);

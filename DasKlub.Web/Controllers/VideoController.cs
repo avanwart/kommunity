@@ -20,10 +20,10 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using DasKlub.Lib.AppSpec.DasKlub.BLL;
-using DasKlub.Lib.AppSpec.DasKlub.BOL;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
+using DasKlub.Lib.BLL;
+using DasKlub.Lib.BOL;
+using DasKlub.Lib.BOL.ArtistContent;
+using DasKlub.Lib.BOL.VideoContest;
 using DasKlub.Lib.Values;
 using IntrepidStudios;
 using IntrepidStudios.SearchCloud;
@@ -160,7 +160,7 @@ namespace DasKlub.Web.Controllers
 
             LoadFilteredVideos(false);
 
-            var cndss = Lib.AppSpec.DasKlub.BOL.VideoContest.Contest.GetCurrentContest();
+            var cndss = Lib.BOL.VideoContest.Contest.GetCurrentContest();
             var cvids = new ContestVideos();
             var vidsInContest = new Videos();
             vidsInContest.AddRange(cvids.Select(cv1 => new Video(cv1.VideoID)));

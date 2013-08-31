@@ -16,13 +16,11 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.Common;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Resources;
@@ -30,19 +28,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
-using System.Web.Security;
 using System.Web.UI.WebControls;
-using Amazon.SimpleEmail;
-using Amazon.SimpleEmail.Model;
-using DasKlub.Lib.AppSpec.DasKlub.BLL;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.Logging;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Resources;
 using DasKlub.Lib.Values;
-using HtmlAgilityPack;
 using log4net;
-using Content = Amazon.SimpleEmail.Model.Content;
 
 namespace DasKlub.Lib.Operational
 {

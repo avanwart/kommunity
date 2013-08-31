@@ -18,9 +18,9 @@ using System;
 using System.Collections.Specialized;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DasKlub.Lib.AppSpec.DasKlub.BOL;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
+using DasKlub.Lib.BOL;
+using DasKlub.Lib.BOL.ArtistContent;
+using DasKlub.Lib.BOL.VideoContest;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
@@ -28,7 +28,7 @@ using Google.GData.Client;
 using Google.YouTube;
 using HttpUtility = System.Web.HttpUtility;
 using Utilities = DasKlub.Lib.Operational.Utilities;
-using Video = DasKlub.Lib.AppSpec.DasKlub.BOL.Video;
+using Video = DasKlub.Lib.BOL.Video;
 
 namespace DasKlub.Web.m.auth
 {

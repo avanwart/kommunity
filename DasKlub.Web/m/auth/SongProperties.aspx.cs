@@ -19,7 +19,7 @@ using System.Collections;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
+using DasKlub.Lib.BOL.ArtistContent;
 using DasKlub.Lib.Operational;
 
 namespace DasKlub.Web.m.auth

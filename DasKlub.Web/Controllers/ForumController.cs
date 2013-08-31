@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Web.Mvc;
 using System.Web.Security;
-using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.BOL;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Services;
 using DasKlub.Lib.Values;

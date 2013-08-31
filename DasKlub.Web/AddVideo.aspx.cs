@@ -17,7 +17,7 @@
 using System;
 using System.Web.Security;
 using System.Web.UI;
-using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.BOL;
 using DasKlub.Lib.Configs;
 
 namespace DasKlub.Web

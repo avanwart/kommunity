@@ -17,7 +17,7 @@
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.BOL;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
 
@@ -26,7 +26,7 @@ namespace DasKlub.Web.m.auth
     public partial class UserAddress : Page
     {
         private UserAccount ua;
-        private DasKlub.Lib.AppSpec.DasKlub.BOL.UserAddress uadd;
+        private Lib.BOL.UserAddress uadd;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -54,7 +54,7 @@ namespace DasKlub.Web.m.auth
         {
             // load address
             uadd =
-                new DasKlub.Lib.AppSpec.DasKlub.BOL.UserAddress(Convert.ToInt32(gvwUserAddresses.SelectedDataKey.Value));
+                new Lib.BOL.UserAddress(Convert.ToInt32(gvwUserAddresses.SelectedDataKey.Value));
 
             LoadUserAddress(uadd.UserAccountID);
         }
@@ -63,7 +63,7 @@ namespace DasKlub.Web.m.auth
         {
             // update address 
 
-            uadd = new DasKlub.Lib.AppSpec.DasKlub.BOL.UserAddress(Convert.ToInt32(hfUserAddressID.Value))
+            uadd = new Lib.BOL.UserAddress(Convert.ToInt32(hfUserAddressID.Value))
                 {
                     AddressLine1 = txtAddressLine1.Text,
                     AddressLine2 = txtAddressLine2.Text,
@@ -110,7 +110,7 @@ namespace DasKlub.Web.m.auth
 
             if (uadd == null)
             {
-                uadd = new DasKlub.Lib.AppSpec.DasKlub.BOL.UserAddress();
+                uadd = new Lib.BOL.UserAddress();
                 uadd.GetUserAddress(ua.UserAccountID);
             }
 

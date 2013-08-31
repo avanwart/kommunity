@@ -20,11 +20,11 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using DasKlub.Lib.AppSpec.DasKlub.BOL;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.ArtistContent;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.DomainConnection;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.UserContent;
-using DasKlub.Lib.AppSpec.DasKlub.BOL.VideoContest;
+using DasKlub.Lib.BOL;
+using DasKlub.Lib.BOL.ArtistContent;
+using DasKlub.Lib.BOL.DomainConnection;
+using DasKlub.Lib.BOL.UserContent;
+using DasKlub.Lib.BOL.VideoContest;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
@@ -36,7 +36,7 @@ using Google.GData.Client;
 using Google.YouTube;
 using HttpUtility = System.Web.HttpUtility;
 using Utilities = DasKlub.Lib.Operational.Utilities;
-using Video = DasKlub.Lib.AppSpec.DasKlub.BOL.Video;
+using Video = DasKlub.Lib.BOL.Video;
 
 namespace DasKlub.Web.Controllers
 {
@@ -68,7 +68,6 @@ namespace DasKlub.Web.Controllers
                 (SiteEnums.SiteBrandType) Enum.Parse(typeof (SiteEnums.SiteBrandType), brandType);
 
             ViewBag.ContentMessage = SiteDomain.GetSiteDomainValue(siteBrand, Utilities.GetCurrentLanguageCode());
-
 
             return View();
         }
@@ -122,7 +121,6 @@ namespace DasKlub.Web.Controllers
             }
 
             var vid = new Video("YT", vidKey) {ProviderCode = "YT"};
-
 
             try
             {
@@ -245,9 +243,7 @@ namespace DasKlub.Web.Controllers
                 artst.Create();
             }
 
-
             var sng = new Song(artst.ArtistID, song.Trim());
-
 
             if (sng.SongID == 0)
             {
@@ -399,7 +395,6 @@ namespace DasKlub.Web.Controllers
                                                        DasKlubDbContext context, UserAccount ua)
         {
             if (mostPopularThisWeek == null) return null;
-
 
             var topForumThreadOfTheWeek =
                 context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == mostPopularThisWeek.Key);

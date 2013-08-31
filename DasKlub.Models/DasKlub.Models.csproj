@@ -69,8 +69,6 @@
     <Compile Include="Forum\ForumPost.cs" />
     <Compile Include="Forum\ForumPostNotification.cs" />
     <Compile Include="Forum\ForumSubCategory.cs" />
-    <Compile Include="Invoice\InvoiceItem.cs" />
-    <Compile Include="Invoice\ShopInvoice.cs" />
     <Compile Include="Models\Acknowledgement.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\ArtistEvent.cs" />
@@ -206,20 +204,7 @@
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Models\YouAre.cs" />
     <Compile Include="Models\Zone.cs" />
-    <Compile Include="Order\Order.cs" />
-    <Compile Include="Order\OrderItemVariation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shopping\Category.cs" />
-    <Compile Include="Shopping\Item.cs" />
-    <Compile Include="Shopping\ItemImage.cs" />
-    <Compile Include="Shopping\ItemReview.cs" />
-    <Compile Include="Shopping\ItemTag.cs" />
-    <Compile Include="Shopping\ItemVariation.cs" />
-    <Compile Include="Shopping\ItemStat.cs" />
-    <Compile Include="Shopping\Shop.cs" />
-    <Compile Include="Shopping\ShoppingCart.cs" />
-    <Compile Include="Shopping\SubCategory.cs" />
-    <Compile Include="Shopping\Tag.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

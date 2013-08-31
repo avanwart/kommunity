@@ -23,7 +23,7 @@ using System.Text;
 using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Web.Security;
-using DasKlub.Lib.AppSpec.DasKlub.BOL;
+using DasKlub.Lib.BOL;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Resources;
 using DasKlub.Lib.Values;
