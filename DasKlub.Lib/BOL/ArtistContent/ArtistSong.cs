@@ -241,7 +241,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
                 else if (sngs.Count == 1)
                 {
                     art = new Artist(sngs[0].ArtistID);
-                    _songDisplayNoLink2 += HttpUtility.HtmlEncode(art.Name + " - " + sngs[0].Name);
+                    _songDisplayNoLink2  = HttpUtility.HtmlEncode(art.Name + " - " + sngs[0].Name);
                 }
                 return _songDisplayNoLink2;
             }

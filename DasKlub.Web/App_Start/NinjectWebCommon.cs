@@ -1,7 +1,5 @@
-using System.Web.Security;
 using DasKlub.Lib.Services;
 using DasKlub.Models.Models;
-using DasKlub.Web.Models.Models;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(DasKlub.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(DasKlub.Web.App_Start.NinjectWebCommon), "Stop")]

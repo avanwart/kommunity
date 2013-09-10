@@ -1,5 +1,4 @@
 ﻿@using System.Web.Optimization
-@using DasKlub.Lib.AppSpec.DasKlub.BOL.DomainConnection
 @using DasKlub.Lib.BOL.DomainConnection
 @using DasKlub.Lib.Configs
 @using DasKlub.Lib.Operational
@@ -124,7 +123,7 @@
 
 
         @Html.Raw(SiteDomain.GetSiteDomainValue(
-            SiteEnums.SiteBrandType.GOOGH,
+            SiteEnums.SiteBrandType.GOOGH,  
             Utilities.GetCurrentLanguageCode()))
         @RenderSection("_javascriptHead", false)
     </head>

@@ -1138,11 +1138,8 @@
     <Content Include="Views\Forum\CreateForumPost.cshtml" />
     <Content Include="Views\Forum\ForumPost.cshtml" />
     <Content Include="Views\Forum\CreateForum.cshtml" />
-    <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
-    <Content Include="Views\Shop\Item.cshtml" />
     <Content Include="Views\Shared\_kommunityMenu.cshtml" />
-    <Content Include="Views\Home\ShopIndex.cshtml" />
     <Content Include="Views\Shared\_languageMenu.cshtml" />
     <None Include="Web.Production.config">
       <DependentUpon>Web.config</DependentUpon>
