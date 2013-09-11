@@ -2219,10 +2219,10 @@ namespace DasKlub.Web.Controllers
                     sb.Append(Messages.YourNewAccountIsReadyForUse);
                     sb.Append(Environment.NewLine);
                     sb.Append(Environment.NewLine);
-                    sb.Append(Messages.UserName + ": ");
+                    sb.AppendFormat("{0}: ", Messages.UserName);
                     sb.Append(ua.UserName);
                     sb.Append(Environment.NewLine);
-                    sb.Append(Messages.Password + ": ");
+                    sb.AppendFormat("{0}: ", Messages.Password);
                     sb.Append(model.NewPassword);
                     sb.Append(Environment.NewLine);
                     sb.Append(GeneralConfigs.SiteDomain);
@@ -2246,7 +2246,7 @@ namespace DasKlub.Web.Controllers
                     dm.FromUserAccountID = admin.UserAccountID;
                     dm.ToUserAccountID = ua.UserAccountID;
 
-                    sb = new StringBuilder();
+                    sb = new StringBuilder(100);
 
                     sb.AppendLine("Welcome to the klub!");
                     sb.AppendLine();
