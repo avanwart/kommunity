@@ -2259,7 +2259,7 @@ namespace DasKlub.Web.Controllers
                     sb.AppendLine("Get started posting to the status update now: http://dasklub.com/account/home");
                     sb.AppendLine();
                     sb.AppendLine();
-                    sb.AppendLine("- RMW");
+                    sb.AppendLine("- The Admin");
                     sb.AppendLine();
                     sb.AppendLine("[ automatic e-mail ]");
                     dm.Message = sb.ToString();
