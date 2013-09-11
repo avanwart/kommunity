@@ -394,7 +394,7 @@ namespace DasKlub.Web.Controllers
                 ViewBag.PageNumber = pageNumber;
 
                 ViewBag.PageTitle = subForum.Title;
-                ViewBag.Title = string.Format("{0} - {1}", subForum.Title, pageNumber);
+                ViewBag.Title = string.Format("{0} | page {1}", subForum.Title, pageNumber);
 
                 foreach (var post in forumPost)
                 {
