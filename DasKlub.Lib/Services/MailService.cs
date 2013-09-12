@@ -45,9 +45,9 @@ namespace DasKlub.Lib.Services
                 var title = new Content(subject);
                 var message = new Message(title, bdy);
                 var ser = new SendEmailRequest(fromEmail, dest, message);
-
-                amzClient.SendEmail(ser);
-
+ 
+                amzClient.SendEmailAsync(ser);
+                
                 return true;
             }
             catch (Exception)
