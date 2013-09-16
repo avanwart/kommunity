@@ -69,6 +69,7 @@
     <Compile Include="Forum\ForumPost.cs" />
     <Compile Include="Forum\ForumPostNotification.cs" />
     <Compile Include="Forum\ForumSubCategory.cs" />
+    <Compile Include="Funding\Donation.cs" />
     <Compile Include="Models\Acknowledgement.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\ArtistEvent.cs" />

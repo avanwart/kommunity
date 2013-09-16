@@ -262,12 +262,7 @@ namespace DasKlub.Web.Controllers
 
             return new EmptyResult();
         }
-
-        public ActionResult ShopIndex()
-        {
-            return View();
-        }
-
+ 
         public ActionResult Index()
         {
           

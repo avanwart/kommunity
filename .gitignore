@@ -157,4 +157,4 @@ Web.Release.config
 Web.Production.config
 Web.Staging.config
 buildartifacts/
-deployment/
+environments/
