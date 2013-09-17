@@ -109,13 +109,43 @@
                     @Html.TextBoxFor(m => m.PostalCode)
                     @Html.ValidationMessageFor(m => m.PostalCode)
                 </div>
+                
+                
+                
+                   <div class="editor-label">
+                 T-Shirt Style
+                </div>
+                <div class="editor-field">
+                    <select name="sex">
+                        <option>Female</option>
+                        <option>Male</option>
+                    </select>
+                </div>
+                
+                
+                
+                   <div class="editor-label">
+                 Size
+                </div>
+                <div class="editor-field">
+                    <select name="size">
+                        <option>X-Small</option>
+                        <option>Small</option>
+                        <option>Medium</option>
+                        <option>Large</option>
+                        <option>X-Large</option>
+                        <option>XX-Large</option>
+                    </select>
+                </div>
+                
+
             </fieldset>
             <input class="btn btn-success" type="submit" value="@Messages.Submit" />
         }
     </div>
     <div class="span6">
         @{ Html.RenderPartial("_AdBanner2"); }
-        <img  src="@Url.Content("~/Content/images/stills/giveaway.jpg")" />
+   @*     <img  src="@Url.Content("~/Content/images/stills/giveaway.jpg")" />*@
     </div>
 </div>
 <style type="text/css">

@@ -226,33 +226,33 @@ namespace DasKlub.Lib.BOL
 
                     sb.Append(@"<div class=""left_float"">");
 
-                    sb.Append(@"<span class=""status_comment_count_beatdown"">");
-                    sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
-                                                                                           Convert.ToChar(
-                                                                                               SiteEnums
-                                                                                                   .AcknowledgementType
-                                                                                                   .B.ToString())));
-                    sb.Append(@"</span>");
+                    //sb.Append(@"<span class=""status_comment_count_beatdown"">");
+                    //sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
+                    //                                                                       Convert.ToChar(
+                    //                                                                           SiteEnums
+                    //                                                                               .AcknowledgementType
+                    //                                                                               .B.ToString())));
+                    //sb.Append(@"</span>");
 
-                    if (ack.StatusCommentAcknowledgementID > 0 &&
-                        ack.AcknowledgementType == Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString()))
-                    {
-                        sb.AppendFormat(@"<button title=""{0}""", Messages.YouResponded);
-                        //sb.Append(@" class=""beat_status_comment_complete"" disabled=""disabled"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                        sb.Append(
-                            @" class=""beat_status_comment_complete"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                        sb.Append(StatusCommentID.ToString());
-                        sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
-                    }
-                    else
-                    {
-                        sb.AppendFormat(@"<button title=""{0}""", Messages.YouResponded);
-                        //sb.Append(@" class=""beat_status_comment"" disabled=""disabled"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                        sb.Append(
-                            @" class=""beat_status_comment"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                        sb.Append(StatusCommentID.ToString());
-                        sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
-                    }
+                    //if (ack.StatusCommentAcknowledgementID > 0 &&
+                    //    ack.AcknowledgementType == Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString()))
+                    //{
+                    //    sb.AppendFormat(@"<button title=""{0}""", Messages.YouResponded);
+                    //    //sb.Append(@" class=""beat_status_comment_complete"" disabled=""disabled"" name=""status_comment_update_id_beat"" type=""button"" value=""");
+                    //    sb.Append(
+                    //        @" class=""beat_status_comment_complete"" name=""status_comment_update_id_beat"" type=""button"" value=""");
+                    //    sb.Append(StatusCommentID.ToString());
+                    //    sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
+                    //}
+                    //else
+                    //{
+                    //    sb.AppendFormat(@"<button title=""{0}""", Messages.YouResponded);
+                    //    //sb.Append(@" class=""beat_status_comment"" disabled=""disabled"" name=""status_comment_update_id_beat"" type=""button"" value=""");
+                    //    sb.Append(
+                    //        @" class=""beat_status_comment"" name=""status_comment_update_id_beat"" type=""button"" value=""");
+                    //    sb.Append(StatusCommentID.ToString());
+                    //    sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
+                    //}
 
                     sb.Append(@"</div>");
                 }
@@ -277,17 +277,17 @@ namespace DasKlub.Lib.BOL
                     sb.Append(@"<div class=""left_float"">");
 
 
-                    sb.Append(@"<span class=""status_comment_count_beatdown"">");
-                    sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
-                                                                                           Convert.ToChar(
-                                                                                               SiteEnums
-                                                                                                   .AcknowledgementType
-                                                                                                   .B.ToString())));
-                    sb.Append(@"</span>");
-                    sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_beat""", Messages.BeatDown);
-                    sb.Append(@" class=""beat_status_comment"" type=""button"" value=""");
-                    sb.Append(StatusCommentID.ToString());
-                    sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
+                    //sb.Append(@"<span class=""status_comment_count_beatdown"">");
+                    //sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
+                    //                                                                       Convert.ToChar(
+                    //                                                                           SiteEnums
+                    //                                                                               .AcknowledgementType
+                    //                                                                               .B.ToString())));
+                    //sb.Append(@"</span>");
+                    //sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_beat""", Messages.BeatDown);
+                    //sb.Append(@" class=""beat_status_comment"" type=""button"" value=""");
+                    //sb.Append(StatusCommentID.ToString());
+                    //sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
 
 
                     sb.Append(@"</div>");
