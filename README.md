@@ -25,7 +25,8 @@
 - Set up Web Deploy ('Web Deploy for Hosting Servers' from Web Platform Installer)
 - Set up the application directory with the correct permissions to deploy to it
 - Run the deployemt script located at: .\deployment\YOUR_FOLDER (you will need to configure the parameters for the psake script) Example:
- ```
+
+<pre>
 
  $msBuildConfig = 'release';
 
@@ -66,9 +67,9 @@ Invoke-psake $PSScriptRoot\..\default.ps1 deploy -properties @{
     #display
     'displayTaskStartStopTimes' = $true;
     'showConfigsAtStart' = $true;
-} -nologo
+}
 
- ```
+</pre>
 
 
 
