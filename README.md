@@ -79,11 +79,11 @@ Invoke-psake $PSScriptRoot\..\default.ps1 deploy -properties @{
 ---
 ### Workflow
 
-To get your code included into the master repository, fork the repository then commit your changes there.
-Each commit should be small and consise, representing a small bit of work. Each commit should be written in present tense ex: Updates jQuery to version 2.0.
-Push your changes to your forked copy until your work included.
-To get your work included, go to your fork, open a pull request (compare and review).
-Include the purpose of your pull request 
+To get your code included into the master repository, fork the repository, create a new branch, commit your changes there and push.
+Each commit should be small and consise, representing a small unit of work that can be rolled back.
+Each commit should be written in present tense ex: 'Updates jQuery to version 2.0'.
+Once all your changes have been pushed to your branch, go to your forked repository and open a pull request on the master repository (compare and review).
+Include the purpose of your pull request and a summary of all the changes that are pending.
 
 
 ###Database Migrations
