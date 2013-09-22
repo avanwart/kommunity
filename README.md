@@ -5,8 +5,7 @@
 ### Development Software
 
 - [Visual Studio 2012](http://www.microsoft.com/visualstudio/eng/downloads)
-- [SQL Server 2012](http://www.microsoft.com/en-ca/download/details.aspx?id=29062)
---* Get the service and the management studio: ENU\x64\SQLManagementStudio_x64_ENU.exe 
+- [SQL Server 2012](http://www.microsoft.com/en-ca/download/details.aspx?id=29062) Get the service and the management studio: ENU\x64\SQLManagementStudio_x64_ENU.exe 
 - [PowerShell 3.0](http://www.microsoft.com/web/downloads/platform.aspx)
 - [Amazon Storage](http://www.cloudberrylab.com/)
 - [Git Extensions](http://sourceforge.net/projects/gitextensions/)
