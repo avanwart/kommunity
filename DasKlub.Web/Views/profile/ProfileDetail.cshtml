@@ -715,9 +715,9 @@
                                  "blockeduser", "account", new {@userAccountID = Model.UserAccountID},
                                  new {@onclick = "return confirm('" + Messages.Block + ": " + Model.UserName + "')"})
                 <br />
-                @Html.ActionLink(Messages.Report + ": " + Model.UserName,
+                @Html.ActionLink("Accuse" + ": " + Model.UserName + " of thought crime.",
                                  "reportuser", "account", new {@userAccountID = Model.UserAccountID},
-                                 new {@onclick = "return confirm('" + Messages.Report + ": " + Model.UserName + "')"})
+                                 new {@onclick = "return confirm('" + "Accuse: " + ": " + Model.UserName + " of thought crime?" + "')"})
             </div>
         }
     

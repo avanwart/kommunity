@@ -109,6 +109,7 @@
             }
             else
             {
+                <meta property="og:image" content="@Html.S3ContentPath(Model.ContentPhotoURL)" />
                 <img   style="background-color: #FFF; padding: 5px;" src="@Html.S3ContentPath(Model.ContentPhotoURL)" alt="@Model.Title" />
             }
         </div>

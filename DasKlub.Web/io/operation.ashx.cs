@@ -101,11 +101,11 @@ namespace DasKlub.Web.io
                                 sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID, statusUpdateID,
                                                                              SiteEnums.ResponseType.A);
                             }
-                            else if (ack.AcknowledgementType == Convert.ToChar(SiteEnums.ResponseType.B.ToString()))
-                            {
-                                sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID, statusUpdateID,
-                                                                             SiteEnums.ResponseType.B);
-                            }
+                            //else if (ack.AcknowledgementType == Convert.ToChar(SiteEnums.ResponseType.B.ToString()))
+                            //{
+                            //    sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID, statusUpdateID,
+                            //                                                 SiteEnums.ResponseType.B);
+                            //}
 
                             if (Convert.ToInt32(mu.ProviderUserKey) != statup.UserAccountID)
                             {
