@@ -19,7 +19,33 @@
 ### Database Setup
 
 - You will need to run the dk_script.sql file in the project against a SQL 2012 database you created.
-- YOu'll need to update the database from its initial state: <Pre> Update-Database -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -ConnectionStringName DasKlubDBContext -Verbose</pre>
+- You'll need to update the database from its initial state: <Pre> Update-Database -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -ConnectionStringName DasKlubDBContext -Verbose</pre>
+
+
+###Database Migrations
+---
+
+To add a database migration, the first thing that needs to be done is to ensure migrations are enabled. This should be done already. 
+
+Next, open up Package Manager Console in Visual Studio and run: 
+
+<pre>
+Add-Migration -Name NAMEOFMIGRATION -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -ConnectionStringName DasKlubDBContext
+
+Update-Database -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -ConnectionStringName DasKlubDBContext -Verbose
+</pre>
+ 
+This will update the database to the newest state. 
+
+From here the Up and Down methods are generated. In there the migration can be added with raw SQL. When completed, the migration can be run with the previous Update-Database call.
+
+It's best to wrap the SQL in a snippet like this if it's raw SQL:
+<pre>
+    Sql(@"                        
+            --THE_SQL_CODE
+    ");
+</pre>
+
 
 ---
 ### Deployment
@@ -84,28 +110,3 @@ Each commit should be small and consise, representing a small unit of work that 
 Each commit should be written in present tense ex: 'Updates jQuery to version 2.0'.
 Once all your changes have been pushed to your branch, go to your forked repository and open a pull request on the master repository (compare and review).
 Include the purpose of your pull request and a summary of all the changes that are pending.
-
-
-###Database Migrations
----
-
-To add a database migration, the first thing that needs to be done is to ensure migrations are enabled. This should be done already. 
-
-Next, open up Package Manager Console in Visual Studio and run: 
-
-<pre>
-Add-Migration -Name NAMEOFMIGRATION -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -ConnectionStringName DasKlubDBContext
-
-Update-Database -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -ConnectionStringName DasKlubDBContext -Verbose
-</pre>
- 
-This will update the database to the newest state. 
-
-From here the Up and Down methods are generated. In there the migration can be added with raw SQL. When completed, the migration can be run with the previous Update-Database call.
-
-It's best to wrap the SQL in a snippet like this if it's raw SQL:
-<pre>
-    Sql(@"                        
-            --THE_SQL_CODE
-    ");
-</pre>
