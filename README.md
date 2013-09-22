@@ -1,11 +1,12 @@
-#Das KLub
-##A Web Application For All And None.
+#Das Klub
+##A Kommunity For All And None.
 
 ---
 ### Development Software
 
 - [Visual Studio 2012](http://www.microsoft.com/visualstudio/eng/downloads)
-- [SQL Server 2012](http://www.microsoft.com/en-ca/download/details.aspx?id=29062) Get the service and the management studio: ENU\x64\SQLManagementStudio_x64_ENU.exe 
+- [SQL Server 2012](http://www.microsoft.com/en-ca/download/details.aspx?id=29062)
+--* Get the service and the management studio: ENU\x64\SQLManagementStudio_x64_ENU.exe 
 - [PowerShell 3.0](http://www.microsoft.com/web/downloads/platform.aspx)
 - [Amazon Storage](http://www.cloudberrylab.com/)
 - [Git Extensions](http://sourceforge.net/projects/gitextensions/)
@@ -24,7 +25,7 @@
 - Set up Web Deploy ('Web Deploy for Hosting Servers' from Web Platform Installer)
 - Set up the application directory with the correct permissions to deploy to it
 - Run the deployemt script located at: .\deployment\YOUR_FOLDER (you will need to configure the parameters for the psake script) Example:
-<pre>
+ ```
 
  $msBuildConfig = 'release';
 
@@ -67,7 +68,7 @@ Invoke-psake $PSScriptRoot\..\default.ps1 deploy -properties @{
     'showConfigsAtStart' = $true;
 } -nologo
 
-</pre>
+ ```
 
 
 
