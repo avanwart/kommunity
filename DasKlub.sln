@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasKlub.IntegrationTests", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7388FA3F-C1EA-4A5F-B70B-E240FF6187FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasKlub.EmailBlaster", "DasKlub.EmailBlaster\DasKlub.EmailBlaster.csproj", "{6616C9FC-C542-4E2E-967E-639821FB406E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasKlub.WebEmailBlaster", "DasKlub.WebEmailBlaster\DasKlub.WebEmailBlaster.csproj", "{67EC4EF2-053D-433B-9624-2A6BC26F7EF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,16 +105,16 @@ Global
 		{E3E010A5-975D-41D6-8CD2-7E67239EF73E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E3E010A5-975D-41D6-8CD2-7E67239EF73E}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
 		{E3E010A5-975D-41D6-8CD2-7E67239EF73E}.Staging|Any CPU.Build.0 = Staging|Any CPU
-		{6616C9FC-C542-4E2E-967E-639821FB406E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6616C9FC-C542-4E2E-967E-639821FB406E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6616C9FC-C542-4E2E-967E-639821FB406E}.Production|Any CPU.ActiveCfg = Release|Any CPU
-		{6616C9FC-C542-4E2E-967E-639821FB406E}.Production|Any CPU.Build.0 = Release|Any CPU
-		{6616C9FC-C542-4E2E-967E-639821FB406E}.release_test|Any CPU.ActiveCfg = Release|Any CPU
-		{6616C9FC-C542-4E2E-967E-639821FB406E}.release_test|Any CPU.Build.0 = Release|Any CPU
-		{6616C9FC-C542-4E2E-967E-639821FB406E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6616C9FC-C542-4E2E-967E-639821FB406E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6616C9FC-C542-4E2E-967E-639821FB406E}.Staging|Any CPU.ActiveCfg = Release|Any CPU
-		{6616C9FC-C542-4E2E-967E-639821FB406E}.Staging|Any CPU.Build.0 = Release|Any CPU
+		{67EC4EF2-053D-433B-9624-2A6BC26F7EF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67EC4EF2-053D-433B-9624-2A6BC26F7EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67EC4EF2-053D-433B-9624-2A6BC26F7EF1}.Production|Any CPU.ActiveCfg = Release|Any CPU
+		{67EC4EF2-053D-433B-9624-2A6BC26F7EF1}.Production|Any CPU.Build.0 = Release|Any CPU
+		{67EC4EF2-053D-433B-9624-2A6BC26F7EF1}.release_test|Any CPU.ActiveCfg = Release|Any CPU
+		{67EC4EF2-053D-433B-9624-2A6BC26F7EF1}.release_test|Any CPU.Build.0 = Release|Any CPU
+		{67EC4EF2-053D-433B-9624-2A6BC26F7EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67EC4EF2-053D-433B-9624-2A6BC26F7EF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67EC4EF2-053D-433B-9624-2A6BC26F7EF1}.Staging|Any CPU.ActiveCfg = Release|Any CPU
+		{67EC4EF2-053D-433B-9624-2A6BC26F7EF1}.Staging|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,5 +122,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E3E010A5-975D-41D6-8CD2-7E67239EF73E} = {7388FA3F-C1EA-4A5F-B70B-E240FF6187FA}
 		{1B19D53D-9A58-4C2C-9B61-0F893FF037B2} = {7388FA3F-C1EA-4A5F-B70B-E240FF6187FA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal
