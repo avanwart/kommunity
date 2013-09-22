@@ -53,7 +53,7 @@ It's best to wrap the SQL in a snippet like this if it's raw SQL:
 - Get a Windows Server 2012 instance
 - Set up Web Deploy ('Web Deploy for Hosting Servers' from Web Platform Installer)
 - Set up the application directory with the correct permissions to deploy to it
-- Run the deployemt script located at: .\deployment\YOUR_FOLDER (you will need to configure the parameters for the psake script) Example:
+- Run the deployemt script located at: .\deployment\ENVIRONMENTS\TARGET_ENVIRONMENT.ps1 (you will need to configure the parameters for the psake script) Example:
 
 <pre>
 
