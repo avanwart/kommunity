@@ -23,6 +23,7 @@ namespace DasKlub.Web.Controllers
         private readonly IForumCategoryRepository _forumcategoryRepository;
         private readonly MembershipUser _mu;
         private readonly IMailService _mail;
+        private UserAccount _ua = null;
 
         public ForumController()
             : this(new ForumCategoryRepository(), new MailService())
@@ -32,12 +33,17 @@ namespace DasKlub.Web.Controllers
 
         private ForumController(IForumCategoryRepository forumcategoryRepository, IMailService mail)
         {
-              _mail = mail;
+            ViewBag.IsAdmin = false;
+            _mail = mail;
             _forumcategoryRepository = forumcategoryRepository;
             _mu = Membership.GetUser();
+            if (_mu != null)
+            {
+                _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
+            }
         }
 
-      
+
 
         public ActionResult Index()
         {
@@ -274,12 +280,11 @@ namespace DasKlub.Web.Controllers
             {
                 var forumPost = context.ForumSubCategory.First(x => x.ForumSubCategoryID == forumSubCategoryID);
 
-                if (Convert.ToInt32(_mu.ProviderUserKey) == forumPost.CreatedByUserID)
-                {
-                    context.ForumSubCategory.Remove(forumPost);
+                if (Convert.ToInt32(_mu.ProviderUserKey) != forumPost.CreatedByUserID && !_ua.IsAdmin)
+                    return RedirectToAction("Index");
+                context.ForumSubCategory.Remove(forumPost);
 
-                    context.SaveChanges();
-                }
+                context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -373,6 +378,9 @@ namespace DasKlub.Web.Controllers
                 if (_mu != null)
                 {
                     var userID = Convert.ToInt32(_mu.ProviderUserKey);
+                    var ua = new UserAccount(userID);
+                    ViewBag.IsAdmin = ua.IsAdmin;
+
                     var forumPostNotification =
                         context.ForumPostNotification.FirstOrDefault(
                             x =>
@@ -511,8 +519,8 @@ namespace DasKlub.Web.Controllers
             using (var context = new DasKlubDbContext())
             {
                 var forumPost = context.ForumPost.First(x => x.ForumPostID == forumPostID);
-
-                if (Convert.ToInt32(_mu.ProviderUserKey) == forumPost.CreatedByUserID)
+                
+                if (Convert.ToInt32(_mu.ProviderUserKey) == forumPost.CreatedByUserID || _ua.IsAdmin)
                 {
                     context.ForumPost.Remove(forumPost);
 

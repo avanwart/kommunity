@@ -267,32 +267,16 @@ namespace DasKlub.Web.Controllers
                 footageType = Convert.ToInt32(
                     Request.QueryString[SiteEnums.QueryStringNames.footageType.ToString()]);
             }
-            var cacheName1 = "GetFilteredVideos" + _videoPageNumber;
-            if (HttpRuntime.Cache[cacheName1] == null)
-            {
-                _toShow.GetListFilter(_videoPageNumber, PageSize, personType, footageType, videoType);
-                HttpRuntime.Cache.AddObjToCache(_toShow, cacheName1);
-            }
-            else
-            {
-                _toShow = (Videos) HttpRuntime.Cache[cacheName1];
-            }
+            
+            _toShow.GetListFilter(_videoPageNumber, PageSize, personType, footageType, videoType);
 
             if (isAjax) return true;
 
             if (_videoPageNumber == 1)
             {
                 var sngrcs = new SongRecords();
-                var cacheName2 = "GetFilteredVideos_songs" + _videoPageNumber;
-                if (HttpRuntime.Cache[cacheName2] == null)
-                {
-                    sngrcs.AddRange(_toShow.Select(vi => new SongRecord(vi)));
-                    HttpRuntime.Cache.AddObjToCache(sngrcs, cacheName2);
-                }
-                else
-                {
-                    sngrcs = (SongRecords) HttpRuntime.Cache[cacheName2];
-                }
+
+                sngrcs.AddRange(_toShow.Select(vi => new SongRecord(vi)));
 
                 ViewBag.VideosFiltered = sngrcs.VideosPageList();
             }
