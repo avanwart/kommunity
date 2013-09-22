@@ -1,4 +1,4 @@
-#Das Klub
+#[Das Klub](http://dasklub.com)
 ##A Kommunity For All And None.
 
 ---
@@ -93,7 +93,7 @@ Next, open up Package Manager Console in Visual Studio and run:
 <pre>
 Add-Migration -Name NAMEOFMIGRATION -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -ConnectionStringName DasKlubDBContext
 
- Update-Database -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -ConnectionStringName DasKlubDBContext -Verbose
+Update-Database -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -ConnectionStringName DasKlubDBContext -Verbose
 </pre>
  
 This will update the database to the newest state. 
@@ -103,7 +103,6 @@ From here the Up and Down methods are generated. In there the migration can be a
 It's best to wrap the SQL in a snippet like this if it's raw SQL:
 <pre>
     Sql(@"                        
-            --THE_SQL_CODE                    
-
+            --THE_SQL_CODE
     ");
 </pre>
