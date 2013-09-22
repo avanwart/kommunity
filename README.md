@@ -13,6 +13,10 @@
 - Git Source Control Provider. In Visual Studio go to: Tools > Extensions and Updates > Search online.
 
 ---
+### Amazon
+- You will need an Amazon account and to set up a bucket for content storage. You will also need to set up SES for email.
+
+---
 ### Database Setup
 
 - You will need to run the dk_script.sql file in the project against a SQL 2012 database you created.
