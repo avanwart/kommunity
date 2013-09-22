@@ -13,7 +13,11 @@
 
 ---
 ### Amazon
-- You will need an Amazon account and to set up a bucket for content storage. You will also need to set up SES for email.
+- You will need an Amazon account and to set up a bucket for content storage. You will also need to set up SES for email (change app settings in Web.config).
+
+---
+### YouTube
+- You will need a YouTube developer account (change app settings in Web.config).
 
 ---
 ### Database Setup
@@ -50,6 +54,7 @@ It's best to wrap the SQL in a snippet like this if it's raw SQL:
 ---
 ### Deployment
 
+- Create a Web.config.Release file in the directory of the Web.config with override settings for your deployment.
 - Get a Windows Server 2012 instance
 - Set up Web Deploy ('Web Deploy for Hosting Servers' from Web Platform Installer)
 - Set up the application directory with the correct permissions to deploy to it
