@@ -1076,10 +1076,13 @@ namespace DasKlub.Web.Controllers
                 uadress.PostalCode = model.PostalCode;
                 uadress.Region = model.RegionState;
                 uadress.UserAccountID = _ua.UserAccountID;
+                uadress.Choice1 = "||" + Request.Form["sex"] + "|" + Request.Form["size"];
 
                 if (uadress.UserAddressID == 0) uadress.AddressStatus = 'U';
 
                 ViewBag.ProfileUpdated = uadress.Set();
+
+                Response.Redirect("/");
             }
 
             return View(model);

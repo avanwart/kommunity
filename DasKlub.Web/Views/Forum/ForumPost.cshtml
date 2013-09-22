@@ -49,7 +49,7 @@
                                   <i>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</i>
 
 
-                                  if (ViewBag.UserID == ViewBag.SubForum.UserAccount.UserAccountID)
+                                  if (ViewBag.UserID == ViewBag.SubForum.UserAccount.UserAccountID || ViewBag.IsAdmin)
                                    {
                                        @Html.ActionLink(Messages.Delete, "DeleteSubForum", new {@forumSubCategoryID = ViewBag.SubForum.ForumSubCategoryID},
                                                         new {onclick = "return confirm('" + Messages.Delete + "');"})
@@ -86,7 +86,7 @@
                         <p>
                             @Html.Raw( Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(forumCat.Detail), 200, 300))
                         </p>
-                        @if (ViewBag.UserID == forumCat.CreatedByUserID)
+                        @if (ViewBag.UserID == forumCat.CreatedByUserID || ViewBag.IsAdmin)
                         {
                             @Html.ActionLink(Messages.Delete, "DeleteForumPost", new {@forumPostID = forumCat.ForumPostID},
                                              new {onclick = "return confirm('" + Messages.Delete + "');"})

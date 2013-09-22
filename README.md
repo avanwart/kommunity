@@ -8,13 +8,13 @@ IDK = Industrial Dance Kommunity;
 Installing
 ----------------------
 
-0. Download: http://www.microsoft.com/en-ca/download/details.aspx?id=29062
+0. Download: http://www.microsoft.com/en-ca/download/details.aspx?id=29062 [ ENU\x64\SQLManagementStudio_x64_ENU.exe ]
 
 1. Run the .sql script against a SQL Server 2012 DB to create the database and initial schema.
 
-2. Create a configs.ps1 file at the root with all the variables in the Psake script default1.ps1. Run: "Invoke-psake .\default.ps1" to see all the variables. 
+#2. Create a configs.ps1 file at the root with all the variables in the Psake script default1.ps1. Run: "Invoke-psake .\default.ps1" to see all the variables. 
 
-3. Run the Psake script task to migrate the database to the latest version (Invoke-psake .\default.ps1 MigrateDB) 
+#3. Run the Psake script task to migrate the database to the latest version (Invoke-psake .\default.ps1 MigrateDB) 
 
 4. Enable NuGet package restore on the solution to get all the packages, set Visual Studio to use them.
 

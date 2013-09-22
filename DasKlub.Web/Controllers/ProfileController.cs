@@ -165,6 +165,7 @@ namespace DasKlub.Web.Controllers
             model.CountryName = uad.CountryName;
             model.IsBirthday = uad.IsBirthdayToday;
             model.ProfilePhotoMain = uad.FullProfilePicURL;
+            ViewBag.ThumbIcon = uad.FullProfilePicURL;
             model.ProfilePhotoMainThumb = uad.FullProfilePicThumbURL;
             model.DefaultLanguage = uad.DefaultLanguage;
 

@@ -293,6 +293,7 @@ namespace DasKlub.Web.Controllers
 
                 if (mostPopularForumPosts != null)
                 {
+                    const int amountForForm = 7;
                     ViewBag.TopThreadOfTheWeek = LoadMostPopularThisWeek(mostPopularForumPosts, context, ua);
 
                     Dictionary<int, DateTime> subItems;
@@ -307,9 +308,14 @@ namespace DasKlub.Web.Controllers
                          group b by b.CreatedByUserID
                          into grp
                          orderby grp.Count() descending
-                         select grp.Key).Take(7).ToList();
+                             select grp.Key).Take(amountForForm).ToList();
 
-                    ViewBag.TopForumUsersOfTheMonth =  LoadTopForumUsers(mostPostsInForum);
+                    var topForumUsers = LoadTopForumUsers(mostPostsInForum);
+                    
+                    if (topForumUsers.Count == amountForForm)
+                    {
+                        ViewBag.TopForumUsersOfTheMonth = topForumUsers;
+                    }
                 }
             }
 
