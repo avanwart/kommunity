@@ -73,7 +73,7 @@ namespace DasKlubModel.Models.Mapping
             this.HasOptional(t => t.ContentType)
                 .WithMany(t => t.Contents)
                 .HasForeignKey(d => d.contentTypeID);
-            this.HasOptional(t => t.UserAccount)
+            this.HasOptional(t => t.UserAccountEntity)
                 .WithMany(t => t.Contents)
                 .HasForeignKey(d => d.createdByUserID);
 

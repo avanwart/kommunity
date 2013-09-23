@@ -26,8 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7388FA3F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasKlub.EmailBlasterService", "DasKlub.EmailBlasterService\DasKlub.EmailBlasterService.csproj", "{CD086962-BD5A-4608-B427-260B53668DA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService1", "WindowsService1\WindowsService1.csproj", "{CD591AB0-6A19-41FA-806C-D9EE316F8A53}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,16 +115,6 @@ Global
 		{CD086962-BD5A-4608-B427-260B53668DA4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD086962-BD5A-4608-B427-260B53668DA4}.Staging|Any CPU.ActiveCfg = Release|Any CPU
 		{CD086962-BD5A-4608-B427-260B53668DA4}.Staging|Any CPU.Build.0 = Release|Any CPU
-		{CD591AB0-6A19-41FA-806C-D9EE316F8A53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD591AB0-6A19-41FA-806C-D9EE316F8A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD591AB0-6A19-41FA-806C-D9EE316F8A53}.Production|Any CPU.ActiveCfg = Release|Any CPU
-		{CD591AB0-6A19-41FA-806C-D9EE316F8A53}.Production|Any CPU.Build.0 = Release|Any CPU
-		{CD591AB0-6A19-41FA-806C-D9EE316F8A53}.release_test|Any CPU.ActiveCfg = Release|Any CPU
-		{CD591AB0-6A19-41FA-806C-D9EE316F8A53}.release_test|Any CPU.Build.0 = Release|Any CPU
-		{CD591AB0-6A19-41FA-806C-D9EE316F8A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD591AB0-6A19-41FA-806C-D9EE316F8A53}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD591AB0-6A19-41FA-806C-D9EE316F8A53}.Staging|Any CPU.ActiveCfg = Release|Any CPU
-		{CD591AB0-6A19-41FA-806C-D9EE316F8A53}.Staging|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

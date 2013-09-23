@@ -39,7 +39,7 @@ namespace DasKlubModel.Models.Mapping
             this.Property(t => t.filePathStandard).HasColumnName("filePathStandard");
 
             // Relationships
-            this.HasOptional(t => t.UserAccount)
+            this.HasOptional(t => t.UserAccountEntity)
                 .WithMany(t => t.PhotoItems)
                 .HasForeignKey(d => d.createdByUserID);
 

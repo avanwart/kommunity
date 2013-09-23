@@ -1,14 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models
 {
-    public partial class UserAccountDetail
+        [Table("UserAccountDetail")]
+    public partial class UserAccountDetailEntity
     {
+        public UserAccountDetailEntity()
+        {
+        }
+
+        [Key]
         public int userAccountDetailID { get; set; }
         public int userAccountID { get; set; }
-        public Nullable<int> youAreID { get; set; }
-        public Nullable<int> relationshipStatusID { get; set; }
+        public int? youAreID { get; set; }
+        public int? relationshipStatusID { get; set; }
         public Nullable<int> interestedInID { get; set; }
         public Nullable<System.DateTime> createDate { get; set; }
         public Nullable<System.DateTime> updateDate { get; set; }
@@ -19,7 +28,7 @@ namespace DasKlubModel.Models
         public string city { get; set; }
         public string postalCode { get; set; }
         public string profilePicURL { get; set; }
-        public Nullable<System.DateTime> birthDate { get; set; }
+        public DateTime birthDate { get; set; }
         public string religion { get; set; }
         public string profileThumbPicURL { get; set; }
         public string ethnicity { get; set; }
@@ -53,7 +62,7 @@ namespace DasKlubModel.Models
         public string findUserFilter { get; set; }
         public virtual InterestedIn InterestedIn { get; set; }
         public virtual RelationshipStatu RelationshipStatu { get; set; }
-        public virtual UserAccount UserAccount { get; set; }
+        public virtual UserAccountEntity UserAccountEntity { get; set; }
         public virtual YouAre YouAre { get; set; }
     }
 }

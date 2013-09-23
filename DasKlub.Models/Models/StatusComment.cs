@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
@@ -9,7 +10,7 @@ namespace DasKlubModel.Models
         {
             this.StatusCommentAcknowledgements = new List<StatusCommentAcknowledgement>();
         }
-
+        [Key]
         public int statusCommentID { get; set; }
         public int statusUpdateID { get; set; }
         public int userAccountID { get; set; }

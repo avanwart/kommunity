@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class PlaylistVideo
     {
+        [Key]
         public int playlistVideoID { get; set; }
         public int playlistID { get; set; }
         public int videoID { get; set; }

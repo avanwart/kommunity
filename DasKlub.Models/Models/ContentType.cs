@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
@@ -10,6 +11,7 @@ namespace DasKlubModel.Models
             this.Contents = new List<Content>();
         }
 
+        [Key]
         public int contentTypeID { get; set; }
         public string contentName { get; set; }
         public System.DateTime createDate { get; set; }

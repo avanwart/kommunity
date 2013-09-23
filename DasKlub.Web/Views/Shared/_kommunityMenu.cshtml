@@ -82,18 +82,17 @@
                                         <i class="icon-camera"></i> @Messages.Photos</a> </li>
                             }
 
-
        
-                            @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "store" &&
+       @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "store" &&
                                   ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
                             {
                                 <li class="active"><a class="current_page_item" href="~/store">
-                                                       <i class="icon-tag"></i> @Messages.Store</a> </li>
+                                                       <i class="icon-tag"></i> Donate</a> </li>
                             }
                             else
                             {
                                 <li><a href="~/store">
-                                        <i class="icon-tag"></i> @Messages.Store</a> </li>
+                                        <i class="icon-tag"></i> Donate</a> </li>
                             }
                                         
                        

@@ -1,5 +1,6 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using DasKlub.Models.Models;
 using DasKlubModel.Models.Mapping;
 
 namespace DasKlubModel.Models
@@ -63,8 +64,8 @@ namespace DasKlubModel.Models
         public DbSet<StatusCommentAcknowledgement> StatusCommentAcknowledgements { get; set; }
         public DbSet<StatusUpdate> StatusUpdates { get; set; }
         public DbSet<StatusUpdateNotification> StatusUpdateNotifications { get; set; }
-        public DbSet<UserAccount> UserAccounts { get; set; }
-        public DbSet<UserAccountDetail> UserAccountDetails { get; set; }
+        public DbSet<UserAccountEntity> UserAccounts { get; set; }
+        public DbSet<UserAccountDetailEntity> UserAccountDetails { get; set; }
         public DbSet<UserAccountMet> UserAccountMets { get; set; }
         public DbSet<UserAccountVideo> UserAccountVideos { get; set; }
         public DbSet<UserAddress> UserAddresses { get; set; }

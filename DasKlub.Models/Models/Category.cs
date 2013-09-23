@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class Category
     {
+        [Key]
         public int categoryID { get; set; }
         public string categoryKey { get; set; }
         public int departmentID { get; set; }

@@ -28,7 +28,7 @@ namespace DasKlubModel.Models.Mapping
             this.Property(t => t.isEnabled).HasColumnName("isEnabled");
 
             // Relationships
-            this.HasRequired(t => t.UserAccount)
+            this.HasRequired(t => t.UserAccountEntity)
                 .WithMany(t => t.DirectMessages)
                 .HasForeignKey(d => d.fromUserAccountID);
             this.HasRequired(t => t.UserAccount1)

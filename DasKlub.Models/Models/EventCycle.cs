@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
@@ -10,6 +11,7 @@ namespace DasKlubModel.Models
             this.Events = new List<Event>();
         }
 
+        [Key]
         public int eventCycleID { get; set; }
         public string cycleName { get; set; }
         public string eventCode { get; set; }

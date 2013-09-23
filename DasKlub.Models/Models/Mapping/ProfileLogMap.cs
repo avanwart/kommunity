@@ -20,7 +20,7 @@ namespace DasKlubModel.Models.Mapping
             this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
 
             // Relationships
-            this.HasRequired(t => t.UserAccount)
+            this.HasRequired(t => t.UserAccountEntity)
                 .WithMany(t => t.ProfileLogs)
                 .HasForeignKey(d => d.lookingUserAccountID);
             this.HasOptional(t => t.UserAccount1)

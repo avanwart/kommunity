@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
 {
-    public class UserAccountDetailMap : EntityTypeConfiguration<UserAccountDetail>
+    public class UserAccountDetailMap : EntityTypeConfiguration<UserAccountDetailEntity>
     {
         public UserAccountDetailMap()
         {
@@ -134,7 +134,7 @@ namespace DasKlubModel.Models.Mapping
             this.HasOptional(t => t.RelationshipStatu)
                 .WithMany(t => t.UserAccountDetails)
                 .HasForeignKey(d => d.relationshipStatusID);
-            this.HasRequired(t => t.UserAccount)
+            this.HasRequired(t => t.UserAccountEntity)
                 .WithMany(t => t.UserAccountDetails)
                 .HasForeignKey(d => d.userAccountID);
             this.HasOptional(t => t.YouAre)

@@ -30,7 +30,7 @@ namespace DasKlubModel.Models.Mapping
             this.Property(t => t.videoType).HasColumnName("videoType");
 
             // Relationships
-            this.HasRequired(t => t.UserAccount)
+            this.HasRequired(t => t.UserAccountEntity)
                 .WithMany(t => t.UserAccountVideos)
                 .HasForeignKey(d => d.userAccountID);
             this.HasRequired(t => t.Video)

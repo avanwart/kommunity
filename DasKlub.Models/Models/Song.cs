@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
@@ -11,6 +12,7 @@ namespace DasKlubModel.Models
             this.VideoSongs = new List<VideoSong>();
         }
 
+        [Key]
         public int songID { get; set; }
         public Nullable<int> artistID { get; set; }
         public Nullable<int> updatedByUserID { get; set; }

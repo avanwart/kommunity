@@ -1,12 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using DasKlubModel.Models;
 
-namespace DasKlubModel.Models
+namespace DasKlub.Models.Models
 {
-    public partial class UserAccount
+    [Table("UserAccount")]
+    public partial class UserAccountEntity
     {
-        public UserAccount()
+        public UserAccountEntity()
         {
+
             this.BlockedUsers = new List<BlockedUser>();
             this.Contents = new List<Content>();
             this.ContentComments = new List<ContentComment>();
@@ -18,7 +23,7 @@ namespace DasKlubModel.Models
             this.ProfileLogs = new List<ProfileLog>();
             this.ProfileLogs1 = new List<ProfileLog>();
             this.StatusUpdates = new List<StatusUpdate>();
-            this.UserAccountDetails = new List<UserAccountDetail>();
+            this.UserAccountDetails = new List<UserAccountDetailEntity>();
             this.UserAccountMets = new List<UserAccountMet>();
             this.UserAccountMets1 = new List<UserAccountMet>();
             this.UserAccountVideos = new List<UserAccountVideo>();
@@ -30,6 +35,7 @@ namespace DasKlubModel.Models
             this.Roles = new List<Role>();
         }
 
+        [Key]
         public int userAccountID { get; set; }
         public string userName { get; set; }
         public string password { get; set; }
@@ -66,7 +72,7 @@ namespace DasKlubModel.Models
         public virtual ICollection<ProfileLog> ProfileLogs { get; set; }
         public virtual ICollection<ProfileLog> ProfileLogs1 { get; set; }
         public virtual ICollection<StatusUpdate> StatusUpdates { get; set; }
-        public virtual ICollection<UserAccountDetail> UserAccountDetails { get; set; }
+        public virtual List<UserAccountDetailEntity> UserAccountDetails { get; set; }
         public virtual ICollection<UserAccountMet> UserAccountMets { get; set; }
         public virtual ICollection<UserAccountMet> UserAccountMets1 { get; set; }
         public virtual ICollection<UserAccountVideo> UserAccountVideos { get; set; }

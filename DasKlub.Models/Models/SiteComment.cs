@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class SiteComment
     {
+        [Key]
         public int siteCommentID { get; set; }
         public string detail { get; set; }
         public Nullable<int> updatedByUserID { get; set; }

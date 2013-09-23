@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
@@ -10,6 +11,7 @@ namespace DasKlubModel.Models
             this.ContestVideos = new List<ContestVideo>();
         }
 
+        [Key]
         public int contestID { get; set; }
         public string name { get; set; }
         public System.DateTime deadLine { get; set; }

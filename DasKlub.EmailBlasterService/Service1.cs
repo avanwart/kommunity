@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using DasKlub.Models;
+using DasKlub.Models.Forum;
+using DasKlub.Models.Models;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Triggers;
@@ -24,6 +28,7 @@ namespace DasKlub.EmailBlasterService
 
         protected override void OnStart(string[] args)
         {
+           
             ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
             _scheduler = schedulerFactory.GetScheduler();
             _scheduler.Start();
@@ -36,9 +41,12 @@ namespace DasKlub.EmailBlasterService
 
         public static void AddJob()
         {
+            const string group1 = "EmailTasks";
+            const string trigger1 = "EmailTasksTrigger";
+            
             Service1.IMyJob myJob = new Service1.MyJob(); //This Constructor needs to be parameterless
-            var jobDetail = new JobDetailImpl("Job1", "Group1", myJob.GetType());
-            var trigger = new CronTriggerImpl("Trigger1", "Group1", "0 * 0-23 * * ?");//run every minute between the hours of 8am and 11pm
+            var jobDetail = new JobDetailImpl("BirthdayUsers", group1, myJob.GetType());
+            var trigger = new CronTriggerImpl(trigger1, group1, "0 * 0-23 * * ?");//run every minute between the hours of 8am and 11pm
             _scheduler.ScheduleJob(jobDetail, trigger);
             var nextFireTime = trigger.GetNextFireTimeUtc();
             if (nextFireTime != null) Console.WriteLine("Next Fire Time:" + nextFireTime.Value);
@@ -116,8 +124,8 @@ namespace DasKlub.EmailBlasterService
                 // Read and display the data from your file. 
                 try
                 {
-                    byte[] readBuffer = System.IO.File.ReadAllBytes(pathString);
-                    foreach (byte b in readBuffer)
+                    var readBuffer = System.IO.File.ReadAllBytes(pathString);
+                    foreach (var b in readBuffer)
                     {
                         Console.Write(b + " ");
                     }
@@ -129,11 +137,99 @@ namespace DasKlub.EmailBlasterService
                 }
 
 
+                ProcessBirthDayUsers();
+               
+
+
+            }
+            
+
+            private static void ProcessBirthDayUsers()
+            {
+                using (var context = new DasKlubUserDBContext())
+                {
+                    context.Configuration.ProxyCreationEnabled = false;
+                    context.Configuration.LazyLoadingEnabled = false;
+
+                    var ua = new UserAccountEntity();
+
+                    try
+                    {
+                        var datetime = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, 0, 0, 0);
+                        var birthdayUsers =
+                            context.UserAccountDetailEntity.Where(p => p.birthDate < DateTime.UtcNow).ToList();
+
+
+                       
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+
+
+                    //foreach (var category in forumCategory)
+                    //{
+                    //    var lastPostForum = new ForumPost();
+
+                    //    var category1 = category;
+                    //    var subForums =
+                    //        context.ForumSubCategory.Where(x => x.ForumCategoryID == category1.ForumCategoryID);
+
+
+                    //    foreach (var forumSubCategory in subForums)
+                    //    {
+                    //        category.TotalPosts++;
+
+                    //        var lastPost =
+                    //            context.ForumPost.Where(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID)
+                    //                   .OrderByDescending(x => x.CreateDate)
+                    //                   .FirstOrDefault();
+
+                    //        if (lastPost == null) continue;
+
+                    //        var forumSubPostCount =
+                    //            context.ForumPost.Count(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID);
+
+                    //        var pageCount = (forumSubPostCount + PageSize - 1) / PageSize;
+
+                    //        lastPost.ForumPostURL =
+                    //            new Uri(forumSubCategory.SubForumURL + "/" +
+                    //                    ((pageCount > 1)
+                    //                         ? pageCount.ToString(CultureInfo.InvariantCulture)
+                    //                         : string.Empty) + "#" +
+                    //                    lastPost.ForumPostID.ToString(CultureInfo.InvariantCulture));
+
+                    //        lastPost.UserAccount = new UserAccount(lastPost.CreatedByUserID);
+
+                    //        if (lastPost.CreateDate <= lastPostForum.CreateDate) continue;
+
+                    //        if (_mu != null)
+                    //        {
+                    //            var userID = Convert.ToInt32(_mu.ProviderUserKey);
+
+                    //            var isNew =
+                    //                context.ForumPostNotification.FirstOrDefault(
+                    //                    x =>
+                    //                    x.ForumSubCategoryID == lastPost.ForumSubCategoryID &&
+                    //                    x.UserAccountID == userID);
+
+                    //            if (isNew != null && !isNew.IsRead)
+                    //            {
+                    //                lastPost.IsNewPost = true;
+                    //            }
+                    //        }
+                    //        lastPostForum = lastPost;
+                    //    }
+
+                    //    category.LatestForumPost = lastPostForum;
+                }
             }
 
 
             public void Execute(IJobExecutionContext context)
             {
+                ProcessBirthDayUsers();
+
                 WriteShit();
 
                 Console.WriteLine("In MyJob class");

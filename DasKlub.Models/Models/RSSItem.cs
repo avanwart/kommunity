@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class RSSItem
     {
+        [Key]
         public int rssItemID { get; set; }
         public int rssResourceID { get; set; }
         public Nullable<int> updatedByUserID { get; set; }

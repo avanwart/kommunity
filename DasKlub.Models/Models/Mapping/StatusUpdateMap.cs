@@ -37,7 +37,7 @@ namespace DasKlubModel.Models.Mapping
             this.HasOptional(t => t.PhotoItem)
                 .WithMany(t => t.StatusUpdates)
                 .HasForeignKey(d => d.photoItemID);
-            this.HasRequired(t => t.UserAccount)
+            this.HasRequired(t => t.UserAccountEntity)
                 .WithMany(t => t.StatusUpdates)
                 .HasForeignKey(d => d.userAccountID);
             this.HasOptional(t => t.Zone)

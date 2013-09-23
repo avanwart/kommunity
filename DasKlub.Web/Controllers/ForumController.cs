@@ -14,6 +14,7 @@ using DasKlub.Models;
 using DasKlub.Models.Forum;
 using DasKlub.Models.Models;
 using DasKlub.Lib.Resources;
+using UserAccount = DasKlub.Lib.BOL.UserAccount;
 
 namespace DasKlub.Web.Controllers
 {
@@ -23,7 +24,7 @@ namespace DasKlub.Web.Controllers
         private readonly IForumCategoryRepository _forumcategoryRepository;
         private readonly MembershipUser _mu;
         private readonly IMailService _mail;
-        private UserAccount _ua = null;
+        private readonly UserAccount _ua;
 
         public ForumController()
             : this(new ForumCategoryRepository(), new MailService())
@@ -82,11 +83,9 @@ namespace DasKlub.Web.Controllers
                         var pageCount = (forumSubPostCount + PageSize - 1) / PageSize;
 
                         lastPost.ForumPostURL =
-                            new Uri(forumSubCategory.SubForumURL + "/" +
-                                    ((pageCount > 1)
-                                         ? pageCount.ToString(CultureInfo.InvariantCulture)
-                                         : string.Empty) + "#" +
-                                    lastPost.ForumPostID.ToString(CultureInfo.InvariantCulture));
+                            new Uri(string.Format("{0}/{1}#{2}", forumSubCategory.SubForumURL, ((pageCount > 1)
+                                    ? pageCount.ToString(CultureInfo.InvariantCulture)
+                                    : string.Empty), lastPost.ForumPostID.ToString(CultureInfo.InvariantCulture)));
 
                         lastPost.UserAccount = new UserAccount(lastPost.CreatedByUserID);
 

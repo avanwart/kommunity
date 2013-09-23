@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models.Mapping
 {
-    public class UserAccountMap : EntityTypeConfiguration<UserAccount>
+    public class UserAccountMap : EntityTypeConfiguration<UserAccountEntity>
     {
         public UserAccountMap()
         {
@@ -41,7 +42,7 @@ namespace DasKlubModel.Models.Mapping
                 .HasMaxLength(25);
 
             // Table & Column Mappings
-            this.ToTable("UserAccount");
+            this.ToTable("UserAccountEntity");
             this.Property(t => t.userAccountID).HasColumnName("userAccountID");
             this.Property(t => t.userName).HasColumnName("userName");
             this.Property(t => t.password).HasColumnName("password");

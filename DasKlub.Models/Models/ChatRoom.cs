@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class ChatRoom
     {
+        [Key]
+
         public int chatRoomID { get; set; }
         public string userName { get; set; }
         public string chatMessage { get; set; }

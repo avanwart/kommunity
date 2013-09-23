@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class StatusUpdateNotification
     {
+        [Key]
         public int statusUpdateNotificationID { get; set; }
         public int statusUpdateID { get; set; }
         public Nullable<int> updatedByUserID { get; set; }

@@ -1239,7 +1239,6 @@
     <Content Include="Views\Shared\ButtonFacebook.cshtml" />
     <Content Include="Views\Shared\ButtonTwitter.cshtml" />
     <Content Include="Views\Shared\EditorScripts.cshtml" />
-    <Content Include="Views\Shared\_MarketNavigation.cshtml" />
     <Content Include="Views\Shared\_MarketSort.cshtml" />
     <Content Include="Views\Shared\_mostWatchedVideos.cshtml" />
     <Content Include="Views\Shared\_newestUsers.cshtml" />
