@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class SiteDomain
     {
+        [Key]
         public int siteDomainID { get; set; }
         public string propertyType { get; set; }
         public System.DateTime createDate { get; set; }

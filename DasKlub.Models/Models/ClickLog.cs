@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class ClickLog
     {
+        [Key]
         public int clickLogID { get; set; }
         public string ipAddress { get; set; }
         public string clickType { get; set; }

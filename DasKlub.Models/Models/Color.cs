@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class Color
     {
+        [Key]
         public int colorID { get; set; }
         public string name { get; set; }
         public System.DateTime createDate { get; set; }

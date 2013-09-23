@@ -22,7 +22,7 @@ namespace DasKlubModel.Models.Mapping
             this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
 
             // Relationships
-            this.HasOptional(t => t.UserAccount)
+            this.HasOptional(t => t.UserAccountEntity)
                 .WithMany(t => t.BlockedUsers)
                 .HasForeignKey(d => d.userAccountIDBlocking);
 

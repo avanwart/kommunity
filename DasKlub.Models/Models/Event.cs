@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
@@ -10,6 +11,7 @@ namespace DasKlubModel.Models
             this.ArtistEvents = new List<ArtistEvent>();
         }
 
+        [Key]
         public int eventID { get; set; }
         public string name { get; set; }
         public int venueID { get; set; }

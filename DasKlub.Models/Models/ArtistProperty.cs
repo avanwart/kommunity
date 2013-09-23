@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class ArtistProperty
     {
+        [Key]
         public int artistPropertyID { get; set; }
         public Nullable<int> updatedByUserID { get; set; }
         public System.DateTime createDate { get; set; }

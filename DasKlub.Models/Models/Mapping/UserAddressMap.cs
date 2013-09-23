@@ -69,7 +69,7 @@ namespace DasKlubModel.Models.Mapping
             this.Property(t => t.choice2).HasColumnName("choice2");
 
             // Relationships
-            this.HasOptional(t => t.UserAccount)
+            this.HasOptional(t => t.UserAccountEntity)
                 .WithMany(t => t.UserAddresses)
                 .HasForeignKey(d => d.userAccountID);
 

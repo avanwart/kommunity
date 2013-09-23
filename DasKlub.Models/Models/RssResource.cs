@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
@@ -9,7 +10,7 @@ namespace DasKlubModel.Models
         {
             this.RSSItems = new List<RSSItem>();
         }
-
+        [Key]
         public int rssResourceID { get; set; }
         public Nullable<int> updatedByUserID { get; set; }
         public System.DateTime createDate { get; set; }

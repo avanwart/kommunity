@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models
 {
     public partial class UserAddress
     {
+                [Key]
+
         public int userAddressID { get; set; }
         public string firstName { get; set; }
         public string middleName { get; set; }
@@ -24,6 +28,6 @@ namespace DasKlubModel.Models
         public string addressStatus { get; set; }
         public string choice1 { get; set; }
         public string choice2 { get; set; }
-        public virtual UserAccount UserAccount { get; set; }
+        public virtual UserAccountEntity UserAccountEntity { get; set; }
     }
 }

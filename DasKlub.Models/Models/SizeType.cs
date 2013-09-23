@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
@@ -9,7 +10,7 @@ namespace DasKlubModel.Models
         {
             this.Sizes = new List<Size>();
         }
-
+        [Key]
         public int sizeTypeID { get; set; }
         public string name { get; set; }
         public System.DateTime createDate { get; set; }

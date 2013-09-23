@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
@@ -10,6 +11,7 @@ namespace DasKlubModel.Models
             this.Videos = new List<Video>();
         }
 
+        [Key]
         public int multiPropertyID { get; set; }
         public int propertyTypeID { get; set; }
         public string name { get; set; }

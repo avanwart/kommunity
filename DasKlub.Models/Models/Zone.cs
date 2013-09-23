@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
@@ -10,6 +11,7 @@ namespace DasKlubModel.Models
             this.StatusUpdates = new List<StatusUpdate>();
         }
 
+        [Key]
         public int zoneID { get; set; }
         public Nullable<int> createdByUserID { get; set; }
         public Nullable<int> updatedByUserID { get; set; }

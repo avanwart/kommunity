@@ -25,7 +25,7 @@ namespace DasKlubModel.Models.Mapping
             this.HasOptional(t => t.ContestVideo)
                 .WithMany(t => t.ContestVideoVotes)
                 .HasForeignKey(d => d.contestVideoID);
-            this.HasOptional(t => t.UserAccount)
+            this.HasOptional(t => t.UserAccountEntity)
                 .WithMany(t => t.ContestVideoVotes)
                 .HasForeignKey(d => d.userAccountID);
 

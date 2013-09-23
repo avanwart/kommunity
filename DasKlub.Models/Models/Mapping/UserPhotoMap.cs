@@ -34,7 +34,7 @@ namespace DasKlubModel.Models.Mapping
             this.Property(t => t.rankOrder).HasColumnName("rankOrder");
 
             // Relationships
-            this.HasRequired(t => t.UserAccount)
+            this.HasRequired(t => t.UserAccountEntity)
                 .WithMany(t => t.UserPhotoes)
                 .HasForeignKey(d => d.userAccountID);
 

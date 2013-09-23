@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models
 {
@@ -10,6 +12,7 @@ namespace DasKlubModel.Models
             this.ContentComments = new List<ContentComment>();
         }
 
+                [Key]
         public int contentID { get; set; }
         public Nullable<int> siteDomainID { get; set; }
         public string contentKey { get; set; }
@@ -33,7 +36,7 @@ namespace DasKlubModel.Models
         public string language { get; set; }
         public string contentVideoURL2 { get; set; }
         public virtual ContentType ContentType { get; set; }
-        public virtual UserAccount UserAccount { get; set; }
+        public virtual UserAccountEntity UserAccountEntity { get; set; }
         public virtual ICollection<ContentComment> ContentComments { get; set; }
     }
 }

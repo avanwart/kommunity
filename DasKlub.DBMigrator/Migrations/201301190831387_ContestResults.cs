@@ -41,7 +41,7 @@ SELECT
      
   FROM  [ContestVideoVote] cvv  INNER JOIN 
   [ContestVideo] conv on cvv.contestVideoID = conv.contestVideoID
-  INNER JOIN Video vid ON conv.videoID = vid.videoID INNER JOIN UserAccount ua 
+  INNER JOIN Video vid ON conv.videoID = vid.videoID INNER JOIN UserAccountEntity ua 
   on cvv.userAccountID = ua.userAccountID  INNER JOIN Contest cont on cont.contestID = conv.contestID
   where conv.contestID = @contestID and ua.createDate < cont.deadline
   group by vid.providerKey, vid.providerUserKey, ua.ipAddress,  vid.publishDate 

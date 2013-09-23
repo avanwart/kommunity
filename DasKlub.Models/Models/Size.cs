@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class Size
     {
+        [Key]
         public int sizeID { get; set; }
         public string sizeName { get; set; }
         public Nullable<int> sizeTypeID { get; set; }

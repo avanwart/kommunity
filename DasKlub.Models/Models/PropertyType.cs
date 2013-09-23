@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
@@ -9,7 +10,7 @@ namespace DasKlubModel.Models
         {
             this.MultiProperties = new List<MultiProperty>();
         }
-
+        [Key]
         public int propertyTypeID { get; set; }
         public string propertyTypeCode { get; set; }
         public System.DateTime createDate { get; set; }

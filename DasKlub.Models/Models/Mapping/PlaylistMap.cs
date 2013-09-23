@@ -28,7 +28,7 @@ namespace DasKlubModel.Models.Mapping
             this.Property(t => t.autoPlay).HasColumnName("autoPlay");
 
             // Relationships
-            this.HasRequired(t => t.UserAccount)
+            this.HasRequired(t => t.UserAccountEntity)
                 .WithMany(t => t.Playlists)
                 .HasForeignKey(d => d.userAccountID);
 

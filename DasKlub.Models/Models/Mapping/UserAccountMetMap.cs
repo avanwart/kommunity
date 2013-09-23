@@ -24,7 +24,7 @@ namespace DasKlubModel.Models.Mapping
             this.Property(t => t.haveMet).HasColumnName("haveMet");
 
             // Relationships
-            this.HasRequired(t => t.UserAccount)
+            this.HasRequired(t => t.UserAccountEntity)
                 .WithMany(t => t.UserAccountMets)
                 .HasForeignKey(d => d.userAccounted);
             this.HasRequired(t => t.UserAccount1)

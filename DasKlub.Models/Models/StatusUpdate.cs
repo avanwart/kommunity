@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models
 {
@@ -11,6 +13,8 @@ namespace DasKlubModel.Models
             this.StatusComments = new List<StatusComment>();
             this.StatusUpdateNotifications = new List<StatusUpdateNotification>();
         }
+
+                [Key]
 
         public int statusUpdateID { get; set; }
         public Nullable<int> updatedByUserID { get; set; }
@@ -26,7 +30,7 @@ namespace DasKlubModel.Models
         public virtual ICollection<Acknowledgement> Acknowledgements { get; set; }
         public virtual PhotoItem PhotoItem { get; set; }
         public virtual ICollection<StatusComment> StatusComments { get; set; }
-        public virtual UserAccount UserAccount { get; set; }
+        public virtual UserAccountEntity UserAccountEntity { get; set; }
         public virtual Zone Zone { get; set; }
         public virtual ICollection<StatusUpdateNotification> StatusUpdateNotifications { get; set; }
     }

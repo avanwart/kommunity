@@ -218,7 +218,7 @@
             @foreach (Birthday bday in ViewBag.BirthDates)
             {
    <li>
-                   @{ var ua = new UserAccount(Convert.ToInt32(bday.UserAccountID)); }
+                   @{ var ua = new UserAccountEntity(Convert.ToInt32(bday.UserAccountEntityID)); }
                     
 <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
 
@@ -228,7 +228,7 @@
     
        @Html.Raw(coName)
        
-              @{ var uad = new UserAccountDetail();uad.GetUserAccountDeailForUser(ua.UserAccountID); }
+              @{ var uad = new UserAccountEntityDetail();uad.GetUserAccountEntityDeailForUser(ua.UserAccountEntityID); }
        
        @if (uad.DisplayAge)
        {

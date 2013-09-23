@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models
 {
@@ -7,12 +9,14 @@ namespace DasKlubModel.Models
     {
         public Language()
         {
-            this.UserAccounts = new List<UserAccount>();
+            this.UserAccounts = new List<UserAccountEntity>();
         }
+
+                [Key]
 
         public int languageID { get; set; }
         public string languageType { get; set; }
         public string languageName { get; set; }
-        public virtual ICollection<UserAccount> UserAccounts { get; set; }
+        public virtual ICollection<UserAccountEntity> UserAccounts { get; set; }
     }
 }

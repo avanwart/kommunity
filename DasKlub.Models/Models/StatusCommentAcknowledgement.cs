@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
     public partial class StatusCommentAcknowledgement
     {
+        [Key]
         public int statusCommentAcknowledgementID { get; set; }
         public int userAccountID { get; set; }
         public int statusCommentID { get; set; }
