@@ -9,7 +9,7 @@
 - [PowerShell 3.0](http://www.microsoft.com/web/downloads/platform.aspx)
 - [Amazon Storage](http://www.cloudberrylab.com/)
 - [Git Extensions](http://sourceforge.net/projects/gitextensions/)
-- Git Source Control Provider. In Visual Studio go to: Tools > Extensions and Updates > Search online.
+- Git Source Control Provider. In Visual Studio go to: Tools > Extensions and Updates > Search online. Then update Source Control in Tools > Options to Git Source Control Provider.
 
 ---
 ### Amazon
