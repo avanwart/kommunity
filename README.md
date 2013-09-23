@@ -110,6 +110,13 @@ Invoke-psake $PSScriptRoot\..\default.ps1 deploy -properties @{
 ---
 ### Workflow
 
+- Change your fetch URL to the origin, not your fork: 
+<pre>
+git remote -v
+git remote set-url origin https://github.com/dasklub/kommunity.git
+git remote set-url --push origin <YOUR_FORK_URL>
+</pre>
+
 To get your code included into the master repository, fork the repository, create a new branch, commit your changes there and push.
 Each commit should be small and consise, representing a small unit of work that can be rolled back.
 Each commit should be written in present tense ex: 'Updates jQuery to version 2.0'.
