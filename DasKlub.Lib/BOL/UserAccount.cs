@@ -251,7 +251,6 @@ namespace DasKlub.Lib.BOL
 
         public UserAccount()
         {
-/*do nothing constructor*/
         }
 
         /// <summary>
@@ -276,11 +275,9 @@ namespace DasKlub.Lib.BOL
                 var dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
-                    Get(dt.Rows[0]);
-                }
+                if (dt == null || dt.Rows.Count <= 0) return;
+                HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                Get(dt.Rows[0]);
             }
             else
             {

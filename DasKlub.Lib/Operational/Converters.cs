@@ -51,7 +51,6 @@ namespace DasKlub.Lib.Operational
             return string.Empty;
         }
 
-
         /// <summary>
         ///     Convert the object to a date from the database and set it to 1/1/1900
         /// </summary>
@@ -67,7 +66,7 @@ namespace DasKlub.Lib.Operational
         /// <summary>
         ///     Convert an object to an integer from the database
         /// </summary>
-        /// <param name="columnName"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         public static int IntFromObj(object value)
         {
@@ -75,7 +74,6 @@ namespace DasKlub.Lib.Operational
                 return Convert.ToInt32(value);
             return 0;
         }
-
 
         public static decimal? DecimalNullableFromObj(object value)
         {
@@ -86,7 +84,6 @@ namespace DasKlub.Lib.Operational
             return 0;
         }
 
-
         public static int? IntNullableFromObj(object value)
         {
             if (value != null && value != DBNull.Value)
@@ -95,7 +92,6 @@ namespace DasKlub.Lib.Operational
                 return null;
             return 0;
         }
-
 
         /// <summary>
         ///     Convert the object to a boolean if possible, false otherwise
@@ -116,19 +112,11 @@ namespace DasKlub.Lib.Operational
         /// <returns></returns>
         public static double DoubleFromObj(object value)
         {
-            if (value != null && value != DBNull.Value)
-            {
-                double dbl;
+            if (value == null || value == DBNull.Value) return 0;
+            double dbl;
 
-                if (double.TryParse(Convert.ToString(value), out dbl))
-                {
-                    return dbl;
-                }
-            }
-
-            return 0;
+            return double.TryParse(Convert.ToString(value), out dbl) ? dbl : 0;
         }
-
 
         public static float FloatFromObj(object value)
         {
@@ -207,21 +195,18 @@ namespace DasKlub.Lib.Operational
         /// </summary>
         public static string Truncate(string source, int length)
         {
-            if (source.Length > length)
+            if (source.Length <= length) return source;
+            if (source.Length > length && source.Substring(length, 1) != string.Empty)
             {
-                if (source.Length > length && source.Substring(length, 1) != string.Empty)
+                while (length < source.Length && source.Substring(length, 1) != " ")
                 {
-                    while (length < source.Length && source.Substring(length, 1) != " ")
-                    {
-                        length++;
-                    }
-                    source = source.Substring(0, length) + "...";
-                    ;
+                    length++;
                 }
-                else
-                {
-                    source = source.Substring(0, length);
-                }
+                source = source.Substring(0, length) + "...";
+            }
+            else
+            {
+                source = source.Substring(0, length);
             }
             return source;
         }
@@ -235,30 +220,15 @@ namespace DasKlub.Lib.Operational
         /// <param name="length"></param>
         /// <param name="fillWith"></param>
         /// <returns></returns>
-        private static string GetFixedLengthString(string input, int length, string fillWith, bool isLeftAligned)
+        private static string GetFixedLengthString(string input, int length, string fillWith, bool isLeftAligned = true)
         {
             input = input ?? fillWith;
             // what? http://stackoverflow.com/questions/446835/what-do-two-question-marks-together-mean-in-c
             input = input.Length > length ? input.Substring(0, length) : input;
 
-            if (isLeftAligned)
-                return string.Format("{0,-" + length + "}", input).Replace(" ", fillWith);
-                // align the string to the left
-            else
-                return string.Format("{0," + length + "}", input).Replace(" ", fillWith);
-            // align the string to the right
-        }
-
-        /// <summary>
-        ///     Given a string of text, length and fill type, return a string padded and left aligned
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="length"></param>
-        /// <param name="fillWith"></param>
-        /// <returns></returns>
-        private static string GetFixedLengthString(string input, int length, string fillWith)
-        {
-            return GetFixedLengthString(input, length, fillWith, true);
+            return isLeftAligned ? string.Format("{0,-{1}}", input, length)
+                .Replace(" ", fillWith) : string.Format("{0,{1}}", input, length)
+                .Replace(" ", fillWith);
         }
 
         #endregion
