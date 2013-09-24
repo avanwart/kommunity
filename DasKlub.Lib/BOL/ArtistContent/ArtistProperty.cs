@@ -24,7 +24,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL.ArtistContent
 {
-    public class ArtistProperty : BaseIUserLogCRUD, ICacheName
+    public class ArtistProperty : BaseIUserLogCRUD 
     {
         #region properties
 
@@ -108,9 +108,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
             bool result = false;
             // execute the stored procedure
             result = Convert.ToBoolean(DbAct.ExecuteNonQuery(comm));
-
-            RemoveCache();
-
+ 
             return result;
         }
 
@@ -150,8 +148,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
             comm.AddParameter("artistPropertyID", ArtistPropertyID);
 
-            RemoveCache();
-
+   
             // execute the stored procedure
 
             return DbAct.ExecuteNonQuery(comm) > 0;
@@ -175,20 +172,6 @@ namespace DasKlub.Lib.BOL.ArtistContent
         }
 
         #endregion
-
-        #region ICacheName Members
-
-        public string CacheName
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public void RemoveCache()
-        {
-            // TODO: USE THIS
-            return;
-        }
-
-        #endregion
+ 
     }
 }

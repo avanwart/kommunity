@@ -26,19 +26,14 @@ namespace DasKlub.Lib.Providers
     {
         #region Public non static methods
 
-        /// <summary>
-        ///     TODO: FIND OUT WHY AND HOW THIS MUST BE IMPLEMENTED
-        /// </summary>
         public override string ApplicationName
         {
             get
             {
                 return string.Empty;
-                //throw new NotImplementedException();
             }
             set
             {
-                //throw new NotImplementedException();
             }
         }
 

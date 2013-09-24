@@ -64,7 +64,6 @@ namespace DasKlub.Lib.BOL
 
         public EventCycle()
         {
-            // TODO: Complete member initialization
         }
 
         public EventCycle(DataRow dr)

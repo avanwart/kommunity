@@ -74,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DasKlub.Lib\DasKlub.Lib.csproj">
+      <Project>{4a6cf1cc-4f7a-43d2-a9cd-07db4d8c45cd}</Project>
+      <Name>DasKlub.Lib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DasKlub.Models\DasKlub.Models.csproj">
       <Project>{ae85a1d5-2e20-4a18-ac1b-c49e6abfec51}</Project>
       <Name>DasKlub.Models</Name>

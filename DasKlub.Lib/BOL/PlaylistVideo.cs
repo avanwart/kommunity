@@ -36,7 +36,6 @@ namespace DasKlub.Lib.BOL
 
         public PlaylistVideo()
         {
-            // TODO: Complete member initialization
         }
 
         public int PlaylistVideoID { get; set; }

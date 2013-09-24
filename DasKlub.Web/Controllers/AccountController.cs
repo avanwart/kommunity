@@ -64,7 +64,7 @@ namespace DasKlub.Web.Controllers
         private UserConnection _ucon;
         private UserConnections _ucons;
         private UserPhotos _ups;
-        private IMailService _mail;
+        private readonly IMailService _mail;
 
         #endregion
 

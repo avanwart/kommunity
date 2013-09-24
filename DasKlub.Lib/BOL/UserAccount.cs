@@ -1046,12 +1046,7 @@ namespace DasKlub.Lib.BOL
 
             uas.GetNewestUsers();
 
-            if (uas.Count > 0)
-            {
-                //TODO: this is a waste here, the results are greater than one
-                return uas[0];
-            }
-            else return null;
+            return uas.Count > 0 ? uas[0] : null;
         }
 
         #region non-db properties

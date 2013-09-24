@@ -260,10 +260,6 @@ namespace DasKlub.Lib.Providers
             string oldPassword,
             string newPassword)
         {
-            //check if user is authenticated
-            // if (!ValidateUser(username, oldPassword)) return false; /TODO: MAYBE THIS MATTERS AT SOME POINT
-
-            //notify that password is going to change
             var args = new ValidatePasswordEventArgs(username, newPassword, true);
             OnValidatingPassword(args);
 
@@ -279,12 +275,10 @@ namespace DasKlub.Lib.Providers
 
             if (EncodePassword(oldPassword) != eu.Password)
             {
-                // incorrect 
                 return false;
             }
 
             eu.Password = EncodePassword(newPassword);
-            //eu.LastPasswordChangedDate = FromDB.GetUTCDate();
 
             try
             {
@@ -691,7 +685,6 @@ namespace DasKlub.Lib.Providers
         /// <summary>
         ///     A helper method that performs the checks and updates associated with password failure tracking.
         /// </summary>
-        /// <TODO>update the failure count for the user in the time window</TODO>
         private void UpdateFailureCount(string username, SiteEnums.MembershipFailureTypes failureType)
         {
             var eu = new UserAccount(username);
@@ -709,8 +702,7 @@ namespace DasKlub.Lib.Providers
                 failureCount = Convert.ToInt32(eu.FailedPasswordAnswerAttemptCount);
             }
 
-            DateTime windowEnd = eu.FailedPasswordAttemptWindowStart.AddMinutes(PasswordAttemptWindow);
-            if (failureCount == 0) // || FromDB.GetUTCDate() > windowEnd)
+            if (failureCount == 0) 
             {
                 // First password failure or outside of PasswordAttemptWindow. 
                 // Start a new password failure count from 1 and a new window starting now.

@@ -274,7 +274,6 @@ namespace DasKlub.Lib.Operational
         {
             var pname = Regex.Replace(p, @"[\W_-[#]]+", " ");
             return pname.Trim().Replace("  ", " ").Replace(" ", "-").Replace("%", string.Empty).ToLower();
-            // TODO: FULL REGEX
         }
     }
 

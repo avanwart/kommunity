@@ -99,7 +99,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
         public ContentComment()
         {
-            // TODO: Complete member initialization
+            
         }
 
 

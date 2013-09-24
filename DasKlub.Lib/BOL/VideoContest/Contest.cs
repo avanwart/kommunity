@@ -80,7 +80,6 @@ namespace DasKlub.Lib.BOL.VideoContest
 
         public Contest()
         {
-            // TODO: Complete member initialization
         }
 
         #endregion

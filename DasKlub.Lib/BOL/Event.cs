@@ -111,7 +111,7 @@ namespace DasKlub.Lib.BOL
 
         public Event()
         {
-            // TODO: Complete member initialization
+          
         }
 
         public Event(int eventID)
