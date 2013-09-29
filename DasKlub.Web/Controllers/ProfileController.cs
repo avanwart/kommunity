@@ -434,7 +434,14 @@ namespace DasKlub.Web.Controllers
 
                 vids.Sort((x, y) => (y.PublishDate.CompareTo(x.PublishDate)));
 
-                model.UserName = userName;
+                if (_ua != null)
+                {
+                    model.UserName = _ua.UserName;
+                }
+                else
+                {
+                    model.UserName = userName;    
+                }
             }
             else
             {

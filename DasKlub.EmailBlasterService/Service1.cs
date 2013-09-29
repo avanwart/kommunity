@@ -46,7 +46,7 @@ namespace DasKlub.EmailBlasterService
 
         private void AddInactiveReminderJob()
         {
-           // TODO: mail
+           // TODO: every week email all who are under 30 years old and have not signed in for at least 3 weeks a reminder
         }
 
 
@@ -95,6 +95,7 @@ namespace DasKlub.EmailBlasterService
                         var results = from t in context.UserAccountDetailEntity
                                       where t.birthDate.Month == DateTime.UtcNow.Month && t.birthDate.Day == DateTime.UtcNow.Day
                                       select t;
+
                         var users = results.ToList();
 
                         foreach (var user in users.Select(birthdayUser => context != null ? 
