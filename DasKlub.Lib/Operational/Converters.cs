@@ -183,7 +183,7 @@ namespace DasKlub.Lib.Operational
         /// <returns></returns>
         public static string GetFixedLengthString(string input, int length)
         {
-            return GetFixedLengthString(input, length, " ");
+            return GetFixedLengthString(input, length, " ", true);
         }
 
 
@@ -220,15 +220,17 @@ namespace DasKlub.Lib.Operational
         /// <param name="length"></param>
         /// <param name="fillWith"></param>
         /// <returns></returns>
-        private static string GetFixedLengthString(string input, int length, string fillWith, bool isLeftAligned = true)
+        private static string GetFixedLengthString(string input, int length, string fillWith, bool isLeftAligned)
         {
             input = input ?? fillWith;
             // what? http://stackoverflow.com/questions/446835/what-do-two-question-marks-together-mean-in-c
             input = input.Length > length ? input.Substring(0, length) : input;
 
-            return isLeftAligned ? string.Format("{0,-{1}}", input, length)
-                .Replace(" ", fillWith) : string.Format("{0,{1}}", input, length)
-                .Replace(" ", fillWith);
+            if (isLeftAligned)
+                return string.Format("{0,-" + length + "}", input).Replace(" ", fillWith);
+            // align the string to the left
+            return string.Format("{0," + length + "}", input).Replace(" ", fillWith);
+            // align the string to the right
         }
 
         #endregion
