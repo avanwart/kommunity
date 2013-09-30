@@ -353,7 +353,7 @@
             $('#load_more').click(function() {
                 $('#loading').fadeIn();
 
-                $.post($rootUrl + 'findusers/Items?time=' + new Date().getTime(), { pageNumber: pageNumber },
+                $.post($rootUrl + 'findusers/items?time=' + new Date().getTime(), { pageNumber: pageNumber },
                     function(data) {
 
                         pageNumber++;
