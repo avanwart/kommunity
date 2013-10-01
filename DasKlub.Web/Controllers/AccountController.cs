@@ -404,19 +404,19 @@ namespace DasKlub.Web.Controllers
                     var uad = new UserAccountDetail();
                     uad.GetUserAccountDeailForUser(_ua.UserAccountID);
 
-                    if (!string.IsNullOrWhiteSpace(uad.DefaultLanguage))
+                    if (string.IsNullOrWhiteSpace(uad.DefaultLanguage)) 
+                        return RedirectToAction("Home", "Account");
+
+                    var nvc = new NameValueCollection
                     {
-                        var nvc = new NameValueCollection
-                            {
-                                {SiteEnums.CookieValue.language.ToString(), uad.DefaultLanguage}
-                            };
+                        {SiteEnums.CookieValue.language.ToString(), uad.DefaultLanguage}
+                    };
 
-                        Utilities.CookieMaker(SiteEnums.CookieName.Usersetting, nvc);
+                    Utilities.CookieMaker(SiteEnums.CookieName.Usersetting, nvc);
 
-                        Thread.CurrentThread.CurrentUICulture =
-                            CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
-                        Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
-                    }
+                    Thread.CurrentThread.CurrentUICulture =
+                        CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
+                    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
 
                     return RedirectToAction("Home", "Account");
                 }
@@ -1964,15 +1964,18 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult Reply(string userName)
         {
-            ViewBag.DisplayName = userName;
-
             _ua = new UserAccount(userName);
+
+            ViewBag.DisplayName = _ua.UserName;
 
             var model = new DirectMessages();
 
             if (_mu != null)
-                ViewBag.RecordCount = model.GetMailPageWiseToUser(1, PageSize, Convert.ToInt32(_mu.ProviderUserKey),
-                                                                  _ua.UserAccountID);
+                ViewBag.RecordCount = model.GetMailPageWiseToUser(1, 
+                    PageSize, 
+                    Convert.ToInt32(_mu.ProviderUserKey),
+                    _ua.UserAccountID);
+
             ViewBag.DirectMessages = model.ToUnorderdList;
 
             return View();
@@ -2253,18 +2256,20 @@ namespace DasKlub.Web.Controllers
 
                     sb.AppendLine("Welcome to the klub!");
                     sb.AppendLine();
-                    sb.AppendLine("I am the site creator/ admin");
+                    sb.AppendLine("We are SO happy to have you here as a member of our elite group! Das Klubbers are very nice people and of course great dancers.");
                     sb.AppendLine();
                     sb.AppendLine();
-                    sb.AppendLine("Make sure to read this article on How To Use Das Klub: http://dasklub.com/news/how-to-use-das-klub");
+                    sb.AppendLine("If you have any questions about your account, make sure to read this article: http://dasklub.com/news/how-to-use-das-klub");
                     sb.AppendLine();
                     sb.AppendLine();
-                    sb.AppendLine("Get started posting to the status update now: http://dasklub.com/account/home");
+                    sb.AppendLine("Make sure to introduce yourself here: http://dasklub.com/forum/introduce-yourself ");
                     sb.AppendLine();
+                    sb.AppendLine();
+                    sb.AppendLine();
+                    sb.AppendLine("You are one of the predestined ones.");
                     sb.AppendLine();
                     sb.AppendLine("- The Admin");
                     sb.AppendLine();
-                    sb.AppendLine("[ automatic e-mail ]");
                     dm.Message = sb.ToString();
 
                     if (admin.UserAccountID != 0)
@@ -2307,16 +2312,15 @@ namespace DasKlub.Web.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
-            if (ModelState.IsValid)
-            {
-                MembershipUser mu = Membership.GetUser();
+            if (!ModelState.IsValid) return View(model);
 
-                if (mu != null && mu.ChangePassword(model.OldPassword, model.NewPassword))
-                {
-                    return RedirectToAction("ChangePasswordSuccess");
-                }
-                ModelState.AddModelError("", Messages.ThePasswordsEnteredDoNotMatch);
+            var mu = Membership.GetUser();
+
+            if (mu != null && mu.ChangePassword(model.OldPassword, model.NewPassword))
+            {
+                return RedirectToAction("ChangePasswordSuccess");
             }
+            ModelState.AddModelError("", Messages.ThePasswordsEnteredDoNotMatch);
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -2511,10 +2515,10 @@ namespace DasKlub.Web.Controllers
                 httpWebRequest.Timeout = 20000;
 
                 // Request response:
-                WebResponse webResponse = httpWebRequest.GetResponse();
+                var webResponse = httpWebRequest.GetResponse();
 
                 // Open data stream:
-                Stream webStream = webResponse.GetResponseStream();
+                var webStream = webResponse.GetResponseStream();
 
                 // convert webstream to image
                 if (webStream != null) tmpImage = Image.FromStream(webStream);
