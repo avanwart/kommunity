@@ -55,19 +55,11 @@ namespace DasKlub.Web
         public void Application_Start()
         {
             RouteTable.Routes.MapHubs();
-
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
             WebApiConfig.Register(GlobalConfiguration.Configuration);
-            
             XmlConfigurator.Configure();
 
             Log.Info("Application Started");
-
-            if (GeneralConfigs.EnableVideoCheck)
-            {
-                ClearBadVideos();
-            }
 
             Application[SiteEnums.ApplicationVariableNames.LogError.ToString()] = true;
 
