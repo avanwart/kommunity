@@ -1,6 +1,6 @@
 ﻿namespace DasKlub.EmailBlasterService
 {
-    partial class Service1
+    partial class ContactService
     {
         /// <summary> 
         /// Required designer variable.

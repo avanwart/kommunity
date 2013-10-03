@@ -1,26 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 using DasKlub.Lib.Services;
 using DasKlub.Models;
-using DasKlub.Models.Forum;
-using DasKlub.Models.Models;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Triggers;
 
 namespace DasKlub.EmailBlasterService
 {
-    public partial class Service1 : ServiceBase
+    public partial class ContactService : ServiceBase
     {
-        public Service1()
+        public ContactService()
         {
             InitializeComponent();
         }

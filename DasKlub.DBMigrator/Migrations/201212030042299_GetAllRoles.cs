@@ -1,7 +1,7 @@
  
 using System.Data.Entity.Migrations;
 
-namespace DBMigrator.Migrations
+namespace DasKlub.DBMigrator.Migrations
 {
     public partial class GetAllRoles : DbMigration
     {

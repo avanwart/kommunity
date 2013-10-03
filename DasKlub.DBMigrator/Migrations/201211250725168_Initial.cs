@@ -16,9 +16,9 @@
 
 using System.Data.Entity.Migrations;
 
-namespace Migrations
+namespace DasKlub.DBMigrator.Migrations
 {
-    public class Initial : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {

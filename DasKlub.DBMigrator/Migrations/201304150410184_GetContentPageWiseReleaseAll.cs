@@ -1,8 +1,7 @@
-namespace DBMigrator.Migrations
+using System.Data.Entity.Migrations;
+
+namespace DasKlub.DBMigrator.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class GetContentPageWiseReleaseAll : DbMigration
     {
         public override void Up()

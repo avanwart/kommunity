@@ -22,8 +22,17 @@ namespace DasKlub.Web
             _mail = mail;
         }
 
+        public MassMail( )
+        {
+           
+        }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
+          
+            return;
+
             var sb = new StringBuilder(100);
 
             sb.AppendFormat("Hello,");
