@@ -62,6 +62,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -105,7 +106,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="DasKlub.EmailBlasterService\ContactServiceTest.cs" />
+    <Compile Include="DasKlub.Web\Controllers\HomeControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +115,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DasKlub.EmailBlasterService\DasKlub.EmailBlasterService.csproj">
+      <Project>{cd086962-bd5a-4608-b427-260b53668da4}</Project>
+      <Name>DasKlub.EmailBlasterService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DasKlub.Models\DasKlub.Models.csproj">
       <Project>{ae85a1d5-2e20-4a18-ac1b-c49e6abfec51}</Project>
       <Name>DasKlub.Models</Name>

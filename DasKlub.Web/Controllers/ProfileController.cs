@@ -15,7 +15,6 @@
 //   limitations under the License.
 
 using System;
-using System.Collections;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -434,7 +433,7 @@ namespace DasKlub.Web.Controllers
 
                 vids.Sort((x, y) => (y.PublishDate.CompareTo(x.PublishDate)));
 
-                model.UserName = userName;
+                model.UserName = _ua != null ? _ua.UserName : userName;
             }
             else
             {

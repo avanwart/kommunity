@@ -340,7 +340,6 @@ namespace DasKlub.Lib.Operational
         /// </summary>
         /// <param name="inputEmail"></param>
         /// <returns></returns>
-        /// <TODO>add the logic that will check it with the host</TODO>
         public static bool IsEmail(string inputEmail)
         {
             if (string.IsNullOrWhiteSpace(inputEmail))

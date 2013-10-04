@@ -33,6 +33,7 @@ namespace DasKlub.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            const string siteDomain = "http://dasklub.com/";
             Response.Clear();
             Response.ContentType = "text/xml";
 
@@ -45,18 +46,15 @@ namespace DasKlub.Web
 
             // home
             writer.WriteStartElement("url");
-            writer.WriteElementString("loc", "http://dasklub.com/");
+            writer.WriteElementString("loc", siteDomain);
             writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", DateTime.UtcNow));
             writer.WriteElementString("changefreq", "weekly");
             writer.WriteElementString("priority", "1.0");
             writer.WriteEndElement();
             writer.WriteString("\r\n"); //newline 
 
-
-
             using (var context = new DasKlubDbContext())
             {
-
                 var forumCategory = context.ForumCategory
                                            .OrderBy(x => x.CreateDate)
                                            .ToList();
@@ -64,7 +62,7 @@ namespace DasKlub.Web
                 foreach (var category in forumCategory)
                 {
                     writer.WriteStartElement("url");
-                    writer.WriteElementString("loc", category.ForumURL.ToString());
+                    writer.WriteElementString("loc", category.ForumURL.ToString().ToLower());
                     writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", category.CreateDate));
                     writer.WriteElementString("changefreq", "weekly");
                     writer.WriteElementString("priority", "0.8");
@@ -77,7 +75,7 @@ namespace DasKlub.Web
                     foreach (var forumPost in subForums)
                     {
                         writer.WriteStartElement("url");
-                        writer.WriteElementString("loc", forumPost.SubForumURL.ToString());
+                        writer.WriteElementString("loc", forumPost.SubForumURL.ToString().ToLower());
                         writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", forumPost.CreateDate));
                         writer.WriteElementString("changefreq", "weekly");
                         writer.WriteElementString("priority", "0.8");
@@ -93,7 +91,7 @@ namespace DasKlub.Web
                         for (var i = 2; i <= pageCount; i++)
                         {
                             writer.WriteStartElement("url");
-                            writer.WriteElementString("loc", string.Format("{0}/{1}", forumPost.SubForumURL, i));
+                            writer.WriteElementString("loc", string.Format("{0}/{1}", forumPost.SubForumURL, i).ToLower());
                             writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", forumPost.CreateDate));
                             writer.WriteElementString("changefreq", "weekly");
                             writer.WriteElementString("priority", "0.8");
@@ -107,10 +105,10 @@ namespace DasKlub.Web
             var artis = new Artists();
             artis.GetAll();
 
-            foreach (Artist app in artis)
+            foreach (var app in artis)
             {
                 writer.WriteStartElement("url");
-                writer.WriteElementString("loc", "http://dasklub.com/" + app.URLOfArtist);
+                writer.WriteElementString("loc", siteDomain + app.URLOfArtist.ToLower());
                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", app.CreateDate));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.8");
@@ -118,12 +116,12 @@ namespace DasKlub.Web
                 writer.WriteString("\r\n"); //newline 
             }
 
-            ArrayList userAccounts = Videos.GetDistinctUsers();
+            var userAccounts = Videos.GetDistinctUsers();
 
             foreach (string app in userAccounts)
             {
                 writer.WriteStartElement("url");
-                writer.WriteElementString("loc", "http://dasklub.com/" + app);
+                writer.WriteElementString("loc", siteDomain + app.ToLower());
                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", DateTime.UtcNow));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.7");
@@ -135,20 +133,15 @@ namespace DasKlub.Web
             var uas = new UserAccounts();
             uas.GetAll();
 
-            foreach (UserAccount ua1 in uas)
+            foreach (var ua1 in uas)
             {
-                //foreach (string a1 in userAccounts)
-                //{
-                //  if (a1 == ua1.UserName) continue;// already added as a video
-
                 writer.WriteStartElement("url");
-                writer.WriteElementString("loc", "http://dasklub.com/" + ua1.UserName.Replace(" ", "-"));
+                writer.WriteElementString("loc", siteDomain + ua1.UserName.Replace(" ", "-").ToLower());
                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", ua1.LastActivityDate));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.7");
                 writer.WriteEndElement();
                 writer.WriteString("\r\n"); //newline 
-                //}
             }
 
 
@@ -158,20 +151,15 @@ namespace DasKlub.Web
             cnts.GetAllActiveContent();
 
 
-            foreach (Content c1 in cnts)
+            foreach (var c1 in cnts)
             {
-                //foreach (string a1 in userAccounts)
-                //{
-                //  if (a1 == ua1.UserName) continue;// already added as a video
-
                 writer.WriteStartElement("url");
-                writer.WriteElementString("loc", "http://dasklub.com/news/" + c1.ContentKey);
+                writer.WriteElementString("loc", siteDomain + "news/" + c1.ContentKey.ToLower());
                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", c1.ReleaseDate));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.8");
                 writer.WriteEndElement();
                 writer.WriteString("\r\n"); //newline 
-                //}
             }
 
 

@@ -17,25 +17,18 @@
 
 using System;
 using System.Configuration;
-using System.Data;
-using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
-using System.Data.SqlClient;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using DBMigrator.Migrations;
-using DasKlub.Lib.DAL;
-using DasKlub.Lib.Operational;
 using Configuration = DBMigrator.Migrations.Configuration;
 
-namespace DBMigrator
+namespace DasKlub.DBMigrator
 {
     internal class Program
     {
         public static bool RunSeed = false;
-        public static int exitCode = -1;
+        public static int ExitCode = -1;
         public static string dbName = ConfigurationManager.AppSettings["DatabaseName"];
 
  
@@ -47,7 +40,7 @@ namespace DBMigrator
             if (!Database.Exists(dbName))
             {
                 Console.WriteLine("DATABASE DOES NOT EXIST, RUN 'dk_script.sql.sql' ON SQL SERVER 2012");
-                Environment.Exit(exitCode);
+                Environment.Exit(ExitCode);
                 Console.Read();
                 return;
             }
@@ -71,7 +64,7 @@ namespace DBMigrator
 
                 migrator.Update();
                 Console.WriteLine("SUCCESS!");
-                exitCode = 1;
+                ExitCode = 1;
             }
             catch (Exception ex)
             {
@@ -81,7 +74,7 @@ namespace DBMigrator
             }
 
             Console.WriteLine("DONE!");
-            Environment.Exit(exitCode);
+            Environment.Exit(ExitCode);
         }
     }
 }

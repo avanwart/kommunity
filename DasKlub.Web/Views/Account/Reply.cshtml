@@ -72,7 +72,7 @@
             $('#load_more').click(function() {
 
                 $('#loading').fadeIn();
-                $.post($rootUrl + 'account/ReplyMailItems', { pageNumber: pageNumber },
+                $.post($rootUrl + 'account/replymailitems', { pageNumber: pageNumber },
                     function(data) {
 
                         pageNumber++;
@@ -91,7 +91,7 @@
 
             $(function() {
                 $('#mail_items').scrollPagination({
-                    'contentPage': $rootUrl + 'account/ReplyMailItems', // the page where you are searching for results
+                    'contentPage': $rootUrl + 'account/replymailitems', // the page where you are searching for results
                     'contentData': {}, // you can pass the children().size() to know where is the pagination
                     'scrollTarget': $(window), // who gonna scroll? in this example, the full window
                     'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please

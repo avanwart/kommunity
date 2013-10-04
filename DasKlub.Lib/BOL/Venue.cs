@@ -205,7 +205,6 @@ namespace DasKlub.Lib.BOL
 
         public Venue()
         {
-            // TODO: Complete member initialization
         }
 
         #endregion
@@ -214,7 +213,7 @@ namespace DasKlub.Lib.BOL
 
         public string CacheName
         {
-            get { return string.Format("{0}-{1}", GetType().FullName, VenueID.ToString()); }
+            get { return string.Format("{0}-{1}", GetType().FullName, VenueID); }
         }
 
         public void RemoveCache()

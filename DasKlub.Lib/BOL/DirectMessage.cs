@@ -43,7 +43,6 @@ namespace DasKlub.Lib.BOL
 
         public DirectMessage()
         {
-            // TODO: Complete member initialization
         }
 
         public int DirectMessageID { get; set; }
@@ -227,9 +226,8 @@ namespace DasKlub.Lib.BOL
                 sb.Append(@"<br />");
 
                 sb.Append(FromString.ReplaceNewLineWithHTML(Utilities.MakeLink(Message)));
-
-
-                MembershipUser mu = Membership.GetUser();
+                
+                var mu = Membership.GetUser();
 
                 if (mu != null && Convert.ToInt32(mu.ProviderUserKey) != ua.UserAccountID)
                 {

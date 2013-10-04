@@ -34,18 +34,16 @@ namespace DasKlub.Lib.BOL.UserContent
 
         public ContentType(DataRow dr)
         {
-            // TODO: Complete member initialization
+            
             Get(dr);
         }
 
         public ContentType()
         {
-            // TODO: Complete member initialization
         }
 
         public ContentType(int p)
         {
-            // TODO: Complete member initialization
             Get(p);
         }
 

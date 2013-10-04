@@ -55,7 +55,7 @@ namespace DasKlub.Web.App_Start
                 "~/content/mediaelement/mediaelementplayer.css"
                             ));
 
-            BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

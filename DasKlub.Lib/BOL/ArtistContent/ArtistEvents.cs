@@ -40,7 +40,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
         public ArtistEvent()
         {
-            // TODO: Complete member initialization
+             
         }
 
         public int ArtistID { get; set; }

@@ -79,14 +79,15 @@ namespace DasKlub.Web.io
                     {
                         mu = Membership.GetUser();
 
+                        if (mu == null) return;
                         var ack = new Acknowledgement
-                            {
-                                CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
-                                UserAccountID = Convert.ToInt32(mu.ProviderUserKey),
-                                AcknowledgementType = Convert.ToChar(
-                                    context.Request.QueryString[SiteEnums.QueryStringNames.stat_update_rsp.ToString()]),
-                                StatusUpdateID = statusUpdateID
-                            };
+                        {
+                            CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
+                            UserAccountID = Convert.ToInt32(mu.ProviderUserKey),
+                            AcknowledgementType = Convert.ToChar(
+                                context.Request.QueryString[SiteEnums.QueryStringNames.stat_update_rsp.ToString()]),
+                            StatusUpdateID = statusUpdateID
+                        };
 
                         statup = new StatusUpdate(statusUpdateID);
 
@@ -99,13 +100,8 @@ namespace DasKlub.Web.io
                             if (ack.AcknowledgementType == Convert.ToChar(SiteEnums.ResponseType.A.ToString()))
                             {
                                 sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID, statusUpdateID,
-                                                                             SiteEnums.ResponseType.A);
+                                    SiteEnums.ResponseType.A);
                             }
-                            //else if (ack.AcknowledgementType == Convert.ToChar(SiteEnums.ResponseType.B.ToString()))
-                            //{
-                            //    sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID, statusUpdateID,
-                            //                                                 SiteEnums.ResponseType.B);
-                            //}
 
                             if (Convert.ToInt32(mu.ProviderUserKey) != statup.UserAccountID)
                             {
@@ -163,35 +159,36 @@ namespace DasKlub.Web.io
                     {
                         mu = Membership.GetUser();
 
+                        if (mu == null) return;
                         var ack = new StatusCommentAcknowledgement
-                            {
-                                CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
-                                UserAccountID = Convert.ToInt32(mu.ProviderUserKey),
-                                AcknowledgementType = Convert.ToChar(
-                                    context.Request.QueryString[
-                                        SiteEnums.QueryStringNames.stat_update_comment_rsp.ToString()]),
-                                StatusCommentID = statusUpdateID
-                            };
+                        {
+                            CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
+                            UserAccountID = Convert.ToInt32(mu.ProviderUserKey),
+                            AcknowledgementType = Convert.ToChar(
+                                context.Request.QueryString[
+                                    SiteEnums.QueryStringNames.stat_update_comment_rsp.ToString()]),
+                            StatusCommentID = statusUpdateID
+                        };
 
                         var statcomup = new StatusComment(statusUpdateID);
 
                         statup = new StatusUpdate(statcomup.StatusUpdateID);
 
                         if (!StatusCommentAcknowledgement.IsUserCommentAcknowledgement(statcomup.StatusCommentID,
-                                                                                       Convert.ToInt32(
-                                                                                           mu.ProviderUserKey)))
+                            Convert.ToInt32(
+                                mu.ProviderUserKey)))
                         {
                             ack.Create();
 
                             var sun = new StatusUpdateNotification();
 
                             sun.GetStatusUpdateNotificationForUserStatus(statcomup.UserAccountID,
-                                                                         statcomup.StatusUpdateID,
-                                                                         ack.AcknowledgementType ==
-                                                                         Convert.ToChar(
-                                                                             SiteEnums.ResponseType.A.ToString())
-                                                                             ? SiteEnums.ResponseType.A
-                                                                             : SiteEnums.ResponseType.B);
+                                statcomup.StatusUpdateID,
+                                ack.AcknowledgementType ==
+                                Convert.ToChar(
+                                    SiteEnums.ResponseType.A.ToString())
+                                    ? SiteEnums.ResponseType.A
+                                    : SiteEnums.ResponseType.B);
 
                             if (Convert.ToInt32(mu.ProviderUserKey) != statcomup.UserAccountID)
                             {
@@ -228,7 +225,7 @@ namespace DasKlub.Web.io
                             }
 
                             context.Response.Write(string.Format(@"{{""StatusAcks"": ""{0}""}}", HttpUtility.HtmlEncode(
-                                    statcomup.StatusCommentAcknowledgementsOptions)));
+                                statcomup.StatusCommentAcknowledgementsOptions)));
                         }
                         else
                         {
@@ -240,7 +237,7 @@ namespace DasKlub.Web.io
                             // TODO: DELETE NOTIFICATION
 
                             context.Response.Write(string.Format(@"{{""StatusAcks"": ""{0}""}}", HttpUtility.HtmlEncode(
-                                    statcomup.StatusCommentAcknowledgementsOptions)));
+                                statcomup.StatusCommentAcknowledgementsOptions)));
                         }
                     }
                     else if (
@@ -264,81 +261,79 @@ namespace DasKlub.Web.io
                             };
 
                         // TODO: CHECK IF THERE IS A RECENT MESSAGE THAT IS THE SAME
-                        if (statCom.StatusCommentID == 0)
+                        if (statCom.StatusCommentID != 0) return;
+                        //BUG: THERE IS AN EVENT HANDLER THAT HAS QUEUED UP TOO MANY
+                        var suLast = new StatusUpdate();
+                        suLast.GetMostRecentUserStatus(Convert.ToInt32(mu.ProviderUserKey));
+
+                        if (suLast.Message.Trim() != statCom.Message.Trim() ||
+                            (suLast.Message.Trim() == statCom.Message.Trim() &&
+                             suLast.StatusUpdateID != statCom.StatusUpdateID))
                         {
-                            //BUG: THERE IS AN EVENT HANDLER THAT HAS QUEUED UP TOO MANY
-                            var suLast = new StatusUpdate();
-                            suLast.GetMostRecentUserStatus(Convert.ToInt32(mu.ProviderUserKey));
-
-                            if (suLast.Message.Trim() != statCom.Message.Trim() ||
-                                (suLast.Message.Trim() == statCom.Message.Trim() &&
-                                 suLast.StatusUpdateID != statCom.StatusUpdateID))
-                            {
-                                statCom.Create();
-                            }
-
-                            statup = new StatusUpdate(statusUpdateID);
-
-                            // create a status update notification for the post maker and all commenters
-                            StatusUpdateNotification sun = null;
-
-                            if (Convert.ToInt32(mu.ProviderUserKey) != statup.UserAccountID)
-                            {
-                                sun = new StatusUpdateNotification();
-
-                                sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID,
-                                                                             statusUpdateID,
-                                                                             SiteEnums.ResponseType.C);
-
-                                if (sun.StatusUpdateNotificationID == 0)
-                                {
-                                    sun.ResponseType = Convert.ToChar(SiteEnums.ResponseType.C.ToString());
-                                    sun.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
-                                    sun.IsRead = false;
-                                    sun.StatusUpdateID = statup.StatusUpdateID;
-                                    sun.UserAccountID = statup.UserAccountID;
-                                    sun.Create();
-                                }
-                                else
-                                {
-                                    sun.IsRead = false;
-                                    sun.UpdatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
-                                    sun.Update();
-                                }
-
-                                SendNotificationEmail(statup.UserAccountID, Convert.ToInt32(mu.ProviderUserKey), SiteEnums.ResponseType.C, sun.StatusUpdateID);
-                            }
-
-                            var statComs = new StatusComments();
-
-                            statComs.GetAllStatusCommentsForUpdate(statusUpdateID);
-
-                            foreach (var sc1 in statComs)
-                            {
-                                sun = new StatusUpdateNotification();
-
-                                sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID,
-                                                                             statusUpdateID,
-                                                                             SiteEnums.ResponseType.C);
-
-                                if (Convert.ToInt32(mu.ProviderUserKey) == sc1.UserAccountID ||
-                                    Convert.ToInt32(mu.ProviderUserKey) == statup.UserAccountID) continue;
-
-                                if (sun.StatusUpdateNotificationID == 0)
-                                {
-                                    sun.IsRead = false;
-                                    sun.StatusUpdateID = statusUpdateID;
-                                    sun.UserAccountID = sc1.UserAccountID;
-                                    sun.Create();
-                                }
-                                else
-                                {
-                                    sun.IsRead = false;
-                                    sun.Update();
-                                }
-                            }
-                            context.Response.Write(@"{""StatusAcks"": """ + @"""}");
+                            statCom.Create();
                         }
+
+                        statup = new StatusUpdate(statusUpdateID);
+
+                        // create a status update notification for the post maker and all commenters
+                        StatusUpdateNotification sun;
+
+                        if (Convert.ToInt32(mu.ProviderUserKey) != statup.UserAccountID)
+                        {
+                            sun = new StatusUpdateNotification();
+
+                            sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID,
+                                statusUpdateID,
+                                SiteEnums.ResponseType.C);
+
+                            if (sun.StatusUpdateNotificationID == 0)
+                            {
+                                sun.ResponseType = Convert.ToChar(SiteEnums.ResponseType.C.ToString());
+                                sun.CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+                                sun.IsRead = false;
+                                sun.StatusUpdateID = statup.StatusUpdateID;
+                                sun.UserAccountID = statup.UserAccountID;
+                                sun.Create();
+                            }
+                            else
+                            {
+                                sun.IsRead = false;
+                                sun.UpdatedByUserID = Convert.ToInt32(mu.ProviderUserKey);
+                                sun.Update();
+                            }
+
+                            SendNotificationEmail(statup.UserAccountID, Convert.ToInt32(mu.ProviderUserKey), SiteEnums.ResponseType.C, sun.StatusUpdateID);
+                        }
+
+                        var statComs = new StatusComments();
+
+                        statComs.GetAllStatusCommentsForUpdate(statusUpdateID);
+
+                        foreach (var sc1 in statComs)
+                        {
+                            sun = new StatusUpdateNotification();
+
+                            sun.GetStatusUpdateNotificationForUserStatus(statup.UserAccountID,
+                                statusUpdateID,
+                                SiteEnums.ResponseType.C);
+
+                            if (Convert.ToInt32(mu.ProviderUserKey) == sc1.UserAccountID ||
+                                Convert.ToInt32(mu.ProviderUserKey) == statup.UserAccountID) continue;
+
+                            if (sun.StatusUpdateNotificationID == 0)
+                            {
+                                sun.IsRead = false;
+                                sun.StatusUpdateID = statusUpdateID;
+                                sun.UserAccountID = sc1.UserAccountID;
+                                sun.Create();
+                            }
+                            else
+                            {
+                                sun.IsRead = false;
+                                sun.Update();
+                            }
+                        }
+                        context.Response.Write(@"{""StatusAcks"": """ + @"""}");
                     }
                     else if (
                         !string.IsNullOrEmpty(
@@ -667,7 +662,6 @@ namespace DasKlub.Web.io
         {
             var uaTo = new UserAccount(userTo);
             var uaFrom = new UserAccount(userFrom);
-
             var uad = new UserAccountDetail();
 
             uad.GetUserAccountDeailForUser(uaTo.UserAccountID);
@@ -695,7 +689,7 @@ namespace DasKlub.Web.io
 
             var statupMess = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", 
                 typeGiven,
-                Environment.NewLine + Environment.NewLine, 
+                string.Format("{0}{0}", Environment.NewLine), 
                 GeneralConfigs.SiteDomain, 
                     VirtualPathUtility.ToAbsolute("~/account/statusupdate/"), 
                     statusUpdateID,

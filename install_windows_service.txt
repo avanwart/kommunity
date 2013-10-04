@@ -1,8 +1,15 @@
 Get InstallUtil.exe (look in .NET folder)
 
+
+# add windows service
+
 C:\Program Files (x86)\Microsoft Visual Studio 11.0>sc create DasKlubEmail binPath= "D:\repos\dasklub\kommunity\DasKlub.EmailBlasterService\bin\Debug\DasKlub.EmailBlasterService.exe" DisplayName= "DasKlubEmail" start= auto
 
+# remove windows service
+
 sc delete DasKlubEmail 
+
+# see windows services
 
 services.msc
 

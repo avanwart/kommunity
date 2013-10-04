@@ -42,7 +42,6 @@ namespace DasKlub.Lib.BOL
 
         public UserConnection()
         {
-            // TODO: Complete member initialization
         }
 
         public int UserConnectionID { get; set; }

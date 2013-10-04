@@ -3,7 +3,7 @@
 using System.Data.Entity.Migrations.Infrastructure;
 using System.Resources;
 
-namespace DBMigrator.Migrations
+namespace DasKlub.DBMigrator.Migrations
 {
     public sealed partial class SecondVideoType : IMigrationMetadata
     {

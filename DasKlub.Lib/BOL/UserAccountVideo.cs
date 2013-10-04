@@ -37,7 +37,7 @@ namespace DasKlub.Lib.BOL
 
         public UserAccountVideo()
         {
-            // TODO: Complete member initialization
+         
         }
 
         public int VideoID { get; set; }

@@ -292,7 +292,7 @@
             $('#load_more_statuses').click(function() {
 
                 $('#loading').fadeIn();
-                $.post($rootUrl + 'account/StatusUpdates?time=' + new Date().getTime(), { pageNumber: pageNumber },
+                $.post($rootUrl + 'account/statusupdates?time=' + new Date().getTime(), { pageNumber: pageNumber },
                     function(data) {
 
                         pageNumber++;
@@ -312,7 +312,7 @@
 
             $(function() {
                 $('#status_update_list_items').scrollPagination({
-                    'contentPage': $rootUrl + 'account/StatusUpdates', // the page where you are searching for results
+                    'contentPage': $rootUrl + 'account/statusupdates', // the page where you are searching for results
                     'contentData': {}, // you can pass the children().size() to know where is the pagination
                     'scrollTarget': $(window), // who gonna scroll? in this example, the full window
                     'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please
@@ -361,7 +361,7 @@
 
                 if (pageNumber == 2 && !hasInteractedWithPost) {
 
-                    $.post($rootUrl + 'account/StatusUpdates?time=' + new Date().getTime(), { pageNumber: 1 },
+                    $.post($rootUrl + 'account/statusupdates?time=' + new Date().getTime(), { pageNumber: 1 },
                         function(data) {
 
                             if (lastPost != data.ListItems) {

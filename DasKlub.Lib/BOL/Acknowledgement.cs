@@ -38,7 +38,6 @@ namespace DasKlub.Lib.BOL
 
         public Acknowledgement()
         {
-            // TODO: Complete member initialization
         }
 
         public int AcknowledgementID { get; private set; }

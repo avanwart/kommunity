@@ -78,7 +78,7 @@ namespace DasKlub.Lib.BOL.DomainConnection
 
         public SiteDomain()
         {
-            // TODO: Complete member initialization
+            
         }
 
         public SiteDomain(int siteDomainID)

@@ -37,7 +37,6 @@ namespace DasKlub.Lib.Configs
             _twitterLink = ConfigurationManager.AppSettings["TwitterLink"];
             _youtubeLink = ConfigurationManager.AppSettings["YoutubeLink"];
             _defaultVideo = ConfigurationManager.AppSettings["DefaultVideo"];
-            _enableVideoCheck = bool.Parse(ConfigurationManager.AppSettings["EnableVideoCheck"]);
             _minimumAge = int.Parse(ConfigurationManager.AppSettings["MinimumAge"]);
             _userChatRoomSessionTimeout = int.Parse(ConfigurationManager.AppSettings["UserChatRoomSessionTimeout"]);
             _randomColors = ConfigurationManager.AppSettings["RandomColors"];
@@ -70,7 +69,6 @@ namespace DasKlub.Lib.Configs
         private static readonly string _emailSettingsURL = string.Empty;
         private static readonly string _sendToErrorEmail = string.Empty;
         private static readonly string _defaultLanguage = string.Empty;
-        private static readonly bool _enableVideoCheck;
         private static readonly string _facebookLink = string.Empty;
         private static readonly string _twitterLink = string.Empty;
         private static readonly string _youtubeLink = string.Empty;
@@ -146,11 +144,7 @@ namespace DasKlub.Lib.Configs
             get { return _postInterval; }
         }
 
-        public static bool EnableVideoCheck
-        {
-            get { return _enableVideoCheck; }
-        }
-
+     
 
         public static string SiteName
         {

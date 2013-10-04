@@ -87,7 +87,7 @@ namespace DasKlub.Lib.BOL
         public float Intro { get; set; }
 
         public float LengthFromStart { // BUG: THE PLAYER DOES NOT READ CORRECTLY SO FORGET IT
-            get; //get { return this.Duration; }
+            get;
             set; }
 
         public DateTime PublishDate

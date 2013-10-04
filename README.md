@@ -11,6 +11,11 @@
 - [Git Extensions](http://sourceforge.net/projects/gitextensions/)
 - Git Source Control Provider. In Visual Studio go to: Tools > Extensions and Updates > Search online. Then update Source Control in Tools > Options to Git Source Control Provider.
 
+
+## Server Setup
+- http://www.iis.net/downloads/microsoft/url-rewrite
+- Configure MS Web Deploy
+
 ---
 ### Amazon
 - You will need an Amazon account and to set up a bucket for content storage. You will also need to set up SES for email (change app settings in Web.config).

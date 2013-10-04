@@ -251,7 +251,6 @@ namespace DasKlub.Lib.BOL
 
         public UserAccount()
         {
-/*do nothing constructor*/
         }
 
         /// <summary>
@@ -276,11 +275,9 @@ namespace DasKlub.Lib.BOL
                 var dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
-                    Get(dt.Rows[0]);
-                }
+                if (dt == null || dt.Rows.Count <= 0) return;
+                HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                Get(dt.Rows[0]);
             }
             else
             {
@@ -444,12 +441,7 @@ namespace DasKlub.Lib.BOL
 
         public string PasswordQuestion
         {
-            get
-            {
-                if (_passwordQuestion == null)
-                    _passwordQuestion = string.Empty;
-                return _passwordQuestion;
-            }
+            get { return _passwordQuestion ?? (_passwordQuestion = string.Empty); }
             set { _passwordQuestion = value; }
         }
 
@@ -626,11 +618,11 @@ namespace DasKlub.Lib.BOL
         public void GetNewestPhotoUploader()
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetNewestPhotoUploader";
 
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt != null && dt.Rows.Count > 0)
                 Get(FromObj.IntFromObj(dt.Rows[0]["userAccountID"]));
@@ -644,8 +636,7 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                return string.Format("{0}-{1}-{2}", GetType().FullName,
-                                     UserName, UserAccountID.ToString());
+                return string.Format("{0}-{1}-{2}", GetType().FullName, UserName.ToLower(CultureInfo.InvariantCulture), UserAccountID);
             }
         }
 
@@ -1046,12 +1037,7 @@ namespace DasKlub.Lib.BOL
 
             uas.GetNewestUsers();
 
-            if (uas.Count > 0)
-            {
-                //TODO: this is a waste here, the results are greater than one
-                return uas[0];
-            }
-            else return null;
+            return uas.Count > 0 ? uas[0] : null;
         }
 
         #region non-db properties

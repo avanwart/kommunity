@@ -133,7 +133,6 @@ namespace DasKlub.Lib.BOL
 
         public MultiProperty()
         {
-            // TODO: Complete member initialization
         }
 
 

@@ -583,7 +583,7 @@
             $('#load_more_statuses').click(function() {
 
                 $('#loading').fadeIn();
-                $.post($rootUrl + '@Model.UserName' + '/WallMessages', { pageNumber: pageNumber },
+                $.post($rootUrl + '@Model.UserName' + '/wallmessages', { pageNumber: pageNumber },
                     function(data) {
 
                         pageNumber++;
@@ -603,7 +603,7 @@
 
             $(function() {
                 $('#status_update_list_items').scrollPagination({
-                    'contentPage': $rootUrl + '@Model.UserName' + '/WallMessages', // the page where you are searching for results
+                    'contentPage': $rootUrl + '@Model.UserName' + '/wallmessages', // the page where you are searching for results
                     'contentData': {}, // you can pass the children().size() to know where is the pagination
                     'scrollTarget': $(window), // who gonna scroll? in this example, the full window
                     'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please

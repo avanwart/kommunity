@@ -206,12 +206,12 @@ namespace DasKlub.Lib.BOL.UserContent
 
         public Content()
         {
-            // TODO: Complete member initialization
+            
         }
 
         public Content(int p)
         {
-            // TODO: Complete member initialization
+           
             Get(p);
         }
 
