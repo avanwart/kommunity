@@ -14,8 +14,15 @@ namespace DasKlub.UnitTests.DasKlub.EmailBlasterService
         [TestMethod]
         public void QuartzScheduler_IsUserBirthday_SendsBirthdayEmail()
         {
+            // arrange
             var service = new ContactService();
+            // TODO: POPULATE A MOCK OF USERACCOUNTS WITH A BIRTHDAY USER
             
+            // act
+            service.OnDebug();
+
+            // assert
+
         }
     }
 }

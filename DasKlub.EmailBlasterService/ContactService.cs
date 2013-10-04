@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.ServiceProcess;
 using DasKlub.Lib.Services;
 using DasKlub.Models;
+using log4net;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Triggers;
@@ -12,20 +14,24 @@ namespace DasKlub.EmailBlasterService
 {
     public partial class ContactService : ServiceBase
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         public ContactService()
         {
             InitializeComponent();
         }
-        private static IScheduler _scheduler;
 
+        private static IScheduler _scheduler;
 
         protected override void OnStart(string[] args)
         {
             ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
             _scheduler = schedulerFactory.GetScheduler();
             _scheduler.Start();
-            Console.WriteLine("Starting Scheduler");
+            
+            Log.Info("Starting Windows Service");
             Debug.WriteLine("windowsserv");
+
 
             AddJobs();
         }
@@ -47,7 +53,7 @@ namespace DasKlub.EmailBlasterService
             const string group1 = "EmailTasks";
             const string trigger1 = "EmailTasksTrigger";
             
-            IMyJob myJob = new MyJob(); //This Constructor needs to be parameterless
+            IMyJob myJob = new BirthdayJob(); //This Constructor needs to be parameterless
             var jobDetail = new JobDetailImpl("BirthdayUsers", group1, myJob.GetType());
             //var trigger = new CronTriggerImpl(trigger1, group1, "0 * 0-23 * * ?");//run every minute 
             var trigger = new CronTriggerImpl(trigger1, group1, "0 0 2 * * ?") {TimeZone = TimeZoneInfo.Utc};// every day at 2 in the morning UTC
@@ -66,13 +72,13 @@ namespace DasKlub.EmailBlasterService
 
         }
 
-        internal class MyJob : IMyJob
+        internal class BirthdayJob : IMyJob
         {
             private readonly IMailService _mail;
  
-            public MyJob()
+            public BirthdayJob()
             {
-                 _mail = new MockMailService();
+                 _mail = new MailService();
             }
 
             private void ProcessBirthDayUsers()
@@ -85,37 +91,33 @@ namespace DasKlub.EmailBlasterService
                     try
                     {
                         var results = from t in context.UserAccountDetailEntity
-                                      where t.birthDate.Month == DateTime.UtcNow.Month && t.birthDate.Day == DateTime.UtcNow.Day
-                                      select t;
+                            where t.birthDate.Month == DateTime.UtcNow.Month && t.birthDate.Day == DateTime.UtcNow.Day
+                            select t;
 
                         var users = results.ToList();
 
-                        foreach (var user in users.Select(birthdayUser => context != null ? 
-                                             context.UserAccountEntity.FirstOrDefault(
-                                             usr => usr.userAccountID == birthdayUser.userAccountID) : null).Where(user => user != null))
+                        foreach (var user in users.Select(birthdayUser => context != null
+                            ? context.UserAccountEntity.FirstOrDefault(
+                                usr => usr.userAccountID == birthdayUser.userAccountID)
+                            : null).Where(user => user != null))
                         {
-                            _mail.SendMail("dasklubber@gmail.com", user.eMail, string.Format("Happy Birthday {0}!", user.userName), "Happy birthday!");
+                            _mail.SendMail("dasklubber@gmail.com", user.eMail,
+                                string.Format("Happy Birthday {0}!", user.userName), "Happy birthday!");
+                            Log.Info("Sent to: " + user.eMail);
                         }
                     }
                     catch (Exception ex)
                     {
                     }
- 
+
                 }
             }
 
             public void Execute(IJobExecutionContext context)
             {
                 ProcessBirthDayUsers();
-                Console.WriteLine("In MyJob class");
-                Debug.WriteLine("hitssss");
-                DoMoreWork();
             }
 
-            public void DoMoreWork()
-            {
-                Console.WriteLine("Do More Work");
-            }
         }
 
         internal interface IMyJob : IJob
