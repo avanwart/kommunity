@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.ServiceProcess;
@@ -14,6 +13,8 @@ namespace DasKlub.EmailBlasterService
 {
     public partial class ContactService : ServiceBase
     {
+        private const string Group1 = "BusinessTasks";
+        private const string Job = "Job";
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public ContactService()
@@ -28,38 +29,58 @@ namespace DasKlub.EmailBlasterService
             ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
             _scheduler = schedulerFactory.GetScheduler();
             _scheduler.Start();
-            
-            Log.Info("Starting Windows Service");
-            Debug.WriteLine("windowsserv");
 
+            Log.Info("Starting Windows Service: " + Lib.Configs.GeneralConfigs.SiteName);
 
             AddJobs();
         }
 
         private void AddJobs()
         {
+            AddHealthMonitoringJob();
             AddBirthdayJob();
             AddInactiveReminderJob();
         }
 
         private void AddInactiveReminderJob()
         {
-           // TODO: every week email all who are under 30 years old and have not signed in for at least 3 weeks a reminder
+            // TODO: every week email all who are under 30 years old and have not signed in for at least 3 weeks a reminder
         }
 
-
-        public static void AddBirthdayJob()
+        public static void AddHealthMonitoringJob()
         {
-            const string group1 = "EmailTasks";
-            const string trigger1 = "EmailTasksTrigger";
-            
-            IMyJob myJob = new BirthdayJob(); //This Constructor needs to be parameterless
-            var jobDetail = new JobDetailImpl("BirthdayUsers", group1, myJob.GetType());
-            //var trigger = new CronTriggerImpl(trigger1, group1, "0 * 0-23 * * ?");//run every minute 
-            var trigger = new CronTriggerImpl(trigger1, group1, "0 0 2 * * ?") {TimeZone = TimeZoneInfo.Utc};// every day at 2 in the morning UTC
+            const string trigger1 = "HealthMonitoring";
+
+            IMyJob myJob = new HealthMonitiorJob(); //This Constructor needs to be parameterless
+            var jobDetail = new JobDetailImpl(trigger1 + Job, Group1, myJob.GetType());
+            // run every 5 minutes
+            var trigger = new CronTriggerImpl(trigger1, Group1, "0 0/5 * * * ?") {TimeZone = TimeZoneInfo.Utc}; 
             _scheduler.ScheduleJob(jobDetail, trigger);
             var nextFireTime = trigger.GetNextFireTimeUtc();
-            if (nextFireTime != null) Console.WriteLine("Next Fire Time:{0}", nextFireTime.Value.ToString("u"));
+            if (nextFireTime != null)
+                Log.Info(Group1 + "+" + trigger1, new Exception(nextFireTime.Value.ToString("u")));
+        }
+
+        public class HealthMonitiorJob : IMyJob
+        {
+            public void Execute(IJobExecutionContext context)
+            {
+                Log.Info(DateTime.UtcNow);
+            }
+        }
+
+        public static void AddBirthdayJob( )
+        {
+            const string trigger1 = "EmailTasksTrigger";
+            const string jobName = trigger1 + Job;
+            IMyJob myJob = new BirthdayJob(); //This Constructor needs to be parameterless
+            var jobDetail = new JobDetailImpl(jobName, Group1, myJob.GetType());
+            // run every day at 2:00 UTC
+            var trigger = new CronTriggerImpl(trigger1, Group1, "0 0 2 * * ?") {TimeZone = TimeZoneInfo.Utc}; 
+            _scheduler.ScheduleJob(jobDetail, trigger);
+            var nextFireTime = trigger.GetNextFireTimeUtc();
+            if (nextFireTime != null)
+                Log.Debug(Group1 + "+" + trigger1, new Exception(nextFireTime.Value.ToString("u")));
         }
 
         public void OnDebug()
@@ -69,19 +90,19 @@ namespace DasKlub.EmailBlasterService
 
         protected override void OnStop()
         {
-
+            Log.Info("Stopping Windows Service: " + Lib.Configs.GeneralConfigs.SiteName);
         }
 
         internal class BirthdayJob : IMyJob
         {
             private readonly IMailService _mail;
- 
+
             public BirthdayJob()
             {
-                 _mail = new MailService();
+                _mail = new MailService();
             }
 
-            private void ProcessBirthDayUsers()
+            public void ProcessBirthDayUsers()
             {
                 using (var context = new DasKlubUserDBContext())
                 {
@@ -91,7 +112,9 @@ namespace DasKlub.EmailBlasterService
                     try
                     {
                         var results = from t in context.UserAccountDetailEntity
-                            where t.birthDate.Month == DateTime.UtcNow.Month && t.birthDate.Day == DateTime.UtcNow.Day
+                            where
+                                t.birthDate.Month == DateTime.UtcNow.Month && t.birthDate.Day == DateTime.UtcNow.Day  &&
+                                t.emailMessages == true
                             select t;
 
                         var users = results.ToList();
@@ -101,15 +124,20 @@ namespace DasKlub.EmailBlasterService
                                 usr => usr.userAccountID == birthdayUser.userAccountID)
                             : null).Where(user => user != null))
                         {
-                            _mail.SendMail("dasklubber@gmail.com", user.eMail,
-                                string.Format("Happy Birthday {0}!", user.userName), "Happy birthday!");
+                            var signUpDate = user.createDate.Value.ToString("MMM") + " " + user.createDate.Value.Day + ", " +
+                                            user.createDate.Value.Year;
+
+                            _mail.SendMail(Lib.Configs.AmazonCloudConfigs.SendFromEmail, user.eMail,
+                                string.Format("Happy Birthday {0}!", user.userName),
+                                string.Format("Happy birthday from Das Klub! {1}{1} Visit: {0} {1}{1} Membership Sign Up Date: {1}{1}{2}",
+                                    Lib.Configs.GeneralConfigs.SiteDomain, Environment.NewLine, signUpDate));
                             Log.Info("Sent to: " + user.eMail);
                         }
                     }
                     catch (Exception ex)
                     {
+                        Log.Error(ex);
                     }
-
                 }
             }
 
@@ -117,11 +145,11 @@ namespace DasKlub.EmailBlasterService
             {
                 ProcessBirthDayUsers();
             }
-
         }
 
         internal interface IMyJob : IJob
         {
+
         }
     }
 }

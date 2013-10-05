@@ -17,3 +17,16 @@ Compile service in release mode
 
 
 Build installer: http://www.youtube.com/watch?v=cp2aFNtcZfk
+
+
+
+
+
+
+
+
+
+
+
+
+sc create DasKlubEmail binPath= "C:\services\emailblaster\DasKlub.EmailBlasterService.exe" DisplayName= "DasKlubEmail" start= auto

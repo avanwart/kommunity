@@ -11,6 +11,7 @@ namespace DasKlub.UnitTests.DasKlub.EmailBlasterService
     [TestClass]
     public class ContactServiceTest
     {
+        [Ignore]
         [TestMethod]
         public void QuartzScheduler_IsUserBirthday_SendsBirthdayEmail()
         {

@@ -34,12 +34,24 @@ namespace DasKlub.Lib.Services
                 dest.ToAddresses.Add(toEmail);
 
                 body =
-                string.Format("{0}{1}-----------------------------------------------{1}{1}{2}{1}{1}{1}-----------------------------------------------{1}{3}{1}{1}{4}{1}{1}{0}",
-                Messages.DoNotRespondToThisEmail, 
-                Environment.NewLine, 
-                body, 
-                Messages.EditYourEmailSettings, 
-                GeneralConfigs.EmailSettingsURL);
+
+                    body +
+                    Environment.NewLine +
+                    Environment.NewLine +
+                    Environment.NewLine +
+                    Environment.NewLine +
+                    Environment.NewLine +
+                    "----------------------------" +
+                    Environment.NewLine +
+                    Messages.Settings +
+                    Environment.NewLine +
+                    GeneralConfigs.EmailSettingsURL + ":" +
+                    Environment.NewLine +
+                    Environment.NewLine +
+                    Messages.DoNotRespondToThisEmail +
+                    Environment.NewLine +
+                    Environment.NewLine +
+                    "The Admin : admin@dasklub.com";
 
                 var bdy = new Body { Text = new Content(body) };
                 var title = new Content(subject);

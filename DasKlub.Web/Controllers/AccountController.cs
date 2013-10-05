@@ -3145,7 +3145,7 @@ namespace DasKlub.Web.Controllers
                 {
                     var newPassword = _mu.ResetPassword();
 
-                    _mail.SendMail(email, AmazonCloudConfigs.SendFromEmail, Messages.PasswordReset,
+                    _mail.SendMail(AmazonCloudConfigs.SendFromEmail, email, Messages.PasswordReset,
                                        string.Format("{0}: {1}{2}{2}{3}: {4}{2}{2}{5}: {6}",
                                        Messages.UserName, ua.UserName, Environment.NewLine, 
                                        Messages.NewPassword, newPassword, Messages.SignIn, GeneralConfigs.SiteDomain));

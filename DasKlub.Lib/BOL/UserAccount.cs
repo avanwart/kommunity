@@ -996,20 +996,16 @@ namespace DasKlub.Lib.BOL
 
         public void GetUserAccountByEmail(string email)
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetUserAccountByEmail";
-            // create a new parameter
-            DbParameter param = comm.CreateParameter();
+            var param = comm.CreateParameter();
             param.ParameterName = "@email";
-            param.Value = email;
+            param.Value = email.Trim();
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
-            // execute the stored procedure
+            
             var dt = DbAct.ExecuteSelectCommand(comm);
-
-            // was something returned?
+            
             if (dt != null && dt.Rows.Count > 0)
             {
                 Get(dt.Rows[0]);

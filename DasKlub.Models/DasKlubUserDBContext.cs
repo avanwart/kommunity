@@ -3,7 +3,6 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using DasKlub.Models.Domain;
-using DasKlub.Models.Forum;
 using DasKlub.Models.Models;
 using DasKlubModel.Models;
 
