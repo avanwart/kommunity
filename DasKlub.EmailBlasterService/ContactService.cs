@@ -54,7 +54,7 @@ namespace DasKlub.EmailBlasterService
             IMyJob myJob = new HealthMonitiorJob(); //This Constructor needs to be parameterless
             var jobDetail = new JobDetailImpl(trigger1 + Job, Group1, myJob.GetType());
             // run every 5 minutes
-            var trigger = new CronTriggerImpl(trigger1, Group1, "0 0/5 * * * ?") {TimeZone = TimeZoneInfo.Utc}; 
+            var trigger = new CronTriggerImpl(trigger1, Group1, "0 0/10 * * * ?" /* every 10 minutes */) {TimeZone = TimeZoneInfo.Utc}; 
             _scheduler.ScheduleJob(jobDetail, trigger);
             var nextFireTime = trigger.GetNextFireTimeUtc();
             if (nextFireTime != null)
@@ -75,8 +75,7 @@ namespace DasKlub.EmailBlasterService
             const string jobName = trigger1 + Job;
             IMyJob myJob = new BirthdayJob(); //This Constructor needs to be parameterless
             var jobDetail = new JobDetailImpl(jobName, Group1, myJob.GetType());
-            // run every day at 2:00 UTC
-            var trigger = new CronTriggerImpl(trigger1, Group1, "0 0 2 * * ?") {TimeZone = TimeZoneInfo.Utc}; 
+            var trigger = new CronTriggerImpl(trigger1, Group1, "0 0 2 * * ?"  /* run every day at 2:00 UTC */ ) {TimeZone = TimeZoneInfo.Utc}; 
             _scheduler.ScheduleJob(jobDetail, trigger);
             var nextFireTime = trigger.GetNextFireTimeUtc();
             if (nextFireTime != null)
@@ -124,8 +123,10 @@ namespace DasKlub.EmailBlasterService
                                 usr => usr.userAccountID == birthdayUser.userAccountID)
                             : null).Where(user => user != null))
                         {
-                            var signUpDate = user.createDate.Value.ToString("MMM") + " " + user.createDate.Value.Day + ", " +
-                                            user.createDate.Value.Year;
+                            var signUpDate = string.Format("{0} {1}, {2}", 
+                                                user.createDate.Value.ToString("MMM"), 
+                                                user.createDate.Value.Day, 
+                                                user.createDate.Value.Year);
 
                             _mail.SendMail(Lib.Configs.AmazonCloudConfigs.SendFromEmail, user.eMail,
                                 string.Format("Happy Birthday {0}!", user.userName),
