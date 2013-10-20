@@ -20,10 +20,12 @@
             <div id="status_update_list">
                 @Html.Raw(ViewBag.StatusUpdateList)
             </div>
+            
         }
         @section _javascript {
             @{ Html.RenderPartial("_statusCommenting-js"); }
         }
+        <i><a href="@Html.S3ContentPath(Model.FilePathRaw)" target="_blank">@Messages.Download: @Messages.Photo</a></i>
     </div>
     <div class="span4">
    
