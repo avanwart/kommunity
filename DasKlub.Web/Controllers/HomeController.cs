@@ -18,8 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.BOL;
 using DasKlub.Lib.BOL.ArtistContent;
 using DasKlub.Lib.BOL.DomainConnection;
@@ -299,9 +301,9 @@ namespace DasKlub.Web.Controllers
                     Dictionary<int, DateTime> subItems;
                     List<ForumFeedModel> forumFeed;
                     var newestThreads = LoadNewestThreads(context, mostPopularForumPosts, out subItems, out forumFeed);
-
+                  
                     ViewBag.MostRecentThreads = LoadMostRecentThreads(subItems, context, ua, forumFeed, newestThreads);
-
+ 
                     var mostPostsInForum =
                         (from b in context.ForumPost
                          where b.CreateDate < DateTime.UtcNow && b.CreateDate > oneWeekAgo

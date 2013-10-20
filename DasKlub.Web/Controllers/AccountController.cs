@@ -2932,7 +2932,7 @@ namespace DasKlub.Web.Controllers
 
             su.GetMostRecentUserStatus(_ua.UserAccountID);
 
-            var startTime = Utilities.GetDataBaseTime();
+            var startTime = DateTime.UtcNow;
 
             var span = startTime.Subtract(su.CreateDate);
 

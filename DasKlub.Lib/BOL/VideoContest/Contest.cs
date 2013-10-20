@@ -155,7 +155,7 @@ namespace DasKlub.Lib.BOL.VideoContest
         {
             get
             {
-                DateTime dt = Utilities.GetDataBaseTime();
+                var dt = DateTime.UtcNow;
 
                 return (DeadLine > dt && BeginDate < dt);
             }

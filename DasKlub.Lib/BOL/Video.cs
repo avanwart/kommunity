@@ -569,7 +569,7 @@ namespace DasKlub.Lib.BOL
                 }
                 else
                 {
-                    const int maxChars = 40;
+                    const int maxChars = 30;
                     var displayLink = match.Value;
                     if (displayLink.Length > maxChars)
                     {

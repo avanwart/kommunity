@@ -120,9 +120,9 @@ namespace DasKlub.Lib.BOL
 
             //Videos vids = new Videos();
 
-            DateTime now = Utilities.GetDataBaseTime();
-            TimeSpan elapsedTime = now - ply.PlaylistBegin;
-            int totalSecondsElapsed = Convert.ToInt32(elapsedTime.TotalSeconds);
+            var now = DateTime.UtcNow;
+            var elapsedTime = now - ply.PlaylistBegin;
+            var totalSecondsElapsed = Convert.ToInt32(elapsedTime.TotalSeconds);
 
             Video v1 = null;
             SongRecord sngr = null;
@@ -158,7 +158,7 @@ namespace DasKlub.Lib.BOL
 
 
             // just do it over
-            ply.PlaylistBegin = Utilities.GetDataBaseTime();
+            ply.PlaylistBegin = DateTime.UtcNow;
             ply.Update();
             return CurrentVideoInPlaylist(1);
 
@@ -201,37 +201,30 @@ namespace DasKlub.Lib.BOL
 
             plvids.GetPlaylistVideosForPlaylist(ply.PlaylistID);
 
-            Video v1 = null;
-            SongRecord sngr = null;
             int indx = 0;
 
-            foreach (PlaylistVideo plv in plvids)
+            foreach (var plv in plvids)
             {
-                v1 = new Video(plv.VideoID);
+                var v1 = new Video(plv.VideoID);
 
                 if (!v1.IsEnabled) continue;
 
                 indx++;
 
-                if (currentVideo == v1.ProviderKey)
+                if (currentVideo != v1.ProviderKey) continue;
+
+                SongRecord sngr;
+                if (plvids.Count > (indx))
                 {
-                    if (plvids.Count > (indx))
-                    {
-                        v1 = new Video(plvids[indx].VideoID);
-                        sngr = new SongRecord(v1);
-                        sngr.GetRelatedVideos = false;
-                        return sngr.JSONResponse;
-                    }
-                    else
-                    {
-                        ply.PlaylistBegin = Utilities.GetDataBaseTime();
-                        ply.Update();
-                        v1 = new Video(plvids[0].VideoID);
-                        sngr = new SongRecord(v1);
-                        sngr.GetRelatedVideos = false;
-                        return sngr.JSONResponse;
-                    }
+                    v1 = new Video(plvids[indx].VideoID);
+                    sngr = new SongRecord(v1) {GetRelatedVideos = false};
+                    return sngr.JSONResponse;
                 }
+                ply.PlaylistBegin = DateTime.UtcNow;
+                ply.Update();
+                v1 = new Video(plvids[0].VideoID);
+                sngr = new SongRecord(v1) {GetRelatedVideos = false};
+                return sngr.JSONResponse;
             }
 
             return string.Empty;
@@ -240,7 +233,7 @@ namespace DasKlub.Lib.BOL
         public static bool IsPlaylistVideo(int playlistID, int videoID)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_IsPlaylistVideo";
 
@@ -253,7 +246,7 @@ namespace DasKlub.Lib.BOL
 
         public override bool Update()
         {
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_UpdatePlaylistVideo";
 
@@ -274,7 +267,7 @@ namespace DasKlub.Lib.BOL
         public override bool Delete()
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeletePlaylistVideoByID";
 

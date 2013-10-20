@@ -127,7 +127,7 @@ namespace DasKlub.Lib.BOL
 
                 sb.Append(@"<li>");
                 sb.Append(EventDescription);
-                sb.Append(@" | <a target=""_blank"" href=""http://maps.google.com?daddr=");
+                sb.Append(@" | <a   href=""http://maps.google.com?daddr=");
                 sb.Append(HttpUtility.UrlEncode(VenueDetail));
                 sb.Append(@""">MAP</a>");
 

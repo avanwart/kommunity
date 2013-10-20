@@ -180,16 +180,7 @@ namespace DasKlub.Lib.BOL
 
                 sb.Append(@"<li class=""inbox_message"">");
 
-                UserAccount ua = null;
-
-                if (IsInbox)
-                {
-                    ua = new UserAccount(FromUserAccountID);
-                }
-                else
-                {
-                    ua = new UserAccount(ToUserAccountID);
-                }
+                var ua = IsInbox ? new UserAccount(FromUserAccountID) : new UserAccount(ToUserAccountID);
 
                 var uad = new UserAccountDetail();
                 uad.GetUserAccountDeailForUser(ua.UserAccountID);
@@ -200,10 +191,8 @@ namespace DasKlub.Lib.BOL
 
                 if (!IsRead)
                 {
-                    if (IsInbox)
-                        sb.AppendFormat(@" <span class=""label label-warning"">{0}</span> ", Messages.New);
-                    else
-                        sb.AppendFormat(@" <span class=""label label-warning"">{0}</span> ", Messages.Unread);
+                    sb.AppendFormat(@" <span class=""label label-warning"">{0}</span> ",
+                        IsInbox ? Messages.New : Messages.Unread);
                 }
                 else
                 {
@@ -302,7 +291,7 @@ namespace DasKlub.Lib.BOL
 
                 if (IncludeStartAndEndTags) sb.Append(@"<ul id=""mail_items"">");
 
-                foreach (DirectMessage dm in this)
+                foreach (var dm in this)
                 {
                     if (!AllInInbox)
                     {
