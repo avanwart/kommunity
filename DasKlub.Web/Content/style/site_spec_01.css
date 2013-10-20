@@ -917,3 +917,4 @@ textarea { border-style: dashed; }
 .profile_username { font-size: .7em; }
 .bright_green {color: #00FF1E}
 .notification_color {color:#f89406}
+#submit_post { margin-top: 3px;font-weight: bold;margin-bottom: 3px;}
