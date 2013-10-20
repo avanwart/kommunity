@@ -606,6 +606,10 @@ namespace DasKlub.Lib.Values
             ///     728x90 ad 3/2
             /// </summary>
             A7283,
+            /// <summary>
+            /// 250 x 250 ad 1
+            /// </summary>
+            A2501
         }
 
 

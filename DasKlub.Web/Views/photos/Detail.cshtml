@@ -8,7 +8,7 @@
     ViewBag.Title = Model.Title;
     ViewBag.ThumbIcon = FromString.GetFixedLengthString(Html.S3ContentPath(Model.FilePathThumb).ToString(), 50);
 }
-@{ Html.RenderPartial("_AdBanner"); }
+@{ Html.RenderPartial("_AdBanner468x60"); }
 <div class="row">
     <div class="span8">
         @if (Model == null)
@@ -52,7 +52,7 @@
             </ul>
         }
         <hr />
-        @{ Html.RenderPartial("_AdBanner3"); } 
+        @{ Html.RenderPartial("_AdBanner120x60"); } 
          
     </div>
 </div>
