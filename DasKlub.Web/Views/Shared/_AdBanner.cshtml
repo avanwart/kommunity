@@ -2,31 +2,35 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Values
 <!-- 468 x 60 -->
-@{
-    int randomID = Utilities.RandomNumber(1, 4);
+@if (!HttpContext.Current.Request.Browser.IsMobileDevice)
+{
+    <br />
+    
+        int randomID = Utilities.RandomNumber(1, 4);
 
-    switch (randomID)
-    {
-        case 1:
+        switch (randomID)
+        {
+            case 1:
 
-            @Html.Raw(SiteDomain.GetSiteDomainValue(
-                SiteEnums.SiteBrandType.A4861,
-                Utilities.GetCurrentLanguageCode()))
-            break;
+                @Html.Raw(SiteDomain.GetSiteDomainValue(
+                    SiteEnums.SiteBrandType.A4861,
+                    Utilities.GetCurrentLanguageCode()))
+                break;
 
-        case 2:
+            case 2:
 
-            @Html.Raw(SiteDomain.GetSiteDomainValue(
-                SiteEnums.SiteBrandType.A4862,
-                Utilities.GetCurrentLanguageCode()))
-            break;
+                @Html.Raw(SiteDomain.GetSiteDomainValue(
+                    SiteEnums.SiteBrandType.A4862,
+                    Utilities.GetCurrentLanguageCode()))
+                break;
 
-        default:
+            default:
 
 
-            @Html.Raw(SiteDomain.GetSiteDomainValue(
-                SiteEnums.SiteBrandType.A4863,
-                Utilities.GetCurrentLanguageCode()))
-            break;
-    }
+                @Html.Raw(SiteDomain.GetSiteDomainValue(
+                    SiteEnums.SiteBrandType.A4863,
+                    Utilities.GetCurrentLanguageCode()))
+                break;
+        }
+    
 }

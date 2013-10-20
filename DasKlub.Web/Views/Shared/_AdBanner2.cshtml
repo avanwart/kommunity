@@ -3,33 +3,37 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Values
 <!-- 160 x 600 -->
-@{
-    int randomID = Utilities.RandomNumber(1, 4);
+@if (!HttpContext.Current.Request.Browser.IsMobileDevice)
+{
 
-    switch (randomID)
-    {
-        case 1:
-            @Html.Raw(SiteDomain.GetSiteDomainValue(
-                SiteEnums.SiteBrandType.A1601,
-                Utilities.GetCurrentLanguageCode()))
-            break;
-        case 2:
-            @Html.Raw(SiteDomain.GetSiteDomainValue(
-                SiteEnums.SiteBrandType.A1602,
-                Utilities.GetCurrentLanguageCode()))
-            break;
-        case 3:
+ 
+        int randomID = Utilities.RandomNumber(1, 4);
 
-            @Html.Raw(SiteDomain.GetSiteDomainValue(
-                SiteEnums.SiteBrandType.A1603,
-                Utilities.GetCurrentLanguageCode()))
+        switch (randomID)
+        {
+            case 1:
+                @Html.Raw(SiteDomain.GetSiteDomainValue(
+                    SiteEnums.SiteBrandType.A1601,
+                    Utilities.GetCurrentLanguageCode()))
+                break;
+            case 2:
+                @Html.Raw(SiteDomain.GetSiteDomainValue(
+                    SiteEnums.SiteBrandType.A1602,
+                    Utilities.GetCurrentLanguageCode()))
+                break;
+            case 3:
 
-            break;
-        default:
+                @Html.Raw(SiteDomain.GetSiteDomainValue(
+                    SiteEnums.SiteBrandType.A1603,
+                    Utilities.GetCurrentLanguageCode()))
 
-            @Html.Raw(SiteDomain.GetSiteDomainValue(
-                SiteEnums.SiteBrandType.A1603,
-                Utilities.GetCurrentLanguageCode()))
-            break;
-    }
+                break;
+            default:
+
+                @Html.Raw(SiteDomain.GetSiteDomainValue(
+                    SiteEnums.SiteBrandType.A1603,
+                    Utilities.GetCurrentLanguageCode()))
+                break;
+        }
+ 
 }
