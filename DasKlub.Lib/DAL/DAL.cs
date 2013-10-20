@@ -42,30 +42,28 @@ namespace DasKlub.Lib.DAL
 
                 using (var adapter = factory.CreateDataAdapter())
                 {
-                    if (adapter != null)
+                    if (adapter == null) return null;
+
+                    adapter.SelectCommand = command;
+
+                    using (var ds = new DataSet())
                     {
-                        adapter.SelectCommand = command;
-
-                        using (var ds = new DataSet())
+                        try
                         {
-                            try
-                            {
-                                adapter.Fill(ds);
-                            }
-                            catch (Exception ex)
-                            {
-                                Utilities.LogError(ex);
-
-                                return null;
-                            }
-
-                            command.Connection.Close();
-                            return ds;
+                            adapter.Fill(ds);
                         }
+                        catch (Exception ex)
+                        {
+                            Utilities.LogError(ex);
+
+                            return null;
+                        }
+
+                        command.Connection.Close();
+                        return ds;
                     }
                 }
             }
-            return null;
         }
 
 

@@ -569,9 +569,14 @@ namespace DasKlub.Lib.BOL
                 }
                 else
                 {
+                    const int maxChars = 30;
+                    var displayLink = match.Value;
+                    if (displayLink.Length > maxChars)
+                    {
+                        displayLink = string.Format("{0}...", displayLink.Substring(0, maxChars));
+                    }
                     txt = txt.Replace(match.Value,
-                                      string.Format(@"<a target=""_blank"" href='{0}'>{1}</a>", match.Value,
-                                                    Messages.Link));
+                                      string.Format(@"<a target=""_blank"" href='{0}'>{1}</a>", match.Value, displayLink));
                 }
             }
 

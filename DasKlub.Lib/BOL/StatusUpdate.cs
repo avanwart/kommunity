@@ -131,14 +131,7 @@ namespace DasKlub.Lib.BOL
                     {
                         i++;
 
-                        if (i == uaApplauds.Count)
-                        {
-                            sbApplaud.AppendFormat("{0}", uar1.UserName);
-                        }
-                        else
-                        {
-                            sbApplaud.AppendFormat("{0}, ", uar1.UserName);
-                        }
+                        sbApplaud.AppendFormat(i == uaApplauds.Count ? "{0}" : "{0}, ", uar1.UserName);
                     }
 
                     sb.AppendFormat(@"<span class=""status_count_applaud"" title=""{0}"">", sbApplaud);
@@ -174,46 +167,7 @@ namespace DasKlub.Lib.BOL
 
                     DisplayTime(sb);
 
-                    //var sbBeatDowns = new StringBuilder(100);
-
-                    //foreach (UserAccount uar1 in uaBeats)
-                    //{
-                    //    i++;
-
-                    //    if (i == uaBeats.Count)
-                    //    {
-                    //        sbBeatDowns.AppendFormat("{0}", uar1.UserName);
-                    //    }
-                    //    else
-                    //    {
-                    //        sbBeatDowns.AppendFormat("{0}, ", uar1.UserName);
-                    //    }
-                    //}
-
-                    //sb.AppendFormat(@"<span class=""status_count_beatdown"" title=""{0}"">", sbBeatDowns);
-                    //sb.Append(Acknowledgements.GetAcknowledgementCount(StatusUpdateID,
-                    //                                                   Convert.ToChar(
-                    //                                                       SiteEnums.AcknowledgementType.B.ToString())));
-                    //sb.Append(@"</span>");
-
-                    //if (ack.AcknowledgementID > 0 &&
-                    //    ack.AcknowledgementType == Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString()))
-                    //{
-                    //    sb.AppendFormat(@"<button title=""{0}""", Messages.YouResponded);
-                    //    sb.Append(
-                    //        @" class=""beat_status_complete"" name=""status_update_id_beat"" type=""button"" value=""");
-                    //    sb.Append(StatusUpdateID.ToString());
-                    //    sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
-                    //}
-                    //else
-                    //{
-                    //    sb.AppendFormat(@"<button title=""{0}""", Messages.YouResponded);
-                    //    sb.Append(
-                    //        @" class=""beat_status"" disabled=""disabled"" name=""status_update_id_beat"" type=""button"" value=""");
-                    //    sb.Append(StatusUpdateID.ToString());
-                    //    sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
-                    //}
-
+                  
                     sb.Append(@"</div>");
                 }
                 else
@@ -229,14 +183,7 @@ namespace DasKlub.Lib.BOL
                     {
                         i++;
 
-                        if (i == uaApplauds.Count)
-                        {
-                            sbApplaud.AppendFormat("{0}", uar1.UserName);
-                        }
-                        else
-                        {
-                            sbApplaud.AppendFormat("{0}, ", uar1.UserName);
-                        }
+                        sbApplaud.AppendFormat(i == uaApplauds.Count ? "{0}" : "{0}, ", uar1.UserName);
                     }
 
                     sb.AppendFormat(@"<span class=""status_count_applaud"" title=""{0}"">", sbApplaud);
@@ -350,11 +297,11 @@ namespace DasKlub.Lib.BOL
 
                     sb.AppendFormat(@"<div class=""row"">
                                       <div class=""span6"">
-                        <a class=""m_over"" href=""{0}"" target=""_blank""><img src=""{1}"" alt=""{2}"" title=""{2}"" /></a>
+                        <a class=""m_over"" href=""{0}""><img src=""{1}"" alt=""{2}"" title=""{2}"" /></a>
                                        ",
-                                    Utilities.S3ContentPath(pitem.FilePathRaw),
+                                    VirtualPathUtility.ToAbsolute("~/photos/" + PhotoItemID),
                                     Utilities.S3ContentPath(pitem.FilePathStandard),
-                                    Messages.SourceFile);
+                                    Messages.Photos);
 
 
                     if (isUsersPost)
@@ -647,9 +594,7 @@ namespace DasKlub.Lib.BOL
         {
             PhotoItemID = photoItemID;
 
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetStatusUpdateByPhotoID";
 
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => PhotoItemID), PhotoItemID);
@@ -807,11 +752,11 @@ namespace DasKlub.Lib.BOL
         public int GetStatusUpdatesPageWise(int pageIndex, int pageSize)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetStatusUpdatesPageWise";
 
-            DbParameter param = comm.CreateParameter();
+            var param = comm.CreateParameter();
             param.ParameterName = "@RecordCount";
             //http://stackoverflow.com/questions/3759285/ado-net-the-size-property-has-an-invalid-size-of-0
             param.Size = 1000;
@@ -821,16 +766,17 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("PageIndex", pageIndex);
             comm.AddParameter("PageSize", pageSize);
 
-            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            
+            if (ds == null) return 0;
 
             var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
-            if (ds.Tables[0].Rows.Count > 0)
+            if (ds.Tables[0].Rows.Count <= 0) return recordCount;
+
+            foreach (var statup in from DataRow dr in ds.Tables[0].Rows select new StatusUpdate(dr))
             {
-                foreach (var statup in from DataRow dr in ds.Tables[0].Rows select new StatusUpdate(dr))
-                {
-                    Add(statup);
-                }
+                Add(statup);
             }
 
             return recordCount;

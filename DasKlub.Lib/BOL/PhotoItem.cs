@@ -351,54 +351,9 @@ namespace DasKlub.Lib.BOL
 
                 return sb.ToString();
             }
-
-
-            //get
-            //{
-            //    UserAccount ua = new UserAccount(this.CreatedByUserID);
-            //    StringBuilder sb = new StringBuilder(100);
-            //    sb.Append(@"<li>");
-            //    if (ShowTitle)
-            //    {
-            //        sb.Append(@"<span>");
-            //        sb.Append(this.Title);
-            //        sb.Append(@"</span>");
-            //        sb.Append("<br />");
-            //    }
-            //    sb.Append(@"<a href=""");
-            //    sb.Append(System.Web.VirtualPathUtility.ToAbsolute("~/photos/detail/" 
-            //        + this.PhotoItemID.ToString()));
-            //    sb.Append(@""">");
-            //    sb.Append(@"<img src=""");
-            //    if (UseThumb)
-            //    {
-            //        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(this.FilePathThumb));
-            //    }
-            //    else
-            //    {
-            //        sb.Append(System.Web.VirtualPathUtility.ToAbsolute(this.FilePathStandard));
-            //    }
-            //    sb.Append(@""" alt=""");
-            //    sb.Append(this.Title);
-            //    sb.Append(@"""");
-            //    sb.Append(@" title=""");
-            //    sb.Append(this.Title);
-            //    sb.Append(@"""");
-            //    sb.Append(@" />");
-            //    sb.Append(@"</a> ");
-            //    sb.Append("<br />");
-            //    sb.Append(Messages.Uploader);
-            //    sb.Append(@": <a href=""/");
-            //    sb.Append(ua.UserName);
-            //    sb.Append(@""">");
-            //    sb.Append(ua.UserName);
-            //    sb.Append(@"</a> ");
-            //    sb.Append("<br />");
-            //    sb.AppendFormat(Utilities.TimeElapsedMessage(CreateDate));
-            //    sb.Append(@"</li>");
-            //    return sb.ToString();
-            //}
+ 
         }
+
     }
 
 

@@ -11,7 +11,7 @@
         SiteEnums.SiteBrandType.TAGLN,
         Utilities.GetCurrentLanguageCode());
 
-    ViewBag.MetaDescription = "International underground kommunmity for industrial dancer and dark artists.";
+    ViewBag.MetaDescription = "International kommunmity for industrial dance.";
 }
 <div class="row">
     <div class="span4">
@@ -154,14 +154,13 @@
                             }
                         </table>
                         <div class="span8">
-                            
-                            <div class="span3">
+                              @{ Html.RenderPartial("_AdBanner"); }
+          @*                  <div class="span3">
                                 <a class="btn btn-success" href="~/forum">Create Thread</a>   
                             </div>
                             <div class="span4">
-                                @{ Html.RenderPartial("_AdBanner"); }
-      
-                            </div>
+       
+                            </div>*@
                             </div>
                             <br /> <br />
                             }

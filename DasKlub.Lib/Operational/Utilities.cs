@@ -19,6 +19,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -159,7 +160,7 @@ namespace DasKlub.Lib.Operational
 
         public static string TimeElapsedMessage(DateTime occurance)
         {
-            DateTime now = GetDataBaseTime();
+            var now = DateTime.UtcNow;
 
             return TimeElapsedMessage(occurance, now);
         }
@@ -282,9 +283,14 @@ namespace DasKlub.Lib.Operational
             {
                 if (match.Value.Contains(@"//www.youtube.com/embed/")) continue; // because it might be embeded
 
-
+                const int maxChars = 30;
+                var displayLink = match.Value;
+                if (displayLink.Length > maxChars)
+                {
+                    displayLink = string.Format("{0}...", displayLink.Substring(0, maxChars));
+                }
                 txt = txt.Replace(match.Value,
-                                  string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>", match.Value, Messages.Link));
+                                  string.Format(@"<a target=""_blank"" href='{0}'>{1}</a>", match.Value, displayLink));
             }
 
             return txt;
@@ -406,9 +412,10 @@ namespace DasKlub.Lib.Operational
                 }
                 arl.Sort(new ListItemComparer());
                 ddlList.Items.Clear();
-                for (int i = 0; i < arl.Count; i++)
+
+                foreach (var t in arl)
                 {
-                    ddlList.Items.Add(arl[i].ToString());
+                    ddlList.Items.Add(t.ToString());
                 }
             }
         }
@@ -522,84 +529,34 @@ namespace DasKlub.Lib.Operational
         #endregion
 
         #region error logging
- 
 
-        /// <summary>
-        ///     The base method that writes to the file system and sends mail
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <param name="ex"></param>
-        private static void LogError(string msg, Exception ex)
-        {
-            Log.Error(msg, ex);
-            var context = HttpContext.Current;
-
-            var exMessage = new StringBuilder();
-            if (context == null) return;
-
-            if (context.Request.UrlReferrer != null)
-            {
-                exMessage.Append("\n\n Previous Page: " + context.Request.UrlReferrer);
-            }
-            if (context.Request.UserHostAddress != null &&
-                !string.IsNullOrEmpty(context.Request.UserHostAddress))
-            {
-                exMessage.Append("\n\n User Host Address: " + context.Request.UserHostAddress);
-            }
-            if (!string.IsNullOrEmpty(context.Request.UserAgent))
-            {
-                exMessage.Append("\n\n User Agent: " + context.Request.UserAgent);
-            }
-            if (context.Request.Browser != null)
-            {
-                exMessage.Append("\n\n Browser Version: " + context.Request.Browser.Version);
-            }
-            exMessage.Append("\n\n Headers: " + context.Request.Headers);
-            if (!string.IsNullOrEmpty(context.Request.ApplicationPath))
-            {
-                exMessage.Append("\n\n Application Path: " + context.Request.ApplicationPath);
-            }
-
-            if (!string.IsNullOrEmpty(context.Request.RawUrl))
-            {
-                exMessage.Append("\n\n Page Location: " + context.Request.RawUrl);
-            }
-            if (!string.IsNullOrEmpty(context.Request.UserHostAddress))
-            {
-                exMessage.Append("\n\n Full Page URL: " + context.Request.Url);
-            }
-
-            Log.Fatal(exMessage.ToString());
-        }
-    
-
-        /// <summary>
-        ///     Log an exception to a file and mail it
-        /// </summary>
-        /// <param name="ex"></param>
         public static void LogError(Exception ex)
         {
-            LogError(string.Empty, ex);
-        }
+            var exception = ex as SqlException;
 
-        /// <summary>
-        ///     Write a message to the error log, useful for debugging
-        /// </summary>
-        /// <param name="msg"></param>
+            if (exception != null)
+            {
+                var sqlEx = exception;
+                if (sqlEx.ErrorCode == -2146232060)
+                {
+                    // connection is bad, forget it
+                }
+                else
+                {
+                    Log.Fatal(ex);
+                }
+            }
+            else
+            {
+                Log.Fatal(ex);
+            }
+          
+        }
+    
+  
         public static void LogError(string msg)
         {
-            LogError(msg, true);
-        }
-
-
-        /// <summary>
-        ///     Write a message to the error log, useful for debugging (send mail version specification)
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <param name="sendEmail">if errors are being sent</param>
-        private static void LogError(string msg, bool sendEmail)
-        {
-            LogError(msg, null);
+            Log.Fatal(msg);
         }
 
         #endregion
@@ -696,7 +653,7 @@ namespace DasKlub.Lib.Operational
                 }
                 catch (Exception ex)
                 {
-                    LogError(debugMsg, ex);
+                    LogError(ex);
                 }
             }
             return responseData;

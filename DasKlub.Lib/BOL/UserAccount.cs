@@ -133,10 +133,6 @@ namespace DasKlub.Lib.BOL
             {
                 param.Value = false;
             }
-                //else if (this.LastActivityDate > DateTime.UtcNow.AddMinutes(-10))
-                //{
-                //    param.Value = true;
-                //}
             else
             {
                 // param.Value = this.IsOnLine;
@@ -495,11 +491,8 @@ namespace DasKlub.Lib.BOL
         /// <param name="eMail"></param>
         public static string GetUserAccountNameFromEMail(string eMail)
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetUserAccountnameFromEMail";
-
             comm.AddParameter("eMail", eMail.Trim());
 
             string username = DbAct.ExecuteScalar(comm);
@@ -510,14 +503,10 @@ namespace DasKlub.Lib.BOL
         {
             if (string.IsNullOrWhiteSpace(ipAddress)) return false;
 
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_IsAccountIPTaken";
-
             comm.AddParameter("ipAddress", ipAddress.Trim());
-
-            // execute the stored procedure
+            
             return DbAct.ExecuteScalar(comm) == "1";
         }
 
@@ -996,20 +985,16 @@ namespace DasKlub.Lib.BOL
 
         public void GetUserAccountByEmail(string email)
         {
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetUserAccountByEmail";
-            // create a new parameter
-            DbParameter param = comm.CreateParameter();
+            var param = comm.CreateParameter();
             param.ParameterName = "@email";
-            param.Value = email;
+            param.Value = email.Trim();
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
-            // execute the stored procedure
+            
             var dt = DbAct.ExecuteSelectCommand(comm);
-
-            // was something returned?
+            
             if (dt != null && dt.Rows.Count > 0)
             {
                 Get(dt.Rows[0]);
@@ -1020,11 +1005,8 @@ namespace DasKlub.Lib.BOL
         {
             if (userAccountID == 0) return false;
 
-            // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
-            // set the stored procedure name
+            var comm = DbAct.CreateCommand();
             comm.CommandText = "up_IsUserOnline";
-
             comm.AddParameter("userAccountID", userAccountID);
 
             // execute the stored procedure

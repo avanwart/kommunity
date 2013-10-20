@@ -39,7 +39,7 @@
             @if (
                 !Model.FullProfilePicThumbURL.ToLower().Contains("default"))
             {
-                <form action="@Url.Content("~/account/EditPhotoDelete")" method="post">
+                <form action="@Url.Content("~/account/editphotodelete")" method="post">
                     <br />
                     <button type="submit" name="delete_photo" 
                             value="1"  class="btn btn-danger" 
@@ -66,7 +66,7 @@
             @if (ViewBag.SecondUserPhotoID != null &&
                  ViewBag.SecondUserPhotoID != 0)
             {
-                <form action="@Url.Content("~/account/EditPhotoDelete")" method="post">
+                <form action="@Url.Content("~/account/editphotodelete")" method="post">
                     <button type="submit" name="delete_photo" 
                             value="2"  class="btn btn-danger" 
                             onClick=" return confirm(
@@ -94,7 +94,7 @@
             @if (ViewBag.ThirdUserPhotoID != null &&
                  ViewBag.ThirdUserPhotoID != 0)
             {
-                <form action="@Url.Content("~/account/EditPhotoDelete")" method="post">
+                <form action="@Url.Content("~/account/editphotodelete")" method="post">
                     <button type="submit" name="delete_photo" 
                             value="3"  class="btn btn-danger" 
                             onClick=" return confirm(
@@ -108,7 +108,7 @@
             <p style="color: Yellow">@Messages.AllImagesAreConvertedToASquare</p>
             <div id="dialog" title="@Messages.UploadPhoto">
                 @Messages.SelectFile
-                @using (Html.BeginForm("EditPhoto", "Account", FormMethod.Post, new {enctype = "multipart/form-data"}))
+                @using (Html.BeginForm("editphoto", "account", FormMethod.Post, new {enctype = "multipart/form-data"}))
                 {
                     <input type="file" id="fileUpload" name="file" size="15" />
                     <input class="btn btn-success" type="submit" value="@Messages.UploadPhoto" />
