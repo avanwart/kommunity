@@ -16,6 +16,11 @@
                 <p>
 
                     @Html.Raw(Utilities.MakeLink(FromString.ReplaceNewLineWithHTML(ViewBag.Forum.Description)))
+             
+                  | 
+        <a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew</a>
+                  
+       
                 </p>
             </div>
             <div class="span6">

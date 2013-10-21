@@ -182,8 +182,10 @@
             </p>
         </div>
         <hr />
-
-        @{ Html.RenderPartial("_AdBanner120x60"); } 
+                  
+            @{ Html.RenderPartial("_AdBanner250x250"); }
+     
+  
         <hr />
         @if (ViewBag.NextNews != null)
         {
@@ -200,9 +202,7 @@
             </ul>
         }
  
-        <div class="span4">
-            @{ Html.RenderPartial("_AdBanner160x600"); }
-        </div>
+       
     </div>
 </div>
 @section _javascript {

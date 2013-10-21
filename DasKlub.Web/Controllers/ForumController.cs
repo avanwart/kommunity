@@ -21,6 +21,7 @@ namespace DasKlub.Web.Controllers
     public class ForumController : Controller
     {
         public const int PageSize = 10;
+        public const int SubCatPageSize = 50;
         private readonly IForumCategoryRepository _forumcategoryRepository;
         private readonly MembershipUser _mu;
         private readonly IMailService _mail;
@@ -141,8 +142,8 @@ namespace DasKlub.Web.Controllers
                 var forumSubCategory = context.ForumSubCategory
                                                                  .Where(x => x.ForumCategoryID == forum.ForumCategoryID)
                                                                  .OrderByDescending(x => x.CreateDate)
-                                                                 .Skip(PageSize * (pageNumber - 1))
-                                                                 .Take(PageSize).ToList();
+                                                                 .Skip(SubCatPageSize * (pageNumber - 1))
+                                                                 .Take(SubCatPageSize).ToList();
 
                 var forumCategory = context.ForumCategory.First(x => x.Key == key);
 
@@ -150,7 +151,7 @@ namespace DasKlub.Web.Controllers
 
                 var totalCount = context.ForumSubCategory.Count(x => x.ForumCategoryID == forum.ForumCategoryID);
 
-                ViewBag.PageCount = (totalCount + PageSize - 1) / PageSize;
+                ViewBag.PageCount = (totalCount + SubCatPageSize - 1) / SubCatPageSize;
 
                 ViewBag.PageNumber = pageNumber;
 
@@ -176,7 +177,7 @@ namespace DasKlub.Web.Controllers
 
                         thread.TotalPosts += forumSubPostCount;
 
-                        var pageCount = (forumSubPostCount + PageSize - 1) / PageSize;
+                        var pageCount = (forumSubPostCount + SubCatPageSize - 1) / SubCatPageSize;
 
                         lastPost.ForumPostURL =
                             new Uri(forumPost.SubForumURL + "/" +

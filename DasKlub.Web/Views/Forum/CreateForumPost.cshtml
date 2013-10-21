@@ -13,20 +13,24 @@
       
         <div class="row">
             <div class="span3">
-                <h2>Create Post</h2>
+                <h2>Reply To</h2>
                  
             </div>
-            <div class="span5">
+            <div class="span4">
                 @{ Html.RenderPartial("_AdBanner468x60"); }
             </div>
         </div>
 
         <hr />
-        @using (Html.BeginForm("CreateForumPost", "Forum"))
+        
+        
+           <div class="row">
+          <div class="span5">
+                    @using (Html.BeginForm("CreateForumPost", "Forum"))
         {
             <fieldset>
                 <legend>
-                    @ViewBag.Forum.Title &gt;
+             Reply To: @ViewBag.Forum.Title &gt;
                     @ViewBag.SubForum.Title
                 </legend>
                 <div class="editor-label">
@@ -42,6 +46,16 @@
             </fieldset>
         }
  
+            </div>
+        <div class="span4">
+                
+            @{ Html.RenderPartial("_AdBanner250x250"); }
+     
+
+        </div>
+        
+
+   </div>
         
     </div>
 

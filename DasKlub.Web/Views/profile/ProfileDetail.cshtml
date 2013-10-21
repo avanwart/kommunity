@@ -322,9 +322,11 @@
         </div>
        
         <div class="span7">
+              <hr />
+
             @if (!string.IsNullOrWhiteSpace(Model.PhotoItems))
             {
-                <hr />
+                
                 <h5>
                     <img src="@Url.Content("~/content/images/icons/icon_photo.png")" alt="@Messages.Photos" title="@Messages.Photos" />
                     @Messages.Photos: @Model.PhotoCount</h5>
@@ -340,13 +342,23 @@
                     <br />
                 }
             }
-            
+            else
+            {
+                
+                Html.RenderPartial("_AdBanner468x60");
+
+
+            }
+
+            <div class="clear">
+            </div>
+            <hr />
+
             @if (!string.IsNullOrWhiteSpace(Model.NewsArticles))
             {
-                <div class="clear">
-                </div>
+               
 
-                <hr />
+              
                 <h5>
                     <img src="@Url.Content("~/content/images/icons/icon_doc.png")" alt="@Messages.News" title="@Messages.News" />
                     @Messages.News: @Model.NewsCount</h5>
@@ -360,6 +372,13 @@
                     <a href="@Url.Content("~/" + Model.UserName + "/news")">@Messages.ReadMore: @Messages.News</a>
                     <br />
                 }
+            }
+            else
+            {
+                  
+                Html.RenderPartial("_AdBanner250x250");
+
+
             }
 
         </div>
@@ -682,13 +701,8 @@
 <div class="row">
      
     <div class="span5">
-
-
-
-
-        @{ Html.RenderPartial("_AdBanner120x60"); }
-
-        <hr />
+ 
+ 
         <h4>@Messages.Comments</h4>
 
         @Html.Partial("_wallMessages", Model)
@@ -708,16 +722,16 @@
                 {
                     @Html.ActionLink(Messages.Delete + ": " + Model.UserName,
                                      "DeleteContact", "account",
-                                     new {@userConnectionID = Model.UserConnectionID}, new {@onclick = "return confirm('" + Messages.Delete + ": " + Model.UserName + "')"})
+                                     new { @userConnectionID = Model.UserConnectionID }, new { @onclick = "return confirm('" + Messages.Delete + ": " + Model.UserName + "')" })
                 }
                 <br />
                 @Html.ActionLink(Messages.Block + ": " + Model.UserName,
-                                 "blockeduser", "account", new {@userAccountID = Model.UserAccountID},
-                                 new {@onclick = "return confirm('" + Messages.Block + ": " + Model.UserName + "')"})
+                                 "blockeduser", "account", new { @userAccountID = Model.UserAccountID },
+                                 new { @onclick = "return confirm('" + Messages.Block + ": " + Model.UserName + "')" })
                 <br />
                 @Html.ActionLink("Accuse" + ": " + Model.UserName + " of thought crime.",
-                                 "reportuser", "account", new {@userAccountID = Model.UserAccountID},
-                                 new {@onclick = "return confirm('" + "Accuse: " + ": " + Model.UserName + " of thought crime?" + "')"})
+                                 "reportuser", "account", new { @userAccountID = Model.UserAccountID },
+                                 new { @onclick = "return confirm('" + "Accuse: " + ": " + Model.UserName + " of thought crime?" + "')" })
             </div>
         }
     
