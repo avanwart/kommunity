@@ -690,19 +690,16 @@ namespace DasKlub.Web.m.auth
                 }
 
 
-                Google.YouTube.Video video;
-                video = new Google.YouTube.Video();
+                var video = new Google.YouTube.Video();
 
                 try
                 {
-                    var yousettings = new YouTubeRequestSettings("You Manager", devkey, username, password);
-                    YouTubeRequest yourequest;
-                    Uri Url;
+                    var yousettings = new YouTubeRequestSettings("Das Klub", devkey);
 
-                    yourequest = new YouTubeRequest(yousettings);
-                    Url = new Uri("http://gdata.youtube.com/feeds/api/videos/" + videoKey);
+                    var yourequest = new YouTubeRequest(yousettings);
+                    var url = new Uri("http://gdata.youtube.com/feeds/api/videos/" + videoKey);
 
-                    video = yourequest.Retrieve<Google.YouTube.Video>(Url);
+                    video = yourequest.Retrieve<Google.YouTube.Video>(url);
                     txtDuration.Text = video.YouTubeEntry.Duration.Seconds;
                 }
                 catch (GDataRequestException)
@@ -726,18 +723,6 @@ namespace DasKlub.Web.m.auth
                 txtUserName.Text = video.Uploader;
                 lblVideoID.Text = vid.VideoID.ToString();
                 txtVideoKey.Text = video.VideoId;
-
-                // if (vid.VideoID == 0) return;
-
-                //// status
-                //Statuses stus = new Statuses();
-                //stus.GetAll();
-                //ddlVideoStatus.DataSource = stus;
-                //ddlVideoStatus.DataTextField = "statusDescription";
-                //ddlVideoStatus.DataValueField = "statusID";
-                //ddlVideoStatus.DataBind();
-                //if (vid.StatusID != 0)
-                //    ddlVideoStatus.SelectedValue = vid.StatusID.ToString();
 
                 // vid type
                 propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
@@ -777,72 +762,6 @@ namespace DasKlub.Web.m.auth
                 ddlFootageType.Items.Insert(0, new ListItem(selectText));
                 if (mp.MultiPropertyID != 0)
                     ddlFootageType.SelectedValue = mp.MultiPropertyID.ToString();
-
-                //// gutiar type
-                //propTyp = new PropertyType(SiteEnums.PropertyTypeCode.GUITR);
-                //mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-                //mps = new MultiProperties(propTyp.PropertyTypeID);
-                //mps.Sort(delegate(MultiProperty p1, MultiProperty p2)
-                //{
-                //    return p1.Name.CompareTo(p2.Name);
-                //});
-                //ddlGuitarType.DataSource = mps;
-                //ddlGuitarType.DataTextField = "name";
-                //ddlGuitarType.DataValueField = "multiPropertyID";
-                //ddlGuitarType.DataBind();
-                //ddlGuitarType.Items.Insert(0, new ListItem(selectText));
-                //if (mp.MultiPropertyID != 0)
-                //    ddlGuitarType.SelectedValue = mp.MultiPropertyID.ToString();
-
-                ////  language
-                //propTyp = new PropertyType(SiteEnums.PropertyTypeCode.LANGE);
-                //mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-                //mps = new MultiProperties(propTyp.PropertyTypeID);
-                //mps.Sort(delegate(MultiProperty p1, MultiProperty p2)
-                //{
-                //    return p1.Name.CompareTo(p2.Name);
-                //});
-                //ddlLanguage.DataSource = mps;
-                //ddlLanguage.DataTextField = "name";
-                //ddlLanguage.DataValueField = "multiPropertyID";
-                //ddlLanguage.DataBind();
-                //ddlLanguage.Items.Insert(0, new ListItem(selectText));
-                //if (mp.MultiPropertyID != 0)
-                //    ddlLanguage.SelectedValue = mp.MultiPropertyID.ToString();
-
-                //// genre
-                //propTyp = new PropertyType(SiteEnums.PropertyTypeCode.GENRE);
-                //mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-                //mps = new MultiProperties(propTyp.PropertyTypeID);
-                //mps.Sort(delegate(MultiProperty p1, MultiProperty p2)
-                //{
-                //    return p1.Name.CompareTo(p2.Name);
-                //});
-                //ddlGenre.DataSource = mps;
-                //ddlGenre.DataTextField = "name";
-                //ddlGenre.DataValueField = "multiPropertyID";
-                //ddlGenre.DataBind();
-                //ddlGenre.Items.Insert(0, new ListItem(selectText));
-                //if (mp.MultiPropertyID != 0)
-                //    ddlGenre.SelectedValue = mp.MultiPropertyID.ToString();
-
-
-                //// difficulty
-                //propTyp = new PropertyType(SiteEnums.PropertyTypeCode.DIFFC);
-                //mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
-                //mps = new MultiProperties(propTyp.PropertyTypeID);
-                //mps.Sort(delegate(MultiProperty p1, MultiProperty p2)
-                //{
-                //    // sort by entry
-                //    return p1.MultiPropertyID.CompareTo(p2.MultiPropertyID);
-                //});
-                //ddlDifficultyLevel.DataSource = mps;
-                //ddlDifficultyLevel.DataTextField = "name";
-                //ddlDifficultyLevel.DataValueField = "multiPropertyID";
-                //ddlDifficultyLevel.DataBind();
-                //ddlDifficultyLevel.Items.Insert(0, new ListItem(selectText));
-                //if (mp.MultiPropertyID != 0)
-                //    ddlDifficultyLevel.SelectedValue = mp.MultiPropertyID.ToString();
 
 
                 // contest
