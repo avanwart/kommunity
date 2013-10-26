@@ -1138,7 +1138,8 @@
     <Content Include="Views\Shared\_AdBanner468x60.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Shared\_AdBanner250x250.cshtml" />
+    <Content Include="Views\Shared\_AdBanner300x250.cshtml" />
+    <Content Include="Views\Shared\_AdBanner728x90.cshtml" />
     <None Include="Web.Production.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

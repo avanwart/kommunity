@@ -345,7 +345,7 @@
             else
             {
                 
-                Html.RenderPartial("_AdBanner468x60");
+                      @{ Html.RenderPartial("_AdBanner468x60"); }
 
 
             }
@@ -375,8 +375,8 @@
             }
             else
             {
-                  
-                Html.RenderPartial("_AdBanner250x250");
+
+                Html.RenderPartial("_AdBanner300x250");
 
 
             }
@@ -709,10 +709,8 @@
 
         <hr />
             
-                
-
-        @{ Html.RenderPartial("_AdBanner468x60"); }
-    
+                   @{ Html.RenderPartial("_AdBanner468x60"); }
+ 
         <hr />
         <br />
         @if (Request.IsAuthenticated && !Model.IsViewingSelf)

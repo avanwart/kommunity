@@ -2,10 +2,7 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Values
 
-<!-- 250 x 250 -->
-
-  
-            @Html.Raw(SiteDomain.GetSiteDomainValue(
+@Html.Raw(SiteDomain.GetSiteDomainValue(
                 SiteEnums.SiteBrandType.A2501,
                 Utilities.GetCurrentLanguageCode()))
           
