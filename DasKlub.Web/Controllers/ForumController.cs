@@ -359,10 +359,18 @@ namespace DasKlub.Web.Controllers
                 context.Configuration.ProxyCreationEnabled = false;
                 context.Configuration.LazyLoadingEnabled = false;
 
-                var forum = context.ForumCategory.First(x => x.Key == key);
+                var forum = context.ForumCategory.FirstOrDefault(x => x.Key == key);
+
+                if (forum == null || forum.ForumCategoryID == 0)
+                    return RedirectPermanent("~/forum");// it's gone
+
                 ViewBag.Forum = forum;
 
-                var subForum = context.ForumSubCategory.First(x => x.Key == subKey);
+                var subForum = context.ForumSubCategory.FirstOrDefault(x => x.Key == subKey);
+
+                if (subForum == null || subForum.ForumSubCategoryID == 0)
+                    return RedirectPermanent("~/forum");// it's gone
+
                 subForum.UserAccount = new UserAccount(subForum.CreatedByUserID);
 
                 ViewBag.SubForum = subForum;
