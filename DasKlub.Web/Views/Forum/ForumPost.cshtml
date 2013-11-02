@@ -46,7 +46,7 @@
                                       @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(ViewBag.SubForum.Description), 200, 300))
                                   </p>
                               <span>Posted By: </span> <a href = "@ViewBag.SubForum.UserAccount.UrlTo.ToString()" > @ViewBag.SubForum.UserAccount.UserName </a>
-                                  <i>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</i>
+                                   <span>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</span> <i>@ViewBag.SubForum.CreateDate.ToString("yyyy-MM-dd")</i> 
                       
                                   
                       @Html.Raw("&nbsp;")
@@ -65,7 +65,7 @@
                                                                        new { onclick = "return confirm('" + Messages.Delete + "');" })
                                        
                                        
-                                       ;
+                                       
                                    }
                                    
                                    <hr />
@@ -92,17 +92,27 @@
                         </ul>
                     </div>
                     <div class="span6">
-                        <span title="@FromDate.DateToYYYY_MM_DD(forumCat.CreateDate)">@Utilities.TimeElapsedMessage(forumCat.CreateDate)</span>
-                        
-                         @if (ViewBag.UserID == forumCat.CreatedByUserID || ViewBag.IsAdmin)
+                        @if (forumCat.UpdateDate != null)
                         {
-                             @Html.Raw("&nbsp;") 
+                            <i>@Messages.Edited</i>
+                            <span title="@FromDate.DateToYYYY_MM_DD(Convert.ToDateTime(forumCat.UpdateDate))">
+                                @Utilities.TimeElapsedMessage(Convert.ToDateTime(forumCat.UpdateDate))</span> 
+                        }
+                        else
+                        {
+                        <span title="@FromDate.DateToYYYY_MM_DD(forumCat.CreateDate)">@Utilities.TimeElapsedMessage(forumCat.CreateDate)</span>    
+                        }
+                        
+                        
+                        @if (ViewBag.UserID == forumCat.CreatedByUserID || ViewBag.IsAdmin)
+                        {
+                            @Html.Raw("&nbsp;") 
                             
                              
-                               @Html.ActionLink(Messages.Edit, "EditForumPost", new {@forumPostID = forumCat.ForumPostID})
-                             @Html.Raw(" | ") 
-                             @Html.ActionLink(Messages.Delete, "DeleteForumPost", new {@forumPostID = forumCat.ForumPostID},
-                                             new {onclick = "return confirm('" + Messages.Delete + "');"})
+                            @Html.ActionLink(Messages.Edit, "EditForumPost", new {@forumPostID = forumCat.ForumPostID})
+                            @Html.Raw(" | ") 
+                            @Html.ActionLink(Messages.Delete, "DeleteForumPost", new {@forumPostID = forumCat.ForumPostID},
+                                new {onclick = "return confirm('" + Messages.Delete + "');"})
                         }
 
                         <br />
