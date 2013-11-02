@@ -145,16 +145,15 @@ namespace DasKlub.Web
             }
 
 
-            /// content
+            // content
 
-            var cnts = new Contents();
-            cnts.GetAllActiveContent();
+            var contents = new Contents();
+            contents.GetAllActiveContent();
 
-
-            foreach (var c1 in cnts)
+            foreach (var c1 in contents)
             {
                 writer.WriteStartElement("url");
-                writer.WriteElementString("loc", siteDomain + "news/" + c1.ContentKey.ToLower());
+                writer.WriteElementString("loc", string.Format("{0}news/{1}", siteDomain, c1.ContentKey.ToLower()));
                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", c1.ReleaseDate));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.8");
@@ -162,6 +161,21 @@ namespace DasKlub.Web
                 writer.WriteString("\r\n"); //newline 
             }
 
+            // photo
+
+            var photos = new PhotoItems();
+            photos.GetPhotoItemsPageWise(1, 50000);
+
+            foreach (var photo in photos)
+            {
+                writer.WriteStartElement("url");
+                writer.WriteElementString("loc", string.Format("{0}photos/{1}", siteDomain, photo.PhotoItemID));
+                writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", photo.CreateDate));
+                writer.WriteElementString("changefreq", "weekly");
+                writer.WriteElementString("priority", "0.8");
+                writer.WriteEndElement();
+                writer.WriteString("\r\n"); //newline 
+            }
 
             writer.WriteEndElement();
             writer.WriteEndDocument();
