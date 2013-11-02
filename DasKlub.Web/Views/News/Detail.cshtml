@@ -31,35 +31,49 @@
              
         <div class="row" >
             <div class="span3">
-                @Messages.Published:
-                <span title="@Model.ReleaseDate.ToString("o")">
-                    @Utilities.TimeElapsedMessage(Model.ReleaseDate)</span>
-                <br />
-                @Messages.Tagged:
-                @Html.Raw(Model.TagLinks)
-
-                @if (Model.CreatedByUserID > 0)
-                {
-                    var ua =
-                        new UserAccount(Model.CreatedByUserID);
-
-                    var uad =
-                        new UserAccountDetail();
-                    uad.GetUserAccountDeailForUser(ua.UserAccountID);
-
+                
+                <div itemscope itemtype="http://data-vocabulary.org/Review">
+                    
+                    @Messages.Published:
+                   
+                    <time itemprop="dtreviewed" datetime="@Model.ReleaseDate.ToString("yyyy-MM-dd")">
+                      <span title="@Model.ReleaseDate.ToString("o")">@Model.ReleaseDate.ToString("yyyy-MM-dd")</span></time>
+                  
                     <br />
+                    @Messages.Tagged:
+                    @Html.Raw(Model.TagLinks)
 
-                    <span>@Messages.From: <a href="@ua.UrlTo.ToString()">
-                                              @ua.UserName</a>     <a href="@ua.UrlTo.ToString()">
-                                                                       @Html.Raw(ua.TinyUserIcon)</a></span>
+                    @if (Model.CreatedByUserID > 0)
+                    {
+                        var ua =
+                            new UserAccount(Model.CreatedByUserID);
 
-                    string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
+                        var uad =
+                            new UserAccountDetail();
+                        uad.GetUserAccountDeailForUser(ua.UserAccountID);
 
-                    @Html.Raw(coName)
-                }
-            </div>
+                        <br />
+
+                        <span>@Messages.From: <a href="@ua.UrlTo.ToString()">
+                                                  <span itemprop="reviewer">@ua.UserName</span>                      
+
+                                             
+                                              </a>     <a href="@ua.UrlTo.ToString()">
+                                                           @Html.Raw(ua.TinyUserIcon)</a></span>
+
+                        string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
+
+                        @Html.Raw(coName)
+                    }
+                    
+                    
+                    
+                    
+                </div>
+                
+                </div>
             <div class="span5">
-                @{ Html.RenderPartial("_AdBanner"); }
+                @{ Html.RenderPartial("_AdBanner468x60"); }
 
             </div>
               
@@ -132,7 +146,7 @@
         </div>
         <br />
         <hr   />
-        @{ Html.RenderPartial("_AdBanner"); }
+        @{ Html.RenderPartial("_AdBanner728x90"); }
         <hr />
         <div id="respond">
             <h4>@Messages.LeaveAComment</h4>
@@ -182,8 +196,10 @@
             </p>
         </div>
         <hr />
-
-        @{ Html.RenderPartial("_AdBanner3"); } 
+                  
+            @{ Html.RenderPartial("_AdBanner300x250"); }
+     
+  
         <hr />
         @if (ViewBag.NextNews != null)
         {
@@ -200,9 +216,7 @@
             </ul>
         }
  
-        <div class="span4">
-            @{ Html.RenderPartial("_AdBanner2"); }
-        </div>
+       
     </div>
 </div>
 @section _javascript {

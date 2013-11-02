@@ -21,6 +21,7 @@ namespace DasKlub.Web.Controllers
     public class ForumController : Controller
     {
         public const int PageSize = 10;
+        public const int SubCatPageSize = 50;
         private readonly IForumCategoryRepository _forumcategoryRepository;
         private readonly MembershipUser _mu;
         private readonly IMailService _mail;
@@ -43,8 +44,6 @@ namespace DasKlub.Web.Controllers
                 _ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
             }
         }
-
-
 
         public ActionResult Index()
         {
@@ -141,8 +140,8 @@ namespace DasKlub.Web.Controllers
                 var forumSubCategory = context.ForumSubCategory
                                                                  .Where(x => x.ForumCategoryID == forum.ForumCategoryID)
                                                                  .OrderByDescending(x => x.CreateDate)
-                                                                 .Skip(PageSize * (pageNumber - 1))
-                                                                 .Take(PageSize).ToList();
+                                                                 .Skip(SubCatPageSize * (pageNumber - 1))
+                                                                 .Take(SubCatPageSize).ToList();
 
                 var forumCategory = context.ForumCategory.First(x => x.Key == key);
 
@@ -150,7 +149,7 @@ namespace DasKlub.Web.Controllers
 
                 var totalCount = context.ForumSubCategory.Count(x => x.ForumCategoryID == forum.ForumCategoryID);
 
-                ViewBag.PageCount = (totalCount + PageSize - 1) / PageSize;
+                ViewBag.PageCount = (totalCount + SubCatPageSize - 1) / SubCatPageSize;
 
                 ViewBag.PageNumber = pageNumber;
 
@@ -176,7 +175,7 @@ namespace DasKlub.Web.Controllers
 
                         thread.TotalPosts += forumSubPostCount;
 
-                        var pageCount = (forumSubPostCount + PageSize - 1) / PageSize;
+                        var pageCount = (forumSubPostCount + SubCatPageSize - 1) / SubCatPageSize;
 
                         lastPost.ForumPostURL =
                             new Uri(forumPost.SubForumURL + "/" +
@@ -213,7 +212,6 @@ namespace DasKlub.Web.Controllers
             }
         }
 
-
         [Authorize]
         public ActionResult CreateSubCategory(string key)
         {
@@ -222,55 +220,104 @@ namespace DasKlub.Web.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult EditSubCategory(string key, string subKey)
+        {
+            ForumSubCategory model;
+
+            using (var context = new DasKlubDbContext())
+            {
+                var forum = context.ForumCategory.First(x => x.Key == key);
+                ViewBag.Forum = forum;
+
+                var subForum = context.ForumSubCategory.First(x => x.Key == subKey);
+                ViewBag.SubForum = subForum;
+
+                if (_ua.UserAccountID != subForum.CreatedByUserID)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+
+                model = subForum;
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditSubCategory(ForumSubCategory model)
+        {
+            using (var context = new DasKlubDbContext())
+            {
+                var subForum = context.ForumSubCategory.First(
+                    currentForumSubCategory => 
+                        currentForumSubCategory.ForumSubCategoryID == model.ForumSubCategoryID);
+
+                if (_ua.UserAccountID != subForum.CreatedByUserID)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                subForum.UpdatedByUserID = _ua.UserAccountID;
+
+                subForum.Title = model.Title;
+                subForum.Description = model.Description;
+
+                context.Entry(subForum).State = EntityState.Modified;
+                context.SaveChanges();
+
+                model.Key = subForum.Key;
+                model.ForumCategory =
+                    context.ForumCategory.First(forum => forum.ForumCategoryID == subForum.ForumCategoryID);
+            }
+
+            return new RedirectResult(model.SubForumURL.ToString());
+        }
 
         [Authorize]
         [HttpPost]
         public ActionResult CreateSubCategory(ForumSubCategory model)
         {
-            if (_mu != null)
+            if (_mu == null) return new EmptyResult();
+
+            var ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
+
+            using (var context = new DasKlubDbContext())
             {
-                var ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
+                if (model == null) return new EmptyResult();
 
-                using (var context = new DasKlubDbContext())
+                var forum = context.ForumCategory.First(x => x.Key == model.Key);
+
+                ViewBag.Forum = forum;
+
+                if (!ModelState.IsValid)
                 {
-                    if (model == null) return new EmptyResult();
-
-                    var forum = context.ForumCategory.First(x => x.Key == model.Key);
-
-                    ViewBag.Forum = forum;
-
-                    if (!ModelState.IsValid)
-                    {
-                        return View(model);
-                    }
-
-                    model.ForumCategoryID = forum.ForumCategoryID;
-                    model.CreatedByUserID = ua.UserAccountID;
-                    model.Key = FromString.URLKey(model.Title);
-                    model.Title = model.Title.Trim();
-                    model.Description = model.Description.Trim();
-
-                    context.ForumSubCategory.Add(model);
-
-                    var notification = new ForumPostNotification
-                    {
-                        CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey),
-                        IsRead = true,
-                        UserAccountID = Convert.ToInt32(_mu.ProviderUserKey),
-                        ForumSubCategoryID = model.ForumSubCategoryID
-                    };
-
-                    context.ForumPostNotification.Add(notification);
-
-                    context.SaveChanges();
-
-                    return RedirectToAction("ForumPost", "Forum", new { subkey = model.Key,  key = forum.Key });
+                    return View(model);
                 }
+
+                model.ForumCategoryID = forum.ForumCategoryID;
+                model.CreatedByUserID = ua.UserAccountID;
+                model.Key = FromString.URLKey(model.Title);
+                model.Title = model.Title.Trim();
+                model.Description = model.Description.Trim();
+
+                context.ForumSubCategory.Add(model);
+
+                var notification = new ForumPostNotification
+                {
+                    CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey),
+                    IsRead = true,
+                    UserAccountID = Convert.ToInt32(_mu.ProviderUserKey),
+                    ForumSubCategoryID = model.ForumSubCategoryID
+                };
+
+                context.ForumPostNotification.Add(notification);
+
+                context.SaveChanges();
+
+                return RedirectToAction("ForumPost", "Forum", new { subkey = model.Key,  key = forum.Key });
             }
-
-            return new EmptyResult();
         }
-
 
         [Authorize]
         public ActionResult DeleteSubForum(int forumSubCategoryID)
@@ -334,17 +381,7 @@ namespace DasKlub.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize]
-        public ActionResult CreateForumPost(string key, string subKey)
-        {
-            using (var context = new DasKlubDbContext())
-            {
-                GetValue(key, subKey, context);
-            }
-
-            return View();
-        }
-
+     
         #endregion
 
         #region forum post
@@ -358,10 +395,18 @@ namespace DasKlub.Web.Controllers
                 context.Configuration.ProxyCreationEnabled = false;
                 context.Configuration.LazyLoadingEnabled = false;
 
-                var forum = context.ForumCategory.First(x => x.Key == key);
+                var forum = context.ForumCategory.FirstOrDefault(x => x.Key == key);
+
+                if (forum == null || forum.ForumCategoryID == 0)
+                    return RedirectPermanent("~/forum");// it's gone
+
                 ViewBag.Forum = forum;
 
-                var subForum = context.ForumSubCategory.First(x => x.Key == subKey);
+                var subForum = context.ForumSubCategory.FirstOrDefault(x => x.Key == subKey);
+
+                if (subForum == null || subForum.ForumSubCategoryID == 0)
+                    return RedirectPermanent("~/forum");// it's gone
+
                 subForum.UserAccount = new UserAccount(subForum.CreatedByUserID);
 
                 ViewBag.SubForum = subForum;
@@ -413,6 +458,45 @@ namespace DasKlub.Web.Controllers
                 return View(forumPost);
             }
         }
+
+        [Authorize]
+        public ActionResult CreateForumPost(string key, string subKey)
+        {
+            using (var context = new DasKlubDbContext())
+            {
+                GetValue(key, subKey, context);
+            }
+
+            return View();
+        }
+
+
+        [Authorize]
+        public ActionResult EditForumPost(string key, string subKey, int forumPostID)
+        {
+            ForumPost model;
+
+            using (var context = new DasKlubDbContext())
+            {
+                model = context.ForumPost.First(existingForumPost => existingForumPost.ForumPostID == forumPostID);
+
+                if (_ua.UserAccountID != model.CreatedByUserID)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+
+                var subCategory  = context.ForumSubCategory.First(forumSubCategory =>
+                    forumSubCategory.ForumSubCategoryID == model.ForumSubCategoryID);
+                ViewBag.SubForum = subCategory;
+                ViewBag.Forum =
+                    context.ForumCategory.First(forum => forum.ForumCategoryID == subCategory.ForumCategoryID);
+
+            }
+
+            return View(model);
+
+        }
+
 
         [HttpPost]
         [Authorize]
@@ -509,6 +593,37 @@ namespace DasKlub.Web.Controllers
                 }
 
                 return new EmptyResult();
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult EditForumPost(ForumPost model)
+        {
+            using (var context = new DasKlubDbContext())
+            {
+                var forumPost = context.ForumPost.First(
+                    currentForumPost => currentForumPost.ForumPostID == model.ForumPostID);
+
+                if (_ua.UserAccountID != forumPost.CreatedByUserID)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                forumPost.UpdatedByUserID = _ua.UserAccountID;
+
+                forumPost.Detail = model.Detail;
+
+                context.Entry(forumPost).State = EntityState.Modified;
+                context.SaveChanges();
+
+                var subForum = context.ForumSubCategory.First(
+                    currentForumSubCategory =>
+                        currentForumSubCategory.ForumSubCategoryID == model.ForumSubCategoryID);
+
+                subForum.ForumCategory =
+                    context.ForumCategory.First(forum => forum.ForumCategoryID == subForum.ForumCategoryID);
+
+                return new RedirectResult(subForum.SubForumURL.ToString());
             }
         }
 

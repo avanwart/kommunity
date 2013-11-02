@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace DasKlub.Web.App_Start
@@ -758,6 +754,7 @@ namespace DasKlub.Web.App_Start
                                 action = "CreateForum"
                             }
                 );
+ 
 
             routes.MapRoute("forum", "forum",
                             new
@@ -775,6 +772,13 @@ namespace DasKlub.Web.App_Start
                             }
                 );
 
+            routes.MapRoute("sub_forum_edit", "forum/{key}/{subKey}/edit",
+                new
+                {
+                    controller = "Forum",
+                    action = "EditSubCategory"
+                }
+    );
 
             routes.MapRoute("sub_forum_post", "forum/{key}/{subKey}",
                             new
@@ -784,8 +788,16 @@ namespace DasKlub.Web.App_Start
                             }
                 );
 
+            routes.MapRoute("sub_forum_post_edit", "forum/{key}/{subKey}/{forumPostID}/edit",
+                new
+                {
+                    controller = "Forum",
+                    action = "EditForumPost"
+                }
+            );
 
-            routes.MapRoute("sub_forum_pag1e", "forum/{key}/{pageNumber}",
+
+            routes.MapRoute("sub_forum_page1", "forum/{key}/{pageNumber}",
                             new
                             {
                                 controller = "Forum",
@@ -809,7 +821,7 @@ namespace DasKlub.Web.App_Start
                                 action = "CreateForumPost"
                             }
                 );
-
+ 
 
             routes.MapRoute("sub_forum", "forum/{key}",
                             new

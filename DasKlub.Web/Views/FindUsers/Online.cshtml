@@ -5,7 +5,7 @@
 
 <div class="row" >
     <div class="span8">
-        @{ Html.RenderPartial("_AdBanner"); }
+        @{ Html.RenderPartial("_AdBanner728x90"); }
         <h2>@Html.Raw(Messages.OnlineNow)</h2>
         <hr />
         <i>@Messages.SortedByActivity</i>
@@ -13,11 +13,14 @@
    
             @Html.Raw(Model.ToUnorderdList)
         </div>
+        <div class="clear"></div>
+        <hr />
+             @{ Html.RenderPartial("_AdBanner728x90"); } 
     </div>
        
     <div class="span4">
         <div class="clear"></div>
-        @{ Html.RenderPartial("_AdBanner2"); }
+        @{ Html.RenderPartial("_AdBanner160x600"); }
       
     </div>
 

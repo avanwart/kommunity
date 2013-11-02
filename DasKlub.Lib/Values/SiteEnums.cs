@@ -606,6 +606,14 @@ namespace DasKlub.Lib.Values
             ///     728x90 ad 3/2
             /// </summary>
             A7283,
+            /// <summary>
+            /// 300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
+            /// </summary>
+            A2501,
+            /// <summary>
+            /// 728x90
+            /// </summary>
+            A728
         }
 
 

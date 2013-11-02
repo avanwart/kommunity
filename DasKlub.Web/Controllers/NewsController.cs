@@ -86,7 +86,8 @@ namespace DasKlub.Web.Controllers
                 });
         }
 
-        public JsonResult TagItems(int pageNumber, string key)
+        [HttpPost]
+        public ActionResult TagItems(string key, int pageNumber = 1)
         {
             var model = new Contents();
 
@@ -112,7 +113,8 @@ namespace DasKlub.Web.Controllers
 
             return Json(new
                 {
-                    ListItems = sb.ToString()
+                    ListItems = sb.ToString(),
+                    JsonRequestBehavior.AllowGet
                 });
         }
 

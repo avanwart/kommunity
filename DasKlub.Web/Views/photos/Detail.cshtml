@@ -6,9 +6,10 @@
 @model  DasKlub.Lib.BOL.PhotoItem
 @{
     ViewBag.Title = Model.Title;
+    ViewBag.MetaDescription = Model.Title;
     ViewBag.ThumbIcon = FromString.GetFixedLengthString(Html.S3ContentPath(Model.FilePathThumb).ToString(), 50);
 }
-@{ Html.RenderPartial("_AdBanner"); }
+@{ Html.RenderPartial("_AdBanner728x90"); }
 <div class="row">
     <div class="span8">
         @if (Model == null)
@@ -20,10 +21,12 @@
             <div id="status_update_list">
                 @Html.Raw(ViewBag.StatusUpdateList)
             </div>
+            
         }
         @section _javascript {
             @{ Html.RenderPartial("_statusCommenting-js"); }
         }
+        <i><a href="@Html.S3ContentPath(Model.FilePathRaw)" target="_blank">@Messages.Download: @Messages.Photo</a></i>
     </div>
     <div class="span4">
    
@@ -50,7 +53,7 @@
             </ul>
         }
         <hr />
-        @{ Html.RenderPartial("_AdBanner3"); } 
+        @{ Html.RenderPartial("_AdBanner120x60"); } 
          
     </div>
 </div>

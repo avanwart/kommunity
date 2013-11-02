@@ -2,7 +2,7 @@
 @model DasKlub.Models.Forum.ForumSubCategory
 
 @{
-    ViewBag.Title = "Create Sub Forum: " + ViewBag.Forum.Title;
+    ViewBag.Title = "Edit Sub Forum: " + ViewBag.Forum.Title;
 }
  
 
@@ -13,7 +13,7 @@
       
         <div class="row">
             <div class="span3">
-                <h2>Create Thread</h2>
+                <h2>Edit Thread</h2>
                  
             </div>
             <div class="span4">
@@ -26,11 +26,11 @@
         <div class="row">
             <div class="span4">
             
-                @using (Html.BeginForm("CreateSubCategory", "Forum"))
+                @using (Html.BeginForm("EditSubCategory", "Forum"))
                 {
                     <fieldset>
                         <legend>
-                            Create Thread In: @ViewBag.Forum.Title
+                            Edit Thread In: @ViewBag.Forum.Title
                         </legend>
                         <div class="editor-label">
                             @Html.LabelFor(model => model.Title)
@@ -49,6 +49,8 @@
                 
                         <p><button class="btn btn-success" id="submit_post" type="submit">@Messages.Submit</button></p>
                     </fieldset>
+                    
+                    @Html.HiddenFor(model => model.ForumSubCategoryID)
                 }
             </div>
             <div class="span4">
@@ -72,12 +74,8 @@
 
 
     <script type="text/javascript">
-        $(document).ready(function() {
+       
 
-            $("#Title").focus();
-
-        });
-        
 
         $('#submit_post').click(function (event) {
 

@@ -11,26 +11,26 @@
         SiteEnums.SiteBrandType.TAGLN,
         Utilities.GetCurrentLanguageCode());
 
-    ViewBag.MetaDescription = "International kommunmity for industrial dance.";
+    ViewBag.MetaDescription = "Das Klub is an international kommunmity for industrial dance. Meet people from all over the world that enjoy industrial dance music and culture.";
 }
 <div class="row">
     <div class="span4">
         
         @if (ViewBag.NewestVideo != null)
         {
-             <div style="text-align:center">
- <b>@Messages.Random</b>
-                 <br />
+            <div style="text-align:center">
+                <b>@Messages.Random</b>
+                <br />
                  
-<iframe width="100%" height="240" src="@Html.Raw("http://www.youtube.com/embed/"  + @ViewBag.NewestVideo )" frameborder="0" allowfullscreen></iframe>
+                <iframe width="100%" height="240" src="@Html.Raw("http://www.youtube.com/embed/"  + @ViewBag.NewestVideo )" frameborder="0" allowfullscreen></iframe>
 
 
-<br />  
+                <br />  
 
-<a class="btn btn-primary" href="/video">Submit Your Video</a>
+                <a class="btn btn-primary" href="/video">Submit Your Video</a>
 
 
-</div>
+            </div>
 
         }
         else
@@ -60,15 +60,20 @@
                 }
             </dl>
         }
+        <hr />
+        <h5>Advertisement</h5>
+        @{ Html.RenderPartial("_AdBanner300x250"); } 
 
     </div>
+          
     <div class="span8">
+      
         <div class="row">
 
             <div class="span8">
 
                 <div class="span8">
-
+                      @{ Html.RenderPartial("_AdBanner728x90"); }
                     @Html.Raw(SiteDomain.GetSiteDomainValue(
                         SiteEnums.SiteBrandType.HOMET,
                         Utilities.GetCurrentLanguageCode()))
@@ -153,18 +158,9 @@
                                 </tr>
                             }
                         </table>
-                        <div class="span8">
-                              @{ Html.RenderPartial("_AdBanner"); }
-          @*                  <div class="span3">
-                                <a class="btn btn-success" href="~/forum">Create Thread</a>   
-                            </div>
-                            <div class="span4">
-       
-                            </div>*@
-                            </div>
-                            <br /> <br />
-                            }
-                        </div>
+                      
+                    }
+                </div>
 
             </div>
             <div class="clear">
@@ -182,7 +178,7 @@
                             <div class="clear">
                             </div>
                         </div>
-                        </div>
+                    </div>
                 </div>
                    
             }
@@ -197,7 +193,7 @@
                             <div class="clear">
                             </div>
                         </div>
-                        </div>
+                    </div>
                 </div>
                    
             }
@@ -206,17 +202,17 @@
         @section _css {
             @if (Request.Browser.IsMobileDevice)
             {
-<style type="text/css">
-    .photo_item_list li img {
-        height: 55px;
-        width: 55px;
-    }
+                <style type="text/css">
+                    .photo_item_list li img {
+                        height: 55px;
+                        width: 55px;
+                    }
 
-    .photo_item_list img {
-        margin: 0;
-        padding: 0;
-    }
-</style>
+                    .photo_item_list img {
+                        margin: 0;
+                        padding: 0;
+                    }
+                </style>
             }
             <style type="text/css">
                 ul.photo_item_list {

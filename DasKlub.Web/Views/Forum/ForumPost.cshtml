@@ -46,14 +46,26 @@
                                       @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(ViewBag.SubForum.Description), 200, 300))
                                   </p>
                               <span>Posted By: </span> <a href = "@ViewBag.SubForum.UserAccount.UrlTo.ToString()" > @ViewBag.SubForum.UserAccount.UserName </a>
-                                  <i>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</i>
-
-
+                                   <span>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</span> <i>@ViewBag.SubForum.CreateDate.ToString("yyyy-MM-dd")</i> 
+                      
+                                  
+                      @Html.Raw("&nbsp;")
+                             
                                   if (ViewBag.UserID == ViewBag.SubForum.UserAccount.UserAccountID || ViewBag.IsAdmin)
                                    {
-                                       @Html.ActionLink(Messages.Delete, "DeleteSubForum", new {@forumSubCategoryID = ViewBag.SubForum.ForumSubCategoryID},
-                                                        new {onclick = "return confirm('" + Messages.Delete + "');"})
-                                       ;
+                                     
+                                
+                                       @Html.ActionLink(Messages.Edit, "EditSubCategory", 
+                                       new {@key = ViewBag.Forum.Key, @subKey = ViewBag.SubForum.Key} )
+
+                      
+                             @Html.Raw(" | ")
+
+                                       @Html.ActionLink(Messages.Delete, "DeleteSubForum", new { @forumSubCategoryID = ViewBag.SubForum.ForumSubCategoryID },
+                                                                       new { onclick = "return confirm('" + Messages.Delete + "');" })
+                                       
+                                       
+                                       
                                    }
                                    
                                    <hr />
@@ -80,17 +92,35 @@
                         </ul>
                     </div>
                     <div class="span6">
-                        <span title="@FromDate.DateToYYYY_MM_DD(forumCat.CreateDate)">@Utilities.TimeElapsedMessage(forumCat.CreateDate)</span>
+                        @if (forumCat.UpdateDate != null)
+                        {
+                            <i>@Messages.Edited</i>
+                            <span title="@FromDate.DateToYYYY_MM_DD(Convert.ToDateTime(forumCat.UpdateDate))">
+                                @Utilities.TimeElapsedMessage(Convert.ToDateTime(forumCat.UpdateDate))</span> 
+                        }
+                        else
+                        {
+                        <span title="@FromDate.DateToYYYY_MM_DD(forumCat.CreateDate)">@Utilities.TimeElapsedMessage(forumCat.CreateDate)</span>    
+                        }
+                        
+                        
+                        @if (ViewBag.UserID == forumCat.CreatedByUserID || ViewBag.IsAdmin)
+                        {
+                            @Html.Raw("&nbsp;") 
+                            
+                             
+                            @Html.ActionLink(Messages.Edit, "EditForumPost", new {@forumPostID = forumCat.ForumPostID})
+                            @Html.Raw(" | ") 
+                            @Html.ActionLink(Messages.Delete, "DeleteForumPost", new {@forumPostID = forumCat.ForumPostID},
+                                new {onclick = "return confirm('" + Messages.Delete + "');"})
+                        }
+
                         <br />
                         <br />
                         <p>
                             @Html.Raw( Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(forumCat.Detail), 200, 300))
                         </p>
-                        @if (ViewBag.UserID == forumCat.CreatedByUserID || ViewBag.IsAdmin)
-                        {
-                            @Html.ActionLink(Messages.Delete, "DeleteForumPost", new {@forumPostID = forumCat.ForumPostID},
-                                             new {onclick = "return confirm('" + Messages.Delete + "');"})
-                        }
+                       
                     </div>
                            
                   
@@ -142,7 +172,7 @@
 
 
         
-        @{ Html.RenderPartial("_AdBanner"); }
+        @{ Html.RenderPartial("_AdBanner728x90"); }
         <hr />
         
         <a href="~/forum">Forum</a> &gt; <a href="@ViewBag.Forum.ForumURL">@ViewBag.Forum.Title</a> &gt;   @{
@@ -161,6 +191,6 @@
     </div>
 
     <div class="span3"  >
-        @{ Html.RenderPartial("_AdBanner2"); }
+        @{ Html.RenderPartial("_AdBanner160x600"); }
     </div>
 </div>

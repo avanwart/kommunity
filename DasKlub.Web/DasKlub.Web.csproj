@@ -66,11 +66,11 @@
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.0-rc1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.0.0-rc1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Google.GData.Client, Version=2.2.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1135,6 +1135,13 @@
     <Content Include="Views\Donation\DonationError.cshtml" />
     <Content Include="Views\Donation\DonationConfirmation.cshtml" />
     <Content Include="Views\Donation\SubmitDonation.cshtml" />
+    <Content Include="Views\Shared\_AdBanner468x60.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\_AdBanner300x250.cshtml" />
+    <Content Include="Views\Shared\_AdBanner728x90.cshtml" />
+    <Content Include="Views\Forum\EditSubCategory.cshtml" />
+    <Content Include="Views\Forum\EditForumPost.cshtml" />
     <None Include="Web.Production.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1229,9 +1236,6 @@
     <Content Include="Views\Shared\Errors\500.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_AdBanner.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_LoggedInControls.cshtml" />
     <Content Include="Views\Shared\_LoginControls.cshtml" />
   </ItemGroup>
@@ -1302,9 +1306,9 @@
     <Content Include="Views\Account\WishList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_AdBanner2.cshtml" />
-    <Content Include="Views\Shared\_AdBanner3.cshtml" />
-    <Content Include="Views\Shared\_AdBanner4.cshtml" />
+    <Content Include="Views\Shared\_AdBanner160x600.cshtml" />
+    <Content Include="Views\Shared\_AdBanner120x60.cshtml" />
+    <Content Include="Views\Shared\_AdBanner234x60.cshtml" />
     <Content Include="Views\Shared\_AdBanner5.cshtml" />
     <Content Include="Views\FindUsers\Index.cshtml" />
     <Content Include="Views\Account\_editProfileMenu.cshtml" />
