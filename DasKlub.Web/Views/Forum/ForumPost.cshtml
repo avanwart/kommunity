@@ -93,16 +93,24 @@
                     </div>
                     <div class="span6">
                         <span title="@FromDate.DateToYYYY_MM_DD(forumCat.CreateDate)">@Utilities.TimeElapsedMessage(forumCat.CreateDate)</span>
+                        
+                         @if (ViewBag.UserID == forumCat.CreatedByUserID || ViewBag.IsAdmin)
+                        {
+                             @Html.Raw("&nbsp;") 
+                            
+                             
+                               @Html.ActionLink(Messages.Edit, "EditForumPost", new {@forumPostID = forumCat.ForumPostID})
+                             @Html.Raw(" | ") 
+                             @Html.ActionLink(Messages.Delete, "DeleteForumPost", new {@forumPostID = forumCat.ForumPostID},
+                                             new {onclick = "return confirm('" + Messages.Delete + "');"})
+                        }
+
                         <br />
                         <br />
                         <p>
                             @Html.Raw( Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(forumCat.Detail), 200, 300))
                         </p>
-                        @if (ViewBag.UserID == forumCat.CreatedByUserID || ViewBag.IsAdmin)
-                        {
-                            @Html.ActionLink(Messages.Delete, "DeleteForumPost", new {@forumPostID = forumCat.ForumPostID},
-                                             new {onclick = "return confirm('" + Messages.Delete + "');"})
-                        }
+                       
                     </div>
                            
                   
