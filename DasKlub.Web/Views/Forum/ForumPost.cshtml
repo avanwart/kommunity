@@ -47,12 +47,24 @@
                                   </p>
                               <span>Posted By: </span> <a href = "@ViewBag.SubForum.UserAccount.UrlTo.ToString()" > @ViewBag.SubForum.UserAccount.UserName </a>
                                   <i>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</i>
-
-
+                      
+                                  
+                      @Html.Raw("&nbsp;")
+                             
                                   if (ViewBag.UserID == ViewBag.SubForum.UserAccount.UserAccountID || ViewBag.IsAdmin)
                                    {
-                                       @Html.ActionLink(Messages.Delete, "DeleteSubForum", new {@forumSubCategoryID = ViewBag.SubForum.ForumSubCategoryID},
-                                                        new {onclick = "return confirm('" + Messages.Delete + "');"})
+                                     
+                                
+                                       @Html.ActionLink(Messages.Edit, "EditSubCategory", 
+                                       new {@key = ViewBag.Forum.Key, @subKey = ViewBag.SubForum.Key} )
+
+                      
+                             @Html.Raw(" | ")
+
+                                       @Html.ActionLink(Messages.Delete, "DeleteSubForum", new { @forumSubCategoryID = ViewBag.SubForum.ForumSubCategoryID },
+                                                                       new { onclick = "return confirm('" + Messages.Delete + "');" })
+                                       
+                                       
                                        ;
                                    }
                                    

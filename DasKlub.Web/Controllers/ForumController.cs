@@ -214,7 +214,6 @@ namespace DasKlub.Web.Controllers
             }
         }
 
-
         [Authorize]
         public ActionResult CreateSubCategory(string key)
         {
@@ -223,6 +222,60 @@ namespace DasKlub.Web.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult EditSubCategory(string key, string subKey)
+        {
+            var model = new ForumSubCategory();
+
+            using (var context = new DasKlubDbContext())
+            {
+                var forum = context.ForumCategory.First(x => x.Key == key);
+                ViewBag.Forum = forum;
+
+                var subForum = context.ForumSubCategory.First(x => x.Key == subKey);
+                ViewBag.SubForum = subForum;
+
+                if (_ua.UserAccountID != subForum.CreatedByUserID)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+
+                model = subForum;
+            }
+
+            return View(model);
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditSubCategory(ForumSubCategory model)
+        {
+            using (var context = new DasKlubDbContext())
+            {
+                var subForum = context.ForumSubCategory.First(
+                    currentForumSubCategory => 
+                        currentForumSubCategory.ForumSubCategoryID == model.ForumSubCategoryID);
+
+                if (_ua.UserAccountID != subForum.CreatedByUserID)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+                subForum.UpdatedByUserID = _ua.UserAccountID;
+
+                subForum.Title = model.Title;
+                subForum.Description = model.Description;
+
+                context.Entry(subForum).State = EntityState.Modified;
+                context.SaveChanges();
+
+                model.Key = subForum.Key;
+                model.ForumCategory =
+                    context.ForumCategory.First(forum => forum.ForumCategoryID == subForum.ForumCategoryID);
+            }
+
+            return new RedirectResult(model.SubForumURL.ToString());
+        }
 
         [Authorize]
         [HttpPost]

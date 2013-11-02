@@ -1,0 +1,91 @@
+﻿@using DasKlub.Lib.Resources
+@model DasKlub.Models.Forum.ForumSubCategory
+
+@{
+    ViewBag.Title = "Edit Sub Forum: " + ViewBag.Forum.Title;
+}
+ 
+
+ 
+ 
+<div class="row">
+    <div class="span8" >
+      
+        <div class="row">
+            <div class="span3">
+                <h2>Edit Thread</h2>
+                 
+            </div>
+            <div class="span4">
+            
+            </div>
+        </div>
+
+        <hr />
+   
+        <div class="row">
+            <div class="span4">
+            
+                @using (Html.BeginForm("EditSubCategory", "Forum"))
+                {
+                    <fieldset>
+                        <legend>
+                            Edit Thread In: @ViewBag.Forum.Title
+                        </legend>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Title)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Title)
+                            @Html.ValidationMessageFor(model => model.Title)
+                        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Description)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextAreaFor(model => model.Description, new {@class = "whatever-class", @cols = 80, @rows = 10})
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                
+                        <p><button class="btn btn-success" id="submit_post" type="submit">@Messages.Submit</button></p>
+                    </fieldset>
+                    
+                    @Html.HiddenFor(model => model.ForumSubCategoryID)
+                }
+            </div>
+            <div class="span4">
+                
+            
+     
+
+            </div>
+        
+        </div>
+
+    </div>
+
+    <div class="span4"  >
+       
+    </div>
+</div>
+ 
+
+@section _javascript {
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#Title").focus();
+
+        });
+
+
+        $('#submit_post').click(function (event) {
+
+            $(this).attr("disabled", true);
+            $(this).parents('form').submit();
+        });
+
+    </script>
+}

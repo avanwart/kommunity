@@ -775,6 +775,13 @@ namespace DasKlub.Web.App_Start
                             }
                 );
 
+            routes.MapRoute("sub_forum_edit", "forum/{key}/{subKey}/edit",
+                new
+                {
+                    controller = "Forum",
+                    action = "EditSubCategory"
+                }
+    );
 
             routes.MapRoute("sub_forum_post", "forum/{key}/{subKey}",
                             new
@@ -809,7 +816,7 @@ namespace DasKlub.Web.App_Start
                                 action = "CreateForumPost"
                             }
                 );
-
+ 
 
             routes.MapRoute("sub_forum", "forum/{key}",
                             new
