@@ -156,15 +156,11 @@
                 <hr />
                  @{ Html.RenderPartial("_languageMenu"); }    |
                 &copy; @string.Format(Messages.CopyrightAllRights, DateTime.UtcNow.Year, GeneralConfigs.SiteDomain) | 
-
-                @Html.Raw(string.Format(@"<a href=""{0}"">{1}</a>", GeneralConfigs.SiteDomain, GeneralConfigs.SiteName))  |  
-
-                
-                                      
-                                  
-                <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.ABOUT)">@Messages.About</a>  | <a href="@Url.Content("~/contact")">@Messages.Contact</a>  |
-                <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS.ToString())">@Messages.TermsAndCondtions</a> |  
-                <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.PRIPL.ToString())">@Messages.PrivacyPolicy</a>
+                <a href="@GeneralConfigs.SiteDomain">Industrial Dance</a> |
+                <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.ABOUT)">@Messages.About</a>  | 
+                <a href="@Url.Content("~/contact")">@Messages.Contact</a>  |
+                <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS)">@Messages.TermsAndCondtions</a> |  
+                <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.PRIPL)">@Messages.PrivacyPolicy</a>
 
             </footer>
         </div>
