@@ -8,16 +8,13 @@
 }
 <div class="row">
     <div class="span6">
-        @{ Html.RenderPartial("_AdBanner728x90"); }
+        
         <h2>@Messages.Register</h2>
         <a href="@Url.Content("~/account/logon")" class="btn">@Messages.SignIn</a>
   
         @{ Html.RenderPartial("_registerControls"); }
     </div>
     <div class="span4">
-        @*@{Html.RenderPartial("_AdBanner160x600"); }*@
-        
-        
                     @Html.Raw(SiteDomain.GetSiteDomainValue(
                         SiteEnums.SiteBrandType.MISSN,
                         Utilities.GetCurrentLanguageCode())) 
