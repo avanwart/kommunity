@@ -84,7 +84,7 @@ namespace DasKlub.Web
 
                         var totalCount =
                             context.ForumPost.Count(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID);
-                        var pageCount = (totalCount + ForumController.PageSize - 1) / ForumController.PageSize;
+                        var pageCount = (totalCount + ForumController.PageSizeForumPost - 1) / ForumController.PageSizeForumPost;
                         
                         if (pageCount <= 1) continue;
 

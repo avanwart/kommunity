@@ -429,7 +429,7 @@ namespace DasKlub.Web.Controllers
                         context.ForumPost.Count(
                             x => x.ForumSubCategoryID == topFeedItem.ForumSubCategory.ForumSubCategoryID);
 
-                    var pageCount = (forumSubPostCount + ForumController.PageSize - 1)/ForumController.PageSize;
+                    var pageCount = (forumSubPostCount + ForumController.PageSizeForumPost - 1)/ForumController.PageSizeForumPost;
 
                     if (mostRecentPostToTopThread != null)
                         topFeedItem.URLTo =
@@ -472,7 +472,7 @@ namespace DasKlub.Web.Controllers
                             context.ForumPost.Count(
                                 x => x.ForumSubCategoryID == forumFeedItem.ForumSubCategory.ForumSubCategoryID);
 
-                        var pageCount = (forumSubPostCount + ForumController.PageSize - 1)/ForumController.PageSize;
+                        var pageCount = (forumSubPostCount + ForumController.PageSizeForumPost - 1)/ForumController.PageSizeForumPost;
 
                         var mostRecentPostToTopThread = context.ForumPost.OrderByDescending(x => x.CreateDate)
                                                                .FirstOrDefault(
