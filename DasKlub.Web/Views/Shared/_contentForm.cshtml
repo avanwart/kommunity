@@ -74,29 +74,8 @@
                                                    Messages.Delete + "?')"
                                      })
 
-
-                <div class="video_player">
-                    <video   id="product_video" width="@ViewBag.VideoWidth" height="@ViewBag.VideoHeight"  
-                             poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload="none">
-                        <!-- MP4 source must come first for iOS -->
-                        <source type="video/mp4" src="@Html.S3ContentPath(Model.ContentVideoURL)" />
-                        @*	<!-- WebM for Firefox 4 and Opera -->
-	<source type="video/webm" src="/content/media/echo-hereweare.webm" />
-	<!-- OGG for Firefox 3 -->
-	<source type="video/ogg" src="/content/media/echo-hereweare.ogv" />
-	<!-- Fallback flash player for no-HTML5 browsers with JavaScript turned off -->*@
-                        <object width="@ViewBag.VideoWidth" height="@ViewBag.VideoHeight" type="application/x-shockwave-flash" 
-                                data="@Html.S3ContentPath(Model.ContentVideoURL)"> 		
-                            @* <param name="movie" value="@Url.Content("~/content/mediaelement/flashmediaelement.swf")" />  *@
-                            <param name="flashvars" value="controls=true&poster=@Html.S3ContentPath(Model.ContentPhotoURL)&file=@Html.S3ContentPath(Model.ContentVideoURL)" /> 		
-                            <!-- Image fall back for non-HTML5 browser with JavaScript turned off and no Flash player installed -->
-                            <img  
-                                src="@Html.S3ContentPath(Model.ContentVideoURL)"
-                                width="@ViewBag.VideoWidth"   alt="Here we are" 
-                                title="No video playback capabilities" />
-                        </object> 	
-                    </video>
-                </div>
+                <img src="@Html.S3ContentPath(Model.ContentPhotoURL)"/>
+         
             }
             <input type="file" name="videoFile" />
         </div>
