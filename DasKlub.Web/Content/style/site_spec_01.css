@@ -1,7 +1,7 @@
 ﻿body { font-family: Tahoma, Geneva, sans-serif; }
 
 
-p { color: #ffffff}
+p { color: #ffffff;font-family: Verdana, Arial, sans-serif; }
 
 
 .gallery ul {
@@ -300,11 +300,16 @@ button.beat_status_comment_complete[type="button"], button.beat_status_complete[
     padding-left: 20px;
 }
 
+article { text-align: justify;}
+
 article, article p {
-    font-size: 14px;
-    line-height: 28px;
+    line-height: 1.8em;
+    font-size: 16px; 
+    color: #ffffff;
+    font-family: Verdana, Arial, sans-serif;
 }
 
+article img { margin: 20px;box-shadow: 10px 10px 5px #000000;}
 
 .photo_item_list span {
     color: white;
@@ -783,7 +788,7 @@ div#rotator ul li.show { z-index: 500; }
 
 h1, h2, h4, legend { text-shadow: 4px 4px #000; }
 
-h3.main_title { text-shadow: 5px 5px #000; }
+h3.main_title { text-shadow: 5px 5px #000; font-family: Verdana, Geneva, sans-serif}
 
 h4.title { text-shadow: none; }
 
