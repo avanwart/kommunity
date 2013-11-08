@@ -1,6 +1,5 @@
 ﻿
 @using DasKlub.Lib.BOL.DomainConnection
-@using DasKlub.Lib.BOL.UserContent
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
 @using DasKlub.Lib.Values
@@ -15,50 +14,22 @@
 }
 <div class="row">
     <div class="span4">
-        
-        @if (ViewBag.NewestVideo != null)
-        {
-            <div style="text-align:center">
-                <b>@Messages.Random</b>
-                <br />
-                 
-                <iframe width="100%" height="240" src="@Html.Raw("http://www.youtube.com/embed/"  + @ViewBag.NewestVideo )" frameborder="0" allowfullscreen></iframe>
-
-
-                <br />  
-
-                <a class="btn btn-primary" href="/video">Submit Your Video</a>
-
-
-            </div>
-
-        }
-        else
-        {
-            @Html.Raw(SiteDomain.GetSiteDomainValue(
-                SiteEnums.SiteBrandType.HOMEC,
-                Utilities.GetCurrentLanguageCode()))
-        }
-
-        <div class="clear">
-        </div>
-        <br />
-        <hr />
+      
+     
         @if (ViewBag.RecentArticles != null)
         {
             <h5>@Messages.News</h5>
-            <dl>
-                @foreach (Content newsItem in ViewBag.RecentArticles)
+            
+            <ul class="photo_navs">
+                @foreach (DasKlub.Lib.BOL.UserContent.Content newsItem in ViewBag.RecentArticles)
                 {
-                    <dt>
-                        @newsItem.Reply
-                        <a href="@newsItem.UrlTo.ToString()">
-                            @newsItem.Title</a>
-                    </dt>
-                    <dd title="@newsItem.CreateDate.ToString("u")">@Utilities.TimeElapsedMessage(newsItem.CreateDate) <i>@Messages.Comments : @newsItem.Comments.Count</i></dd>
-  
+                    @Html.Raw(newsItem.ToUnorderdListItem.Replace("span3", "span4").Replace("span2", "span3"))
                 }
-            </dl>
+
+            </ul>
+            <a class="btn btn-primary" href="~/news")">@Messages.News : @Messages.ReadMore »</a>
+            
+        
         }
         <hr />
         <h5>Advertisement</h5>
@@ -73,7 +44,7 @@
             <div class="span8">
 
                 <div class="span8">
-                      @{ Html.RenderPartial("_AdBanner728x90"); }
+                      
                     @Html.Raw(SiteDomain.GetSiteDomainValue(
                         SiteEnums.SiteBrandType.HOMET,
                         Utilities.GetCurrentLanguageCode()))
@@ -91,11 +62,11 @@
 
                             @if (ViewBag.TopThreadOfTheWeek != null)
                             {
-                                <tr>
+                                <tr >
                                     <td>
 
                                         <b>
-                                            <span class="bright_green">Popular: </span>
+                                            <span class="bright_green">Top This Week: </span>
                                             @if (ViewBag.TopThreadOfTheWeek.IsNewPost)
                                             {
                                                 <a  class="notification_color" href="@ViewBag.TopThreadOfTheWeek.URLTo.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
@@ -105,6 +76,23 @@
                                                 <a href="@ViewBag.TopThreadOfTheWeek.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
                                             }
                                         </b>
+                                        
+                                          @if (ViewBag.TopThreadOfTheWeek.PostCount == 0)
+                                        {
+                                            <span class="badge badge-inverse">@Messages.New</span>
+                                        }
+                                          else if (ViewBag.TopThreadOfTheWeek.PostCount == 1)
+                                        {
+                                            <span class="badge badge-success">@ViewBag.TopThreadOfTheWeek.PostCount post</span>
+                                        }
+                                          else if (ViewBag.TopThreadOfTheWeek.PostCount > 10)
+                                        {
+                                            <span class="badge badge-important">@ViewBag.TopThreadOfTheWeek.PostCount posts</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-badge" style="color:#000000">@ViewBag.TopThreadOfTheWeek.PostCount posts</span>
+                                        }
                                         <br />
                                         <i style="font-size: 10px">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumCategory.Title)</i>
                                         <br />
@@ -131,6 +119,7 @@
                             {
                                 <tr>
                                     <td>
+                                    
                                         <b>
 
                                             @if (forumFeedModel.IsNewPost)
@@ -142,7 +131,22 @@
                                                 <a href="@forumFeedModel.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
                                             }
                                         </b>
-
+                                        @if (forumFeedModel.PostCount == 0)
+                                        {
+                                            <span class="badge badge-inverse">@Messages.New</span>
+                                        }
+                                        else if (forumFeedModel.PostCount == 1)
+                                        {
+                                            <span class="badge badge-success">@forumFeedModel.PostCount post</span>
+                                        }
+                                        else if (forumFeedModel.PostCount > 10)
+                                        {
+                                            <span class="badge badge-important">@forumFeedModel.PostCount posts</span>
+                                        }
+                                        else
+                                        {
+                                              <span class="badge badge-badge" style="color:#000000">@forumFeedModel.PostCount posts</span>
+                                        }
                                         <br />
                                         <i style="font-size: 10px">@Html.Raw(forumFeedModel.ForumCategory.Title)</i>
                                         <br />
@@ -160,28 +164,17 @@
                         </table>
                       
                     }
+                        
+         
+                    @{ Html.RenderPartial("_AdBanner728x90"); }
+                    <hr />
                 </div>
 
             </div>
             <div class="clear">
             </div>
             
-           
-            @if (ViewBag.TopUsersOfTheMonth != null)
-            {
-                 
-                <div class="span8">
-                    <div class="span8">
-                        <div class="well">
-                            <h5>Top 7 Most Applauded Users In The Last 7 Days</h5>
-                            @Html.Raw(ViewBag.TopUsersOfTheMonth.ToUnorderdList)
-                            <div class="clear">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                   
-            }
+
             
             @if (ViewBag.TopForumUsersOfTheMonth != null)
             {
@@ -190,6 +183,23 @@
                         <div class="well">
                             <h5>Top 7 Most Active Forum Users In The Last 7 Days</h5>
                             @Html.Raw(ViewBag.TopForumUsersOfTheMonth.ToUnorderdList)
+                            <div class="clear">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                   
+            }
+            
+                       
+            @if (ViewBag.TopUsersOfTheMonth != null)
+            {
+                 
+                <div class="span8">
+                    <div class="span8">
+                        <div class="well">
+                            <h5>Top 7 Most Applauded Users In The Last 7 Days</h5>
+                            @Html.Raw(ViewBag.TopUsersOfTheMonth.ToUnorderdList)
                             <div class="clear">
                             </div>
                         </div>
