@@ -156,6 +156,14 @@ namespace DasKlub.Web.Controllers
 
         public ActionResult Index()
         {
+            var randomVideo = Video.RandomVideoIDVideo();
+
+            if (randomVideo > 0)
+            {
+                var randomVid = new Video(randomVideo);
+                ViewBag.NewestVideo = randomVid.ProviderKey;
+            }
+
             LoadUserBandViewBag();
 
             LoadFilteredVideos(false);

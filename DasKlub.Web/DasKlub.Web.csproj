@@ -1165,7 +1165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DasKlub.Lib\DasKlub.Lib.csproj">
-      <Project>{4A6CF1CC-4F7A-43D2-A9CD-07DB4D8C45CD}</Project>
+      <Project>{4a6cf1cc-4f7a-43d2-a9cd-07db4d8c45cd}</Project>
       <Name>DasKlub.Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\DasKlub.Models\DasKlub.Models.csproj">

@@ -11,6 +11,8 @@ namespace DasKlub.Web.Models
 
         public ForumSubCategory ForumSubCategory { get; set; }
 
+        public int PostCount { get; set; }
+
         /// <summary>
         /// When it's an authenciated user, say if it's new to them
         /// </summary>

@@ -26,22 +26,20 @@
         <h3 class="title main_title">@Model.Title</h3>
            
         <hr  />
-        @Messages.Language:
-        <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
-             
+      
         <div class="row" >
             <div class="span3">
-                
+                  @Messages.Language:
+        <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
+             
                 <div itemscope itemtype="http://data-vocabulary.org/Review">
                     
                     @Messages.Published:
                    
                     <time itemprop="dtreviewed" datetime="@Model.ReleaseDate.ToString("yyyy-MM-dd")">
-                      <span title="@Model.ReleaseDate.ToString("o")">@Model.ReleaseDate.ToString("yyyy-MM-dd")</span></time>
+                      <span title="@Model.ReleaseDate.ToString("o")">@Model.ReleaseDate.ToString("MMMM") @Model.ReleaseDate.Day, @Model.ReleaseDate.Year</span></time>
                   
-                    <br />
-                    @Messages.Tagged:
-                    @Html.Raw(Model.TagLinks)
+                 
 
                     @if (Model.CreatedByUserID > 0)
                     {
@@ -143,8 +141,10 @@
             <article>
                 <p>@Html.Raw(Model.Detail)</p>
             </article>
+            <hr />
+            <i>@Messages.Tagged:</i> @Html.Raw(Model.TagLinks)
         </div>
-        <br />
+   
         <hr   />
         @{ Html.RenderPartial("_AdBanner728x90"); }
         <hr />
