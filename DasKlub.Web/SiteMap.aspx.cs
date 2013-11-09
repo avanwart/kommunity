@@ -48,7 +48,7 @@ namespace DasKlub.Web
             writer.WriteStartElement("url");
             writer.WriteElementString("loc", siteDomain);
             writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", DateTime.UtcNow));
-            writer.WriteElementString("changefreq", "weekly");
+            writer.WriteElementString("changefreq", "daily");
             writer.WriteElementString("priority", "1.0");
             writer.WriteEndElement();
             writer.WriteString("\r\n"); //newline 
