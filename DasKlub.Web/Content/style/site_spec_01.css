@@ -702,7 +702,6 @@ li {
 
 ul.photo_navs a:hover img {
     border: 3px solid #08C;
-    filter: alpha(opacity=60); /* For IE8 and earlier */
     opacity: 0.6;
 }
 
@@ -710,7 +709,11 @@ ul.photo_item_list img { border: 3px solid transparent; }
 
 ul.photo_item_list a:hover img {
     border: 3px solid #08C;
-    filter: alpha(opacity=60); /* For IE8 and earlier */
+    opacity: 0.6;
+}
+
+ul.photo_item_list a:visited:hover img {
+    border: 3px solid #9933FF;
     opacity: 0.6;
 }
 
@@ -718,9 +721,14 @@ a.m_over img { border: 3px solid transparent; }
 
 a.m_over:hover img {
     border: 3px solid #08C;
-    filter: alpha(opacity=60);
     opacity: 0.6;
 }
+
+a.m_over:visited:hover img {
+    border: 3px solid #9933FF;
+    opacity: 0.6;
+}
+
 
 a.current_view_profile_pic img { border: solid 3px #468847 }
 
@@ -844,7 +852,11 @@ ul.radio_stations2 li {
     
     
     
-    
+a:visited {
+    color: #9933FF;
+}
+
+a.btn:visited{color:#ffffff}
     
     
     
