@@ -9543,7 +9543,7 @@ SELECT TOP 1 [contentID]
       ,[currentStatus]
       ,[language]
   FROM  [Content]
-  where  [releaseDate] > @createDateCurrent
+  where  [releaseDate] > @createDateCurrent and [releaseDate] < GETUTCDATE()
   order by [releaseDate]  asc
 
 ---
@@ -10105,7 +10105,7 @@ SELECT TOP 1 [contentID]
       ,[currentStatus]
       ,[language]
   FROM  [Content]
-  where   [releaseDate] < @createDateCurrent
+  where   [releaseDate] < @createDateCurrent and [releaseDate] < GETUTCDATE()
   order by [releaseDate] desc
 
 
