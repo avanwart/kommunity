@@ -141,6 +141,7 @@
             <article>
                 <p>@Html.Raw(Model.Detail)</p>
             </article>
+            <div class="clear"></div>
             <hr />
             <i>@Messages.Tagged:</i> @Html.Raw(Model.TagLinks)
         </div>
@@ -215,7 +216,9 @@
                 @Html.Raw(ViewBag.PreviousNews)
             </ul>
         }
- 
+   
+
+                    @{ Html.RenderPartial("_AdBanner160x600"); }
        
     </div>
 </div>
