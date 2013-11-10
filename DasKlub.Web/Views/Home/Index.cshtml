@@ -23,11 +23,11 @@
             <ul class="photo_navs">
                 @foreach (DasKlub.Lib.BOL.UserContent.Content newsItem in ViewBag.RecentArticles)
                 {
-                    @Html.Raw(newsItem.ToUnorderdListItem.Replace("span3", "span4").Replace("span2", "span3"))
+                    @Html.Raw(newsItem.ToUnorderdListItem)
                 }
 
             </ul>
-            <a class="btn btn-primary" href="~/news")">@Messages.News : @Messages.ReadMore »</a>
+            <a class="btn btn-primary" href="~/news">@Messages.News : @Messages.ReadMore »</a>
             
         
         }

@@ -548,7 +548,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
                 sb.Append(@"<div class=""row"">");
 
-                sb.Append(@"<div class=""span2"">");
+                sb.Append(@"<div class=""span3"">");
 
                 sb.AppendFormat(@"<a class=""m_over"" href=""{0}""><img src=""{1}""  title=""{2}"" alt=""{2}""></a>",
                                 UrlTo,
@@ -556,7 +556,7 @@ namespace DasKlub.Lib.BOL.UserContent
                 sb.Append(@"</div>");
 
 
-                sb.Append(@"<div class=""span3"">");
+                sb.Append(@"<div class=""span4"">");
                 sb.AppendFormat(@"<h4 class=""title""><a href=""{0}"">{1}</a></h4>", UrlTo, Title);
 
                 sb.Append(@"<i>");
