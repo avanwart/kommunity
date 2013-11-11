@@ -229,9 +229,11 @@ namespace DasKlub.Web.Controllers
                 var currentCount = 0;
                 foreach (var ccn1 in conts)
                 {
-                    currentCount++;
-                    if (maxCont >= currentCount)
+                    if (maxCont > currentCount)
                     {
+                        if (ccn1.ReleaseDate >= DateTime.UtcNow) continue;
+                        
+                            currentCount++;
                         displayContents.Add(ccn1);
                     }
                     else break;
@@ -678,9 +680,16 @@ namespace DasKlub.Web.Controllers
 
             conts.Sort((x, y) => (y.ReleaseDate.CompareTo(x.ReleaseDate)));
 
-            ViewBag.NewsCount = conts.Count;
+            var contentToLoad = new Contents();
 
-            return View(conts);
+            foreach (var content in contentToLoad.Where(content => content.ReleaseDate < DateTime.UtcNow))
+            {
+                contentToLoad.Add(content);
+            }
+
+            ViewBag.NewsCount = contentToLoad.Count;
+
+            return View(contentToLoad);
         }
 
         public ActionResult UserPhoto(string userName, int photoItemID)
