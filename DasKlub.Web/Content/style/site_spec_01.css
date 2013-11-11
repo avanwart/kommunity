@@ -265,7 +265,7 @@ button.applaud_status_comment_complete[type="button"], button.applaud_status_com
 
 button.beat_status_comment[type="button"], button.beat_status[type="button"] {
     background-color: transparent;
-    background-image: url("../images/acknowledgement/beat.png");
+    background-image: url("../images/ackfnowledgement/beat.png");
     background-position: center top;
     border: 0 none;
     display: block;
@@ -311,9 +311,10 @@ article, article p {
     font-family: Verdana, Arial, sans-serif;
 }
 
-article img { margin: 20px;box-shadow: 10px 10px 5px #000000;}
+article img { margin: 15px;box-shadow: 7px 7px 5px #000000;}
 
-ul#article_list img, ul.photo_navs img {box-shadow: 8px 8px 5px #000000;margin: 5px;}
+ul#article_list img{box-shadow: 7px 7px 5px #000000;}
+ul.photo_navs img {box-shadow: 6px 6px 4px #000000;margin: 5px;}
 
 .photo_item_list span {
     color: white;
@@ -730,6 +731,8 @@ a.m_over:visited:hover img {
     border: 3px solid #9933FF;
     opacity: 0.6;
 }
+
+.user_contacts a img { border: 3px solid transparent;}
 
 
 a.current_view_profile_pic img { border: solid 3px #468847 }
