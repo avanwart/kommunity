@@ -384,13 +384,6 @@
     <Content Include="Content\images\acknowledgement\applaud_check.png" />
     <Content Include="Content\images\acknowledgement\beat.png" />
     <Content Include="Content\images\acknowledgement\beat_check.png" />
-    <Content Include="Content\images\ads\cyber_mon.png" />
-    <Content Include="Content\images\ads\fgfc820.png" />
-    <Content Include="Content\images\ads\fgfc820_2.png" />
-    <Content Include="Content\images\ads\industrial_shirts.jpg" />
-    <Content Include="Content\images\ads\industrial_shirts.png" />
-    <Content Include="Content\images\ads\industrial_shirts2.png" />
-    <Content Include="Content\images\ads\tshirt_160x600.jpg" />
     <Content Include="Content\images\arrows\arrow_forward.png" />
     <Content Include="Content\images\arrows\down_arrow.png" />
     <Content Include="Content\images\arrows\ui.totop.png" />
@@ -404,6 +397,7 @@
     <Content Include="Content\images\countries\flag_sprite.png" />
     <Content Include="Content\images\error\death_caution.png" />
     <Content Include="Content\images\icons\b_day_hat.png" />
+    <Content Include="Content\images\icons\close.jpg" />
     <Content Include="Content\images\icons\iconrss.gif" />
     <Content Include="Content\images\icons\icon_compass.png" />
     <Content Include="Content\images\icons\icon_desktop.png" />
