@@ -481,7 +481,7 @@ namespace DasKlub.Web.Controllers
 
                         var pageCount = (forumSubPostCount + ForumController.PageSizeForumPost - 1)/ForumController.PageSizeForumPost;
 
-                        var mostRecentPostToTopThread = context.ForumPost.OrderByDescending(x => x.CreateDate)
+                        var mostRecentPostToTopThread = context.ForumPost.OrderByDescending(x => x.CreateDate)                                                                         
                                                                .FirstOrDefault(
                                                                    x =>
                                                                    x.ForumSubCategoryID ==
@@ -498,7 +498,8 @@ namespace DasKlub.Web.Controllers
                 forumFeed.Add(forumFeedItem);
             }
 
-            forumFeed = forumFeed.OrderByDescending(x => x.LastPosted).Take(AmountOfNewThreadsOnHomepage).ToList();
+            forumFeed = forumFeed.OrderByDescending(x => x.LastPosted)
+                                 .Take(AmountOfNewThreadsOnHomepage).ToList();
             ViewBag.ForumFeed = forumFeed;
             return newestThreads;
         }
