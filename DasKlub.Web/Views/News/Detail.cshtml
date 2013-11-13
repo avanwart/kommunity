@@ -21,7 +21,17 @@
         {
             <div class="alert alert-success">@Messages.YouCommentWillBeReviewed</div>
         }
-                            
+                                                 <!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-size="medium" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+    (function () {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>           
 
         <h3 class="title main_title">@Model.Title</h3>
            
@@ -29,15 +39,17 @@
       
         <div class="row" >
             <div class="span3">
-                  @Messages.Language:
-        <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
+
+                <span>
+                @Messages.Language:</span>
+                <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
              
                 <div itemscope itemtype="http://data-vocabulary.org/Review">
                     
                     @Messages.Published:
                    
                     <time itemprop="dtreviewed" datetime="@Model.ReleaseDate.ToString("yyyy-MM-dd")">
-                      <span title="@Model.ReleaseDate.ToString("o")">@Model.ReleaseDate.ToString("MMMM") @Model.ReleaseDate.Day, @Model.ReleaseDate.Year</span></time>
+                        <span title="@Model.ReleaseDate.ToString("o")">@Model.ReleaseDate.ToString("MMMM") @Model.ReleaseDate.Day, @Model.ReleaseDate.Year</span></time>
                   
                  
 
@@ -65,11 +77,11 @@
                     }
                     
                     
-                    
+    
                     
                 </div>
                 
-                </div>
+            </div>
             <div class="span5">
                 @{ Html.RenderPartial("_AdBanner468x60"); }
 
@@ -135,17 +147,7 @@
            
             <hr />
 
-<!-- Place this tag where you want the +1 button to render. -->
-<div class="g-plusone" data-size="medium" data-annotation="inline" data-width="300"></div>
 
-<!-- Place this tag after the last +1 button tag. -->
-<script type="text/javascript">
-    (function () {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
-</script>
         
             <article>
                 <p>@Html.Raw(Model.Detail)</p>

@@ -21,7 +21,10 @@
                         <a href="~/forum" itemprop="url"><span itemprop="title">Forum</span></a></span> &gt; 
                         <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                             <a href="@ViewBag.Forum.ForumURL"  itemprop="url"><span itemprop="title">@ViewBag.Forum.Title</span></a>
-                        </span> &gt;      @{
+                        </span> &gt;     
+             
+                
+                @{
                                               if (ViewBag.PageNumber == 1)
                                               {
                                                   <span>
@@ -33,9 +36,23 @@
                                                   <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key)">@ViewBag.PageTitle</a>
                                               }
 
-                                          }
-                                              <hr />
+                }   
                 
+
+                <hr />
+
+                               <!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-size="medium" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+    (function () {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>  
+                  
                  
                   @{
                               if (ViewBag.PageNumber == 1)
@@ -68,12 +85,15 @@
                                        
                                    }
                                    
-                                   <hr />
+                                
                               }
                                   
-                          }
+                  }
+              
+ 
+                 <hr />
             </div>
-            
+
         </div>
             
       
