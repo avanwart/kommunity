@@ -391,6 +391,7 @@
     <Content Include="Content\images\arrows\up_arrow.png" />
     <Content Include="Content\images\background\repeating_gears2.jpg" />
     <Content Include="Content\images\background\splashbackground.gif" />
+    <Content Include="Content\images\brand\dk_logo.png" />
     <Content Include="Content\images\brand\favicon.ico" />
     <Content Include="Content\images\brand\logo.png" />
     <Content Include="Content\images\brand\smalllogo.png" />
