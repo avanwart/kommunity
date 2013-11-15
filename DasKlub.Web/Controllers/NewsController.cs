@@ -15,7 +15,6 @@
 //   limitations under the License.
 
 using System;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -26,7 +25,6 @@ using DasKlub.Lib.BOL;
 using DasKlub.Lib.BOL.UserContent;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
-using IntrepidStudios;
 using IntrepidStudios.SearchCloud;
 
 namespace DasKlub.Web.Controllers
@@ -166,7 +164,7 @@ namespace DasKlub.Web.Controllers
                         DataURLField = "keyword_url"
                     };
 
-                DataSet theDs = Contents.GetContentTagsAll();
+                var theDs = Contents.GetContentTagsAll();
 
                 cloud1.DataSource = theDs;
                 cloud1.MinFontSize = 14;

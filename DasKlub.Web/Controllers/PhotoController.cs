@@ -21,7 +21,6 @@ using System.Web.Security;
 using DasKlub.Lib.BLL;
 using DasKlub.Lib.BOL;
 using DasKlub.Lib.Configs;
-using DasKlub.Lib.Operational;
 using LitS3;
 
 namespace DasKlub.Web.Controllers
@@ -105,43 +104,41 @@ namespace DasKlub.Web.Controllers
 
             _pitm = new PhotoItem(photoItemID);
 
-            if (_mu != null && _pitm.CreatedByUserID == Convert.ToInt32(_mu.ProviderUserKey))
+            if (_mu == null || _pitm.CreatedByUserID != Convert.ToInt32(_mu.ProviderUserKey))
+                return RedirectToAction("Index");
+
+            var s3 = new S3Service
             {
-                var s3 = new S3Service
-                    {
-                        AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
-                        SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
-                    };
+                AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+            };
 
 
-                _pitm.Delete();
+            _pitm.Delete();
 
 
-                if (!string.IsNullOrEmpty(_pitm.FilePathStandard))
+            if (string.IsNullOrEmpty(_pitm.FilePathStandard)) return RedirectToAction("Index");
+            // delete the existing photos
+            try
+            {
+                if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathStandard))
                 {
-                    // delete the existing photos
-                    try
-                    {
-                        if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathStandard))
-                        {
-                            s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathStandard);
-                        }
-
-                        if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathRaw))
-                        {
-                            s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathRaw);
-                        }
-
-                        if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathThumb))
-                        {
-                            s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathThumb);
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        // whatever
-                    }
+                    s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathStandard);
                 }
+
+                if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathRaw))
+                {
+                    s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathRaw);
+                }
+
+                if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathThumb))
+                {
+                    s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathThumb);
+                }
+            }
+            catch (Exception)
+            {
+                // whatever
             }
 
             return RedirectToAction("Index");

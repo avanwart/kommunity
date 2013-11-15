@@ -950,7 +950,7 @@ namespace DasKlub.Lib.BOL
 
 
             //delete their files folder
-            string mainPath = "~/content/users/" + UserAccountID.ToString();
+            string mainPath = "~/content/users/" + UserAccountID;
 
             if (Directory.Exists(HttpContext.Current.Server.MapPath(mainPath)))
             {

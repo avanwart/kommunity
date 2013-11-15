@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Security;
@@ -50,10 +51,8 @@ namespace DasKlub.Lib.BOL
 
         public string Message
         {
-            get
-            {
-                if (_message == null) return _message;
-                else return _message.Trim();
+            get {
+                return _message == null ? _message : _message.Trim();
             }
             set { _message = value; }
         }
@@ -99,20 +98,16 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("message", Message);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
                 return 0;
             }
-            else
-            {
-                StatusCommentID = Convert.ToInt32(result);
+            StatusCommentID = Convert.ToInt32(result);
 
-                return StatusCommentID;
-            }
+            return StatusCommentID;
         }
 
         public override bool Delete()
@@ -179,15 +174,13 @@ namespace DasKlub.Lib.BOL
             get
             {
                 var sb = new StringBuilder(100);
-                StatusCommentAcknowledgement ack = null;
 
-                MembershipUser mu = Membership.GetUser();
+                var mu = Membership.GetUser();
 
                 if (mu == null) return string.Empty;
 
-                if (mu != null &&
-                    StatusCommentAcknowledgement.IsUserCommentAcknowledgement(StatusCommentID,
-                                                                              Convert.ToInt32(mu.ProviderUserKey)))
+                if (StatusCommentAcknowledgement.IsUserCommentAcknowledgement(StatusCommentID,
+                    Convert.ToInt32(mu.ProviderUserKey)))
                 {
                     sb.Append(@"<div class=""left_float"">");
 
@@ -199,7 +192,7 @@ namespace DasKlub.Lib.BOL
                                                                                                    .A.ToString())));
                     sb.Append(@"</span>");
 
-                    ack = new StatusCommentAcknowledgement();
+                    var ack = new StatusCommentAcknowledgement();
                     ack.GetCommentAcknowledgement(StatusCommentID, Convert.ToInt32(mu.ProviderUserKey));
 
                     if (ack.StatusCommentAcknowledgementID > 0 &&
@@ -225,34 +218,7 @@ namespace DasKlub.Lib.BOL
                     sb.Append(@"</div>");
 
                     sb.Append(@"<div class=""left_float"">");
-
-                    //sb.Append(@"<span class=""status_comment_count_beatdown"">");
-                    //sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
-                    //                                                                       Convert.ToChar(
-                    //                                                                           SiteEnums
-                    //                                                                               .AcknowledgementType
-                    //                                                                               .B.ToString())));
-                    //sb.Append(@"</span>");
-
-                    //if (ack.StatusCommentAcknowledgementID > 0 &&
-                    //    ack.AcknowledgementType == Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString()))
-                    //{
-                    //    sb.AppendFormat(@"<button title=""{0}""", Messages.YouResponded);
-                    //    //sb.Append(@" class=""beat_status_comment_complete"" disabled=""disabled"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                    //    sb.Append(
-                    //        @" class=""beat_status_comment_complete"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                    //    sb.Append(StatusCommentID.ToString());
-                    //    sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
-                    //}
-                    //else
-                    //{
-                    //    sb.AppendFormat(@"<button title=""{0}""", Messages.YouResponded);
-                    //    //sb.Append(@" class=""beat_status_comment"" disabled=""disabled"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                    //    sb.Append(
-                    //        @" class=""beat_status_comment"" name=""status_comment_update_id_beat"" type=""button"" value=""");
-                    //    sb.Append(StatusCommentID.ToString());
-                    //    sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
-                    //}
+                     
 
                     sb.Append(@"</div>");
                 }
@@ -275,21 +241,7 @@ namespace DasKlub.Lib.BOL
                     sb.Append(@"</div>");
 
                     sb.Append(@"<div class=""left_float"">");
-
-
-                    //sb.Append(@"<span class=""status_comment_count_beatdown"">");
-                    //sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
-                    //                                                                       Convert.ToChar(
-                    //                                                                           SiteEnums
-                    //                                                                               .AcknowledgementType
-                    //                                                                               .B.ToString())));
-                    //sb.Append(@"</span>");
-                    //sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_beat""", Messages.BeatDown);
-                    //sb.Append(@" class=""beat_status_comment"" type=""button"" value=""");
-                    //sb.Append(StatusCommentID.ToString());
-                    //sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
-
-
+ 
                     sb.Append(@"</div>");
                 }
 
@@ -313,9 +265,7 @@ namespace DasKlub.Lib.BOL
                 sb.Append(StatusCommentID.ToString());
                 sb.Append(@""">");
                 sb.Append(@"<div class=""inner_status_com"">");
-
-                //UserAccount ua = new UserAccount(this.UserAccountID);
-
+ 
                 var uad = new UserAccountDetail();
 
                 uad.GetUserAccountDeailForUser(UserAccountID);
@@ -323,21 +273,9 @@ namespace DasKlub.Lib.BOL
                 sb.Append(@"<div>");
 
                 sb.AppendFormat(@"<div class=""user_account_thumb"">{0}</div>", uad.SmallUserIcon);
+ 
 
-                //if (!PhotoDisplay)
-                //{
-
-                //}
-                //else
-                //{
-                //    sb.AppendFormat(@"<div class=""span1"">{0}: <a href=""{1}"">{2}</a></div>", Messages.Uploader,
-                //     System.Web.VirtualPathUtility.ToAbsolute("~/" + ua.UserName), ua.UserName);
-                //}
-
-                //sb.Append(uad.SmallUserIcon);
-
-
-                /// comment acknowledgements
+                // comment acknowledgements
                 sb.AppendFormat(
                     @"<div class=""acknowlege_options left_float""><div id=""status_comment_ack_{0}"">{1}</div></div>",
                     StatusCommentID, StatusCommentAcknowledgementsOptions);
@@ -350,9 +288,7 @@ namespace DasKlub.Lib.BOL
                                 CreateDate.ToString("o"));
 
                 sb.Append("<br />");
-                //sb.Append("<br />");
-
-
+             
                 sb.Append(Utilities.MakeLink(FromString.ReplaceNewLineSingleWithHTML(Message), true));
 
                 var currentUser = new UserAccount(HttpContext.Current.User.Identity.Name);
@@ -459,11 +395,11 @@ namespace DasKlub.Lib.BOL
 
             comm.AddParameter("statusUpdateID", statusUpdateID);
 
-            string str = DbAct.ExecuteScalar(comm);
+            var str = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(str)) return 0;
-            else if (Convert.ToInt32(str) > 0) return Convert.ToInt32(str);
-            else return 0;
+            
+            return Convert.ToInt32(str) > 0 ? Convert.ToInt32(str) : 0;
         }
 
         public void GetAllStatusCommentsForUpdate(int statusUpdateID)
@@ -476,18 +412,14 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("statusUpdateID", statusUpdateID);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+            
+            foreach (var statusCom in from DataRow dr in dt.Rows select new StatusComment(dr))
             {
-                StatusComment statusCom = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    statusCom = new StatusComment(dr);
-                    Add(statusCom);
-                }
+                Add(statusCom);
             }
         }
 

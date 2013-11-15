@@ -17,14 +17,21 @@
 
         <br />
 
-        @if (ViewBag.IRLContactsCount != null && Convert.ToInt32(ViewBag.ContactsCount) > 0)
+        @if (ViewBag.ContactsCount != null && Convert.ToInt32(ViewBag.ContactsCount) > 0)
         {
-            @Html.Raw(ViewBag.ContactsCount)
+            <span>@Messages.Count:</span>
+            <span>
+            @Html.Raw(ViewBag.ContactsCount)</span>
         }
         else
         {
             <i>
                 @Messages.NoResults</i>
+        }
+
+        @if (ViewBag.Contacts != null)
+        {
+            @Html.Raw(ViewBag.Contacts)
         }
 
         @if (ViewBag.Contacts != null)
