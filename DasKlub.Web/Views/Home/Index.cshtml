@@ -25,10 +25,44 @@
 }
 
 
+        @section _css {
+            @if (Request.Browser.IsMobileDevice)
+            {
+                <style type="text/css">
+                    .photo_item_list li img {
+                        height: 55px;
+                        width: 55px;
+                    }
+
+                    .photo_item_list img {
+                        margin: 0;
+                        padding: 0;
+                    }
+                </style>
+            }
+            <style type="text/css">
+                ul.photo_item_list {
+                    margin: 0;
+                    padding: 0;
+                }
+                .rounded {
+    border: 1px solid #999;
+    -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+            border-radius: 10px;
+}
+                       .align_right { text-align: right !important;}
+       .sub_forum_text { font-size: 10px;}
+            </style>
+        }
+
 <div class="row">
     <div class="span4">
       
-     
+      <h5>Advertisement</h5>
+        @{ Html.RenderPartial("_AdBanner300x250"); } 
+         <hr />
+       
         @if (ViewBag.RecentArticles != null)
         {
             <h5>@Messages.News</h5>
@@ -44,10 +78,7 @@
             
         
         }
-        <hr />
-        <h5>Advertisement</h5>
-        @{ Html.RenderPartial("_AdBanner300x250"); } 
-
+       
     </div>
           
     <div class="span8">
@@ -183,8 +214,7 @@
                     }
                         
          
-                    @{ Html.RenderPartial("_AdBanner728x90"); }
-                    <hr />
+                 
                 </div>
 
             </div>
@@ -197,60 +227,73 @@
             {
                 <div class="span8">
                     <div class="span8">
-                        <div class="well">
+                        
+                        <div class="well rounded">
                             <h5>Top 7 Most Active Forum Users In The Last 7 Days</h5>
                             @Html.Raw(ViewBag.TopForumUsersOfTheMonth.ToUnorderdList)
                             <div class="clear">
                             </div>
                         </div>
+                                    <div class="clear">
+            </div>
+              <hr />
+                           @{ Html.RenderPartial("_AdBanner728x90"); }
+              
                     </div>
                 </div>
                    
             }
             
+           
+            
+            @if (ViewBag.RecentPhotos != null && ViewBag.RecentPhotos.Count > 0)
+            {
+           
+              
+              
+                <div class="span8">
+                   
+                    <div class="span8">
+                                                  <div class="clear">
+            </div>
+              <hr />
+                        <h5>@Messages.NewestPhotos</h5>
+                        @Html.Raw(ViewBag.RecentPhotos.ToUnorderdList)
+                      
+                             <div class="clear">
+            </div>
+              <br />
+                    </div>
+                </div>
+               
+             
+                
+            }
                        
             @if (ViewBag.TopUsersOfTheMonth != null)
             {
                  
                 <div class="span8">
                     <div class="span8">
-                        <div class="well">
+                        <div class="well rounded">
                             <h5>Top 7 Most Applauded Users In The Last 7 Days</h5>
                             @Html.Raw(ViewBag.TopUsersOfTheMonth.ToUnorderdList)
                             <div class="clear">
                             </div>
                         </div>
+                        
+                        <div class="clear">
+                        </div>
+                        <hr />
+                    @{ Html.RenderPartial("_AdBanner728x90"); }
+              
                     </div>
                 </div>
-                   
+          
             }
         </div>
 
-        @section _css {
-            @if (Request.Browser.IsMobileDevice)
-            {
-                <style type="text/css">
-                    .photo_item_list li img {
-                        height: 55px;
-                        width: 55px;
-                    }
 
-                    .photo_item_list img {
-                        margin: 0;
-                        padding: 0;
-                    }
-                </style>
-            }
-            <style type="text/css">
-                ul.photo_item_list {
-                    margin: 0;
-                    padding: 0;
-                }
-
-                       .align_right { text-align: right !important;}
-       .sub_forum_text { font-size: 10px;}
-            </style>
-        }
     </div>
 </div>
 <div class="clear">

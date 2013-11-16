@@ -46,7 +46,7 @@ namespace DasKlub.Web.Controllers
         private readonly IForumCategoryRepository _forumcategoryRepository;
         private readonly MembershipUser _mu;
 
-        const int AmountOfNewThreadsOnHomepage = 25;
+        const int AmountOfNewThreadsOnHomepage = 15;
         private const int CountOfNewsItemsOnHomepage = 3;
 
         public HomeController()
@@ -315,6 +315,11 @@ namespace DasKlub.Web.Controllers
             ViewBag.RecentArticles = LoadRecentArticles();
 
             ViewBag.TopUsersOfTheMonth = LoadTopUsers();
+
+            var recentPhotos = new PhotoItems { UseThumb = true, ShowTitle = false };
+            recentPhotos.GetPhotoItemsPageWise(1, 8);
+            ViewBag.RecentPhotos = recentPhotos;
+            
 
             return View();
         }

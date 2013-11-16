@@ -2,29 +2,6 @@
 @{
     ViewBag.Title = Messages.Photos;
 }
-<div class="row" style="margin-left: 0; padding-left: 0">
-
-    <div class="span12" style="margin-left: 0; padding-left: 0; text-align: left;">
-        @{ Html.RenderPartial("_AdBanner728x90"); }
-        <h2>@Messages.Photos</h2>
-        <hr />
-    
-        @Html.Raw(Model.ToUnorderdList)
-
-        @if (Convert.ToInt32(ViewBag.TotalPhotos) > 25)
-        {
-            <div class="clear"></div>
-            if (Request.Browser.IsMobileDevice)
-            {
-                <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@Messages.LoadMore</button>
-            }
-        }
-        <div class="clear"></div>
-        @{ Html.RenderPartial("_bottomLoadingMessage"); }
- 
-    </div>
-            
-</div>
 
    
 @section _css {
@@ -56,6 +33,32 @@
 }
  
  
+
+<div class="row" style="margin-left: 0; padding-left: 0">
+
+    <div class="span12" style="margin-left: 0; padding-left: 0; text-align: left;">
+        @{ Html.RenderPartial("_AdBanner728x90"); }
+        <h2>@Messages.Photos</h2>
+        <hr />
+    
+        @Html.Raw(Model.ToUnorderdList)
+
+        @if (Convert.ToInt32(ViewBag.TotalPhotos) > 25)
+        {
+            <div class="clear"></div>
+            if (Request.Browser.IsMobileDevice)
+            {
+                <button class="btn btn-primary dropdown-toggle" id="load_more" type="button">@Messages.LoadMore</button>
+            }
+        }
+        <div class="clear"></div>
+        @{ Html.RenderPartial("_bottomLoadingMessage"); }
+ 
+    </div>
+            
+</div>
+
+
  
 
 
