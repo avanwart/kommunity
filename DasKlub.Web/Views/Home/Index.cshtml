@@ -107,7 +107,10 @@
                                             <span class="badge badge-info" >@ViewBag.TopThreadOfTheWeek.PostCount posts</span>
                                         }
                                         <br />
-                                        <i style="font-size: 10px">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumCategory.Title)</i>
+                                        <i class="sub_forum_text"><a
+                                                                      href="@ViewBag.TopThreadOfTheWeek.ForumCategory.ForumURL.ToString()">
+                                                                      @Html.Raw(ViewBag.TopThreadOfTheWeek.ForumCategory.Title)
+                                                                  </a></i>
                                         <br />
 
                                     </td>
@@ -161,7 +164,8 @@
                                               <span class="badge badge-info" >@forumFeedModel.PostCount posts</span>
                                         }
                                         <br />
-                                        <i style="font-size: 10px">@Html.Raw(forumFeedModel.ForumCategory.Title)</i>
+                                        <i class="sub_forum_text"><a
+                                             href="@forumFeedModel.ForumCategory.ForumURL.ToString()">@Html.Raw(forumFeedModel.ForumCategory.Title)</a></i>
                                         <br />
 
                                     </td>
@@ -244,7 +248,7 @@
                 }
 
                        .align_right { text-align: right !important;}
-       
+       .sub_forum_text { font-size: 10px;}
             </style>
         }
     </div>
