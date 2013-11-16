@@ -15,7 +15,6 @@
 //   limitations under the License.
 
 using System;
-using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Web.UI;
@@ -24,9 +23,7 @@ using DasKlub.Lib.BOL;
 using DasKlub.Lib.BOL.ArtistContent;
 using DasKlub.Lib.BOL.UserContent;
 using DasKlub.Models;
-using DasKlub.Models.Forum;
 using DasKlub.Web.Controllers;
-using DasKlub.Web.Models;
 
 namespace DasKlub.Web
 {
@@ -34,7 +31,7 @@ namespace DasKlub.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            const string siteDomain = "http://dasklub.com/";
+            var siteDomain = string.Format("{0}/", Lib.Configs.GeneralConfigs.SiteDomain);
             Response.Clear();
             Response.ContentType = "text/xml";
 
