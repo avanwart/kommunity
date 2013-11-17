@@ -102,6 +102,13 @@ namespace DasKlub.Web.Controllers
                 vidKey = nvcKey["v"].Replace("#", string.Empty).Replace("!", string.Empty);
                 vir.VideoKey = vidKey;
             }
+            else if (vir.RequestURL.Contains("http://youtube.com/watch?"))
+            {
+                var nvcKey = HttpUtility.ParseQueryString(vir.RequestURL.Replace("http://youtube.com/watch?", string.Empty));
+
+                vidKey = nvcKey["v"].Replace("#", string.Empty).Replace("!", string.Empty);
+                vir.VideoKey = vidKey;
+            }
             else
             {
                 // invalid 

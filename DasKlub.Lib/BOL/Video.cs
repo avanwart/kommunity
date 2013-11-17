@@ -482,7 +482,19 @@ namespace DasKlub.Lib.BOL
                 string vidKey;
                 if (match.Value.Contains("http://www.youtube.com/watch?"))
                 {
-                    NameValueCollection nvcKey = HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
+                    var nvcKey = HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
+
+                    vidKey = nvcKey["v"];
+                    theLink = match.Value;
+
+                    txt = txt.Replace(theLink,
+                                      string.Format(@"<div class=""you_tube_iframe"">
+                        <iframe width=""100%""  height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
+                                                    vidKey, height));
+                }
+                else if (match.Value.Contains("http://youtube.com/watch?"))
+                {
+                    var nvcKey = HttpUtility.ParseQueryString(match.Value.Replace("http://youtube.com/watch?", string.Empty));
 
                     vidKey = nvcKey["v"];
                     theLink = match.Value;
