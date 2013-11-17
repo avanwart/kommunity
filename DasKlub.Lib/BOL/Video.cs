@@ -557,12 +557,19 @@ namespace DasKlub.Lib.BOL
             {
                 string vidKey;
                 string theLink;
-                if (match.Value.Contains("http://www.youtube.com/watch?"))
+                if (match.Value.Contains("http://www.youtube.com/watch?") || match.Value.Contains("http://youtube.com/watch?"))
                 {
+                    theLink = match.Value;
+
+                    if(match.Value.Contains("http://youtube.com/watch?"))
+                    {
+                        theLink = match.Value.Replace("http://youtube.com/watch?", 
+                                                      "http://www.youtube.com/watch?");
+                    }
+
                     var nvcKey = HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
 
                     vidKey = nvcKey["v"];
-                    theLink = match.Value;
 
                     txt = txt.Replace(theLink,
                                       string.Format(@"<div class=""you_tube_iframe"">
