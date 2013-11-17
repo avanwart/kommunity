@@ -2190,7 +2190,9 @@ namespace DasKlub.Web.Controllers
                 }
             }
 
-            model.UserName = model.UserName.Replace(" ", string.Empty).Replace(":", string.Empty);
+            model.UserName = model.UserName.Replace(":", string.Empty);
+            model.UserName = model.UserName.Replace(" ", string.Empty);
+
             MembershipCreateStatus createStatus;
 
             Membership.CreateUser(model.UserName, model.NewPassword, model.Email, "Q", "A", true, out createStatus);
