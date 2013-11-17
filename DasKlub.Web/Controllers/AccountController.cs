@@ -2192,6 +2192,7 @@ namespace DasKlub.Web.Controllers
 
             model.UserName = model.UserName.Replace(":", string.Empty);
             model.UserName = model.UserName.Replace(" ", string.Empty);
+            model.UserName = model.UserName.Replace(".", string.Empty);
 
             MembershipCreateStatus createStatus;
 
@@ -2422,6 +2423,9 @@ namespace DasKlub.Web.Controllers
                     _ua.Update();
                 }
 
+                username = username.Replace(":", string.Empty);
+                username = username.Replace(" ", string.Empty);
+                username = username.Replace(".", string.Empty);
                 _ua.UserName = username;
                 _ua.Update();
                 FormsAuthentication.SetAuthCookie(username, false);
