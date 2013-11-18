@@ -32,18 +32,19 @@
                
                 <div itemscope itemtype="http://data-vocabulary.org/Review">
                     
-                     <b>
-                @Messages.Language:</b>
-                <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
-             
-                    @Html.Raw(" | ")
-
+                  
                     <b>@Messages.Published:</b>
                    
                     <time itemprop="dtreviewed" datetime="@Model.ReleaseDate.ToString("yyyy-MM-dd")">
                         <span title="@Model.ReleaseDate.ToString("o")">@Model.ReleaseDate.ToString("MMMM") @Model.ReleaseDate.Day, @Model.ReleaseDate.Year</span></time>
-                  
+                      @Html.Raw(" | ")
                  
+                       <b>
+                @Messages.Language:</b>
+                <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
+             
+                
+
 
                     @if (Model.CreatedByUserID > 0)
                     {
