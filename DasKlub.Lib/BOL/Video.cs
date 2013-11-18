@@ -567,11 +567,11 @@ namespace DasKlub.Lib.BOL
                                                       "http://www.youtube.com/watch?");
                     }
 
-                    var nvcKey = HttpUtility.ParseQueryString(match.Value.Replace("http://www.youtube.com/watch?", string.Empty));
+                    var nvcKey = HttpUtility.ParseQueryString(theLink.Replace("http://www.youtube.com/watch?", string.Empty));
 
                     vidKey = nvcKey["v"];
 
-                    txt = txt.Replace(theLink,
+                    txt = txt.Replace(match.Value,
                                       string.Format(@"<div class=""you_tube_iframe"">
                         <iframe width=""{2}""  height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
                                                     vidKey, height, ((width == 0) ? (object)"100%" : width)));
