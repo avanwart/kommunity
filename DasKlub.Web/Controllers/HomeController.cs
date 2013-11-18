@@ -48,6 +48,7 @@ namespace DasKlub.Web.Controllers
 
         const int AmountOfNewThreadsOnHomepage = 15;
         private const int CountOfNewsItemsOnHomepage = 3;
+        private const int AmountOfImagesToShowOnTheHomepage = 12;
 
         public HomeController()
             : this(new ForumCategoryRepository())
@@ -324,7 +325,7 @@ namespace DasKlub.Web.Controllers
             ViewBag.TopUsersOfTheMonth = LoadTopUsers();
 
             var recentPhotos = new PhotoItems { UseThumb = true, ShowTitle = false };
-            recentPhotos.GetPhotoItemsPageWise(1, 8);
+            recentPhotos.GetPhotoItemsPageWise(1, AmountOfImagesToShowOnTheHomepage);
             ViewBag.RecentPhotos = recentPhotos;
             
 
