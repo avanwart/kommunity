@@ -56,12 +56,8 @@
 
                @Html.Raw(" | ")
 
-                     <b>@Messages.From:</b> <a href="@ua.UrlTo.ToString()">
-                                                  <span itemprop="reviewer">@ua.UserName</span>                      
-
-                                             
-                                              </a>     <a href="@ua.UrlTo.ToString()">
-                                                           @Html.Raw(ua.TinyUserIcon)</a> 
+                        <b>@Messages.From:</b> <a href="@ua.UrlTo.ToString()"><span itemprop="reviewer">@ua.UserName</span></a>
+                         <a href="@ua.UrlTo.ToString()">@Html.Raw(ua.TinyUserIcon)</a> 
  
                         string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
 
