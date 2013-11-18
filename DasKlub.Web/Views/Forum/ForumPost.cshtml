@@ -41,18 +41,7 @@
 
                 <hr />
 
-                               <!-- Place this tag where you want the +1 button to render. -->
-<div class="g-plusone" data-size="medium" data-annotation="inline" data-width="300"></div>
-
-<!-- Place this tag after the last +1 button tag. -->
-<script type="text/javascript">
-    (function () {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
-</script>  
-                  
+      
                  
                   @{
                               if (ViewBag.PageNumber == 1)
@@ -149,6 +138,18 @@
             }
         }
         <br />
+                                   <!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-size="medium" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+    (function () {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>  
+                
         <a  class="btn btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/create")">@Messages.Reply : @ViewBag.PageTitle</a>
          
            <hr />
