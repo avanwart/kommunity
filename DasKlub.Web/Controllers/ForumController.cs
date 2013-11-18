@@ -444,11 +444,11 @@ namespace DasKlub.Web.Controllers
                 var totalCount = context.ForumPost.Count(x => x.ForumSubCategoryID == subForum.ForumSubCategoryID);
 
                 ViewBag.PageCount = (totalCount + PageSizeForumPost - 1)/PageSizeForumPost;
-
                 ViewBag.PageNumber = pageNumber;
-
                 ViewBag.PageTitle = subForum.Title;
-                ViewBag.Title = string.Format("{0} | page {1}", subForum.Title, pageNumber);
+                ViewBag.Title = pageNumber == 1 ?
+                                string.Format("{0}", subForum.Title) :
+                                string.Format("{0} | page {1}", subForum.Title, pageNumber);                
 
                 foreach (var post in forumPost)
                 {
