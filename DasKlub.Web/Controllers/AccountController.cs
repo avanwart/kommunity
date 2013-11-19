@@ -908,12 +908,11 @@ namespace DasKlub.Web.Controllers
                 _ucons.Where(uc1 => uc1.IsConfirmed && uc1.StatusType == contactType)
                 .Select(uc1 => uc1.FromUserAccountID == _ua.UserAccountID
                     ? new UserAccount(uc1.ToUserAccountID)
-                    : new UserAccount(uc1.FromUserAccountID)).Where(ua1 => ua1.IsApproved && !ua1.IsLockedOut)
-                    .DistinctBy(ua1 => ua1.UserAccountID))
+                    : new UserAccount(uc1.FromUserAccountID)).Where(ua1 => ua1.IsApproved && !ua1.IsLockedOut))
             {
                 _contacts.Add(ua1);
             }
-
+ 
             ViewBag.UserName = _ua.UserName;
             ViewBag.ContactsCount = Convert.ToString(_contacts.Count);
             ViewBag.Contacts = _contacts.ToUnorderdList;
@@ -938,7 +937,6 @@ namespace DasKlub.Web.Controllers
             if (string.IsNullOrWhiteSpace(userName)) userName = User.Identity.Name;
 
             GetContactsForUser(userName, 'R');
-
 
             return View();
         }
