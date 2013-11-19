@@ -41,6 +41,7 @@ using DasKlub.Lib.Services;
 using DasKlub.Lib.Values;
 using DasKlub.Web.Models;
 using LitS3;
+using Microsoft.Ajax.Utilities;
 
 namespace DasKlub.Web.Controllers
 {
@@ -907,7 +908,8 @@ namespace DasKlub.Web.Controllers
                 _ucons.Where(uc1 => uc1.IsConfirmed && uc1.StatusType == contactType)
                 .Select(uc1 => uc1.FromUserAccountID == _ua.UserAccountID
                     ? new UserAccount(uc1.ToUserAccountID)
-                    : new UserAccount(uc1.FromUserAccountID)).Where(ua1 => ua1.IsApproved && !ua1.IsLockedOut))
+                    : new UserAccount(uc1.FromUserAccountID)).Where(ua1 => ua1.IsApproved && !ua1.IsLockedOut)
+                    .DistinctBy(ua1 => ua1.UserAccountID))
             {
                 _contacts.Add(ua1);
             }
