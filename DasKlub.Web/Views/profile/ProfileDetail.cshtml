@@ -339,7 +339,7 @@
                     <div class="clear">
                     </div>
 
-                    <a href="@Url.Content("~/" + Model.UserName + "/userphotos")">@Messages.MorePhotos</a>
+                    <a class="btn btn-primary" href="@Url.Content("~/" + Model.UserName + "/userphotos")">@Messages.MorePhotos</a>
                     <br />
                 }
             }
@@ -370,7 +370,7 @@
 
                 if (Model.NewsCount > 1)
                 {
-                    <a href="@Url.Content("~/" + Model.UserName + "/news")">@Messages.ReadMore: @Messages.News</a>
+                    <a class="btn btn-primary"  href="@Url.Content("~/" + Model.UserName + "/news")">@Messages.ReadMore: @Messages.News</a>
                     <br />
                 }
             }
