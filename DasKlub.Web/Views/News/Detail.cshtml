@@ -89,10 +89,7 @@
                         <!-- MP4 source must come first for iOS -->
                         <source type="video/mp4" src="@Html.S3ContentPath(Model.ContentVideoURL)" />
                         <!-- WebM for Firefox 4 and Opera -->
-                        @if (!string.IsNullOrWhiteSpace(Model.ContentVideoURL2))
-                        {
-                            <source type="video/webm" src="@Html.S3ContentPath(Model.ContentVideoURL2)" />
-                        }
+       
                         @*		<!-- OGG for Firefox 3 -->
 	<source type="video/ogg" src="/content/media/echo-hereweare.ogv" />
 
@@ -116,6 +113,12 @@
                    
                     </video>
                 </div>
+            }
+            else if (!string.IsNullOrWhiteSpace(Model.ContentVideoURL2))
+            {
+                
+                <iframe width="@ViewBag.VideoWidth" height="@ViewBag.VideoHeight"   src="@Model.ContentVideoURL2" frameborder="0" allowfullscreen></iframe>
+                
             }
             else
             {
@@ -168,7 +171,7 @@
                         @Html.LabelFor(m => m.Reply.Detail)
                     </div>
                     <div class="editor-field">
-                        @Html.TextAreaFor(m => m.Reply.Detail, new {@class = "input-xlarge input-xlarge expand100-200", @rows = "3"})
+                        @Html.TextAreaFor(m => m.Reply.Detail, new { @class = "input-xlarge input-xlarge expand100-200", @rows = "3" })
                         @Html.CSSClassValidationMessageFor(m => m.Reply.Detail)
                     </div>
                     @if (Request.IsAuthenticated)

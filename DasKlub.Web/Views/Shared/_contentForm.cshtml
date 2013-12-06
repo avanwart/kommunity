@@ -83,7 +83,7 @@
 
         <div class="editor-label">
             <br />
-            @Html.LabelFor(m => m.ContentVideoURL2) (.webm) <i>(@Messages.Optional)</i>
+            @Html.TextBoxFor(m => m.ContentVideoURL2) (youtube) <i>(@Messages.Optional)</i>
         </div>
         <div class="editor-field">
         
@@ -98,7 +98,9 @@
                                                    Messages.Delete + "?')"
                                      })
             }
-            <input type="file" name="videoFile2" />
+     @*       <input type="file" name="videoFile2" />*@
+
+          
         </div>
 
 
