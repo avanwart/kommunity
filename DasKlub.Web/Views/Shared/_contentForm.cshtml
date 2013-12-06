@@ -116,16 +116,16 @@
    
             @{
                 IOrderedEnumerable<SelectListItem> listItems = Enum.GetValues(typeof (SiteEnums.SiteLanguages)).OfType<Enum>().Select(e =>
-                                                                                                                                      new SelectListItem
-                                                                                                                                          {
-                                                                                                                                              Text = Utilities.ResourceValue(Utilities.GetEnumDescription(e)),
-                                                                                                                                              Value = e.ToString(),
-                                                                                                                                              Selected = e.Equals(Model)
-                                                                                                                                          }).OrderBy(x => x.Value.ToString());
+                                                            new SelectListItem
+                                                                {
+                                                                    Text = Utilities.ResourceValue(Utilities.GetEnumDescription(e)),
+                                                                    Value = e.ToString(),
+                                                                    Selected = e.Equals(Model)
+                                                                }).OrderBy(x => x.Value.ToString());
                 string prefix = "Language";
                 int index = 0;
 
-                <select id="langugue_option" class="span3"  name="Language">
+                <select id="news_langugue_option" class="span3"  name="Language">
                     @foreach (SelectListItem li in listItems)
                     {
                         string fieldName = string.Format(CultureInfo.InvariantCulture,
