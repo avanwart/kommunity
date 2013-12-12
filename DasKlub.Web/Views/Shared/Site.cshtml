@@ -92,7 +92,7 @@
                                       }
                                       else
                                       {
-                                          <text>content="@Messages.CreativeCommunity"</text>
+                                          <text>content="Das Klub in a international community for industrial dance music and culture."</text>
                                       } />
         <meta property="og:description"     @if (!string.IsNullOrEmpty(ViewBag.MetaDescription))
                                             {
@@ -100,7 +100,7 @@
                                             }
                                             else
                                             {
-                                                <text>content="@Messages.CreativeCommunity"</text>
+                                                <text>content="Das Klub in a international community for industrial dance music and culture."</text>
                                             } />
         <link rel="image_src"  @if (!string.IsNullOrEmpty(ViewBag.ThumbIcon))
                                {<text>href="</text>@Html.Raw(ViewBag.ThumbIcon)<text>"</text> }
@@ -123,7 +123,7 @@
 
 
         @Html.Raw(SiteDomain.GetSiteDomainValue(
-            SiteEnums.SiteBrandType.GOOGH,  
+            SiteEnums.SiteBrandType.GOOGH,
             Utilities.GetCurrentLanguageCode()))
         @RenderSection("_javascriptHead", false)
     </head>
