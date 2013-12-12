@@ -37,12 +37,17 @@
         <div class="editor-field">
             @Html.TextAreaFor(m => m.MetaDescription, new {@style = "width:500px;height:75px"})
             @Html.CSSClassValidationMessageFor(m => m.MetaDescription)
-            
-            
-        
              
         </div>
         
+                <div class="editor-label">
+            @Html.LabelFor(m => m.CreatedByUserID)  
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.CreatedByUserID )
+         
+        </div>
+
 
         <div class="editor-label">
             @Html.LabelFor(m => m.ContentPhotoThumbURL)  (.jpg) <i>(@Messages.Required)</i>

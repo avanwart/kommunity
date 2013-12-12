@@ -163,10 +163,14 @@ namespace DasKlub.Web.Controllers
 
             if (model.ContentID == 0)
             {
-                
-                if (_mu != null) model.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
+                if (_mu != null)
+                {
+                    if(model.CreatedByUserID == 0)
+                        model.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
+                }
+            
 
-                if (model.ReleaseDate == DateTime.MinValue)
+            if (model.ReleaseDate == DateTime.MinValue)
                 {
                     model.ReleaseDate = DateTime.UtcNow;
                 }
@@ -262,43 +266,7 @@ namespace DasKlub.Web.Controllers
                 }
             }
 
-
-//            if (videoFile2 != null)
-//            {
-//                // full
-//                try
-//                {
-//                    // full
-//                    var fileName3 = Utilities.CreateUniqueContentFilename(videoFile2);
-
-//                    s3.AddObject(
-//                        videoFile2.InputStream,
-//                        videoFile2.ContentLength,
-//                        AmazonCloudConfigs.AmazonBucketName,
-//                        fileName3,
-//                        videoFile2.ContentType,
-//                        acl);
-
-
-//                    if (!string.IsNullOrWhiteSpace(model.ContentVideoURL2))
-//                    {
-//                        if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL2))
-//                        {
-//                            s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL2);
-//                        }
-//                    }
-
-//                    model.ContentVideoURL2 = fileName3;
-
-//                    model.Set();
-//                }
-//// ReSharper disable EmptyGeneralCatchClause
-//                catch (Exception)
-//// ReSharper restore EmptyGeneralCatchClause
-//                {
-//                }
-            //}
-
+             
             return RedirectToAction("Articles");
         }
 
