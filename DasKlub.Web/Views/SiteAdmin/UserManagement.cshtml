@@ -1,5 +1,6 @@
 ﻿@using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
+ 
 @{
     ViewBag.Title = Messages.UserManagement;
 }
@@ -14,6 +15,17 @@
             <form action="@Url.Content("~/siteAdmin/updateroles")" method="post">
 
                 <fieldset>
+                    
+                    
+                    <div class="editor-label">
+                        ID
+                    </div>
+                    <div class="editor-field">
+                 <b>       @ViewBag.SelectedUser.UserAccountID</b>
+                    </div>
+                    
+
+
                     <div class="editor-label">
                         @Messages.UserName
                     </div>
@@ -29,6 +41,8 @@
                     <div class="editor-field">
                       
                         <b>@Utilities.CalculateAge(ViewBag.UserAccountDetail.BirthDate)
+                            
+                            @ViewBag.UserAccountDetail.BirthDate.ToString("o")
                         </b>
                     </div>
 
