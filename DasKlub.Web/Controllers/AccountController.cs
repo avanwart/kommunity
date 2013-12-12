@@ -267,7 +267,7 @@ namespace DasKlub.Web.Controllers
             }
 
              
-            return RedirectToAction("Articles");
+            return RedirectToAction("Articles", "SiteAdmin"); // TODO: ENABLE SELF ARTICLE PAGE
         }
 
 
