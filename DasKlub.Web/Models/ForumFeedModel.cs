@@ -23,5 +23,7 @@ namespace DasKlub.Web.Models
         /// to the last post on the last page
         /// </summary>
         public Uri URLTo { get; set; }
+
+        public string UserName { get; set; }
     }
 }

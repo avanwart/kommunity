@@ -152,6 +152,8 @@
                                             <span title="@ViewBag.TopThreadOfTheWeek.LastPosted.ToString("u")">
                                                 @Html.Raw(Utilities.TimeElapsedMessage(ViewBag.TopThreadOfTheWeek.LastPosted))
                                             </span>
+                                            <br />
+                                            <a class="sub_forum_text"  href="~/@ViewBag.TopThreadOfTheWeek.UserName.ToLower()">@ViewBag.TopThreadOfTheWeek.UserName</a>
                                         </td>
                                     }
 
@@ -205,6 +207,8 @@
                                         <span title="@forumFeedModel.LastPosted.ToString("u")">
                                             @Html.Raw(Utilities.TimeElapsedMessage(forumFeedModel.LastPosted))
                                         </span>
+                                          <br />
+                                            <a class="sub_forum_text" href="~/@forumFeedModel.UserName.ToLower()">@forumFeedModel.UserName</a>
                                     </td>
 
                                 </tr>
