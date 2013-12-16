@@ -15,7 +15,6 @@
 //   limitations under the License.
 
 using System;
-using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Web.UI;
@@ -25,7 +24,6 @@ using DasKlub.Lib.BOL.ArtistContent;
 using DasKlub.Lib.BOL.UserContent;
 using DasKlub.Models;
 using DasKlub.Web.Controllers;
-using DasKlub.Web.Models;
 
 namespace DasKlub.Web
 {
@@ -33,7 +31,7 @@ namespace DasKlub.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            const string siteDomain = "http://dasklub.com/";
+            var siteDomain = string.Format("{0}/", Lib.Configs.GeneralConfigs.SiteDomain);
             Response.Clear();
             Response.ContentType = "text/xml";
 
@@ -48,7 +46,7 @@ namespace DasKlub.Web
             writer.WriteStartElement("url");
             writer.WriteElementString("loc", siteDomain);
             writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", DateTime.UtcNow));
-            writer.WriteElementString("changefreq", "weekly");
+            writer.WriteElementString("changefreq", "daily");
             writer.WriteElementString("priority", "1.0");
             writer.WriteEndElement();
             writer.WriteString("\r\n"); //newline 
@@ -72,27 +70,36 @@ namespace DasKlub.Web
                     var category1 = category;
                     var subForums = context.ForumSubCategory.Where(x => x.ForumCategoryID == category1.ForumCategoryID);
 
-                    foreach (var forumPost in subForums)
+                    foreach (var thread in subForums)
                     {
                         writer.WriteStartElement("url");
-                        writer.WriteElementString("loc", forumPost.SubForumURL.ToString().ToLower());
-                        writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", forumPost.CreateDate));
-                        writer.WriteElementString("changefreq", "weekly");
+                        writer.WriteElementString("loc", thread.SubForumURL.ToString().ToLower());
+
+                        var thread1 = thread;
+                        var lastPost = context.ForumPost
+                            .Where(post => post.ForumSubCategoryID == thread1.ForumSubCategoryID)
+                            .OrderByDescending(post => post.CreateDate).FirstOrDefault();
+
+                        writer.WriteElementString("lastmod",
+                            lastPost != null
+                                ? String.Format("{0:yyyy-MM-dd}", lastPost.CreateDate)
+                                : String.Format("{0:yyyy-MM-dd}", thread.CreateDate));
+                        writer.WriteElementString("changefreq", "daily");
                         writer.WriteElementString("priority", "0.8");
                         writer.WriteEndElement();
                         writer.WriteString("\r\n"); //newline 
 
                         var totalCount =
-                            context.ForumPost.Count(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID);
-                        var pageCount = (totalCount + ForumController.PageSize - 1) / ForumController.PageSize;
+                            context.ForumPost.Count(x => x.ForumSubCategoryID == thread.ForumSubCategoryID);
+                        var pageCount = (totalCount + ForumController.PageSizeForumPost - 1) / ForumController.PageSizeForumPost;
                         
                         if (pageCount <= 1) continue;
 
                         for (var i = 2; i <= pageCount; i++)
                         {
                             writer.WriteStartElement("url");
-                            writer.WriteElementString("loc", string.Format("{0}/{1}", forumPost.SubForumURL, i).ToLower());
-                            writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", forumPost.CreateDate));
+                            writer.WriteElementString("loc", string.Format("{0}/{1}", thread.SubForumURL, i).ToLower());
+                            writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", thread.CreateDate));
                             writer.WriteElementString("changefreq", "weekly");
                             writer.WriteElementString("priority", "0.8");
                             writer.WriteEndElement();

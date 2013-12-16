@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Text;
 using System.Web;
 using DasKlub.Lib.BaseTypes;
@@ -114,7 +115,7 @@ namespace DasKlub.Lib.BOL
             if (createDateCurrent == DateTime.MinValue) return;
 
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetPreviousPhotoForUser";
 
@@ -122,7 +123,7 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("createDateCurrent", createDateCurrent);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
@@ -136,14 +137,14 @@ namespace DasKlub.Lib.BOL
             if (createDateCurrent == DateTime.MinValue) return;
 
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetPreviousPhoto";
 
             comm.AddParameter("createDateCurrent", createDateCurrent);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
@@ -157,7 +158,7 @@ namespace DasKlub.Lib.BOL
             if (createDateCurrent == DateTime.MinValue) return;
 
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetNextPhotoForUser";
 
@@ -165,7 +166,7 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("createDateCurrent", createDateCurrent);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
@@ -180,14 +181,14 @@ namespace DasKlub.Lib.BOL
             if (createDateCurrent == DateTime.MinValue) return;
 
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetNextPhoto";
 
             comm.AddParameter("createDateCurrent", createDateCurrent);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
@@ -199,7 +200,8 @@ namespace DasKlub.Lib.BOL
         public override int Create()
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
+            
             // set the stored procedure name
             comm.CommandText = "up_AddPhotoItem";
 
@@ -211,9 +213,8 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => FilePathStandard), FilePathStandard);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result)) return 0;
 
@@ -227,7 +228,7 @@ namespace DasKlub.Lib.BOL
             if (PhotoItemID == 0) return false;
 
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
 
             // set the stored procedure name
             comm.CommandText = "up_DeletePhotoItem";
@@ -246,14 +247,15 @@ namespace DasKlub.Lib.BOL
             PhotoItemID = uniqueID;
 
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
+            
             // set the stored procedure name
             comm.CommandText = "up_GetPhotoItem";
-
+            
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => PhotoItemID), PhotoItemID);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
@@ -277,7 +279,8 @@ namespace DasKlub.Lib.BOL
         public override bool Update()
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
+            
             // set the stored procedure name
             comm.CommandText = "up_UpdatePhotoItem";
 
@@ -288,9 +291,7 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => FilePathThumb), FilePathThumb);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => FilePathStandard), FilePathStandard);
 
-            int result = -1;
-
-            result = DbAct.ExecuteNonQuery(comm);
+            var result = DbAct.ExecuteNonQuery(comm);
 
             //RemoveCache();
 
@@ -317,26 +318,13 @@ namespace DasKlub.Lib.BOL
                 }
                 sb.Append(@"<a href=""");
 
-                if (!IsUserPhoto)
-                {
-                    sb.Append(VirtualPathUtility.ToAbsolute(string.Format("~/photos/{0}", PhotoItemID)));
-                }
-                else
-                {
-                    sb.Append(
-                        VirtualPathUtility.ToAbsolute(string.Format("~/{0}/userphoto/{1}", ua.UserName, PhotoItemID)));
-                }
+                sb.Append(!IsUserPhoto
+                    ? VirtualPathUtility.ToAbsolute(string.Format("~/photos/{0}", PhotoItemID))
+                    : VirtualPathUtility.ToAbsolute(string.Format("~/{0}/userphoto/{1}", ua.UserName, PhotoItemID)));
                 sb.Append(@""">");
 
                 sb.Append(@"<img src=""");
-                if (UseThumb)
-                {
-                    sb.Append(Utilities.S3ContentPath(FilePathThumb));
-                }
-                else
-                {
-                    sb.Append(Utilities.S3ContentPath(FilePathStandard));
-                }
+                sb.Append(UseThumb ? Utilities.S3ContentPath(FilePathThumb) : Utilities.S3ContentPath(FilePathStandard));
                 sb.Append(@""" alt=""");
                 sb.Append(Title);
                 sb.Append(@"""");
@@ -408,7 +396,7 @@ namespace DasKlub.Lib.BOL
         public static int GetPhotoItemCountForUser(int createdByUserID)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
 
             // set the stored procedure name
             comm.CommandText = "up_GetPhotoItemCountForUser";
@@ -416,24 +404,20 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("createdByUserID", createdByUserID);
 
             // execute the stored procedure
-            string str = DbAct.ExecuteScalar(comm);
+            var str = DbAct.ExecuteScalar(comm);
 
-            if (string.IsNullOrEmpty(str))
-            {
-                return 0;
-            }
-            else return Convert.ToInt32(str);
+            return string.IsNullOrEmpty(str) ? 0 : Convert.ToInt32(str);
         }
 
 
         public int GetPhotoItemsPageWise(int pageIndex, int pageSize)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetPhotoItemsPageWise";
 
-            DbParameter param = comm.CreateParameter();
+            var param = comm.CreateParameter();
             param.ParameterName = "@RecordCount";
             //http://stackoverflow.com/questions/3759285/ado-net-the-size-property-has-an-invalid-size-of-0
             param.Size = 1000;
@@ -443,21 +427,17 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("PageIndex", pageIndex);
             comm.AddParameter("PageSize", pageSize);
 
-            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
             if (ds == null) return 0;
 
-            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
-            if (ds.Tables[0].Rows.Count > 0)
+            if (ds.Tables[0].Rows.Count <= 0) return recordCount;
+            
+            foreach (var pitm in from DataRow dr in ds.Tables[0].Rows select new PhotoItem(dr))
             {
-                PhotoItem pitm = null;
-
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    pitm = new PhotoItem(dr);
-                    Add(pitm);
-                }
+                Add(pitm);
             }
 
             return recordCount;
@@ -466,25 +446,21 @@ namespace DasKlub.Lib.BOL
         public void GetUserPhotos(int createdByUserID)
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
+            
             // set the stored procedure name
             comm.CommandText = "up_GetPhotoItemForUser";
-
             comm.AddParameter("createdByUserID", createdByUserID);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                PhotoItem pitm = null;
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-                foreach (DataRow dr in dt.Rows)
-                {
-                    pitm = new PhotoItem(dr);
-                    Add(pitm);
-                }
+            foreach (var pitm in from DataRow dr in dt.Rows select new PhotoItem(dr))
+            {
+                Add(pitm);
             }
         }
     }

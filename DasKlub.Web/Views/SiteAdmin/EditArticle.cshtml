@@ -10,7 +10,7 @@
 @Html.Label(Messages.Link)
 <a target="_blank" href="@Model.UrlTo" rel="#">@Model.UrlTo</a>
 <br /><br />
-@using (Html.BeginForm("EditArticle", "SiteAdmin", FormMethod.Post, new {enctype = "multipart/form-data"}))
+@using (Html.BeginForm("EditArticle", "Account", FormMethod.Post, new {enctype = "multipart/form-data"}))
 {
     @Html.ValidationSummary(true)
 

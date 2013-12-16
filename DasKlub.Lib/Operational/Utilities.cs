@@ -22,6 +22,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Resources;
@@ -279,10 +280,8 @@ namespace DasKlub.Lib.Operational
 
             var mactches = regx.Matches(txt);
 
-            foreach (Match match in mactches)
+            foreach (var match in mactches.Cast<Match>().Where(match => !match.Value.Contains(@"//www.youtube.com/embed/")))
             {
-                if (match.Value.Contains(@"//www.youtube.com/embed/")) continue; // because it might be embeded
-
                 const int maxChars = 30;
                 var displayLink = match.Value;
                 if (displayLink.Length > maxChars)
@@ -290,7 +289,7 @@ namespace DasKlub.Lib.Operational
                     displayLink = string.Format("{0}...", displayLink.Substring(0, maxChars));
                 }
                 txt = txt.Replace(match.Value,
-                                  string.Format(@"<a target=""_blank"" href='{0}'>{1}</a>", match.Value, displayLink));
+                    string.Format(@"<a target=""_blank"" href='{0}'>{1}</a>", match.Value, displayLink));
             }
 
             return txt;

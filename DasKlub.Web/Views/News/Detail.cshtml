@@ -21,27 +21,30 @@
         {
             <div class="alert alert-success">@Messages.YouCommentWillBeReviewed</div>
         }
-                            
+                                           
 
         <h3 class="title main_title">@Model.Title</h3>
            
-        <hr  />
-        @Messages.Language:
-        <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
-             
+         
         <div class="row" >
-            <div class="span3">
-                
+            <div class="span8">
+
+               
                 <div itemscope itemtype="http://data-vocabulary.org/Review">
                     
-                    @Messages.Published:
+                  
+                    <b>@Messages.Published:</b>
                    
                     <time itemprop="dtreviewed" datetime="@Model.ReleaseDate.ToString("yyyy-MM-dd")">
-                      <span title="@Model.ReleaseDate.ToString("o")">@Model.ReleaseDate.ToString("yyyy-MM-dd")</span></time>
-                  
-                    <br />
-                    @Messages.Tagged:
-                    @Html.Raw(Model.TagLinks)
+                        <span title="@Model.ReleaseDate.ToString("o")">@Model.ReleaseDate.ToString("MMMM") @Model.ReleaseDate.Day, @Model.ReleaseDate.Year</span></time>
+                      @Html.Raw(" | ")
+                 
+                       <b>
+                @Messages.Language:</b>
+                <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
+             
+                
+
 
                     @if (Model.CreatedByUserID > 0)
                     {
@@ -52,30 +55,23 @@
                             new UserAccountDetail();
                         uad.GetUserAccountDeailForUser(ua.UserAccountID);
 
-                        <br />
+               @Html.Raw(" | ")
 
-                        <span>@Messages.From: <a href="@ua.UrlTo.ToString()">
-                                                  <span itemprop="reviewer">@ua.UserName</span>                      
-
-                                             
-                                              </a>     <a href="@ua.UrlTo.ToString()">
-                                                           @Html.Raw(ua.TinyUserIcon)</a></span>
-
+                        <b>@Messages.From:</b> <a href="@ua.UrlTo.ToString()"><span itemprop="reviewer">@ua.UserName</span></a>
+                         <a href="@ua.UrlTo.ToString()">@Html.Raw(ua.TinyUserIcon)</a> 
+ 
                         string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
 
                         @Html.Raw(coName)
                     }
                     
                     
-                    
+    
                     
                 </div>
                 
-                </div>
-            <div class="span5">
-                @{ Html.RenderPartial("_AdBanner468x60"); }
-
             </div>
+             
               
         </div>
         <hr />
@@ -93,10 +89,7 @@
                         <!-- MP4 source must come first for iOS -->
                         <source type="video/mp4" src="@Html.S3ContentPath(Model.ContentVideoURL)" />
                         <!-- WebM for Firefox 4 and Opera -->
-                        @if (!string.IsNullOrWhiteSpace(Model.ContentVideoURL2))
-                        {
-                            <source type="video/webm" src="@Html.S3ContentPath(Model.ContentVideoURL2)" />
-                        }
+       
                         @*		<!-- OGG for Firefox 3 -->
 	<source type="video/ogg" src="/content/media/echo-hereweare.ogv" />
 
@@ -121,6 +114,12 @@
                     </video>
                 </div>
             }
+            else if (!string.IsNullOrWhiteSpace(Model.ContentVideoURL2))
+            {
+                
+                <iframe width="@ViewBag.VideoWidth" height="@ViewBag.VideoHeight"   src="@Model.ContentVideoURL2" frameborder="0" allowfullscreen></iframe>
+                
+            }
             else
             {
                 <meta property="og:image" content="@Html.S3ContentPath(Model.ContentPhotoURL)" />
@@ -129,7 +128,7 @@
         </div>
         <div class=" clearfix">
             <hr />
-          
+
             <div class="superquote" style="text-align: center">
                 @Model.MetaDescription
           
@@ -137,17 +136,30 @@
            
             <hr />
 
-          
 
         
             <article>
                 <p>@Html.Raw(Model.Detail)</p>
             </article>
+            <div class="clear"></div>
+            <hr />
+            <i>@Messages.Tagged:</i> @Html.Raw(Model.TagLinks)
         </div>
-        <br />
+   
         <hr   />
         @{ Html.RenderPartial("_AdBanner728x90"); }
         <hr />
+        <div class="g-plusone" data-size="medium" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+    (function () {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>           
+              <hr />
         <div id="respond">
             <h4>@Messages.LeaveAComment</h4>
             @Html.ValidationSummary(false)
@@ -159,7 +171,7 @@
                         @Html.LabelFor(m => m.Reply.Detail)
                     </div>
                     <div class="editor-field">
-                        @Html.TextAreaFor(m => m.Reply.Detail, new {@class = "input-xlarge input-xlarge expand100-200", @rows = "3"})
+                        @Html.TextAreaFor(m => m.Reply.Detail, new { @class = "input-xlarge input-xlarge expand100-200", @rows = "3" })
                         @Html.CSSClassValidationMessageFor(m => m.Reply.Detail)
                     </div>
                     @if (Request.IsAuthenticated)
@@ -188,14 +200,7 @@
         }
     </div>
     <div class="span4">
-        <div id="article_tags" >
-            <h3  >@Messages.FilterNewsByTag
-            </h3>
-            <p class="line_space">
-                @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))
-            </p>
-        </div>
-        <hr />
+
                   
             @{ Html.RenderPartial("_AdBanner300x250"); }
      
@@ -215,7 +220,18 @@
                 @Html.Raw(ViewBag.PreviousNews)
             </ul>
         }
- 
+   
+
+        @{ Html.RenderPartial("_AdBanner160x600"); }
+        <hr />
+                <div id="article_tags" >
+            <h3  >@Messages.FilterNewsByTag
+            </h3>
+            <p class="line_space">
+                @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))
+            </p>
+        </div>
+        <hr />
        
     </div>
 </div>

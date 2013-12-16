@@ -20,7 +20,7 @@ namespace DasKlub.Web.Controllers
 {
     public class ForumController : Controller
     {
-        public const int PageSize = 10;
+        public const int PageSizeForumPost = 50;
         public const int SubCatPageSize = 50;
         private readonly IForumCategoryRepository _forumcategoryRepository;
         private readonly MembershipUser _mu;
@@ -79,7 +79,7 @@ namespace DasKlub.Web.Controllers
                         var forumSubPostCount =
                             context.ForumPost.Count(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID);
 
-                        var pageCount = (forumSubPostCount + PageSize - 1) / PageSize;
+                        var pageCount = (forumSubPostCount + PageSizeForumPost - 1) / PageSizeForumPost;
 
                         lastPost.ForumPostURL =
                             new Uri(string.Format("{0}/{1}#{2}", forumSubCategory.SubForumURL, ((pageCount > 1)
@@ -117,10 +117,11 @@ namespace DasKlub.Web.Controllers
 
         private void GetValue(string key, string subKey, DasKlubDbContext context)
         {
-            var forum = context.ForumCategory.First(x => x.Key == key);
+            var forum = context.ForumCategory.First(existingForum => existingForum.Key == key);
             ViewBag.Forum = forum;
 
-            var subForum = context.ForumSubCategory.First(x => x.Key == subKey);
+            var subForum = context.ForumSubCategory
+                .First(existingSubForum => existingSubForum.Key == subKey && existingSubForum.ForumCategoryID == forum.ForumCategoryID);
             ViewBag.SubForum = subForum;
         }
 
@@ -227,10 +228,11 @@ namespace DasKlub.Web.Controllers
 
             using (var context = new DasKlubDbContext())
             {
-                var forum = context.ForumCategory.First(x => x.Key == key);
+                var forum = context.ForumCategory.First(existingForum => existingForum.Key == key);
                 ViewBag.Forum = forum;
 
-                var subForum = context.ForumSubCategory.First(x => x.Key == subKey);
+                var subForum = context.ForumSubCategory
+                    .First(existingSubForum => existingSubForum.Key == subKey && existingSubForum.ForumCategoryID == forum.ForumCategoryID);
                 ViewBag.SubForum = subForum;
 
                 if (_ua.UserAccountID != subForum.CreatedByUserID)
@@ -414,8 +416,8 @@ namespace DasKlub.Web.Controllers
                 var forumPost = context.ForumPost
                                        .Where(x => x.ForumSubCategoryID == subForum.ForumSubCategoryID)
                                        .OrderBy(x => x.CreateDate)
-                                       .Skip(PageSize*(pageNumber - 1))
-                                       .Take(PageSize).ToList();
+                                       .Skip(PageSizeForumPost*(pageNumber - 1))
+                                       .Take(PageSizeForumPost).ToList();
 
 
 
@@ -441,12 +443,12 @@ namespace DasKlub.Web.Controllers
 
                 var totalCount = context.ForumPost.Count(x => x.ForumSubCategoryID == subForum.ForumSubCategoryID);
 
-                ViewBag.PageCount = (totalCount + PageSize - 1)/PageSize;
-
+                ViewBag.PageCount = (totalCount + PageSizeForumPost - 1)/PageSizeForumPost;
                 ViewBag.PageNumber = pageNumber;
-
                 ViewBag.PageTitle = subForum.Title;
-                ViewBag.Title = string.Format("{0} | page {1}", subForum.Title, pageNumber);
+                ViewBag.Title = pageNumber == 1 ?
+                                string.Format("{0}", subForum.Title) :
+                                string.Format("{0} | page {1}", subForum.Title, pageNumber);                
 
                 foreach (var post in forumPost)
                 {

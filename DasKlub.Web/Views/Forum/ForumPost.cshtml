@@ -11,7 +11,7 @@
               int pageSize = Convert.ToInt32(ViewBag.PageCount);
           }
 <div class="row">
-    <div class="span9" >
+    <div class="span8" >
       
         <div class="row">
             <div class="span8">
@@ -21,7 +21,10 @@
                         <a href="~/forum" itemprop="url"><span itemprop="title">Forum</span></a></span> &gt; 
                         <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                             <a href="@ViewBag.Forum.ForumURL"  itemprop="url"><span itemprop="title">@ViewBag.Forum.Title</span></a>
-                        </span> &gt;      @{
+                        </span> &gt;     
+             
+                
+                @{
                                               if (ViewBag.PageNumber == 1)
                                               {
                                                   <span>
@@ -33,9 +36,12 @@
                                                   <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key)">@ViewBag.PageTitle</a>
                                               }
 
-                                          }
-                                              <hr />
+                }   
                 
+
+                <hr />
+
+      
                  
                   @{
                               if (ViewBag.PageNumber == 1)
@@ -45,7 +51,7 @@
                                   <p>
                                       @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(ViewBag.SubForum.Description), 200, 300))
                                   </p>
-                              <span>Posted By: </span> <a href = "@ViewBag.SubForum.UserAccount.UrlTo.ToString()" > @ViewBag.SubForum.UserAccount.UserName </a>
+                              <span>Posted By: </span> <a href = "@ViewBag.SubForum.UserAccount.UrlTo.ToString()">@ViewBag.SubForum.UserAccount.UserName</a>
                                    <span>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</span> <i>@ViewBag.SubForum.CreateDate.ToString("yyyy-MM-dd")</i> 
                       
                                   
@@ -68,12 +74,15 @@
                                        
                                    }
                                    
-                                   <hr />
+                                
                               }
                                   
-                          }
+                  }
+              
+ 
+                 <hr />
             </div>
-            
+
         </div>
             
       
@@ -86,7 +95,7 @@
                 <div class="row">
                     <a name="@forumCat.ForumPostID"></a>
                           
-                    <div class="span2 user_icons">
+                    <div class="span2 user_icons" style="width:120px">
                         <ul>
                             @Html.Raw(forumCat.UserAccount.ToUnorderdListItem) 
                         </ul>
@@ -94,7 +103,7 @@
                     <div class="span6">
                         @if (forumCat.UpdateDate != null)
                         {
-                            <i>@Messages.Edited</i>
+                            <i>@Messages.Edited</i>      @Html.Raw("&nbsp;")
                             <span title="@FromDate.DateToYYYY_MM_DD(Convert.ToDateTime(forumCat.UpdateDate))">
                                 @Utilities.TimeElapsedMessage(Convert.ToDateTime(forumCat.UpdateDate))</span> 
                         }
@@ -129,7 +138,20 @@
             }
         }
         <br />
-        <a  class="btn btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/create")">@Messages.Reply</a>
+                                   <!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-size="medium" data-annotation="inline" data-width="300"></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+    (function () {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>  
+      
+           <hr />               
+        <a  class="btn btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/create")">@Messages.Reply : @ViewBag.PageTitle</a>
          
            <hr />
             
@@ -174,6 +196,7 @@
         
         @{ Html.RenderPartial("_AdBanner728x90"); }
         <hr />
+
         
         <a href="~/forum">Forum</a> &gt; <a href="@ViewBag.Forum.ForumURL">@ViewBag.Forum.Title</a> &gt;   @{
                                               if (ViewBag.PageNumber == 1)
@@ -190,7 +213,11 @@
                                           }
     </div>
 
-    <div class="span3"  >
+    <div class="span4"  >
+        
+          <h5>Advertisement</h5>
+        @{ Html.RenderPartial("_AdBanner300x250"); }
+        <hr />
         @{ Html.RenderPartial("_AdBanner160x600"); }
     </div>
 </div>

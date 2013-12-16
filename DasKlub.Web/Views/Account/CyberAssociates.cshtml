@@ -20,9 +20,13 @@
         <br />
 
  
-        @if (ViewBag.CyberCount != null && Convert.ToInt32(ViewBag.ContactsCount) > 0)
+   
+        @if (ViewBag.ContactsCount != null && Convert.ToInt32(ViewBag.ContactsCount) > 0)
         {
+            <span>@Messages.Count:</span>
+            <span>
             @Html.Raw(ViewBag.ContactsCount)
+                </span>
         }
         else
         {

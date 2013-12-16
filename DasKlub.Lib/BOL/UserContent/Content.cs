@@ -548,7 +548,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
                 sb.Append(@"<div class=""row"">");
 
-                sb.Append(@"<div class=""span2"">");
+                sb.Append(@"<div class=""span3"">");
 
                 sb.AppendFormat(@"<a class=""m_over"" href=""{0}""><img src=""{1}""  title=""{2}"" alt=""{2}""></a>",
                                 UrlTo,
@@ -556,7 +556,7 @@ namespace DasKlub.Lib.BOL.UserContent
                 sb.Append(@"</div>");
 
 
-                sb.Append(@"<div class=""span3"">");
+                sb.Append(@"<div class=""span4"">");
                 sb.AppendFormat(@"<h4 class=""title""><a href=""{0}"">{1}</a></h4>", UrlTo, Title);
 
                 sb.Append(@"<i>");
@@ -802,8 +802,10 @@ namespace DasKlub.Lib.BOL.UserContent
                 }
             }
 
+            const int minimumNumberOfTagsToDisplay = 3;
 
-            var keywordsDict2 = keywordsDict.Where(tag => tag.Value > 1).ToDictionary(tag => tag.Key, tag => tag.Value);
+            var keywordsDict2 = keywordsDict.Where(tag => tag.Value >= minimumNumberOfTagsToDisplay)
+                                            .ToDictionary(tag => tag.Key, tag => tag.Value);
 
             keywordsDict2 =
                 (from entry in keywordsDict2 orderby entry.Key ascending select entry).ToDictionary(pair => pair.Key,

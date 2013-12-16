@@ -1,7 +1,7 @@
 ﻿body { font-family: Tahoma, Geneva, sans-serif; }
 
 
-p { color: #C6C6C6; }
+p { color: #ffffff;font-family: Verdana, Arial, sans-serif; }
 
 
 .gallery ul {
@@ -265,7 +265,7 @@ button.applaud_status_comment_complete[type="button"], button.applaud_status_com
 
 button.beat_status_comment[type="button"], button.beat_status[type="button"] {
     background-color: transparent;
-    background-image: url("../images/acknowledgement/beat.png");
+    background-image: url("../images/ackfnowledgement/beat.png");
     background-position: center top;
     border: 0 none;
     display: block;
@@ -300,11 +300,21 @@ button.beat_status_comment_complete[type="button"], button.beat_status_complete[
     padding-left: 20px;
 }
 
+article { text-align: justify;}
+
+p { line-height: 1.8em;}
+
 article, article p {
-    font-size: 14px;
-    line-height: 28px;
+    line-height: 1.8em;
+    font-size: 16px; 
+    color: #ffffff;
+    font-family: Verdana, Arial, sans-serif;
 }
 
+article img { margin: 15px;box-shadow: 7px 7px 5px #000000;}
+
+ul#article_list img{box-shadow: 7px 7px 5px #000000;}
+ul.photo_navs img {box-shadow: 6px 6px 4px #000000;margin: 5px;}
 
 .photo_item_list span {
     color: white;
@@ -695,7 +705,6 @@ li {
 
 ul.photo_navs a:hover img {
     border: 3px solid #08C;
-    filter: alpha(opacity=60); /* For IE8 and earlier */
     opacity: 0.6;
 }
 
@@ -703,17 +712,28 @@ ul.photo_item_list img { border: 3px solid transparent; }
 
 ul.photo_item_list a:hover img {
     border: 3px solid #08C;
-    filter: alpha(opacity=60); /* For IE8 and earlier */
     opacity: 0.6;
 }
 
-a.m_over img { border: 3px solid transparent; }
+ul.photo_item_list a:visited:hover img {
+    border: 3px solid #9933FF;
+    opacity: 0.6;
+}
+
+a.m_over img { border: 3px solid #000000; }
 
 a.m_over:hover img {
     border: 3px solid #08C;
-    filter: alpha(opacity=60);
     opacity: 0.6;
 }
+
+a.m_over:visited:hover img {
+    border: 3px solid #9933FF;
+    opacity: 0.6;
+}
+
+.user_contacts a img { border: 3px solid transparent;}
+
 
 a.current_view_profile_pic img { border: solid 3px #468847 }
 
@@ -783,7 +803,9 @@ div#rotator ul li.show { z-index: 500; }
 
 h1, h2, h4, legend { text-shadow: 4px 4px #000; }
 
-h3.main_title { text-shadow: 5px 5px #000; }
+h3 { line-height: 1.3em;}
+
+h3.main_title { text-shadow: 5px 5px #000; font-family: Verdana, Geneva, sans-serif}
 
 h4.title { text-shadow: none; }
 
@@ -835,7 +857,11 @@ ul.radio_stations2 li {
     
     
     
-    
+a:visited {
+    color: #9933FF;
+}
+
+a.btn:visited{color:#ffffff}
     
     
     

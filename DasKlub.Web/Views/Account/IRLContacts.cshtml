@@ -17,9 +17,11 @@
 
         <br />
 
-        @if (ViewBag.IRLContactsCount != null && Convert.ToInt32(ViewBag.ContactsCount) > 0)
+        @if (ViewBag.ContactsCount != null && Convert.ToInt32(ViewBag.ContactsCount) > 0)
         {
-            @Html.Raw(ViewBag.ContactsCount)
+            <span>@Messages.Count:</span>
+            <span>
+            @Html.Raw(ViewBag.ContactsCount)</span>
         }
         else
         {
@@ -31,6 +33,7 @@
         {
             @Html.Raw(ViewBag.Contacts)
         }
+ 
        
     </div>
 

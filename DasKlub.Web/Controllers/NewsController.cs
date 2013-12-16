@@ -15,7 +15,6 @@
 //   limitations under the License.
 
 using System;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -26,7 +25,6 @@ using DasKlub.Lib.BOL;
 using DasKlub.Lib.BOL.UserContent;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
-using IntrepidStudios;
 using IntrepidStudios.SearchCloud;
 
 namespace DasKlub.Web.Controllers
@@ -124,9 +122,9 @@ namespace DasKlub.Web.Controllers
 
             var model = new Contents();
 
-            model.GetContentPageWiseRelease(1, PageSize, lang);
+            var total = model.GetContentPageWiseRelease(1, PageSize, lang);
 
-            ViewBag.EnableLoadingMore = (model.Count >= PageSize);
+            ViewBag.EnableLoadingMore = (PageSize < total);
 
             return View(model);
         }
@@ -166,7 +164,7 @@ namespace DasKlub.Web.Controllers
                         DataURLField = "keyword_url"
                     };
 
-                DataSet theDs = Contents.GetContentTagsAll();
+                var theDs = Contents.GetContentTagsAll();
 
                 cloud1.DataSource = theDs;
                 cloud1.MinFontSize = 14;
@@ -295,7 +293,7 @@ namespace DasKlub.Web.Controllers
 
             var model = new Contents();
 
-            model.GetContentPageWiseKeyRelease(1, PageSize, key);
+            var total = model.GetContentPageWiseKeyRelease(1, PageSize, key);
 
             if (model.Count == 0)
             {
@@ -308,7 +306,7 @@ namespace DasKlub.Web.Controllers
                 }
             }
 
-            ViewBag.EnableLoadingMore = (model.Count < PageSize);
+            ViewBag.EnableLoadingMore = (PageSize < total);
 
             ViewBag.TagName = key;
  

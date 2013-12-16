@@ -61,32 +61,20 @@ namespace DasKlub.Lib.BOL
 
         public string FullProfilePicURL
         {
-            get
-            {
-                if (string.IsNullOrEmpty(PicURL))
-                {
-                    return VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuser.png");
-                }
-                else
-                {
-                    return Utilities.S3ContentPath(PicURL);
-                }
+            get {
+                return string.IsNullOrEmpty(PicURL) ? 
+                    VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuser.png") : 
+                    Utilities.S3ContentPath(PicURL);
             }
         }
 
 
         public string FullProfilePicThumbURL
         {
-            get
-            {
-                if (string.IsNullOrEmpty(ThumbPicURL))
-                {
-                    return VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuserthumb.png");
-                }
-                else
-                {
-                    return Utilities.S3ContentPath(ThumbPicURL);
-                }
+            get {
+                return string.IsNullOrEmpty(ThumbPicURL) ? 
+                    VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuserthumb.png") : 
+                    Utilities.S3ContentPath(ThumbPicURL);
             }
         }
 
@@ -245,7 +233,7 @@ namespace DasKlub.Lib.BOL
                 }
             }
 
-            Sort(delegate(UserPhoto p1, UserPhoto p2) { return p1.RankOrder.CompareTo(p2.RankOrder); });
+            Sort((p1, p2) => p1.RankOrder.CompareTo(p2.RankOrder));
         }
     }
 }

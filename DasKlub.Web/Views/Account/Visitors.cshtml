@@ -48,11 +48,11 @@
             <ul>
                 <li>
                 
-                @Html.ActionLink(Messages.ManageNews, "Articles", "Account")
+                @Html.ActionLink(Messages.ManageNews + " (self)", "Articles", "Account")
                     </li>
                 <li><a href="@Url.Content("~/siteadmin/sitebranding")">@Messages.Website: @Messages.Settings</a></li>
               
-                <li><a href="@Url.Content("~/siteadmin/articles")">@Messages.Settings</a></li>
+                <li><a href="@Url.Content("~/siteadmin/articles")">@Messages.ManageNews (all)</a></li>
               
                 <li>    <a href="@Html.Raw(ViewBag.AdminLink)">@Messages.Settings (@Messages.LoadMore)</a></li>
                     

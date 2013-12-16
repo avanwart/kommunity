@@ -15,13 +15,15 @@
                 <h3>@ViewBag.Title</h3>
                 <p>
 
-                    @Html.Raw(Utilities.MakeLink(FromString.ReplaceNewLineWithHTML(ViewBag.Forum.Description)))
-             
-                  | 
-        <a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew</a>
-                  
-       
+                    @Html.Raw(Utilities.MakeLink(FromString.ReplaceNewLineWithHTML(ViewBag.Forum.Description)))  
+                    
                 </p>
+
+<a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew : Thread</a>
+                  
+                  
+             
+                  
             </div>
             <div class="span6">
                 @{ Html.RenderPartial("_AdBanner468x60"); }
@@ -157,11 +159,14 @@
                 <div class="clear"></div>
             }
         }
-
-
-   <hr />
         
-        <a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew</a>
+        
+        <hr />
+        @{ Html.RenderPartial("_AdBanner728x90"); }
+
+        <hr />
+        
+<a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew : Thread</a>
                   
        
 

@@ -41,6 +41,7 @@ using DasKlub.Lib.Services;
 using DasKlub.Lib.Values;
 using DasKlub.Web.Models;
 using LitS3;
+using Microsoft.Ajax.Utilities;
 
 namespace DasKlub.Web.Controllers
 {
@@ -123,8 +124,7 @@ namespace DasKlub.Web.Controllers
             FormCollection fc,
             int? contentID,
             HttpPostedFileBase imageFile,
-            HttpPostedFileBase videoFile,
-            HttpPostedFileBase videoFile2)
+            HttpPostedFileBase videoFile)
         {
             var model = new Content();
 
@@ -163,10 +163,14 @@ namespace DasKlub.Web.Controllers
 
             if (model.ContentID == 0)
             {
-                
-                if (_mu != null) model.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
+                if (_mu != null)
+                {
+                    if(model.CreatedByUserID == 0)
+                        model.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
+                }
+            
 
-                if (model.ReleaseDate == DateTime.MinValue)
+            if (model.ReleaseDate == DateTime.MinValue)
                 {
                     model.ReleaseDate = DateTime.UtcNow;
                 }
@@ -262,44 +266,8 @@ namespace DasKlub.Web.Controllers
                 }
             }
 
-
-            if (videoFile2 != null)
-            {
-                // full
-                try
-                {
-                    // full
-                    var fileName3 = Utilities.CreateUniqueContentFilename(videoFile2);
-
-                    s3.AddObject(
-                        videoFile2.InputStream,
-                        videoFile2.ContentLength,
-                        AmazonCloudConfigs.AmazonBucketName,
-                        fileName3,
-                        videoFile2.ContentType,
-                        acl);
-
-
-                    if (!string.IsNullOrWhiteSpace(model.ContentVideoURL2))
-                    {
-                        if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL2))
-                        {
-                            s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, model.ContentVideoURL2);
-                        }
-                    }
-
-                    model.ContentVideoURL2 = fileName3;
-
-                    model.Set();
-                }
-// ReSharper disable EmptyGeneralCatchClause
-                catch (Exception)
-// ReSharper restore EmptyGeneralCatchClause
-                {
-                }
-            }
-
-            return RedirectToAction("Articles");
+             
+            return RedirectToAction("Articles", "SiteAdmin"); // TODO: ENABLE SELF ARTICLE PAGE
         }
 
 
@@ -911,7 +879,7 @@ namespace DasKlub.Web.Controllers
             {
                 _contacts.Add(ua1);
             }
-
+ 
             ViewBag.UserName = _ua.UserName;
             ViewBag.ContactsCount = Convert.ToString(_contacts.Count);
             ViewBag.Contacts = _contacts.ToUnorderdList;
@@ -936,7 +904,6 @@ namespace DasKlub.Web.Controllers
             if (string.IsNullOrWhiteSpace(userName)) userName = User.Identity.Name;
 
             GetContactsForUser(userName, 'R');
-
 
             return View();
         }
@@ -2139,8 +2106,7 @@ namespace DasKlub.Web.Controllers
                 return View();
             }
 
-            if (!GeneralConfigs.EnableSameIP &&
-                UserAccount.IsAccountIPTaken(Request.UserHostAddress) &&
+            if (!GeneralConfigs.EnableSameIP && UserAccount.IsAccountIPTaken(Request.UserHostAddress) &&
                 string.IsNullOrEmpty(model.RefUser))
             {
                 ModelState.AddModelError("", Messages.Invalid + @": " + Messages.Account);
@@ -2149,140 +2115,142 @@ namespace DasKlub.Web.Controllers
 
             TryUpdateModel(model);
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+
+            if (!Utilities.IsEmail(model.Email))
             {
-                if (!Utilities.IsEmail(model.Email))
-                {
-                    ModelState.AddModelError("", Messages.IncorrectFormat + @": " + Messages.EMail);
-                    return View();
-                }
-                if (
-                    model.UserName.Trim().Contains(" ") ||
-                    model.UserName.Trim().Contains("?") ||
-                    model.UserName.Trim().Contains("*") ||
-                    model.UserName.Trim().Contains(":") ||
-                    model.UserName.Trim().Contains("/") ||
-                    model.UserName.Trim().Contains(@"\"))
-                {
-                    ModelState.AddModelError("", Messages.Invalid + @": " + Messages.UserName);
-                    return View();
-                }
-                if (model.YouAreID == null)
-                {
-                    ModelState.AddModelError("", Messages.Invalid + @": " + Messages.YouAre);
-                    return View();
-                }
+                ModelState.AddModelError("", Messages.IncorrectFormat + @": " + Messages.EMail);
+                return View();
+            }
+            if (
+                model.UserName.Trim().Contains(" ") ||
+                model.UserName.Trim().Contains("?") ||
+                model.UserName.Trim().Contains("*") ||
+                model.UserName.Trim().Contains(":") ||
+                model.UserName.Trim().Contains("/") ||
+                model.UserName.Trim().Contains(@"\"))
+            {
+                ModelState.AddModelError("", Messages.Invalid + @": " + Messages.UserName);
+                return View();
+            }
+            if (model.YouAreID == null)
+            {
+                ModelState.AddModelError("", Messages.Invalid + @": " + Messages.YouAre);
+                return View();
+            }
 
-                DateTime dt;
+            DateTime dt;
 
-                if (!DateTime.TryParse(model.Year
-                                       + "-" + model.Month + "-" + model.Day, out dt))
+            if (!DateTime.TryParse(model.Year
+                                   + "-" + model.Month + "-" + model.Day, out dt))
+            {
+                ModelState.AddModelError("", Messages.Invalid + @": " + Messages.BirthDate);
+                return View();
+            }
+            if (DateTime.TryParse(model.Year
+                                  + "-" + model.Month + "-" + model.Day, out dt))
+            {
+                if (Utilities.CalculateAge(dt) < GeneralConfigs.MinimumAge)
                 {
                     ModelState.AddModelError("", Messages.Invalid + @": " + Messages.BirthDate);
                     return View();
                 }
-                if (DateTime.TryParse(model.Year
-                                      + "-" + model.Month + "-" + model.Day, out dt))
-                {
-                    if (Utilities.CalculateAge(dt) < GeneralConfigs.MinimumAge)
-                    {
-                        ModelState.AddModelError("", Messages.Invalid + @": " + Messages.BirthDate);
-                        return View();
-                    }
-                }
-
-                model.UserName = model.UserName.Replace(" ", string.Empty).Replace(":", string.Empty);
-                MembershipCreateStatus createStatus;
-
-                Membership.CreateUser(model.UserName, model.NewPassword, model.Email, "Q", "A", true, out createStatus);
-
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsAuthentication.RedirectFromLoginPage(model.UserName, true);
-
-                    var ua = new UserAccount(model.UserName);
-                    _uad = new UserAccountDetail
-                        {
-                            UserAccountID = ua.UserAccountID,
-                            BirthDate = dt,
-                            YouAreID = model.YouAreID,
-                            DisplayAge = true,
-                            DefaultLanguage = Utilities.GetCurrentLanguageCode()
-                        };
-
-                    if (!string.IsNullOrEmpty(model.RefUser))
-                    {
-                        var refUser = new UserAccount(model.RefUser);
-                        _uad.ReferringUserID = refUser.UserAccountID;
-                    }
-
-                    _uad.Set();
-
-                    var sb = new StringBuilder(100);
-
-                    sb.Append(Messages.Hello);
-                    sb.Append(Environment.NewLine);
-                    sb.Append(Messages.YourNewAccountIsReadyForUse);
-                    sb.Append(Environment.NewLine);
-                    sb.Append(Environment.NewLine);
-                    sb.AppendFormat("{0}: ", Messages.UserName);
-                    sb.Append(ua.UserName);
-                    sb.Append(Environment.NewLine);
-                    sb.AppendFormat("{0}: ", Messages.Password);
-                    sb.Append(model.NewPassword);
-                    sb.Append(Environment.NewLine);
-                    sb.Append(GeneralConfigs.SiteDomain);
-
-                    _mail.SendMail(AmazonCloudConfigs.SendFromEmail, ua.EMail, Messages.YourNewAccountIsReadyForUse, sb.ToString());
-
-                    // see if this is the 1st user
-                    var recentUsers = new UserAccounts();
-                    recentUsers.GetNewestUsers();
-
-                    if (recentUsers.Count == 1)
-                    {
-                        var adminRole = new Role(SiteEnums.RoleTypes.admin.ToString());
-
-                        UserAccountRole.AddUserToRole(ua.UserAccountID, adminRole.RoleID);
-                    }
-
-                    var dm = new DirectMessage {IsRead = false};
-                    var admin = new UserAccount(GeneralConfigs.AdminUserName);
-
-                    dm.FromUserAccountID = admin.UserAccountID;
-                    dm.ToUserAccountID = ua.UserAccountID;
-
-                    sb = new StringBuilder(100);
-
-                    sb.AppendLine("Welcome to the klub!");
-                    sb.AppendLine();
-                    sb.AppendLine("We are SO happy to have you here as a member of our elite group! Das Klubbers are very nice people and of course great dancers.");
-                    sb.AppendLine();
-                    sb.AppendLine();
-                    sb.AppendLine("If you have any questions about your account, make sure to read this article: http://dasklub.com/news/how-to-use-das-klub");
-                    sb.AppendLine();
-                    sb.AppendLine();
-                    sb.AppendLine("Make sure to introduce yourself here: http://dasklub.com/forum/introduce-yourself ");
-                    sb.AppendLine();
-                    sb.AppendLine();
-                    sb.AppendLine();
-                    sb.AppendLine("You are one of the predestined ones.");
-                    sb.AppendLine();
-                    sb.AppendLine("- The Admin");
-                    sb.AppendLine();
-                    dm.Message = sb.ToString();
-
-                    if (admin.UserAccountID != 0)
-                    {
-                        dm.CreatedByUserID = admin.UserAccountID;
-                    }
-
-                    dm.Create();
-
-                    return RedirectToAction("Home", "Account");
-                }
-                ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
             }
+
+            model.UserName = model.UserName.Replace(":", string.Empty);
+            model.UserName = model.UserName.Replace(" ", string.Empty);
+            model.UserName = model.UserName.Replace(".", string.Empty);
+
+            MembershipCreateStatus createStatus;
+
+            Membership.CreateUser(model.UserName, model.NewPassword, model.Email, "Q", "A", true, out createStatus);
+
+            if (createStatus == MembershipCreateStatus.Success)
+            {
+                FormsAuthentication.RedirectFromLoginPage(model.UserName, true);
+
+                var ua = new UserAccount(model.UserName);
+                _uad = new UserAccountDetail
+                {
+                    UserAccountID = ua.UserAccountID,
+                    BirthDate = dt,
+                    YouAreID = model.YouAreID,
+                    DisplayAge = true,
+                    DefaultLanguage = Utilities.GetCurrentLanguageCode()
+                };
+
+                if (!string.IsNullOrEmpty(model.RefUser))
+                {
+                    var refUser = new UserAccount(model.RefUser);
+                    _uad.ReferringUserID = refUser.UserAccountID;
+                }
+
+                _uad.Set();
+
+                var sb = new StringBuilder(100);
+
+                sb.Append(Messages.Hello);
+                sb.Append(Environment.NewLine);
+                sb.Append(Messages.YourNewAccountIsReadyForUse);
+                sb.Append(Environment.NewLine);
+                sb.Append(Environment.NewLine);
+                sb.AppendFormat("{0}: ", Messages.UserName);
+                sb.Append(ua.UserName);
+                sb.Append(Environment.NewLine);
+                sb.AppendFormat("{0}: ", Messages.Password);
+                sb.Append(model.NewPassword);
+                sb.Append(Environment.NewLine);
+                sb.Append(GeneralConfigs.SiteDomain);
+
+                _mail.SendMail(AmazonCloudConfigs.SendFromEmail, ua.EMail, Messages.YourNewAccountIsReadyForUse, sb.ToString());
+
+                // see if this is the 1st user
+                var recentUsers = new UserAccounts();
+                recentUsers.GetNewestUsers();
+
+                if (recentUsers.Count == 1)
+                {
+                    var adminRole = new Role(SiteEnums.RoleTypes.admin.ToString());
+
+                    UserAccountRole.AddUserToRole(ua.UserAccountID, adminRole.RoleID);
+                }
+
+                var dm = new DirectMessage {IsRead = false};
+                var admin = new UserAccount(GeneralConfigs.AdminUserName);
+
+                dm.FromUserAccountID = admin.UserAccountID;
+                dm.ToUserAccountID = ua.UserAccountID;
+
+                sb = new StringBuilder(100);
+
+                sb.AppendLine("Welcome to the klub!");
+                sb.AppendLine();
+                sb.AppendLine("We are SO happy to have you here as a member of our elite group! Das Klubbers are very nice people and of course great dancers.");
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.AppendLine("If you have any questions about your account, make sure to read this article: http://dasklub.com/news/how-to-use-das-klub");
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.AppendLine("Make sure to introduce yourself here: http://dasklub.com/forum/introduce-yourself ");
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.AppendLine("You are one of the predestined ones.");
+                sb.AppendLine();
+                sb.AppendLine("- The Admin");
+                sb.AppendLine();
+                dm.Message = sb.ToString();
+
+                if (admin.UserAccountID != 0)
+                {
+                    dm.CreatedByUserID = admin.UserAccountID;
+                }
+
+                dm.Create();
+
+                return RedirectToAction("Home", "Account");
+            }
+            ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
 
             return View(model);
         }
@@ -2422,6 +2390,9 @@ namespace DasKlub.Web.Controllers
                     _ua.Update();
                 }
 
+                username = username.Replace(":", string.Empty);
+                username = username.Replace(" ", string.Empty);
+                username = username.Replace(".", string.Empty);
                 _ua.UserName = username;
                 _ua.Update();
                 FormsAuthentication.SetAuthCookie(username, false);

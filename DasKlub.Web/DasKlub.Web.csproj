@@ -384,13 +384,6 @@
     <Content Include="Content\images\acknowledgement\applaud_check.png" />
     <Content Include="Content\images\acknowledgement\beat.png" />
     <Content Include="Content\images\acknowledgement\beat_check.png" />
-    <Content Include="Content\images\ads\cyber_mon.png" />
-    <Content Include="Content\images\ads\fgfc820.png" />
-    <Content Include="Content\images\ads\fgfc820_2.png" />
-    <Content Include="Content\images\ads\industrial_shirts.jpg" />
-    <Content Include="Content\images\ads\industrial_shirts.png" />
-    <Content Include="Content\images\ads\industrial_shirts2.png" />
-    <Content Include="Content\images\ads\tshirt_160x600.jpg" />
     <Content Include="Content\images\arrows\arrow_forward.png" />
     <Content Include="Content\images\arrows\down_arrow.png" />
     <Content Include="Content\images\arrows\ui.totop.png" />
@@ -398,12 +391,14 @@
     <Content Include="Content\images\arrows\up_arrow.png" />
     <Content Include="Content\images\background\repeating_gears2.jpg" />
     <Content Include="Content\images\background\splashbackground.gif" />
+    <Content Include="Content\images\brand\dk_logo.png" />
     <Content Include="Content\images\brand\favicon.ico" />
     <Content Include="Content\images\brand\logo.png" />
     <Content Include="Content\images\brand\smalllogo.png" />
     <Content Include="Content\images\countries\flag_sprite.png" />
     <Content Include="Content\images\error\death_caution.png" />
     <Content Include="Content\images\icons\b_day_hat.png" />
+    <Content Include="Content\images\icons\close.jpg" />
     <Content Include="Content\images\icons\iconrss.gif" />
     <Content Include="Content\images\icons\icon_compass.png" />
     <Content Include="Content\images\icons\icon_desktop.png" />
@@ -1165,7 +1160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DasKlub.Lib\DasKlub.Lib.csproj">
-      <Project>{4A6CF1CC-4F7A-43D2-A9CD-07DB4D8C45CD}</Project>
+      <Project>{4a6cf1cc-4f7a-43d2-a9cd-07db4d8c45cd}</Project>
       <Name>DasKlub.Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\DasKlub.Models\DasKlub.Models.csproj">
@@ -1257,9 +1252,6 @@
     <Content Include="Views\Shared\LoginFormFull.cshtml" />
     <Content Include="Views\Shared\MessageItem.cshtml" />
     <Content Include="Views\Shared\old_Layout.cshtml" />
-    <Content Include="Views\Shared\_Site.cshtml">
-      <SubType>Code</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Contact.cshtml" />

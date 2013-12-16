@@ -11,6 +11,8 @@ namespace DasKlub.Web.Models
 
         public ForumSubCategory ForumSubCategory { get; set; }
 
+        public int PostCount { get; set; }
+
         /// <summary>
         /// When it's an authenciated user, say if it's new to them
         /// </summary>
@@ -21,5 +23,7 @@ namespace DasKlub.Web.Models
         /// to the last post on the last page
         /// </summary>
         public Uri URLTo { get; set; }
+
+        public string UserName { get; set; }
     }
 }

@@ -75,7 +75,7 @@
             $('#load_more').click(function() {
                 $('#loading').fadeIn();
 
-                $.post($rootUrl + 'news/Items?time=' + new Date().getTime(), { pageNumber: pageNumber },
+                $.post($rootUrl + 'news/items?time=' + new Date().getTime(), { pageNumber: pageNumber },
                     function(data) {
 
                         pageNumber++;

@@ -34,7 +34,11 @@ namespace DasKlub.Lib.Services
                 dest.ToAddresses.Add(toEmail);
 
                 body =
-
+                    Messages.DoNotRespondToThisEmail +
+                    Environment.NewLine +
+                    Environment.NewLine +
+                    "----------------------------" +
+                    Environment.NewLine +
                     body +
                     Environment.NewLine +
                     Environment.NewLine +
@@ -43,15 +47,13 @@ namespace DasKlub.Lib.Services
                     Environment.NewLine +
                     "----------------------------" +
                     Environment.NewLine +
-                    Messages.Settings +
+                    Messages.EMail + " " + Messages.Settings +
                     Environment.NewLine +
-                    GeneralConfigs.EmailSettingsURL + ":" +
+                    GeneralConfigs.EmailSettingsURL + " :" +
                     Environment.NewLine +
                     Environment.NewLine +
                     Messages.DoNotRespondToThisEmail +
-                    Environment.NewLine +
-                    Environment.NewLine +
-                    "The Admin : admin@dasklub.com";
+                    Environment.NewLine;
 
                 var bdy = new Body { Text = new Content(body) };
                 var title = new Content(subject);

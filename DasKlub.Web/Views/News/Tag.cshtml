@@ -61,7 +61,7 @@
             $('#load_more').click(function() {
                 $('#loading').fadeIn();
 
-                $.post($rootUrl + '/news/tagitems/@ViewBag.KeyName', { pageNumber: pageNumber },
+                $.post($rootUrl + 'news/tagitems/@ViewBag.KeyName' + '?' + new Date().getTime(), { pageNumber: pageNumber },
                     function(data) {
 
                         pageNumber++;

@@ -54,7 +54,8 @@ namespace DasKlub.EmailBlasterService
             IMyJob myJob = new HealthMonitiorJob(); //This Constructor needs to be parameterless
             var jobDetail = new JobDetailImpl(trigger1 + Job, Group1, myJob.GetType());
             // run every 5 minutes
-            var trigger = new CronTriggerImpl(trigger1, Group1, "0 0/10 * * * ?" /* every 10 minutes */) {TimeZone = TimeZoneInfo.Utc}; 
+            var trigger = new CronTriggerImpl(trigger1, Group1, "0 0/10 * * * ?" /* every 10 minutes */) 
+                {TimeZone = TimeZoneInfo.Utc}; 
             _scheduler.ScheduleJob(jobDetail, trigger);
             var nextFireTime = trigger.GetNextFireTimeUtc();
             if (nextFireTime != null)
@@ -112,7 +113,8 @@ namespace DasKlub.EmailBlasterService
                     {
                         var results = from t in context.UserAccountDetailEntity
                             where
-                                t.birthDate.Month == DateTime.UtcNow.Month && t.birthDate.Day == DateTime.UtcNow.Day  &&
+                                t.birthDate.Month == DateTime.UtcNow.Month &&
+                                t.birthDate.Day == DateTime.UtcNow.Day  &&
                                 t.emailMessages == true
                             select t;
 
@@ -123,15 +125,18 @@ namespace DasKlub.EmailBlasterService
                                 usr => usr.userAccountID == birthdayUser.userAccountID)
                             : null).Where(user => user != null))
                         {
+                            if (user.createDate == null) continue;
+
                             var signUpDate = string.Format("{0} {1}, {2}", 
-                                                user.createDate.Value.ToString("MMM"), 
-                                                user.createDate.Value.Day, 
-                                                user.createDate.Value.Year);
+                                user.createDate.Value.ToString("MMM"), 
+                                user.createDate.Value.Day, 
+                                user.createDate.Value.Year);
 
                             _mail.SendMail(Lib.Configs.AmazonCloudConfigs.SendFromEmail, user.eMail,
                                 string.Format("Happy Birthday {0}!", user.userName),
                                 string.Format("Happy birthday from Das Klub! {1}{1} Visit: {0} {1}{1} Membership Sign Up Date: {1}{1}{2}",
                                     Lib.Configs.GeneralConfigs.SiteDomain, Environment.NewLine, signUpDate));
+
                             Log.Info("Sent to: " + user.eMail);
                         }
                     }

@@ -17,6 +17,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
@@ -85,17 +86,14 @@ namespace DasKlub.Lib.BOL
             comm.CommandText = "up_GetAllStatus";
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+            
+            foreach (var str in from DataRow dr in dt.Rows select new Status(dr))
             {
-                Status str = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    str = new Status(dr);
-                    Add(str);
-                }
+                Add(str);
             }
         }
 
