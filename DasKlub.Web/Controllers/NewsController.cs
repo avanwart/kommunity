@@ -122,9 +122,9 @@ namespace DasKlub.Web.Controllers
 
             var model = new Contents();
 
-            model.GetContentPageWiseRelease(1, PageSize, lang);
+            var total = model.GetContentPageWiseRelease(1, PageSize, lang);
 
-            ViewBag.EnableLoadingMore = (model.Count >= PageSize);
+            ViewBag.EnableLoadingMore = (PageSize < total);
 
             return View(model);
         }
@@ -293,7 +293,7 @@ namespace DasKlub.Web.Controllers
 
             var model = new Contents();
 
-            model.GetContentPageWiseKeyRelease(1, PageSize, key);
+            var total = model.GetContentPageWiseKeyRelease(1, PageSize, key);
 
             if (model.Count == 0)
             {
@@ -306,7 +306,7 @@ namespace DasKlub.Web.Controllers
                 }
             }
 
-            ViewBag.EnableLoadingMore = (model.Count < PageSize);
+            ViewBag.EnableLoadingMore = (PageSize < total);
 
             ViewBag.TagName = key;
  
