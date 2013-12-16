@@ -802,8 +802,10 @@ namespace DasKlub.Lib.BOL.UserContent
                 }
             }
 
+            const int minimumNumberOfTagsToDisplay = 3;
 
-            var keywordsDict2 = keywordsDict.Where(tag => tag.Value > 1).ToDictionary(tag => tag.Key, tag => tag.Value);
+            var keywordsDict2 = keywordsDict.Where(tag => tag.Value >= minimumNumberOfTagsToDisplay)
+                                            .ToDictionary(tag => tag.Key, tag => tag.Value);
 
             keywordsDict2 =
                 (from entry in keywordsDict2 orderby entry.Key ascending select entry).ToDictionary(pair => pair.Key,
