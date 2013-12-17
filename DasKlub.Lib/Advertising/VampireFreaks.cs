@@ -73,7 +73,7 @@ namespace DasKlub.Lib.Advertising
                      !string.IsNullOrWhiteSpace(parts[2]))
                 {
                     sb1.AppendFormat(@"<a rel=""nofollow"" class=""m_over"" href=""{0}"">
-                                       <img style=""width:100px;height:100px"" src=""{1}"" alt=""{2}"" title=""{2}"" /></a>
+                                       <img style=""height:100px"" src=""{1}"" alt=""{2}"" title=""{2}"" /></a>
                                                 <br />
                                                 <div style=""width:100px;margin-bottom:10px;"">
                                                 <a rel=""nofollow"" class=""m_over"" href=""{0}"" target=""_blank"">
