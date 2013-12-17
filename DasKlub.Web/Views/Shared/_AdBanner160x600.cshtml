@@ -4,7 +4,7 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Values
 <!-- 160 x 600 -->
-@if (!HttpContext.Current.Request.Browser.IsMobileDevice)
+@*@if (!HttpContext.Current.Request.Browser.IsMobileDevice)
 {
 
  
@@ -37,4 +37,50 @@
                 break;
         }
  
-}
+}*@
+
+<style>
+    
+    .ad_text {font-size: 8px;}
+
+</style>
+
+<ul style="list-style-type: none;">
+    
+    
+    <li>
+    
+
+        @Html.Raw( DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
+    
+    </li>
+    
+    <li>
+    
+
+        @Html.Raw( DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
+    
+    </li>
+    
+    <li>
+    
+
+        @Html.Raw( DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
+    
+    </li>
+    
+    <li>
+    
+
+        @Html.Raw( DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
+    
+    </li>
+    <li>
+    
+
+        @Html.Raw( DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
+    
+    </li>
+
+    
+</ul>
