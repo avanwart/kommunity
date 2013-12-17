@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.UI;
 using DasKlub.Lib.BLL;
 
 namespace DasKlub.Lib.Advertising
@@ -72,13 +73,32 @@ namespace DasKlub.Lib.Advertising
                      !string.IsNullOrWhiteSpace(parts[1]) &&
                      !string.IsNullOrWhiteSpace(parts[2]))
                 {
+
+                    var linkText = parts[0];
+                    const string regexPattern = @"[0-9]+\.[0-9][0-9](?:[^0-9]|$)";
+                    var countOfDollarSigns = Regex.Matches(linkText, regexPattern).Count;
+
+                    if (countOfDollarSigns == 2)
+                    {
+                        var t = new Regex(regexPattern, RegexOptions.Singleline);
+                        var allMatches = t.Matches(linkText);
+                        
+                        foreach (var allMatch in allMatches)
+                        {
+                            // remove first instance of price, it's a pre-discount price
+                            var firstMatch = allMatch;
+                            linkText = linkText.Replace("$" + firstMatch, string.Empty);
+                            break;
+                        }
+                    }
+
                     sb1.AppendFormat(@"<a rel=""nofollow"" class=""m_over"" href=""{0}"">
                                        <img style=""height:100px"" src=""{1}"" alt=""{2}"" title=""{2}"" /></a>
                                                 <br />
                                                 <div style=""width:100px;margin-bottom:10px;"">
                                                 <a rel=""nofollow"" class=""m_over"" href=""{0}"" target=""_blank"">
                                                 <span class=""ad_text"">{2}</span></a>
-                                                </div>", parts[1], parts[2], parts[0]);
+                                                </div>", parts[1], parts[2], linkText);
                 }
             }
             catch { }
