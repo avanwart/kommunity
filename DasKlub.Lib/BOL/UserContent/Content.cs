@@ -581,7 +581,7 @@ namespace DasKlub.Lib.BOL.UserContent
                     var uad = new UserAccountDetail();
                     uad.GetUserAccountDeailForUser(ua.UserAccountID);
 
-                    sb.Append(Messages.From);
+                    sb.Append("Author"); //TODO: LOCALIZE
                     sb.Append(@": ");
 
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a> &nbsp;", ua.UrlTo, ua.UserName);
