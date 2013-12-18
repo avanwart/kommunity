@@ -6800,7 +6800,7 @@ GO
 */
 CREATE  proc [dbo].[up_GetContentByKey]
  
-            @contentKey varchar(150)
+            @contentKey nvarchar(150)
             as
             
 SELECT [contentID]
@@ -14242,16 +14242,16 @@ GO
 */
  CREATE proc [dbo].[up_SetContent]
  
-           @title varchar(150) 
+           @title nvarchar(150) 
            ,@updatedByUserID int 
            ,@createdByUserID int 
-           ,@detail varchar (max)
-           ,@metaDescription varchar(500) 
-           ,@metaKeywords varchar(500) 
+           ,@detail nvarchar (max)
+           ,@metaDescription nvarchar(500) 
+           ,@metaKeywords nvarchar(500) 
            ,@contentTypeID int 
            ,@releaseDate datetime 
            ,@contentID  int
-           ,@contentKey varchar(150)
+           ,@contentKey nvarchar(150)
            ,@rating float
 			,@contentPhotoURL varchar(150)
 			,@contentPhotoThumbURL varchar(150)
