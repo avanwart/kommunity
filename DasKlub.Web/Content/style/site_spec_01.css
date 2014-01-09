@@ -1,7 +1,7 @@
 ﻿body { font-family: Tahoma, Geneva, sans-serif; }
 
 
-p { color: #ffffff;font-family: Verdana, Arial, sans-serif; }
+p { color: #ffffff;font-family: Verdana, Arial, sans-serif; text-align:justify; }
 
 
 .gallery ul {
@@ -802,7 +802,7 @@ div#rotator ul li.show { z-index: 500; }
 
 
 h1, h2, h4, legend { text-shadow: 4px 4px #000; }
-
+h1 {font-size:35px; letter-spacing: .07em;}
 h3 { line-height: 1.3em;}
 
 h3.main_title { text-shadow: 5px 5px #000; font-family: Verdana, Geneva, sans-serif}
@@ -886,6 +886,8 @@ a.play_button:hover { background-position: center bottom; }
     font-weight: bold;
     text-shadow: 4px 4px #000;
 }
+
+    .ad_text {font-size: 11px;}
 
  /* theme */
  

@@ -736,7 +736,6 @@ namespace DasKlub.Lib.BOL
 
                 sb.Append(@"<li>");
 
-
                 if (IsProfileLinkNewWindow)
                 {
                     string fullIcon = uad.SmallUserIcon.Replace("<a ", @"<a  target=""_blank"" ");
@@ -749,7 +748,6 @@ namespace DasKlub.Lib.BOL
 
                 sb.Append(@"</li>");
 
-
                 return sb.ToString();
             }
         }
@@ -758,8 +756,8 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                return new Uri(Utilities.URLAuthority() + VirtualPathUtility.ToAbsolute(
-                    string.Format("~/{0}", UserName)));
+                return new Uri(Utilities.URLAuthority() + 
+                               VirtualPathUtility.ToAbsolute(string.Format("~/{0}", UserName.ToLower())));
             }
         }
 

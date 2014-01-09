@@ -4,7 +4,6 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.UI;
 using DasKlub.Lib.BLL;
 
 namespace DasKlub.Lib.Advertising
@@ -13,7 +12,6 @@ namespace DasKlub.Lib.Advertising
     {
         public static string RandomAdvertisement()
         {
-
             var sb1 = new StringBuilder(100);
 
             try
@@ -80,9 +78,9 @@ namespace DasKlub.Lib.Advertising
 
                     if (countOfDollarSigns == 2)
                     {
-                        var t = new Regex(regexPattern, RegexOptions.Singleline);
-                        var allMatches = t.Matches(linkText);
-                        
+                        var matchFinder = new Regex(regexPattern, RegexOptions.Singleline);
+                        var allMatches = matchFinder.Matches(linkText);
+
                         foreach (var allMatch in allMatches)
                         {
                             // remove first instance of price, it's a pre-discount price
@@ -91,11 +89,16 @@ namespace DasKlub.Lib.Advertising
                             break;
                         }
                     }
+                    else
+                    {
+                        // add leading space, which is missing
+                        linkText = linkText.Replace("$", " $");
+                    }
 
                     sb1.AppendFormat(@"<a rel=""nofollow"" class=""m_over"" href=""{0}"">
                                        <img style=""height:100px"" src=""{1}"" alt=""{2}"" title=""{2}"" /></a>
                                                 <br />
-                                                <div style=""width:100px;margin-bottom:10px;"">
+                                                <div style=""width:100px"">
                                                 <a rel=""nofollow"" class=""m_over"" href=""{0}"" target=""_blank"">
                                                 <span class=""ad_text"">{2}</span></a>
                                                 </div>", parts[1], parts[2], linkText);

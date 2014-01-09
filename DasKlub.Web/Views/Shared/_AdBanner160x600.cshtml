@@ -39,37 +39,74 @@
  
 }*@
 
-<style>
-    
-    .ad_text {font-size: 8px;}
+@if(!Request.Browser.IsMobileDevice)
+{ 
+<div class="ad_items">
 
+    <ul style="list-style-type: none; float: left;margin-right:10px;">
+
+
+        <li>
+
+
+            @Html.Raw(DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
+
+        </li>
+
+        <li>
+
+
+            @Html.Raw(DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
+
+        </li>
+
+        <li>
+
+
+            @Html.Raw(DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
+
+        </li>
+
+
+
+
+    </ul>
+
+ 
+    <ul style="list-style-type: none;float:left;">
+
+
+        <li>
+
+            @Html.Raw(DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
+
+        </li>
+
+
+        <li>
+
+
+            @Html.Raw(DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
+
+        </li>
+
+        <li>
+
+
+            @Html.Raw(DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
+
+        </li>
+
+
+
+
+    </ul>
+</div>
+
+<style>
+    .ad_items ul li {height:200px;}
 </style>
 
-<ul style="list-style-type: none;">
+<div class="clear"></div>
     
-    
-    <li>
-    
-
-        @Html.Raw( DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
-    
-    </li>
-    
-    <li>
-    
-
-        @Html.Raw( DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
-    
-    </li>
-    
-    <li>
-    
-
-        @Html.Raw( DasKlub.Lib.Advertising.VampireFreaks.RandomAdvertisement())
-    
-    </li>
-    
-   
-
-    
-</ul>
+}

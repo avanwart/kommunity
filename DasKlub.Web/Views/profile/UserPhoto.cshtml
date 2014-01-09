@@ -5,7 +5,7 @@
 @model  DasKlub.Lib.BOL.PhotoItem
 @{
     ViewBag.Title = Model.Title;
-    ViewBag.ThumbIcon = FromString.GetFixedLengthString(Html.S3ContentPath(Model.FilePathThumb).ToString(), 50);
+    ViewBag.ThumbIcon = Html.S3ContentPath(Model.FilePathThumb).ToString() ;
 }
 @{ Html.RenderPartial("_AdBanner728x90"); }
 <div class="row">

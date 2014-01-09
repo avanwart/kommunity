@@ -30,9 +30,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="@Url.Content("~/content/images/brand/favicon.ico")" />
-        <title>@ViewBag.Title | @GeneralConfigs.SiteName</title>
+        @{
+            var pageTitle = string.Format("{0} | {1}", FromString.SEOText(ViewBag.Title, 65 - 3 - GeneralConfigs.SiteName.Length), GeneralConfigs.SiteName);
+        }
+        <title>@pageTitle</title>
   
-        @*  @Styles.Render("~/Content/css_head1")*@
+        @*  @Styles.Render("~/content/css_head1")*@
 
        <style type="text/css">
             body {
@@ -59,12 +62,12 @@
 
         </style>
  
-        @Styles.Render("~/Content/style/css_head2")
+        @Styles.Render("~/content/style/css_head2")
 
     
         
 
-        @Styles.Render("~/Content/mediaelement/css_mediaelement")
+        @Styles.Render("~/content/mediaelement/css_mediaelement")
 
         @Html.Raw(SiteDomain.GetSiteDomainValue(
             SiteEnums.SiteBrandType.STYLE,
@@ -136,7 +139,7 @@
                     </a>
                     <a href="@Url.Content("~/")" style="margin-top:5px;" class="brand">
                             <img style="height: 39px;" alt="@GeneralConfigs.SiteName"
-                                 src="@Url.Content("~/Content/images/brand/dk_logo.png")" />
+                                 src="@Url.Content("~/content/images/brand/dk_logo.png")" />
                         </a>
                     <div class="nav-collapse">
                         

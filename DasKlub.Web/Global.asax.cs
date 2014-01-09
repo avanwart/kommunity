@@ -34,7 +34,6 @@ using log4net;
 using log4net.Config;
 using Microsoft.AspNet.SignalR;// needed
 using System.Web.Http;
- 
 
 namespace DasKlub.Web
 {
@@ -54,9 +53,7 @@ namespace DasKlub.Web
          
         public void Application_Start()
         {
-            RouteTable.Routes.MapHubs();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
             XmlConfigurator.Configure();
 
             Log.Info("Application Started");
@@ -208,6 +205,7 @@ namespace DasKlub.Web
         }
     }
 
+
     /// <summary>
     ///     http://weblogs.asp.net/muhanadyounis/archive/2009/01/12/global-timer-background-timer.aspx
     /// </summary>
@@ -242,3 +240,4 @@ namespace DasKlub.Web
         }
     }
 }
+ 

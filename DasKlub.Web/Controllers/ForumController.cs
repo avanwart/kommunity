@@ -64,55 +64,62 @@ namespace DasKlub.Web.Controllers
                     var subForums =
                         context.ForumSubCategory.Where(x => x.ForumCategoryID == category1.ForumCategoryID);
 
-
-                    foreach (var forumSubCategory in subForums)
+                    using (var context2 = new DasKlubDbContext())
                     {
-                        category.TotalPosts++;
-
-                        var lastPost =
-                            context.ForumPost.Where(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID)
-                                   .OrderByDescending(x => x.CreateDate)
-                                   .FirstOrDefault();
-
-                        if (lastPost == null) continue;
-
-                        var forumSubPostCount =
-                            context.ForumPost.Count(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID);
-
-                        var pageCount = (forumSubPostCount + PageSizeForumPost - 1) / PageSizeForumPost;
-
-                        lastPost.ForumPostURL =
-                            new Uri(string.Format("{0}/{1}#{2}", forumSubCategory.SubForumURL, ((pageCount > 1)
-                                    ? pageCount.ToString(CultureInfo.InvariantCulture)
-                                    : string.Empty), lastPost.ForumPostID.ToString(CultureInfo.InvariantCulture)));
-
-                        lastPost.UserAccount = new UserAccount(lastPost.CreatedByUserID);
-
-                        if (lastPost.CreateDate <= lastPostForum.CreateDate) continue;
-
-                        if (_mu != null)
+                        foreach (var forumSubCategory in subForums)
                         {
-                            var userID = Convert.ToInt32(_mu.ProviderUserKey);
+                            category.TotalPosts++;
 
-                            var isNew =
-                                context.ForumPostNotification.FirstOrDefault(
-                                    x =>
-                                    x.ForumSubCategoryID == lastPost.ForumSubCategoryID &&
-                                    x.UserAccountID == userID);
+                            var lastPost =
+                                context2.ForumPost.Where(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID)
+                                       .OrderByDescending(x => x.CreateDate)
+                                       .FirstOrDefault();
 
-                            if (isNew != null && !isNew.IsRead)
+                            if (lastPost == null) continue;
+
+                            var forumSubPostCount =
+                                context2.ForumPost.Count(x => x.ForumSubCategoryID == forumSubCategory.ForumSubCategoryID);
+
+                            var pageCount = (forumSubPostCount + PageSizeForumPost - 1) / PageSizeForumPost;
+
+                            lastPost.ForumPostURL =
+                                new Uri(string.Format("{0}/{1}#{2}", forumSubCategory.SubForumURL, ((pageCount > 1)
+                                        ? pageCount.ToString(CultureInfo.InvariantCulture)
+                                        : string.Empty), lastPost.ForumPostID.ToString(CultureInfo.InvariantCulture)));
+
+                            lastPost.UserAccount = new UserAccount(lastPost.CreatedByUserID);
+
+                            if (lastPost.CreateDate <= lastPostForum.CreateDate) continue;
+
+                            if (_mu != null)
                             {
-                                lastPost.IsNewPost = true;
+                                var userID = Convert.ToInt32(_mu.ProviderUserKey);
+
+                                var isNew =
+                                    context2.ForumPostNotification.FirstOrDefault(
+                                        x =>
+                                        x.ForumSubCategoryID == lastPost.ForumSubCategoryID &&
+                                        x.UserAccountID == userID);
+
+                                if (isNew != null && !isNew.IsRead)
+                                {
+                                    lastPost.IsNewPost = true;
+                                }
                             }
+                            lastPostForum = lastPost;
                         }
-                        lastPostForum = lastPost;
+
+                        category.LatestForumPost = lastPostForum;
                     }
 
-                    category.LatestForumPost = lastPostForum;
+                  
                 }
 
                 return View(forumCategory);
             }
+
+
+
         }
 
         private void GetValue(string key, string subKey, DasKlubDbContext context)
@@ -161,52 +168,56 @@ namespace DasKlub.Web.Controllers
                     var thread1 = thread;
                     var subForums = context.ForumSubCategory.Where(x => x.ForumSubCategoryID == thread1.ForumSubCategoryID);
 
-                    foreach (var forumPost in subForums)
+                    using (var context2 = new DasKlubDbContext())
                     {
-                        var lastPost =
-                            context.ForumPost.Where(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID)
-                                   .OrderByDescending(x => x.CreateDate)
-                                   .FirstOrDefault();
-
-                        if (lastPost == null) continue;
-                        if (lastPostForum.ForumPostID != 0 && (lastPost.CreateDate <= lastPostForum.CreateDate))
-                            continue;
-
-                        var forumSubPostCount = context.ForumPost.Count(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID);
-
-                        thread.TotalPosts += forumSubPostCount;
-
-                        var pageCount = (forumSubPostCount + SubCatPageSize - 1) / SubCatPageSize;
-
-                        lastPost.ForumPostURL =
-                            new Uri(forumPost.SubForumURL + "/" +
-                                    ((pageCount > 1)
-                                         ? pageCount.ToString(CultureInfo.InvariantCulture)
-                                         : string.Empty) + "#" +
-                                    lastPost.ForumPostID.ToString(CultureInfo.InvariantCulture));
-
-                        lastPost.UserAccount = new UserAccount(lastPost.CreatedByUserID);
-
-                        if (_mu != null)
+                        foreach (var forumPost in subForums)
                         {
-                            var userID = Convert.ToInt32(_mu.ProviderUserKey);
+                            var lastPost =
+                                context2.ForumPost.Where(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID)
+                                       .OrderByDescending(x => x.CreateDate)
+                                       .FirstOrDefault();
 
-                            var isNew =
-                                context.ForumPostNotification.FirstOrDefault(
-                                    x =>
-                                    x.ForumSubCategoryID == lastPost.ForumSubCategoryID &&
-                                    x.UserAccountID == userID);
+                            if (lastPost == null) continue;
+                            if (lastPostForum.ForumPostID != 0 && (lastPost.CreateDate <= lastPostForum.CreateDate))
+                                continue;
 
-                            if (isNew != null && !isNew.IsRead)
+                            var forumSubPostCount = context2.ForumPost.Count(x => x.ForumSubCategoryID == forumPost.ForumSubCategoryID);
+
+                            thread.TotalPosts += forumSubPostCount;
+
+                            var pageCount = (forumSubPostCount + SubCatPageSize - 1) / SubCatPageSize;
+
+                            lastPost.ForumPostURL =
+                                new Uri(forumPost.SubForumURL + "/" +
+                                        ((pageCount > 1)
+                                             ? pageCount.ToString(CultureInfo.InvariantCulture)
+                                             : string.Empty) + "#" +
+                                        lastPost.ForumPostID.ToString(CultureInfo.InvariantCulture));
+
+                            lastPost.UserAccount = new UserAccount(lastPost.CreatedByUserID);
+
+                            if (_mu != null)
                             {
-                                lastPost.IsNewPost = true;
+                                var userID = Convert.ToInt32(_mu.ProviderUserKey);
+
+                                var isNew =
+                                    context2.ForumPostNotification.FirstOrDefault(
+                                        x =>
+                                        x.ForumSubCategoryID == lastPost.ForumSubCategoryID &&
+                                        x.UserAccountID == userID);
+
+                                if (isNew != null && !isNew.IsRead)
+                                {
+                                    lastPost.IsNewPost = true;
+                                }
                             }
+
+                            lastPostForum = lastPost;
                         }
 
-                        lastPostForum = lastPost;
-                    }
 
-                    thread.LatestForumPost = lastPostForum;
+                        thread.LatestForumPost = lastPostForum;
+                    }
                 }
 
                 return View(forumSubCategory);

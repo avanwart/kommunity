@@ -1389,7 +1389,7 @@ namespace DasKlub.Lib.BOL
                 var ua = new UserAccount(UserAccountID);
                 var sb = new StringBuilder(100);
                 sb.AppendFormat(@"<a title=""{0}"" class=""m_over"" href=""{1}"">", ua.UserName,
-                                VirtualPathUtility.ToAbsolute("~/" + ua.UserName));
+                                VirtualPathUtility.ToAbsolute("~/" + ua.UserName.ToLower()));
                 sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""", ua.UserName);
                 sb.Append(FullProfilePicThumbURL);
                 sb.Append(@""" />");
@@ -1405,10 +1405,10 @@ namespace DasKlub.Lib.BOL
                 var sb = new StringBuilder(100);
                 var ua = new UserAccount(UserAccountID);
 
-
-                sb.AppendFormat(@"<span class=""profile_username""><a title=""{0}"" class=""m_over"" href=""{1}"">", ua.UserName, VirtualPathUtility.ToAbsolute("~/" + ua.UserName));
+                sb.AppendFormat(@"<span class=""profile_username""><a title=""{0}"" class=""m_over"" href=""{1}"">", 
+                                ua.UserName, VirtualPathUtility.ToAbsolute("~/" + ua.UserName.ToLower()));
                 sb.Append(ua.UserName);
-                sb.Append(@"</span></a>");
+                sb.Append(@"</a></span>");
                 sb.Append("<br />");
 
                 sb.Append(UserFace);

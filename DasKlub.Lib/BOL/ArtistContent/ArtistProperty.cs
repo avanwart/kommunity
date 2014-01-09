@@ -56,7 +56,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
         #region constants
 
-        public const string Artistimageprefix = "~/Content/artists/";
+        public const string Artistimageprefix = "~/content/artists/";
 
         #endregion
 

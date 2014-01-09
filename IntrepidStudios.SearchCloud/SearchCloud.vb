@@ -417,25 +417,17 @@ Public Class Cloud
                 Else
                     sKeyURL = row.Item(DataURLField)
                 End If
-                'sb.Append(String.Format("<a href=""{0}"" style=""font-size:{1}{5};color:{4};"" title=""{2}""{6}>{3}</a> " & vbNewLine, _
-                '                        sKeyURL, _
-                '                        IIf(Math.Round(Weight) > MaxFontSize, MaxFontSize, Math.Round(Weight)), _
-                '                        ReplaceKeyValues(KeywordTitleFormat, sKeyID, sKeyWord, sKeyURL, sKeyCount), _
-                '                        HttpContext.Current.Server.HtmlEncode(sKeyWord), _
-                '                        ColorRGB, _
-                '                        FontUnit, _
-                '                        GenerateAttributes(sKeyWord, sKeyID, sKeyURL, sKeyCount)))
-
 
                 sb.Append(
-                    String.Format("<a href=""{0}"" style=""font-size:{1}{5};"" title=""{2}""{6}>{3}</a> " & vbNewLine,
+                    String.Format("<a href=""{0}"" style=""font-size:{1}{5};"" title=""{2}"">{3} ({7})</a> " & vbNewLine,
                                   sKeyURL,
                                   IIf(Math.Round(weight) > MaxFontSize, MaxFontSize, Math.Round(weight)),
                                   ReplaceKeyValues(KeywordTitleFormat, sKeyId, sKeyWord, sKeyURL, sKeyCount),
                                   HttpContext.Current.Server.HtmlEncode(sKeyWord),
                                   ColorRGB,
                                   FontUnit,
-                                  GenerateAttributes(sKeyWord, sKeyId, sKeyURL, sKeyCount)))
+                                  GenerateAttributes(sKeyWord, sKeyId, sKeyURL, sKeyCount)),
+                                  sKeyCount)
 
             Next
 
@@ -572,34 +564,16 @@ Public Class Cloud
                 End If
 
                 sb.Append(
-                    String.Format("<a href=""{0}"" style=""font-size:{1}{5};"" title=""{2}""{6}>{3}</a> " & vbNewLine,
+                    String.Format("<a href=""{0}"" style=""font-size:{1}{5};"" title=""{2}"">{3}({6})</a> " & vbNewLine,
                                   sKeyURL,
                                   IIf(Math.Round(Weight) > MaxFontSize, MaxFontSize, Math.Round(Weight)),
                                   ReplaceKeyValues(KeywordTitleFormat, sKeyID, sKeyWord, sKeyURL, sKeyCount),
                                   HttpContext.Current.Server.HtmlEncode(sKeyWord),
                                   ColorRGB,
                                   FontUnit,
-                                  GenerateAttributes(sKeyWord, sKeyID, sKeyURL, sKeyCount)))
+                                  sKeyCount))
 
-
-                'sb.Append(String.Format("<a href=""{0}"" style=""font-size:{1}{5};color:{4};"" title=""{2}""{6}>{3}</a> " & vbNewLine, _
-                '                        sKeyURL, _
-                '                        IIf(Math.Round(Weight) > MaxFontSize, MaxFontSize, Math.Round(Weight)), _
-                '                        ReplaceKeyValues(KeywordTitleFormat, sKeyID, sKeyWord, sKeyURL, sKeyCount), _
-                '                        HttpContext.Current.Server.HtmlEncode(sKeyWord), _
-                '                        ColorRGB, _
-                '                        FontUnit, _
-                '                        GenerateAttributes(sKeyWord, sKeyID, sKeyURL, sKeyCount)))
-
-
-                'sb.Append(String.Format("<a href=""{0}"" style=""font-size:{1}{5};"" title=""{2}""{6}>{3}</a> " & vbNewLine, _
-                '                        sKeyURL, _
-                '                        IIf(Math.Round(Weight) > MaxFontSize, MaxFontSize, Math.Round(Weight)), _
-                '                        ReplaceKeyValues(KeywordTitleFormat, sKeyID, sKeyWord, sKeyURL, sKeyCount), _
-                '                        HttpContext.Current.Server.HtmlEncode(sKeyWord), _
-                '                        ColorRGB, _
-                '                        FontUnit, _
-                '                        GenerateAttributes(sKeyWord, sKeyID, sKeyURL, sKeyCount)))
+ 
 
             Next
 

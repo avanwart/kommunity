@@ -23,7 +23,7 @@
         }
                                            
 
-        <h3 class="title main_title">@Model.Title</h3>
+        <h1 class="title main_title">@Model.Title</h1>
            
          
         <div class="row" >
@@ -37,14 +37,7 @@
                    
                     <time itemprop="dtreviewed" datetime="@Model.ReleaseDate.ToString("yyyy-MM-dd")">
                         <span title="@Model.ReleaseDate.ToString("o")">@Model.ReleaseDate.ToString("MMMM") @Model.ReleaseDate.Day, @Model.ReleaseDate.Year</span></time>
-                      @Html.Raw(" | ")
-                 
-                       <b>
-                @Messages.Language:</b>
-                <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
-             
-                
-
+                     
 
                     @if (Model.CreatedByUserID > 0)
                     {
@@ -62,7 +55,9 @@
  
                         string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
 
-                        @Html.Raw(coName)
+                        @Html.Raw(coName)      <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
+             
+                
                     }
                     
                     
@@ -198,6 +193,15 @@
                 }
             </ul>
         }
+        <hr />
+        
+                <div id="article_tags" >
+            <h4  >@Messages.FilterNewsByTag
+            </h4>
+            <p class="line_space">
+                @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))
+            </p>
+        </div>
     </div>
     <div class="span4">
 
@@ -208,14 +212,14 @@
         <hr />
         @if (ViewBag.NextNews != null)
         {
-            <span>@Messages.Next</span>
+            <b>@Messages.Next</b>
             <ul class="photo_navs">
                 @Html.Raw(ViewBag.NextNews)
             </ul>
         }
         @if (ViewBag.PreviousNews != null)
         {
-            <span>@Messages.Previous</span>
+            <b>@Messages.Previous</b>
             <ul class="photo_navs">
                 @Html.Raw(ViewBag.PreviousNews)
             </ul>
@@ -224,13 +228,9 @@
 
         @{ Html.RenderPartial("_AdBanner160x600"); }
         <hr />
-                <div id="article_tags" >
-            <h3  >@Messages.FilterNewsByTag
-            </h3>
-            <p class="line_space">
-                @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))
-            </p>
-        </div>
+        
+           @{ Html.RenderPartial("_AdBanner300x250"); }
+
         <hr />
        
     </div>

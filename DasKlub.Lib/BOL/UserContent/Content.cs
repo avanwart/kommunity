@@ -188,7 +188,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
         #region constants
 
-        public const string CONTENT_IMAGE_PATH = "~/Content/contentinfo/";
+        public const string CONTENT_IMAGE_PATH = "~/content/contentinfo/";
 
         #endregion
 
@@ -559,15 +559,13 @@ namespace DasKlub.Lib.BOL.UserContent
                 sb.Append(@"<div class=""span4"">");
                 sb.AppendFormat(@"<h4 class=""title""><a href=""{0}"">{1}</a></h4>", UrlTo, Title);
 
-                sb.Append(@"<i>");
-                sb.Append(Messages.Published);
+                sb.AppendFormat(@"<span>{0}</span>", Messages.Published);
                 sb.Append(@": ");
                 sb.Append(Utilities.TimeElapsedMessage(ReleaseDate));
-                sb.Append(@"</i>");
 
                 sb.Append(@"<br />");
 
-                sb.Append(Messages.Language);
+                sb.AppendFormat(@"<span>{0}</span>", Messages.Language);
                 sb.Append(@": ");
 
                 sb.AppendFormat(@"<span class=""badge  badge-inverse"" title=""{1}"">{0}</span> ",
@@ -581,7 +579,7 @@ namespace DasKlub.Lib.BOL.UserContent
                     var uad = new UserAccountDetail();
                     uad.GetUserAccountDeailForUser(ua.UserAccountID);
 
-                    sb.Append("Author"); //TODO: LOCALIZE
+                    sb.AppendFormat(@"<span>{0}</span>", "Author"); //TODO: LOCALIZE
                     sb.Append(@": ");
 
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a> &nbsp;", ua.UrlTo, ua.UserName);
@@ -594,7 +592,7 @@ namespace DasKlub.Lib.BOL.UserContent
                     sb.Append(@"<br />");
                 }
 
-                sb.Append(Messages.Tagged);
+                sb.AppendFormat(@"<span>{0}</span>", Messages.Tagged);
                 sb.Append(": ");
                 sb.Append(TagLinks);
 
@@ -610,7 +608,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
                 if (Comments != null && Comments.Count > 0)
                 {
-                    sb.AppendFormat(@"<a href=""{0}#content_comments"">{1} : {2}</a>",
+                    sb.AppendFormat(@"<a href=""{0}#content_comments"">{1}: {2}</a>",
                                     UrlTo,
                                     Messages.Comments,
                                     Comments.Count.ToString());

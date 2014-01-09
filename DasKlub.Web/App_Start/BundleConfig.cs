@@ -43,7 +43,7 @@ namespace DasKlub.Web.App_Start
                 "~/content/mediaelement/mediaelement-and-player.js"
                             ));
 
-            bundles.Add(new StyleBundle("~/Content/style/css_head2").Include(
+            bundles.Add(new StyleBundle("~/content/style/css_head2").Include(
                 "~/content/style/cyborg_theme.css",
                 "~/content/bootstrap-responsive.css",
                 "~/content/style/jquery-ui-{version}.custom.css",
@@ -51,7 +51,7 @@ namespace DasKlub.Web.App_Start
                 "~/content/style/site_spec_01.css"
                             ));
 
-            bundles.Add(new StyleBundle("~/Content/mediaelement/css_mediaelement").Include(
+            bundles.Add(new StyleBundle("~/content/mediaelement/css_mediaelement").Include(
                 "~/content/mediaelement/mediaelementplayer.css"
                             ));
 

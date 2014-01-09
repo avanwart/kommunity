@@ -226,6 +226,12 @@ namespace DasKlub.Web.Controllers
             {
                 ViewBag.NextNews = otherNews.ToUnorderdListItem;
             }
+            
+            if (!string.IsNullOrWhiteSpace(model.ContentVideoURL2))
+            {
+                // TODO: parse just the key, it's currently requiring the embed
+                model.ContentVideoURL2 = string.Concat(model.ContentVideoURL2, "?rel=0");
+            }
 
             return View(model);
         }

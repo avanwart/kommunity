@@ -8,7 +8,7 @@
  
 <div class="row">
     <div class="span8" >
-        @{ Html.RenderPartial("_AdBanner728x90"); }
+     
         <h2>@Messages.News</h2>
         <hr />
  
@@ -44,6 +44,8 @@
     </div>
 
     <div class="span4" id="article_tags">
+        @{ Html.RenderPartial("_AdBanner300x250"); }
+            <hr   />
         <h4  >@Messages.FilterNewsByTag</h4>
         <p class="line_space">
             @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))</p>

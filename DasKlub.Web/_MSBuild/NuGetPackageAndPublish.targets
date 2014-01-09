@@ -4,7 +4,9 @@
 
   <PropertyGroup>
 
-    <RegenerateNuSpecFiles Condition="$(RegenerateNuSpecFiles) == ''">true</RegenerateNuSpecFiles>
+    <RegenerateNuSpecFiles Condition="($(RegenerateNuSpecFiles) == '' Or $(RegenerateNuSpecFiles) == '*Undefined*')">true</RegenerateNuSpecFiles>
+    <TfsCheckOut Condition="($(TfsCheckOut) == '' Or $(TfsCheckOut) == '*Undefined*')">true</TfsCheckOut>
+    
     <CreateNuGetPackage Condition="$(CreateNuGetPackage) == ''">true</CreateNuGetPackage>
     <PublishNuGetPackage Condition="$(PublishNuGetPackage) == ''">false</PublishNuGetPackage>
     <CreateSymbolPackage Condition="$(CreateSymbolPackage) == ''">true</CreateSymbolPackage>
@@ -17,11 +19,21 @@
     <PackagesConfig Condition="$(PackagesConfig) == '' Or $(PackagesConfig) == '*Undefined*'">$([System.IO.Path]::Combine($(ProjectDir), "packages.config"))</PackagesConfig>
     <PackagesDir Condition="$(PackagesDir) == '' Or $(PackagesDir) == '*Undefined*'">$([System.IO.Path]::Combine($(SolutionDir), "packages"))</PackagesDir>
 
-    <TTGenPath Condition="($(TTGenPath) == '' Or $(TTGenPath) == '*Undefined*') And (Exists('$(CommonProgramFiles(x86))\Microsoft Shared\TextTemplating\10.0\TextTransform.exe'))">$(CommonProgramFiles(x86))\Microsoft Shared\TextTemplating\10.0\TextTransform.exe</TTGenPath>
-    <TTGenPath Condition="($(TTGenPath) == '' Or $(TTGenPath) == '*Undefined*') And (Exists('$(CommonProgramFiles(x86))\Microsoft Shared\TextTemplating\11.0\TextTransform.exe'))">$(CommonProgramFiles(x86))\Microsoft Shared\TextTemplating\11.0\TextTransform.exe</TTGenPath>
-    <TTGenPath Condition="($(TTGenPath) == '' Or $(TTGenPath) == '*Undefined*') And (Exists('$(CommonProgramFiles)\Microsoft Shared\TextTemplating\10.0\TextTransform.exe'))">$(CommonProgramFiles)\Microsoft Shared\TextTemplating\10.0\TextTransform.exe</TTGenPath>
-    <TTGenPath Condition="($(TTGenPath) == '' Or $(TTGenPath) == '*Undefined*') And (Exists('$(CommonProgramFiles)\Microsoft Shared\TextTemplating\11.0\TextTransform.exe'))">$(CommonProgramFiles)\Microsoft Shared\TextTemplating\11.0\TextTransform.exe</TTGenPath>
-    <TFPath Condition="$(TFPath) == '' Or $(NuGetToolsPathTFPath) == '*Undefined*'">$(MSBuildExtensionsPath32)\..\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe</TFPath>
+    <!--Find the TextTransform.exe helper -->
+    <TTGenPath Condition="($(TTGenPath) == '' Or $(TTGenPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath)\..\Common Files\Microsoft Shared\TextTemplating\10.0\TextTransform.exe'))">$(MSBuildExtensionsPath)\..\Common Files\Microsoft Shared\TextTemplating\10.0\TextTransform.exe</TTGenPath>
+    <TTGenPath Condition="($(TTGenPath) == '' Or $(TTGenPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath)\..\Common Files\Microsoft Shared\TextTemplating\11.0\TextTransform.exe'))">$(MSBuildExtensionsPath)\..\Common Files\Microsoft Shared\TextTemplating\11.0\TextTransform.exe</TTGenPath>
+    <TTGenPath Condition="($(TTGenPath) == '' Or $(TTGenPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath)\..\Common Files\Microsoft Shared\TextTemplating\12.0\TextTransform.exe'))">$(MSBuildExtensionsPath)\..\Common Files\Microsoft Shared\TextTemplating\12.0\TextTransform.exe</TTGenPath>
+    <TTGenPath Condition="($(TTGenPath) == '' Or $(TTGenPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath32)\..\Common Files\Microsoft Shared\TextTemplating\10.0\TextTransform.exe'))">$(MSBuildExtensionsPath)\..\Common Files\Microsoft Shared\TextTemplating\10.0\TextTransform.exe</TTGenPath>
+    <TTGenPath Condition="($(TTGenPath) == '' Or $(TTGenPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath32)\..\Common Files\Microsoft Shared\TextTemplating\11.0\TextTransform.exe'))">$(MSBuildExtensionsPath)\..\Common Files\Microsoft Shared\TextTemplating\11.0\TextTransform.exe</TTGenPath>
+    <TTGenPath Condition="($(TTGenPath) == '' Or $(TTGenPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath32)\..\Common Files\Microsoft Shared\TextTemplating\12.0\TextTransform.exe'))">$(MSBuildExtensionsPath)\..\Common Files\Microsoft Shared\TextTemplating\12.0\TextTransform.exe</TTGenPath>
+
+    <!--Find the tf.exe helper -->
+    <TFPath Condition="($(TFPath) == '' Or $(TFPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath)\..\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe'))">$(MSBuildExtensionsPath)\..\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe</TFPath>
+    <TFPath Condition="($(TFPath) == '' Or $(TFPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath)\..\Microsoft Visual Studio 11.0\Common7\IDE\tf.exe'))">$(MSBuildExtensionsPath)\..\Microsoft Visual Studio 11.0\Common7\IDE\tf.exe</TFPath>
+    <TFPath Condition="($(TFPath) == '' Or $(TFPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath)\..\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe'))">$(MSBuildExtensionsPath)\..\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe</TFPath>
+    <TFPath Condition="($(TFPath) == '' Or $(TFPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath32)\..\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe'))">$(MSBuildExtensionsPath32)\..\Microsoft Visual Studio 10.0\Common7\IDE\tf.exe</TFPath>
+    <TFPath Condition="($(TFPath) == '' Or $(TFPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath32)\..\Microsoft Visual Studio 11.0\Common7\IDE\tf.exe'))">$(MSBuildExtensionsPath32)\..\Microsoft Visual Studio 11.0\Common7\IDE\tf.exe</TFPath>
+    <TFPath Condition="($(TFPath) == '' Or $(TFPath) == '*Undefined*') And (Exists('$(MSBuildExtensionsPath32)\..\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe'))">$(MSBuildExtensionsPath32)\..\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe</TFPath>
 
     <NuGetPackageName>$(ProjectDir)$(AssemblyName.Replace(".NuGetPackage", ""))</NuGetPackageName>
 
@@ -78,9 +90,9 @@
   <!-- Check all the pre-requisites are in place -->
   <Target Name="CheckNuGetPackageAndPublishPrerequisites">
     <!-- Raise an error if we're unable to locate nuget.exe  -->
-    <Error Condition="!Exists('$(NuGetExePath)') and ($(CreateNuGetPackage) == 'true' or $(PublishNuGetPackage) == 'true')" Text="Unable to locate '$(NuGetExePath)'" />
-    <Error Condition="!Exists('$(TTGenPath)') and $(RegenerateNuSpecFiles) == 'true'" Text="Unable to locate '$(TTGenPath)'" />
-    <Message Condition="!Exists('$(TFPath)') and $(RegenerateNuSpecFiles) == 'true'" Text="Unable to locate '$(TFPath)'" />
+    <Error Condition="!Exists('$(NuGetExePath)') and ($(CreateNuGetPackage) == 'true' or $(PublishNuGetPackage) == 'true')" Text="Unable to locate 'NuGet.exe'" />
+    <Error Condition="!Exists('$(TTGenPath)') and $(RegenerateNuSpecFiles) == 'true'" Text="Unable to locate 'TextTemplate.exe' - install a VS-SDK or build with /p:RegenerateNuSpecFiles=false" />
+    <Message Condition="!Exists('$(TFPath)') and $(TfsCheckOut) == 'true'" Text="Unable to locate 'Tf.exe' - install TFS client or build with /p:TfsCheckOut=false" />
   </Target>
 
   <!-- Get the version info from the assembly to use as the version number of the assembly -->
@@ -114,17 +126,22 @@
   <Target Name="CopyAssembliesToLibDirectories">
     <ItemGroup>
       <Net40Assemblies Include="$(CopySourceFolder)\*.dll" Exclude="$(CopySourceFolder)\*.Silverlight.dll;$(CopySourceFolder)\*.Tests.dll" />
+      <Net40XmlDocs Include="$(CopySourceFolder)\*.xml" Exclude="$(CopySourceFolder)\*.Silverlight.xml;$(CopySourceFolder)\*.Tests.xml" />
       <Net40Symbols Include="$(CopySourceFolder)\*.pdb" Exclude="$(CopySourceFolder)\*.Silverlight.pdb;$(CopySourceFolder)\*.Tests.pdb" />
       <SL40Assemblies Include="$(CopySourceFolder)\*.Silverlight.dll" />
+      <SL40XmlDocs Include="$(CopySourceFolder)\*.Silverlight.xml" />
       <SL40Symbols Include="$(CopySourceFolder)\*.Silverlight.pdb" />
     </ItemGroup>
     <Copy DestinationFolder="$(ProjectDir)Package\lib\Net40" SourceFiles="@(Net40Assemblies)" SkipUnchangedFiles="false"  />
+    <Copy DestinationFolder="$(ProjectDir)Package\lib\Net40" SourceFiles="@(Net40XmlDocs)" SkipUnchangedFiles="false"  />
     <Copy DestinationFolder="$(ProjectDir)Package\lib\Net40" SourceFiles="@(Net40Symbols)" SkipUnchangedFiles="false"  />
     <Copy DestinationFolder="$(ProjectDir)Package\lib\SL40" SourceFiles="@(SL40Assemblies)" SkipUnchangedFiles="false" />
+    <Copy DestinationFolder="$(ProjectDir)Package\lib\SL40" SourceFiles="@(SL40XmlDocs)" SkipUnchangedFiles="false" />
     <Copy DestinationFolder="$(ProjectDir)Package\lib\SL40" SourceFiles="@(SL40Symbols)" SkipUnchangedFiles="false" />
   </Target>
 
-  <Target Name="CheckOutNuSpecFiles" DependsOnTargets="CheckNuGetPackageAndPublishPrerequisites" Condition="@(NuSpecFiles) != '' and Exists('$(TFPath)') and $(RegenerateNuSpecFiles) == 'true'">
+  <Target Name="CheckOutNuSpecFiles" DependsOnTargets="CheckNuGetPackageAndPublishPrerequisites" 
+          Condition="@(NuSpecFiles) != '' and Exists('$(TFPath)') and $(RegenerateNuSpecFiles) == 'true' and $(TfsCheckOut) == 'true'">
     <Exec ContinueOnError="true" Command="&quot;$(TFPath)&quot; checkout &quot;%(NuSpecFiles.FullPath)&quot;" Condition="($(SccProvider) == 'SAK')" />
   </Target>
 

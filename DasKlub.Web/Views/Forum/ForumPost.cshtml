@@ -47,11 +47,11 @@
                               if (ViewBag.PageNumber == 1)
                               {
 
-                                  <h3>@ViewBag.PageTitle</h3>
+                                  <h1>@ViewBag.PageTitle</h1>
                                   <p>
                                       @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(ViewBag.SubForum.Description), 200, 300))
                                   </p>
-                              <span>Posted By: </span> <a href = "@ViewBag.SubForum.UserAccount.UrlTo.ToString()">@ViewBag.SubForum.UserAccount.UserName</a>
+                              <span>Posted By: </span> <a href="@ViewBag.SubForum.UserAccount.UrlTo.ToString()">@ViewBag.SubForum.UserAccount.UserName</a>
                                    <span>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</span> <i>@ViewBag.SubForum.CreateDate.ToString("yyyy-MM-dd")</i> 
                       
                                   

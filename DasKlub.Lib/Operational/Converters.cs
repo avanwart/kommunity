@@ -211,6 +211,19 @@ namespace DasKlub.Lib.Operational
             return source;
         }
 
+        public static string SEOText(string input, int maxlength)
+        {
+            if (input.Length < maxlength) return input;
+
+            string myString = input.Substring(0, maxlength);
+
+            int index = myString.LastIndexOf(' ');
+
+            string outputString = myString.Substring(0, index);
+
+            return outputString;
+        }
+
         #region fixed length string
 
         /// <summary>

@@ -194,7 +194,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
                         art = new Artist(sng.ArtistID);
                         _songDisplayNoLink += HttpUtility.HtmlEncode(
-                            string.Format("{0}: <b>{1}</b> - {2} <br />", cnt.ToString(CultureInfo.InvariantCulture),
+                            string.Format("{0}:  {1} - {2} <br />", cnt.ToString(CultureInfo.InvariantCulture),
                                           art.Name, sng.Name));
                         cnt++;
                     }
@@ -202,7 +202,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
                 else if (sngs.Count == 1)
                 {
                     art = new Artist(sngs[0].ArtistID);
-                    _songDisplayNoLink += HttpUtility.HtmlEncode(string.Format(@"<b>{0}</b> - {1}", art.Name, sngs[0].Name));
+                    _songDisplayNoLink += HttpUtility.HtmlEncode(string.Format(@"{0} - {1}", art.Name, sngs[0].Name));
                 }
                 return _songDisplayNoLink;
             }
