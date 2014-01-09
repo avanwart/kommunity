@@ -144,7 +144,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -379,13 +381,10 @@
     <Content Include="clean_videos.aspx" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap\bootstrap.css" />
-    <Content Include="Content\bootstrap\bootstrap.min.css" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\acknowledgement\applaud.png" />
     <Content Include="Content\images\acknowledgement\applaud_check.png" />
     <Content Include="Content\images\acknowledgement\beat.png" />
@@ -570,9 +569,6 @@
     <Content Include="Content\script\jquery.ui.widget.js" />
     <Content Include="Content\script\jquery.unobtrusive-ajax.js" />
     <Content Include="Content\script\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <None Include="Content\script\jquery.validate-vsdoc.js" />
     <Content Include="Content\script\jquery.validate.js" />
     <Content Include="Content\script\jquery.validate.min.js" />
@@ -680,6 +676,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="error.htm" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="HtmlPage1.html" />
     <Content Include="MassMail.aspx" />
@@ -694,6 +691,9 @@
     <Content Include="m\auth\VideoInput.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Content\resources\logo.ai" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\dasklub.com - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dasklub.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\das_klub.pubxml" />
@@ -1085,6 +1085,7 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.7.1.js" />
     <Content Include="Scripts\scrollpagination.js" />
     <Content Include="Scripts\site_wide_13.js" />
     <Content Include="Scripts\ui\jquery.ui.core.js" />
