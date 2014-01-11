@@ -3,11 +3,15 @@ using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Resources;
+using Ninject;
 
 namespace DasKlub.Lib.Services
 {
+
     public class MailService : IMailService
     {
+        public MailService() { }
+
         /// <summary>
         /// Sends an email with opt out option
         /// </summary>
@@ -29,7 +33,7 @@ namespace DasKlub.Lib.Services
                 fromEmail = fromEmail.Trim();
                 
                 var amzClient = new AmazonSimpleEmailServiceClient(
-                    AmazonCloudConfigs.AmazonAccessKey, AmazonCloudConfigs.AmazonSecretKey);
+                    AmazonCloudConfigs.AmazonAccessKey, AmazonCloudConfigs.AmazonSecretKey, Amazon.RegionEndpoint.USEast1);
                 var dest = new Destination();
                 dest.ToAddresses.Add(toEmail);
 
