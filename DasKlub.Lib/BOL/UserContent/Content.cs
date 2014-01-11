@@ -559,13 +559,13 @@ namespace DasKlub.Lib.BOL.UserContent
                 sb.Append(@"<div class=""span4"">");
                 sb.AppendFormat(@"<h4 class=""title""><a href=""{0}"">{1}</a></h4>", UrlTo, Title);
 
-                sb.AppendFormat(@"<span>{0}</span>", Messages.Published);
+                sb.AppendFormat(@"<b>{0}</b>", Messages.Published);
                 sb.Append(@": ");
                 sb.Append(Utilities.TimeElapsedMessage(ReleaseDate));
 
                 sb.Append(@"<br />");
 
-                sb.AppendFormat(@"<span>{0}</span>", Messages.Language);
+                sb.AppendFormat(@"<b>{0}</b>", Messages.Language);
                 sb.Append(@": ");
 
                 sb.AppendFormat(@"<span class=""badge  badge-inverse"" title=""{1}"">{0}</span> ",
@@ -579,7 +579,7 @@ namespace DasKlub.Lib.BOL.UserContent
                     var uad = new UserAccountDetail();
                     uad.GetUserAccountDeailForUser(ua.UserAccountID);
 
-                    sb.AppendFormat(@"<span>{0}</span>", "Author"); //TODO: LOCALIZE
+                    sb.AppendFormat(@"<b>{0}</b>", "Author"); //TODO: LOCALIZE
                     sb.Append(@": ");
 
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a> &nbsp;", ua.UrlTo, ua.UserName);
@@ -592,7 +592,7 @@ namespace DasKlub.Lib.BOL.UserContent
                     sb.Append(@"<br />");
                 }
 
-                sb.AppendFormat(@"<span>{0}</span>", Messages.Tagged);
+                sb.AppendFormat(@"<b>{0}</b>", Messages.Tagged);
                 sb.Append(": ");
                 sb.Append(TagLinks);
 
