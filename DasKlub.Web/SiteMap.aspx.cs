@@ -164,7 +164,12 @@ namespace DasKlub.Web
             {
                 writer.WriteStartElement("url");
                 writer.WriteElementString("loc", string.Format("{0}news/{1}", siteDomain, c1.ContentKey.ToLower()));
-                writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", c1.ReleaseDate));
+                var lastmod = c1.ReleaseDate;
+                if (c1.Comments != null && c1.Comments.Count > 0)
+                {
+                    lastmod = c1.Comments[c1.Comments.Count - 1].CreateDate;
+                }
+                writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", lastmod));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.8");
                 writer.WriteEndElement();
