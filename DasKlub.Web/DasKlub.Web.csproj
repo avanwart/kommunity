@@ -1149,6 +1149,7 @@
     <Content Include="Views\Shared\_AdBanner728x90.cshtml" />
     <Content Include="Views\Forum\EditSubCategory.cshtml" />
     <Content Include="Views\Forum\EditForumPost.cshtml" />
+    <Content Include="Views\Shared\_socialShares.cshtml" />
     <None Include="Web.Production.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
