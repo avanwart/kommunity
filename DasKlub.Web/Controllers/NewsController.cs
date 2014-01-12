@@ -231,6 +231,7 @@ namespace DasKlub.Web.Controllers
             {
                 // TODO: parse just the key, it's currently requiring the embed
                 model.ContentVideoURL2 = string.Concat(model.ContentVideoURL2, "?rel=0");
+                ViewBag.VideoWidth = "100%";
             }
 
             return View(model);
