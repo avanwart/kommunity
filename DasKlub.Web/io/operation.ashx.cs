@@ -28,22 +28,17 @@ using DasKlub.Lib.Resources;
 using DasKlub.Lib.Services;
 using DasKlub.Lib.Values;
 using LitS3;
+using Microsoft.Practices.ServiceLocation;
 
 namespace DasKlub.Web.io
 {
     public class operation : IHttpHandler
     {
-
         private IMailService _mail;
-
-        public operation(IMailService mail)
+ 
+        public operation()
         {
-            _mail = mail;
-        }
-
-        public operation( )
-        {
-             
+            _mail = new MailService();// TODO: FIX NINJECT, FAILING TO WORK HERE
         }
 
         public void ProcessRequest(HttpContext context)
