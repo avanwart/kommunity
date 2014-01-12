@@ -9,9 +9,20 @@ namespace DasKlub.Models.Forum
     public class ForumPost : StateInfo
     {
         public int ForumPostID { get; set; }
+        
+        private string _detail = string.Empty;
 
         [Required]
-        public string Detail { get; set; }
+        public string Detail
+        {
+            get
+            {
+                if (_detail != null)
+                    _detail = _detail.Trim();
+                return _detail;
+            }
+            set { _detail = value; }
+        }
 
         public int ForumSubCategoryID { get; set; }
 

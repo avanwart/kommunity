@@ -38,12 +38,32 @@ namespace DasKlub.Models.Forum
         [Required]
         public string Key { get; set; }
 
+        private string _title = string.Empty;
+        
         [StringLength(150)]
         [Required]
-        public string Title { get; set; }
+        public string Title
+        {
+            get {
+                if (_title != null)
+                    _title = _title.Trim();
+                return _title; }
+            set { _title = value; }
+        }
+
+        private string _description = string.Empty;
 
         [Required]
-        public string Description { get; set; }
+        public string Description
+        {
+            get
+            {
+                if (_description != null)
+                    _description = _description.Trim();
+                return _description;
+            }
+            set { _description = value; }
+        }
 
         [NotMapped]
         public UserAccount UserAccount { get; set; }
