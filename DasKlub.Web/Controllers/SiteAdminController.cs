@@ -349,12 +349,17 @@ namespace DasKlub.Web.Controllers
         public ActionResult UpdateRoles(int userAccountID, IEnumerable<string> roleOption)
         {
             var ua = new UserAccount(userAccountID);
+            ua.IsLockedOut = (Request.Form["isLockedOut"] == null) ? false : true;
+            ua.Update();
 
             UserAccountRole.DeleteUserRoles(userAccountID);
 
-            foreach (var thenewRole in roleOption.Select(newRole => new Role(newRole)))
+            if (roleOption != null)
             {
-                UserAccountRole.AddUserToRole(userAccountID, thenewRole.RoleID);
+                foreach (var thenewRole in roleOption.Select(newRole => new Role(newRole)))
+                {
+                    UserAccountRole.AddUserToRole(userAccountID, thenewRole.RoleID);
+                }
             }
 
             if (ua.UserAccountID > 0)

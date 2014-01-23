@@ -660,6 +660,8 @@ namespace DasKlub.Lib.Providers
 
             if (eu.UserAccountID == 0) return false;
 
+            if (eu.IsLockedOut) return false;
+
             if (IsValidPasswordComparison(password, eu.Password))
             {
                 //if (eu.IsApproved && eu.IsLockedOut == false)
