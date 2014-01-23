@@ -245,7 +245,9 @@ namespace DasKlub.Web.Controllers
 
             var content = new Content(model.ContentID);
 
-            if (_mu == null || model.CreatedByUserID != Convert.ToInt32(_mu.ProviderUserKey)) return new EmptyResult();
+            var ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
+
+            if (_mu == null || model.CreatedByUserID != Convert.ToInt32(_mu.ProviderUserKey) || ua.IsAdmin) return new EmptyResult();
 
             model.Delete();
 
