@@ -287,7 +287,9 @@ namespace DasKlub.Web.Controllers
 
             if (!hasBeenSaid) model.Reply.Create();
 
-            return View(model);
+            Response.Redirect(model.UrlTo.ToString() + "#content_comments");
+
+            return new EmptyResult();
         }
 
         public ActionResult Tag(string key)

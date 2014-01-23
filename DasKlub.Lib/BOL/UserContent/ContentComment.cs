@@ -137,7 +137,6 @@ namespace DasKlub.Lib.BOL.UserContent
 
                 sb.Append(@"<hr />");
 
-
                 sb.Append(@"<br />");
 
                 sb.Append(@"<i>");
@@ -164,10 +163,15 @@ namespace DasKlub.Lib.BOL.UserContent
 
                 MembershipUser mu = Membership.GetUser();
 
-                if (mu != null && CreatedByUserID == Convert.ToInt32(mu.ProviderUserKey))
+                if (mu != null)
                 {
-                    sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                        "~/news/DeleteComment?commentID=" + ContentCommentID.ToString()), Messages.Delete);
+                    var user = new UserAccount(Convert.ToInt32(mu.ProviderUserKey));
+
+                    if (CreatedByUserID == Convert.ToInt32(mu.ProviderUserKey) || user.IsAdmin)
+                    {
+                        sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
+                            "~/news/deletecomment?commentID=" + ContentCommentID.ToString()), Messages.Delete);
+                    }
                 }
 
                 sb.Append(@"</li>");
