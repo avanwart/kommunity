@@ -12,7 +12,7 @@
 
         @if (ViewBag.SelectedUser != null)
         {
-            <form action="@Url.Content("~/siteAdmin/updateroles")" method="post">
+            <form action="@Url.Content("~/siteadmin/updateroles")" method="post">
 
                 <fieldset>
                     
@@ -97,8 +97,19 @@
                         }
 
                     </div>
-
-
+                    <span>
+                        Is locked out?
+                    </span>
+                    @if (ViewBag.SelectedUser.IsLockedOut)
+                    {
+                    <input type="checkbox" checked="checked" name="isLockedOut" />    
+                    }
+                    else
+                    {
+                        <input type="checkbox"  name="isLockedOut" />
+                    }
+                    
+                    <br />
                 </fieldset>
                 <input class="btn btn-success" type="submit" value="@Messages.Submit" />
             </form>

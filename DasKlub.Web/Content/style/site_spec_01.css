@@ -855,6 +855,8 @@ ul.radio_stations2 li {
     height: 60px;
 }
     
+
+strong, b {letter-spacing: .05em}
     
     
 a:visited {
