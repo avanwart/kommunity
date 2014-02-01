@@ -48,9 +48,11 @@
                               {
 
                                   <h1>@ViewBag.PageTitle</h1>
-                                  <p>
-                                      @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(HttpUtility.HtmlEncode(ViewBag.SubForum.Description)), 200, 300))
-                                  </p>
+    <div class="forum_post_content">
+        <p>
+            @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(HttpUtility.HtmlEncode(ViewBag.SubForum.Description)), 200, 300))
+        </p>
+    </div>
                               <span>Posted By: </span> <a href="@ViewBag.SubForum.UserAccount.UrlTo.ToString()">@ViewBag.SubForum.UserAccount.UserName</a>
                                    <span>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</span> <i>@ViewBag.SubForum.CreateDate.ToString("yyyy-MM-dd")</i> 
                       
@@ -126,11 +128,13 @@
 
                         <br />
                         <br />
-                        <p>
-                            @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(HttpUtility.HtmlEncode(forumCat.Detail)), 200, 300))
-                        </p>
-                       
-                    </div>
+                        <div class="forum_post_content">
+                            <p>
+                                @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(HttpUtility.HtmlEncode(forumCat.Detail)), 200, 300))
+                            </p>
+
+                        </div>
+                        </div>
                            
                   
                 </div>
