@@ -119,7 +119,7 @@ Invoke-psake $PSScriptRoot\..\default.ps1 deploy -properties @{
 <pre>
 git remote -v
 git remote set-url origin https://github.com/dasklub/kommunity.git
-git remote set-url --push origin <YOUR_FORK_URL>
+git remote set-url --push origin [YOUR_FORK_URL]
 </pre>
 
 To get your code included into the master repository, fork the repository, create a new branch, commit your changes there and push.
