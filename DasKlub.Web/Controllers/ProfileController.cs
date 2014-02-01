@@ -682,7 +682,7 @@ namespace DasKlub.Web.Controllers
 
             var contentToLoad = new Contents();
 
-            foreach (var content in contentToLoad.Where(content => content.ReleaseDate < DateTime.UtcNow))
+            foreach (var content in conts.Where(content => content.ReleaseDate < DateTime.UtcNow))
             {
                 contentToLoad.Add(content);
             }
