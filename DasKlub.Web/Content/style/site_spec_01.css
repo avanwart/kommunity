@@ -629,9 +629,6 @@ li {
     padding-left: 20px;
     padding-right: 11px;
 }
-
-
- 
  
  
 .message_option { background: url(../images/icons/icon_mail.png) no-repeat left 50% }
@@ -693,16 +690,12 @@ li {
 }
 
 .profile_thumb img { border: 3px solid transparent; }
- 
-
   
 .table tbody tr:hover td,
 .table tbody tr:hover th { color: #000; }
-
-
+ 
 .ui-accordion-content a { color: #08C }
-
-
+ 
 ul.photo_navs a:hover img {
     border: 3px solid #08C;
     opacity: 0.6;
@@ -738,13 +731,8 @@ a.m_over:visited:hover img {
 a.current_view_profile_pic img { border: solid 3px #468847 }
 
 #logged_in_menu li a.alert_blue { color: #3A87AD }
-    
-    
-    
-    
+     
 .comment_list li { display: block; }
-
- 
  
 button.applaud_status[type="button"] { border: 1px solid transparent; }
 
@@ -880,6 +868,8 @@ a.play_button {
 a.play_button:hover { background-position: center center; }
 
 a.play_button:hover { background-position: center bottom; }
+
+.forum_post_content {color: #FFF;}
 
 
 .user_name {
