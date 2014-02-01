@@ -416,7 +416,7 @@
         }
         <div class="span3">
             <h4>@Messages.CyberAssociates: @Model.CyberFriendCount</h4>
-            <a class="m_over" href="@Url.Content("~/account/CyberAssociates/" + Model.UserName)">
+            <a class="m_over" href="@Url.Content("~/account/cyberassociates/" + Model.UserName)">
                 <img  alt="@Messages.CyberAssociates" title="@Messages.CyberAssociates"  src="@Url.Content("~/content/images/userstatus/keyboard.png")" /></a>
         </div>
         <div class="span3">
@@ -603,7 +603,7 @@
             $('#load_more_statuses').click(function() {
 
                 $('#loading').fadeIn();
-                $.post($rootUrl + '@Model.UserName' + '/wallmessages', { pageNumber: pageNumber },
+                $.post($rootUrl + '@Model.UserName.ToLower()' + '/wallmessages', { pageNumber: pageNumber },
                     function(data) {
 
                         pageNumber++;
@@ -623,7 +623,7 @@
 
             $(function() {
                 $('#status_update_list_items').scrollPagination({
-                    'contentPage': $rootUrl + '@Model.UserName' + '/wallmessages', // the page where you are searching for results
+                    'contentPage': $rootUrl + '@Model.UserName.ToLower()' + '/wallmessages', // the page where you are searching for results
                     'contentData': {}, // you can pass the children().size() to know where is the pagination
                     'scrollTarget': $(window), // who gonna scroll? in this example, the full window
                     'heightOffset': 75, // how many pixels before reaching end of the page would loading start? positives numbers only please
@@ -727,10 +727,7 @@
                 @Html.ActionLink(Messages.Block + ": " + Model.UserName,
                                  "blockeduser", "account", new { @userAccountID = Model.UserAccountID },
                                  new { @onclick = "return confirm('" + Messages.Block + ": " + Model.UserName + "')" })
-                <br />
-                @Html.ActionLink("Accuse" + ": " + Model.UserName + " of thought crime.",
-                                 "reportuser", "account", new { @userAccountID = Model.UserAccountID },
-                                 new { @onclick = "return confirm('" + "Accuse: " + ": " + Model.UserName + " of thought crime?" + "')" })
+    
             </div>
         }
     
