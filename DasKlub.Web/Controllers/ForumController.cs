@@ -408,14 +408,16 @@ namespace DasKlub.Web.Controllers
                 context.Configuration.ProxyCreationEnabled = false;
                 context.Configuration.LazyLoadingEnabled = false;
 
-                var forum = context.ForumCategory.FirstOrDefault(x => x.Key == key);
+                var forum = context.ForumCategory.FirstOrDefault(forumPost => forumPost.Key == key);
 
                 if (forum == null || forum.ForumCategoryID == 0)
                     return RedirectPermanent("~/forum");// it's gone
 
                 ViewBag.Forum = forum;
 
-                var subForum = context.ForumSubCategory.FirstOrDefault(x => x.Key == subKey);
+                var subForum = context.ForumSubCategory.FirstOrDefault(forumPost => 
+                                                                        forumPost.Key == subKey && 
+                                                                        forumPost.ForumCategoryID == forum.ForumCategoryID);
 
                 if (subForum == null || subForum.ForumSubCategoryID == 0)
                     return RedirectPermanent("~/forum");// it's gone
@@ -424,13 +426,11 @@ namespace DasKlub.Web.Controllers
 
                 ViewBag.SubForum = subForum;
 
-                var forumPost = context.ForumPost
+                var forumPostDisplay = context.ForumPost
                                        .Where(x => x.ForumSubCategoryID == subForum.ForumSubCategoryID)
                                        .OrderBy(x => x.CreateDate)
                                        .Skip(PageSizeForumPost*(pageNumber - 1))
                                        .Take(PageSizeForumPost).ToList();
-
-
 
                 if (_mu != null)
                 {
@@ -459,16 +459,16 @@ namespace DasKlub.Web.Controllers
                 ViewBag.PageTitle = subForum.Title;
                 ViewBag.Title = pageNumber == 1 ?
                                 string.Format("{0}", subForum.Title) :
-                                string.Format("{0} | page {1}", subForum.Title, pageNumber);                
+                                string.Format("{0} | page {1}", subForum.Title, pageNumber);
 
-                foreach (var post in forumPost)
+                foreach (var post in forumPostDisplay)
                 {
                     post.UserAccount = new UserAccount(post.CreatedByUserID);
                 }
 
                 ViewBag.MetaDescription = FromString.GetFixedLengthString(subForum.Description, 160);
 
-                return View(forumPost);
+                return View(forumPostDisplay);
             }
         }
 
