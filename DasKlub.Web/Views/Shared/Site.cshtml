@@ -83,7 +83,7 @@
 
         <meta name="description" @if (!string.IsNullOrEmpty(ViewBag.MetaDescription))
                                  {
-                                     <text>content="@Html.Raw(ViewBag.MetaDescription)"</text>
+                                     <text>content="@Html.Encode(ViewBag.MetaDescription)"</text>
                                  }
                                  else
                                  {
@@ -91,7 +91,7 @@
                                  } />
         <meta property="og:title"     @if (!string.IsNullOrEmpty(ViewBag.Title))
                                       {
-                                          <text>content="@Html.Raw(ViewBag.Title)"</text>
+                                          <text>content="@Html.Encode(ViewBag.Title)"</text>
                                       }
                                       else
                                       {
@@ -99,7 +99,7 @@
                                       } />
         <meta property="og:description"     @if (!string.IsNullOrEmpty(ViewBag.MetaDescription))
                                             {
-                                                <text>content="@Html.Raw(ViewBag.MetaDescription)"</text>
+                                                <text>content="@Html.Encode(ViewBag.MetaDescription)"</text>
                                             }
                                             else
                                             {
