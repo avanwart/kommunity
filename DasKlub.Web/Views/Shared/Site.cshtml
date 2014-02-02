@@ -17,27 +17,20 @@
         langName = Utilities.GetCurrentLanguageCode().ToLower();
     }
 }
-<html  lang="@langName" @if (langName == SiteEnums.SiteLanguages.AR.ToString().ToLower())
-                        {
-                            <text>dir="rtl"</text>
-                        }
-                        else
-                        {
-                            <text>dir="ltr"</text>
-                        }>
-  
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="shortcut icon" href="@Url.Content("~/content/images/brand/favicon.ico")" />
-        @{
-            var pageTitle = string.Format("{0} | {1}", FromString.SEOText(ViewBag.Title, 65 - 3 - GeneralConfigs.SiteName.Length), GeneralConfigs.SiteName);
-        }
-        <title>@pageTitle</title>
-  
-        @*  @Styles.Render("~/content/css_head1")*@
+<html lang="@langName" @if (langName == SiteEnums.SiteLanguages.AR.ToString().ToLower()) { <text> dir="rtl" </text>  } else { <text> dir="ltr" </text>  }>
 
-       <style type="text/css">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="@Url.Content("~/content/images/brand/favicon.ico")" />
+    @{
+            var pageTitle = string.Format("{0} | {1}", FromString.SEOText(ViewBag.Title, 65 - 3 - GeneralConfigs.SiteName.Length), GeneralConfigs.SiteName);
+    }
+    <title>@pageTitle</title>
+
+    @*  @Styles.Render("~/content/css_head1")*@
+
+    <style type="text/css">
             body {
                 @if (HttpContext.Current.Request.IsAuthenticated)
                 {
@@ -51,231 +44,200 @@
               padding-top: 65px;
         </text>
                 }
-                
-                
-                
-                
-                
-                
+
+
+
+
+
+
                 padding-bottom: 50px;
             }
 
-        </style>
- 
-        @Styles.Render("~/content/style/css_head2")
+    </style>
 
-    
-        
+    @Styles.Render("~/content/style/css_head2")
 
-        @Styles.Render("~/content/mediaelement/css_mediaelement")
 
-        @Html.Raw(SiteDomain.GetSiteDomainValue(
+
+
+    @Styles.Render("~/content/mediaelement/css_mediaelement")
+
+    @Html.Raw(SiteDomain.GetSiteDomainValue(
             SiteEnums.SiteBrandType.STYLE,
             Utilities.GetCurrentLanguageCode()))
-        
-        
-    
-
-        @RenderSection("_css", false)
-        
-        
-            
-
-        <meta name="description" @if (!string.IsNullOrEmpty(ViewBag.MetaDescription))
-                                 {
-                                     <text>content="@Html.Raw(ViewBag.MetaDescription)"</text>
-                                 }
-                                 else
-                                 {
-                                     <text>content="@Messages.CreativeCommunity"</text>
-                                 } />
-        <meta property="og:title"     @if (!string.IsNullOrEmpty(ViewBag.Title))
-                                      {
-                                          <text>content="@Html.Raw(ViewBag.Title)"</text>
-                                      }
-                                      else
-                                      {
-                                          <text>content="Das Klub in a international community for industrial dance music and culture."</text>
-                                      } />
-        <meta property="og:description"     @if (!string.IsNullOrEmpty(ViewBag.MetaDescription))
-                                            {
-                                                <text>content="@Html.Raw(ViewBag.MetaDescription)"</text>
-                                            }
-                                            else
-                                            {
-                                                <text>content="Das Klub in a international community for industrial dance music and culture."</text>
-                                            } />
-        <link rel="image_src"  @if (!string.IsNullOrEmpty(ViewBag.ThumbIcon))
-                               {<text>href="</text>@Html.Raw(ViewBag.ThumbIcon)<text>"</text> }
-                               else
-                               { <text>href="@Url.Content("~/content/images/brand/logo.png")"</text>
-                               }
-    
-    
-                                 />
-                                 <meta id="thumb_icon" property="og:image"  @if (!string.IsNullOrEmpty(ViewBag.ThumbIcon))
-                                                                            {<text>content="</text>@Html.Raw(ViewBag.ThumbIcon)<text>"</text> }
-                                                                            else
-                                                                            {  <text>content="@Url.Content("~/content/images/brand/logo.png")"</text> } />
 
 
-        <script type="text/javascript">
-            var $rootUrl = '/';
-
-        </script>
 
 
-        @Html.Raw(SiteDomain.GetSiteDomainValue(
+    @RenderSection("_css", false)
+
+
+
+
+    <meta name="description" @if (!string.IsNullOrEmpty(ViewBag.MetaDescription)) { <text> content="@Html.Encode(ViewBag.MetaDescription)" </text>  } else { <text> content="@Messages.CreativeCommunity" </text>  } />
+    <meta property="og:title" @if (!string.IsNullOrEmpty(ViewBag.Title)) { <text> content="@Html.Encode(ViewBag.Title)" </text>  } else { <text> content="Das Klub in a international community for industrial dance music and culture." </text>  } />
+    <meta property="og:description" @if (!string.IsNullOrEmpty(ViewBag.MetaDescription)) { <text> content="@Html.Encode(ViewBag.MetaDescription)" </text>  } else { <text> content="Das Klub in a international community for industrial dance music and culture." </text>  } />
+    <link rel="image_src" @if (!string.IsNullOrEmpty(ViewBag.ThumbIcon)) { <text> href="</text>@Html.Raw(ViewBag.ThumbIcon)<text>" </text>  } else { <text> href="@Url.Content("~/content/images/brand/logo.png")" </text>  } />
+    <meta id="thumb_icon" property="og:image" @if (!string.IsNullOrEmpty(ViewBag.ThumbIcon)) { <text> content="</text>@Html.Raw(ViewBag.ThumbIcon)<text>" </text>  } else {  <text> content="@Url.Content("~/content/images/brand/logo.png")" </text>  } />
+
+
+    <script type="text/javascript">
+        var $rootUrl = '/';
+
+    </script>
+
+
+    @Html.Raw(SiteDomain.GetSiteDomainValue(
             SiteEnums.SiteBrandType.GOOGH,
             Utilities.GetCurrentLanguageCode()))
-        @RenderSection("_javascriptHead", false)
-    </head>
-    <body>
-        <div class="navbar  navbar-fixed-top  ">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-        class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </a>
-                    <a href="@Url.Content("~/")" style="margin-top:5px;" class="brand">
-                            <img style="height: 39px;" alt="@GeneralConfigs.SiteName"
-                                 src="@Url.Content("~/content/images/brand/dk_logo.png")" />
-                        </a>
-                    <div class="nav-collapse">
-                        
-                       
-       
-                                @{Html.RenderPartial("_kommunityMenu");}
+    @RenderSection("_javascriptHead", false)
+</head>
+<body>
+    <div class="navbar  navbar-fixed-top  ">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </a>
+                <a href="@Url.Content("~/")" style="margin-top:5px;" class="brand">
+                    <img style="height: 39px;" alt="@GeneralConfigs.SiteName"
+                         src="@Url.Content("~/content/images/brand/dk_logo.png")" />
+                </a>
+                <div class="nav-collapse">
 
-                                @{ Html.RenderPartial("_LoggedInControls"); }
-                         
-                    </div>
+
+
+                    @{Html.RenderPartial("_kommunityMenu");}
+
+                    @{ Html.RenderPartial("_LoggedInControls"); }
+
                 </div>
             </div>
         </div>
-        <div class='container'>
-            @{ Html.RenderPartial("_LogOnPartial"); }
-            @RenderBody()
-            <footer>
-                <hr />
-                 @{ Html.RenderPartial("_languageMenu"); }    |
-                &copy; @string.Format(Messages.CopyrightAllRights, DateTime.UtcNow.Year, GeneralConfigs.SiteDomain) | 
-                <a href="@GeneralConfigs.SiteDomain">Industrial Dance</a> |
-                <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.ABOUT)">@Messages.About</a>  | 
-                <a href="@Url.Content("~/contact")">@Messages.Contact</a>  |
-                <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS)">@Messages.TermsAndCondtions</a> |  
-                <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.PRIPL)">@Messages.PrivacyPolicy</a>
+    </div>
+    <div class='container'>
+        @{ Html.RenderPartial("_LogOnPartial"); }
+        @RenderBody()
+        <footer>
+            <hr />
+            @{ Html.RenderPartial("_languageMenu"); }    |
+            &copy; @string.Format(Messages.CopyrightAllRights, DateTime.UtcNow.Year, GeneralConfigs.SiteDomain) |
+            <a href="@GeneralConfigs.SiteDomain">Industrial Dance</a> |
+            <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.ABOUT)">@Messages.About</a>  |
+            <a href="@Url.Content("~/contact")">@Messages.Contact</a>  |
+            <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS)">@Messages.TermsAndCondtions</a> |
+            <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.PRIPL)">@Messages.PrivacyPolicy</a>
 
-            </footer>
-        </div>
+        </footer>
+    </div>
 
 
- 
 
-  
-        @(!Request.Browser.IsMobileDevice ? Scripts.Render("~/bundles/jsfooter_desktop") : Scripts.Render("~/bundles/jsfooter_mobile"))
-    
-        <script type="text/javascript">
-            $(document).ready(function() {
 
-                $().UItoTop({ easingType: 'easeOutQuart' });
+
+    @(!Request.Browser.IsMobileDevice ? Scripts.Render("~/bundles/jsfooter_desktop") : Scripts.Render("~/bundles/jsfooter_mobile"))
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+
+        $.ajaxSetup({ cache: false });
+
+
+        function timedLoader() {
+            // do some stuff...
+            // no need to recall the function (it's an interval, it'll loop forever)
+
+
+            $.getJSON($rootUrl + "io/operation.ashx?param_type=menu&time=" + new Date().getTime(), function (data) {
+                // load meu
+                var showNotice = false;
+
+                if (data.UserCountChat > 0) {
+                    $("#video_room").html('<i class="icon-user"></i> @Html.Raw(Messages.ChatRoom) <span class="badge badge-info">' + data.UserCountChat + '</span>');
+                    $("#video_room").addClass('alert_blue');
+                } else {
+                    $("#video_room").html('<i class="icon-user"></i> @Html.Raw(Messages.ChatRoom)');
+                    $("#video_room").removeClass('alert_blue');
+                }
+
+                if (data.UserMessages > 0) {
+                    $("#mail_inbox").html('<i class="icon-inbox"></i> @Html.Raw(Messages.Mail) <span class="badge badge-warning">' + data.UserMessages + '</span>');
+                    $("#mail_inbox").addClass('alert_yellow');
+                    showNotice = true;
+                } else {
+                    $("#mail_inbox").html('<i class="icon-inbox"></i> @Html.Raw(Messages.Mail)');
+                    $("#mail_inbox").removeClass('alert_yellow');
+                }
+
+                if (data.OnlineUsers > 0) {
+
+                    $("#logged_in_user").css("visibility", "visible");
+                    $("#logged_in_user").text('@Html.Raw(Messages.OnlineNow)');
+                    $("#logged_in_user_count").text(data.OnlineUsers);
+                    $("#logged_in_user_count").addClass('bright_green');
+                } else {
+                    $("#logged_in_user").css("visibility", "hidden");
+                    $("#logged_in_user_count").text('');
+                    $("#logged_in_user_count").removeClass('alert_yellow');
+                }
+
+                if (data.UnconfirmedUsers > 0) {
+                    $("#my_users").html('<i class="icon-ok-sign"></i> @Html.Raw(Messages.MyZone) <span class="badge badge-warning">' + data.UnconfirmedUsers + '</span>');
+                    $("#my_users").addClass('alert_yellow');
+                    showNotice = true;
+                } else {
+                    $("#my_users").html('<i class="icon-ok-sign"></i> @Html.Raw(Messages.MyZone)');
+                    $("#my_users").removeClass('alert_yellow');
+                }
+
+
+                if (data.Notifications > 0) {
+                    $("#status_updates").html('@Html.Raw(Messages.StatusUpdate) <span class="badge badge-warning">' + data.Notifications + '</span>');
+                    $("#status_updates").removeClass('btn-inverse');
+                    $("#status_updates").addClass('btn-warning');
+                    showNotice = true;
+                } else {
+                    $("#status_updates").text('@Html.Raw(Messages.StatusUpdate)');
+                    $("#status_updates").removeClass('btn-warning');
+                    $("#status_updates").addClass('btn-inverse');
+                }
+
+                if (showNotice) {
+                    $(".navbar .btn-navbar").attr("style", "border: 2px solid #f89406");
+                    $("#toTopHover").attr("id", "toTopHover2");
+                    $("#toTop").attr("id", "toTop2");
+
+                    showNotice = false;
+                } else {
+                    $(".navbar .btn-navbar").attr("style", "border: inherit");
+                    $("#toTopHover2").attr("id", "toTopHover");
+                    $("#toTop2").attr("id", "toTop");
+                }
 
             });
 
-            $.ajaxSetup({ cache: false });
+        }
 
+        timedLoader();
+        // set interval
+        var tid = setInterval(timedLoader, 15000);
 
-            function timedLoader() {
-                // do some stuff...
-                // no need to recall the function (it's an interval, it'll loop forever)
+        function abortTimer() { // to be called when you want to stop the timer
+            clearInterval(tid);
+        }
 
+        $('#langugue_option').change(function () {
+            window.location = window.location.href.split('?')[0] + '?language=' + $(this).val();
+        });
 
-                $.getJSON($rootUrl + "io/operation.ashx?param_type=menu&time=" + new Date().getTime(), function(data) {
-                    // load meu
-                    var showNotice = false;
+    </script>
+    <!-- end #page -->
+    @RenderSection("_javascript", false)
+    <!-- end #footer -->
 
-                    if (data.UserCountChat > 0) {
-                        $("#video_room").html('<i class="icon-user"></i> @Html.Raw(Messages.ChatRoom) <span class="badge badge-info">' + data.UserCountChat + '</span>');
-                        $("#video_room").addClass('alert_blue');
-                    } else {
-                        $("#video_room").html('<i class="icon-user"></i> @Html.Raw(Messages.ChatRoom)');
-                        $("#video_room").removeClass('alert_blue');
-                    }
-
-                    if (data.UserMessages > 0) {
-                        $("#mail_inbox").html('<i class="icon-inbox"></i> @Html.Raw(Messages.Mail) <span class="badge badge-warning">' + data.UserMessages + '</span>');
-                        $("#mail_inbox").addClass('alert_yellow');
-                        showNotice = true;
-                    } else {
-                        $("#mail_inbox").html('<i class="icon-inbox"></i> @Html.Raw(Messages.Mail)');
-                        $("#mail_inbox").removeClass('alert_yellow');
-                    }
-
-                    if (data.OnlineUsers > 0) {
-
-                        $("#logged_in_user").css("visibility", "visible");
-                        $("#logged_in_user").text('@Html.Raw(Messages.OnlineNow)');
-                        $("#logged_in_user_count").text(data.OnlineUsers);
-                        $("#logged_in_user_count").addClass('bright_green');
-                    } else {
-                        $("#logged_in_user").css("visibility", "hidden");
-                        $("#logged_in_user_count").text('');
-                        $("#logged_in_user_count").removeClass('alert_yellow');
-                    }
-
-                    if (data.UnconfirmedUsers > 0) {
-                        $("#my_users").html('<i class="icon-ok-sign"></i> @Html.Raw(Messages.MyZone) <span class="badge badge-warning">' + data.UnconfirmedUsers + '</span>');
-                        $("#my_users").addClass('alert_yellow');
-                        showNotice = true;
-                    } else {
-                        $("#my_users").html('<i class="icon-ok-sign"></i> @Html.Raw(Messages.MyZone)');
-                        $("#my_users").removeClass('alert_yellow');
-                    }
-
-
-                    if (data.Notifications > 0) {
-                        $("#status_updates").html('@Html.Raw(Messages.StatusUpdate) <span class="badge badge-warning">' + data.Notifications + '</span>');
-                        $("#status_updates").removeClass('btn-inverse');
-                        $("#status_updates").addClass('btn-warning');
-                        showNotice = true;
-                    } else {
-                        $("#status_updates").text('@Html.Raw(Messages.StatusUpdate)');
-                        $("#status_updates").removeClass('btn-warning');
-                        $("#status_updates").addClass('btn-inverse');
-                    }
-
-                    if (showNotice) {
-                        $(".navbar .btn-navbar").attr("style", "border: 2px solid #f89406");
-                        $("#toTopHover").attr("id", "toTopHover2");
-                        $("#toTop").attr("id", "toTop2");
-
-                        showNotice = false;
-                    } else {
-                        $(".navbar .btn-navbar").attr("style", "border: inherit");
-                        $("#toTopHover2").attr("id", "toTopHover");
-                        $("#toTop2").attr("id", "toTop");
-                    }
-
-                });
-
-            }
-
-            timedLoader();
-            // set interval
-            var tid = setInterval(timedLoader, 15000);
-
-            function abortTimer() { // to be called when you want to stop the timer
-                clearInterval(tid);
-            }
-
-            $('#langugue_option').change(function() {
-                window.location = window.location.href.split('?')[0] + '?language=' + $(this).val();
-            });
-
-        </script>
-        <!-- end #page -->
-        @RenderSection("_javascript", false)
-        <!-- end #footer -->
-
-    </body>
+</body>
 </html>
