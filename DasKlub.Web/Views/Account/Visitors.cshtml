@@ -36,11 +36,11 @@
         }
     </div>
     <div class="span4">
-        <b style="color:yellow">Become Known</b>
-        <p>
-            Contribute to Das Klub by writing an article or review, submit 300-600 words to <a href="~/account/reply/admin">the admin</a> for review. You will get free Das Klub merchandise the first time
-            your work is approve.
-        </p>
+    
+            @Html.Raw(DasKlub.Lib.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
+            DasKlub.Lib.Values.SiteEnums.SiteBrandType.UWRIT,
+            DasKlub.Lib.Operational.Utilities.GetCurrentLanguageCode()))
+      
 
         @if (ViewBag.AdminLink != null)
         {
