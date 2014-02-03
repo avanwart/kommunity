@@ -326,10 +326,10 @@ namespace DasKlub.Lib.BOL
                 sb.Append(@"<img src=""");
                 sb.Append(UseThumb ? Utilities.S3ContentPath(FilePathThumb) : Utilities.S3ContentPath(FilePathStandard));
                 sb.Append(@""" alt=""");
-                sb.Append(Title);
+                sb.Append(HttpUtility.HtmlEncode(Title));
                 sb.Append(@"""");
                 sb.Append(@" title=""");
-                sb.Append(Title);
+                sb.Append(HttpUtility.HtmlEncode(Title));
                 sb.Append(@"""");
                 sb.Append(@" />");
                 sb.Append(@"</a> ");

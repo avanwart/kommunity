@@ -437,6 +437,10 @@ namespace DasKlub.Lib.Values
         public enum SiteBrandType
         {
             /// <summary>
+            /// User writing invite
+            /// </summary>
+            UWRIT,
+            /// <summary>
             ///     Script at the bottom of the homepage
             /// </summary>
             HOMEB,
