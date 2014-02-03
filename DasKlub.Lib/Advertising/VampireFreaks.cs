@@ -95,13 +95,15 @@ namespace DasKlub.Lib.Advertising
                         linkText = linkText.Replace("$", " $");
                     }
 
+                    var outboundLink = parts[1].Replace("&", "&amp;");
+
                     sb1.AppendFormat(@"<a rel=""nofollow"" class=""m_over"" href=""{0}"">
                                        <img style=""height:100px"" src=""{1}"" alt=""{2}"" title=""{2}"" /></a>
                                                 <br />
                                                 <div style=""width:100px"">
                                                 <a rel=""nofollow"" class=""m_over"" href=""{0}"" target=""_blank"">
                                                 <span class=""ad_text"">{2}</span></a>
-                                                </div>", parts[1], parts[2], linkText);
+                                                </div>", outboundLink, parts[2], linkText);
                 }
             }
             catch { }
