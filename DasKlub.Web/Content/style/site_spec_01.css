@@ -881,6 +881,44 @@ a.play_button:hover { background-position: center bottom; }
 
     .ad_text {font-size: 11px;}
 
+
+    a { color: #00FFFF  }
+a:visited { color: magenta;}
+a:hover  { color: #FFFF00  }
+a:active {color:#FF0000}
+
+a:visited:hover { color: #FF6600;}
+
+#logged_in a:visited:hover { color: #FFF;}
+
+
+ul.photo_navs a:link:hover img  { border-color: #FFFF00  }
+ul.photo_navs a:visited:hover img  { border-color: #FF6600}
+ul.photo_item_list a:hover img,
+ul.photo_item_list a:visited:hover img,
+a.m_over img:hover  { border-color: #FFFF00  }
+a.m_over:visited img:hover  { border-color: #FF6600}
+
+
+ul.photo_navs a:link:hover img  { border-color: #FFFF00 !important }
+
+ul.photo_navs a:active img { border-color: #FFFF00  }
+ul.photo_navs a:visited:active img  { border-color: #FF6600}
+ul.photo_item_list a:active img {border-color:#FF0000}
+ul.photo_item_list a:visited:hover img {border-color:#FF6600}
+ul.photo_item_list a:visited:active img,
+a.m_over img:active,
+a.m_over:visited img:active
+{border-color:#FF0000}
+
+ul.photo_navs a:active img {border-color:#FF0000  !important }
+
+::selection {color:#000;background:  #FFFF00 }
+
+
+
+.table tbody tr:hover td, .table tbody tr:hover th { background-color: #1C1C1C; color: #999}
+
  /* theme */
  
  
