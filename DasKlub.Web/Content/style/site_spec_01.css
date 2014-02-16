@@ -916,6 +916,10 @@ ul.photo_navs a:active img {border-color:#FF0000  !important }
 ::selection {color:#000;background:  #FFFF00 }
 
 #logged_in a.btn:visited:hover { color: #FFF !important;}
+a.btn:hover { color: #FFF !important;}
+a.btn:active { color: #FFF !important;}
+a.btn:visited:hover { color: #FFF !important;}
+a.btn:visited:active { color: #FFF !important;}
 
 .table tbody tr:hover td, .table tbody tr:hover th { background-color: #1C1C1C; color: #999}
 
