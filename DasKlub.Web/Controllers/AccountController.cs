@@ -1043,7 +1043,7 @@ namespace DasKlub.Web.Controllers
                 uadress.PostalCode = model.PostalCode;
                 uadress.Region = model.RegionState;
                 uadress.UserAccountID = _ua.UserAccountID;
-                uadress.Choice1 = "||" + Request.Form["sex"] + "|" + Request.Form["size"];
+              //  uadress.Choice1 = "||" + Request.Form["sex"] + "|" + Request.Form["size"];
 
                 if (uadress.UserAddressID == 0) uadress.AddressStatus = 'U';
 
@@ -2228,10 +2228,10 @@ namespace DasKlub.Web.Controllers
                 sb.AppendLine("We are SO happy to have you here as a member of our elite group! Das Klubbers are very nice people and of course great dancers.");
                 sb.AppendLine();
                 sb.AppendLine();
+                sb.AppendLine("Make SURE to introduce yourself here: http://dasklub.com/forum/introduce-yourself/start-your-self-introduction-here ");
+                sb.AppendLine();
+                sb.AppendLine();
                 sb.AppendLine("If you have any questions about your account, make sure to read this article: http://dasklub.com/news/how-to-use-das-klub");
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("Make sure to introduce yourself here: http://dasklub.com/forum/introduce-yourself ");
                 sb.AppendLine();
                 sb.AppendLine();
                 sb.AppendLine();
