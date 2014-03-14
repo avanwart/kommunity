@@ -1049,7 +1049,7 @@ namespace DasKlub.Web.Controllers
 
                 ViewBag.ProfileUpdated = uadress.Set();
 
-                Response.Redirect("/");
+                Response.Redirect("/account/home");
             }
 
             return View(model);
