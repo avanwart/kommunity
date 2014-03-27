@@ -112,6 +112,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DasKlub.EmailBlasterService\ContactServiceTest.cs" />
+    <Compile Include="DasKlub.Lib\Operational\UtilitiesTest.cs" />
     <Compile Include="DasKlub.Web\Controllers\HomeControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -123,6 +124,10 @@
     <ProjectReference Include="..\DasKlub.EmailBlasterService\DasKlub.EmailBlasterService.csproj">
       <Project>{cd086962-bd5a-4608-b427-260b53668da4}</Project>
       <Name>DasKlub.EmailBlasterService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DasKlub.Lib\DasKlub.Lib.csproj">
+      <Project>{4a6cf1cc-4f7a-43d2-a9cd-07db4d8c45cd}</Project>
+      <Name>DasKlub.Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\DasKlub.Models\DasKlub.Models.csproj">
       <Project>{ae85a1d5-2e20-4a18-ac1b-c49e6abfec51}</Project>
