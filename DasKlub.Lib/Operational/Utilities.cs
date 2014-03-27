@@ -102,8 +102,8 @@ namespace DasKlub.Lib.Operational
 
             if (number == 0) return "N";
 
-            var values = new[] {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-            var numerals = new[] {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+            var values = new[] { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+            var numerals = new[] { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
             // Initialise the string builder
             var result = new StringBuilder(100);
             // Loop through each of the values to diminish the number
@@ -181,7 +181,7 @@ namespace DasKlub.Lib.Operational
             else if (elapsed.TotalMinutes < 1)
             {
                 // seconds old
-                timeElapsed = string.Format(Messages.SecondsAgo, (int) Math.Round(elapsed.TotalSeconds));
+                timeElapsed = string.Format(Messages.SecondsAgo, (int)Math.Round(elapsed.TotalSeconds));
             }
             else if (elapsed.TotalMinutes < 2)
             {
@@ -192,13 +192,13 @@ namespace DasKlub.Lib.Operational
             {
                 // minutes old
 
-                timeElapsed = string.Format(Messages.MinutesAgo, (int) Math.Round(elapsed.TotalMinutes));
+                timeElapsed = string.Format(Messages.MinutesAgo, (int)Math.Round(elapsed.TotalMinutes));
             }
             else if (elapsed.TotalHours < 24)
             {
                 // hours old
 
-                timeElapsed = string.Format(Messages.HoursAgo, (int) Math.Round(elapsed.TotalHours));
+                timeElapsed = string.Format(Messages.HoursAgo, (int)Math.Round(elapsed.TotalHours));
             }
             else if (elapsed.TotalDays < 2)
             {
@@ -209,30 +209,30 @@ namespace DasKlub.Lib.Operational
             {
                 // less than 1 week
 
-                timeElapsed = string.Format(Messages.DaysAgo, (int) Math.Round(elapsed.TotalDays));
+                timeElapsed = string.Format(Messages.DaysAgo, (int)Math.Round(elapsed.TotalDays));
             }
             else if (elapsed.TotalDays < 60)
             {
                 // 1 to 4 weeks ago
                 timeElapsed =
                     string.Format(Messages.WeeksAgo,
-                                  (int) Math.Round(elapsed.TotalDays/7));
+                                  (int)Math.Round(elapsed.TotalDays / 7));
             }
             else if (elapsed.TotalDays < 365)
             {
                 // months old but less than a year old
                 timeElapsed
-                    = string.Format(Messages.MonthsAgo, (int) Math.Round(elapsed.TotalDays/30));
+                    = string.Format(Messages.MonthsAgo, (int)Math.Round(elapsed.TotalDays / 30));
             }
-            else if (elapsed.TotalDays < (365*2))
+            else if (elapsed.TotalDays < (365 * 2))
             {
                 // 1 year 
-                timeElapsed = string.Format(Messages.YearAgo, (int) Math.Round(elapsed.TotalDays/365.2425));
+                timeElapsed = string.Format(Messages.YearAgo, (int)Math.Round(elapsed.TotalDays / 365.2425));
             }
             else
             {
                 // over a year old
-                timeElapsed = string.Format(Messages.YearsAgo, (int) Math.Round(elapsed.TotalDays/365.2425));
+                timeElapsed = string.Format(Messages.YearsAgo, (int)Math.Round(elapsed.TotalDays / 365.2425));
             }
 
             return timeElapsed;
@@ -318,7 +318,7 @@ namespace DasKlub.Lib.Operational
             }
 
             var lang =
-                (SiteEnums.SiteLanguages) Enum.Parse(typeof (SiteEnums.SiteLanguages), defaultLanguage.ToUpper());
+                (SiteEnums.SiteLanguages)Enum.Parse(typeof(SiteEnums.SiteLanguages), defaultLanguage.ToUpper());
 
             var langKey = GetEnumDescription(lang);
 
@@ -385,7 +385,7 @@ namespace DasKlub.Lib.Operational
             }
             else
             {
-                if (HttpContext.Current != null) totalSecondsDif = (double) HttpRuntime.Cache[cacheName];
+                if (HttpContext.Current != null) totalSecondsDif = (double)HttpRuntime.Cache[cacheName];
             }
 
 
@@ -425,8 +425,8 @@ namespace DasKlub.Lib.Operational
 
             public int Compare(object x, object y)
             {
-                var lix = (ListItem) x;
-                var liy = (ListItem) y;
+                var lix = (ListItem)x;
+                var liy = (ListItem)y;
                 var c = new CaseInsensitiveComparer();
                 return c.Compare(lix.Text, liy.Text);
             }
@@ -549,10 +549,10 @@ namespace DasKlub.Lib.Operational
             {
                 Log.Fatal(ex);
             }
-          
+
         }
-    
-  
+
+
         public static void LogError(string msg)
         {
             Log.Fatal(msg);
@@ -586,7 +586,7 @@ namespace DasKlub.Lib.Operational
 
                 try
                 {
-                    using (var response = (HttpWebResponse) request.GetResponse())
+                    using (var response = (HttpWebResponse)request.GetResponse())
                     {
                         if (response.StatusCode == HttpStatusCode.OK) return true;
                         using (var dataStream = response.GetResponseStream())
@@ -604,7 +604,7 @@ namespace DasKlub.Lib.Operational
                     if (ex.Status == WebExceptionStatus.ProtocolError &&
                         ex.Response != null)
                     {
-                        var resp = (HttpWebResponse) ex.Response;
+                        var resp = (HttpWebResponse)ex.Response;
                         if (resp.StatusCode == HttpStatusCode.NotFound)
                         {
                             return false;
@@ -638,7 +638,7 @@ namespace DasKlub.Lib.Operational
 
                 try
                 {
-                    using (var response = (HttpWebResponse) request.GetResponse())
+                    using (var response = (HttpWebResponse)request.GetResponse())
                     {
                         using (var dataStream = response.GetResponseStream())
                         {
@@ -660,7 +660,7 @@ namespace DasKlub.Lib.Operational
 
         #endregion
 
-   
+
         #region enum methods
 
         /// <summary>
@@ -673,7 +673,7 @@ namespace DasKlub.Lib.Operational
             FieldInfo fi = value.GetType().GetField(value.ToString());
 
             var attributes =
-                (DescriptionAttribute[]) fi.GetCustomAttributes(typeof (DescriptionAttribute), false);
+                (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
             if (attributes != null && attributes.Length > 0)
                 return attributes[0].Description;
@@ -682,5 +682,56 @@ namespace DasKlub.Lib.Operational
         }
 
         #endregion
+
+        public static string ConvertTextToHtml(string inputText)
+        {
+            var linkTextMaxLength = 30;
+            var regx = new Regex(
+                                @"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?", 
+                                RegexOptions.IgnoreCase);
+            var mactches = regx.Matches(inputText);
+            var newText = inputText;
+
+            foreach (var match in mactches.Cast<Match>())
+            {
+                var indexStart = newText.IndexOf(match.Value);
+                var removed = newText.Remove(indexStart, match.Value.Length);
+
+                if (match.Value.Contains("youtube.com") || match.Value.Contains("youtu.be"))
+                {
+                    // TODO: MAKE EMBED FOR THAT
+                    var height = 200;
+                    var width = 300;
+
+                    var nvcKey = HttpUtility.ParseQueryString(new Uri(match.Value).Query);
+
+                    var vidKey = nvcKey["v"];
+ 
+                    newText = removed.Insert(indexStart,  
+                                      string.Format(
+@"<div class=""you_tube_iframe""><iframe width=""{2}"" height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
+                                                    vidKey, height, ((width == 0) ? (object)"100%" : width)));
+                }
+                else
+                {
+                    var linkText = match.Value;
+
+                    if (linkText.Length > linkTextMaxLength)
+                    {
+                        linkText = string.Format("{0}...", linkText.Substring(0, linkTextMaxLength - 3));
+                    }
+
+                    // regular link
+                    newText = removed.Insert(indexStart,
+                                             string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>", 
+                                                match.Value,
+                                                linkText));
+                }
+            }
+
+            var spaceToLineBreaks = newText.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
+
+            return spaceToLineBreaks;
+        }
     }
 }
