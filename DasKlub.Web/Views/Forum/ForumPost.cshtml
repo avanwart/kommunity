@@ -50,7 +50,7 @@
                                   <h1>@ViewBag.PageTitle</h1>
     <div class="forum_post_content">
         <p>
-            @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(HttpUtility.HtmlEncode(ViewBag.SubForum.Description)), 200, 300))
+            @Html.Raw(Utilities.ConvertTextToHtml(ViewBag.SubForum.Description))
         </p>
     </div>
                               <span>Posted By: </span> <a href="@ViewBag.SubForum.UserAccount.UrlTo.ToString()">@ViewBag.SubForum.UserAccount.UserName</a>
@@ -130,7 +130,7 @@
                         <br />
                         <div class="forum_post_content">
                             <p>
-                                @Html.Raw(Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(HttpUtility.HtmlEncode(forumCat.Detail)), 200, 300))
+                                @Html.Raw(Utilities.ConvertTextToHtml(forumCat.Detail))
                             </p>
 
                         </div>
