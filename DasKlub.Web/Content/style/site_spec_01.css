@@ -882,15 +882,14 @@ a.play_button:hover { background-position: center bottom; }
     .ad_text {font-size: 11px;}
 
 
-a { color: #00FFFF  }
+a { color: #09c  }
 a:visited { color: magenta;}
 a:hover  { color: #FFFF00  }
 a:active {color:#FF0000 !important}
 
 a:visited:hover { color: #FF6600;}
 
-
-
+ 
 
 ul.photo_navs a:link:hover img  { border-color: #FFFF00  }
 ul.photo_navs a:visited:hover img  { border-color: #FF6600}

@@ -246,7 +246,7 @@ namespace DasKlub.Web.Controllers
                     .First(existingSubForum => existingSubForum.Key == subKey && existingSubForum.ForumCategoryID == forum.ForumCategoryID);
                 ViewBag.SubForum = subForum;
 
-                if (_ua.UserAccountID != subForum.CreatedByUserID)
+                if (_ua.UserAccountID != subForum.CreatedByUserID && !_ua.IsAdmin)
                 {
                     throw new UnauthorizedAccessException();
                 }
@@ -267,7 +267,7 @@ namespace DasKlub.Web.Controllers
                     currentForumSubCategory => 
                         currentForumSubCategory.ForumSubCategoryID == model.ForumSubCategoryID);
 
-                if (_ua.UserAccountID != subForum.CreatedByUserID)
+                if (_ua.UserAccountID != subForum.CreatedByUserID && !_ua.IsAdmin)
                 {
                     throw new UnauthorizedAccessException();
                 }
