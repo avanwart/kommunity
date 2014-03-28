@@ -493,7 +493,7 @@ namespace DasKlub.Web.Controllers
             {
                 model = context.ForumPost.First(existingForumPost => existingForumPost.ForumPostID == forumPostID);
 
-                if (_ua.UserAccountID != model.CreatedByUserID)
+                if (_ua.UserAccountID != model.CreatedByUserID && !_ua.IsAdmin)
                 {
                     throw new UnauthorizedAccessException();
                 }
@@ -618,7 +618,7 @@ namespace DasKlub.Web.Controllers
                 var forumPost = context.ForumPost.First(
                     currentForumPost => currentForumPost.ForumPostID == model.ForumPostID);
 
-                if (_ua.UserAccountID != forumPost.CreatedByUserID)
+                if (_ua.UserAccountID != forumPost.CreatedByUserID && !_ua.IsAdmin)
                 {
                     throw new UnauthorizedAccessException();
                 }
