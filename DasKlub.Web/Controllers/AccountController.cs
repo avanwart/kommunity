@@ -1302,13 +1302,6 @@ namespace DasKlub.Web.Controllers
                     return View(uad);
                 }
 
-                if (string.IsNullOrEmpty(uad.PostalCode))
-                {
-                    ViewBag.IsValid = false;
-                    ModelState.AddModelError(string.Empty, Messages.Invalid + @": " + Messages.PostalCode);
-                    return View(uad);
-                }
-
                 if (uad.YouAreID == null)
                 {
                     ViewBag.IsValid = false;
