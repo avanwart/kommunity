@@ -26,49 +26,7 @@
         <h1 class="title main_title">@Model.Title</h1>
            
          
-        <div class="row" >
-            <div class="span8">
 
-               
-                <div itemscope itemtype="http://data-vocabulary.org/Review">
-                    
-                  
-                    <b>@Messages.Published:</b>
-                   
-                    <time itemprop="dtreviewed" datetime="@Model.ReleaseDate.ToString("yyyy-MM-dd")">
-                        <span title="@Model.ReleaseDate.ToString("o")">@Model.ReleaseDate.ToString("MMMM") @Model.ReleaseDate.Day, @Model.ReleaseDate.Year</span></time>
-                     
-
-                    @if (Model.CreatedByUserID > 0)
-                    {
-                        var ua =
-                            new UserAccount(Model.CreatedByUserID);
-
-                        var uad =
-                            new UserAccountDetail();
-                        uad.GetUserAccountDeailForUser(ua.UserAccountID);
-
-                        <br />
-
-                        <b>Author:</b> <a href="@ua.UrlTo.ToString()"><span itemprop="reviewer">@ua.UserName</span></a>
-                         <a href="@ua.UrlTo.ToString()">@Html.Raw(ua.TinyUserIcon)</a> 
- 
-                        string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
-
-                        @Html.Raw(coName)      <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span> 
-             
-                
-                    }
-                    
-                    
-    
-                    
-                </div>
-                
-            </div>
-             
-              
-        </div>
         <hr />
 
         <div style="text-align: center">
@@ -138,6 +96,54 @@
             </article>
             <div class="clear"></div>
             <hr />
+
+
+            <div class="row">
+                <div class="span8">
+
+
+                    <div itemscope itemtype="http://data-vocabulary.org/Review">
+
+
+                        <b>@Messages.Published:</b>
+
+                        <time itemprop="dtreviewed" datetime="@Model.ReleaseDate.ToString("yyyy-MM-dd")">
+                            <span title="@Model.ReleaseDate.ToString("o")">@Model.ReleaseDate.ToString("MMMM") @Model.ReleaseDate.Day, @Model.ReleaseDate.Year</span>
+                        </time>
+
+
+                        @if (Model.CreatedByUserID > 0)
+                        {
+                            var ua =
+                                new UserAccount(Model.CreatedByUserID);
+
+                            var uad =
+                                new UserAccountDetail();
+                            uad.GetUserAccountDeailForUser(ua.UserAccountID);
+
+                            <br />
+
+                            <b>Author:</b> <a href="@ua.UrlTo.ToString()"><span itemprop="reviewer">@ua.UserName</span></a>
+                            <a href="@ua.UrlTo.ToString()">@Html.Raw(ua.TinyUserIcon)</a>
+
+                            string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
+
+                            @Html.Raw(coName)      <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span>
+
+
+                        }
+
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <hr />
+
             <i>@Messages.Tagged:</i> @Html.Raw(Model.TagLinks)
         </div>
    
