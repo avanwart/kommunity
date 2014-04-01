@@ -78,5 +78,27 @@ http://www.youtube.com/watch?v=v0HBy6JxweE";
             Assert.AreEqual(expected, result);
 
         }
+
+        [TestMethod]
+        public void ConvertTextToHTML_TextWithYouTubeProfileLinks_ContainsHrefsCorrectly()
+        {
+            // arrange
+            var text = @"blah blah
+ 
+https://www.youtube.com/user/dasklubber";
+
+
+
+            // act
+            var result = Utilities.ConvertTextToHtml(text);
+
+            // assert 
+            var expected = @"blah blah<br />
+ <br />
+<a target=""_blank"" href=""https://www.youtube.com/user/dasklubber"">https://www.youtube.com/use...</a>";
+                                                                      
+            Assert.AreEqual(expected, result);
+
+        }
     }
 }
