@@ -227,7 +227,7 @@ namespace DasKlub.Lib.Operational
             else if (elapsed.TotalDays < (365 * 2))
             {
                 // 1 year 
-                timeElapsed = string.Format(Messages.YearAgo, (int)Math.Round(elapsed.TotalDays / 365.2425));
+                timeElapsed = string.Format(Messages.YearAgo, 1);
             }
             else
             {
