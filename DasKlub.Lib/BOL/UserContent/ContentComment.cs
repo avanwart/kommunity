@@ -158,7 +158,7 @@ namespace DasKlub.Lib.BOL.UserContent
                 sb.Append(@"<br />");
 
                 sb.Append(@"<p>");
-                sb.Append(FromString.ReplaceNewLineWithHTML(HttpUtility.HtmlEncode(Detail)));
+                sb.Append(Utilities.ConvertTextToHtml(Detail));
                 sb.Append(@"</p>");
 
                 MembershipUser mu = Membership.GetUser();
