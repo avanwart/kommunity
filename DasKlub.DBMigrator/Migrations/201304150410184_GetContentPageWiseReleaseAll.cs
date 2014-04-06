@@ -61,21 +61,63 @@ END
   
 
     ");
+
+            Sql(@"
+            create PROCEDURE up_GetContentPageWiseKeyRelease
+      @PageIndex INT = 1
+      ,@PageSize INT = 10
+      ,@key nvarchar(150)
+      ,@RecordCount INT OUTPUT
+AS
+
+BEGIN
+
+      SET NOCOUNT ON;
+      SELECT ROW_NUMBER() OVER
+      (
+ORDER BY releaseDate DESC
+      )AS RowNumber
+	,[contentID]
+      ,[siteDomainID]
+      ,[contentKey]
+      ,[title]
+      ,[updatedByUserID]
+      ,[createDate]
+      ,[updateDate]
+      ,[createdByUserID]
+      ,[detail]
+      ,[metaDescription]
+      ,[metaKeywords]
+      ,[contentTypeID]
+      ,[releaseDate]
+      ,[rating]
+      ,[contentPhotoURL]
+      ,[contentPhotoThumbURL]
+      ,[contentVideoURL]
+      ,[outboundURL]
+      ,[isEnabled]
+      ,[currentStatus]
+        ,[language]
+,[ContentVideoURL2]
+     INTO #Results
+     FROM [Content]
+     WHERE metaKeywords like '%' + @key + '%'  and releasedate < getutcdate()
+
+	SELECT @RecordCount = COUNT(*)
+    FROM #Results
+           
+      SELECT * FROM #Results
+      WHERE RowNumber BETWEEN(@PageIndex -1) * @PageSize + 1 AND(((@PageIndex -1) * @PageSize + 1) + @PageSize) - 1
+     
+      DROP TABLE #Results
+END");
         }
 
         public override void Down()
         {
-            Sql(@"
-    
-          EXEC sp_executesql N'
-            
-            drop proc   [dbo].[up_GetContentPageWiseReleaseAll]
+            Sql(@" drop proc up_GetContentPageWiseReleaseAll");
 
-            
-          ';
-
- 
-    ");
+            Sql(@" drop proc up_GetContentPageWiseKeyRelease");
         }
     }
 }
