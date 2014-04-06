@@ -227,7 +227,7 @@ namespace DasKlub.Lib.Operational
             else if (elapsed.TotalDays < (365 * 2))
             {
                 // 1 year 
-                timeElapsed = string.Format(Messages.YearAgo, (int)Math.Round(elapsed.TotalDays / 365.2425));
+                timeElapsed = string.Format(Messages.YearAgo, 1);
             }
             else
             {
@@ -687,8 +687,8 @@ namespace DasKlub.Lib.Operational
         {
             var linkTextMaxLength = 30;
             var regx = new Regex(
-                                @"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?", 
-                                RegexOptions.IgnoreCase);
+                    @"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?", 
+                    RegexOptions.IgnoreCase);
             var mactches = regx.Matches(inputText);
             var newText = inputText;
 
@@ -697,16 +697,14 @@ namespace DasKlub.Lib.Operational
                 var indexStart = newText.IndexOf(match.Value);
                 var removed = newText.Remove(indexStart, match.Value.Length);
 
-                if (match.Value.Contains("youtube.com") || match.Value.Contains("youtu.be"))
+                if ((match.Value.Contains("youtube.com") || match.Value.Contains("youtu.be")) && match.Value.Contains("v="))
                 {
-                    // TODO: MAKE EMBED FOR THAT
-                    var height = 200;
-                    var width = 300;
+                    var height  = 200;
+                    var width   = 300;
+                    var nvcKey  = HttpUtility.ParseQueryString(new Uri(match.Value).Query);
+                    var vidKey  = nvcKey["v"];
 
-                    var nvcKey = HttpUtility.ParseQueryString(new Uri(match.Value).Query);
-
-                    var vidKey = nvcKey["v"];
- 
+                    // YouTube video
                     newText = removed.Insert(indexStart,  
                                       string.Format(
 @"<div class=""you_tube_iframe""><iframe width=""{2}"" height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
@@ -729,9 +727,9 @@ namespace DasKlub.Lib.Operational
                 }
             }
 
-            var spaceToLineBreaks = newText.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
+            var listBreaksHTML = newText.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
 
-            return spaceToLineBreaks;
+            return listBreaksHTML;
         }
     }
 }
