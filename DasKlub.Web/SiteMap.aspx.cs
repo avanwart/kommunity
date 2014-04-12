@@ -112,51 +112,7 @@ namespace DasKlub.Web
                 }
             }
 
-            var artis = new Artists();
-            artis.GetAll();
-
-            foreach (var app in artis)
-            {
-                writer.WriteStartElement("url");
-                writer.WriteElementString("loc", siteDomain + app.URLOfArtist.ToLower());
-                writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", app.CreateDate));
-                writer.WriteElementString("changefreq", "weekly");
-                writer.WriteElementString("priority", "0.8");
-                writer.WriteEndElement();
-                writer.WriteString("\r\n"); //newline 
-            }
-
-            var userAccounts = Videos.GetDistinctUsers();
-
-            foreach (string app in userAccounts)
-            {
-                writer.WriteStartElement("url");
-                writer.WriteElementString("loc", siteDomain + app.ToLower());
-                writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", DateTime.UtcNow));
-                writer.WriteElementString("changefreq", "weekly");
-                writer.WriteElementString("priority", "0.7");
-                writer.WriteEndElement();
-                writer.WriteString("\r\n"); //newline 
-            }
-
-            // users
-            var uas = new UserAccounts();
-            uas.GetAll();
-
-            foreach (var ua1 in uas)
-            {
-                writer.WriteStartElement("url");
-                writer.WriteElementString("loc", siteDomain + ua1.UserName.Replace(" ", "-").ToLower());
-                writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", ua1.LastActivityDate));
-                writer.WriteElementString("changefreq", "weekly");
-                writer.WriteElementString("priority", "0.7");
-                writer.WriteEndElement();
-                writer.WriteString("\r\n"); //newline 
-            }
-
-
-            // content
-
+            // news
             var contents = new Contents();
             contents.GetAllActiveContent();
 
@@ -170,22 +126,6 @@ namespace DasKlub.Web
                     lastmod = c1.Comments[c1.Comments.Count - 1].CreateDate;
                 }
                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", lastmod));
-                writer.WriteElementString("changefreq", "weekly");
-                writer.WriteElementString("priority", "0.8");
-                writer.WriteEndElement();
-                writer.WriteString("\r\n"); //newline 
-            }
-
-            // photo
-
-            var photos = new PhotoItems();
-            photos.GetPhotoItemsPageWise(1, 50000);
-
-            foreach (var photo in photos)
-            {
-                writer.WriteStartElement("url");
-                writer.WriteElementString("loc", string.Format("{0}photos/{1}", siteDomain, photo.PhotoItemID));
-                writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", photo.CreateDate));
                 writer.WriteElementString("changefreq", "weekly");
                 writer.WriteElementString("priority", "0.8");
                 writer.WriteEndElement();
