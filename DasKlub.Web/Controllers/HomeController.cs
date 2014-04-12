@@ -296,13 +296,49 @@ namespace DasKlub.Web.Controllers
                 if (mostPopularForumPosts != null)
                 {
                     const int amountForForm = 7;
-                    ViewBag.TopThreadOfTheWeek = LoadMostPopularThisWeek(mostPopularForumPosts, context, ua);
+                    var mostPopularThread = LoadMostPopularThisWeek(mostPopularForumPosts, context, ua);
+                    ViewBag.TopThreadOfTheWeek = mostPopularThread;
 
-                    Dictionary<int, DateTime> subItems;
                     List<ForumFeedModel> forumFeed;
-                    var newestThreads = LoadNewestThreads(context, mostPopularForumPosts, out subItems, out forumFeed);
-                  
-                    ViewBag.MostRecentThreads = LoadMostRecentThreads(subItems, context, ua, forumFeed, newestThreads);
+                    ViewBag.MostRecentThreads = new object();
+                    var threadResults = LoadRecentActiveThreads(mostPopularThread.ForumSubCategory.ForumSubCategoryID); 
+
+                    forumFeed = new List<ForumFeedModel>();
+
+                    foreach (int threadId in threadResults)
+                    {
+                        var feedItem = new ForumFeedModel();
+                        
+                        if (ua != null) 
+                        {
+                            var isNew = context.ForumPostNotification
+                                            .FirstOrDefault(x => x.ForumSubCategoryID == threadId && x.UserAccountID == ua.UserAccountID);
+                            feedItem.IsNewPost = (isNew == null) ? false : !isNew.IsRead;
+                        } 
+                        
+                        var lastPost = context.ForumPost
+                                              .Where(x => x.ForumSubCategoryID == threadId)
+                                              .OrderByDescending(x => x.CreateDate).FirstOrDefault();
+
+                        feedItem.ForumSubCategory = context.ForumSubCategory.Where(x => x.ForumSubCategoryID == threadId).FirstOrDefault();
+                        feedItem.ForumCategory = context.ForumCategory.Where(x => x.ForumCategoryID == feedItem.ForumSubCategory.ForumCategoryID).FirstOrDefault();
+                        feedItem.LastPosted = (lastPost == null) ? feedItem.ForumSubCategory.CreateDate : lastPost.CreateDate;
+                        feedItem.PostCount = context.ForumPost.Where(x => x.ForumSubCategoryID == threadId).Count();
+                        
+                        var pageCount = (feedItem.PostCount + ForumController.PageSizeForumPost - 1) / ForumController.PageSizeForumPost;
+                        feedItem.URLTo = (lastPost == null) ? feedItem.ForumSubCategory.SubForumURL  :
+                                        new Uri(string.Format("{0}/{1}#{2}", feedItem.ForumSubCategory.SubForumURL, ((pageCount > 1)
+                                       ? pageCount.ToString(CultureInfo.InvariantCulture)
+                                       : string.Empty), lastPost.ForumPostID.ToString(CultureInfo.InvariantCulture)));
+
+                        feedItem.UserName = (lastPost == null) ? 
+                            new UserAccount(feedItem.ForumSubCategory.CreatedByUserID).UserName : 
+                            new UserAccount(lastPost.CreatedByUserID).UserName;
+
+                        forumFeed.Add(feedItem);
+                    }
+
+                    ViewBag.ForumFeed = forumFeed;
  
                     var mostPostsInForum =
                         (from b in context.ForumPost
@@ -333,45 +369,77 @@ namespace DasKlub.Web.Controllers
             return View();
         }
 
-        private static List<ForumSubCategory> LoadNewestThreads(
-                                                DasKlubDbContext context, 
-                                                IGrouping<int, ForumPost> mostPopularThisWeek, 
-                                                out Dictionary<int, DateTime> subItems,
-                                                out List<ForumFeedModel> forumFeed
-                                                )
+        private class ThreadDate 
         {
-            var newestThreads = context.ForumSubCategory
-                                       .OrderByDescending(x => x.CreateDate)
-                                       .Where(x => x.ForumSubCategoryID != mostPopularThisWeek.Key)
-                                       .Take(20).ToList();
+            public int ForumSubCategoryID { get; set; }
+            public DateTime CreateDate { get; set; }
+        }
 
-            subItems = new Dictionary<int, DateTime>();
-            forumFeed = new List<ForumFeedModel>();
-
-            var items = subItems;
-            foreach (var post in newestThreads.Where(post => !items.ContainsKey(post.ForumSubCategoryID)))
+        
+        private List<int> LoadRecentActiveThreads(int excludeTopThreadId)
+        {
+            using (var context = new DasKlubDbContext())
             {
-                items.Add(post.ForumSubCategoryID, post.CreateDate);
-            }
+                var mostRecentThreads = (from m in context.ForumSubCategory
+                          where m.ForumSubCategoryID != excludeTopThreadId
+                          orderby m.CreateDate descending
+                          select m).Select(x => new ThreadDate() 
+                                                    { 
+                                                          ForumSubCategoryID    = x.ForumSubCategoryID, 
+                                                          CreateDate            = x.CreateDate 
+                                                    }).Take(20)
+                                                      .ToList();
 
-            var newestPosts = context.ForumPost.GroupBy(x => x.ForumSubCategoryID)
-                                     .Select(y => y.OrderByDescending(x => x.CreateDate).FirstOrDefault())
-                                     .Where(x => x.ForumSubCategoryID != mostPopularThisWeek.Key)
-                                     .OrderByDescending(i => i.CreateDate)
-                                     .Take(10);
+                  // TODO: USE LINQ
+                  System.Data.Common.DbCommand comm = DasKlub.Lib.DAL.DbAct.CreateCommand();
+                  comm.CommandText = string.Format( @"
+                    Select top 20 [ForumSubCategoryID],[CreateDate]
+                    from
+                    (
+                    Select [ForumSubCategoryID]
+                          ,[CreateDate]
+                          ,ROW_NUMBER() OVER (PARTITION BY [ForumSubCategoryID] Order by [CreateDate] desc ) as Seq
+                      from  [ForumPosts]
+                    where ForumSubCategoryID != {0}
+                    )P
+                    Where P.Seq = 1
+                     Order by [CreateDate] desc ", excludeTopThreadId);
 
-            foreach (var post in newestPosts)
-            {
-                if (!subItems.ContainsKey(post.ForumSubCategoryID))
+                comm.CommandType = System.Data.CommandType.Text;
+
+                var mostRecentPostsToThreads = DasKlub.Lib.DAL.DbAct.ExecuteSelectCommand(comm);
+
+                var mostRecentPostsToThreadsList = new List<ThreadDate>();
+
+                foreach(System.Data.DataRow item in mostRecentPostsToThreads.Rows)
                 {
-                    subItems.Add(post.ForumSubCategoryID, post.CreateDate);
+                    mostRecentPostsToThreadsList.Add
+                            (
+                                new ThreadDate 
+                                    { 
+                                      CreateDate            = Convert.ToDateTime(item["CreateDate"]),
+                                      ForumSubCategoryID    = Convert.ToInt32(item["ForumSubCategoryID"]) 
+                                    }
+                            );
                 }
-                else if (subItems[post.ForumSubCategoryID] < post.CreateDate)
+
+                var finalThreadList = new Dictionary<int, DateTime>();
+ 
+                foreach(var thread in mostRecentThreads)
                 {
-                    subItems[post.ForumSubCategoryID] = post.CreateDate;
+                    finalThreadList.Add(thread.ForumSubCategoryID, thread.CreateDate);
                 }
+
+                foreach (var thread in mostRecentPostsToThreadsList)
+                {
+                    if (finalThreadList.ContainsKey(thread.ForumSubCategoryID))
+                        finalThreadList[thread.ForumSubCategoryID] = thread.CreateDate; // update with more recent date of post
+                    else
+                        finalThreadList.Add(thread.ForumSubCategoryID, thread.CreateDate);
+                }
+
+                return finalThreadList.OrderByDescending(x => x.Value).Select(x => x.Key).Take(20).ToList();
             }
-            return newestThreads;
         }
 
         private UserAccounts LoadTopUsers()
@@ -455,83 +523,7 @@ namespace DasKlub.Web.Controllers
             return topFeedItem;
         }
 
-        private List<ForumSubCategory> LoadMostRecentThreads
-            (
-                Dictionary<int, DateTime> subItems, 
-                DasKlubDbContext context, 
-                UserAccount ua, 
-                List<ForumFeedModel> forumFeed,
-                List<ForumSubCategory> newestThreads
-            )
-        {
-            foreach (var forumFeedItem in subItems.Select(post => new ForumFeedModel
-                {
-                    ForumSubCategory =
-                        context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == post.Key),
-                    LastPosted = post.Value
-                }))
-            {
-                forumFeedItem.ForumCategory =
-                    context.ForumCategory.FirstOrDefault(
-                        x => x.ForumCategoryID == forumFeedItem.ForumSubCategory.ForumCategoryID);
-
-                forumFeedItem.PostCount =
-                    context.ForumPost.Count(
-                        x => x.ForumSubCategoryID == forumFeedItem.ForumSubCategory.ForumSubCategoryID);
-
-                var mostRecentPostToTopThread = context.ForumPost.OrderByDescending(x => x.CreateDate)
-                                       .FirstOrDefault(
-                                           x =>
-                                           x.ForumSubCategoryID ==
-                                           forumFeedItem.ForumSubCategory.ForumSubCategoryID);
-
-                // get the last user or the one that made this
-                forumFeedItem.UserName = mostRecentPostToTopThread != null ? 
-                                        new UserAccount(mostRecentPostToTopThread.CreatedByUserID).UserName : 
-                                        new UserAccount(forumFeedItem.ForumSubCategory.CreatedByUserID).UserName;
-
-                if (ua != null)
-                {
-                    var isNew =
-                        context.ForumPostNotification.FirstOrDefault(
-                            x =>
-                            x.ForumSubCategoryID == forumFeedItem.ForumSubCategory.ForumSubCategoryID &&
-                            x.UserAccountID == ua.UserAccountID);
-
-                    if (isNew != null && !isNew.IsRead)
-                    {
-                        forumFeedItem.IsNewPost = true;
-
-                        var forumSubPostCount =
-                            context.ForumPost.Count(
-                                x => x.ForumSubCategoryID == forumFeedItem.ForumSubCategory.ForumSubCategoryID);
-
-                        var pageCount = (forumSubPostCount + ForumController.PageSizeForumPost - 1)/ForumController.PageSizeForumPost;
-
-
-
-                        if (mostRecentPostToTopThread != null)
-                            forumFeedItem.URLTo =
-                                new Uri(string.Format("{0}/{1}#{2}", forumFeedItem.ForumSubCategory.SubForumURL, ((pageCount > 1)
-                                        ? pageCount.ToString(CultureInfo.InvariantCulture)
-                                        : string.Empty), mostRecentPostToTopThread.ForumPostID.ToString(CultureInfo.InvariantCulture)));
-                    }
-                }
-
-                forumFeed.Add(forumFeedItem);
-            }
-
-            forumFeed = forumFeed.OrderByDescending(x => x.LastPosted)
-                                 .Take(AmountOfNewThreadsOnHomepage).ToList();
-
-            ViewBag.ForumFeed = forumFeed;
-
-            return newestThreads;
-        }
-
-
-
-
+     
         public ActionResult Contact()
         {
             return View();
