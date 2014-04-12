@@ -1082,13 +1082,6 @@ namespace DasKlub.Lib.BOL.UserContent
             }
         }
 
-        public void GetAllActiveContent()
-        {
-            var cntss = new Contents();
-            cntss.GetContentPageWiseRelease(1, 10000, string.Empty);
-        }
-
-
         public void GetContentForContentTypeID(int contentTypeID, int siteDomainID)
         {
             // get a configured DbCommand object

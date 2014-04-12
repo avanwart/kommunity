@@ -51,6 +51,28 @@ namespace DasKlub.Web
             writer.WriteEndElement();
             writer.WriteString("\r\n"); //newline 
 
+
+            // news
+            var contents = new Contents();
+            contents.GetContentPageWiseReleaseAll(1, 10000);
+
+            foreach (var c1 in contents)
+            {
+                writer.WriteStartElement("url");
+                writer.WriteElementString("loc", string.Format("{0}news/{1}", siteDomain, c1.ContentKey.ToLower()));
+                var lastmod = c1.ReleaseDate;
+                if (c1.Comments != null && c1.Comments.Count > 0)
+                {
+                    lastmod = c1.Comments[c1.Comments.Count - 1].CreateDate;
+                }
+                writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", lastmod));
+                writer.WriteElementString("changefreq", "weekly");
+                writer.WriteElementString("priority", "0.8");
+                writer.WriteEndElement();
+                writer.WriteString("\r\n"); //newline 
+            }
+
+
             using (var context = new DasKlubDbContext())
             {
                 var forumCategory = context.ForumCategory
@@ -110,26 +132,6 @@ namespace DasKlub.Web
                         }
                     }
                 }
-            }
-
-            // news
-            var contents = new Contents();
-            contents.GetAllActiveContent();
-
-            foreach (var c1 in contents)
-            {
-                writer.WriteStartElement("url");
-                writer.WriteElementString("loc", string.Format("{0}news/{1}", siteDomain, c1.ContentKey.ToLower()));
-                var lastmod = c1.ReleaseDate;
-                if (c1.Comments != null && c1.Comments.Count > 0)
-                {
-                    lastmod = c1.Comments[c1.Comments.Count - 1].CreateDate;
-                }
-                writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", lastmod));
-                writer.WriteElementString("changefreq", "weekly");
-                writer.WriteElementString("priority", "0.8");
-                writer.WriteEndElement();
-                writer.WriteString("\r\n"); //newline 
             }
 
             writer.WriteEndElement();
