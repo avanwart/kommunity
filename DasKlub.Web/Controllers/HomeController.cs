@@ -322,11 +322,12 @@ namespace DasKlub.Web.Controllers
 
                         feedItem.ForumSubCategory = context.ForumSubCategory.Where(x => x.ForumSubCategoryID == threadId).FirstOrDefault();
                         feedItem.ForumCategory = context.ForumCategory.Where(x => x.ForumCategoryID == feedItem.ForumSubCategory.ForumCategoryID).FirstOrDefault();
-                        feedItem.LastPosted = lastPost.CreateDate;
+                        feedItem.LastPosted = (lastPost == null) ? feedItem.ForumSubCategory.CreateDate : lastPost.CreateDate;
                         feedItem.PostCount = context.ForumPost.Where(x => x.ForumSubCategoryID == threadId).Count();
                         
                         var pageCount = (feedItem.PostCount + ForumController.PageSizeForumPost - 1) / ForumController.PageSizeForumPost;
-                        feedItem.URLTo = new Uri(string.Format("{0}/{1}#{2}", feedItem.ForumSubCategory.SubForumURL, ((pageCount > 1)
+                        feedItem.URLTo = (lastPost == null) ? feedItem.ForumSubCategory.SubForumURL  :
+                                        new Uri(string.Format("{0}/{1}#{2}", feedItem.ForumSubCategory.SubForumURL, ((pageCount > 1)
                                        ? pageCount.ToString(CultureInfo.InvariantCulture)
                                        : string.Empty), lastPost.ForumPostID.ToString(CultureInfo.InvariantCulture)));
 
@@ -368,19 +369,76 @@ namespace DasKlub.Web.Controllers
             return View();
         }
 
+        private class ThreadDate 
+        {
+            public int ForumSubCategoryID { get; set; }
+            public DateTime CreateDate { get; set; }
+        }
+
+        
         private List<int> LoadRecentActiveThreads(int excludeTopThreadId)
         {
             using (var context = new DasKlubDbContext())
             {
-                var resultingThreads =
-                    (from threads in context.ForumSubCategory
-                     join posts in context.ForumPost
-                     on threads.ForumSubCategoryID equals posts.ForumSubCategoryID
-                     where threads.ForumSubCategoryID != excludeTopThreadId
-                     orderby posts.CreateDate descending, threads.CreateDate descending
-                     select threads.ForumSubCategoryID).ToList().Distinct().Take(20);
+                var mostRecentThreads = (from m in context.ForumSubCategory
+                          where m.ForumSubCategoryID != excludeTopThreadId
+                          orderby m.CreateDate descending
+                          select m).Select(x => new ThreadDate() 
+                                                    { 
+                                                          ForumSubCategoryID    = x.ForumSubCategoryID, 
+                                                          CreateDate            = x.CreateDate 
+                                                    }).Take(20)
+                                                      .ToList();
 
-                return resultingThreads.ToList();
+                  // TODO: USE LINQ
+                  System.Data.Common.DbCommand comm = DasKlub.Lib.DAL.DbAct.CreateCommand();
+                  comm.CommandText = string.Format( @"
+                    Select top 20 [ForumSubCategoryID],[CreateDate]
+                    from
+                    (
+                    Select [ForumSubCategoryID]
+                          ,[CreateDate]
+                          ,ROW_NUMBER() OVER (PARTITION BY [ForumSubCategoryID] Order by [CreateDate] desc ) as Seq
+                      from  [ForumPosts]
+                    where ForumSubCategoryID != {0}
+                    )P
+                    Where P.Seq = 1
+                     Order by [CreateDate] desc ", excludeTopThreadId);
+
+                comm.CommandType = System.Data.CommandType.Text;
+
+                var mostRecentPostsToThreads = DasKlub.Lib.DAL.DbAct.ExecuteSelectCommand(comm);
+
+                var mostRecentPostsToThreadsList = new List<ThreadDate>();
+
+                foreach(System.Data.DataRow item in mostRecentPostsToThreads.Rows)
+                {
+                    mostRecentPostsToThreadsList.Add
+                            (
+                                new ThreadDate 
+                                    { 
+                                      CreateDate            = Convert.ToDateTime(item["CreateDate"]),
+                                      ForumSubCategoryID    = Convert.ToInt32(item["ForumSubCategoryID"]) 
+                                    }
+                            );
+                }
+
+                var finalThreadList = new Dictionary<int, DateTime>();
+ 
+                foreach(var thread in mostRecentThreads)
+                {
+                    finalThreadList.Add(thread.ForumSubCategoryID, thread.CreateDate);
+                }
+
+                foreach (var thread in mostRecentPostsToThreadsList)
+                {
+                    if (finalThreadList.ContainsKey(thread.ForumSubCategoryID))
+                        finalThreadList[thread.ForumSubCategoryID] = thread.CreateDate; // update with more recent date of post
+                    else
+                        finalThreadList.Add(thread.ForumSubCategoryID, thread.CreateDate);
+                }
+
+                return finalThreadList.OrderByDescending(x => x.Value).Select(x => x.Key).Take(20).ToList();
             }
         }
 
