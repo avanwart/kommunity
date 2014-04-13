@@ -13,7 +13,6 @@
 //   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
-
 using System;
 using System.Linq;
 using System.Text;
@@ -31,6 +30,7 @@ namespace DasKlub.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            var minWordCount = 300;
             var siteDomain = string.Format("{0}/", Lib.Configs.GeneralConfigs.SiteDomain);
             Response.Clear();
             Response.ContentType = "text/xml";
@@ -51,13 +51,16 @@ namespace DasKlub.Web
             writer.WriteEndElement();
             writer.WriteString("\r\n"); //newline 
 
-
             // news
             var contents = new Contents();
             contents.GetContentPageWiseReleaseAll(1, 10000);
 
             foreach (var c1 in contents)
             {
+                var text = c1.ContentDetail;
+
+                if (text.Split(' ').Length < minWordCount) continue;
+
                 writer.WriteStartElement("url");
                 writer.WriteElementString("loc", string.Format("{0}news/{1}", siteDomain, c1.ContentKey.ToLower()));
                 var lastmod = c1.ReleaseDate;
@@ -66,12 +69,11 @@ namespace DasKlub.Web
                     lastmod = c1.Comments[c1.Comments.Count - 1].CreateDate;
                 }
                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", lastmod));
-                writer.WriteElementString("changefreq", "weekly");
+                writer.WriteElementString("changefreq", "monthly");
                 writer.WriteElementString("priority", "0.8");
                 writer.WriteEndElement();
                 writer.WriteString("\r\n"); //newline 
             }
-
 
             using (var context = new DasKlubDbContext())
             {
@@ -81,14 +83,6 @@ namespace DasKlub.Web
 
                 foreach (var category in forumCategory)
                 {
-                    writer.WriteStartElement("url");
-                    writer.WriteElementString("loc", category.ForumURL.ToString().ToLower());
-                    writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", category.CreateDate));
-                    writer.WriteElementString("changefreq", "weekly");
-                    writer.WriteElementString("priority", "0.8");
-                    writer.WriteEndElement();
-                    writer.WriteString("\r\n"); //newline 
-
                     var category1 = category;
                     var subForums = context.ForumSubCategory.Where(x => x.ForumCategoryID == category1.ForumCategoryID);
 
@@ -96,6 +90,20 @@ namespace DasKlub.Web
                     {
                         foreach (var thread in subForums)
                         {
+                            var text = thread.Description;
+                            var allPosts = context2.ForumPost.Where(x => x.ForumSubCategoryID == thread.ForumSubCategoryID);
+
+                            var allPostText = new StringBuilder();
+
+                            foreach(var item in allPosts)
+                            {
+                                allPostText.Append(item.Detail);
+                            }
+
+                            allPostText.Append(text);
+
+                            if (allPostText.ToString().Split(' ').Length < minWordCount) { continue;  }
+
                             writer.WriteStartElement("url");
                             writer.WriteElementString("loc", thread.SubForumURL.ToString().ToLower());
 
