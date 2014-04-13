@@ -164,6 +164,11 @@ namespace DasKlub.Lib.Operational
     {
         #region public static methods
 
+        public static string QuoteSafe(string input)
+        {
+            return input.Replace("\"", @"'").Replace("“", "'").Replace("”", "'");
+        }
+
         public static string ReplaceNewLineSingleWithHTML(string s)
         {
             return s.Replace("\n", "<br />");
