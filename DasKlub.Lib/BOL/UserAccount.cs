@@ -968,14 +968,7 @@ namespace DasKlub.Lib.BOL
                 Roles.RemoveUserFromRole(UserName, role1);
             }
 
-            var contents = new Contents();
-
-            contents.GetContentForUser(UserAccountID);
-
-            foreach (var c1 in contents)
-            {
-                c1.Delete();
-            }
+            // TODO: REMOVE CONSTRAINT ON NEWS CONTENT, IT NEEDS TO STAY OWNED BY SITE
 
             return Delete();
         }
