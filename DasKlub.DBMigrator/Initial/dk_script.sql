@@ -116,21 +116,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_AddArtist]
 
@@ -167,21 +167,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_AddArtistEvent]
@@ -209,21 +209,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddArtistProperty]
 
@@ -261,21 +261,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE proc [dbo].[up_AddBlockedUser]
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  @userAccountIDBlocking int
@@ -306,21 +306,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddBrand]
 
@@ -373,21 +373,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddCategory]
 
@@ -425,21 +425,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddChatRoom]
 
@@ -479,21 +479,21 @@ GO
  
 
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_AddChatRoomUser]
 
@@ -534,21 +534,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddClickLog]
 
@@ -590,21 +590,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddColor]
 
@@ -637,21 +637,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddContentComment]
 
@@ -697,21 +697,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_AddContestVideo]
 
@@ -746,21 +746,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddContestVideoVote]
 
@@ -794,21 +794,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_AddCreatePlaylist]
 
@@ -848,21 +848,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_AddDirectMessage]
 
@@ -903,21 +903,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_AddErrorLog]
@@ -956,21 +956,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddEvent]
 
@@ -1032,21 +1032,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddGeoData]
  
@@ -1091,21 +1091,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_AddGoogleTaxonomy]
 
@@ -1132,21 +1132,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddHostedVideoLog]
 
@@ -1179,21 +1179,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddMultiProperty]
 
@@ -1231,21 +1231,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddMultiPropertyVideo]
 
@@ -1286,21 +1286,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_AddOrder]
 
@@ -1351,21 +1351,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_AddPhotoItem]
@@ -1403,21 +1403,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddPlaylistVideo]
 
@@ -1453,21 +1453,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddProfileLog]
 
@@ -1499,21 +1499,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_AddReview]
  
@@ -1565,21 +1565,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddRSSItem]
 
@@ -1636,21 +1636,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddRssResource]
 
@@ -1694,21 +1694,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddSiteComment]
 
@@ -1737,21 +1737,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_AddSiteDomain]
@@ -1785,21 +1785,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddSong]
 
@@ -1835,21 +1835,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddSongProperty]
 
@@ -1888,21 +1888,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_AddStatusComment]
@@ -1942,21 +1942,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */ 
 
  CREATE proc [dbo].[up_AddStatusCommentAcknowledgement]
@@ -1992,21 +1992,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
            
            CREATE proc [dbo].[up_AddStatusUpdate]
@@ -2055,21 +2055,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddStatusUpdateNotification]
 
@@ -2118,21 +2118,21 @@ GO
 */
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROCEDURE [dbo].[up_AddUserAccount]
 
@@ -2194,21 +2194,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddUserAccountDetail]
 
@@ -2388,21 +2388,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddUserAccountUserGroup]
 
@@ -2429,21 +2429,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddUserAccountVideo]
 
@@ -2486,21 +2486,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_AddUserAddress]
@@ -2572,21 +2572,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddUserConnection]
 
@@ -2627,21 +2627,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_AddUserPhoto]
 
@@ -2685,21 +2685,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddVenue]
            
@@ -2768,21 +2768,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_AddVideo]
 
@@ -2849,21 +2849,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddVideoLog]
 
@@ -2892,21 +2892,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddVideoRequest]
 
@@ -2947,21 +2947,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_AddVideoSong]
 
@@ -2994,21 +2994,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_AddVote]
 
@@ -3040,21 +3040,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
   CREATE proc [dbo].[up_AddWallMessage]
@@ -3092,21 +3092,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_DeleteAcknowledgement]
 
@@ -3125,21 +3125,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteAllAcknowledgements]
 
@@ -3159,21 +3159,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteAllCommentAcknowledgements]
 
@@ -3190,21 +3190,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteAllDirectMessages]
 
@@ -3225,21 +3225,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteAllStatusUpdates]
 
@@ -3259,21 +3259,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteAllUserContestVotes]
 
@@ -3293,21 +3293,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteArtistProperty]
  
@@ -3325,21 +3325,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_DeleteBlockedUser]
  
@@ -3365,21 +3365,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
  CREATE proc [dbo].[up_DeleteChatRoomUser]
@@ -3404,21 +3404,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_DeleteContentComment]
@@ -3437,21 +3437,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteContestVideo]
 
@@ -3469,21 +3469,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteEventByID]
 
@@ -3501,21 +3501,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteFromContentByID]
 
@@ -3533,21 +3533,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
   CREATE PROC [dbo].[up_DeleteMultiPropertyByID]
@@ -3567,21 +3567,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteMultiPropertyVideo]
 
@@ -3599,21 +3599,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteNotificationsForStatusUpdate]
 
@@ -3628,21 +3628,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeletePhotoItem]
 
@@ -3659,21 +3659,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeletePlaylist]
 
@@ -3695,21 +3695,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
   
   CREATE proc [dbo].[up_DeletePlaylistVideo]
@@ -3730,21 +3730,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
   CREATE proc [dbo].[up_DeletePlaylistVideoByID]
   
@@ -3763,21 +3763,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 
@@ -3803,21 +3803,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteReview]
 
@@ -3834,21 +3834,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteSiteDomain]
 
@@ -3870,21 +3870,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 
@@ -3905,21 +3905,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  CREATE proc [dbo].[up_DeleteStatusAcknowledgements]
@@ -3937,21 +3937,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteStatusComment]
 
@@ -3969,21 +3969,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_DeleteStatusCommentAcknowledgement]
 
@@ -4001,21 +4001,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteStatusCommentAcknowledgements]
  
@@ -4032,21 +4032,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteStatusComments]
 
@@ -4064,21 +4064,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc  [dbo].[up_DeleteStatusCommentsForUser]
 
@@ -4096,21 +4096,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteStatusUpdate]
 
@@ -4131,21 +4131,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_DeleteStatusUpdateNotification]
  
@@ -4161,21 +4161,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteUserAccount]
 
@@ -4193,21 +4193,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteUserAccountDetail]
 
@@ -4228,21 +4228,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteUserAccountMessages]
 @userAccountID int
@@ -4260,21 +4260,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteUserAccountVideo]
 
@@ -4297,21 +4297,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteUserAddress]
 
@@ -4331,21 +4331,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteUserConnection]
 
@@ -4367,21 +4367,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteUserConnectionByID]
 
@@ -4399,21 +4399,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 
@@ -4433,21 +4433,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteUserRoles]
 
@@ -4464,21 +4464,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteUserVotes]
 
@@ -4512,21 +4512,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_DeleteVideoForUser]
 
@@ -4550,21 +4550,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_DeleteWallMessage]
 
@@ -4582,21 +4582,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetAccountCloudByLetter]   
 
@@ -4627,21 +4627,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetAcknowledgement]
@@ -4668,21 +4668,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetAcknowledgementCount]
 
@@ -4700,21 +4700,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetAcknowledgementsForStatus]
 
@@ -4738,21 +4738,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetActiveUsers]
 
@@ -4834,21 +4834,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetAllArtistEvents]
@@ -4866,21 +4866,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_GetAllArtists]
 
@@ -4903,21 +4903,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetAllBrands]
  
@@ -4948,21 +4948,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  CREATE proc [dbo].[up_GetAllColors]
@@ -4984,21 +4984,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetAllContent]
  as
@@ -5034,21 +5034,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetAllContentTypes]
  
@@ -5069,21 +5069,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetAllContests]
 
@@ -5110,21 +5110,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetAllDepartments]
  
@@ -5149,21 +5149,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetAllEventCycles]
 
@@ -5184,21 +5184,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetAllEvents]
  
@@ -5228,21 +5228,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetAllInterestedIn]
 
@@ -5266,21 +5266,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetAllRelationshipStatus]
 
@@ -5305,21 +5305,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetAllRssResource]
 
@@ -5342,21 +5342,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetAllSiteDomain]
 
@@ -5379,21 +5379,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetAllSizes]
  
@@ -5414,21 +5414,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE PROC [dbo].[up_GetAllStatus]
  
@@ -5446,21 +5446,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  CREATE proc [dbo].[up_GetAllStatusCommentsForUpdate]
@@ -5488,21 +5488,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetAllUserAccounts]
  
@@ -5543,21 +5543,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetAllUserStatusUpdates]
  
@@ -5581,21 +5581,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetAllVenues]
 
@@ -5628,21 +5628,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_GetAllVideos]
 
@@ -5674,21 +5674,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE PROC [dbo].[up_GetAllVideosByUser]
  
@@ -5723,21 +5723,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetAllVotes]
 
@@ -5756,21 +5756,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetAllYouAre]
 
@@ -5791,21 +5791,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetArtistByAltname]
 
@@ -5830,21 +5830,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_GetArtistByID]
 
@@ -5870,21 +5870,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_GetArtistByName]
 
@@ -5909,21 +5909,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetArtistCloudByLetter]   
 
@@ -5951,21 +5951,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetArtistCloudByNonLetter]   
  
@@ -6020,21 +6020,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetArtistPropertyForTypeArtist]
@@ -6062,21 +6062,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetArtistRssResource]
  
@@ -6103,21 +6103,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetArtistsForEvent]
 
@@ -6137,21 +6137,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROCEDURE [dbo].[up_GetArtistsPageWise]
       @PageIndex INT = 1
@@ -6202,21 +6202,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetBlockedUsers]
 
@@ -6241,21 +6241,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetChatRoomUserByConnection]
 
@@ -6282,21 +6282,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
  CREATE proc [dbo].[up_GetChatRoomUserByUserAccountID]
@@ -6323,21 +6323,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetChattingUserCount]
 
@@ -6352,21 +6352,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetChattingUsers]
 
@@ -6389,21 +6389,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE PROCEDURE [dbo].[up_GetCityForCountryPostalCode]
  
@@ -6422,21 +6422,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROCEDURE [dbo].[up_GetCityStateForCountryPostalCode]
 
@@ -6458,21 +6458,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE PROCEDURE [dbo].[up_GetCityStateForCountryZip]
  
@@ -6493,21 +6493,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  CREATE proc [dbo].[up_GetColorByID]
@@ -6532,21 +6532,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetColorByName]
 
@@ -6573,21 +6573,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetCommentAcknowledgement]
 
@@ -6613,21 +6613,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetCommentAcknowledgementCount]
 
@@ -6645,21 +6645,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROCEDURE [dbo].[up_GetContentAllPageWiseKey]
       @PageIndex INT = 1
@@ -6727,21 +6727,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetContentByID]
 
@@ -6782,21 +6782,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE  proc [dbo].[up_GetContentByKey]
  
@@ -6833,21 +6833,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetContentComment]
 
@@ -6876,21 +6876,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetContentComments]
 
@@ -6919,21 +6919,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROCEDURE [dbo].[up_GetContentCommentsPageWise]
       @PageIndex INT = 1
@@ -6987,21 +6987,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetContentForContentTypeID]
  
@@ -7039,21 +7039,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetContentForUser]
  
@@ -7091,21 +7091,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROCEDURE [dbo].[up_GetContentPageWise]
       @PageIndex INT = 1
@@ -7173,21 +7173,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROCEDURE [dbo].[up_GetContentPageWiseAll]
       @PageIndex INT = 1
@@ -7253,21 +7253,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROCEDURE [dbo].[up_GetContentPageWiseKey]
       @PageIndex INT = 1
@@ -7335,21 +7335,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
   CREATE proc [dbo].[up_GetContentTags]
   
@@ -7367,21 +7367,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
   CREATE proc [dbo].[up_GetContentTagsAll]
   
@@ -7399,21 +7399,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetContentTypeByContentCode]
  
@@ -7437,21 +7437,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetContentTypeByID]
  
@@ -7475,21 +7475,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetContestByKey]
 
@@ -7517,21 +7517,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetContestByName]
 
@@ -7559,21 +7559,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetContestVideo]
  
@@ -7599,21 +7599,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetContestVideoForContestAndVideo]
 
@@ -7642,21 +7642,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetContestVideosForContest]
 
@@ -7685,21 +7685,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetCountOfVideosInPlaylist]
  @playlistID int
@@ -7715,21 +7715,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetCountUnconfirmedConnections]
 
@@ -7747,21 +7747,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
   CREATE proc [dbo].[up_GetCurrentTime]
   AS
@@ -7773,21 +7773,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetDateVenues]
@@ -7804,21 +7804,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetDirectMessagesFromUser]
 
@@ -7846,21 +7846,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetDirectMessagesToFrom]
 @fromUserAccountID int,
@@ -7888,21 +7888,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetDirectMessagesToUser]
 
@@ -7930,21 +7930,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetDirectMessagesToUserCount]
 
@@ -7962,21 +7962,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
   CREATE PROC [dbo].[up_GetDistinctInterests]
 
@@ -7990,21 +7990,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetDistinctLocations]
 
@@ -8020,21 +8020,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetDistinctNewsLanguages]
 
@@ -8049,21 +8049,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
   CREATE PROC [dbo].[up_GetDistinctRelationshipStatus]
 
@@ -8078,21 +8078,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetDistinctUserCountries]
 
@@ -8108,21 +8108,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
  CREATE proc [dbo].[up_GetDistinctUserLanguages]
@@ -8139,21 +8139,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_GetDistinctUsers]
 
@@ -8169,21 +8169,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
   CREATE PROC [dbo].[up_GetDistinctYouAres]
 
@@ -8197,21 +8197,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetEventByID]
 
@@ -8244,21 +8244,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetEventCycleByID]
 
@@ -8282,21 +8282,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetEventsForLocation]
 
@@ -8357,21 +8357,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetInterestedIn]
 
@@ -8398,21 +8398,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetLatLongForCountryPostal]
 
@@ -8432,21 +8432,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
 CREATE PROCEDURE [dbo].[up_GetMailPageWise]
@@ -8501,21 +8501,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROCEDURE [dbo].[up_GetMailPageWiseSent]
       @PageIndex INT = 1
@@ -8569,21 +8569,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROCEDURE [dbo].[up_GetMailPageWiseToUser]
       @PageIndex INT = 1
@@ -8638,21 +8638,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetMappableUsers]
 
@@ -8694,21 +8694,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_GetMostAcknowledgedStatus]
 
@@ -8731,21 +8731,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetMostCommentedOnStatus]
 
@@ -8767,21 +8767,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 
@@ -8807,21 +8807,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetMostLookedAtUsersDays]
@@ -8843,21 +8843,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetMostRecentFavoriteVideo]
 
@@ -8873,21 +8873,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
 CREATE PROC [dbo].[up_GetMostRecentlyViewedProducts] --'67.188.238.139'
@@ -8908,21 +8908,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  CREATE proc [dbo].[up_GetMostRecentRSS]
@@ -8951,21 +8951,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetMostRecentSentMessage]
  
@@ -8993,21 +8993,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetMostRecentStatusUpdates]
 AS
@@ -9030,21 +9030,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetMostRecentUserStatus]
 
@@ -9073,21 +9073,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetMostRecentVideos]
  
@@ -9122,21 +9122,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetMostViewedProducts]
 
@@ -9158,21 +9158,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetMostWatchedVideos]
 
@@ -9193,21 +9193,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetMultiPropertyByID]
 
@@ -9232,21 +9232,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetMultiPropertyByName]
 
@@ -9271,21 +9271,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetMultiPropertyByPropertyTypeID]
 
@@ -9310,21 +9310,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  -- product id & product type id
  
@@ -9355,21 +9355,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetNewestPhotoUploader]
 
@@ -9385,21 +9385,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetNewestUsers]
  
@@ -9440,21 +9440,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetNextNews]
 @createDateCurrent datetime
@@ -9498,21 +9498,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetNextNewsLang]
 @createDateCurrent datetime
@@ -9555,21 +9555,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetNextPhoto]
 @createDateCurrent datetime
@@ -9594,21 +9594,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetNextPhotoForUser]
 @createDateCurrent datetime
@@ -9634,21 +9634,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetOnlineUserCount]
 
@@ -9664,21 +9664,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetOnlineUsers]
  
@@ -9719,21 +9719,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  CREATE proc [dbo].[up_GetPhotoItem]
@@ -9758,21 +9758,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetPhotoItemCountForUser]
  
@@ -9790,21 +9790,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetPhotoItemForUser]
 
@@ -9831,21 +9831,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROCEDURE [dbo].[up_GetPhotoItemsPageWise]
       @PageIndex INT = 1
@@ -9898,21 +9898,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetPlaylist]
 
@@ -9938,21 +9938,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetPlaylistVideoByID]
 
@@ -9977,21 +9977,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetPlaylistVideoByIDs]
 
@@ -10021,21 +10021,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetPlaylistVideosForPlaylist]
 
@@ -10060,21 +10060,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetPreviousNews]
 @createDateCurrent datetime
@@ -10116,21 +10116,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetPreviousNewsLang]
 @createDateCurrent datetime
@@ -10170,21 +10170,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetPreviousPhoto]
 @createDateCurrent datetime
@@ -10210,21 +10210,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetPreviousPhotoForUser]
@@ -10252,21 +10252,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetProductByCategoryID]
 
@@ -10305,21 +10305,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetPropertyTypeByCode]
  
@@ -10344,21 +10344,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE PROC [dbo].[up_GetPropertyTypeByID]
  
@@ -10383,21 +10383,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE PROC [dbo].[up_GetRandomProductsInWishList]
  
@@ -10415,21 +10415,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_GetRandomUserAccountID]
 
@@ -10446,21 +10446,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  CREATE proc [dbo].[up_GetRandomVideo]
@@ -10501,21 +10501,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_GetRandomVideoID]
 
@@ -10531,21 +10531,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetRecentChatMessages]
 
@@ -10569,21 +10569,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetRecentProfileViews]
@@ -10607,21 +10607,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  CREATE proc [dbo].[up_GetRecentRSS]
@@ -10650,21 +10650,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetRecentRSSFilter]
 
@@ -10696,21 +10696,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetRecentStatusUpdates]
 AS
@@ -10731,21 +10731,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetRecentUserAccountVideos]
 
@@ -10768,21 +10768,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE  proc [dbo].[up_GetRelatedVideo]
@@ -10836,21 +10836,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetRelatedVideos]
 
@@ -10902,21 +10902,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetRelationshipStatus]
 
@@ -10943,21 +10943,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetReviewID]
 
@@ -10988,21 +10988,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetReviews]
 @productID  int
@@ -11033,21 +11033,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetRoleByName]
 
@@ -11071,21 +11071,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
   CREATE proc [dbo].[up_GetRolesForUser]
   
@@ -11102,21 +11102,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_GetRssResourceByID]
 
@@ -11143,21 +11143,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetShippingCostProductCountry]
  
@@ -11189,21 +11189,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetShopByID]
@@ -11231,21 +11231,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetShopForUser]
 
@@ -11273,21 +11273,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetSiteDomain]
 
@@ -11313,21 +11313,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetSiteDomainProperty] 
 
@@ -11352,21 +11352,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetSiteDomainPropertyLanguage]
 
@@ -11392,21 +11392,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  CREATE proc [dbo].[up_GetSizeByID]
@@ -11432,21 +11432,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetSizeByName]
 
@@ -11472,21 +11472,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_GetSongByArtistIDName]
 
@@ -11512,21 +11512,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetSongPropertySongIDTypeID]
  
@@ -11552,21 +11552,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE PROC [dbo].[up_GetSongsForArtist]
@@ -11593,21 +11593,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetSongsForVideo]
 
@@ -11634,21 +11634,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE PROCEDURE [dbo].[up_GetStateForPostalCode]
  
@@ -11666,21 +11666,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetStatusComment]
 
@@ -11706,21 +11706,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetStatusCommentCount]
  
@@ -11736,21 +11736,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetStatusCommentMessage]
 
@@ -11778,21 +11778,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetStatusUpdateByID]
 
@@ -11820,21 +11820,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetStatusUpdateByPhotoID]
 
@@ -11862,21 +11862,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  CREATE proc [dbo].[up_GetStatusUpdateNotificationCountForUser]
@@ -11895,21 +11895,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
  CREATE proc [dbo].[up_GetStatusUpdateNotificationForUserStatus]
@@ -11941,21 +11941,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetStatusUpdateNotificationsForUser]
  
@@ -12067,21 +12067,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetUniqueProfileVisitorCount]
  
@@ -12101,21 +12101,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUnprocessedVideoRequests]
 
@@ -12138,21 +12138,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUserAccountByEmail]
 
@@ -12194,21 +12194,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetUserAccountDetail]
@@ -12271,21 +12271,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetUserAccountDetailForUser]
@@ -12348,21 +12348,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 /*
 	FROM: RMW
@@ -12414,21 +12414,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 /*
 	FROM: RMW
@@ -12480,21 +12480,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUserAccountnameFromEMail]
 @eMail  varchar(50)
@@ -12511,21 +12511,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUserAddress]
 
@@ -12561,21 +12561,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUserAddressByID]
 
@@ -12611,21 +12611,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUserAddressesByStatus]
 
@@ -12661,21 +12661,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetUserAffReport]
  
@@ -12697,21 +12697,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUserConnection]
 
@@ -12749,21 +12749,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUserConnectionByID]
 
@@ -12789,21 +12789,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUserContentComments]
 
@@ -12831,21 +12831,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUserCount]
 as
@@ -12861,21 +12861,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetUserGroupID]
@@ -12896,21 +12896,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetUserPhotoByID]
@@ -12938,21 +12938,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetUserPhotos]
  
@@ -12979,21 +12979,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUserPlaylist]
 
@@ -13019,21 +13019,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetUsersInRole]
  
@@ -13073,21 +13073,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetUserToUserConnection]
 
@@ -13128,21 +13128,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetVenueByID]
 
@@ -13180,21 +13180,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetVideoByID]
 
@@ -13228,21 +13228,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_GetVideoByProviderKeyCode]
 
@@ -13278,21 +13278,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetVideoRequest]
 
@@ -13317,21 +13317,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_GetVideoRequestByID]
  
@@ -13356,21 +13356,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetVideosForPropertyType]
 
@@ -13390,21 +13390,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetVideosForPropertyType2]
 
@@ -13435,21 +13435,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE PROC [dbo].[up_GetVideosForSong]
@@ -13485,21 +13485,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetVideosForUserAccount]
 
@@ -13521,21 +13521,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetVideoViews]
 
@@ -13553,21 +13553,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  
 CREATE PROCEDURE [dbo].[up_GetWallMessagessPageWise]
@@ -13617,21 +13617,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetWallMessagesUserCountUnread]
 
@@ -13649,21 +13649,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetWhoIsOffline]
  
@@ -13705,21 +13705,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_GetWishListProducts]
@@ -13741,21 +13741,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_GetYouAre]
 
@@ -13779,21 +13779,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE PROC [dbo].[up_IsAccountIPTaken]
 
@@ -13812,21 +13812,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_IsBlockedUser]
 
@@ -13851,21 +13851,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_IsBlockingUser]
 
@@ -13892,21 +13892,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_IsIPBlocked]
  
@@ -13928,21 +13928,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_IsPlaylistVideo]
@@ -13966,21 +13966,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_IsRssItemExist]
  
@@ -14001,21 +14001,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_IsUserAcknowledgement]
 
@@ -14036,21 +14036,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_IsUserCommentAcknowledgement]
 
@@ -14071,21 +14071,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC		[dbo].[up_IsUserContestVoted]
 
@@ -14109,21 +14109,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_IsUserOnline]
  
@@ -14141,21 +14141,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_IsUserVideoVote]
@@ -14184,21 +14184,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
  CREATE proc [dbo].[up_MostFrequentStatusMessages]
@@ -14224,21 +14224,21 @@ SET QUOTED_IDENTIFIER ON
 GO
  
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
  CREATE proc [dbo].[up_SetContent]
  
@@ -14343,21 +14343,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_UpdateArtist]
 
@@ -14385,21 +14385,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateArtistProperty]
 
@@ -14425,21 +14425,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateBrand]
 
@@ -14480,21 +14480,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateCategory]
 
@@ -14522,21 +14522,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateChatRoomUser]
 
@@ -14563,21 +14563,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateContentComment] 
 
@@ -14610,21 +14610,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_UpdateDirectMessage]
@@ -14658,21 +14658,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_UpdateEvent]
@@ -14719,21 +14719,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_UpdateMultiProperty]
 
@@ -14764,21 +14764,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateOrder]
 
@@ -14815,21 +14815,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdatePhotoItem]
 
@@ -14861,21 +14861,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdatePlaylist]
 
@@ -14932,21 +14932,21 @@ SET QUOTED_IDENTIFIER ON
 GO
 
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 
 CREATE proc [dbo].[up_UpdateRssResource]
@@ -14981,21 +14981,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateSiteDomain]
 
@@ -15023,21 +15023,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_UpdateSong]
 
@@ -15067,21 +15067,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateStatusUpdateNotification]
 
@@ -15112,21 +15112,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 /*
 	FROM: RMW
@@ -15210,21 +15210,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateUserAccountDetail]
 
@@ -15332,21 +15332,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateUserAddress]
 
@@ -15395,21 +15395,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateUserConnection]
 
@@ -15439,21 +15439,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateUserPhoto]
 
@@ -15487,21 +15487,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
   /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateVenue]
            
@@ -15549,21 +15549,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE PROC [dbo].[up_UpdateVideo]
 
@@ -15613,21 +15613,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateVideoRequest]
 
@@ -15655,21 +15655,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
  /*
-//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
 
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
 
-//       http://www.apache.org/licenses/LICENSE-2.0
 
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+
+
+
+
+
+
+
+
+
+
+
+
 */
 CREATE proc [dbo].[up_UpdateWhoIsOnline]
 
