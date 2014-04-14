@@ -11,6 +11,53 @@ namespace DasKlub.UnitTests.DasKlub.Lib.Operational
     [TestClass]
     public class UtilitiesTest
     {
+
+        [TestMethod]
+        public void ConvertTextToHTML_InternalLinkLinks_DoesNotOpenInNewWindow()
+        {
+            // arrange
+            var text = @"Das Cabaret Fledermaus Präsentiert den 
+BALL DER SCHWARZEN MASKEN 2014
+Deuxvolt live @ Wien (AT)
+Friday 28th February 2014 - 22:00 PM
+Info: http://www.dasklub.com/
+
+
+1-2 INDUSTRIAL DANCERS ARE REALLY WELCOME, ON THE STAGE
+
+Contact me for more informations here: www.justdeux.com
+
+Just Deux
+
+Poster: http://dasklub.com/propaganda/Deuxvolt_tour_2014_01_wien.png
+note: Thanks to DasKlub community";
+
+
+
+            // act
+            var result = Utilities.ConvertTextToHtml(text);
+
+            // assert 
+            var expected = @"Das Cabaret Fledermaus Präsentiert den <br />
+BALL DER SCHWARZEN MASKEN 2014<br />
+Deuxvolt live @ Wien (AT)<br />
+Friday 28th February 2014 - 22:00 PM<br />
+Info: <a href=""http://www.dasklub.com/"">http://www.dasklub.com/</a><br />
+<br />
+<br />
+1-2 INDUSTRIAL DANCERS ARE REALLY WELCOME, ON THE STAGE<br />
+<br />
+Contact me for more informations here: www.justdeux.com<br />
+<br />
+Just Deux<br />
+<br />
+Poster: <a href=""http://dasklub.com/propaganda/Deuxvolt_tour_2014_01_wien.png"">http://dasklub.com/propagan...</a><br />
+note: Thanks to DasKlub community";
+
+            Assert.AreEqual(expected, result);
+
+        }
+
         [TestMethod]
         public void ConvertTextToHTML_TextWithLinks_ContainsHrefsCorrectly()
         {
