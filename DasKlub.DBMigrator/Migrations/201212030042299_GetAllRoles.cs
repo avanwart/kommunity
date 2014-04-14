@@ -1,4 +1,3 @@
- 
 using System.Data.Entity.Migrations;
 
 namespace DasKlub.DBMigrator.Migrations

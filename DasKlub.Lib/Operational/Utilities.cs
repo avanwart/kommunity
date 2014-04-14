@@ -1,20 +1,4 @@
-﻿//  Copyright 2013 
-//  Name: Ryan Williams
-//  URL: http://ryanmichaelwilliams.com | http://dasklub.com
-
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
-
-//       http://www.apache.org/licenses/LICENSE-2.0
-
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -694,14 +678,15 @@ namespace DasKlub.Lib.Operational
 
             foreach (var match in mactches.Cast<Match>())
             {
-                var indexStart = newText.IndexOf(match.Value);
-                var removed = newText.Remove(indexStart, match.Value.Length);
+                var matchedUrl = match.Value;
+                var indexStart = newText.IndexOf(matchedUrl);
+                var removed = newText.Remove(indexStart,matchedUrl.Length);
 
-                if ((match.Value.Contains("youtube.com") || match.Value.Contains("youtu.be")) && match.Value.Contains("v="))
+                if ((matchedUrl.Contains("youtube.com") || matchedUrl.Contains("youtu.be")) && matchedUrl.Contains("v="))
                 {
                     var height  = 200;
                     var width   = 300;
-                    var nvcKey  = HttpUtility.ParseQueryString(new Uri(match.Value).Query);
+                    var nvcKey = HttpUtility.ParseQueryString(new Uri(matchedUrl).Query);
                     var vidKey  = nvcKey["v"];
 
                     // YouTube video
@@ -712,7 +697,7 @@ namespace DasKlub.Lib.Operational
                 }
                 else
                 {
-                    var linkText = match.Value;
+                    var linkText = matchedUrl;
 
                     if (linkText.Length > linkTextMaxLength)
                     {
@@ -720,10 +705,20 @@ namespace DasKlub.Lib.Operational
                     }
 
                     // regular link
-                    newText = removed.Insert(indexStart,
-                                             string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>", 
-                                                match.Value,
-                                                linkText));
+                    if (matchedUrl.Contains("dasklub.com"))
+                    {
+                        newText = removed.Insert(indexStart,
+                                                 string.Format(@"<a href=""{0}"">{1}</a>",
+                                                    matchedUrl,
+                                                    linkText));
+                    }
+                    else
+                    {
+                        newText = removed.Insert(indexStart,
+                                                 string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>",
+                                                    matchedUrl,
+                                                    linkText));
+                    }
                 }
             }
 
