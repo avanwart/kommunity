@@ -1382,6 +1382,8 @@ namespace DasKlub.Lib.BOL
             }
         }
 
+        public int ForumPosts { get; set; }
+
         public string SmallUserIcon
         {
             get
@@ -1390,7 +1392,8 @@ namespace DasKlub.Lib.BOL
                 var ua = new UserAccount(UserAccountID);
 
                 sb.AppendFormat(@"<span class=""profile_username""><a title=""{0}"" class=""m_over"" href=""{1}"">", 
-                                ua.UserName, VirtualPathUtility.ToAbsolute("~/" + ua.UserName.ToLower()));
+                                ua.UserName, 
+                                VirtualPathUtility.ToAbsolute(string.Format("~/{0}", ua.UserName.ToLower())));
                 sb.Append(ua.UserName);
                 sb.Append(@"</a></span>");
                 sb.Append("<br />");
@@ -1400,8 +1403,9 @@ namespace DasKlub.Lib.BOL
                 sb.Append("<br />");
 
  
-                sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" />", Sex,
-                                VirtualPathUtility.ToAbsolute("~/content/images/sex/" + SexLetter.ToString() + ".png"));
+                sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" />", 
+                                Sex,
+                                VirtualPathUtility.ToAbsolute(string.Format("~/content/images/sex/{0}.png", SexLetter.ToString()));
 
                 sb.AppendFormat(@"<div title=""{0}"" class=""sprites sprite-{1}_small""></div>", CountryName, Country);
 
@@ -1417,6 +1421,12 @@ namespace DasKlub.Lib.BOL
                     sb.AppendFormat(@"<img style=""height: 8px; width:8px"" title=""{0}"" alt=""{0}"" src=""{1}"" />",
                                     Messages.IsOnline,
                                     VirtualPathUtility.ToAbsolute("~/content/images/status/abutton2_e0.gif"));
+                }
+
+                if (ForumPosts > 0)
+                {
+                    sb.Append("<br />");
+                    sb.AppendFormat(@"<span class=""forum_post_count"">Posts: {0}</span>", ForumPosts);
                 }
 
                 return sb.ToString();

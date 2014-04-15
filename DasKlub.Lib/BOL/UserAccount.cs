@@ -707,6 +707,7 @@ namespace DasKlub.Lib.BOL
             }
         }
 
+        public int ForumPosts { get; set; }
 
         public string ToUnorderdListItem
         {
@@ -715,6 +716,8 @@ namespace DasKlub.Lib.BOL
                 var uad = new UserAccountDetail();
 
                 uad.GetUserAccountDeailForUser(UserAccountID);
+
+                uad.ForumPosts = this.ForumPosts;
 
                 var sb = new StringBuilder(100);
 

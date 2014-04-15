@@ -99,7 +99,9 @@
                           
                     <div class="span2 user_icons" style="width:120px">
                         <ul>
-                            @Html.Raw(forumCat.UserAccount.ToUnorderdListItem) 
+                            @{var user = forumCat.UserAccount;
+                              user.ForumPosts = ViewBag.UserPostCounts[forumCat.UserAccount.UserAccountID]; }
+                            @Html.Raw(user.ToUnorderdListItem) 
                         </ul>
                     </div>
                     <div class="span6">
