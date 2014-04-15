@@ -108,8 +108,6 @@
                             {
                                 <tr >
                                     <td>
-
-                                        <b>
                                             <span class="bright_green">Top This Week: </span>
                                             @if (ViewBag.TopThreadOfTheWeek.IsNewPost)
                                             {
@@ -119,7 +117,6 @@
                                             {
                                                 <a href="@ViewBag.TopThreadOfTheWeek.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
                                             }
-                                        </b>
                                         
                                           @if (ViewBag.TopThreadOfTheWeek.PostCount == 0)
                                         {
@@ -158,19 +155,13 @@
                                     }
 
                                 </tr> 
-                     
-                  
                             }
-
 
 
                             @foreach (DasKlub.Web.Models.ForumFeedModel forumFeedModel in ViewBag.ForumFeed)
                             {
                                 <tr>
                                     <td>
-                                    
-                                        <b>
-
                                             @if (forumFeedModel.IsNewPost)
                                             {
                                                 <a   class="notification_color" href="@forumFeedModel.URLTo.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
@@ -179,7 +170,7 @@
                                             {
                                                 <a href="@forumFeedModel.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
                                             }
-                                        </b>
+                                      
                                         @if (forumFeedModel.PostCount == 0)
                                         {
                                             <span class="badge badge-inverse">@Messages.New</span>
