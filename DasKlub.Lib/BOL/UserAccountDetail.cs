@@ -1405,7 +1405,7 @@ namespace DasKlub.Lib.BOL
  
                 sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" />", 
                                 Sex,
-                                VirtualPathUtility.ToAbsolute(string.Format("~/content/images/sex/{0}.png", SexLetter.ToString()));
+                                VirtualPathUtility.ToAbsolute(string.Format("~/content/images/sex/{0}.png", SexLetter.ToString())));
 
                 sb.AppendFormat(@"<div title=""{0}"" class=""sprites sprite-{1}_small""></div>", CountryName, Country);
 
