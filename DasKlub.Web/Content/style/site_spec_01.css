@@ -752,6 +752,8 @@ input.gsc-input { color: #000; }
 
 .default_lang { font-size: 9px; }
 
+.forum_post_count { font-size: 11px; }
+
 .rotate_photo {
     font-size: 10px;
     font-style: italic;

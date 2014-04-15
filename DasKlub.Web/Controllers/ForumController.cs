@@ -15,6 +15,7 @@ using DasKlub.Models.Forum;
 using DasKlub.Models.Models;
 using DasKlub.Lib.Resources;
 using UserAccount = DasKlub.Lib.BOL.UserAccount;
+using System.Collections.Generic;
 
 namespace DasKlub.Web.Controllers
 {
@@ -421,6 +422,32 @@ namespace DasKlub.Web.Controllers
 
                 if (subForum == null || subForum.ForumSubCategoryID == 0)
                     return RedirectPermanent("~/forum");// it's gone
+
+                // TODO: USE LINQ
+                System.Data.Common.DbCommand comm = DasKlub.Lib.DAL.DbAct.CreateCommand();
+                comm.CommandText = string.Format(@"
+                    select temp.CreatedByUserID, count(*) as 'count'
+                    from (
+                        select CreatedByUserID, ForumSubCategoryID from ForumSubCategories with (nolock)
+                        union all
+                        select CreatedByUserID, ForumSubCategoryID from ForumPosts with (nolock)
+                    ) as temp
+                    where CreatedByUserID in (select CreatedByUserID from ForumPosts with (nolock) where ForumSubCategoryID = {0})
+                    group by CreatedByUserID
+                    order by CreatedByUserID ", subForum.ForumSubCategoryID);
+
+                comm.CommandType = System.Data.CommandType.Text;
+
+                var userPostCounts = DasKlub.Lib.DAL.DbAct.ExecuteSelectCommand(comm);
+
+                var userPostCountList = new Dictionary<int, int>();
+
+                foreach (System.Data.DataRow row in userPostCounts.Rows)
+                {
+                    userPostCountList.Add(Convert.ToInt32(row["CreatedByUserID"]), Convert.ToInt32( row["count"]));
+                }
+
+                ViewBag.UserPostCounts = userPostCountList;
 
                 subForum.UserAccount = new UserAccount(subForum.CreatedByUserID);
 

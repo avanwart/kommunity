@@ -1382,6 +1382,8 @@ namespace DasKlub.Lib.BOL
             }
         }
 
+        public int ForumPosts { get; set; }
+
         public string SmallUserIcon
         {
             get
@@ -1417,6 +1419,12 @@ namespace DasKlub.Lib.BOL
                     sb.AppendFormat(@"<img style=""height: 8px; width:8px"" title=""{0}"" alt=""{0}"" src=""{1}"" />",
                                     Messages.IsOnline,
                                     VirtualPathUtility.ToAbsolute("~/content/images/status/abutton2_e0.gif"));
+                }
+
+                if (ForumPosts > 0)
+                {
+                    sb.Append("<br />");
+                    sb.AppendFormat(@"<span class=""forum_post_count"">Posts: {0}</span>", ForumPosts);
                 }
 
                 return sb.ToString();
