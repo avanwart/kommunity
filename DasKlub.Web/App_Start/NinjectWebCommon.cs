@@ -10,6 +10,7 @@ namespace DasKlub.Web.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+    using DasKlub.Lib.Services;
 
     public static class NinjectWebCommon 
     {
@@ -61,6 +62,7 @@ namespace DasKlub.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IMailService>().To<MailService>();
         }        
     }
 }
