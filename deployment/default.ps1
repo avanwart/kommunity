@@ -2,7 +2,8 @@
 
 properties {
  
-    #msbuild
+    #$msBuildLocation
+    if ( $msBuildLocation -eq $null) {$msBuildLocation = "C:\Program Files (x86)\MSBuild\12.0\Bin\MSBuild.exe"} #VS2013
     if ( $msBuildConfig -eq $null){$msBuildConfig = 'debug'}
     if ( $msBuildVerbosity -eq $null){$msBuildVerbosity = 'normal'}
     if ( $solutionLocation -eq $null){$solutionLocation = '' }
@@ -214,14 +215,14 @@ task -name ListConfigs -description "Lists configs"   -action {
 
 task -name Build -description "Build the solution" -depends ValidateConfigs, ListConfigs -action { 
     exec  {
-        msbuild $solutionLocation /t:build /verbosity:$msBuildVerbosity /p:configuration=$msBuildConfig /nologo
+        & $msBuildLocation $solutionLocation /t:build /verbosity:$msBuildVerbosity /p:configuration=$msBuildConfig /nologo
     }
 };
 
 task -name Clean -description "Cleans the solution" -depends ValidateConfigs -action { 
     exec  {
     
-        msbuild $solutionLocation /t:clean /verbosity:$msBuildVerbosity /p:configuration=$msBuildConfig /nologo
+        & $msBuildLocation $solutionLocation /t:clean /verbosity:$msBuildVerbosity /p:configuration=$msBuildConfig /nologo
     }
 };
 
@@ -252,7 +253,7 @@ task -name IntegrationTest -depends Rebuild -description "Runs integration tests
 
 task -name PackageZip -depends Rebuild -description "Makes a zip package" -action { 
     exec  {
-     msbuild $webProjectLocation /t:Package /verbosity:$msBuildVerbosity /p:Configuration=$msBuildConfig /p:OutDir=$packageOutputDir /nologo
+    & $msBuildLocation $webProjectLocation /p:IsPackaging=true /verbosity:$msBuildVerbosity /p:Configuration=$msBuildConfig /p:OutDir=$packageOutputDir /nologo
   }
 };
 
@@ -274,12 +275,11 @@ task -name MigrateDB  -description "Runs migration of database"   -depend Tests 
     }
 };
 
-
-task -name DeployPackage -depends PackageZip, MigrateDB -description "Deploys package to environment" -action { 
+task -name DeployPackage -depends PackageZip, MigrateDB  -description "Deploys package to environment" -action { 
     exec  {
         if ( $msBuildConfig -eq 'release') {
-           
-                msbuild $webprojectLocation `
+            
+                    & $msBuildLocation $webprojectLocation `
                     /p:Configuration=$msBuildConfig `
                     /P:DeployOnBuild=True `
                     /P:DeployTarget=MSDeployPublish `
@@ -290,8 +290,9 @@ task -name DeployPackage -depends PackageZip, MigrateDB -description "Deploys pa
                     /P:UserName=$msDeployUserName `
                     /P:Password=$msDeployPassword `
                     /p:DeployIisAppPath=$deployIisAppPath  `
-                    /verbosity:$msBuildVerbosity /nologo
-
+                    /p:VisualStudioVersion=12.0 `
+                    /p:ToolVersion=12.0 `
+                    /verbosity:m /nologo
         }
         else 
         {
@@ -299,8 +300,6 @@ task -name DeployPackage -depends PackageZip, MigrateDB -description "Deploys pa
         }
     }
 };
-
-
 
 task -name Pullcode  -description "Gets code before pushing it to GitHub" -action {
 
