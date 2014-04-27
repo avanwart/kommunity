@@ -603,8 +603,6 @@ ul, ol {
 
 ul ul, ul ol, ol ol, ol ul { margin-bottom: 0 }
 
-li { line-height: 20px }
-
 ul.unstyled, ol.unstyled {
     list-style: none;
     margin-left: 0;
