@@ -12,6 +12,56 @@ namespace DasKlub.UnitTests.DasKlub.Lib.Operational
     public class UtilitiesTest
     {
 
+ 
+
+                [TestMethod]
+        public void ConvertTextToHTML_SameExternalLink_DisplaysCorrectly()
+        {
+            // arrange
+            var text = @"Hey all!
+
+Brand new track from Reactor7x - Sick of it all, which is foretaste of slowly upcoming full-length album - powerful dark electro / aggrotech / electro-industrial song.
+
+You can grab it for free or use ""name your price"" to support us.
+http://reactor7x.bandcamp.com/album/sick-of-it-all
+All remixes will be available online from 4/05/2014 - more info here https://www.facebook.com/events/227708670757860
+
+Track available on:
+Facebook: http://www.facebook.com/reactor7x
+Soundcloud: http://soundcloud.com/1unatic/reactor7x-sick-of-it-all
+Bandcamp: http://reactor7x.bandcamp.com/album/sick-of-it-all
+Spotify: http://play.spotify.com/track/1BOnTBEjZ9bTtedWDmdpK6
+Deezer: http://www.deezer.com/track/77750205
+iTunes: http://itunes.apple.com/ca/album/sick-of-it-all-single/id863056054
+Amazon: http://www.amazon.com/Sick-of-it-all/dp/B00JRIQ4LU/ref=sr_1_2?s=dmusic&ie=UTF8&qid=1398078516&sr=1-2&keywords=Reactor7x";
+
+
+
+            // act
+            var result = Utilities.ConvertTextToHtml(text);
+
+
+            var expected = @"Hey all!<br />
+<br />
+Brand new track from Reactor7x - Sick of it all, which is foretaste of slowly upcoming full-length album - powerful dark electro / aggrotech / electro-industrial song.<br />
+<br />
+You can grab it for free or use ""name your price"" to support us.<br />
+<a target=""_blank"" href=""http://reactor7x.bandcamp.com/album/sick-of-it-all"">http://reactor7x.bandcamp.c...</a><br />
+All remixes will be available online from 4/05/2014 - more info here <a target=""_blank"" href=""https://www.facebook.com/events/227708670757860"">https://www.facebook.com/ev...</a><br />
+<br />
+Track available on:<br />
+Facebook: <a target=""_blank"" href=""http://www.facebook.com/reactor7x"">http://www.facebook.com/rea...</a><br />
+Soundcloud: <a target=""_blank"" href=""http://soundcloud.com/1unatic/reactor7x-sick-of-it-all"">http://soundcloud.com/1unat...</a><br />
+Bandcamp: <a target=""_blank"" href=""http://reactor7x.bandcamp.com/album/sick-of-it-all"">http://reactor7x.bandcamp.c...</a><br />
+Spotify: <a target=""_blank"" href=""http://play.spotify.com/track/1BOnTBEjZ9bTtedWDmdpK6"">http://play.spotify.com/tra...</a><br />
+Deezer: <a target=""_blank"" href=""http://www.deezer.com/track/77750205"">http://www.deezer.com/track...</a><br />
+iTunes: <a target=""_blank"" href=""http://itunes.apple.com/ca/album/sick-of-it-all-single/id863056054"">http://itunes.apple.com/ca/...</a><br />
+Amazon: <a target=""_blank"" href=""http://www.amazon.com/Sick-of-it-all/dp/B00JRIQ4LU/ref=sr_1_2?s=dmusic&ie=UTF8&qid=1398078516&sr=1-2&keywords=Reactor7x"">http://www.amazon.com/Sick-...</a>";
+
+            Assert.AreEqual(expected, result);
+
+        }
+
         [TestMethod]
         public void ConvertTextToHTML_InternalLinkLinks_DoesNotOpenInNewWindow()
         {
