@@ -21,6 +21,7 @@ using DasKlub.Lib.DAL;
 using DasKlub.Lib.Resources;
 using DasKlub.Lib.Values;
 using log4net;
+using System.Collections.Generic;
 
 namespace DasKlub.Lib.Operational
 {
@@ -669,35 +670,34 @@ namespace DasKlub.Lib.Operational
 
         public static string ConvertTextToHtml(string inputText)
         {
-            var linkTextMaxLength = 30;
-            var regx = new Regex(
-                    @"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?", 
+            var linkTextMaxLength   = 30;
+            var regx                = new Regex(
+                    @"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?",
                     RegexOptions.IgnoreCase);
-            var mactches = regx.Matches(inputText);
-            var newText = inputText;
+            var mactches            = regx.Matches(inputText);
+            var newText             = string.Concat(inputText, " ");// hack: space at end for regex match
+            var allLinks            = mactches.Cast<Match>().GroupBy(x => x.Value).Select(x => x.First());
 
-            foreach (var match in mactches.Cast<Match>())
+            foreach (var link in allLinks)
             {
-                var matchedUrl = match.Value;
-                var indexStart = newText.IndexOf(matchedUrl);
-                var removed = newText.Remove(indexStart,matchedUrl.Length);
+                var     matchedUrl          = link.Value;
+                string  replacementText;
 
                 if ((matchedUrl.Contains("youtube.com") || matchedUrl.Contains("youtu.be")) && matchedUrl.Contains("v="))
                 {
                     var height  = 200;
                     var width   = 300;
-                    var nvcKey = HttpUtility.ParseQueryString(new Uri(matchedUrl).Query);
+                    var nvcKey  = HttpUtility.ParseQueryString(new Uri(matchedUrl).Query);
                     var vidKey  = nvcKey["v"];
 
                     // YouTube video
-                    newText = removed.Insert(indexStart,  
-                                      string.Format(
+                    replacementText = string.Format(
 @"<div class=""you_tube_iframe""><iframe width=""{2}"" height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
-                                                    vidKey, height, ((width == 0) ? (object)"100%" : width)));
+                                                    vidKey, height, ((width == 0) ? (object)"100%" : width));
                 }
                 else
                 {
-                    var linkText = matchedUrl;
+                    var linkText = link.Value;
 
                     if (linkText.Length > linkTextMaxLength)
                     {
@@ -707,24 +707,24 @@ namespace DasKlub.Lib.Operational
                     // regular link
                     if (matchedUrl.Contains("dasklub.com"))
                     {
-                        newText = removed.Insert(indexStart,
-                                                 string.Format(@"<a href=""{0}"">{1}</a>",
-                                                    matchedUrl,
-                                                    linkText));
+                        replacementText = string.Format(@"<a href=""{0}"">{1}</a>", matchedUrl, linkText);
                     }
                     else
                     {
-                        newText = removed.Insert(indexStart,
-                                                 string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>",
-                                                    matchedUrl,
-                                                    linkText));
+                        replacementText = string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>", matchedUrl, linkText);
                     }
                 }
+
+                // replace links with new lines and spaces after them then put those characters back in
+                var regexReplace    = new Regex(string.Concat(Regex.Escape(link.Value), "(", Environment.NewLine, ")"));
+                newText             = regexReplace.Replace(newText, string.Concat(replacementText, Environment.NewLine));
+                regexReplace        = new Regex(string.Concat(Regex.Escape(link.Value), @"(\s)"));
+                newText             = regexReplace.Replace(newText, string.Concat(replacementText, " "));
             }
 
-            var listBreaksHTML = newText.Replace(Environment.NewLine, "<br />" + Environment.NewLine);
+            var listBreaksHTML = newText.Replace(Environment.NewLine, string.Concat("<br />", Environment.NewLine));
 
-            return listBreaksHTML;
+            return listBreaksHTML.Trim();
         }
     }
 }
