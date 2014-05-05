@@ -341,7 +341,7 @@
         function AddUser(chatHub, id, name) {
 
             var userId = $('#hdId').val();
-            var code = "";
+            var code = '';
 
             if (userId == id) {
 
@@ -357,10 +357,15 @@
 
                     if (userId != id)
                         OpenPrivateChatWindow(chatHub, id, name);
-
                 });
             }
-            $("#divusers").append(code);
+ 
+            var existingName = '>' + name + '<'; // username in <a> tag
+            
+            if ($('#divusers').html().indexOf(existingName) == -1)
+            {
+                $("#divusers").append(code);
+            }
         }
 
         function AddMessage(userName, message) {
