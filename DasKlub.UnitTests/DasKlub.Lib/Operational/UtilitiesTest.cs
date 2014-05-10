@@ -11,10 +11,7 @@ namespace DasKlub.UnitTests.DasKlub.Lib.Operational
     [TestClass]
     public class UtilitiesTest
     {
-
- 
-
-                [TestMethod]
+        [TestMethod]
         public void ConvertTextToHTML_SameExternalLink_DisplaysCorrectly()
         {
             // arrange
@@ -35,11 +32,8 @@ Deezer: http://www.deezer.com/track/77750205
 iTunes: http://itunes.apple.com/ca/album/sick-of-it-all-single/id863056054
 Amazon: http://www.amazon.com/Sick-of-it-all/dp/B00JRIQ4LU/ref=sr_1_2?s=dmusic&ie=UTF8&qid=1398078516&sr=1-2&keywords=Reactor7x";
 
-
-
             // act
             var result = Utilities.ConvertTextToHtml(text);
-
 
             var expected = @"Hey all!<br />
 <br />
@@ -59,7 +53,6 @@ iTunes: <a target=""_blank"" href=""http://itunes.apple.com/ca/album/sick-of-it-
 Amazon: <a target=""_blank"" href=""http://www.amazon.com/Sick-of-it-all/dp/B00JRIQ4LU/ref=sr_1_2?s=dmusic&ie=UTF8&qid=1398078516&sr=1-2&keywords=Reactor7x"">http://www.amazon.com/Sick-...</a>";
 
             Assert.AreEqual(expected, result);
-
         }
 
         [TestMethod]
@@ -82,8 +75,6 @@ Just Deux
 Poster: http://dasklub.com/propaganda/Deuxvolt_tour_2014_01_wien.png
 note: Thanks to DasKlub community";
 
-
-
             // act
             var result = Utilities.ConvertTextToHtml(text);
 
@@ -105,7 +96,6 @@ Poster: <a href=""http://dasklub.com/propaganda/Deuxvolt_tour_2014_01_wien.png""
 note: Thanks to DasKlub community";
 
             Assert.AreEqual(expected, result);
-
         }
 
         [TestMethod]
@@ -128,8 +118,6 @@ Just Deux
 Poster: http://www.deuxvolt.com/propaganda/Deuxvolt_tour_2014_01_wien.png
 note: Thanks to DasKlub community";
 
-
-
             // act
             var result = Utilities.ConvertTextToHtml(text);
 
@@ -151,7 +139,6 @@ Poster: <a target=""_blank"" href=""http://www.deuxvolt.com/propaganda/Deuxvolt_
 note: Thanks to DasKlub community";
 
             Assert.AreEqual(expected, result);
-
         }
 
         [TestMethod]
@@ -162,8 +149,6 @@ note: Thanks to DasKlub community";
  
 http://www.youtube.com/watch?v=v0HBy6JxweE";
 
-
-
             // act
             var result = Utilities.ConvertTextToHtml(text);
 
@@ -173,7 +158,6 @@ http://www.youtube.com/watch?v=v0HBy6JxweE";
 <div class=""you_tube_iframe""><iframe width=""300"" height=""200"" src=""http://www.youtube.com/embed/v0HBy6JxweE?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>";
 
             Assert.AreEqual(expected, result);
-
         }
 
         [TestMethod]
@@ -184,8 +168,6 @@ http://www.youtube.com/watch?v=v0HBy6JxweE";
  
 http://youtu.be/v0HBy6JxweE";
 
-
-
             // act
             var result = Utilities.ConvertTextToHtml(text);
 
@@ -195,7 +177,6 @@ http://youtu.be/v0HBy6JxweE";
 <div class=""you_tube_iframe""><iframe width=""300"" height=""200"" src=""http://www.youtube.com/embed/v0HBy6JxweE?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>";
 
             Assert.AreEqual(expected, result);
-
         }
 
         [TestMethod]
@@ -215,7 +196,6 @@ https://www.youtube.com/user/dasklubber";
 <a target=""_blank"" href=""https://www.youtube.com/user/dasklubber"">https://www.youtube.com/use...</a>";
                                                                       
             Assert.AreEqual(expected, result);
-
         }
     }
 }

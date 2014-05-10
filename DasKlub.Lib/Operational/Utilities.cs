@@ -676,7 +676,9 @@ namespace DasKlub.Lib.Operational
                     RegexOptions.IgnoreCase);
             var mactches            = regx.Matches(inputText);
             var newText             = string.Concat(inputText, " ");// hack: space at end for regex match
-            var allLinks            = mactches.Cast<Match>().GroupBy(x => x.Value).Select(x => x.First());
+            var allLinks            = mactches.Cast<Match>()
+                                              .GroupBy(x => x.Value)
+                                              .Select(x => x.First());
 
             foreach (var link in allLinks)
             {
@@ -717,13 +719,15 @@ namespace DasKlub.Lib.Operational
             var linkText        = link.Value;
             var internalHost    = (HttpContext.Current != null) ? 
                                    HttpContext.Current.Request.Url.Host : 
-                                   "dasklub.com";
+                                   "dasklub.com"; // TODO: make a unit testable way of using config
 
             if (linkText.Length > linkTextMaxLength)
             {
                 var ellipsis    = "...";
                 linkText        = string.Concat(
-                                        linkText.Substring(0, linkTextMaxLength - ellipsis.Length),
+                                        linkText.Substring(0,
+                                                           linkTextMaxLength - ellipsis.Length
+                                                           ),
                                         ellipsis);
             }
 
@@ -762,6 +766,7 @@ namespace DasKlub.Lib.Operational
             replacementText = string.Format(
 @"<div class=""you_tube_iframe""><iframe width=""{2}"" height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
         videoKey, height, ((width == 0) ? (object)"100%" : width));
+
             return replacementText;
         }
     }

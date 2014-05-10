@@ -214,8 +214,7 @@ namespace DasKlub.Web
             chatters.GetChattingUsers();
 
             foreach (var chatUser in from chatUser in chatters
-                                              let user =
-                                                  new UserAccount(chatUser.CreatedByUserID)
+                                              let user = new UserAccount(chatUser.CreatedByUserID)
                                               where !user.IsOnLine
                                               select chatUser)
             {
