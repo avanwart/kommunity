@@ -683,48 +683,86 @@ namespace DasKlub.Lib.Operational
                 var     matchedUrl          = link.Value;
                 string  replacementText;
 
-                if ((matchedUrl.Contains("youtube.com") || matchedUrl.Contains("youtu.be")) && matchedUrl.Contains("v="))
+                if ((matchedUrl.Contains("youtube.com") && matchedUrl.Contains("v=")) || // excludes channel links
+                     matchedUrl.Contains("youtu.be"))
                 {
-                    var height  = 200;
-                    var width   = 300;
-                    var nvcKey  = HttpUtility.ParseQueryString(new Uri(matchedUrl).Query);
-                    var vidKey  = nvcKey["v"];
-
-                    // YouTube video
-                    replacementText = string.Format(
-@"<div class=""you_tube_iframe""><iframe width=""{2}"" height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
-                                                    vidKey, height, ((width == 0) ? (object)"100%" : width));
+                    replacementText = FormatYouTubeVideo(matchedUrl);
                 }
                 else
                 {
-                    var linkText = link.Value;
-
-                    if (linkText.Length > linkTextMaxLength)
-                    {
-                        linkText = string.Format("{0}...", linkText.Substring(0, linkTextMaxLength - 3));
-                    }
-
-                    // regular link
-                    if (matchedUrl.Contains("dasklub.com"))
-                    {
-                        replacementText = string.Format(@"<a href=""{0}"">{1}</a>", matchedUrl, linkText);
-                    }
-                    else
-                    {
-                        replacementText = string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>", matchedUrl, linkText);
-                    }
+                    replacementText = FormatLink(linkTextMaxLength, link, matchedUrl);
                 }
 
-                // replace links with new lines and spaces after them then put those characters back in
-                var regexReplace    = new Regex(string.Concat(Regex.Escape(link.Value), "(", Environment.NewLine, ")"));
-                newText             = regexReplace.Replace(newText, string.Concat(replacementText, Environment.NewLine));
-                regexReplace        = new Regex(string.Concat(Regex.Escape(link.Value), @"(\s)"));
-                newText             = regexReplace.Replace(newText, string.Concat(replacementText, " "));
+                newText = ReplaceNewLineSpaceWithLink(newText, link, replacementText);
             }
 
             var listBreaksHTML = newText.Replace(Environment.NewLine, string.Concat("<br />", Environment.NewLine));
 
             return listBreaksHTML.Trim();
+        }
+
+        private static string ReplaceNewLineSpaceWithLink(string newText, Match link, string replacementText)
+        {
+            // replace links with new lines and spaces after them then put those characters back in
+            var regexReplace    = new Regex(string.Concat(Regex.Escape(link.Value), "(", Environment.NewLine, ")"));
+            newText             = regexReplace.Replace(newText, string.Concat(replacementText, Environment.NewLine));
+            regexReplace        = new Regex(string.Concat(Regex.Escape(link.Value), @"(\s)"));
+            newText             = regexReplace.Replace(newText, string.Concat(replacementText, " "));
+            return newText;
+        }
+
+        private static string FormatLink(int linkTextMaxLength, Match link, string matchedUrl)
+        {
+            string replacementText;
+            var linkText        = link.Value;
+            var internalHost    = (HttpContext.Current != null) ? 
+                                   HttpContext.Current.Request.Url.Host : 
+                                   "dasklub.com";
+
+            if (linkText.Length > linkTextMaxLength)
+            {
+                var ellipsis    = "...";
+                linkText        = string.Concat(
+                                        linkText.Substring(0, linkTextMaxLength - ellipsis.Length),
+                                        ellipsis);
+            }
+
+            if (matchedUrl.Contains(internalHost))
+            {
+                // internal link
+                replacementText = string.Format(@"<a href=""{0}"">{1}</a>", 
+                                                  matchedUrl, 
+                                                  linkText);
+            }
+            else
+            {
+                replacementText = string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>", 
+                                                matchedUrl, 
+                                                linkText);
+            }
+            return replacementText;
+        }
+
+        private static string FormatYouTubeVideo(string matchedUrl, int height = 200, int width = 300)
+        {
+            string videoKey;
+            string replacementText;
+
+            if (matchedUrl.Contains("youtu.be"))
+            {
+                videoKey = matchedUrl.Replace("http://youtu.be/", string.Empty);
+            }
+            else
+            {
+                var nvcKey  = HttpUtility.ParseQueryString(new Uri(matchedUrl).Query);
+                videoKey    = nvcKey["v"];
+            }
+
+            // YouTube video
+            replacementText = string.Format(
+@"<div class=""you_tube_iframe""><iframe width=""{2}"" height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
+        videoKey, height, ((width == 0) ? (object)"100%" : width));
+            return replacementText;
         }
     }
 }
