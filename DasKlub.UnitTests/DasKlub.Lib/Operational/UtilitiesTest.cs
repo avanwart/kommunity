@@ -155,12 +155,34 @@ note: Thanks to DasKlub community";
         }
 
         [TestMethod]
-        public void ConvertTextToHTML_TextWithYouTubeLinks_ContainsHrefsCorrectly()
+        public void ConvertTextToHTML_TextWithRegularYouTubeLinks_ContainsHrefsCorrectly()
         {
             // arrange
             var text = @"blah blah
  
 http://www.youtube.com/watch?v=v0HBy6JxweE";
+
+
+
+            // act
+            var result = Utilities.ConvertTextToHtml(text);
+
+            // assert 
+            var expected = @"blah blah<br />
+ <br />
+<div class=""you_tube_iframe""><iframe width=""300"" height=""200"" src=""http://www.youtube.com/embed/v0HBy6JxweE?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>";
+
+            Assert.AreEqual(expected, result);
+
+        }
+
+        [TestMethod]
+        public void ConvertTextToHTML_TextWithShortYouTubeLinks_ContainsHrefsCorrectly()
+        {
+            // arrange
+            var text = @"blah blah
+ 
+http://youtu.be/v0HBy6JxweE";
 
 
 
@@ -183,8 +205,6 @@ http://www.youtube.com/watch?v=v0HBy6JxweE";
             var text = @"blah blah
  
 https://www.youtube.com/user/dasklubber";
-
-
 
             // act
             var result = Utilities.ConvertTextToHtml(text);
