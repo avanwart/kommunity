@@ -55,7 +55,7 @@
 
                 <hr />
                 <ul class="contact_options">
-                    <li class="message_option"><a href="@Url.Content("~/account/reply/" + Model.UserName)" class="btn-inverse btn">@Messages.SendMessage</a>
+                    <li class="message_option"><a rel="nofollow" href="@Url.Content("~/account/reply/" + Model.UserName)" class="btn-inverse btn">@Messages.SendMessage</a>
                     </li>
                     @if (!Model.IsViewingSelf)
                     {
@@ -69,8 +69,8 @@
                         }
                         else if (!Model.IsDeniedCyberFriend && !Model.IsDeniedRealFriend && !Model.IsRealFriend)
                         {
-                            <li class="cyber_option"><a class="btn-inverse btn" href="@Url.Content("~/account/contactrequest/?contacttype=C&username=" + Model.UserName)">
-                                                         @Messages.AddAsCyberAssociate</a></li>
+                            <li class="cyber_option"><a rel="nofollow" class="btn-inverse btn" 
+                                                        href="@Url.Content("~/account/contactrequest/?contacttype=C&username=" + Model.UserName)">@Messages.AddAsCyberAssociate</a></li>
                         }
 
 
@@ -84,8 +84,8 @@
                         }
                         else if (!Model.IsDeniedRealFriend)
                         {
-                            <li class="irl_option"><a class="btn-inverse btn" href="@Url.Content("~/account/contactrequest/?contacttype=R&username=" + Model.UserName)">
-                                                       @Messages.AddAsRealLifeContact</a></li>
+                            <li class="irl_option"><a rel="nofollow" class="btn-inverse btn" 
+                                                      href="@Url.Content("~/account/contactrequest/?contacttype=R&username=" + Model.UserName)">@Messages.AddAsRealLifeContact</a></li>
                         }
                     }
                 </ul>
@@ -93,26 +93,25 @@
             <div class="span2 profile_group">
                 <div>
                     <ul class="profile_images">
-                        <li><a id="photo_edit_1" title="@Messages.CurrentDefault"
-                               href="@Model.ProfilePhotoMain"  
-                               class="current_view_profile_pic profile_thumb m_over">
-                                <img src="@Model.ProfilePhotoMainThumb" alt="@Messages.CurrentDefault"  title="@Messages.CurrentDefault"   />
-                            </a></li>
+                        <li><a rel="nofollow" id="photo_edit_1" title="@Messages.CurrentDefault"
+   href="@Model.ProfilePhotoMain"
+   class="current_view_profile_pic profile_thumb m_over">
+    <img src="@Model.ProfilePhotoMainThumb" alt="@Messages.CurrentDefault" title="@Messages.CurrentDefault" />
+</a></li>
                         @if (!string.IsNullOrWhiteSpace(ViewBag.SecondUserPhotoThumb))
                         {
-                            <li><a  id="photo_edit_2"  title="2" 
-                                    href="@ViewBag.SecondUserPhotoFull"   class="profile_thumb m_over">
-                                    <img   src="@ViewBag.SecondUserPhotoThumb"      />
-                                </a></li>
+                            <li><a rel="nofollow" id="photo_edit_2" title="2"
+   href="@ViewBag.SecondUserPhotoFull" class="profile_thumb m_over">
+    <img src="@ViewBag.SecondUserPhotoThumb" />
+</a></li>
                         }
                         @if (!string.IsNullOrWhiteSpace(ViewBag.ThirdUserPhotoFull))
                         {
-                            <li><a  id="photo_edit_3"  title="3" 
-                                    href="@ViewBag.ThirdUserPhotoFull"
-                
-                                    class="profile_thumb m_over">
-                                    <img   src="@ViewBag.ThirdUserPhotoThumb"     />
-                                </a></li>
+                            <li><a rel="nofollow" id="photo_edit_3" title="3"
+   href="@ViewBag.ThirdUserPhotoFull"
+   class="profile_thumb m_over">
+    <img src="@ViewBag.ThirdUserPhotoThumb" />
+</a></li>
                         }
                     </ul>
                 </div>
@@ -410,19 +409,22 @@
 
             <div class="span3">
                 <h4>@Messages.Visitors: @Model.ProfileVisitorCount</h4>
-                <a class="m_over" href="@Url.Content("~/account/ProfileVisitors/" + Model.UserName)">
-                    <img alt="@Messages.Visitors" title="@Messages.Visitors"   src="@Url.Content("~/content/images/userstatus/eye_spy.png")" /></a>
+                <a rel="nofollow" class="m_over" href="@Url.Content("~/account/profilevisitors/" + Model.UserName)">
+                    <img alt="@Messages.Visitors" title="@Messages.Visitors" src="@Url.Content("~/content/images/userstatus/eye_spy.png")" />
+                </a>
             </div>
         }
         <div class="span3">
             <h4>@Messages.CyberAssociates: @Model.CyberFriendCount</h4>
-            <a class="m_over" href="@Url.Content("~/account/cyberassociates/" + Model.UserName)">
-                <img  alt="@Messages.CyberAssociates" title="@Messages.CyberAssociates"  src="@Url.Content("~/content/images/userstatus/keyboard.png")" /></a>
+            <a rel="nofollow"  class="m_over" href="@Url.Content("~/account/cyberassociates/" + Model.UserName)">
+                <img alt="@Messages.CyberAssociates" title="@Messages.CyberAssociates" src="@Url.Content("~/content/images/userstatus/keyboard.png")" />
+            </a>
         </div>
         <div class="span3">
             <h4>@Messages.RealLifeContacts: @Model.IRLFriendCount</h4>
-            <a class="m_over" href="@Url.Content("~/account/irlcontacts/" + Model.UserName)">
-                <img  alt="@Messages.RealLifeContacts" title="@Messages.RealLifeContacts"  src="@Url.Content("~/content/images/userstatus/handprint.png")" /></a>
+            <a rel="nofollow" class="m_over" href="@Url.Content("~/account/irlcontacts/" + Model.UserName)">
+                <img alt="@Messages.RealLifeContacts" title="@Messages.RealLifeContacts" src="@Url.Content("~/content/images/userstatus/handprint.png")" />
+            </a>
         </div>
     </div>
 }
