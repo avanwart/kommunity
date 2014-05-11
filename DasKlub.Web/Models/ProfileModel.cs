@@ -5,12 +5,11 @@ namespace DasKlub.Web.Models
 {
     public class ProfileModel
     {
-        private string _userName;
+        public string UserName { get; set; }
 
-        public string UserName
+        public string UserNameUrl
         {
-            get { return (_userName == null) ? null : _userName.ToLower(); }
-            set { _userName = value; }
+            get { return (UserName == null) ? null : UserName.ToLower(); }
         }
 
         public int UserAccountID { get; set; }

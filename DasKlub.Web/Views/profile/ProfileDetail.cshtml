@@ -55,7 +55,7 @@
 
                 <hr />
                 <ul class="contact_options">
-                    <li class="message_option"><a rel="nofollow" href="@Url.Content("~/account/reply/" + Model.UserName)" class="btn-inverse btn">@Messages.SendMessage</a>
+                    <li class="message_option"><a rel="nofollow" href="@Url.Content("~/account/reply/" + Model.UserNameUrl)" class="btn-inverse btn">@Messages.SendMessage</a>
                     </li>
                     @if (!Model.IsViewingSelf)
                     {
@@ -70,7 +70,7 @@
                         else if (!Model.IsDeniedCyberFriend && !Model.IsDeniedRealFriend && !Model.IsRealFriend)
                         {
                             <li class="cyber_option"><a rel="nofollow" class="btn-inverse btn" 
-                                                        href="@Url.Content("~/account/contactrequest/?contacttype=C&username=" + Model.UserName)">@Messages.AddAsCyberAssociate</a></li>
+                                                        href="@Url.Content("~/account/contactrequest/?contacttype=C&username=" + Model.UserNameUrl)">@Messages.AddAsCyberAssociate</a></li>
                         }
 
 
@@ -85,7 +85,7 @@
                         else if (!Model.IsDeniedRealFriend)
                         {
                             <li class="irl_option"><a rel="nofollow" class="btn-inverse btn" 
-                                                      href="@Url.Content("~/account/contactrequest/?contacttype=R&username=" + Model.UserName)">@Messages.AddAsRealLifeContact</a></li>
+                                                      href="@Url.Content("~/account/contactrequest/?contacttype=R&username=" + Model.UserNameUrl)">@Messages.AddAsRealLifeContact</a></li>
                         }
                     }
                 </ul>
@@ -313,7 +313,7 @@
                         <h3 style="padding-left: 15px;">
                             <a href="#">@Messages.Website</a></h3>
                         <div>
-                            <a target="_blank" href="@Html.Raw(Model.Website)">@Html.Raw(Model.Website)</a></div>
+                            <a rel="nofollow" target="_blank" href="@Html.Raw(Model.Website)">@Html.Raw(Model.Website)</a></div>
                     </div>
                 }
             </div>
@@ -338,7 +338,7 @@
                     <div class="clear">
                     </div>
 
-                    <a class="btn btn-primary" href="@Url.Content("~/" + Model.UserName + "/userphotos")">@Messages.MorePhotos</a>
+    <a rel="nofollow"  class="btn btn-primary" href="@Url.Content("~/" + Model.UserNameUrl + "/userphotos")">@Messages.MorePhotos</a>
                     <br />
                 }
             }
@@ -369,7 +369,7 @@
 
                 if (Model.NewsCount > 1)
                 {
-                    <a class="btn btn-primary"  href="@Url.Content("~/" + Model.UserName + "/news")">@Messages.ReadMore: @Messages.News</a>
+                    <a rel="nofollow" class="btn btn-primary" href="@Url.Content("~/" + Model.UserNameUrl + "/news")">@Messages.ReadMore: @Messages.News</a>
                     <br />
                 }
             }
@@ -409,20 +409,20 @@
 
             <div class="span3">
                 <h4>@Messages.Visitors: @Model.ProfileVisitorCount</h4>
-                <a rel="nofollow" class="m_over" href="@Url.Content("~/account/profilevisitors/" + Model.UserName)">
+                <a rel="nofollow" class="m_over" href="@Url.Content("~/account/profilevisitors/" + Model.UserNameUrl)">
                     <img alt="@Messages.Visitors" title="@Messages.Visitors" src="@Url.Content("~/content/images/userstatus/eye_spy.png")" />
                 </a>
             </div>
         }
         <div class="span3">
             <h4>@Messages.CyberAssociates: @Model.CyberFriendCount</h4>
-            <a rel="nofollow"  class="m_over" href="@Url.Content("~/account/cyberassociates/" + Model.UserName)">
+            <a rel="nofollow"  class="m_over" href="@Url.Content("~/account/cyberassociates/" + Model.UserNameUrl)">
                 <img alt="@Messages.CyberAssociates" title="@Messages.CyberAssociates" src="@Url.Content("~/content/images/userstatus/keyboard.png")" />
             </a>
         </div>
         <div class="span3">
             <h4>@Messages.RealLifeContacts: @Model.IRLFriendCount</h4>
-            <a rel="nofollow" class="m_over" href="@Url.Content("~/account/irlcontacts/" + Model.UserName)">
+            <a rel="nofollow" class="m_over" href="@Url.Content("~/account/irlcontacts/" + Model.UserNameUrl)">
                 <img alt="@Messages.RealLifeContacts" title="@Messages.RealLifeContacts" src="@Url.Content("~/content/images/userstatus/handprint.png")" />
             </a>
         </div>
