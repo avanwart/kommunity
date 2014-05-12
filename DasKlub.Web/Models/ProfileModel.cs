@@ -7,6 +7,11 @@ namespace DasKlub.Web.Models
     {
         public string UserName { get; set; }
 
+        public string UserNameUrl
+        {
+            get { return (UserName == null) ? null : UserName.ToLower(); }
+        }
+
         public int UserAccountID { get; set; }
 
         public int UserConnectionID { get; set; }
