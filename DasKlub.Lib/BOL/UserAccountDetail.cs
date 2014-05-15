@@ -359,8 +359,6 @@ namespace DasKlub.Lib.BOL
 
         #region non-db properties
 
-        private bool _getJustOne;
-
         public bool ShowOnMapLegal
         {
             get
@@ -550,6 +548,11 @@ namespace DasKlub.Lib.BOL
 
                 if (rls.Length > 0)
                 {
+                    if (rls.Length > 1)
+                    {
+                        sb.Append("<br />");
+                    }
+
                     foreach (string rle in rls)
                     {
                         sb.Append(@"<img class=""small_site_badge"" src=""");
@@ -559,7 +562,10 @@ namespace DasKlub.Lib.BOL
                                 // override here
                             default:
                                 sb.Append(VirtualPathUtility.ToAbsolute(
-                                    "~/content/images/roles/" + rle + ".png"));
+                                    string.Concat(
+                                        "~/content/images/roles/",
+                                        rle ,
+                                        ".png")));
                                 break;
                         }
 
@@ -570,12 +576,7 @@ namespace DasKlub.Lib.BOL
                         sb.Append(@""" title=""");
                         sb.Append(role.Description);
                         sb.Append(@""" />");
-
-                        if (_getJustOne)
-                        {
-                            break; //just the 1st role's icon
-                        }
-                        else _getJustOne = false;
+ 
                     }
                 }
 
@@ -588,7 +589,6 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                _getJustOne = true;
                 return SiteBages.Replace(".png", "_small.png");
             }
         }
@@ -1413,8 +1413,6 @@ namespace DasKlub.Lib.BOL
                 sb.AppendFormat(@"<span title=""{1}"" class=""default_lang"">{0}</span>",
                                 (DefaultLanguage == "FO") ? "LA" : DefaultLanguage,
                                 Utilities.GetLanguageNameForCode(DefaultLanguage));
-                _getJustOne = true;
-                sb.Append(SiteBages);
 
                 if (ua.IsOnLine)
                 {
@@ -1422,6 +1420,8 @@ namespace DasKlub.Lib.BOL
                                     Messages.IsOnline,
                                     VirtualPathUtility.ToAbsolute("~/content/images/status/abutton2_e0.gif"));
                 }
+
+                sb.Append(SiteBages);
 
                 if (ForumPosts > 0)
                 {
@@ -1432,7 +1432,6 @@ namespace DasKlub.Lib.BOL
                 return sb.ToString();
             }
         }
-
 
         public char RelationshipStatus
         {
