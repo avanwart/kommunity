@@ -1416,7 +1416,7 @@ namespace DasKlub.Lib.BOL
 
                 if (ua.IsOnLine)
                 {
-                    sb.AppendFormat(@"<img style=""height: 8px; width:8px"" title=""{0}"" alt=""{0}"" src=""{1}"" />",
+                    sb.AppendFormat(@"<img style=""height: 8px; width:8px;margin-left:2px;margin-right:2px;"" title=""{0}"" alt=""{0}"" src=""{1}"" />",
                                     Messages.IsOnline,
                                     VirtualPathUtility.ToAbsolute("~/content/images/status/abutton2_e0.gif"));
                 }

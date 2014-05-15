@@ -982,3 +982,5 @@ textarea { border-style: dashed; }
 .bright_green {color: #00FF1E}
 .notification_color {color:#f89406}
 #submit_post { margin-top: 3px;font-weight: bold;margin-bottom: 3px;}
+
+.span8 .well { padding:25px;    }
