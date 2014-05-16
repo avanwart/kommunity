@@ -550,7 +550,7 @@ namespace DasKlub.Lib.BOL
                 {
                     if (rls.Length > 1)
                     {
-                        sb.Append("<br />");
+                        sb.Append(@"<div style=""margin: -7px;""></div>");
                     }
 
                     foreach (string rle in rls)
@@ -575,7 +575,7 @@ namespace DasKlub.Lib.BOL
                         sb.Append(role.Description);
                         sb.Append(@""" title=""");
                         sb.Append(role.Description);
-                        sb.Append(@""" />");
+                        sb.Append(@""" style=""margin-right:3px;"" />");
  
                     }
                 }
@@ -1402,15 +1402,15 @@ namespace DasKlub.Lib.BOL
 
                 sb.Append("<br />");
 
- 
-                sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}"" />", 
+
+                sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""{1}""  style=""margin-right:3px;"" />", 
                                 Sex,
                                 VirtualPathUtility.ToAbsolute(string.Format("~/content/images/sex/{0}.png", SexLetter.ToString())));
 
-                sb.AppendFormat(@"<div title=""{0}"" class=""sprites sprite-{1}_small""></div>", CountryName, Country);
+                sb.AppendFormat(@"<div title=""{0}"" class=""sprites sprite-{1}_small"" style=""margin-right:3px;""></div>", CountryName, Country);
 
                 // hack: latin isn't supported
-                sb.AppendFormat(@"<span title=""{1}"" class=""default_lang"">{0}</span>",
+                sb.AppendFormat(@"<span title=""{1}"" class=""default_lang"" style=""margin-right:3px;"">{0}</span>",
                                 (DefaultLanguage == "FO") ? "LA" : DefaultLanguage,
                                 Utilities.GetLanguageNameForCode(DefaultLanguage));
 
