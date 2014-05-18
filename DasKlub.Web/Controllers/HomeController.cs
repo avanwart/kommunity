@@ -21,6 +21,7 @@ using Google.YouTube;
 using HttpUtility = System.Web.HttpUtility;
 using Utilities = DasKlub.Lib.Operational.Utilities;
 using Video = DasKlub.Lib.BOL.Video;
+using System.Text;
 
 namespace DasKlub.Web.Controllers
 {
@@ -261,7 +262,7 @@ namespace DasKlub.Web.Controllers
         {
             var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
             UserAccount ua = null;
-
+            
             if (_mu != null)
             {
                 ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
@@ -274,6 +275,7 @@ namespace DasKlub.Web.Controllers
                            .Where(x => x.CreateDate > oneWeekAgo)
                            .GroupBy(x => x.ForumSubCategoryID)
                            .OrderByDescending(y => y.Count())
+                           .Take(1)
                            .ToList()
                            .FirstOrDefault();
 
@@ -451,8 +453,10 @@ namespace DasKlub.Web.Controllers
              return topForumUsers;
         }
 
-        private ForumFeedModel LoadMostPopularThisWeek(IGrouping<int, ForumPost> mostPopularThisWeek,
-                                                       DasKlubDbContext context, UserAccount ua)
+        private ForumFeedModel LoadMostPopularThisWeek(
+                                IGrouping<int, ForumPost> mostPopularThisWeek,
+                                DasKlubDbContext context,
+                                UserAccount ua)
         {
             var topForumThreadOfTheWeek =
                 context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == mostPopularThisWeek.Key);
