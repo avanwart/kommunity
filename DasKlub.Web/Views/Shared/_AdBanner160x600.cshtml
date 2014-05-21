@@ -4,7 +4,7 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Values
 <!-- 160 x 600 -->
-@*@if (!HttpContext.Current.Request.Browser.IsMobileDevice)
+@if (!HttpContext.Current.Request.Browser.IsMobileDevice)
 {
 
  
@@ -37,9 +37,9 @@
                 break;
         }
  
-}*@
+}
 
-@if(!Request.Browser.IsMobileDevice)
+@*@if(!Request.Browser.IsMobileDevice)
 { 
 <div class="ad_items">
 
@@ -109,4 +109,4 @@
 
 <div class="clear"></div>
     
-}
+}*@

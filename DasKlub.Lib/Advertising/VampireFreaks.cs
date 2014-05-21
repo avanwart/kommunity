@@ -12,6 +12,7 @@ namespace DasKlub.Lib.Advertising
     {
         public static string RandomAdvertisement()
         {
+            return string.Empty;// malware
             var sb1 = new StringBuilder(100);
 
             try

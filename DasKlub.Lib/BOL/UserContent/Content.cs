@@ -571,7 +571,8 @@ namespace DasKlub.Lib.BOL.UserContent
 
                     sb.AppendFormat(@"<div title=""{0}"" class=""sprites sprite-{1}_small""></div>", uad.CountryName,
                                     uad.Country);
-
+                    sb.Append(" ");
+                    sb.Append(uad.SiteBagesLine);
 
                     sb.Append(@"<br />");
                 }

@@ -585,6 +585,51 @@ namespace DasKlub.Lib.BOL
         }
 
 
+        public string SiteBagesLine
+        {
+            get
+            {
+                var ua = new UserAccount(UserAccountID);
+
+                string[] rls = Roles.GetRolesForUser(ua.UserName);
+
+                var sb = new StringBuilder(100);
+
+                Role role = null;
+
+                if (rls.Length > 0)
+                {
+                    foreach (string rle in rls)
+                    {
+                        sb.Append(@"<img class=""small_site_badge"" src=""");
+
+                        switch (rle)
+                        {
+                            // override here
+                            default:
+                                sb.Append(VirtualPathUtility.ToAbsolute(
+                                    string.Concat(
+                                        "~/content/images/roles/",
+                                        rle,
+                                        ".png")));
+                                break;
+                        }
+
+                        role = new Role(rle);
+
+                        sb.Append(@""" alt=""");
+                        sb.Append(role.Description);
+                        sb.Append(@""" title=""");
+                        sb.Append(role.Description);
+                        sb.Append(@""" style=""margin-right:3px;"" />");
+
+                    }
+                }
+
+                return sb.ToString();
+            }
+        }
+
         public string SiteBagesSmall
         {
             get
