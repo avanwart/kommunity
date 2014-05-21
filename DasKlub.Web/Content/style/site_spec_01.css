@@ -481,9 +481,11 @@ input.blur {
     line-height: 25px;
     padding-bottom: 15px;
 }
+          
+
+.mail_message {color: #FFF;}
                  
-                 
-                 /* Webkit */
+/* Webkit */
 
 ::selection {
     background: #FFF;
@@ -495,8 +497,6 @@ input.blur {
     background: #FFF;
     color: #000;
 }
-
- 
 
 #most_applauded li, #status_update_list li { list-style-type: none; }
 
