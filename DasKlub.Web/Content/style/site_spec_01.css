@@ -509,7 +509,11 @@ input.blur {
     width: 85%;
 }
 
-/*.small_site_badge { width: 10px; height: 10px;}                   */
+ul.photo_navs li img.small_site_badge,
+ul#article_list img.small_site_badge {
+    border: none;
+    box-shadow:none;
+}
 
 .delete_icon { margin-left: 5px; }
 
