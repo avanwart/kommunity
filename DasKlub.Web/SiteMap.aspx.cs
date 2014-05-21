@@ -25,7 +25,7 @@ namespace DasKlub.Web
             writer.WriteStartDocument();
             writer.WriteStartElement("urlset");
             writer.WriteAttributeString("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
-            writer.WriteString("\r\n"); //newline 
+            writer.WriteString(Environment.NewLine);
 
             // home
             writer.WriteStartElement("url");
@@ -34,7 +34,7 @@ namespace DasKlub.Web
             writer.WriteElementString("changefreq", "daily");
             writer.WriteElementString("priority", "1.0");
             writer.WriteEndElement();
-            writer.WriteString("\r\n"); //newline 
+            writer.WriteString(Environment.NewLine);
 
             // news
             var contents = new Contents();
@@ -57,7 +57,7 @@ namespace DasKlub.Web
                 writer.WriteElementString("changefreq", "monthly");
                 writer.WriteElementString("priority", "0.8");
                 writer.WriteEndElement();
-                writer.WriteString("\r\n"); //newline 
+                writer.WriteString(Environment.NewLine);
             }
 
             using (var context = new DasKlubDbContext())
@@ -104,7 +104,7 @@ namespace DasKlub.Web
                             writer.WriteElementString("changefreq", "daily");
                             writer.WriteElementString("priority", "0.8");
                             writer.WriteEndElement();
-                            writer.WriteString("\r\n"); //newline 
+                            writer.WriteString(Environment.NewLine);
 
                             var totalCount =
                                 context2.ForumPost.Count(x => x.ForumSubCategoryID == thread.ForumSubCategoryID);
@@ -120,7 +120,7 @@ namespace DasKlub.Web
                                 writer.WriteElementString("changefreq", "weekly");
                                 writer.WriteElementString("priority", "0.8");
                                 writer.WriteEndElement();
-                                writer.WriteString("\r\n"); //newline 
+                                writer.WriteString(Environment.NewLine);
                             }
                         }
                     }

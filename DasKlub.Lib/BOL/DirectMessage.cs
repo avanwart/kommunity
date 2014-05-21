@@ -185,41 +185,34 @@ namespace DasKlub.Lib.BOL
 
                 sb.AppendFormat(@"<span title=""{0}"" class=""date_message"">", CreateDate.ToString("o"));
                 sb.Append(Utilities.TimeElapsedMessage(CreateDate));
-                ;
                 sb.Append(@"</span>");
 
                 if (UpdateDate != null && UpdateDate != DateTime.MinValue)
                 {
                     sb.AppendFormat(@"<span title=""{0}"" class=""date_message""> (", UpdateDate.ToString("o"));
                     sb.Append(Utilities.TimeElapsedMessage(UpdateDate));
-                    ;
                     sb.Append(@")</span>");
                 }
 
-                sb.Append(@"<br />");
-
+                sb.Append(@"<p class=""mail_message"">");
                 sb.Append(FromString.ReplaceNewLineWithHTML(Utilities.MakeLink(Message)));
-                
+                sb.Append(@"</p>");
+
                 var mu = Membership.GetUser();
 
                 if (mu != null && Convert.ToInt32(mu.ProviderUserKey) != ua.UserAccountID)
                 {
                     // TODO: NO NEED FOR THIS WHEN VIEWING MESSAGES TO THE USER WHERE YOU REPLY
-                    sb.Append(@"<br />");
-                    sb.Append(@"<br />");
                     sb.Append(@" <a class=""btn btn-success"" href=""");
                     sb.AppendFormat(VirtualPathUtility.ToAbsolute("~/account/reply/"));
-                    sb.Append(ua.UserName);
+                    sb.Append(ua.UserName.ToLowerInvariant());
                     sb.Append(@""">");
                     sb.Append(Messages.Reply);
                     sb.Append(@"</a>");
                 }
 
-
                 sb.Append(@"</div>");
-
                 sb.Append(@"</li>");
-
 
                 return sb.ToString();
             }
@@ -236,7 +229,6 @@ namespace DasKlub.Lib.BOL
 
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
 
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
