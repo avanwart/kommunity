@@ -6,8 +6,8 @@
     <ProjectGuid>{1B19D53D-9A58-4C2C-9B61-0F893FF037B2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DasKlub.UnitTests</RootNamespace>
-    <AssemblyName>DasKlub.UnitTests</AssemblyName>
+    <RootNamespace>DasKlub.Lib.UnitTests</RootNamespace>
+    <AssemblyName>DasKlub.Lib.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -107,9 +107,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="DasKlub.EmailBlasterService\ContactServiceTest.cs" />
-    <Compile Include="DasKlub.Lib\Operational\UtilitiesTest.cs" />
-    <Compile Include="DasKlub.Web\Controllers\HomeControllerTest.cs" />
+    <Compile Include="Operational\UtilitiesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DasKlub.UnitTests.DasKlub.Lib.Operational
+namespace DasKlub.Lib.UnitTests.DasKlub.Lib.Operational
 {
     [TestClass]
     public class UtilitiesTest
