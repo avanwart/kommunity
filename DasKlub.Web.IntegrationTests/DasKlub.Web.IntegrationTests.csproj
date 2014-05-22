@@ -6,8 +6,8 @@
     <ProjectGuid>{E3E010A5-975D-41D6-8CD2-7E67239EF73E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DasKlub.IntegrationTests</RootNamespace>
-    <AssemblyName>DasKlub.IntegrationTests</AssemblyName>
+    <RootNamespace>DasKlub.Web.IntegrationTests</RootNamespace>
+    <AssemblyName>DasKlub.Web.IntegrationTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

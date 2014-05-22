@@ -4,7 +4,7 @@ using DasKlub.Models;
 using DasKlub.Models.Forum;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DasKlub.IntegrationTests.Controllers.Forum
+namespace DasKlub.Web.IntegrationTests.Controllers.Forum
 {
     [Ignore] // init db failed
     [TestClass]
