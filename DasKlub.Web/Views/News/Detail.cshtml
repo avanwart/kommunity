@@ -89,6 +89,7 @@
            
             <hr />
 
+            @{ Html.RenderPartial("_AdBanner728x90"); }
 
         
             <article>
@@ -198,6 +199,8 @@
             <p class="line_space">
                 @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))
             </p>
+                    <hr />
+                    @{ Html.RenderPartial("_AdBanner120x60"); }
         </div>
     </div>
     <div class="span4">

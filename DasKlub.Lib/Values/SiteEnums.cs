@@ -458,6 +458,11 @@ namespace DasKlub.Lib.Values
             PRIPL,
 
             /// <summary>
+            /// Advertising info
+            /// </summary>
+            ADVRT,
+
+            /// <summary>
             ///     About us
             /// </summary>
             ABOUT,
