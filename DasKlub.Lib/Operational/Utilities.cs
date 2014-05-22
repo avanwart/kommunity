@@ -217,7 +217,9 @@ namespace DasKlub.Lib.Operational
             else
             {
                 // over a year old
-                timeElapsed = string.Format(Messages.YearsAgo, (int)Math.Round(elapsed.TotalDays / 365.2425));
+                var years = (int)Math.Floor(elapsed.TotalDays / 365.2425);
+
+                timeElapsed = string.Format(Messages.YearsAgo, years);
             }
 
             return timeElapsed;
