@@ -30,6 +30,7 @@ namespace DasKlub.Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            return;
             _mail = new MailService();
 
             var sb = new StringBuilder(100);
