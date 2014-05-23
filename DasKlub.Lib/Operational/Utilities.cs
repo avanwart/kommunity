@@ -109,7 +109,7 @@ namespace DasKlub.Lib.Operational
 
         public static string URLAuthority()
         {
-            return "http://" + HttpContext.Current.Request.Url.Authority;
+            return string.Concat("http://", HttpContext.Current.Request.Url.Authority);
         }
 
         public static string S3ContentPath(string filePath)
@@ -157,7 +157,6 @@ namespace DasKlub.Lib.Operational
 
             var elapsed = now.Subtract(occurance);
 
-
             if (elapsed.TotalSeconds <= 1)
             {
                 // now
@@ -166,7 +165,7 @@ namespace DasKlub.Lib.Operational
             else if (elapsed.TotalMinutes < 1)
             {
                 // seconds old
-                timeElapsed = string.Format(Messages.SecondsAgo, (int)Math.Round(elapsed.TotalSeconds));
+                timeElapsed = string.Format(Messages.SecondsAgo, (int)Math.Floor(elapsed.TotalSeconds));
             }
             else if (elapsed.TotalMinutes < 2)
             {
@@ -176,14 +175,12 @@ namespace DasKlub.Lib.Operational
             else if (elapsed.TotalMinutes < 120)
             {
                 // minutes old
-
-                timeElapsed = string.Format(Messages.MinutesAgo, (int)Math.Round(elapsed.TotalMinutes));
+                timeElapsed = string.Format(Messages.MinutesAgo, (int)Math.Floor(elapsed.TotalMinutes));
             }
             else if (elapsed.TotalHours < 24)
             {
                 // hours old
-
-                timeElapsed = string.Format(Messages.HoursAgo, (int)Math.Round(elapsed.TotalHours));
+                timeElapsed = string.Format(Messages.HoursAgo, (int)Math.Floor(elapsed.TotalHours));
             }
             else if (elapsed.TotalDays < 2)
             {
@@ -193,21 +190,20 @@ namespace DasKlub.Lib.Operational
             else if (elapsed.TotalDays < 14)
             {
                 // less than 1 week
-
-                timeElapsed = string.Format(Messages.DaysAgo, (int)Math.Round(elapsed.TotalDays));
+                timeElapsed = string.Format(Messages.DaysAgo, (int)Math.Floor(elapsed.TotalDays));
             }
             else if (elapsed.TotalDays < 60)
             {
                 // 1 to 4 weeks ago
                 timeElapsed =
                     string.Format(Messages.WeeksAgo,
-                                  (int)Math.Round(elapsed.TotalDays / 7));
+                                  (int)Math.Floor(elapsed.TotalDays / 7));
             }
             else if (elapsed.TotalDays < 365)
             {
                 // months old but less than a year old
                 timeElapsed
-                    = string.Format(Messages.MonthsAgo, (int)Math.Round(elapsed.TotalDays / 30));
+                    = string.Format(Messages.MonthsAgo, (int)Math.Floor(elapsed.TotalDays / 30));
             }
             else if (elapsed.TotalDays < (365 * 2))
             {

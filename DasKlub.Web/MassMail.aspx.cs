@@ -30,49 +30,31 @@ namespace DasKlub.Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-          
-            return;
+            _mail = new MailService();
 
             var sb = new StringBuilder(100);
 
-            sb.AppendFormat("Hello,");
+            sb.AppendFormat("Get your FREE Das Klub Sticker!");
             sb.AppendLine();
             sb.AppendLine();
-            sb.AppendLine("The Das Klub Forum has been revitalized!");
-            sb.AppendLine();
-            sb.AppendLine("Go to: http://dasklub.com and see the newest and most popular forum threads.");
-            sb.AppendLine();
-            sb.AppendLine("More detail: http://dasklub.com/forum");
+            sb.AppendLine("Don't miss your chance to get a FREE Das Klub Sticker (while supplies last).");
             sb.AppendLine();
             sb.AppendLine();
-            sb.AppendLine("How it works:");
-            sb.AppendLine();
-            sb.AppendLine(
-                "When you leave a post, other users subscribed to that post get a notification email. You can see a link in green when on http://dasklub.com for any forum post you're subscribed to that you you haven't read.");
+            sb.AppendLine("Just sign in and go to this page: http://dasklub.com/account/useraddress after you fill this form out, a sticker will be sent to you." );
             sb.AppendLine();
             sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendLine("Guten Tanzen,");
-            sb.AppendLine();
-            sb.AppendLine("| The Admin |");
+            sb.AppendLine("-Das Klub's Admin");
             sb.AppendLine();
             sb.AppendLine();
-            sb.AppendLine("Contact Email: info@dasklub.com");
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendLine();
+            sb.AppendLine("Donate here with PayPal: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HDQER4PRXHVR8 ");
             sb.AppendLine();
             sb.AppendLine(
                 "To unsubscribe from all future email communication, go to: http://dasklub.com/unsubscribe.aspx");
 
-           // SendMassMail(sb.ToString());
+            SendMassMail(sb.ToString());
         }
 
-        private static void SendMassMail(string message)
+        private void SendMassMail(string message)
         {
             var totalSent = 0;
 
@@ -80,18 +62,22 @@ namespace DasKlub.Web
             uas.GetAll();
 
             foreach (var ua1 in uas.OrderBy(x => x.CreateDate))
-                //.Where(ua1 => ua1.CreateDate <= DateTime.UtcNow.AddDays(-5)))
             {
-                
                 var uad = new UserAccountDetail();
                 uad.GetUserAccountDeailForUser(ua1.UserAccountID);
 
-                if (!uad.EmailMessages || ua1.UserName != "bootlegbaron") continue;
+                if (!uad.EmailMessages) continue;
+
+                var userAddress = new UserAddress();
+                userAddress.GetUserAddress(ua1.UserAccountID);
+
+                if (userAddress.UserAddressID != 0) continue;
+
                  
-                //if (_mail.SendMail(ua1.EMail, "Das Klub Forum Revitalized!", message))
-                //{
-                //    totalSent++;
-                //}
+               //if (_mail.SendMail("dasklubber@gmail.com", ua1.EMail, "FREE Das Klub Sticker!", message))
+                {
+                    totalSent++;
+                }
             }
 
             HttpContext.Current.Response.Write(totalSent);

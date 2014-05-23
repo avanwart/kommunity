@@ -24,11 +24,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasKlub.Models", "DasKlub.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasKlub.EmailBlasterService", "DasKlub.EmailBlasterService\DasKlub.EmailBlasterService.csproj", "{CD086962-BD5A-4608-B427-260B53668DA4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3C02CC4E-B8DA-4E53-912D-B8486BE69026}"
-	ProjectSection(SolutionItems) = preProject
-		HTMLPage1.html = HTMLPage1.html
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasKlub.Lib.UnitTests", "DasKlub.Lib.UnitTests\DasKlub.Lib.UnitTests.csproj", "{1B19D53D-9A58-4C2C-9B61-0F893FF037B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DasKlub.Web.IntegrationTests", "DasKlub.Web.IntegrationTests\DasKlub.Web.IntegrationTests.csproj", "{E3E010A5-975D-41D6-8CD2-7E67239EF73E}"

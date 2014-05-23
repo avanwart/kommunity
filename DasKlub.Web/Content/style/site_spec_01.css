@@ -801,6 +801,11 @@ h3 { line-height: 1.3em;}
 
 h3.main_title { text-shadow: 5px 5px #000; font-family: Verdana, Geneva, sans-serif}
 
+h4 {
+    font-size:22px;
+    line-height:1.2em;
+}
+
 h4.title { text-shadow: none; }
 
 .table tbody tr:hover td, .table tbody tr:hover th { color: yellow; }
