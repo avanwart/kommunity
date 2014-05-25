@@ -4,7 +4,7 @@
 ---
 ### Development Software
 
-- [Visual Studio 2014](http://www.microsoft.com/visualstudio/eng/downloads)
+- [Visual Studio 2013](http://www.microsoft.com/visualstudio/eng/downloads)
 - [SQL Server 2014](http://www.microsoft.com/en-us/download/details.aspx?id=42299) Get the service and the management studio: ENU\x64\SQLManagementStudio_x64_ENU.exe 
 - [PowerShell 3.0](http://www.microsoft.com/web/downloads/platform.aspx)
 - [Amazon Storage](http://www.cloudberrylab.com/)
