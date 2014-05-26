@@ -1,4 +1,5 @@
-﻿using DasKlub.Lib.Operational;
+﻿using DasKlub.Lib.Configs;
+using DasKlub.Lib.Operational;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,14 @@ namespace DasKlub.Lib.UnitTests.DasKlub.Lib.Operational
     [TestClass]
     public class UtilitiesTest
     {
+        string expectedDoman;
+
+        [TestInitialize]
+        public void Init()
+        {
+            expectedDoman = GeneralConfigs.SiteDomain;
+        }
+
         [TestMethod]
         public void ConvertTextToHTML_SameExternalLink_DisplaysCorrectly()
         {
@@ -59,11 +68,11 @@ Amazon: <a target=""_blank"" href=""http://www.amazon.com/Sick-of-it-all/dp/B00J
         public void ConvertTextToHTML_InternalLinkLinks_DoesNotOpenInNewWindow()
         {
             // arrange
-            var text = @"Das Cabaret Fledermaus Präsentiert den 
+            var text = string.Format(@"Das Cabaret Fledermaus Präsentiert den 
 BALL DER SCHWARZEN MASKEN 2014
 Deuxvolt live @ Wien (AT)
 Friday 28th February 2014 - 22:00 PM
-Info: http://www.dasklub.com/
+Info: {0}/
 
 
 1-2 INDUSTRIAL DANCERS ARE REALLY WELCOME, ON THE STAGE
@@ -72,18 +81,18 @@ Contact me for more informations here: www.justdeux.com
 
 Just Deux
 
-Poster: http://dasklub.com/propaganda/Deuxvolt_tour_2014_01_wien.png
-note: Thanks to DasKlub community";
+Poster: {0}/propaganda/Deuxvolt_tour_2014_01_wien.png
+note: Thanks to DasKlub community", expectedDoman);
 
             // act
             var result = Utilities.ConvertTextToHtml(text);
 
             // assert 
-            var expected = @"Das Cabaret Fledermaus Präsentiert den <br />
+            var expected = string.Format(@"Das Cabaret Fledermaus Präsentiert den <br />
 BALL DER SCHWARZEN MASKEN 2014<br />
 Deuxvolt live @ Wien (AT)<br />
 Friday 28th February 2014 - 22:00 PM<br />
-Info: <a href=""http://www.dasklub.com/"">http://www.dasklub.com/</a><br />
+Info: <a href=""{0}/"">{0}/</a><br />
 <br />
 <br />
 1-2 INDUSTRIAL DANCERS ARE REALLY WELCOME, ON THE STAGE<br />
@@ -92,8 +101,8 @@ Contact me for more informations here: www.justdeux.com<br />
 <br />
 Just Deux<br />
 <br />
-Poster: <a href=""http://dasklub.com/propaganda/Deuxvolt_tour_2014_01_wien.png"">http://dasklub.com/propagan...</a><br />
-note: Thanks to DasKlub community";
+Poster: <a href=""{0}/propaganda/Deuxvolt_tour_2014_01_wien.png"">{0}/propagan...</a><br />
+note: Thanks to DasKlub community", expectedDoman);
 
             Assert.AreEqual(expected, result);
         }
