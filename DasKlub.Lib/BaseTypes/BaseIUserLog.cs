@@ -21,8 +21,6 @@ namespace DasKlub.Lib.BaseTypes
         {
             get
             {
-                //if (this._updateDate == DateTime.MinValue) return this.CreateDate;
-
                 return _updateDate;
             }
             set { _updateDate = value; }

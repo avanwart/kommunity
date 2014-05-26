@@ -24,6 +24,7 @@ namespace DasKlub.Models.Forum
         {
             _forumPost = new Collection<ForumPost>();
         }
+
         #endregion
 
         #region properties
@@ -74,8 +75,14 @@ namespace DasKlub.Models.Forum
         {
             get
             {
-                return ForumCategory != null ? new Uri(Utilities.URLAuthority() +
-                    VirtualPathUtility.ToAbsolute(string.Format("~/forum/{0}/{1}", ForumCategory.Key, Key))) : null;
+                return ForumCategory != null ? new Uri(
+                    string.Format("{0}{1}",
+                        Utilities.URLAuthority(),
+                        VirtualPathUtility.ToAbsolute(
+                            string.Format("~/forum/{0}/{1}",
+                                ForumCategory.Key, 
+                                Key)))) 
+                    : null;
             }
         }
 

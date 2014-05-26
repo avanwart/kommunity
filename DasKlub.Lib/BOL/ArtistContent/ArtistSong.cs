@@ -33,7 +33,9 @@ namespace DasKlub.Lib.BOL.ArtistContent
             get
             {
                 return string.Format(@"<a href=""{0}"">{1}</a>",
-                                     VirtualPathUtility.ToAbsolute(string.Format("~/{0}", UserAccount)), UserAccount);
+                                     VirtualPathUtility.ToAbsolute(
+                                        string.Format("~/{0}", 
+                                                UserAccount)), UserAccount);
             }
         }
 
@@ -135,7 +137,6 @@ namespace DasKlub.Lib.BOL.ArtistContent
             else if (sngs.Count == 1)
             {
                 art = new Artist(sngs[0].ArtistID);
-                //this.SongDisplay += art.Name + " - " + sngs[0].Name;// +"<br />";// +HttpUtility.HtmlEncode(" | ");
 
                 SongDisplay +=
                     HttpUtility.HtmlEncode(

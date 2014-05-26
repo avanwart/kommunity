@@ -28,10 +28,10 @@ namespace DasKlub.Lib.BOL
         private string _providerUserKey = string.Empty;
         private DateTime _publishDate = DateTime.MinValue;
         private string _videoKey = string.Empty;
+        
         public bool EnableTrim { get; set; }
 
         public int VolumeLevel { get; set; }
-
 
         public string ProviderUserKey
         {
@@ -285,12 +285,11 @@ namespace DasKlub.Lib.BOL
                 Intro = FromObj.FloatFromObj(dr["intro"]);
                 LengthFromStart = FromObj.FloatFromObj(dr["lengthFromStart"]);
                 VolumeLevel = FromObj.IntFromObj(dr["volumeLevel"]);
-                //  this.EnableTrim = FromObj.BoolFromObj(dr["enableTrim"]);
                 PublishDate = FromObj.DateFromObj(dr["publishDate"]);
             }
             catch
             {
-                //Utilities.LogError(ex);
+
             }
         }
 
@@ -324,21 +323,6 @@ namespace DasKlub.Lib.BOL
 
             var sngr = new SongRecord(vid);
 
-            //            string jsongic =
-
-            //            @"{""EndTime"": """ + sngr.EndTime.ToString() + @""", 
-            //            ""Human"": """ + sngr.Human + @""", 
-            //            ""ProviderCode"": """ + sngr.ProviderCode + @""", 
-            //            ""ProviderKey"": """ + sngr.ProviderKey + @""", 
-            //            ""SongDisplay"": """ + sngr.SongDisplay + @""", 
-            //            ""StartTime"": """ + sngr.StartTime.ToString() + @""", 
-            //            ""TotalSeconds"": """ + sngr.TotalSeconds.ToString() + @""", 
-            //            ""UserAccount"": """ + sngr.UserAccount + @""", 
-            //            ""RelatedVids"": """ + Video.RelatedVidList(vid.VideoID) + @""", 
-            //            ""VolumeLevel"": """ + sngr.VolumeLevel.ToString() + @"""}";
-
-            //            return jsongic;
-
             return sngr.JSONResponse;
         }
 
@@ -363,8 +347,6 @@ namespace DasKlub.Lib.BOL
             var vids = new Videos();
 
             vids.GetRelatedVideos(humanID, vidTypeID, vid.VideoID);
-
-            //Videos newVids = Videos.GetRandoms(vids);
 
             var sngrcs = new SongRecords();
             SongRecord sngrcd2 = null;
@@ -425,22 +407,6 @@ namespace DasKlub.Lib.BOL
             vid.GetRandomVideo();
 
             var sngr = new SongRecord(vid);
-
-
-            //            string jsongic =
-
-            //            @"{""EndTime"": """ + sngr.EndTime.ToString() + @""", 
-            //            ""Human"": """ + sngr.Human + @""", 
-            //            ""ProviderCode"": """ + sngr.ProviderCode + @""", 
-            //            ""ProviderKey"": """ + sngr.ProviderKey + @""", 
-            //            ""SongDisplay"": """ + sngr.SongDisplay + @""", 
-            //            ""StartTime"": """ + sngr.StartTime.ToString() + @""", 
-            //            ""TotalSeconds"": """ + sngr.TotalSeconds.ToString() + @""", 
-            //            ""UserAccount"": """ + sngr.UserAccount + @""", 
-            //            ""RelatedVids"": """ + Video.RelatedVidList(vid.VideoID) + @""", 
-            //            ""VolumeLevel"": """ + sngr.VolumeLevel.ToString() + @"""}";
-
-            //            return jsongic;
 
             return sngr.JSONResponse;
         }

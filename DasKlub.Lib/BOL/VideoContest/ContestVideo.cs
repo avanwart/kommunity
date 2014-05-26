@@ -165,11 +165,7 @@ namespace DasKlub.Lib.BOL.VideoContest
             comm.CommandText = "up_DeleteContestVideo";
 
             comm.AddParameter("videoID", videoID);
-
-            //RemoveCache();
-
             // execute the stored procedure
-
             DbAct.ExecuteNonQuery(comm);
         }
 

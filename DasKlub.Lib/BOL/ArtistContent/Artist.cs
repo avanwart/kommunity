@@ -54,22 +54,22 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
         public string FullURLOfArtist
         {
-            get { return Utilities.URLAuthority() + "/" + AltName.ToLower(); }
+            get {
+                return 
+                    string.Format("{0}/{1}",
+                    Utilities.URLAuthority(), 
+                    AltName.ToLower());
+            }
         }
 
         public string HyperLinkToArtist
         {
             get
             {
-                return @"<a href=""" + FullURLOfArtist + @""">" + Name + @"</a>";
-                //if (string.IsNullOrEmpty(this.AltName))
-                //{
-                //    return @"<a href=""" + FullURLOfArtist + @""">" + this.Name + @"</a>";
-                //}
-                //else
-                //{
-                //    return @"<a href=""" + FullURLOfArtist + @""">" + this.AltName + @"</a>";
-                //}
+                return 
+                    string.Format(@"<a href=""{0}"">{1}</a>", 
+                    FullURLOfArtist,
+                    Name);
             }
         }
 
@@ -179,7 +179,6 @@ namespace DasKlub.Lib.BOL.ArtistContent
             }
             catch
             {
-                //Utilities.LogError(ex);
             }
         }
 
@@ -234,7 +233,10 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
         public string CacheName
         {
-            get { return string.Format("{0}-{1}", GetType().FullName, ArtistID.ToString(CultureInfo.InvariantCulture)); }
+            get { return string.Format("{0}-{1}", 
+                        GetType().FullName,
+                        ArtistID.ToString(CultureInfo.InvariantCulture)); 
+            }
         }
 
         public void RemoveCache()

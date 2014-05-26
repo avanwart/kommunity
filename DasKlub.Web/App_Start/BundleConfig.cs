@@ -7,14 +7,16 @@ namespace DasKlub.Web.App_Start
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
+                "~/Scripts/jquery.signalR-{version}.js"
+                            ));
+
             bundles.Add(new ScriptBundle("~/bundles/jsfooter_desktop").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-{version}.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/scrollpagination.js",
-                //"~/Scripts/textarea_expander.js",
                 "~/content/script/site_wide_13.js",
-                // "~/scripts/jquery.signalR-{version}.js",
                 "~/content/mediaelement/mediaelement-and-player.js"
                             ));
 

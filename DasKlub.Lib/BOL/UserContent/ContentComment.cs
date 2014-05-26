@@ -293,7 +293,7 @@ namespace DasKlub.Lib.BOL.UserContent
     }
 
 
-    public class ContentComments : List<ContentComment>, IUnorderdList
+    public class ContentComments : List<ContentComment>
     {
         private bool _includeStartAndEndTags = true;
 
@@ -302,110 +302,6 @@ namespace DasKlub.Lib.BOL.UserContent
             get { return _includeStartAndEndTags; }
             set { _includeStartAndEndTags = value; }
         }
-
-
-        public string ToUnorderdList
-        {
-            get
-            {
-                if (Count == 0) return string.Empty;
-
-                //MembershipUser mu = Membership.GetUser();
-
-                //int membID = (mu != null) ? Convert.ToInt32(mu.ProviderUserKey) : 0;
-
-                var sb = new StringBuilder(100);
-
-                //if (IncludeStartAndEndTags) sb.Append(@"<ul>");
-
-                //sb.Append(@"<form method=""post"" action=""/reviews/commentdelete"" name=""delete_post"">");
-
-                //UserAccount ua = null;
-
-                //int i = 0;
-
-                //Control ctrl = new Control();
-
-                //foreach (ContentComment su in this)
-                //{
-                //    i++;
-
-                //    ua = new UserAccount(su.CreatedByUserID);
-
-                //    if (i % 2 == 1)
-                //    {
-                //        sb.Append(@"<li class=""status_post"">");
-                //    }
-                //    else
-                //    {
-                //        sb.Append(@"<li class=""status_post alternate_post"">");
-                //    }
-
-
-                //    sb.Append(@"<table>");
-                //    sb.Append(@"<tr>");
-                //    sb.Append(@"<td>");
-
-                //    sb.Append(@"<ul>");
-                //    sb.Append(ua.ToUnorderdListItem);
-                //    sb.Append(@"</ul>");
-
-                //    sb.Append(@"</td>");
-                //    sb.Append(@"<td>");
-
-                //    sb.Append(@"<ul><li>");
-
-                //    sb.Append(@"<ul>");
-                //    sb.Append(su.ToUnorderdListItem);
-                //    sb.Append(@"</ul>");
-
-                //    //sb.Append(@"<span class=""status_count"">");
-                //    //sb.Append(Acknowledgements.GetAcknowledgementCount(su.StatusUpdateID));
-                //    //sb.Append(@"</span>");
-                //    //sb.Append("<br />");
-
-                //    //if (mu != null &&
-                //    //    Acknowledgement.IsUserAcknowledgement(
-                //    //    su.StatusUpdateID, Convert.ToInt32(mu.ProviderUserKey)))
-                //    //{
-                //    //    sb.Append(@"<img alt=""you gave applause!"" title=""you gave applause!""");
-                //    //    sb.Append(@" src=""");
-                //    //    sb.Append(System.Web.VirtualPathUtility.ToAbsolute("~/content/images/clap_check.png"));
-                //    //    sb.Append(@""" />");
-                //    //}
-                //    //else
-                //    //{
-                //    //    sb.Append(@"<button title=""applaud post"" name=""status_update_id"" class=""applaud_status"" type=""submit"" value=""" + su.StatusUpdateID.ToString() + @""">Applaud</button>");
-                //    //}
-
-
-                //    if (membID != 0 && ua.UserAccountID == membID)
-                //    {
-                //        sb.Append("<br />");
-                //        sb.Append(@"<button title=""delete your post"" name=""delete_status_id"" class=""delete_icon"" type=""submit"" value=""" + su.ContentCommentID.ToString() + @""">Delete</button>");
-                //        //sb.Append(@"<a title=""delete your post"" class=""delete_icon"" href=""#"" onclick=""document.delete_post.submit();return false"">&nbsp;</a>");
-                //    }
-
-                //    sb.Append(@"</div>");
-                //    sb.Append(@"</li></ul>");
-                //    sb.Append(@"</td>");
-
-                //    sb.Append(@"</tr>");
-                //    sb.Append(@"</table>");
-
-
-                //    sb.Append(@"</li>");
-                //}
-
-                //sb.Append(@"</form>");
-
-                //if (IncludeStartAndEndTags) sb.Append(@"</ul>");
-
-
-                return sb.ToString();
-            }
-        }
-
 
         public void GetUserContentComments(int createdByUserID)
         {

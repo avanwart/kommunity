@@ -114,14 +114,6 @@ namespace DasKlub.Lib.BLL
 
         public static void RemoveExternalCache(string keyName)
         {
-            //// delete on all remote systems
-            //foreach (string partner in GeneralConfigs.TwinSites)
-            //{
-            //    if (!string.IsNullOrEmpty(partner))
-            //    {
-            //        ItemizerRequest.ClearCache(partner, keyName);
-            //    }
-            //}
         }
 
 
@@ -130,14 +122,6 @@ namespace DasKlub.Lib.BLL
         /// </summary>
         public static void RemoveExternalCache()
         {
-            //// delete on all remote systems
-            //foreach (string partner in GeneralConfigs.TwinSites)
-            //{
-            //    if (!string.IsNullOrEmpty(partner))
-            //    {
-            //        ItemizerRequest.ClearCache(partner);
-            //    }
-            //}
         }
 
         #endregion
@@ -146,8 +130,6 @@ namespace DasKlub.Lib.BLL
 
         public static void RemovedCallback(String keyName, Object obj, CacheItemRemovedReason reason)
         {
-            //itemRemoved = true;
-            //reason = reason;
             reasonRemoved = reason;
 
             RemoveExternalCache(keyName);

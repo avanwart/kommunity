@@ -448,7 +448,7 @@ namespace DasKlub.Lib.BOL.UserContent
             {
                 if (Detail == null) return string.Empty;
 
-                return Detail.Replace("\r\n", "<br />");
+                return Detail.Replace(Environment.NewLine, "<br />");
             }
         }
 
@@ -456,10 +456,10 @@ namespace DasKlub.Lib.BOL.UserContent
         {
             get
             {
-                string theURL = "http://" +
-                                HttpContext.Current.Request.Url.Authority;
+                string theURL = string.Concat("http://", 
+                                              HttpContext.Current.Request.Url.Authority);
 
-                theURL += "/news/" + ContentKey;
+                theURL += string.Concat("/news/", ContentKey);
 
                 _urlTo = new Uri(theURL);
                 return _urlTo;
