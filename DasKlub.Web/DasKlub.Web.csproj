@@ -1270,7 +1270,6 @@
     <Content Include="Views\Shared\LoginForm.cshtml" />
     <Content Include="Views\Shared\LoginFormFull.cshtml" />
     <Content Include="Views\Shared\MessageItem.cshtml" />
-    <Content Include="Views\Shared\old_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Contact.cshtml" />

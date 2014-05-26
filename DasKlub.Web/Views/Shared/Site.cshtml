@@ -121,7 +121,7 @@
         <footer>
             <hr />
             @{ Html.RenderPartial("_languageMenu"); }    |
-            &copy; @string.Format(Messages.CopyrightAllRights, DateTime.UtcNow.Year, GeneralConfigs.SiteDomain) |
+            &copy; @Html.Raw(string.Format(Messages.CopyrightAllRights, DateTime.UtcNow.Year, string.Concat(GeneralConfigs.SiteName, "&trade;"))) |
             <a href="@GeneralConfigs.SiteDomain">Industrial Dance</a> |
             <a href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.ABOUT)">@Messages.About</a>  |
             <a href="@Url.Content("~/contact")">@Messages.Contact</a>  |

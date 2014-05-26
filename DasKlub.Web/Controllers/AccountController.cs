@@ -26,6 +26,7 @@ using DasKlub.Lib.Values;
 using DasKlub.Web.Models;
 using LitS3;
 using Microsoft.Ajax.Utilities;
+using DasKlub.Lib.BOL.DomainConnection;
 
 namespace DasKlub.Web.Controllers
 {
@@ -2200,22 +2201,10 @@ namespace DasKlub.Web.Controllers
 
                 sb = new StringBuilder(100);
 
-                sb.AppendLine("Welcome to the klub!");
-                sb.AppendLine();
-                sb.AppendLine("We are SO happy to have you here as a member of our elite group! Das Klubbers are very nice people and of course great dancers.");
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("Make SURE to introduce yourself here: http://dasklub.com/forum/introduce-yourself/start-your-self-introduction-here ");
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("If you have any questions about your account, make sure to read this article: http://dasklub.com/news/how-to-use-das-klub");
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendLine("You are one of the predestined ones.");
-                sb.AppendLine();
-                sb.AppendLine("- The Admin");
-                sb.AppendLine();
+                sb.Append(SiteDomain.GetSiteDomainValue(
+                                        SiteEnums.SiteBrandType.GREET, 
+                                        Utilities.GetCurrentLanguageCode()));
+
                 dm.Message = sb.ToString();
 
                 if (admin.UserAccountID != 0)
@@ -2227,7 +2216,7 @@ namespace DasKlub.Web.Controllers
 
                 return RedirectToAction("Home", "Account");
             }
-            ModelState.AddModelError("", AccountValidation.ErrorCodeToString(createStatus));
+            ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(createStatus));
 
             return View(model);
         }

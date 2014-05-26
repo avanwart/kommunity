@@ -117,7 +117,7 @@ namespace DasKlub.Lib.BOL
             {
                 var sb = new StringBuilder(100);
 
-                //http://DasKlub.com/video/YT#!CmrAHl8FKb8
+                // video/YT#!CmrAHl8FKb8
                 sb.Append(Utilities.URLAuthority());
                 sb.Append(@"/video/");
                 sb.Append(ProviderCode);
