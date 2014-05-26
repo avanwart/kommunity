@@ -45,9 +45,9 @@ namespace DasKlub.Lib.BOL.ArtistContent
                 EventID = FromObj.IntFromObj(dr["eventID"]);
                 RankOrder = FromObj.IntFromObj(dr["rankOrder"]);
             }
-            catch // (Exception ex)
+            catch 
             {
-                //Utilities.LogError(ex);
+                 
             }
         }
 

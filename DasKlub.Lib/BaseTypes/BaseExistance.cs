@@ -5,6 +5,7 @@ namespace DasKlub.Lib.BaseTypes
     public abstract class BaseExistance
     {
         private DateTime _createDate = DateTime.MinValue;
+
         public int CreatedByUserID { get; set; }
 
         public DateTime CreateDate

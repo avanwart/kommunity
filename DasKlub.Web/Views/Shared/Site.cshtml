@@ -28,7 +28,6 @@
     }
     <title>@Html.Raw(pageTitle)</title>
 
-    @*  @Styles.Render("~/content/css_head1")*@
 
     <style type="text/css">
             body {
@@ -44,11 +43,7 @@
               padding-top: 65px;
         </text>
                 }
-
-
-
-
-
+         
 
                 padding-bottom: 50px;
             }
@@ -56,24 +51,15 @@
     </style>
 
     @Styles.Render("~/content/style/css_head2")
-
-
-
-
+     
     @Styles.Render("~/content/mediaelement/css_mediaelement")
 
     @Html.Raw(SiteDomain.GetSiteDomainValue(
             SiteEnums.SiteBrandType.STYLE,
             Utilities.GetCurrentLanguageCode()))
-
-
-
-
+     
     @RenderSection("_css", false)
-
-
-
-
+     
     <meta name="description" @if (!string.IsNullOrEmpty(ViewBag.MetaDescription)) { <text> content="@Html.Raw(FromString.QuoteSafe(ViewBag.MetaDescription))" </text>  } else { <text> content="@Messages.CreativeCommunity" </text>  } />
     <meta property="og:title" @if (!string.IsNullOrEmpty(ViewBag.Title)) { <text> content="@Html.Raw(FromString.QuoteSafe(ViewBag.Title))" </text>  } else { <text> content="Das Klub in a international community for industrial dance music and culture." </text>  } />
     <meta property="og:description" @if (!string.IsNullOrEmpty(ViewBag.MetaDescription)) { <text> content="@Html.Raw(FromString.QuoteSafe(ViewBag.MetaDescription))" </text>  } else { <text> content="Das Klub in a international community for industrial dance music and culture." </text>  } />

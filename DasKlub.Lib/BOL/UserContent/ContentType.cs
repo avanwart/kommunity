@@ -58,54 +58,19 @@ namespace DasKlub.Lib.BOL.UserContent
             {
                 Get(dt.Rows[0]);
             }
-            //   base.Get(dr);
+           
         }
-
-        //public void GetContentTypeByContentCode()
-        //{
-        //    // get a configured DbCommand object
-        //    DbCommand comm = DbAct.CreateCommand();
-        //    // set the stored procedure name
-        //    comm.CommandText = "up_GetContentTypeByContentCode";
-        //    // create a new parameter
-        //    DbParameter param = comm.CreateParameter();
-        //    param.ParameterName = "@contentCode";
-        //    param.Value = ContentCode.ToString();
-        //    param.DbType = DbType.String;
-        //    comm.Parameters.Add(param);
-
-        //    // execute the stored procedure
-        //    DataTable dt = DbAct.ExecuteSelectCommand(comm);
-
-        //    // was something returned?
-        //    if (dt != null && dt.Rows.Count > 0)
-        //    {
-        //        Get(dt.Rows[0]);
-        //    }
-        //    //   base.Get(dr);
-
-
-        //}
-
+ 
         public override void Get(DataRow dr)
         {
             try
             {
                 base.Get(dr);
 
-
                 ContentTypeID = FromObj.IntFromObj(dr["contentTypeID"]);
 
                 string contentCode = FromObj.StringFromObj(dr["contentCode"]);
-
-                //if (string.IsNullOrEmpty(contentCode))
-                //    this.ContentCode = SiteEnums.ContentTypesForPages.UNKNO;
-                //else
-
-                //    this.ContentCode = (SiteEnums.ContentTypesForPages)
-                //        Enum.Parse(typeof(SiteEnums.ContentTypesForPages), contentCode);
-
-
+ 
                 ContentName = FromObj.StringFromObj(dr["contentName"]);
             }
             catch (Exception ex)
