@@ -117,7 +117,6 @@ namespace DasKlub.Lib.Operational
             return string.Format(AmazonCloudConfigs.AmazonCloudDomain, AmazonCloudConfigs.AmazonBucketName, filePath);
         }
 
-
         public static string GetIPForDomain(string domain)
         {
             try
@@ -711,13 +710,25 @@ namespace DasKlub.Lib.Operational
             return newText;
         }
 
-        private static string FormatLink(int linkTextMaxLength, Match link, string matchedUrl)
+        private
+        static
+        string
+        FormatLink(int linkTextMaxLength, Match link, string matchedUrl)
         {
+            if (HttpContext.Current == null)
+            {
+                HttpContext.Current = new HttpContext(
+                                            new HttpRequest(    
+                                                string.Empty, 
+                                                GeneralConfigs.SiteDomain,
+                                                string.Empty), 
+                                                new HttpResponse(
+                                                    new StringWriter()));
+            }
+
             string replacementText;
-            var linkText        = link.Value;
-            var internalHost    = (HttpContext.Current != null) ? 
-                                   HttpContext.Current.Request.Url.Host : 
-                                   "dasklub.com"; // TODO: make a unit testable way of using config
+            var linkText            = link.Value;
+            var internalHost        = HttpContext.Current.Request.Url.Host;
 
             if (linkText.Length > linkTextMaxLength)
             {
