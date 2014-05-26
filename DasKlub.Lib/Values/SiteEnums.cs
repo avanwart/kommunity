@@ -417,7 +417,7 @@ namespace DasKlub.Lib.Values
             supporter 
         }
 
-      
+
         public enum SiteBrandType
         {
             /// <summary>
@@ -614,7 +614,11 @@ namespace DasKlub.Lib.Values
             /// <summary>
             /// 728x90
             /// </summary>
-            A728
+            A728,
+            /// <summary>
+            /// New user greeting
+            /// </summary>
+            GREET
         }
 
 
