@@ -186,36 +186,6 @@ namespace DasKlub.Lib.BOL
 
                     DisplayTime(sb);
 
-                    //var sbBeatDowns = new StringBuilder(100);
-
-                    //i = 0; // reset count
-
-                    //foreach (UserAccount uar1 in uaBeats)
-                    //{
-                    //    i++;
-
-                    //    if (i == uaBeats.Count)
-                    //    {
-                    //        sbBeatDowns.AppendFormat("{0}", uar1.UserName);
-                    //    }
-                    //    else
-                    //    {
-                    //        sbBeatDowns.AppendFormat("{0}, ", uar1.UserName);
-                    //    }
-                    //}
-
-                    //sb.AppendFormat(@"<span class=""status_count_beatdown"" title=""{0}"">", sbBeatDowns);
-
-
-                    //sb.Append(Acknowledgements.GetAcknowledgementCount(StatusUpdateID,
-                    //                                                   Convert.ToChar(
-                    //                                                       SiteEnums.AcknowledgementType.B.ToString())));
-                    //sb.Append(@"</span>");
-                    //sb.AppendFormat(@"<button title=""{0}"" name=""status_update_id_beat""", Messages.BeatDown);
-                    //sb.Append(@" class=""beat_status"" type=""button"" value=""");
-                    //sb.Append(StatusUpdateID.ToString());
-                    //sb.AppendFormat(@""">{0}</button>", Messages.BeatDown);
-
                     sb.Append(@"</div>");
                 }
 
@@ -338,12 +308,6 @@ namespace DasKlub.Lib.BOL
                                                                                  SiteEnums.AcknowledgementType.A
                                                                                           .ToString())));
 
-                    //sb.AppendFormat(@"<div>{0}: {1}</div>",
-                    //                Messages.BeatenDown,
-                    //                Acknowledgements.GetAcknowledgementCount(StatusUpdateID,
-                    //                                                         Convert.ToChar(
-                    //                                                             SiteEnums.AcknowledgementType.B
-                    //                                                                      .ToString())));
                 }
 
                 #endregion
@@ -353,15 +317,6 @@ namespace DasKlub.Lib.BOL
                 sb.Append(@"<div class=""clear""></div>");
 
                 #region message
-
-
-
-
-                //if (!string.IsNullOrWhiteSpace(Message))
-                //{
-                //    sb.Append("<br />");
-                //}
-             //   sb.Append("<br />");
 
                 sb.AppendFormat(@"<div class=""post_content"">{0}</div>",
                                 PhotoItemID == null

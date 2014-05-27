@@ -472,7 +472,7 @@ namespace DasKlub.Lib.BOL
 
         public string CacheName
         {
-            get { return GetType().FullName + "all"; }
+            get { return string.Concat(GetType().FullName, "all"); }
         }
 
         public void RemoveCache()

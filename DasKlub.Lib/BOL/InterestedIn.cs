@@ -60,8 +60,7 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                return GetType().FullName +
-                       "-" + InterestedInID.ToString();
+                return string.Concat(GetType().FullName, "-", InterestedInID.ToString());
             }
         }
 

@@ -57,30 +57,7 @@ namespace DasKlub.Lib.BOL
 
         #endregion
 
-        //public static bool DeletePropertyTypeForVideo(int propertyTypeID, int videoID)
-        //{
-        //    if (propertyTypeID == 0 || videoID == 0) return false;
-
-        //    // get a configured DbCommand object
-        //    DbCommand comm = DbAct.CreateCommand();
-        //    // set the stored procedure name
-        //    comm.CommandText = "up_DeleteMultiPropertyVideo";
-        //    // create a new parameter
-        //    DbParameter param = comm.CreateParameter();
-
-        //    param.ParameterName = "@multiPropertyID";
-        //    param.Value = propertyTypeID;
-        //    param.DbType = DbType.Int32;
-        //    comm.Parameters.Add(param);
-        //    //
-        //    param = comm.CreateParameter();
-        //    param.ParameterName = "@videoID";
-        //    param.Value = videoID;
-        //    param.DbType = DbType.Int32;
-        //    comm.Parameters.Add(param);
-
-        //    return Convert.ToInt32(DbAct.ExecuteNonQuery(comm)) > 0;
-        //}
+    
     }
 
     public class MultiPropertyVideos : List<MultiPropertyVideo>

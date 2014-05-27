@@ -184,7 +184,7 @@ namespace DasKlub.Lib.BOL
                     {
                         sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_applaud""",
                                         Messages.YouResponded);
-                        //sb.Append(@" disabled=""disabled"" class=""applaud_status_comment_complete""  type=""button"" value=""");
+
                         sb.Append(@"  class=""applaud_status_comment_complete""  type=""button"" value=""");
                         sb.Append(StatusCommentID.ToString());
                         sb.AppendFormat(@""">{0}</button>", Messages.Applaud);
@@ -193,7 +193,7 @@ namespace DasKlub.Lib.BOL
                     {
                         sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_applaud""",
                                         Messages.YouResponded);
-                        //sb.Append(@" disabled=""disabled"" class=""applaud_status_comment""  type=""button"" value=""");
+
                         sb.Append(@"   class=""applaud_status_comment""  type=""button"" value=""");
                         sb.Append(StatusCommentID.ToString());
                         sb.AppendFormat(@""">{0}</button>", Messages.Applaud);

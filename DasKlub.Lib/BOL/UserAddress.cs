@@ -431,7 +431,6 @@ namespace DasKlub.Lib.BOL
             // set the stored procedure name
             comm.CommandText = "up_GetUserAddressesByStatus";
 
-
             comm.AddParameter("addressStatus", addressStatus);
 
             // execute the stored procedure

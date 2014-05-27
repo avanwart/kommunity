@@ -22,8 +22,7 @@ namespace DasKlub.Web.Controllers
     [Authorize(Roles = "admin")]
     public class SiteAdminController : Controller
     {
-        private MembershipUser _mu;
-
+    
         public ActionResult SiteBranding()
         {
             var siteDomains = new SiteDomains();

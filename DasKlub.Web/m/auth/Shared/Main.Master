@@ -24,10 +24,7 @@
             <div id="auth_nav">
                 <ul>
                     <li><a href="ModifyVenue.aspx">Venues</a></li>
-                    <li><a href="NewTourDate.aspx">Events</a> </li>
-                    <li><a href="ArtistTD.aspx">Band Tour Dates</a> </li>
-        
-       
+                
                     <li><a href="VideoInput.aspx">Videos</a> </li>
                     <li><a href="SongProperties.aspx">Song Properties</a> </li>
                     <li><a href="UserAddress.aspx">User Addresses</a> </li>

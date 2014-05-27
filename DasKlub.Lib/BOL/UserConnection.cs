@@ -319,7 +319,6 @@ namespace DasKlub.Lib.BOL
                 var sb = new StringBuilder();
 
                 if (IncludeStartAndEndTags) sb.Append(@"<ul>");
-                // sb.Append(@"<ul class=""user_list"">");
 
                 UserAccount ua1 = null;
                 UserAccountDetail uad = null;

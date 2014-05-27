@@ -207,21 +207,7 @@ namespace DasKlub.Lib.BOL
                         HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     }
                 }
-                //else if (dt.Rows.Count > 1)
-                //{
-                //    // THEY SHOULD NOT HAVE MORE THAN 1, this might matter later
-                //    MultiProperty mpt = new MultiProperty();
-
-                //    foreach (DataRow dr in dt.Rows)
-                //    {
-
-                //        mpt = new MultiProperty(dr);
-
-                //        MultiPropertyProduct.DeleteMultiPropertyProduct(mpt.MultiPropertyID, productID);
-
-                //        RemoveCache();
-                //    }
-                //}
+           
             }
             else
             {

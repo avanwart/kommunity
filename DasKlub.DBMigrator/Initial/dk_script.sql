@@ -161,48 +161,7 @@ SELECT SCOPE_IDENTITY()
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[up_AddArtistEvent]    Script Date: 1/20/2013 4:00:03 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-CREATE proc [dbo].[up_AddArtistEvent]
-
- @artistID int
-,@eventID int
-,@rankOrder tinyint
-
-
-AS
-
-INSERT INTO [Artistevent]
-           ([artistID]
-           ,[eventID]
-           ,[rankOrder])
-     VALUES
-           (@artistID
-           ,@eventID
-           ,@rankOrder)
-
-GO
+ 
 /****** Object:  StoredProcedure [dbo].[up_AddArtistProperty]    Script Date: 1/20/2013 4:00:03 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -4828,38 +4787,7 @@ SELECT TOP 100
   where [isLockedOut] = 0 AND uad.Gender = @gender
   ORDER BY [lastActivityDate] desc
 GO
-/****** Object:  StoredProcedure [dbo].[up_GetAllArtistEvents]    Script Date: 1/20/2013 4:00:03 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
-CREATE proc [dbo].[up_GetAllArtistEvents]
-
-AS
-
-SELECT [artistID]
-      ,[eventID]
-      ,[rankOrder]
-  FROM [ArtistEvent]
-GO
+ 
 /****** Object:  StoredProcedure [dbo].[up_GetAllArtists]    Script Date: 1/20/2013 4:00:03 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -15811,23 +15739,7 @@ CREATE TABLE [dbo].[Artist](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ArtistEvent]    Script Date: 1/20/2013 4:00:03 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[ArtistEvent](
-	[artistID] [int] NOT NULL,
-	[eventID] [int] NOT NULL,
-	[rankOrder] [tinyint] NULL,
- CONSTRAINT [PK_ArtistTourDate] PRIMARY KEY CLUSTERED 
-(
-	[artistID] ASC,
-	[eventID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
 
-GO
 /****** Object:  Table [dbo].[ArtistProperty]    Script Date: 1/20/2013 4:00:03 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -17951,16 +17863,7 @@ REFERENCES [dbo].[StatusUpdate] ([statusUpdateID])
 GO
 ALTER TABLE [dbo].[Acknowledgement] CHECK CONSTRAINT [FK_Acknowledgement_StatusUpdate]
 GO
-ALTER TABLE [dbo].[ArtistEvent]  WITH CHECK ADD  CONSTRAINT [FK_ArtistTourDate_Artist] FOREIGN KEY([artistID])
-REFERENCES [dbo].[Artist] ([artistID])
-GO
-ALTER TABLE [dbo].[ArtistEvent] CHECK CONSTRAINT [FK_ArtistTourDate_Artist]
-GO
-ALTER TABLE [dbo].[ArtistEvent]  WITH CHECK ADD  CONSTRAINT [FK_ArtistTourDate_TourDate] FOREIGN KEY([eventID])
-REFERENCES [dbo].[Event] ([eventID])
-GO
-ALTER TABLE [dbo].[ArtistEvent] CHECK CONSTRAINT [FK_ArtistTourDate_TourDate]
-GO
+
 ALTER TABLE [dbo].[ArtistProperty]  WITH CHECK ADD  CONSTRAINT [FK_ArtistProperty_Artist] FOREIGN KEY([artistID])
 REFERENCES [dbo].[Artist] ([artistID])
 GO

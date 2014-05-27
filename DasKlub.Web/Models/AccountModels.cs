@@ -26,7 +26,7 @@ namespace DasKlub.Web.Models
 
         [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof (Messages))]
         [DataType(DataType.Password)]
-        [System.Web.Mvc.Compare("NewPassword", ErrorMessageResourceName = "PasswordsDoNotMatch",
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessageResourceName = "PasswordsDoNotMatch",
             ErrorMessageResourceType = typeof (Messages))]
         [Display(ResourceType = typeof (Messages), Name = "ConfirmPassword")]
         public string ConfirmPassword { get; set; }

@@ -75,9 +75,9 @@
     <OutputPath>bin\Staging\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AWSSDK, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9f476d3089b52be3, processorArchitecture=MSIL">
+    <Reference Include="AWSSDK, Version=2.1.1.0, Culture=neutral, PublicKeyToken=9f476d3089b52be3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AWSSDK.2.1.0.0\lib\net45\AWSSDK.dll</HintPath>
+      <HintPath>..\packages\AWSSDK.2.1.1.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -107,7 +107,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Advertising\VampireFreaks.cs" />
     <Compile Include="BLL\CacheHelper.cs" />
     <Compile Include="BLL\cGoogleMap.cs" />
     <Compile Include="BLL\ContentLinker.cs" />
@@ -115,11 +114,9 @@
     <Compile Include="BOL\ArtistContent\Artist.cs" />
     <Compile Include="BOL\ArtistContent\ArtistProperty.cs" />
     <Compile Include="BOL\ArtistContent\ArtistSong.cs" />
-    <Compile Include="BOL\ArtistContent\ArtistEvents.cs" />
     <Compile Include="BOL\Birthday.cs" />
     <Compile Include="BOL\BlackIP.cs" />
     <Compile Include="BOL\BlockedUser.cs" />
-    <Compile Include="BOL\CalendarItem.cs" />
     <Compile Include="BOL\ChatRoom.cs" />
     <Compile Include="BOL\ChatRoomUser.cs" />
     <Compile Include="BOL\CityRegionCountry.cs" />
@@ -144,7 +141,6 @@
     <Compile Include="BOL\DirectMessage.cs" />
     <Compile Include="BOL\GeoData.cs" />
     <Compile Include="BOL\MultiProperty.cs" />
-    <Compile Include="BOL\EventCycle.cs" />
     <Compile Include="BOL\Playlist.cs" />
     <Compile Include="BOL\PlaylistVideo.cs" />
     <Compile Include="BOL\ProfileLog.cs" />
@@ -154,7 +150,6 @@
     <Compile Include="BOL\PropertyType.cs" />
     <Compile Include="BOL\ArtistContent\Song.cs" />
     <Compile Include="BOL\Status.cs" />
-    <Compile Include="BOL\Event.cs" />
     <Compile Include="BOL\StatusUpdate.cs" />
     <Compile Include="BOL\UserAccount.cs" />
     <Compile Include="BOL\UserAccountDetail.cs" />
@@ -172,7 +167,6 @@
     <Compile Include="BOL\VideoSong.cs" />
     <Compile Include="BOL\Vote.cs" />
     <Compile Include="BOL\YouAre.cs" />
-    <Compile Include="BOL\Zone.cs" />
     <Compile Include="BaseTypes\BaseExistance.cs" />
     <Compile Include="Configs\AmazonCloudConfigs.cs" />
     <Compile Include="Configs\DataBaseConfigs.cs" />

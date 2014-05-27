@@ -112,24 +112,9 @@ namespace DasKlub.Lib.BOL
         /// <returns></returns>
         public static bool IsRole(string roleName)
         {
+            // TODO: IMPLMENET
             return true;
-            // if (roleName == string.Empty) return false; // name not given
-
-            // // get a configured DbCommand object
-            // DbCommand comm = DbAct.CreateCommand();
-            // // set the stored procedure name
-            ////  comm.CommandText = StoredProcedures.Name.up_IsRole.ToString();
-            // // create a new parameter
-            // DbParameter param = comm.CreateParameter();
-            // // 
-            // param.ParameterName = "@roleName";
-            // param.Value = roleName;
-            // param.DbType = DbType.String;
-            // comm.Parameters.Add(param);
-
-            // /// Exec
-            // bool result = bool.TryParse(DbAct.ExecuteScalar(comm), out result);
-            // return result;
+         
         }
 
         #region ICacheName Members

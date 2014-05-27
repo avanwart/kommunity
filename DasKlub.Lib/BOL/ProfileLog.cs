@@ -35,17 +35,7 @@ namespace DasKlub.Lib.BOL
                 return theIDs;
             }
 
-            //if (string.IsNullOrEmpty(result))
-            //{
-            //    return 0;
-            //}
-            //else
-            //{
-            //    this.ProfileLogID = Convert.ToInt32(result);
-
-            //    return this.ProfileLogID;
-            //}
-
+       
             return null;
         }
 

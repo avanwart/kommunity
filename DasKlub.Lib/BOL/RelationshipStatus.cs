@@ -60,8 +60,8 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                return GetType().FullName +
-                       "-" + RelationshipStatusID.ToString();
+                return string.Concat(GetType().FullName,
+                       "-", RelationshipStatusID.ToString());
             }
         }
 
