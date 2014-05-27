@@ -756,20 +756,21 @@ namespace DasKlub.Lib.Operational
             return replacementText;
         }
 
+        public static string ExtractYouTubeVideoKey(string text)
+        {
+            if (text.Contains("youtu.be"))
+            {
+                return text.Replace("https", "http").Replace("http://youtu.be/", string.Empty);
+            }
+            
+            var nvcKey = HttpUtility.ParseQueryString(new Uri(text).Query);
+            return nvcKey["v"];
+        }
+
         private static string FormatYouTubeVideo(string matchedUrl, int height = 200, int width = 300)
         {
-            string videoKey;
+            string videoKey = ExtractYouTubeVideoKey(matchedUrl);
             string replacementText;
-
-            if (matchedUrl.Contains("youtu.be"))
-            {
-                videoKey = matchedUrl.Replace("http://youtu.be/", string.Empty);
-            }
-            else
-            {
-                var nvcKey  = HttpUtility.ParseQueryString(new Uri(matchedUrl).Query);
-                videoKey    = nvcKey["v"];
-            }
 
             // YouTube video
             replacementText = string.Format(

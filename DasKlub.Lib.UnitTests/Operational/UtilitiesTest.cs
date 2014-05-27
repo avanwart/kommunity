@@ -151,6 +151,25 @@ note: Thanks to DasKlub community";
         }
 
         [TestMethod]
+        public void ConvertTextToHTML_TextWithHttpsYouTubeLinks_ContainsHrefsCorrectly()
+        {
+            // arrange
+            var text = @"blah blah
+ 
+https://www.youtube.com/watch?v=v0HBy6JxweE";
+
+            // act
+            var result = Utilities.ConvertTextToHtml(text);
+
+            // assert 
+            var expected = @"blah blah<br />
+ <br />
+<div class=""you_tube_iframe""><iframe width=""300"" height=""200"" src=""http://www.youtube.com/embed/v0HBy6JxweE?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>";
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
         public void ConvertTextToHTML_TextWithRegularYouTubeLinks_ContainsHrefsCorrectly()
         {
             // arrange
@@ -206,5 +225,71 @@ https://www.youtube.com/user/dasklubber";
                                                                       
             Assert.AreEqual(expected, result);
         }
+
+        [TestMethod]
+        public void ExtractYouTubeVideoKey_NonYouTubeLink_ReturnsNull()
+        {
+            // arrange
+            var text = "https://something.com";
+
+            // act
+            var result = Utilities.ExtractYouTubeVideoKey(text);
+
+            // assert 
+            Assert.AreEqual(null, result);
+        }
+
+        [TestMethod]
+        public void ExtractYouTubeVideoKey_HttpNoWwwYouTubeLink_ReturnsNull()
+        {
+            // arrange
+            var text = "http://youtube.com/watch?v=v0HBy6JxweE";
+
+            // act
+            var result = Utilities.ExtractYouTubeVideoKey(text);
+
+            // assert 
+            Assert.AreEqual(expected: "v0HBy6JxweE", actual: result);
+        }
+
+        [TestMethod]
+        public void ExtractYouTubeVideoKey_HttpYouTubeLink_ReturnsNull()
+        {
+            // arrange
+            var text = "http://www.youtube.com/watch?v=v0HBy6JxweE";
+
+            // act
+            var result = Utilities.ExtractYouTubeVideoKey(text);
+
+            // assert 
+            Assert.AreEqual(expected: "v0HBy6JxweE", actual: result);
+        }
+
+        [TestMethod]
+        public void ExtractYouTubeVideoKey_HttpsYouTubeLink_ReturnsNull()
+        {
+            // arrange
+            var text = "https://youtube.com/watch?v=v0HBy6JxweE";
+
+            // act
+            var result = Utilities.ExtractYouTubeVideoKey(text);
+
+            // assert 
+            Assert.AreEqual(expected: "v0HBy6JxweE" , actual: result);
+        }
+
+        [TestMethod]
+        public void ExtractYouTubeVideoKey_HttpsNoWwwYouTubeLink_ReturnsNull()
+        {
+            // arrange
+            var text = "https://youtube.com/watch?v=v0HBy6JxweE";
+
+            // act
+            var result = Utilities.ExtractYouTubeVideoKey(text);
+
+            // assert 
+            Assert.AreEqual(expected: "v0HBy6JxweE", actual: result);
+        }
+
     }
 }
