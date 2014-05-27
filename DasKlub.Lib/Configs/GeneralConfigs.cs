@@ -30,6 +30,7 @@ namespace DasKlub.Lib.Configs
             _youTubeDevKey = ConfigurationManager.AppSettings["YouTubeDevKey"];
             _youTubeDevUser = ConfigurationManager.AppSettings["YouTubeDevUser"];
             _youTubeDevPass = ConfigurationManager.AppSettings["YouTubeDevPass"];
+            _youTubeDevApp = ConfigurationManager.AppSettings["YouTubeDevApp"];
         }
 
         #region readonly variables 
@@ -60,6 +61,8 @@ namespace DasKlub.Lib.Configs
         private static readonly string _youTubeDevKey = string.Empty;
         private static readonly string _youTubeDevUser = string.Empty;
         private static readonly string _youTubeDevPass = string.Empty;
+        private static readonly string _youTubeDevApp = string.Empty;
+        
 
         #endregion
 
@@ -216,6 +219,13 @@ namespace DasKlub.Lib.Configs
         {
             get { return _youTubeDevPass; }
         }
+
+
+        public static string YouTubeDevApp
+        {
+            get { return _youTubeDevApp; }
+        }
+ 
 
         #endregion
     }
