@@ -3,15 +3,14 @@
 
 ---
 ### Development Software
-
-- [Visual Studio 2012](http://www.microsoft.com/visualstudio/eng/downloads)
-- [SQL Server 2012](http://www.microsoft.com/en-ca/download/details.aspx?id=29062) Get the service and the management studio: ENU\x64\SQLManagementStudio_x64_ENU.exe 
+- [Visual Studio 2013](http://www.microsoft.com/visualstudio/eng/downloads)
+- [SQL Server 2014](http://www.microsoft.com/en-us/download/details.aspx?id=42299) Get the service and the management studio: ENU\x64\SQLManagementStudio_x64_ENU.exe 
 - [PowerShell 3.0](http://www.microsoft.com/web/downloads/platform.aspx)
 - [Amazon Storage](http://www.cloudberrylab.com/)
 - [Git Extensions](http://sourceforge.net/projects/gitextensions/)
 - Git Source Control Provider. In Visual Studio go to: Tools > Extensions and Updates > Search online. Then update Source Control in Tools > Options to Git Source Control Provider.
 
-
+---
 ## Server Setup
 - http://www.iis.net/downloads/microsoft/url-rewrite
 - Configure MS Web Deploy
@@ -26,14 +25,11 @@
 
 ---
 ### Database Setup
-
 - You will need to run the dk_script.sql file in the project against a SQL 2012 database you created.
 - You'll need to update the database from its initial state: <Pre> Update-Database -ProjectName DasKlub.DBMigrator -StartUpProjectName DasKlub.DBMigrator -ConnectionStringName DasKlubDBContext -Verbose</pre>
 
-
-###Database Migrations
 ---
-
+###Database Migrations
 To add a database migration, the first thing that needs to be done is to ensure migrations are enabled. This should be done already. 
 
 Next, open up Package Manager Console in Visual Studio and run: 
@@ -58,7 +54,6 @@ It's best to wrap the SQL in a snippet like this if it's raw SQL:
 
 ---
 ### Deployment
-
 - Create a Web.config.Release file in the directory of the Web.config with override settings for your deployment.
 - Get a Windows Server 2012 instance
 - Set up Web Deploy ('Web Deploy for Hosting Servers' from Web Platform Installer)
@@ -114,7 +109,6 @@ Invoke-psake $PSScriptRoot\..\default.ps1 deploy -properties @{
 
 ---
 ### Workflow
-
 - Change your fetch URL to the origin, not your fork: 
 <pre>
 git remote -v
