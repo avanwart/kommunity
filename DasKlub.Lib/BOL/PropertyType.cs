@@ -131,7 +131,7 @@ namespace DasKlub.Lib.BOL
 
         public string CacheName
         {
-            get { return GetType().FullName + "-" + PropertyTypeID.ToString() + "-" + PropertyTypeCode.ToString(); }
+            get { return string.Concat(GetType().FullName, "-", PropertyTypeID.ToString(), "-", PropertyTypeCode.ToString()); }
         }
 
         public void RemoveCache()

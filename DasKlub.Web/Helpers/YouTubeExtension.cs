@@ -28,7 +28,6 @@ namespace DasKlub.Web.Helpers
 
         public entry()
         {
-            //xmlns.Add(@"msdata", @"urn:schemas-microsoft-com:xml-msdata");
             xmlns.Add("xmlns", "http://www.w3.org/2005/Atom");
             xmlns.Add("media", "http://search.yahoo.com/mrss/");
             xmlns.Add("gd", "http://schemas.google.com/g/2005");

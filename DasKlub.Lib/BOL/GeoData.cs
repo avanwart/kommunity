@@ -82,11 +82,6 @@ namespace DasKlub.Lib.BOL
                     postalCode = postalCode.Split('-')[0];
                     postalCode = postalCode + "-000";
                 }
-                //if (postalCode.Length == 8)
-                //{
-                //    // they need a dash
-                //    postalCode = postalCode.Insert(5, "-");
-                //}
             }
             else
             {
@@ -101,8 +96,6 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("postalCode", postalCode.Replace(" ", string.Empty));
             comm.AddParameter("countryCode", countryCode);
 
-
-            // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt != null && dt.Rows.Count > 0)
@@ -165,7 +158,6 @@ namespace DasKlub.Lib.BOL
 
             if (string.IsNullOrEmpty(postalCode) ||
                 countryCode == SiteEnums.CountryCodeISO.U0) return false;
-            //else if (countryCode != SiteEnums.CountryCodeISO.US) return true; // incomplete list for GB, CA and others
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -366,7 +358,9 @@ namespace DasKlub.Lib.BOL
                 string city = FromObj.StringFromObj(dt.Rows[0]["placename"]);
                 string state = FromObj.StringFromObj(dt.Rows[0]["state"]);
 
-                return @"{""City"":""" + city + @""",""State"":""" + GetStateCodeForStateName(state) + @"""}";
+                return string.Concat(@"{""City"":""", city, 
+                                   @""",""State"":""", GetStateCodeForStateName(state), 
+                                    @"""}");
                     //JSON String
             }
             else

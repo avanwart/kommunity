@@ -293,13 +293,6 @@
     <Compile Include="m\auth\ArtistProperties.aspx.designer.cs">
       <DependentUpon>ArtistProperties.aspx</DependentUpon>
     </Compile>
-    <Compile Include="m\auth\ArtistTD.aspx.cs">
-      <DependentUpon>ArtistTD.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\auth\ArtistTD.aspx.designer.cs">
-      <DependentUpon>ArtistTD.aspx</DependentUpon>
-    </Compile>
     <Compile Include="m\auth\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -313,13 +306,6 @@
     </Compile>
     <Compile Include="m\auth\ModifyVenue.aspx.designer.cs">
       <DependentUpon>ModifyVenue.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="m\auth\NewTourDate.aspx.cs">
-      <DependentUpon>NewTourDate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\auth\NewTourDate.aspx.designer.cs">
-      <DependentUpon>NewTourDate.aspx</DependentUpon>
     </Compile>
     <Compile Include="m\auth\OrderManagement.aspx.cs">
       <DependentUpon>OrderManagement.aspx</DependentUpon>
@@ -693,10 +679,8 @@
     <Content Include="HtmlPage1.html" />
     <Content Include="MassMail.aspx" />
     <Content Include="m\auth\ArtistProperties.aspx" />
-    <Content Include="m\auth\ArtistTD.aspx" />
     <Content Include="m\auth\Default.aspx" />
     <Content Include="m\auth\ModifyVenue.aspx" />
-    <Content Include="m\auth\NewTourDate.aspx" />
     <Content Include="m\auth\OrderManagement.aspx" />
     <Content Include="m\auth\SongProperties.aspx" />
     <Content Include="m\auth\UserAddress.aspx" />
@@ -1071,9 +1055,9 @@
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.0.js" />
     <Content Include="Scripts\jquery-2.0.0.min.js" />
-    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.0.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.js" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
     <Content Include="Scripts\jquery.signalR-0.5.3.js" />
     <Content Include="Scripts\jquery.signalR-0.5.3.min.js" />
@@ -1084,7 +1068,7 @@
     <Content Include="Scripts\jquery.signalR-2.0.3.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.map" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

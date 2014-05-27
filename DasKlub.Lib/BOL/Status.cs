@@ -51,7 +51,6 @@ namespace DasKlub.Lib.BOL
             }
             catch
             {
-                //Utilities.LogError(ex);
             }
         }
 

@@ -99,10 +99,7 @@ namespace DasKlub.Lib.BOL
 
             int secondsElapsed = 0;
 
-
             if (plvids.Count == 0) return string.Empty;
-
-            //Videos vids = new Videos();
 
             var now = DateTime.UtcNow;
             var elapsedTime = now - ply.PlaylistBegin;
@@ -118,13 +115,11 @@ namespace DasKlub.Lib.BOL
 
                 if (!v1.IsEnabled) continue;
 
-                //secondsElapsed += v1.ClipLength;
-                //vids.Add(v1);
                 cliplength = v1.ClipLength;
 
                 if (totalSecondsElapsed <= v1.ClipLength)
                 {
-                    v1.Intro += totalSecondsElapsed; // +(secondsElapsed - totalSecondsElapsed);
+                    v1.Intro += totalSecondsElapsed; 
                     sngr = new SongRecord(v1);
                     sngr.GetRelatedVideos = false;
                     return sngr.JSONResponse;
@@ -145,8 +140,6 @@ namespace DasKlub.Lib.BOL
             ply.PlaylistBegin = DateTime.UtcNow;
             ply.Update();
             return CurrentVideoInPlaylist(1);
-
-            //return string.Empty;
         }
 
 

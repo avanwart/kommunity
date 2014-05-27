@@ -22,6 +22,8 @@ using HttpUtility = System.Web.HttpUtility;
 using Utilities = DasKlub.Lib.Operational.Utilities;
 using Video = DasKlub.Lib.BOL.Video;
 using System.Text;
+using DasKlub.Lib.DAL;
+using System.Data;
 
 namespace DasKlub.Web.Controllers
 {
@@ -30,10 +32,12 @@ namespace DasKlub.Web.Controllers
     {
         private readonly IForumCategoryRepository _forumcategoryRepository;
         private readonly MembershipUser _mu;
-
-        const int AmountOfNewThreadsOnHomepage = 15;
+        private const int AmountOfNewThreadsOnHomepage = 15;
         private const int CountOfNewsItemsOnHomepage = 3;
         private const int AmountOfImagesToShowOnTheHomepage = 12;
+        private const string provider = "YT";// YouTube
+        private const int ForumThreadsToDisplay = 20;
+        private char InvalidStatus = 'I';
 
         public HomeController()
             : this(new ForumCategoryRepository())
@@ -61,45 +65,31 @@ namespace DasKlub.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult VideoSubmit(string video, string videoType, string personType,
-                                        string footageType, string band, string song, string contestID)
+        public ActionResult VideoSubmit(string video,
+                                        string videoType, 
+                                        string personType,
+                                        string footageType,
+                                        string band,
+                                        string song,
+                                        string contestID)
         {
-            var devkey = GeneralConfigs.YouTubeDevKey;
+            var invalidSubmissionLink = string.Concat("~/videosubmission.aspx?statustype=", InvalidStatus.ToString());
 
             if (string.IsNullOrWhiteSpace(video))
             {
-                Response.Redirect("~/videosubmission.aspx?statustype=I");
+                Response.Redirect(invalidSubmissionLink);
                 return new EmptyResult();
             }
             var vir = new VideoRequest {RequestURL = video};
 
             string vidKey = string.Empty;
+            vir.RequestURL = vir.RequestURL;
+            vir.VideoKey = Utilities.ExtractYouTubeVideoKey(video);
 
-            vir.RequestURL = vir.RequestURL.Replace("https", "http");
-
-            if (vir.RequestURL.Contains("http://youtu.be/"))
+            if(string.IsNullOrWhiteSpace(vir.VideoKey))
             {
-                vir.VideoKey = vir.RequestURL.Replace("http://youtu.be/", string.Empty);
-            }
-            else if (vir.RequestURL.Contains("http://www.youtube.com/watch?"))
-            {
-                var nvcKey = HttpUtility.ParseQueryString(vir.RequestURL.Replace("http://www.youtube.com/watch?", string.Empty));
-
-                vidKey = nvcKey["v"].Replace("#", string.Empty).Replace("!", string.Empty);
-                vir.VideoKey = vidKey;
-            }
-            else if (vir.RequestURL.Contains("http://youtube.com/watch?"))
-            {
-                var nvcKey = HttpUtility.ParseQueryString(vir.RequestURL.Replace("http://youtube.com/watch?", string.Empty));
-
-                vidKey = nvcKey["v"].Replace("#", string.Empty).Replace("!", string.Empty);
-                vir.VideoKey = vidKey;
-            }
-            else
-            {
-                // invalid 
-                vir.StatusType = 'I';
-                Response.Redirect("~/videosubmission.aspx?statustype=I");
+                vir.StatusType = InvalidStatus;
+                Response.Redirect(invalidSubmissionLink);
                 return new EmptyResult();
             }
 
@@ -109,59 +99,48 @@ namespace DasKlub.Web.Controllers
                 string.IsNullOrWhiteSpace(band) ||
                 string.IsNullOrWhiteSpace(song))
             {
-                // invalid 
                 vir.StatusType = 'P';
                 Response.Redirect("~/videosubmission.aspx?statustype=P");
                 return new EmptyResult();
             }
 
-            var vid = new Video("YT", vidKey) {ProviderCode = "YT"};
-
+            var vid = new Video(provider, vidKey) {ProviderCode = provider};
+            
             try
             {
-                var yousettings = new YouTubeRequestSettings("Das Klub", devkey);
-
-                var yourequest = new YouTubeRequest(yousettings);
-                var entryUri = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", vidKey));
-
-                var video2 = yourequest.Retrieve<Google.YouTube.Video>(entryUri);
-                vid.Duration = (float) Convert.ToDouble(video2.YouTubeEntry.Duration.Seconds);
-                vid.ProviderUserKey = video2.Uploader;
-                vid.PublishDate = video2.YouTubeEntry.Published;
+                Google.YouTube.Video youTubeVideo = GetYouTubeVideo(vidKey);
+                vid.Duration = (float)Convert.ToDouble(youTubeVideo.YouTubeEntry.Duration.Seconds);
+                vid.ProviderUserKey = youTubeVideo.Uploader;
+                vid.PublishDate = youTubeVideo.YouTubeEntry.Published;
             }
             catch (GDataRequestException)
             {
                 vid.IsEnabled = false;
                 vid.Update();
-
-                vir.StatusType = 'I';
-                Response.Redirect("~/videosubmission.aspx?statustype=I");
-             
+                vir.StatusType = InvalidStatus;
+                Response.Redirect(invalidSubmissionLink);
                 return new EmptyResult();
             }
             catch (ClientFeedException)
             {
-                vir.StatusType = 'I';
-                Response.Redirect("~/videosubmission.aspx?statustype=I");
-                 
+                vir.StatusType = InvalidStatus;
+                Response.Redirect(invalidSubmissionLink);
                 return new EmptyResult();
             }
             catch (Exception)
             {
-                vir.StatusType = 'I';
-                Response.Redirect("~/videosubmission.aspx?statustype=I");
-               
+                vir.StatusType = InvalidStatus;
+                Response.Redirect(invalidSubmissionLink);
                 return new EmptyResult();
             }
-
 
             vid.VolumeLevel = 5;
 
             if (string.IsNullOrWhiteSpace(vid.ProviderKey))
             {
                 // invalid 
-                vir.StatusType = 'I';
-                Response.Redirect("~/videosubmission.aspx?statustype=I");
+                vir.StatusType = InvalidStatus;
+                Response.Redirect(invalidSubmissionLink);
                 return new EmptyResult();
             }
 
@@ -171,15 +150,12 @@ namespace DasKlub.Web.Controllers
                 vid.IsEnabled = true;
                 vid.Create();
             }
-            else
-            {
-                vid.Update();
-            }
-
+            else vid.Update();
 
             // if there is a contest, add it now since there is an id
             int subContestID;
-            if (!string.IsNullOrWhiteSpace(contestID) && int.TryParse(contestID, out subContestID) &&
+            if (!string.IsNullOrWhiteSpace(contestID) && 
+                int.TryParse(contestID, out subContestID) &&
                 subContestID > 0)
             {
                 //TODO: check if it already is in the contest
@@ -197,7 +173,6 @@ namespace DasKlub.Web.Controllers
             }
 
             // vid type
-
             var propTyp = new PropertyType(SiteEnums.PropertyTypeCode.VIDTP);
             var mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
             MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
@@ -205,25 +180,20 @@ namespace DasKlub.Web.Controllers
             MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(videoType), vid.VideoID);
 
             // human
-
             propTyp = new PropertyType(SiteEnums.PropertyTypeCode.HUMAN);
             mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
             MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
             mp.RemoveCache();
             MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(personType), vid.VideoID);
 
-
             // footage
-
             propTyp = new PropertyType(SiteEnums.PropertyTypeCode.FOOTG);
             mp = new MultiProperty(vid.VideoID, propTyp.PropertyTypeID, SiteEnums.MultiPropertyType.VIDEO);
             MultiPropertyVideo.DeleteMultiPropertyVideo(mp.MultiPropertyID, vid.VideoID);
             mp.RemoveCache();
             MultiPropertyVideo.AddMultiPropertyVideo(Convert.ToInt32(footageType), vid.VideoID);
 
-
             // song 1
-
             var artst = new Artist(band.Trim());
 
             if (artst.ArtistID == 0)
@@ -253,9 +223,17 @@ namespace DasKlub.Web.Controllers
             {
                 Response.Redirect(vid.VideoURL); // just send them to it
             }
-
-
+            
             return new EmptyResult();
+        }
+
+        private Google.YouTube.Video GetYouTubeVideo(string vidKey)
+        {
+            var youTubeSettings = new YouTubeRequestSettings(GeneralConfigs.YouTubeDevApp, GeneralConfigs.YouTubeDevKey);
+            var youTubeRequest = new YouTubeRequest(youTubeSettings);
+            var entryUri = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", vidKey));
+            var video = youTubeRequest.Retrieve<Google.YouTube.Video>(entryUri);
+            return video;
         }
  
         public ActionResult Index()
@@ -305,17 +283,24 @@ namespace DasKlub.Web.Controllers
                         var lastPost = context.ForumPost
                                               .Where(x => x.ForumSubCategoryID == threadId)
                                               .OrderByDescending(x => x.CreateDate).FirstOrDefault();
-
-                        feedItem.ForumSubCategory = context.ForumSubCategory.Where(x => x.ForumSubCategoryID == threadId).FirstOrDefault();
-                        feedItem.ForumCategory = context.ForumCategory.Where(x => x.ForumCategoryID == feedItem.ForumSubCategory.ForumCategoryID).FirstOrDefault();
+                        feedItem.ForumSubCategory = context.ForumSubCategory
+                                                           .Where(x => x.ForumSubCategoryID == threadId)
+                                                           .FirstOrDefault();
+                        feedItem.ForumCategory = context.ForumCategory
+                                                        .Where(x => x.ForumCategoryID == feedItem.ForumSubCategory.ForumCategoryID)
+                                                        .FirstOrDefault();
                         feedItem.LastPosted = (lastPost == null) ? feedItem.ForumSubCategory.CreateDate : lastPost.CreateDate;
                         feedItem.PostCount = context.ForumPost.Where(x => x.ForumSubCategoryID == threadId).Count();
                         
                         var pageCount = (feedItem.PostCount + ForumController.PageSizeForumPost - 1) / ForumController.PageSizeForumPost;
-                        feedItem.URLTo = (lastPost == null) ? feedItem.ForumSubCategory.SubForumURL  :
-                                        new Uri(string.Format("{0}/{1}#{2}", feedItem.ForumSubCategory.SubForumURL, ((pageCount > 1)
-                                       ? pageCount.ToString(CultureInfo.InvariantCulture)
-                                       : string.Empty), lastPost.ForumPostID.ToString(CultureInfo.InvariantCulture)));
+                        feedItem.URLTo = (lastPost == null) ? 
+                                            feedItem.ForumSubCategory.SubForumURL  :
+                                            new Uri(string.Format("{0}/{1}#{2}", 
+                                                        feedItem.ForumSubCategory.SubForumURL, 
+                                                        ((pageCount > 1)
+                                                            ? pageCount.ToString(CultureInfo.InvariantCulture)
+                                                            : string.Empty),
+                                                        lastPost.ForumPostID.ToString(CultureInfo.InvariantCulture)));
 
                         feedItem.UserName = (lastPost == null) ? 
                             new UserAccount(feedItem.ForumSubCategory.CreatedByUserID).UserName : 
@@ -332,7 +317,7 @@ namespace DasKlub.Web.Controllers
                          group b by b.CreatedByUserID
                          into grp
                          orderby grp.Count() descending
-                             select grp.Key).Take(amountForForm).ToList();
+                         select grp.Key).Take(amountForForm).ToList();
 
                     var topForumUsers = LoadTopForumUsers(mostPostsInForum);
                     
@@ -344,59 +329,53 @@ namespace DasKlub.Web.Controllers
             }
 
             ViewBag.RecentArticles = LoadRecentArticles();
-
             ViewBag.TopUsersOfTheMonth = LoadTopUsers();
 
             var recentPhotos = new PhotoItems { UseThumb = true, ShowTitle = false };
             recentPhotos.GetPhotoItemsPageWise(1, AmountOfImagesToShowOnTheHomepage);
             ViewBag.RecentPhotos = recentPhotos;
             
-
             return View();
         }
 
         private class ThreadDate 
         {
-            public int ForumSubCategoryID { get; set; }
-            public DateTime CreateDate { get; set; }
+            public int ForumSubCategoryID   { get; set; }
+            public DateTime CreateDate      { get; set; }
         }
 
-        
         private List<int> LoadRecentActiveThreads(int excludeTopThreadId)
         {
             using (var context = new DasKlubDbContext())
             {
-                var mostRecentThreads = (from m in context.ForumSubCategory
-                          where m.ForumSubCategoryID != excludeTopThreadId
-                          orderby m.CreateDate descending
-                          select m).Select(x => new ThreadDate() 
+                var mostRecentThreads = 
+                         (from      thread in context.ForumSubCategory
+                          where     thread.ForumSubCategoryID != excludeTopThreadId
+                          orderby   thread.CreateDate descending
+                          select    thread).Select(x => new ThreadDate() 
                                                     { 
                                                           ForumSubCategoryID    = x.ForumSubCategoryID, 
-                                                          CreateDate            = x.CreateDate 
-                                                    }).Take(20)
+                                                          CreateDate            = x.CreateDate
+                                                    }).Take(ForumThreadsToDisplay)
                                                       .ToList();
 
-                  // TODO: USE LINQ
-                  System.Data.Common.DbCommand comm = DasKlub.Lib.DAL.DbAct.CreateCommand();
-                  comm.CommandText = string.Format( @"
-                    Select top 20 [ForumSubCategoryID],[CreateDate]
-                    from
+                  var command = DbAct.CreateCommand();
+                  command.CommandText = string.Format(@"
+                    SELECT TOP {0} [ForumSubCategoryID], [CreateDate]
+                    FROM
                     (
-                    Select [ForumSubCategoryID]
-                          ,[CreateDate]
-                          ,ROW_NUMBER() OVER (PARTITION BY [ForumSubCategoryID] Order by [CreateDate] desc ) as Seq
-                      from  [ForumPosts]
-                    where ForumSubCategoryID != {0}
-                    )P
-                    Where P.Seq = 1
-                     Order by [CreateDate] desc ", excludeTopThreadId);
-
-                comm.CommandType = System.Data.CommandType.Text;
-
-                var mostRecentPostsToThreads = DasKlub.Lib.DAL.DbAct.ExecuteSelectCommand(comm);
-
-                var mostRecentPostsToThreadsList = new List<ThreadDate>();
-
+                        SELECT [ForumSubCategoryID]
+                              ,[CreateDate]
+                              ,ROW_NUMBER() OVER (PARTITION BY [ForumSubCategoryID] ORDER BY [CreateDate] DESC) AS Seq
+                        FROM  [ForumPosts]
+                        WHERE ForumSubCategoryID != {1}
+                    ) PartitionedTable
+                    WHERE PartitionedTable.Seq = 1
+                    ORDER BY [CreateDate] DESC ", ForumThreadsToDisplay,  excludeTopThreadId);
+                command.CommandType                 = CommandType.Text;
+                var mostRecentPostsToThreads        = DbAct.ExecuteSelectCommand(command);
+                var mostRecentPostsToThreadsList    = new List<ThreadDate>();
+ 
                 foreach(System.Data.DataRow item in mostRecentPostsToThreads.Rows)
                 {
                     mostRecentPostsToThreadsList.Add
@@ -419,12 +398,12 @@ namespace DasKlub.Web.Controllers
                 foreach (var thread in mostRecentPostsToThreadsList)
                 {
                     if (finalThreadList.ContainsKey(thread.ForumSubCategoryID))
-                        finalThreadList[thread.ForumSubCategoryID] = thread.CreateDate; // update with more recent date of post
+                        finalThreadList[thread.ForumSubCategoryID] = thread.CreateDate; // updates to more recent date, last post
                     else
                         finalThreadList.Add(thread.ForumSubCategoryID, thread.CreateDate);
                 }
 
-                return finalThreadList.OrderByDescending(x => x.Value).Select(x => x.Key).Take(20).ToList();
+                return finalThreadList.OrderByDescending(x => x.Value).Select(x => x.Key).Take(ForumThreadsToDisplay).ToList();
             }
         }
 
@@ -462,7 +441,6 @@ namespace DasKlub.Web.Controllers
                 context.ForumSubCategory.FirstOrDefault(x => x.ForumSubCategoryID == mostPopularThisWeek.Key);
 
             if (mostPopularThisWeek == null) return null;
-
 
             var topFeedItem = new ForumFeedModel {ForumSubCategory = topForumThreadOfTheWeek};
 
@@ -510,7 +488,6 @@ namespace DasKlub.Web.Controllers
             }
             return topFeedItem;
         }
-
      
         public ActionResult Contact()
         {
