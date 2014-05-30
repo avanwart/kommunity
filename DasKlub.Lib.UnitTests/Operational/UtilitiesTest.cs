@@ -230,7 +230,7 @@ https://www.youtube.com/user/dasklubber";
         public void ExtractYouTubeVideoKey_NonYouTubeLink_ReturnsNull()
         {
             // arrange
-            var text = "https://something.com";
+            var text = @"https://something.com";
 
             // act
             var result = Utilities.ExtractYouTubeVideoKey(text);
@@ -240,7 +240,7 @@ https://www.youtube.com/user/dasklubber";
         }
 
         [TestMethod]
-        public void ExtractYouTubeVideoKey_HttpNoWwwYouTubeLink_ReturnsNull()
+        public void ExtractYouTubeVideoKey_HttpNoWwwYouTubeLink_ReturnsVideoKey()
         {
             // arrange
             var text = "http://youtube.com/watch?v=v0HBy6JxweE";
@@ -253,7 +253,7 @@ https://www.youtube.com/user/dasklubber";
         }
 
         [TestMethod]
-        public void ExtractYouTubeVideoKey_HttpYouTubeLink_ReturnsNull()
+        public void ExtractYouTubeVideoKey_HttpYouTubeLink_ReturnsVideoKey()
         {
             // arrange
             var text = "http://www.youtube.com/watch?v=v0HBy6JxweE";
@@ -266,10 +266,10 @@ https://www.youtube.com/user/dasklubber";
         }
 
         [TestMethod]
-        public void ExtractYouTubeVideoKey_HttpsYouTubeLink_ReturnsNull()
+        public void ExtractYouTubeVideoKey_HttpsYouTubeLink_ReturnsVideoKey()
         {
             // arrange
-            var text = "https://youtube.com/watch?v=v0HBy6JxweE";
+            var text = "https://www.youtube.com/watch?v=v0HBy6JxweE";
 
             // act
             var result = Utilities.ExtractYouTubeVideoKey(text);
@@ -279,7 +279,7 @@ https://www.youtube.com/user/dasklubber";
         }
 
         [TestMethod]
-        public void ExtractYouTubeVideoKey_HttpsNoWwwYouTubeLink_ReturnsNull()
+        public void ExtractYouTubeVideoKey_HttpsNoWwwYouTubeLink_ReturnsVideoKey()
         {
             // arrange
             var text = "https://youtube.com/watch?v=v0HBy6JxweE";
