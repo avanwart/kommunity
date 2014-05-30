@@ -197,7 +197,7 @@ namespace DasKlub.Web.Controllers
             var modelOut = new ContentModel( );
             var cacheKey = string.Concat("news-", key);
 
-            if (HttpRuntime.Cache[cacheKey] == null)
+            if (CacheZero() || HttpRuntime.Cache[cacheKey] == null )
             {
                 var model = new Content(key);
 
@@ -259,6 +259,11 @@ namespace DasKlub.Web.Controllers
             }
 
             return View(modelOut);
+        }
+
+        private bool CacheZero()
+        {
+            return Request.QueryString["cache"] == "0";
         }
 
         [Authorize]
