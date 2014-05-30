@@ -5,7 +5,7 @@
 @using DasKlub.Lib.Resources
 
 @using DasKlub.Web.Helpers
-@model DasKlub.Lib.BOL.UserContent.Content
+@model DasKlub.Web.Models.ContentModel
 
 @{
     ViewBag.Title = Model.Title;
@@ -35,7 +35,7 @@
                 <div class="video_player" id="video_player">
                     <video 
              
-                        id="product_video" width="@ViewBag.VideoWidth" height="@ViewBag.VideoHeight"  
+                        id="product_video" width="@Model.VideoWidth" height="@ViewBag.VideoHeight"  
                         poster="@Html.S3ContentPath(Model.ContentPhotoURL)" controls="controls" preload="none"
                    
                         >
@@ -50,13 +50,13 @@
 
 
             
-                        <object  width="@ViewBag.VideoWidth"   height="@ViewBag.VideoHeight"  type="application/x-shockwave-flash"
+                        <object  width="@Model.VideoWidth"   height="@ViewBag.VideoHeight"  type="application/x-shockwave-flash"
                                  data="@Url.Content("~/content/mediaelement/flashmediaelement.swf")">
                             <param name="movie" value="@Url.Content("~/content/mediaelement/flashmediaelement.swf")" />
                             <param name="flashvars" value="controls=true&amp;file=@Html.S3ContentPath(Model.ContentVideoURL)" />
                             <!-- Image as a last resort -->
                             <img src="@Html.S3ContentPath(Model.ContentPhotoURL)"  
-                                 width="@ViewBag.VideoWidth"   height="@ViewBag.VideoHeight"  
+                                 width="@Model.VideoWidth"   height="@ViewBag.VideoHeight"  
                                 
                                  alt="@Messages.Video" 
                                  title="@Messages.NoVideoPlaybackCapabilities"  />
@@ -70,7 +70,7 @@
             else if (!string.IsNullOrWhiteSpace(Model.ContentVideoURL2))
             {
                 
-                <iframe width="@ViewBag.VideoWidth" height="@ViewBag.VideoHeight"   src="@Model.ContentVideoURL2" allowfullscreen></iframe>
+                <iframe width="@Model.VideoWidth" height="@ViewBag.VideoHeight"   src="@Model.ContentVideoURL2" allowfullscreen></iframe>
                 
             }
             else
@@ -210,18 +210,18 @@
      
   
         <hr />
-        @if (ViewBag.NextNews != null)
+        @if (Model.NextNews != null)
         {
             <b>@Messages.Next</b>
             <ul class="photo_navs">
-                @Html.Raw(ViewBag.NextNews)
+                @Html.Raw(Model.NextNews)
             </ul>
         }
-        @if (ViewBag.PreviousNews != null)
+        @if (Model.PreviousNews != null)
         {
             <b>@Messages.Previous</b>
             <ul class="photo_navs">
-                @Html.Raw(ViewBag.PreviousNews)
+                @Html.Raw(Model.PreviousNews)
             </ul>
         }
    
@@ -296,9 +296,9 @@
                     },
 
                     // if the <video width> is not specified, this is the default
-                    //  defaultVideoWidth: ViewBag.VideoWidth,
+                    //  defaultVideoWidth: Model.VideoWidth,
                     // if the <video height> is not specified, this is the default
-                    //defaultVideoHeight: ViewBag.VideoHeight,
+                    //defaultVideoHeight: Model.VideoHeight,
                     // if set, overrides <video width>
                     //videoWidth: -1,
                     // if set, overrides <video height>

@@ -10,6 +10,7 @@ using DasKlub.Lib.BOL.UserContent;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
 using IntrepidStudios.SearchCloud;
+using DasKlub.Web.Models;
 
 namespace DasKlub.Web.Controllers
 {
@@ -188,38 +189,76 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult Detail(string key)
         {
+            key = key.ToLower();
+
             ViewBag.VideoHeight = (Request.Browser.IsMobileDevice) ? 190 : 400;
             ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ? 285 : 600;
 
-            var model = new Content(key);
-            
-            ViewBag.ThumbIcon = Utilities.S3ContentPath(model.ContentPhotoThumbURL);
-            
-            var otherNews = new Content();
+            var modelOut = new ContentModel( );
+            var cacheKey = string.Concat("news-", key);
 
-            otherNews.GetPreviousNews(model.ReleaseDate);
-            if (otherNews.ContentID > 0)
+            if (HttpRuntime.Cache[cacheKey] == null)
             {
-                ViewBag.PreviousNews = otherNews.ToUnorderdListItem;
+                var model = new Content(key);
+
+                modelOut.ThumbIcon = Utilities.S3ContentPath(model.ContentPhotoThumbURL);
+
+                var otherNews = new Content();
+
+                otherNews.GetPreviousNews(model.ReleaseDate);
+                if (otherNews.ContentID > 0)
+                {
+                    modelOut.PreviousNews = otherNews.ToUnorderdListItem;
+                }
+
+                otherNews = new Content();
+                otherNews.GetNextNews(model.ReleaseDate);
+
+                if (otherNews.ContentID > 0)
+                {
+                    modelOut.NextNews = otherNews.ToUnorderdListItem;
+                }
+
+                if (!string.IsNullOrWhiteSpace(model.ContentVideoURL2) &&
+                    string.IsNullOrWhiteSpace(model.ContentVideoURL))
+                {
+                    // TODO: parse just the key, it's currently requiring the embed
+                    model.ContentVideoURL2 = string.Concat(model.ContentVideoURL2, "?rel=0");
+                    modelOut.VideoWidth = "100%";
+                }
+
+                modelOut.ContentID              = model.ContentID;
+                modelOut.ContentKey             = model.ContentKey;
+                modelOut.ContentPhotoThumbURL   = model.ContentPhotoThumbURL;
+                modelOut.ContentPhotoURL        = model.ContentPhotoURL;
+                modelOut.ContentTypeID          = model.ContentTypeID;
+                modelOut.ContentVideoURL        = model.ContentVideoURL;
+                modelOut.ContentVideoURL2       = model.ContentVideoURL2;
+                modelOut.CurrentStatus          = model.CurrentStatus;
+                modelOut.Detail                 = model.Detail;
+                modelOut.IsEnabled              = model.IsEnabled;
+                modelOut.Language               = model.Language;
+                modelOut.MetaDescription        = model.MetaDescription;
+                modelOut.MetaKeywords           = model.MetaKeywords;
+                modelOut.OutboundURL            = model.OutboundURL;
+                modelOut.ReleaseDate            = model.ReleaseDate;
+                modelOut.SiteDomainID           = model.SiteDomainID;
+                modelOut.Title                  = model.Title;
+                modelOut.UrlTo                  = model.UrlTo;
+                modelOut.CreateDate             = model.CreateDate;
+                modelOut.CreatedByUserID        = model.CreatedByUserID;
+                modelOut.UpdateDate             = model.UpdateDate;
+                modelOut.UpdatedByUserID        = model.UpdatedByUserID;
+
+                HttpRuntime.Cache.AddObjToCache(modelOut, cacheKey);
+            }
+            else 
+            {
+                modelOut = (ContentModel)HttpRuntime.Cache[cacheKey];
+
             }
 
-            otherNews = new Content();
-            otherNews.GetNextNews(model.ReleaseDate);
-
-            if (otherNews.ContentID > 0)
-            {
-                ViewBag.NextNews = otherNews.ToUnorderdListItem;
-            }
-            
-            if (!string.IsNullOrWhiteSpace(model.ContentVideoURL2) && 
-                string.IsNullOrWhiteSpace(model.ContentVideoURL))
-            {
-                // TODO: parse just the key, it's currently requiring the embed
-                model.ContentVideoURL2 = string.Concat(model.ContentVideoURL2, "?rel=0");
-                ViewBag.VideoWidth = "100%";
-            }
-
-            return View(model);
+            return View(modelOut);
         }
 
         [Authorize]
@@ -310,3 +349,4 @@ namespace DasKlub.Web.Controllers
         }
     }
 }
+

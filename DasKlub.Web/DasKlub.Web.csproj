@@ -279,6 +279,7 @@
     <Compile Include="MassMail.aspx.designer.cs">
       <DependentUpon>MassMail.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ContentModel.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\FindUsersModel.cs" />
     <Compile Include="Models\ForumFeedModel.cs" />
