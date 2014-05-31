@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
@@ -317,6 +318,11 @@ namespace DasKlub.Lib.BOL.UserContent
 
         public override bool Update()
         {
+            HttpRuntime.Cache.DeleteCacheObj(
+                string.Concat(
+                    "news-",
+                    ContentKey));
+
             return Set() > 0;
         }
 

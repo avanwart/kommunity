@@ -194,10 +194,10 @@ namespace DasKlub.Web.Controllers
             ViewBag.VideoHeight = (Request.Browser.IsMobileDevice) ? 190 : 400;
             ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ? 285 : 600;
 
-            var modelOut = new ContentModel( );
+            var modelOut = new ContentModel();
             var cacheKey = string.Concat("news-", key);
 
-            if (CacheZero() || HttpRuntime.Cache[cacheKey] == null )
+            if (HttpRuntime.Cache[cacheKey] == null)
             {
                 var model = new Content(key);
 
@@ -255,7 +255,6 @@ namespace DasKlub.Web.Controllers
             else 
             {
                 modelOut = (ContentModel)HttpRuntime.Cache[cacheKey];
-
             }
 
             return View(modelOut);
@@ -276,7 +275,8 @@ namespace DasKlub.Web.Controllers
 
             var ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
-            if (_mu == null || ( model.CreatedByUserID != Convert.ToInt32(_mu.ProviderUserKey) && !ua.IsAdmin)) return new EmptyResult();
+            if (_mu == null || ( model.CreatedByUserID != Convert.ToInt32(_mu.ProviderUserKey) && !ua.IsAdmin)) 
+                return new EmptyResult();
 
             model.Delete();
 
@@ -318,7 +318,7 @@ namespace DasKlub.Web.Controllers
 
             if (!hasBeenSaid) model.Reply.Create();
 
-            Response.Redirect(model.UrlTo.ToString() + "#content_comments");
+            Response.Redirect(model.UrlTo + "#content_comments");
 
             return new EmptyResult();
         }
