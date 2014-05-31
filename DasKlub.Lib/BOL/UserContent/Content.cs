@@ -317,12 +317,7 @@ namespace DasKlub.Lib.BOL.UserContent
         }
 
         public override bool Update()
-        {
-            HttpRuntime.Cache.DeleteCacheObj(
-                string.Concat(
-                    "news-",
-                    ContentKey));
-
+        {        
             return Set() > 0;
         }
 
@@ -333,8 +328,9 @@ namespace DasKlub.Lib.BOL.UserContent
 
         public int Set()
         {
+
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_SetContent";
 
@@ -360,10 +356,10 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContentVideoURL2), ContentVideoURL2);
 
             // execute the stored procedure
-            string gg = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
-            if (!string.IsNullOrEmpty(gg))
-                ContentID = Convert.ToInt32(gg);
+            if (!string.IsNullOrEmpty(result))
+                ContentID = Convert.ToInt32(result);
             return ContentID;
         }
 

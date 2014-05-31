@@ -120,6 +120,11 @@ namespace DasKlub.Web.Controllers
             }
 
             TryUpdateModel(model);
+
+            HttpRuntime.Cache.DeleteCacheObj(
+                   string.Concat(
+                       "news-",
+                       model.ContentKey));
             
             const CannedAcl acl = CannedAcl.PublicRead;
 
@@ -161,7 +166,10 @@ namespace DasKlub.Web.Controllers
                 }
             }
 
-            if (model.Set() <= 0) return View(model);
+            if (model.Set() <= 0)
+            {           
+                return View(model);
+            }
 
             if (imageFile != null)
             {
