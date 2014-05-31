@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Web.Mvc;
-using System.Web.Security;
 using DasKlub.Lib.Resources;
 using DasKlub.Lib.BOL.UserContent;
 using DasKlub.Lib.Values;
@@ -209,7 +206,7 @@ namespace DasKlub.Web.Models
         {
             get
             {
-                string theURL = string.Concat("http://",
+                var theURL = string.Concat("http://",
                                               HttpContext.Current.Request.Url.Authority);
 
                 theURL += string.Concat("/news/", ContentKey);
