@@ -5,27 +5,27 @@ using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models
 {
-    public partial class StatusUpdate
+    public class StatusUpdate
     {
         public StatusUpdate()
         {
-            this.Acknowledgements = new List<Acknowledgement>();
-            this.StatusComments = new List<StatusComment>();
-            this.StatusUpdateNotifications = new List<StatusUpdateNotification>();
+            Acknowledgements = new List<Acknowledgement>();
+            StatusComments = new List<StatusComment>();
+            StatusUpdateNotifications = new List<StatusUpdateNotification>();
         }
 
-                [Key]
-
+        [Key]
         public int statusUpdateID { get; set; }
-        public Nullable<int> updatedByUserID { get; set; }
-        public System.DateTime createDate { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> createdByUserID { get; set; }
+
+        public int? updatedByUserID { get; set; }
+        public DateTime createDate { get; set; }
+        public DateTime? updateDate { get; set; }
+        public int? createdByUserID { get; set; }
         public int userAccountID { get; set; }
         public string message { get; set; }
         public string statusType { get; set; }
-        public Nullable<int> photoItemID { get; set; }
-        public Nullable<int> zoneID { get; set; }
+        public int? photoItemID { get; set; }
+        public int? zoneID { get; set; }
         public bool isMobile { get; set; }
         public virtual ICollection<Acknowledgement> Acknowledgements { get; set; }
         public virtual PhotoItem PhotoItem { get; set; }

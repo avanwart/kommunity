@@ -4,21 +4,22 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
-    public partial class Song
+    public class Song
     {
         public Song()
         {
-            this.SongProperties = new List<SongProperty>();
-            this.VideoSongs = new List<VideoSong>();
+            SongProperties = new List<SongProperty>();
+            VideoSongs = new List<VideoSong>();
         }
 
         [Key]
         public int songID { get; set; }
-        public Nullable<int> artistID { get; set; }
-        public Nullable<int> updatedByUserID { get; set; }
-        public System.DateTime createDate { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> createdByUserID { get; set; }
+
+        public int? artistID { get; set; }
+        public int? updatedByUserID { get; set; }
+        public DateTime createDate { get; set; }
+        public DateTime? updateDate { get; set; }
+        public int? createdByUserID { get; set; }
         public bool isHidden { get; set; }
         public string name { get; set; }
         public string songKey { get; set; }

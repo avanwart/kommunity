@@ -24,36 +24,36 @@
         <hr />
         
         
-           <div class="row">
-          <div class="span4">
-                    @using (Html.BeginForm("CreateForumPost", "Forum"))
-        {
-            <fieldset>
-                <legend>
-             Reply To: @ViewBag.Forum.Title &gt;
-                    @ViewBag.SubForum.Title
-                </legend>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Detail)
-                </div>
-                <div class="editor-field">
-                    @Html.TextAreaFor(model => model.Detail, new {@class = "whatever-class", @cols = 80, @rows = 10})
-                    @Html.ValidationMessageFor(model => model.Detail)
-                    <input type="hidden" name="forumSubCategoryID" value="@ViewBag.SubForum.ForumSubCategoryID" />
-                </div>
+        <div class="row">
+            <div class="span4">
+                @using (Html.BeginForm("CreateForumPost", "Forum"))
+                {
+                    <fieldset>
+                        <legend>
+                            Reply To: @ViewBag.Forum.Title &gt;
+                            @ViewBag.SubForum.Title
+                        </legend>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Detail)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextAreaFor(model => model.Detail, new {@class = "whatever-class", @cols = 80, @rows = 10})
+                            @Html.ValidationMessageFor(model => model.Detail)
+                            <input type="hidden" name="forumSubCategoryID" value="@ViewBag.SubForum.ForumSubCategoryID" />
+                        </div>
                         
-                <p><button class="btn btn-success" id="submit_post" type="submit">@Messages.Submit</button></p>
-            </fieldset>
-        }
+                        <p><button class="btn btn-success" id="submit_post" type="submit">@Messages.Submit</button></p>
+                    </fieldset>
+                }
  
             </div>
-        <div class="span4">
+            <div class="span4">
             
 
-        </div>
+            </div>
         
 
-   </div>
+        </div>
         
     </div>
 
@@ -72,9 +72,9 @@
             $("#Detail").focus();
 
         });
-        
 
-        $('#submit_post').click(function (event) {
+
+        $('#submit_post').click(function(event) {
 
             $(this).attr("disabled", true);
             $(this).parents('form').submit();

@@ -43,8 +43,7 @@
                     <br />
                     <button type="submit" name="delete_photo" 
                             value="1"  class="btn btn-danger" 
-                            onClick=" return confirm(
-    '@Messages.DeleteThis'); ">@Messages.Delete</button>
+                            onClick=" return confirm('@Messages.DeleteThis'); ">@Messages.Delete</button>
                 </form>
             }
         </div>
@@ -69,8 +68,7 @@
                 <form action="@Url.Content("~/account/editphotodelete")" method="post">
                     <button type="submit" name="delete_photo" 
                             value="2"  class="btn btn-danger" 
-                            onClick=" return confirm(
-        '@Messages.DeleteThis'); ">@Messages.Delete</button>
+                            onClick=" return confirm('@Messages.DeleteThis'); ">@Messages.Delete</button>
                 </form>
             }
         </div>
@@ -97,8 +95,7 @@
                 <form action="@Url.Content("~/account/editphotodelete")" method="post">
                     <button type="submit" name="delete_photo" 
                             value="3"  class="btn btn-danger" 
-                            onClick=" return confirm(
-            '@Messages.DeleteThis'); ">@Messages.Delete</button>
+                            onClick=" return confirm('@Messages.DeleteThis'); ">@Messages.Delete</button>
                 </form>
             }
         </div>
@@ -139,14 +136,14 @@
 
                         if (src != $('img#largeImg').attr('src').replace(/\?(.*)/, '')) {
                             $('img#largeImg').stop().animate({
-                                    opacity: '0'
-                                }, function() {
-                                    $(this).attr('src', src + '?' + Math.floor(Math.random() * (10 * 100)));
-                                }).load(function() {
-                                    $(this).stop().animate({
-                                        opacity: '1'
-                                    });
+                                opacity: '0'
+                            }, function() {
+                                $(this).attr('src', src + '?' + Math.floor(Math.random() * (10 * 100)));
+                            }).load(function() {
+                                $(this).stop().animate({
+                                    opacity: '1'
                                 });
+                            });
 
 
                         }

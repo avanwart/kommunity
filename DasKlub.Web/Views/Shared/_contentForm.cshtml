@@ -2,7 +2,6 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
 @using DasKlub.Lib.Values
-
 @using DasKlub.Web.Helpers
 @model DasKlub.Lib.BOL.UserContent.Content
 @Html.HiddenFor(model => model.ContentID)
@@ -35,16 +34,16 @@
             @Html.LabelFor(m => m.MetaDescription)   <i>@Messages.BriefDescription</i>
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(m => m.MetaDescription, new {@style = "width:500px;height:75px"})
+            @Html.TextAreaFor(m => m.MetaDescription, new {@style = "height:75px;width:500px;"})
             @Html.CSSClassValidationMessageFor(m => m.MetaDescription)
              
         </div>
         
-                <div class="editor-label">
+        <div class="editor-label">
             @Html.LabelFor(m => m.CreatedByUserID)  
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(m => m.CreatedByUserID )
+            @Html.TextBoxFor(m => m.CreatedByUserID)
          
         </div>
 
@@ -71,16 +70,15 @@
             @if (!string.IsNullOrEmpty(Model.ContentVideoURL))
             {
                 @Html.ActionLink(Messages.Delete,
-                                 "DeleteVideo", "Account", new {id = Model.ContentID},
-                                 new
-                                     {
-                                         @class = "red",
-                                         onclick = "return confirm('" +
-                                                   Messages.Delete + "?')"
-                                     })
+                    "DeleteVideo", "Account", new {id = Model.ContentID},
+                    new
+                    {
+                        @class = "red",
+                        onclick = "return confirm('" +
+                                  Messages.Delete + "?')"
+                    })
 
                 <img src="@Html.S3ContentPath(Model.ContentPhotoURL)"/>
-         
             }
             <input type="file" name="videoFile" />
         </div>
@@ -95,18 +93,15 @@
             @if (!string.IsNullOrEmpty(Model.ContentVideoURL2))
             {
                 @Html.ActionLink(Messages.Delete,
-                                 "DeleteVideo", new {id = Model.ContentID},
-                                 new
-                                     {
-                                         @class = "red",
-                                         onclick = "return confirm('" +
-                                                   Messages.Delete + "?')"
-                                     })
+                    "DeleteVideo", new {id = Model.ContentID},
+                    new
+                    {
+                        @class = "red",
+                        onclick = "return confirm('" +
+                                  Messages.Delete + "?')"
+                    })
             }
-     @*       <input type="file" name="videoFile2" />*@
-
-          
-        </div>
+     @*       <input type="file" name="videoFile2" />*@</div>
 
 
         <div class="editor-label">
@@ -123,12 +118,12 @@
    
             @{
                 IOrderedEnumerable<SelectListItem> listItems = Enum.GetValues(typeof (SiteEnums.SiteLanguages)).OfType<Enum>().Select(e =>
-                                                            new SelectListItem
-                                                                {
-                                                                    Text = Utilities.ResourceValue(Utilities.GetEnumDescription(e)),
-                                                                    Value = e.ToString(),
-                                                                    Selected = e.Equals(Model)
-                                                                }).OrderBy(x => x.Value.ToString());
+                    new SelectListItem
+                    {
+                        Text = Utilities.ResourceValue(Utilities.GetEnumDescription(e)),
+                        Value = e.ToString(),
+                        Selected = e.Equals(Model)
+                    }).OrderBy(x => x.Value.ToString());
                 string prefix = "Language";
                 int index = 0;
 
@@ -136,7 +131,7 @@
                     @foreach (SelectListItem li in listItems)
                     {
                         string fieldName = string.Format(CultureInfo.InvariantCulture,
-                                                         "{0}_{1}", prefix, index++);
+                            "{0}_{1}", prefix, index++);
 
                         if (Model.Language.ToLower() == li.Value.ToLower() || string.IsNullOrWhiteSpace(Model.Language) && li.Value.ToLower() ==
                             Utilities.GetCurrentLanguageCode().ToLower())

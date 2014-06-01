@@ -21,17 +21,17 @@ namespace DasKlub.Lib.Operational
 
         public static Image FixedSize(Image imgPhoto, int width, int height, Color bgColor)
         {
-            var sourceWidth = imgPhoto.Width;
-            var sourceHeight = imgPhoto.Height;
+            int sourceWidth = imgPhoto.Width;
+            int sourceHeight = imgPhoto.Height;
             const int sourceX = 0;
             const int sourceY = 0;
-            var destX = 0;
-            var destY = 0;
+            int destX = 0;
+            int destY = 0;
 
             float nPercent;
 
-            var nPercentW = (width/(float) sourceWidth);
-            var nPercentH = (height/(float) sourceHeight);
+            float nPercentW = (width/(float) sourceWidth);
+            float nPercentH = (height/(float) sourceHeight);
 
             //if we have to pad the height pad both the top and the bottom
             //with the difference between the scaled height and the desired height
@@ -52,14 +52,14 @@ namespace DasKlub.Lib.Operational
             var bmPhoto = new Bitmap(width, height, PixelFormat.Format24bppRgb);
             bmPhoto.SetResolution(imgPhoto.HorizontalResolution, imgPhoto.VerticalResolution);
 
-            var grPhoto = Graphics.FromImage(bmPhoto);
+            Graphics grPhoto = Graphics.FromImage(bmPhoto);
             grPhoto.Clear(bgColor);
             grPhoto.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
             grPhoto.DrawImage(imgPhoto,
-                              new Rectangle(destX, destY, destWidth, destHeight),
-                              new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
-                              GraphicsUnit.Pixel);
+                new Rectangle(destX, destY, destWidth, destHeight),
+                new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
+                GraphicsUnit.Pixel);
 
             grPhoto.Dispose();
             return bmPhoto;
@@ -67,12 +67,12 @@ namespace DasKlub.Lib.Operational
 
         public static Image Crop(Image imgPhoto, int width, int height, AnchorPosition Anchor)
         {
-            var sourceWidth = imgPhoto.Width;
-            var sourceHeight = imgPhoto.Height;
+            int sourceWidth = imgPhoto.Width;
+            int sourceHeight = imgPhoto.Height;
             const int sourceX = 0;
             const int sourceY = 0;
-            var destX = 0;
-            var destY = 0;
+            int destX = 0;
+            int destY = 0;
             float nPercent = 0;
             float nPercentW = 0;
             float nPercentH = 0;
@@ -117,13 +117,13 @@ namespace DasKlub.Lib.Operational
             var destHeight = (int) (sourceHeight*nPercent);
             var bmPhoto = new Bitmap(width, height, PixelFormat.Format24bppRgb);
             bmPhoto.SetResolution(imgPhoto.HorizontalResolution, imgPhoto.VerticalResolution);
-            var grPhoto = Graphics.FromImage(bmPhoto);
+            Graphics grPhoto = Graphics.FromImage(bmPhoto);
             grPhoto.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
             grPhoto.DrawImage(imgPhoto,
-                              new Rectangle(destX, destY, destWidth, destHeight),
-                              new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
-                              GraphicsUnit.Pixel);
+                new Rectangle(destX, destY, destWidth, destHeight),
+                new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
+                GraphicsUnit.Pixel);
 
             grPhoto.Dispose();
             return bmPhoto;

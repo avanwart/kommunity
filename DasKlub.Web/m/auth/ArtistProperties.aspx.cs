@@ -60,11 +60,9 @@ namespace DasKlub.Web.m.auth
             {
                 if (art.Create() > 0)
                 {
-                    
                 }
                 else
                 {
-                  
                     return;
                 }
             }
@@ -72,11 +70,9 @@ namespace DasKlub.Web.m.auth
             {
                 if (art.Update())
                 {
-                    
                 }
                 else
                 {
-  
                     return;
                 }
             }
@@ -149,9 +145,9 @@ namespace DasKlub.Web.m.auth
                 // 300 x 300  
                 imgPhoto = b;
                 imgPhoto = ImageResize.FixedSize(imgPhoto, 300, 300, theBGColor);
-                saveS = fileRoot + artprop.ArtistID.ToString() + "/" + fileGuid.ToString() + "_main.jpg";
+                saveS = fileRoot + artprop.ArtistID + "/" + fileGuid + "_main.jpg";
 
-                string artistFolder = ArtistProperty.Artistimageprefix + artprop.ArtistID.ToString();
+                string artistFolder = ArtistProperty.Artistimageprefix + artprop.ArtistID;
 
                 if (!Directory.Exists(artistFolder))
                 {
@@ -203,7 +199,7 @@ namespace DasKlub.Web.m.auth
 
                 imgPhoto = b;
                 imgPhoto = ImageResize.FixedSize(imgPhoto, 75, 75, theBGColor);
-                saveS = fileRoot + artprop.ArtistID.ToString() + "/" + fileGuid.ToString() + "_thumb.jpg";
+                saveS = fileRoot + artprop.ArtistID + "/" + fileGuid + "_thumb.jpg";
 
                 artprop.PropertyContent = saveS;
 
@@ -283,22 +279,22 @@ namespace DasKlub.Web.m.auth
         private void SetControls()
         {
             txtArtistDescription.Attributes.Add("onkeyup",
-                                                "limitText(this.form." + txtArtistDescription.ClientID +
-                                                ",this.form.countdown,600);");
+                "limitText(this.form." + txtArtistDescription.ClientID +
+                ",this.form.countdown,600);");
 
             txtArtistDescription.Attributes.Add("onkeydown",
-                                                "limitText(this.form." + txtArtistDescription.ClientID +
-                                                ",this.form.countdown,600);");
+                "limitText(this.form." + txtArtistDescription.ClientID +
+                ",this.form.countdown,600);");
 
             ////
 
             txtArtistMetaDescription.Attributes.Add("onkeyup",
-                                                    "limitText(this.form." + txtArtistMetaDescription.ClientID +
-                                                    ",this.form.countdown2,155);");
+                "limitText(this.form." + txtArtistMetaDescription.ClientID +
+                ",this.form.countdown2,155);");
 
             txtArtistMetaDescription.Attributes.Add("onkeydown",
-                                                    "limitText(this.form." + txtArtistMetaDescription.ClientID +
-                                                    ",this.form.countdown2,155);");
+                "limitText(this.form." + txtArtistMetaDescription.ClientID +
+                ",this.form.countdown2,155);");
         }
 
         private void ClearControls()

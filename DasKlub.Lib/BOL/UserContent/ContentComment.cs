@@ -84,7 +84,6 @@ namespace DasKlub.Lib.BOL.UserContent
 
         public ContentComment()
         {
-            
         }
 
 
@@ -101,9 +100,9 @@ namespace DasKlub.Lib.BOL.UserContent
             {
                 var theCo = SiteEnums.CommentStatus.U;
 
-                return Enum.TryParse(StatusType.ToString(), out theCo) ? 
-                    Utilities.ResourceValue(Utilities.GetEnumDescription(theCo)) : 
-                    string.Empty;
+                return Enum.TryParse(StatusType.ToString(), out theCo)
+                    ? Utilities.ResourceValue(Utilities.GetEnumDescription(theCo))
+                    : string.Empty;
             }
         }
 
@@ -242,12 +241,9 @@ namespace DasKlub.Lib.BOL.UserContent
             {
                 return 0;
             }
-            else
-            {
-                ContentCommentID = Convert.ToInt32(result);
+            ContentCommentID = Convert.ToInt32(result);
 
-                return ContentCommentID;
-            }
+            return ContentCommentID;
         }
 
 
@@ -311,12 +307,12 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter("createdByUserID", createdByUserID);
 
             // execute the stored procedure
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var ccomm in from DataRow dr in dt.Rows select new ContentComment(dr))
+            foreach (ContentComment ccomm in from DataRow dr in dt.Rows select new ContentComment(dr))
             {
                 Add(ccomm);
             }
@@ -339,7 +335,7 @@ namespace DasKlub.Lib.BOL.UserContent
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var ccomm in from DataRow dr in dt.Rows select new ContentComment(dr))
+            foreach (ContentComment ccomm in from DataRow dr in dt.Rows select new ContentComment(dr))
             {
                 Add(ccomm);
             }
@@ -363,13 +359,13 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter("PageIndex", pageIndex);
             comm.AddParameter("PageSize", pageSize);
 
-            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds == null || ds.Tables[0].Rows.Count <= 0) return recordCount;
 
-            foreach (var content in from DataRow dr in ds.Tables[0].Rows select new ContentComment(dr))
+            foreach (ContentComment content in from DataRow dr in ds.Tables[0].Rows select new ContentComment(dr))
             {
                 Add(content);
             }

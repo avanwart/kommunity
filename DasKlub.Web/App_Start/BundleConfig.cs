@@ -9,7 +9,7 @@ namespace DasKlub.Web.App_Start
         {
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
                 "~/Scripts/jquery.signalR-{version}.js"
-                            ));
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/jsfooter_desktop").Include(
                 "~/Scripts/jquery-{version}.js",
@@ -18,7 +18,7 @@ namespace DasKlub.Web.App_Start
                 "~/Scripts/scrollpagination.js",
                 "~/content/script/site_wide_13.js",
                 "~/content/mediaelement/mediaelement-and-player.js"
-                            ));
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/jsfooter_mobile").Include(
                 "~/Scripts/jquery-{version}.js",
@@ -27,7 +27,7 @@ namespace DasKlub.Web.App_Start
                 "~/Scripts/scrollpagination.js",
                 "~/content/script/site_wide_13.js",
                 "~/content/mediaelement/mediaelement-and-player.js"
-                            ));
+                ));
 
             bundles.Add(new StyleBundle("~/content/style/css_head2").Include(
                 "~/content/style/cyborg_theme.css",
@@ -35,11 +35,11 @@ namespace DasKlub.Web.App_Start
                 "~/content/style/jquery-ui-{version}.custom.css",
                 "~/content/style/flag_sprites.css",
                 "~/content/style/site_spec_01.css"
-                            ));
+                ));
 
             bundles.Add(new StyleBundle("~/content/mediaelement/css_mediaelement").Include(
                 "~/content/mediaelement/mediaelementplayer.css"
-                            ));
+                ));
 
             BundleTable.EnableOptimizations = true;
         }

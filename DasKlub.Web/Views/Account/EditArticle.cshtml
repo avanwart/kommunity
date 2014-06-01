@@ -24,11 +24,11 @@
 
 
     @Html.ActionLink(Messages.Delete,
-                     "DeleteArticle", new {id = Model.ContentID},
-                     new
-                         {
-                             @class = "btn btn-danger",
-                             onclick = "return confirm('" +
-                                       Messages.Delete + "?')"
-                         })
+        "DeleteArticle", new {id = Model.ContentID},
+        new
+        {
+            @class = "btn btn-danger",
+            onclick = "return confirm('" +
+                      Messages.Delete + "?')"
+        })
 }

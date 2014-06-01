@@ -23,28 +23,27 @@
             <fieldset>
                 
 
-                    <div class="editor-label">
-                        @Html.Label(Messages.ProfileLogging + "/ Stealth Mode")
-                    </div>
-                    <div class="editor-field">
-                        <label class="checkbox">
-                                            @if (ViewBag.CanBeStealth)
-                {
+                <div class="editor-label">
+                    @Html.Label(Messages.ProfileLogging + "/ Stealth Mode")
+                </div>
+                <div class="editor-field">
+                    <label class="checkbox">
+                        @if (ViewBag.CanBeStealth)
+                        {
                             <input
                                 @if (ViewBag.UserAccountDetail.EnableProfileLogging)
                                 {
                                     <text> checked="checked"</text>
                                 }
                                 type="checkbox" name="enableprofilelogging"/>
-                    <i>@Messages.YourProfileViewsWillNotBeRecorded</i>
-                                                 }
-                else
-                {
-                    
-                    <span>You must be a supporter to adjust this setting! <a href="~/store">Donate $10 or more with your account email</a></span>
-                }
-                        </label>
-                    </div>
+                            <i>@Messages.YourProfileViewsWillNotBeRecorded</i>
+                        }
+                        else
+                        {
+                            <span>You must be a supporter to adjust this setting! <a href="~/store">Donate $10 or more with your account email</a></span>
+                        }
+                    </label>
+                </div>
                
                 <div class="editor-label">
                     @Messages.DisplayMyAge

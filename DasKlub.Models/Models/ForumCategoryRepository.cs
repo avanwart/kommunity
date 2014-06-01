@@ -6,10 +6,10 @@ using DasKlub.Models.Forum;
 using DasKlub.Web.Models.Models;
 
 namespace DasKlub.Models.Models
-{ 
+{
     public class ForumCategoryRepository : IForumCategoryRepository
     {
-        readonly DasKlubModelsContext _context = new DasKlubModelsContext();
+        private readonly DasKlubModelsContext _context = new DasKlubModelsContext();
 
         public IQueryable<ForumCategory> All
         {
@@ -19,8 +19,8 @@ namespace DasKlub.Models.Models
         public IQueryable<ForumCategory> AllIncluding(params Expression<Func<ForumCategory, object>>[] includeProperties)
         {
             return includeProperties.Aggregate<Expression<Func<ForumCategory, object>>,
-                IQueryable<ForumCategory>>(_context.ForumCategory, 
-                (current, includeProperty) => current.Include(includeProperty));
+                IQueryable<ForumCategory>>(_context.ForumCategory,
+                    (current, includeProperty) => current.Include(includeProperty));
         }
 
         public ForumCategory Find(string id)
@@ -30,10 +30,13 @@ namespace DasKlub.Models.Models
 
         public void InsertOrUpdate(ForumCategory forumcategory)
         {
-            if (forumcategory.ForumCategoryID == default(int)) {
+            if (forumcategory.ForumCategoryID == default(int))
+            {
                 // New entity
                 _context.ForumCategory.Add(forumcategory);
-            } else {
+            }
+            else
+            {
                 // Existing entity
                 _context.Entry(forumcategory).State = EntityState.Modified;
             }
@@ -41,7 +44,7 @@ namespace DasKlub.Models.Models
 
         public void Delete(int id)
         {
-            var forumcategory = _context.ForumCategory.Find(id);
+            ForumCategory forumcategory = _context.ForumCategory.Find(id);
             _context.ForumCategory.Remove(forumcategory);
         }
 
@@ -50,7 +53,7 @@ namespace DasKlub.Models.Models
             _context.SaveChanges();
         }
 
-        public void Dispose() 
+        public void Dispose()
         {
             _context.Dispose();
         }

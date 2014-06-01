@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Web;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
@@ -57,7 +58,7 @@ namespace DasKlub.Lib.BOL
 
         public string CacheName
         {
-            get { return string.Format("{0}-{1}", GetType().FullName, YouAreID.ToString()); }
+            get { return string.Format("{0}-{1}", GetType().FullName, YouAreID); }
         }
 
         public void RemoveCache()
@@ -124,30 +125,24 @@ namespace DasKlub.Lib.BOL
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    YouAre art = null;
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        art = new YouAre(dr);
-                        Add(art);
-                    }
+                if (dt == null || dt.Rows.Count <= 0) return;
 
-                    HttpRuntime.Cache.AddObjToCache(dt, GetType().FullName);
+                foreach (var art in from DataRow dr in dt.Rows select new YouAre(dr))
+                {
+                    Add(art);
                 }
+
+                HttpRuntime.Cache.AddObjToCache(dt, GetType().FullName);
             }
             else
             {
                 var dt = (DataTable) HttpRuntime.Cache[GetType().FullName];
 
-                if (dt != null && dt.Rows.Count > 0)
+                if (dt == null || dt.Rows.Count <= 0) return;
+
+                foreach (var art in from DataRow dr in dt.Rows select new YouAre(dr))
                 {
-                    YouAre art = null;
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        art = new YouAre(dr);
-                        Add(art);
-                    }
+                    Add(art);
                 }
             }
         }

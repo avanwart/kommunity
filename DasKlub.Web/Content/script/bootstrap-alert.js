@@ -26,9 +26,10 @@
     /* ALERT CLASS DEFINITION
   * ====================== */
 
-    var dismiss = '[data-dismiss="alert"]', Alert = function(el) {
-        $(el).on('click', dismiss, this.close);
-    };
+    var dismiss = '[data-dismiss="alert"]',
+        Alert = function(el) {
+            $(el).on('click', dismiss, this.close);
+        };
     Alert.prototype.close = function(e) {
         var $this = $(this), selector = $this.attr('data-target'), $parent;
         if (!selector) {

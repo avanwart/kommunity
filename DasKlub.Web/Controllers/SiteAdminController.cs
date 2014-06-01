@@ -13,7 +13,6 @@ namespace DasKlub.Web.Controllers
     [Authorize(Roles = "admin")]
     public class SiteAdminController : Controller
     {
-    
         public ActionResult SiteBranding()
         {
             var siteDomains = new SiteDomains();
@@ -64,12 +63,12 @@ namespace DasKlub.Web.Controllers
             if (ModelState.IsValid)
             {
                 var siteDomain = new SiteDomain
-                    {
-                        Description = model.Description,
-                        Language = model.Language ?? string.Empty,
-                        PropertyType = model.PropertyType,
-                        SiteDomainID = model.SiteDomainID
-                    };
+                {
+                    Description = model.Description,
+                    Language = model.Language ?? string.Empty,
+                    PropertyType = model.PropertyType,
+                    SiteDomainID = model.SiteDomainID
+                };
 
                 siteDomain.Set();
             }
@@ -154,7 +153,7 @@ namespace DasKlub.Web.Controllers
             }
             else
             {
-                var pageNumber = Convert.ToInt32(Request.QueryString[
+                int pageNumber = Convert.ToInt32(Request.QueryString[
                     SiteEnums.QueryStringNames.pg.ToString()]);
 
                 totalRecords = model.GetCommentsPageWise(pageNumber, pageSize);
@@ -198,7 +197,7 @@ namespace DasKlub.Web.Controllers
             concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.U);
             concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.C);
 
-            foreach (var c1 in concoms)
+            foreach (ContentComment c1 in concoms)
                 c1.Delete();
 
             model.Delete();
@@ -218,7 +217,6 @@ namespace DasKlub.Web.Controllers
 
             return View(model);
         }
- 
 
 
         [HttpGet]
@@ -252,7 +250,7 @@ namespace DasKlub.Web.Controllers
             }
             else
             {
-                var pageNumber = Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]);
+                int pageNumber = Convert.ToInt32(Request.QueryString[SiteEnums.QueryStringNames.pg.ToString()]);
 
                 totalRecords = model.GetContentPageWiseAll(pageNumber, pageSize);
             }
@@ -268,7 +266,7 @@ namespace DasKlub.Web.Controllers
 
         private void LoadAllRoles()
         {
-            var allRoles = Role.GetAllRoles();
+            string[] allRoles = Role.GetAllRoles();
 
             ViewBag.AllRoles = allRoles;
         }
@@ -328,7 +326,7 @@ namespace DasKlub.Web.Controllers
 
             if (roleOption != null)
             {
-                foreach (var thenewRole in roleOption.Select(newRole => new Role(newRole)))
+                foreach (Role thenewRole in roleOption.Select(newRole => new Role(newRole)))
                 {
                     UserAccountRole.AddUserToRole(userAccountID, thenewRole.RoleID);
                 }

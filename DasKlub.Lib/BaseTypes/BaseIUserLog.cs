@@ -19,10 +19,7 @@ namespace DasKlub.Lib.BaseTypes
 
         public DateTime UpdateDate
         {
-            get
-            {
-                return _updateDate;
-            }
+            get { return _updateDate; }
             set { _updateDate = value; }
         }
 

@@ -48,18 +48,18 @@ namespace DasKlub.Web.m.auth
             // update address 
 
             uadd = new Lib.BOL.UserAddress(Convert.ToInt32(hfUserAddressID.Value))
-                {
-                    AddressLine1 = txtAddressLine1.Text,
-                    AddressLine2 = txtAddressLine2.Text,
-                    AddressLine3 = txtAddressLine3.Text,
-                    City = txtCity.Text,
-                    FirstName = txtFirstName.Text,
-                    LastName = txtLastName.Text,
-                    PostalCode = txtPostalCode.Text,
-                    Region = txtRegion.Text,
-                    CountryISO = ddlCountry.SelectedValue,
-                    UserAccountID = Convert.ToInt32(txtUserID.Text)
-                };
+            {
+                AddressLine1 = txtAddressLine1.Text,
+                AddressLine2 = txtAddressLine2.Text,
+                AddressLine3 = txtAddressLine3.Text,
+                City = txtCity.Text,
+                FirstName = txtFirstName.Text,
+                LastName = txtLastName.Text,
+                PostalCode = txtPostalCode.Text,
+                Region = txtRegion.Text,
+                CountryISO = ddlCountry.SelectedValue,
+                UserAccountID = Convert.ToInt32(txtUserID.Text)
+            };
 
             if (!string.IsNullOrEmpty(ddlAddressStatus.SelectedValue))
             {
@@ -70,7 +70,7 @@ namespace DasKlub.Web.m.auth
             {
                 if (uadd.Create() > 0)
                 {
-                    litStatus.Text = "created: " + uadd.UserAddressID.ToString();
+                    litStatus.Text = "created: " + uadd.UserAddressID;
                 }
                 else
                 {
@@ -79,11 +79,11 @@ namespace DasKlub.Web.m.auth
             }
             else if (uadd.Update())
             {
-                litStatus.Text = "UPDATED: " + uadd.UserAddressID.ToString();
+                litStatus.Text = "UPDATED: " + uadd.UserAddressID;
             }
             else
             {
-                litStatus.Text = "FAILED TO UPDATE: " + uadd.UserAddressID.ToString();
+                litStatus.Text = "FAILED TO UPDATE: " + uadd.UserAddressID;
             }
         }
 

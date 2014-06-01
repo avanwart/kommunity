@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
@@ -8,27 +7,27 @@ namespace DasKlubModel.Models.Mapping
         public ContestMap()
         {
             // Primary Key
-            this.HasKey(t => t.contestID);
+            HasKey(t => t.contestID);
 
             // Properties
-            this.Property(t => t.name)
+            Property(t => t.name)
                 .HasMaxLength(100);
 
-            this.Property(t => t.contestKey)
+            Property(t => t.contestKey)
                 .HasMaxLength(100);
 
             // Table & Column Mappings
-            this.ToTable("Contest");
-            this.Property(t => t.contestID).HasColumnName("contestID");
-            this.Property(t => t.name).HasColumnName("name");
-            this.Property(t => t.deadLine).HasColumnName("deadLine");
-            this.Property(t => t.description).HasColumnName("description");
-            this.Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
-            this.Property(t => t.updateDate).HasColumnName("updateDate");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.beginDate).HasColumnName("beginDate");
-            this.Property(t => t.contestKey).HasColumnName("contestKey");
+            ToTable("Contest");
+            Property(t => t.contestID).HasColumnName("contestID");
+            Property(t => t.name).HasColumnName("name");
+            Property(t => t.deadLine).HasColumnName("deadLine");
+            Property(t => t.description).HasColumnName("description");
+            Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
+            Property(t => t.updateDate).HasColumnName("updateDate");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.beginDate).HasColumnName("beginDate");
+            Property(t => t.contestKey).HasColumnName("contestKey");
         }
     }
 }

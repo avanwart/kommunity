@@ -44,7 +44,7 @@ namespace DasKlub.Lib.BOL.Logging
 
         public override int Create()
         {
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddErrorLog";
 
@@ -55,7 +55,7 @@ namespace DasKlub.Lib.BOL.Logging
 
             // the result is their ID
             // execute the stored procedure
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result)) return 0;
 

@@ -45,20 +45,22 @@ namespace DasKlub.Lib.BOL
 
         public string FullProfilePicURL
         {
-            get {
-                return string.IsNullOrEmpty(PicURL) ? 
-                    VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuser.png") : 
-                    Utilities.S3ContentPath(PicURL);
+            get
+            {
+                return string.IsNullOrEmpty(PicURL)
+                    ? VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuser.png")
+                    : Utilities.S3ContentPath(PicURL);
             }
         }
 
 
         public string FullProfilePicThumbURL
         {
-            get {
-                return string.IsNullOrEmpty(ThumbPicURL) ? 
-                    VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuserthumb.png") : 
-                    Utilities.S3ContentPath(ThumbPicURL);
+            get
+            {
+                return string.IsNullOrEmpty(ThumbPicURL)
+                    ? VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuserthumb.png")
+                    : Utilities.S3ContentPath(ThumbPicURL);
             }
         }
 
@@ -160,12 +162,9 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else
-            {
-                UserPhotoID = Convert.ToInt32(result);
+            UserPhotoID = Convert.ToInt32(result);
 
-                return UserPhotoID;
-            }
+            return UserPhotoID;
         }
 
         public override bool Update()

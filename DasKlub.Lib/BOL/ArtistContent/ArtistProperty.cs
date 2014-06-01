@@ -7,7 +7,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL.ArtistContent
 {
-    public class ArtistProperty : BaseIUserLogCrud 
+    public class ArtistProperty : BaseIUserLogCrud
     {
         #region properties
 
@@ -89,8 +89,8 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
             // result will represent the number of changed rows
             // execute the stored procedure
-            var result = Convert.ToBoolean(DbAct.ExecuteNonQuery(comm));
- 
+            bool result = Convert.ToBoolean(DbAct.ExecuteNonQuery(comm));
+
             return result;
         }
 
@@ -110,7 +110,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
             // the result is their ID
             // execute the stored procedure
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result)) return 0;
 
@@ -129,7 +129,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
             comm.AddParameter("artistPropertyID", ArtistPropertyID);
 
-   
+
             // execute the stored procedure
 
             return DbAct.ExecuteNonQuery(comm) > 0;
@@ -153,6 +153,5 @@ namespace DasKlub.Lib.BOL.ArtistContent
         }
 
         #endregion
- 
     }
 }

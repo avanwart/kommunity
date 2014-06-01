@@ -79,10 +79,11 @@
   * ===================== */
 
     function hideWithTransition() {
-        var that = this, timeout = setTimeout(function() {
-            that.$element.off($.support.transition.end);
-            hideModal.call(that);
-        }, 500);
+        var that = this,
+            timeout = setTimeout(function() {
+                that.$element.off($.support.transition.end);
+                hideModal.call(that);
+            }, 500);
         this.$element.one($.support.transition.end, function() {
             clearTimeout(timeout);
             hideModal.call(that);
@@ -160,8 +161,11 @@
 
     $(function() {
         $('body').on('click.modal.data-api', '[data-toggle="modal"]', function(e) {
-            var $this = $(this), href, $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
-                , option = $target.data('modal') ? 'toggle' : $.extend({}, $target.data(), $this.data());
+            var $this = $(this),
+                href,
+                $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
+                ,
+                option = $target.data('modal') ? 'toggle' : $.extend({}, $target.data(), $this.data());
             e.preventDefault();
             $target.modal(option);
         });

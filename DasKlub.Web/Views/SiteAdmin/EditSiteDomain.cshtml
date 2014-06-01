@@ -27,13 +27,13 @@
 
 
             @Html.ActionLink(Messages.Delete,
-                             "DeleteSiteDomain", new {siteDomainID = Model.SiteDomainID},
-                             new
-                                 {
-                                     @class = "btn btn-danger",
-                                     onclick = "return confirm('" +
-                                               Messages.Delete + "?')"
-                                 })
+                "DeleteSiteDomain", new {siteDomainID = Model.SiteDomainID},
+                new
+                {
+                    @class = "btn btn-danger",
+                    onclick = "return confirm('" +
+                              Messages.Delete + "?')"
+                })
         }
 
     </div>

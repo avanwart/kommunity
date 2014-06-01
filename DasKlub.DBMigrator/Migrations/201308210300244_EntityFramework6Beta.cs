@@ -9,73 +9,74 @@ namespace DasKlub.DBMigrator.Migrations
             CreateTable(
                 "dbo.ForumCategories",
                 c => new
-                    {
-                        ForumCategoryID = c.Int(nullable: false, identity: true),
-                        Title = c.String(nullable: false, maxLength: 50),
-                        Key = c.String(nullable: false, maxLength: 50),
-                        Description = c.String(nullable: false),
-                        CreatedByUserID = c.Int(nullable: false),
-                        UpdatedByUserID = c.Int(),
-                        CreateDate = c.DateTime(nullable: false),
-                        UpdateDate = c.DateTime(),
-                    })
+                {
+                    ForumCategoryID = c.Int(false, true),
+                    Title = c.String(false, 50),
+                    Key = c.String(false, 50),
+                    Description = c.String(false),
+                    CreatedByUserID = c.Int(false),
+                    UpdatedByUserID = c.Int(),
+                    CreateDate = c.DateTime(false),
+                    UpdateDate = c.DateTime(),
+                })
                 .PrimaryKey(t => t.ForumCategoryID);
-            
+
             CreateTable(
                 "dbo.ForumSubCategories",
                 c => new
-                    {
-                        ForumSubCategoryID = c.Int(nullable: false, identity: true),
-                        ForumCategoryID = c.Int(nullable: false),
-                        Key = c.String(nullable: false, maxLength: 150),
-                        Title = c.String(nullable: false, maxLength: 150),
-                        Description = c.String(nullable: false),
-                        CreatedByUserID = c.Int(nullable: false),
-                        UpdatedByUserID = c.Int(),
-                        CreateDate = c.DateTime(nullable: false),
-                        UpdateDate = c.DateTime(),
-                    })
+                {
+                    ForumSubCategoryID = c.Int(false, true),
+                    ForumCategoryID = c.Int(false),
+                    Key = c.String(false, 150),
+                    Title = c.String(false, 150),
+                    Description = c.String(false),
+                    CreatedByUserID = c.Int(false),
+                    UpdatedByUserID = c.Int(),
+                    CreateDate = c.DateTime(false),
+                    UpdateDate = c.DateTime(),
+                })
                 .PrimaryKey(t => t.ForumSubCategoryID)
-                .ForeignKey("dbo.ForumCategories", t => t.ForumCategoryID, cascadeDelete: true)
+                .ForeignKey("dbo.ForumCategories", t => t.ForumCategoryID, true)
                 .Index(t => t.ForumCategoryID);
-            
+
             CreateTable(
                 "dbo.ForumPosts",
                 c => new
-                    {
-                        ForumPostID = c.Int(nullable: false, identity: true),
-                        Detail = c.String(nullable: false),
-                        ForumSubCategoryID = c.Int(nullable: false),
-                        CreatedByUserID = c.Int(nullable: false),
-                        UpdatedByUserID = c.Int(),
-                        CreateDate = c.DateTime(nullable: false),
-                        UpdateDate = c.DateTime(),
-                    })
+                {
+                    ForumPostID = c.Int(false, true),
+                    Detail = c.String(false),
+                    ForumSubCategoryID = c.Int(false),
+                    CreatedByUserID = c.Int(false),
+                    UpdatedByUserID = c.Int(),
+                    CreateDate = c.DateTime(false),
+                    UpdateDate = c.DateTime(),
+                })
                 .PrimaryKey(t => t.ForumPostID)
-                .ForeignKey("dbo.ForumSubCategories", t => t.ForumSubCategoryID, cascadeDelete: true)
+                .ForeignKey("dbo.ForumSubCategories", t => t.ForumSubCategoryID, true)
                 .Index(t => t.ForumSubCategoryID);
-            
+
             CreateTable(
                 "dbo.ForumPostNotifications",
                 c => new
-                    {
-                        ForumPostNotificationID = c.Int(nullable: false, identity: true),
-                        UserAccountID = c.Int(nullable: false),
-                        IsRead = c.Boolean(nullable: false),
-                        ForumSubCategoryID = c.Int(nullable: false),
-                        CreatedByUserID = c.Int(nullable: false),
-                        UpdatedByUserID = c.Int(),
-                        CreateDate = c.DateTime(nullable: false),
-                        UpdateDate = c.DateTime(),
-                    })
+                {
+                    ForumPostNotificationID = c.Int(false, true),
+                    UserAccountID = c.Int(false),
+                    IsRead = c.Boolean(false),
+                    ForumSubCategoryID = c.Int(false),
+                    CreatedByUserID = c.Int(false),
+                    UpdatedByUserID = c.Int(),
+                    CreateDate = c.DateTime(false),
+                    UpdateDate = c.DateTime(),
+                })
                 .PrimaryKey(t => t.ForumPostNotificationID)
-                .ForeignKey("dbo.ForumSubCategories", t => t.ForumSubCategoryID, cascadeDelete: true)
+                .ForeignKey("dbo.ForumSubCategories", t => t.ForumSubCategoryID, true)
                 .Index(t => t.ForumSubCategoryID);
-            Sql(@"  EXEC sp_executesql N' ALTER TABLE ForumPostNotifications ADD CONSTRAINT uc_ForumNotificationKey UNIQUE ([UserAccountID], [ForumSubCategoryID])'; ");
+            Sql(
+                @"  EXEC sp_executesql N' ALTER TABLE ForumPostNotifications ADD CONSTRAINT uc_ForumNotificationKey UNIQUE ([UserAccountID], [ForumSubCategoryID])'; ");
             Sql(@"ALTER TABLE dbo.WallMessage
                   ALTER COLUMN [message] nvarchar(max)");
         }
-        
+
         public override void Down()
         {
             Sql(@"EXEC sp_executesql N' ALTER TABLE ForumPostNotifications DROP CONSTRAINT uc_ForumNotificationKey'; ");
@@ -86,9 +87,9 @@ namespace DasKlub.DBMigrator.Migrations
             DropForeignKey("dbo.ForumPostNotifications", "ForumSubCategoryID", "dbo.ForumSubCategories");
             DropForeignKey("dbo.ForumPosts", "ForumSubCategoryID", "dbo.ForumSubCategories");
             DropForeignKey("dbo.ForumSubCategories", "ForumCategoryID", "dbo.ForumCategories");
-            DropIndex("dbo.ForumPostNotifications", new[] { "ForumSubCategoryID" });
-            DropIndex("dbo.ForumPosts", new[] { "ForumSubCategoryID" });
-            DropIndex("dbo.ForumSubCategories", new[] { "ForumCategoryID" });
+            DropIndex("dbo.ForumPostNotifications", new[] {"ForumSubCategoryID"});
+            DropIndex("dbo.ForumPosts", new[] {"ForumSubCategoryID"});
+            DropIndex("dbo.ForumSubCategories", new[] {"ForumCategoryID"});
             DropTable("dbo.ForumPostNotifications");
             DropTable("dbo.ForumPosts");
             DropTable("dbo.ForumSubCategories");

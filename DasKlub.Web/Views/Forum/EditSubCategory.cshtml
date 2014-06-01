@@ -49,7 +49,7 @@
                 
                         <p><button class="btn btn-success" id="submit_post" type="submit">@Messages.Submit</button></p>
                     </fieldset>
-                    
+
                     @Html.HiddenFor(model => model.ForumSubCategoryID)
                 }
             </div>
@@ -74,10 +74,9 @@
 
 
     <script type="text/javascript">
-       
 
 
-        $('#submit_post').click(function (event) {
+        $('#submit_post').click(function(event) {
 
             $(this).attr("disabled", true);
             $(this).parents('form').submit();

@@ -8,14 +8,11 @@
             public string Region;
         }
 
- 
 
         public struct LatLong
         {
             public double latitude;
             public double longitude;
         };
-
- 
     }
 }

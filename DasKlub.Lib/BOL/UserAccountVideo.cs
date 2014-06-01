@@ -21,7 +21,6 @@ namespace DasKlub.Lib.BOL
 
         public UserAccountVideo()
         {
-         
         }
 
         public int VideoID { get; set; }
@@ -57,7 +56,6 @@ namespace DasKlub.Lib.BOL
             }
             catch
             {
-
             }
         }
 

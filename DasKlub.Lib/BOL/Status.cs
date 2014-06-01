@@ -69,12 +69,12 @@ namespace DasKlub.Lib.BOL
             comm.CommandText = "up_GetAllStatus";
 
             // execute the stored procedure
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
-            
-            foreach (var str in from DataRow dr in dt.Rows select new Status(dr))
+
+            foreach (Status str in from DataRow dr in dt.Rows select new Status(dr))
             {
                 Add(str);
             }

@@ -17,7 +17,7 @@
                 try {
                     $(elem).triggerHandler("remove");
                     // http://bugs.jquery.com/ticket/8235
-                } catch(e) {
+                } catch (e) {
                 }
             }
             _cleanData(elems);
@@ -32,7 +32,7 @@
                             try {
                                 $(this).triggerHandler("remove");
                                 // http://bugs.jquery.com/ticket/8235
-                            } catch(e) {
+                            } catch (e) {
                             }
                         });
                     }
@@ -186,7 +186,7 @@
                 .removeAttr("aria-disabled")
                 .removeClass(
                     this.widgetBaseClass + "-disabled " +
-                        "ui-state-disabled");
+                    "ui-state-disabled");
         },
 
         widget: function() {
@@ -226,7 +226,7 @@
 
             if (key === "disabled") {
                 this.widget()[value ? "addClass" : "removeClass"](
-                    this.widgetBaseClass + "-disabled" + " " +
+                        this.widgetBaseClass + "-disabled" + " " +
                         "ui-state-disabled")
                     .attr("aria-disabled", value);
             }
@@ -242,7 +242,8 @@
         },
 
         _trigger: function(type, event, data) {
-            var prop, orig,
+            var prop,
+                orig,
                 callback = this.options[type];
 
             data = data || {};

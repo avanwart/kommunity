@@ -17,13 +17,13 @@ namespace DasKlub.Lib.BOL.ArtistContent
             Name = songName;
 
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetSongByArtistIDName";
             comm.AddParameter("artistID", artistID);
             comm.AddParameter("name", songName);
 
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt.Rows.Count == 1)
             {
@@ -110,12 +110,9 @@ namespace DasKlub.Lib.BOL.ArtistContent
             {
                 return 0;
             }
-            else
-            {
-                SongID = Convert.ToInt32(result);
+            SongID = Convert.ToInt32(result);
 
-                return SongID;
-            }
+            return SongID;
         }
 
         public override bool Update()
@@ -158,7 +155,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var sng in from DataRow dr in dt.Rows select new Song(dr))
+            foreach (Song sng in from DataRow dr in dt.Rows select new Song(dr))
             {
                 Add(sng);
             }
@@ -168,18 +165,20 @@ namespace DasKlub.Lib.BOL.ArtistContent
         public void GetSongsForVideo(int videoID)
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetSongsForVideo";
 
             comm.AddParameter("videoID", videoID);
 
             // execute the stored procedure
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
-            foreach (var sng in from DataRow dr in dt.Rows select new Song(dr) {RankOrder = FromObj.IntFromObj(dr["rankOrder"])})
+            foreach (
+                Song sng in
+                    from DataRow dr in dt.Rows select new Song(dr) {RankOrder = FromObj.IntFromObj(dr["rankOrder"])})
             {
                 Add(sng);
             }

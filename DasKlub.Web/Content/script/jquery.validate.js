@@ -52,7 +52,7 @@
                 // validate the form on submit
                 this.submit(function(event) {
                     if (validator.settings.debug)
-                        // prevent form submit to be able to see console output
+                    // prevent form submit to be able to see console output
                         event.preventDefault();
 
                     function handle() {
@@ -236,7 +236,7 @@
                 // click on selects, radiobuttons and checkboxes
                 if (element.name in this.submitted)
                     this.element(element);
-                    // or option elements, check parent select in that case
+                // or option elements, check parent select in that case
                 else if (element.parentNode.name in this.submitted)
                     this.element(element.parentNode);
             },
@@ -414,7 +414,7 @@
                             .focus()
                             // manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
                             .trigger("focusin");
-                    } catch(e) {
+                    } catch (e) {
                         // ignore IE throwing errors when focusing hidden elements
                     }
                 }
@@ -508,7 +508,7 @@
                             this.formatAndAdd(element, rule);
                             return false;
                         }
-                    } catch(e) {
+                    } catch (e) {
                         this.settings.debug && window.console && console.log("exception occured when checking element " + element.id
                             + ", check the '" + rule.method + "' method", e);
                         throw e;
@@ -1123,31 +1123,30 @@
     // TODO verify if jQuery 1.4's implementation is compatible with older jQuery special-event APIs
     if (!jQuery.event.special.focusin && !jQuery.event.special.focusout && document.addEventListener) {
         $.each({
-                focus: 'focusin',
-                blur: 'focusout'
-            }, function(original, fix) {
-                $.event.special[fix] = {
-                    setup: function() {
-                        this.addEventListener(original, handler, true);
-                    },
-                    teardown: function() {
-                        this.removeEventListener(original, handler, true);
-                    },
-                    handler: function(e) {
-                        arguments[0] = $.event.fix(e);
-                        arguments[0].type = fix;
-                        return $.event.handle.apply(this, arguments);
-                    }
-                };
-
-                function handler(e) {
-                    e = $.event.fix(e);
-                    e.type = fix;
-                    return $.event.handle.call(this, e);
+            focus: 'focusin',
+            blur: 'focusout'
+        }, function(original, fix) {
+            $.event.special[fix] = {
+                setup: function() {
+                    this.addEventListener(original, handler, true);
+                },
+                teardown: function() {
+                    this.removeEventListener(original, handler, true);
+                },
+                handler: function(e) {
+                    arguments[0] = $.event.fix(e);
+                    arguments[0].type = fix;
+                    return $.event.handle.apply(this, arguments);
                 }
-            });
-    }
-    ;
+            };
+
+            function handler(e) {
+                e = $.event.fix(e);
+                e.type = fix;
+                return $.event.handle.call(this, e);
+            }
+        });
+    };
     $.extend($.fn, {
         validateDelegate: function(delegate, type, handler) {
             return this.bind(type, function(event) {

@@ -153,7 +153,9 @@
     opacity: .35;
 }
 
-.ui-state-disabled .ui-icon { filter: Alpha(Opacity=35); /* For IE8 - See #6059 */ }
+.ui-state-disabled .ui-icon {
+    filter: Alpha(Opacity=35); /* For IE8 - See #6059 */
+}
 
 /* Icons
 ----------------------------------*/
@@ -456,6 +458,7 @@
 .ui-icon-seek-end { background-position: -64px -160px; }
 
 .ui-icon-seek-start { background-position: -80px -160px; }
+
 /* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
 
 .ui-icon-seek-first { background-position: -80px -160px; }

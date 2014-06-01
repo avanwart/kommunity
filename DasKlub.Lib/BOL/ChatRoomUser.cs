@@ -196,7 +196,7 @@ namespace DasKlub.Lib.BOL
             {
                 return Convert.ToInt32(rslt);
             }
-            else return 0;
+            return 0;
         }
 
         public void GetChattingUsers()
@@ -211,7 +211,7 @@ namespace DasKlub.Lib.BOL
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
-            foreach (var cru in from DataRow dr in dt.Rows select new ChatRoomUser(dr))
+            foreach (ChatRoomUser cru in from DataRow dr in dt.Rows select new ChatRoomUser(dr))
             {
                 Add(cru);
             }

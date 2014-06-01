@@ -82,12 +82,9 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else
-            {
-                WallMessageID = Convert.ToInt32(result);
+            WallMessageID = Convert.ToInt32(result);
 
-                return WallMessageID;
-            }
+            return WallMessageID;
         }
 
 
@@ -159,9 +156,9 @@ namespace DasKlub.Lib.BOL
                 if (isUsersPost || IsUsersWall)
                 {
                     sb.AppendFormat(@"<a class=""delete_icon btn btn-danger btn-mini"" href=""{0}"">{1}</a>",
-                                    VirtualPathUtility.ToAbsolute("~/" + ua.UserName + "/deletewallitem/" +
-                                                                  WallMessageID.ToString()),
-                                    Messages.Delete);
+                        VirtualPathUtility.ToAbsolute("~/" + ua.UserName + "/deletewallitem/" +
+                                                      WallMessageID),
+                        Messages.Delete);
                 }
 
                 sb.Append(@"<div class=""clear""></div>");
@@ -177,6 +174,12 @@ namespace DasKlub.Lib.BOL
     {
         private bool _includeStartAndEndTags = true;
         public bool IsUsersWall { get; set; }
+
+        public bool IncludeStartAndEndTags
+        {
+            get { return _includeStartAndEndTags; }
+            set { _includeStartAndEndTags = value; }
+        }
 
         public string ToUnorderdList
         {
@@ -197,12 +200,6 @@ namespace DasKlub.Lib.BOL
 
                 return sb.ToString();
             }
-        }
-
-        public bool IncludeStartAndEndTags
-        {
-            get { return _includeStartAndEndTags; }
-            set { _includeStartAndEndTags = value; }
         }
 
         public static bool DeleteUserWall(int userAccountID)
@@ -274,7 +271,7 @@ namespace DasKlub.Lib.BOL
             {
                 return Convert.ToInt32(rslt);
             }
-            else return 0;
+            return 0;
         }
     }
 }

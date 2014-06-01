@@ -199,15 +199,14 @@ namespace DasKlub.Lib.Values
             [Description("Iraq")] IQ
         }
 
-      
-       
+
         public enum FormContentTypes
         {
             unknown = 0,
             [Description("application/x-www-form-urlencoded")] URLENCODE,
             [Description("multipart/form-data")] MULTIPART
         }
- 
+
         public enum HTTPTypes
         {
             unknown = 0,
@@ -348,27 +347,27 @@ namespace DasKlub.Lib.Values
             status_update,
             param_type,
             stat_update_rsp,
- 
+
             status_update_id,
             video_playlist,
- 
+
             menu,
             begin_playlist,
- 
+
             currentvidid,
- 
+
             playlist,
             country_iso,
             region,
             city,
- 
+
             begindate,
- 
+
             random,
             vid,
- 
+
             pg,
- 
+
             email
         }
 
@@ -414,24 +413,27 @@ namespace DasKlub.Lib.Values
             Unknown = 0,
             cyber_girl,
             admin,
-            supporter 
+            supporter
         }
 
 
         public enum SiteBrandType
         {
             /// <summary>
-            /// User writing invite
+            ///     User writing invite
             /// </summary>
             UWRIT,
+
             /// <summary>
             ///     Script at the bottom of the homepage
             /// </summary>
             HOMEB,
+
             /// <summary>
-            /// Mission statement
+            ///     Mission statement
             /// </summary>
             MISSN,
+
             /// <summary>
             ///     Business address
             /// </summary>
@@ -458,7 +460,7 @@ namespace DasKlub.Lib.Values
             PRIPL,
 
             /// <summary>
-            /// Advertising info
+            ///     Advertising info
             /// </summary>
             ADVRT,
 
@@ -476,10 +478,12 @@ namespace DasKlub.Lib.Values
             ///     Home center/ canvas
             /// </summary>
             HOMEC,
+
             /// <summary>
             ///     Home title
             /// </summary>
             HOMET,
+
             /// <summary>
             ///     Radio stations -desktop
             /// </summary>
@@ -599,24 +603,29 @@ namespace DasKlub.Lib.Values
             ///     728x90 ad 3/2
             /// </summary>
             A7283,
+
             /// <summary>
-            /// 300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
+            ///     300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
             /// </summary>
             A2501,
+
             /// <summary>
-            /// 300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
+            ///     300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
             /// </summary>
             A2502,
+
             /// <summary>
-            /// 300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
+            ///     300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
             /// </summary>
             A2503,
+
             /// <summary>
-            /// 728x90
+            ///     728x90
             /// </summary>
             A728,
+
             /// <summary>
-            /// New user greeting
+            ///     New user greeting
             /// </summary>
             GREET
         }

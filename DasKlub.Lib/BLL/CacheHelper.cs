@@ -37,7 +37,7 @@ namespace DasKlub.Lib.BLL
             if (HttpContext.Current != null)
             {
                 if (HttpRuntime.Cache[cacheName] == null) return false;
-                else return true;
+                return true;
             }
             return false;
         }
@@ -58,7 +58,8 @@ namespace DasKlub.Lib.BLL
         }
 
         /// <summary>
-        ///     Add an object to the cache with its name (add object to cache before the datarow for the object is used because it relies
+        ///     Add an object to the cache with its name (add object to cache before the datarow for the object is used because it
+        ///     relies
         ///     on knowing only the info before the DB call to instantiate)
         /// </summary>
         /// <param name="cache"></param>
@@ -71,12 +72,12 @@ namespace DasKlub.Lib.BLL
             if (HttpContext.Current != null && obj != null && !string.IsNullOrEmpty(cacheName))
             {
                 HttpRuntime.Cache.Add(cacheName,
-                                              obj,
-                                              null,
-                                              Cache.NoAbsoluteExpiration,
-                                              new TimeSpan(0, 5, 0),
-                                              CacheItemPriority.Default,
-                                              _onRemove);
+                    obj,
+                    null,
+                    Cache.NoAbsoluteExpiration,
+                    new TimeSpan(0, 5, 0),
+                    CacheItemPriority.Default,
+                    _onRemove);
             }
         }
 
@@ -88,12 +89,12 @@ namespace DasKlub.Lib.BLL
             if (HttpContext.Current != null && obj != null && !string.IsNullOrEmpty(cacheName))
             {
                 HttpRuntime.Cache.Add(cacheName,
-                                              obj,
-                                              null,
-                                              DateTime.UtcNow.AddMinutes(minutes),
-                                              Cache.NoSlidingExpiration,
-                                              CacheItemPriority.Default,
-                                              _onRemove);
+                    obj,
+                    null,
+                    DateTime.UtcNow.AddMinutes(minutes),
+                    Cache.NoSlidingExpiration,
+                    CacheItemPriority.Default,
+                    _onRemove);
             }
         }
 

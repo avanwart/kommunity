@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
@@ -8,25 +7,25 @@ namespace DasKlubModel.Models.Mapping
         public InterestedInMap()
         {
             // Primary Key
-            this.HasKey(t => t.interestedInID);
+            HasKey(t => t.interestedInID);
 
             // Properties
-            this.Property(t => t.typeLetter)
+            Property(t => t.typeLetter)
                 .IsFixedLength()
                 .HasMaxLength(1);
 
-            this.Property(t => t.name)
+            Property(t => t.name)
                 .HasMaxLength(50);
 
             // Table & Column Mappings
-            this.ToTable("InterestedIn");
-            this.Property(t => t.interestedInID).HasColumnName("interestedInID");
-            this.Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
-            this.Property(t => t.updateDate).HasColumnName("updateDate");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.typeLetter).HasColumnName("typeLetter");
-            this.Property(t => t.name).HasColumnName("name");
+            ToTable("InterestedIn");
+            Property(t => t.interestedInID).HasColumnName("interestedInID");
+            Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
+            Property(t => t.updateDate).HasColumnName("updateDate");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.typeLetter).HasColumnName("typeLetter");
+            Property(t => t.name).HasColumnName("name");
         }
     }
 }

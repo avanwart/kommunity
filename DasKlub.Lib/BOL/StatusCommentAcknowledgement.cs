@@ -45,7 +45,7 @@ namespace DasKlub.Lib.BOL
             comm.CommandText = "up_DeleteStatusCommentAcknowledgement";
 
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusCommentAcknowledgementID),
-                              StatusCommentAcknowledgementID);
+                StatusCommentAcknowledgementID);
 
             // RemoveCache();
 
@@ -76,12 +76,9 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else
-            {
-                StatusCommentAcknowledgementID = Convert.ToInt32(result);
+            StatusCommentAcknowledgementID = Convert.ToInt32(result);
 
-                return StatusCommentAcknowledgementID;
-            }
+            return StatusCommentAcknowledgementID;
         }
 
         public static bool IsUserCommentAcknowledgement(int statusCommentID, int userAccountID)
@@ -166,7 +163,7 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else return Convert.ToInt32(str);
+            return Convert.ToInt32(str);
         }
 
 

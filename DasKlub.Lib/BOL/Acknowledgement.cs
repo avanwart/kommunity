@@ -63,7 +63,7 @@ namespace DasKlub.Lib.BOL
         public override int Create()
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddAcknowledgement";
 
@@ -74,7 +74,7 @@ namespace DasKlub.Lib.BOL
 
             // the result is their ID
             // execute the stored procedure
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
@@ -112,14 +112,14 @@ namespace DasKlub.Lib.BOL
         public void GetAcknowledgement(int statusUpdateID, int userAccountID)
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetAcknowledgement";
 
             comm.AddParameter("userAccountID", userAccountID);
             comm.AddParameter("statusUpdateID", statusUpdateID);
 
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt.Rows.Count == 1)
             {
@@ -189,7 +189,7 @@ namespace DasKlub.Lib.BOL
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var art in from DataRow dr in dt.Rows select new Acknowledgement(dr))
+            foreach (Acknowledgement art in from DataRow dr in dt.Rows select new Acknowledgement(dr))
             {
                 Add(art);
             }

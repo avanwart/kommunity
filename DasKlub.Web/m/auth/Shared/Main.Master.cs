@@ -1,20 +1,4 @@
-﻿
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-using System;
+﻿using System;
 using System.Web.UI;
 
 namespace DasKlub.Web.m.auth.Shared

@@ -18,7 +18,6 @@ namespace DasKlub.Lib.BOL.UserContent
 
         public ContentType(DataRow dr)
         {
-            
             Get(dr);
         }
 
@@ -58,9 +57,8 @@ namespace DasKlub.Lib.BOL.UserContent
             {
                 Get(dt.Rows[0]);
             }
-           
         }
- 
+
         public override void Get(DataRow dr)
         {
             try
@@ -70,7 +68,7 @@ namespace DasKlub.Lib.BOL.UserContent
                 ContentTypeID = FromObj.IntFromObj(dr["contentTypeID"]);
 
                 string contentCode = FromObj.StringFromObj(dr["contentCode"]);
- 
+
                 ContentName = FromObj.StringFromObj(dr["contentName"]);
             }
             catch (Exception ex)

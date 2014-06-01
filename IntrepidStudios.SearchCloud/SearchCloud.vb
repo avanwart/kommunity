@@ -373,7 +373,7 @@ Public Class Cloud
                 FontSpread = 1
             End If
 
-            Dim FontStep As Double = FontSpread / Spread
+            Dim FontStep As Double = FontSpread/Spread
 
             FontStep = 0.7
 
@@ -394,9 +394,9 @@ Public Class Cloud
                 Dim sKeyCount As Integer = row.Item(DataCountField)
                 Dim sKeyURL As String
                 Dim ColorRGB As String
-                Dim weight As Double = MinFontSize + ((sKeyCount - MinQty) * FontStep)
+                Dim weight As Double = MinFontSize + ((sKeyCount - MinQty)*FontStep)
                 Dim FontDiff As Integer = MaxFontSize - MinFontSize
-                Dim ColorWeight As Double = Math.Round(99 * (weight - MinFontSize) / (FontDiff) + 1)
+                Dim ColorWeight As Double = Math.Round(99*(weight - MinFontSize)/(FontDiff) + 1)
 
                 ' Create Color
                 ' Don't want to calculate if colors = each other
@@ -427,7 +427,7 @@ Public Class Cloud
                                   ColorRGB,
                                   FontUnit,
                                   GenerateAttributes(sKeyWord, sKeyId, sKeyURL, sKeyCount)),
-                                  sKeyCount)
+                    sKeyCount)
 
             Next
 
@@ -517,7 +517,7 @@ Public Class Cloud
                 FontSpread = 1
             End If
 
-            Dim FontStep As Double = FontSpread / Spread
+            Dim FontStep As Double = FontSpread/Spread
 
             'FontStep = 0.7
             FontStep = 3
@@ -539,9 +539,9 @@ Public Class Cloud
                 Dim sKeyCount As Integer = row.Item(DataCountField)
                 Dim sKeyURL As String
                 Dim ColorRGB As String
-                Dim Weight As Double = MinFontSize + ((sKeyCount - MinQty) * FontStep)
+                Dim Weight As Double = MinFontSize + ((sKeyCount - MinQty)*FontStep)
                 Dim FontDiff As Integer = MaxFontSize - MinFontSize
-                Dim ColorWeight As Double = Math.Round(99 * (Weight - MinFontSize) / (FontDiff) + 1)
+                Dim ColorWeight As Double = Math.Round(99*(Weight - MinFontSize)/(FontDiff) + 1)
 
                 ' Create Color
                 ' Don't want to calculate if colors = each other
@@ -573,7 +573,6 @@ Public Class Cloud
                                   FontUnit,
                                   sKeyCount))
 
- 
 
             Next
 
@@ -589,7 +588,6 @@ Public Class Cloud
         End Try
 
         Return sb.ToString
-
     End Function
 
 
@@ -627,7 +625,7 @@ Public Class Cloud
     ' Generate Color Based on Weight
     ' Thanks to Reciprocity for a structure for this code
     Private Function Colorize(ByVal minc As String, ByVal maxc As String, ByVal w As Double) As String
-        w = w / 100
+        w = w/100
         Dim rs, gs, bs As String
         Dim r, g, b As String
         Dim minr, ming, minb, maxr, maxg, maxb As Integer
@@ -658,9 +656,9 @@ Public Class Cloud
         maxg = CLng("&H" & maxc.Substring(3, 2))
         maxb = CLng("&H" & maxc.Substring(5, 2))
 
-        r = Hex(Math.Round(((maxr - minr) * w) + minr)).ToString
-        g = Hex(Math.Round(((maxg - ming) * w) + ming)).ToString
-        b = Hex(Math.Round(((maxb - minb) * w) + minb)).ToString
+        r = Hex(Math.Round(((maxr - minr)*w) + minr)).ToString
+        g = Hex(Math.Round(((maxg - ming)*w) + ming)).ToString
+        b = Hex(Math.Round(((maxb - minb)*w) + minb)).ToString
 
         If Len(r) = 1 Then r = "0" & r
         If Len(g) = 1 Then g = "0" & g

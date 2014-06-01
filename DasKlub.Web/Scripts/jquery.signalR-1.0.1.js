@@ -76,7 +76,7 @@
             if (!connection._.configuredStopReconnectingTimeout) {
                 onReconnectTimeout = function(connection) {
                     connection.log("Couldn't reconnect within the configured timeout (" + connection.disconnectTimeout + "ms), disconnecting.");
-                    connection.stop(/* async */ false, /* notifyServer */ false);
+                    connection.stop( /* async */ false, /* notifyServer */ false);
                 };
 
                 connection.reconnecting(function() {
@@ -139,7 +139,10 @@
     function validateTransport(requestedTransport, connection) {
         /// <summary>Validates the requested transport by cross checking it with the pre-defined signalR.transports</summary>
         /// <param name="requestedTransport" type="Object">The designated transports that the user has specified.</param>
-        /// <param name="connection" type="signalR">The connection that will be using the requested transports.  Used for logging purposes.</param>
+        /// <param name="connection" type="signalR">
+        ///     The connection that will be using the requested transports.  Used for logging
+        ///     purposes.
+        /// </param>
         /// <returns type="Object" />
         if ($.isArray(requestedTransport)) {
             // Go through transport array and remove an "invalid" tranports
@@ -1158,7 +1161,7 @@
                 connection.log("Attempting to connect to SSE endpoint '" + url + "'");
                 connection.eventSource = new window.EventSource(url);
                 connection.eventSource.ID = ++that.currentEventSourceID;
-            } catch(e) {
+            } catch (e) {
                 connection.log("EventSource failed trying to connect with error " + e.Message);
                 if (onFailed) {
                     // The connection failed, call the failed callback
@@ -1176,27 +1179,27 @@
             // After connecting, if after the specified timeout there's no response stop the connection
             // and raise on failed
             connectTimeOut = window.setTimeout(function() {
-                if (opened === false) {
-                    connection.log("EventSource timed out trying to connect");
-                    connection.log("EventSource readyState: " + connection.eventSource.readyState);
+                    if (opened === false) {
+                        connection.log("EventSource timed out trying to connect");
+                        connection.log("EventSource readyState: " + connection.eventSource.readyState);
 
-                    if (!reconnecting) {
-                        that.stop(connection);
-                    }
-
-                    if (reconnecting) {
-                        // If we're reconnecting and the event source is attempting to connect,
-                        // don't keep retrying. This causes duplicate connections to spawn.
-                        if (connection.eventSource.readyState !== window.EventSource.CONNECTING &&
-                            connection.eventSource.readyState !== window.EventSource.OPEN) {
-                            // If we were reconnecting, rather than doing initial connect, then try reconnect again
-                            that.reconnect(connection);
+                        if (!reconnecting) {
+                            that.stop(connection);
                         }
-                    } else if (onFailed) {
-                        onFailed();
+
+                        if (reconnecting) {
+                            // If we're reconnecting and the event source is attempting to connect,
+                            // don't keep retrying. This causes duplicate connections to spawn.
+                            if (connection.eventSource.readyState !== window.EventSource.CONNECTING &&
+                                connection.eventSource.readyState !== window.EventSource.OPEN) {
+                                // If we were reconnecting, rather than doing initial connect, then try reconnect again
+                                that.reconnect(connection);
+                            }
+                        } else if (onFailed) {
+                            onFailed();
+                        }
                     }
-                }
-            },
+                },
                 that.timeOut);
 
             connection.eventSource.addEventListener("open", function(e) {
@@ -1423,7 +1426,7 @@
                         if (cw.document && cw.document.execCommand) {
                             cw.document.execCommand("Stop");
                         }
-                    } catch(e) {
+                    } catch (e) {
                         connection.log("SignalR: Error occured when stopping foreverFrame transport. Message = " + e.message);
                     }
                 }
@@ -1861,10 +1864,10 @@
 
     hubConnection.fn.init = function(url, options) {
         var settings = {
-            qs: null,
-            logging: false,
-            useDefaultPath: true
-        },
+                qs: null,
+                logging: false,
+                useDefaultPath: true
+            },
             connection = this;
 
         $.extend(settings, options);
@@ -1954,8 +1957,7 @@
         /// <param name="hubName" type="String">
         ///     The name of the hub on the server to create the proxy for.
         /// </param>
-
-        // Normalize the name to lowercase
+// Normalize the name to lowercase
         hubName = hubName.toLowerCase();
 
         var proxy = this.proxies[hubName];

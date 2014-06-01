@@ -84,7 +84,6 @@ namespace DasKlub.Web.m.auth
         {
             try
             {
-                 
                 var allartsis = new Artists();
                 allartsis.RemoveCache();
 
@@ -185,13 +184,15 @@ namespace DasKlub.Web.m.auth
                         Convert.ToInt32(
                             ddlFootageType.SelectedValue), vid.VideoID);
                 }
- 
+
 
                 VideoSong.DeleteSongsForVideo(vid.VideoID);
 
                 // song 1
 
-                artst = string.IsNullOrEmpty(txtArtist1.Text.Trim()) ? new Artist(ddlArtist1.SelectedValue) : new Artist(txtArtist1.Text);
+                artst = string.IsNullOrEmpty(txtArtist1.Text.Trim())
+                    ? new Artist(ddlArtist1.SelectedValue)
+                    : new Artist(txtArtist1.Text);
 
                 if (artst.ArtistID == 0)
                 {

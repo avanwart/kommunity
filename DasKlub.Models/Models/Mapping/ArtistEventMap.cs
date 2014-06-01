@@ -8,29 +8,28 @@ namespace DasKlubModel.Models.Mapping
         public ArtistEventMap()
         {
             // Primary Key
-            this.HasKey(t => new { t.artistID, t.eventID });
+            HasKey(t => new {t.artistID, t.eventID});
 
             // Properties
-            this.Property(t => t.artistID)
+            Property(t => t.artistID)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            this.Property(t => t.eventID)
+            Property(t => t.eventID)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             // Table & Column Mappings
-            this.ToTable("ArtistEvent");
-            this.Property(t => t.artistID).HasColumnName("artistID");
-            this.Property(t => t.eventID).HasColumnName("eventID");
-            this.Property(t => t.rankOrder).HasColumnName("rankOrder");
+            ToTable("ArtistEvent");
+            Property(t => t.artistID).HasColumnName("artistID");
+            Property(t => t.eventID).HasColumnName("eventID");
+            Property(t => t.rankOrder).HasColumnName("rankOrder");
 
             // Relationships
-            this.HasRequired(t => t.Artist)
+            HasRequired(t => t.Artist)
                 .WithMany(t => t.ArtistEvents)
                 .HasForeignKey(d => d.artistID);
-            this.HasRequired(t => t.Event)
+            HasRequired(t => t.Event)
                 .WithMany(t => t.ArtistEvents)
                 .HasForeignKey(d => d.eventID);
-
         }
     }
 }

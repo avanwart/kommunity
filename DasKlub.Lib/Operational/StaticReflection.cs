@@ -39,7 +39,7 @@ namespace DasKlub.Lib.Operational
             if (callExpression != null)
             {
                 // Reference type method
-                var methodCallExpression =
+                MethodCallExpression methodCallExpression =
                     callExpression;
                 return methodCallExpression.Method.Name;
             }
@@ -48,7 +48,7 @@ namespace DasKlub.Lib.Operational
             if (unaryExpression1 != null)
             {
                 // Property, field of method returning value type
-                var unaryExpression = unaryExpression1;
+                UnaryExpression unaryExpression = unaryExpression1;
                 return GetMemberName(unaryExpression);
             }
 
@@ -61,7 +61,7 @@ namespace DasKlub.Lib.Operational
             var operand = unaryExpression.Operand as MethodCallExpression;
             if (operand != null)
             {
-                var methodExpression =
+                MethodCallExpression methodExpression =
                     operand;
                 return methodExpression.Method.Name;
             }

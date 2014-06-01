@@ -5,8 +5,8 @@ using System.Data;
 using System.Data.Common;
 using System.Text;
 using System.Web;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
@@ -30,8 +30,7 @@ namespace DasKlub.Lib.BOL
             {
                 if (_name == null)
                     return string.Empty;
-                else
-                    return _name.Trim();
+                return _name.Trim();
             }
             set { _name = value; }
         }
@@ -207,7 +206,6 @@ namespace DasKlub.Lib.BOL
                         HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
                     }
                 }
-           
             }
             else
             {
@@ -289,12 +287,9 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else
-            {
-                MultiPropertyID = Convert.ToInt32(result);
+            MultiPropertyID = Convert.ToInt32(result);
 
-                return MultiPropertyID;
-            }
+            return MultiPropertyID;
         }
 
 
@@ -328,14 +323,11 @@ namespace DasKlub.Lib.BOL
         public int Set()
         {
             if (MultiPropertyID == 0) return Create();
-            else
-            {
-                int rslt = 0;
+            int rslt = 0;
 
-                if (Update()) rslt = 1;
+            if (Update()) rslt = 1;
 
-                return rslt;
-            }
+            return rslt;
         }
 
         #region ICacheName Members
@@ -345,10 +337,10 @@ namespace DasKlub.Lib.BOL
             get
             {
                 return string.Format("{0}-{1}-{2}-{3}-{4}", GetType().FullName,
-                                     MultiPropertyID.ToString(),
-                                     PropertyTypeID.ToString(),
-                                     VideoID.ToString(),
-                                     ProductID.ToString());
+                    MultiPropertyID,
+                    PropertyTypeID,
+                    VideoID,
+                    ProductID);
             }
         }
 
@@ -408,7 +400,7 @@ namespace DasKlub.Lib.BOL
 
 
         public void FilteredOptions(int propertyTypeID, int? guitarType, int? humanType, int? footageType,
-                                    int? genreType, int? videoType, int? difficultyLevel, int? languge)
+            int? genreType, int? videoType, int? difficultyLevel, int? languge)
         {
             var allFilters = new ArrayList();
 

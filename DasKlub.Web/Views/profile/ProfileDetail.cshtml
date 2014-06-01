@@ -1,6 +1,4 @@
-﻿
-
-@using DasKlub.Lib.BOL
+﻿@using DasKlub.Lib.BOL
 @using DasKlub.Lib.Configs
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
@@ -94,24 +92,24 @@
                 <div>
                     <ul class="profile_images">
                         <li><a rel="nofollow" id="photo_edit_1" title="@Messages.CurrentDefault"
-   href="@Model.ProfilePhotoMain"
-   class="current_view_profile_pic profile_thumb m_over">
-    <img src="@Model.ProfilePhotoMainThumb" alt="@Messages.CurrentDefault" title="@Messages.CurrentDefault" />
-</a></li>
+                               href="@Model.ProfilePhotoMain"
+                               class="current_view_profile_pic profile_thumb m_over">
+                                <img src="@Model.ProfilePhotoMainThumb" alt="@Messages.CurrentDefault" title="@Messages.CurrentDefault" />
+                            </a></li>
                         @if (!string.IsNullOrWhiteSpace(ViewBag.SecondUserPhotoThumb))
                         {
                             <li><a rel="nofollow" id="photo_edit_2" title="2"
-   href="@ViewBag.SecondUserPhotoFull" class="profile_thumb m_over">
-    <img src="@ViewBag.SecondUserPhotoThumb" />
-</a></li>
+                                   href="@ViewBag.SecondUserPhotoFull" class="profile_thumb m_over">
+                                    <img src="@ViewBag.SecondUserPhotoThumb" />
+                                </a></li>
                         }
                         @if (!string.IsNullOrWhiteSpace(ViewBag.ThirdUserPhotoFull))
                         {
                             <li><a rel="nofollow" id="photo_edit_3" title="3"
-   href="@ViewBag.ThirdUserPhotoFull"
-   class="profile_thumb m_over">
-    <img src="@ViewBag.ThirdUserPhotoThumb" />
-</a></li>
+                                   href="@ViewBag.ThirdUserPhotoFull"
+                                   class="profile_thumb m_over">
+                                    <img src="@ViewBag.ThirdUserPhotoThumb" />
+                                </a></li>
                         }
                     </ul>
                 </div>
@@ -322,11 +320,10 @@
         </div>
        
         <div class="span7">
-              <hr />
+            <hr />
 
             @if (!string.IsNullOrWhiteSpace(Model.PhotoItems))
             {
-                
                 <h5>
                     <img src="@Url.Content("~/content/images/icons/icon_photo.png")" alt="@Messages.Photos" title="@Messages.Photos" />
                     @Messages.Photos: @Model.PhotoCount</h5>
@@ -338,16 +335,13 @@
                     <div class="clear">
                     </div>
 
-    <a rel="nofollow"  class="btn btn-primary" href="@Url.Content("~/" + Model.UserNameUrl + "/userphotos")">@Messages.MorePhotos</a>
+                    <a rel="nofollow"  class="btn btn-primary" href="@Url.Content("~/" + Model.UserNameUrl + "/userphotos")">@Messages.MorePhotos</a>
                     <br />
                 }
             }
             else
             {
-                
-                      Html.RenderPartial("_AdBanner468x60"); 
-
-
+                Html.RenderPartial("_AdBanner468x60");
             }
 
             <div class="clear">
@@ -356,9 +350,6 @@
 
             @if (!string.IsNullOrWhiteSpace(Model.NewsArticles))
             {
-               
-
-              
                 <h5>
                     <img src="@Url.Content("~/content/images/icons/icon_doc.png")" alt="@Messages.News" title="@Messages.News" />
                     @Messages.News: @Model.NewsCount</h5>
@@ -375,10 +366,7 @@
             }
             else
             {
-
                 Html.RenderPartial("_AdBanner300x250");
-
-
             }
 
         </div>
@@ -463,7 +451,7 @@
                 playlistID = @Html.Raw(Convert.ToString(ViewBag.UserPlaylistID));
                 youtubeVideoHeight = '@ViewBag.VideoHeight';
                 youtubeVideoWidth = '63%',
-                loadFromHash = false;
+                    loadFromHash = false;
                 autoPlay = @Html.Raw(Convert.ToString(ViewBag.AutoPlayNumber));
 
                 var urlToFetch;
@@ -513,14 +501,14 @@
 
             if (src != $('img#largeImg').attr('src').replace(/\?(.*)/, '')) {
                 $('img#largeImg').stop().animate({
-                        opacity: '0'
-                    }, function() {
-                        $(this).attr('src', src + '?' + Math.floor(Math.random() * (10 * 100)));
-                    }).load(function() {
-                        $(this).stop().animate({
-                            opacity: '1'
-                        });
+                    opacity: '0'
+                }, function() {
+                    $(this).attr('src', src + '?' + Math.floor(Math.random() * (10 * 100)));
+                }).load(function() {
+                    $(this).stop().animate({
+                        opacity: '1'
                     });
+                });
 
 
             }
@@ -567,9 +555,7 @@
                 current.animate({ opacity: 0.0 }, 1000)
                     .removeClass('show');
 
-            }
-
-            ;
+            };
 
 
             $(document).ready(function() {
@@ -712,7 +698,7 @@
 
         <hr />
             
-                   @{ Html.RenderPartial("_AdBanner468x60"); }
+        @{ Html.RenderPartial("_AdBanner468x60"); }
  
         <hr />
         <br />
@@ -722,13 +708,13 @@
                 @if (Model.UserConnectionID > 0)
                 {
                     @Html.ActionLink(Messages.Delete + ": " + Model.UserName,
-                                     "DeleteContact", "account",
-                                     new { @userConnectionID = Model.UserConnectionID }, new { @onclick = "return confirm('" + Messages.Delete + ": " + Model.UserName + "')" })
+                        "DeleteContact", "account",
+                        new {@userConnectionID = Model.UserConnectionID}, new {@onclick = "return confirm('" + Messages.Delete + ": " + Model.UserName + "')"})
                 }
                 <br />
                 @Html.ActionLink(Messages.Block + ": " + Model.UserName,
-                                 "blockeduser", "account", new { @userAccountID = Model.UserAccountID },
-                                 new { @onclick = "return confirm('" + Messages.Block + ": " + Model.UserName + "')" })
+                    "blockeduser", "account", new {@userAccountID = Model.UserAccountID},
+                    new {@onclick = "return confirm('" + Messages.Block + ": " + Model.UserName + "')"})
     
             </div>
         }

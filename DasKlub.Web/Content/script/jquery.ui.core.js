@@ -190,8 +190,8 @@
             return !!img && visible(img);
         }
         return (/input|select|textarea|button|object/.test(nodeName)
-            ? !element.disabled
-            : "a" == nodeName
+                ? !element.disabled
+                : "a" == nodeName
                 ? element.href || isTabIndexNotNaN
                 : isTabIndexNotNaN)
             // the element and all of its ancestors must be visible
@@ -271,14 +271,14 @@
                 }
             }
         },
-	
+
         // will be deprecated when we switch to jQuery 1.4 - use jQuery.contains()
         contains: function(a, b) {
             return document.compareDocumentPosition ?
                 a.compareDocumentPosition(b) & 16 :
                 a !== b && a.contains(b);
         },
-	
+
         // only used by resizable
         hasScroll: function(el, a) {
 
@@ -302,7 +302,7 @@
             el[scroll] = 0;
             return has;
         },
-	
+
         // these are odd functions, fix the API or move into individual plugins
         isOverAxis: function(x, reference, size) {
             //Determines when x coordinate is over "b" element axis

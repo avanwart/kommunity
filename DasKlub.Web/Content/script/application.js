@@ -91,10 +91,13 @@
         $('.download-btn').on('click', function() {
 
             var css = $("#components.download input:checked")
-                .map(function() { return this.value; })
-                .toArray(), js = $("#plugins.download input:checked")
                     .map(function() { return this.value; })
-                    .toArray(), vars = {}, img = ['glyphicons-halflings.png', 'glyphicons-halflings-white.png'];
+                    .toArray(),
+                js = $("#plugins.download input:checked")
+                    .map(function() { return this.value; })
+                    .toArray(),
+                vars = {},
+                img = ['glyphicons-halflings.png', 'glyphicons-halflings-white.png'];
             $("#variables.download input")
                 .each(function() {
                     $(this).val() && (vars[$(this).prev().text()] = $(this).val());

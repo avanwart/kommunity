@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Common;
 using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Operational;
@@ -34,7 +35,7 @@ namespace DasKlub.Lib.BOL
             if (string.IsNullOrEmpty(ipAddress)) return true;
 
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_IsIPBlocked";
 

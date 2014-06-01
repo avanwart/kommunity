@@ -52,16 +52,16 @@
         </div>
         <div class="editor-field">
             @Html.DropDownList("departmentList",
-                               new SelectList(ViewBag.Departments, "departmentID", "Name",
-                                              (Model.Department != null) ? Model.Department.DepartmentID : 0),
-                               Messages.DashSelect)
+                new SelectList(ViewBag.Departments, "departmentID", "Name",
+                    (Model.Department != null) ? Model.Department.DepartmentID : 0),
+                Messages.DashSelect)
 
             @Html.DropDownList("ForumCategory.ForumCategoryID",
-                               new SelectList(ViewBag.CategoriesForDepartment,
-                                              "categoryID", "Name",
-                                              (Model.ForumCategory != null) ?
-                                                  Model.ForumCategory.ForumCategoryID : 0),
-                               Messages.DashSelect)
+                new SelectList(ViewBag.CategoriesForDepartment,
+                    "categoryID", "Name",
+                    (Model.ForumCategory != null) ?
+                        Model.ForumCategory.ForumCategoryID : 0),
+                Messages.DashSelect)
               
                  
             @((object) Html.CSSClassValidationMessageFor(m => m.ForumCategory.ForumCategoryID))
@@ -95,7 +95,7 @@
                             gtax.GetGoogleTaxonomy(Convert.ToInt32(taxItem));
                             gtaxes.GetGoogleTaxonomyByNameParent(Convert.ToInt32(gtax.ParentID));
                         }
-                        string parentName = "parentTaxonmy_" + @j.ToString();
+                        string parentName = "parentTaxonmy_" + @j;
 
                         <select id="@parentName">
                             @foreach (GoogleTaxonomy gtax in gtaxes)

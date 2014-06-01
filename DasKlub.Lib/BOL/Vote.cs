@@ -80,12 +80,9 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else
-            {
-                VoteID = Convert.ToInt32(result);
+            VoteID = Convert.ToInt32(result);
 
-                return VoteID;
-            }
+            return VoteID;
         }
     }
 

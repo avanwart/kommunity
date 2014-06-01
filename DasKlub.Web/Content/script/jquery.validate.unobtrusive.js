@@ -1,6 +1,5 @@
 ﻿/// <reference path="jquery-1.5.1.js" />
 /// <reference path="jquery.validate.js" />
-
 /*!
 ** Unobtrusive validation support library for jQuery and jQuery Validate
 ** Copyright (C) Microsoft Corporation. All rights reserved.
@@ -125,7 +124,9 @@
             /// </param>
             var $element = $(element),
                 form = $element.parents("form")[0],
-                valInfo, rules, messages;
+                valInfo,
+                rules,
+                messages;
 
             if (!form) { // Cannot do client-side validation without a form
                 return;
@@ -331,10 +332,10 @@
     });
     adapters.add("remote", ["url", "type", "additionalfields"], function(options) {
         var value = {
-            url: options.params.url,
-            type: options.params.type || "GET",
-            data: {}
-        },
+                url: options.params.url,
+                type: options.params.type || "GET",
+                data: {}
+            },
             prefix = getModelPrefix(options.element.name);
 
         $.each(splitAndTrim(options.params.additionalfields || options.element.name), function(i, fieldName) {

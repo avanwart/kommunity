@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
@@ -8,41 +7,40 @@ namespace DasKlubModel.Models.Mapping
         public PhotoItemMap()
         {
             // Primary Key
-            this.HasKey(t => t.photoItemID);
+            HasKey(t => t.photoItemID);
 
             // Properties
-            this.Property(t => t.title)
+            Property(t => t.title)
                 .HasMaxLength(100);
 
-            this.Property(t => t.filePathRaw)
+            Property(t => t.filePathRaw)
                 .IsRequired()
                 .HasMaxLength(255);
 
-            this.Property(t => t.filePathThumb)
+            Property(t => t.filePathThumb)
                 .IsRequired()
                 .HasMaxLength(255);
 
-            this.Property(t => t.filePathStandard)
+            Property(t => t.filePathStandard)
                 .IsRequired()
                 .HasMaxLength(255);
 
             // Table & Column Mappings
-            this.ToTable("PhotoItem");
-            this.Property(t => t.photoItemID).HasColumnName("photoItemID");
-            this.Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
-            this.Property(t => t.updateDate).HasColumnName("updateDate");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.title).HasColumnName("title");
-            this.Property(t => t.filePathRaw).HasColumnName("filePathRaw");
-            this.Property(t => t.filePathThumb).HasColumnName("filePathThumb");
-            this.Property(t => t.filePathStandard).HasColumnName("filePathStandard");
+            ToTable("PhotoItem");
+            Property(t => t.photoItemID).HasColumnName("photoItemID");
+            Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
+            Property(t => t.updateDate).HasColumnName("updateDate");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.title).HasColumnName("title");
+            Property(t => t.filePathRaw).HasColumnName("filePathRaw");
+            Property(t => t.filePathThumb).HasColumnName("filePathThumb");
+            Property(t => t.filePathStandard).HasColumnName("filePathStandard");
 
             // Relationships
-            this.HasOptional(t => t.UserAccountEntity)
+            HasOptional(t => t.UserAccountEntity)
                 .WithMany(t => t.PhotoItems)
                 .HasForeignKey(d => d.createdByUserID);
-
         }
     }
 }

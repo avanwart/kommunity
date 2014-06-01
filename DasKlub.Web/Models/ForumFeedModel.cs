@@ -14,13 +14,13 @@ namespace DasKlub.Web.Models
         public int PostCount { get; set; }
 
         /// <summary>
-        /// When it's an authenciated user, say if it's new to them
+        ///     When it's an authenciated user, say if it's new to them
         /// </summary>
         public bool IsNewPost { get; set; }
 
         /// <summary>
-        /// Use this property when they are authenticated, the URL should be
-        /// to the last post on the last page
+        ///     Use this property when they are authenticated, the URL should be
+        ///     to the last post on the last page
         /// </summary>
         public Uri URLTo { get; set; }
 

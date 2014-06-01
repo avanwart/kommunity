@@ -4,19 +4,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
-    public partial class SizeType
+    public class SizeType
     {
         public SizeType()
         {
-            this.Sizes = new List<Size>();
+            Sizes = new List<Size>();
         }
+
         [Key]
         public int sizeTypeID { get; set; }
+
         public string name { get; set; }
-        public System.DateTime createDate { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> createdByUserID { get; set; }
-        public Nullable<int> updatedByUserID { get; set; }
+        public DateTime createDate { get; set; }
+        public DateTime? updateDate { get; set; }
+        public int? createdByUserID { get; set; }
+        public int? updatedByUserID { get; set; }
         public virtual ICollection<Size> Sizes { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿@using DasKlub.Lib.BOL.DomainConnection
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Values
-
 @if (!HttpContext.Current.Request.Browser.IsMobileDevice)
 {
     @Html.Raw(SiteDomain.GetSiteDomainValue(

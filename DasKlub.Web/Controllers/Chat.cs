@@ -44,8 +44,8 @@ namespace DasKlub.Web.Controllers
 
         public void Connect(string userName)
         {
-            var mu = Membership.GetUser();
-            var id = Context.ConnectionId;
+            MembershipUser mu = Membership.GetUser();
+            string id = Context.ConnectionId;
 
             if (ConnectedUsers.Count(x => x.ConnectionId == id) != 0) return;
             ConnectedUsers.Add(new UserDetail {ConnectionId = id, UserName = userName});
@@ -59,10 +59,10 @@ namespace DasKlub.Web.Controllers
                 if (enterRoom.RoomID == 0)
                 {
                     enterRoom = new ChatRoomUser
-                        {
-                            CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
-                            ConnectionCode = id
-                        };
+                    {
+                        CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
+                        ConnectionCode = id
+                    };
                     enterRoom.Create();
                 }
                 else
@@ -85,15 +85,15 @@ namespace DasKlub.Web.Controllers
             message = HttpUtility.HtmlEncode(message);
             message = Utilities.MakeLink(message);
 
-            var mu = Membership.GetUser();
+            MembershipUser mu = Membership.GetUser();
 
             if (mu != null)
             {
                 var chatMessage = new ChatRoom
-                    {
-                        CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
-                        ChatMessage = message
-                    };
+                {
+                    CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
+                    ChatMessage = message
+                };
                 chatMessage.Create();
             }
 
@@ -107,9 +107,9 @@ namespace DasKlub.Web.Controllers
         {
             message = HttpUtility.HtmlEncode(message);
 
-            var fromUserId = Context.ConnectionId;
-            var toUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserId);
-            var fromUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
+            string fromUserId = Context.ConnectionId;
+            UserDetail toUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == toUserId);
+            UserDetail fromUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
 
             if (toUser == null || fromUser == null) return;
             // send to 
@@ -121,13 +121,13 @@ namespace DasKlub.Web.Controllers
 
         public override Task OnDisconnected()
         {
-            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            
+            UserDetail item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+
             if (item == null) return base.OnDisconnected();
 
             ConnectedUsers.Remove(item);
 
-            var id = Context.ConnectionId;
+            string id = Context.ConnectionId;
             Clients.All.onUserDisconnected(id, item.UserName);
 
             var exitRoom = new ChatRoomUser();
@@ -157,5 +157,4 @@ namespace DasKlub.Web.Controllers
 
         #endregion
     }
- 
 }

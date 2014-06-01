@@ -32,12 +32,14 @@
 
             var transitionEnd = (function() {
 
-                var el = document.createElement('bootstrap'), transEndEventNames = {
-                    'WebkitTransition': 'webkitTransitionEnd',
-                    'MozTransition': 'transitionend',
-                    'OTransition': 'oTransitionEnd otransitionend',
-                    'transition': 'transitionend'
-                }, name;
+                var el = document.createElement('bootstrap'),
+                    transEndEventNames = {
+                        'WebkitTransition': 'webkitTransitionEnd',
+                        'MozTransition': 'transitionend',
+                        'OTransition': 'oTransitionEnd otransitionend',
+                        'transition': 'transitionend'
+                    },
+                    name;
                 for (name in transEndEventNames) {
                     if (el.style[name] !== undefined) {
                         return transEndEventNames[name];
@@ -79,9 +81,10 @@
     /* ALERT CLASS DEFINITION
   * ====================== */
 
-    var dismiss = '[data-dismiss="alert"]', Alert = function(el) {
-        $(el).on('click', dismiss, this.close);
-    };
+    var dismiss = '[data-dismiss="alert"]',
+        Alert = function(el) {
+            $(el).on('click', dismiss, this.close);
+        };
     Alert.prototype.close = function(e) {
         var $this = $(this), selector = $this.attr('data-target'), $parent;
         if (!selector) {
@@ -274,9 +277,15 @@
             return this.slide('prev');
         },
         slide: function(type, next) {
-            var $active = this.$element.find('.item.active'), $next = next || $active[type](), isCycling = this.interval, direction = type == 'next' ? 'left' : 'right', fallback = type == 'next' ? 'first' : 'last', that = this, e = $.Event('slide', {
-                relatedTarget: $next[0]
-            });
+            var $active = this.$element.find('.item.active'),
+                $next = next || $active[type](),
+                isCycling = this.interval,
+                direction = type == 'next' ? 'left' : 'right',
+                fallback = type == 'next' ? 'first' : 'last',
+                that = this,
+                e = $.Event('slide', {
+                    relatedTarget: $next[0]
+                });
             this.sliding = true;
             isCycling && this.pause();
             $next = $next.length ? $next : this.$element.find('.item')[fallback]();
@@ -327,8 +336,11 @@
 
     $(function() {
         $('body').on('click.carousel.data-api', '[data-slide]', function(e) {
-            var $this = $(this), href, $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
-                , options = !$target.data('modal') && $.extend({}, $target.data(), $this.data());
+            var $this = $(this),
+                href,
+                $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
+                ,
+                options = !$target.data('modal') && $.extend({}, $target.data(), $this.data());
             $target.carousel(options);
             e.preventDefault();
         });
@@ -382,7 +394,7 @@
             if (this.transitioning) return;
             dimension = this.dimension();
             scroll = $.camelCase(['scroll', dimension].join('-'));
-            actives = this.$parent && this.$parent.find('> .accordion-group > .in');
+            actives = this.$parent && this.$parent.find('* > .accordion-group > .in');
             if (actives && actives.length) {
                 hasData = actives.data('collapse');
                 if (hasData && hasData.transitioning) return;
@@ -410,11 +422,12 @@
             return this;
         },
         transition: function(method, startEvent, completeEvent) {
-            var that = this, complete = function() {
-                if (startEvent.type == 'show') that.reset();
-                that.transitioning = 0;
-                that.$element.trigger(completeEvent);
-            };
+            var that = this,
+                complete = function() {
+                    if (startEvent.type == 'show') that.reset();
+                    that.transitioning = 0;
+                    that.$element.trigger(completeEvent);
+                };
             this.$element.trigger(startEvent);
             if (startEvent.isDefaultPrevented()) return;
             this.transitioning = 1;
@@ -444,10 +457,13 @@
 
     $(function() {
         $('body').on('click.collapse.data-api', '[data-toggle=collapse]', function(e) {
-            var $this = $(this), href, target = $this.attr('data-target')
-                || e.preventDefault()
-                || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') //strip for ie7
-                , option = $(target).data('collapse') ? 'toggle' : $this.data();
+            var $this = $(this),
+                href,
+                target = $this.attr('data-target')
+                    || e.preventDefault()
+                    || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') //strip for ie7
+                ,
+                option = $(target).data('collapse') ? 'toggle' : $this.data();
             $this[$(target).hasClass('in') ? 'addClass' : 'removeClass']('collapsed');
             $(target).collapse(option);
         });
@@ -481,12 +497,13 @@
     /* DROPDOWN CLASS DEFINITION
   * ========================= */
 
-    var toggle = '[data-toggle=dropdown]', Dropdown = function(element) {
-        var $el = $(element).on('click.dropdown.data-api', this.toggle);
-        $('html').on('click.dropdown.data-api', function() {
-            $el.parent().removeClass('open');
-        });
-    };
+    var toggle = '[data-toggle=dropdown]',
+        Dropdown = function(element) {
+            var $el = $(element).on('click.dropdown.data-api', this.toggle);
+            $('html').on('click.dropdown.data-api', function() {
+                $el.parent().removeClass('open');
+            });
+        };
     Dropdown.prototype = {
         constructor: Dropdown,
         toggle: function(e) {
@@ -668,10 +685,11 @@
             }
         },
         hideWithTransition: function() {
-            var that = this, timeout = setTimeout(function() {
-                that.$element.off($.support.transition.end);
-                that.hideModal();
-            }, 500);
+            var that = this,
+                timeout = setTimeout(function() {
+                    that.$element.off($.support.transition.end);
+                    that.hideModal();
+                }, 500);
             this.$element.one($.support.transition.end, function() {
                 clearTimeout(timeout);
                 that.hideModal();
@@ -733,8 +751,11 @@
 
     $(function() {
         $('body').on('click.modal.data-api', '[data-toggle="modal"]', function(e) {
-            var $this = $(this), href = $this.attr('href'), $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))) //strip for ie7
-                , option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
+            var $this = $(this),
+                href = $this.attr('href'),
+                $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))) //strip for ie7
+                ,
+                option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
             e.preventDefault();
             $target
                 .modal(option)
@@ -1208,14 +1229,15 @@
             });
         },
         activate: function(element, container, callback) {
-            var $active = container.find('> .active'), transition = callback
-                && $.support.transition
-                && $active.hasClass('fade');
+            var $active = container.find('* > .active'),
+                transition = callback
+                    && $.support.transition
+                    && $active.hasClass('fade');
 
             function next() {
                 $active
                     .removeClass('active')
-                    .find('> .dropdown-menu > .active')
+                    .find('* > .dropdown-menu > .active')
                     .removeClass('active');
                 element.addClass('active');
                 if (transition) {
@@ -1550,8 +1572,8 @@
         if (typeof offsetBottom == 'function') offsetBottom = offset.bottom();
         affix = this.unpin != null && (scrollTop + this.unpin <= position.top) ?
             false : offsetBottom != null && (position.top + this.$element.height() >= scrollHeight - offsetBottom) ?
-                'bottom' : offsetTop != null && scrollTop <= offsetTop ?
-                    'top' : false;
+            'bottom' : offsetTop != null && scrollTop <= offsetTop ?
+            'top' : false;
         if (this.affixed === affix) return;
         this.affixed = affix;
         this.unpin = affix == 'bottom' ? position.top - scrollTop : null;

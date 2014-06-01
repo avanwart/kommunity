@@ -54,25 +54,25 @@ namespace DasKlub.Lib.Operational
             // grouped by types. You can remove character groups from this
             // array, but doing so will weaken the password strength.
             var charGroups = new[]
-                {
-                    PasswordCharsLcase.ToCharArray(),
-                    PasswordCharsUcase.ToCharArray(),
-                    PasswordCharsNumeric.ToCharArray(),
-                };
+            {
+                PasswordCharsLcase.ToCharArray(),
+                PasswordCharsUcase.ToCharArray(),
+                PasswordCharsNumeric.ToCharArray()
+            };
 
             // Use this array to track the number of unused characters in each
             // character group.
             var charsLeftInGroup = new int[charGroups.Length];
 
             // Initially, all characters in each group are not used.
-            for (var i = 0; i < charsLeftInGroup.Length; i++)
+            for (int i = 0; i < charsLeftInGroup.Length; i++)
                 charsLeftInGroup[i] = charGroups[i].Length;
 
             // Use this array to track (iterate through) unused character groups.
             var leftGroupsOrder = new int[charGroups.Length];
 
             // Initially, all character groups are not used.
-            for (var i = 0; i < leftGroupsOrder.Length; i++)
+            for (int i = 0; i < leftGroupsOrder.Length; i++)
                 leftGroupsOrder[i] = i;
 
             // Because we cannot use the default randomizer, which is based on the
@@ -89,7 +89,7 @@ namespace DasKlub.Lib.Operational
             rng.GetBytes(randomBytes);
 
             // Convert 4 bytes into a 32-bit integer value.
-            var seed = (randomBytes[0] & 0x7f) << 24 |
+            int seed = (randomBytes[0] & 0x7f) << 24 |
                        randomBytes[1] << 16 |
                        randomBytes[2] << 8 |
                        randomBytes[3];
@@ -112,10 +112,10 @@ namespace DasKlub.Lib.Operational
             // Index of the last non-processed character in a group.
 
             // Index of the last non-processed group.
-            var lastLeftGroupsOrderIdx = leftGroupsOrder.Length - 1;
+            int lastLeftGroupsOrderIdx = leftGroupsOrder.Length - 1;
 
             // Generate password characters one at a time.
-            for (var i = 0; i < password.Length; i++)
+            for (int i = 0; i < password.Length; i++)
             {
                 // If only one character group remained unprocessed, process it;
                 // otherwise, pick a random character group from the unprocessed
@@ -127,7 +127,7 @@ namespace DasKlub.Lib.Operational
                     nextLeftGroupsOrderIdx = 0;
                 else
                     nextLeftGroupsOrderIdx = random.Next(0,
-                                                         lastLeftGroupsOrderIdx);
+                        lastLeftGroupsOrderIdx);
 
                 // Get the actual index of the character group, from which we will
                 // pick the next character.
@@ -155,7 +155,7 @@ namespace DasKlub.Lib.Operational
                     // this group.
                     if (lastCharIdx != nextCharIdx)
                     {
-                        var temp = charGroups[nextGroupIdx][lastCharIdx];
+                        char temp = charGroups[nextGroupIdx][lastCharIdx];
                         charGroups[nextGroupIdx][lastCharIdx] =
                             charGroups[nextGroupIdx][nextCharIdx];
                         charGroups[nextGroupIdx][nextCharIdx] = temp;

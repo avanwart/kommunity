@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using DasKlub.Lib.Resources;
-using DasKlub.Lib.BOL.UserContent;
-using DasKlub.Lib.Values;
-using System.Web;
 using System.Text;
-using DasKlub.Lib.Operational;
+using System.Web;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BOL.UserContent;
+using DasKlub.Lib.Operational;
+using DasKlub.Lib.Resources;
+using DasKlub.Lib.Values;
 
 namespace DasKlub.Web.Models
 {
@@ -60,14 +60,14 @@ namespace DasKlub.Web.Models
         }
 
 
-        [Display(ResourceType = typeof(Messages), Name = "Video")]
+        [Display(ResourceType = typeof (Messages), Name = "Video")]
         public string ContentVideoURL
         {
             get { return _contentVideoURL; }
             set { _contentVideoURL = value; }
         }
 
-        [Display(ResourceType = typeof(Messages), Name = "Video")]
+        [Display(ResourceType = typeof (Messages), Name = "Video")]
         public string ContentVideoURL2
         {
             get
@@ -81,7 +81,7 @@ namespace DasKlub.Web.Models
         }
 
 
-        [Display(ResourceType = typeof(Messages), Name = "Photo")]
+        [Display(ResourceType = typeof (Messages), Name = "Photo")]
         public string ContentPhotoURL
         {
             get { return _contentPhotoURL; }
@@ -89,7 +89,7 @@ namespace DasKlub.Web.Models
         }
 
 
-        [Display(ResourceType = typeof(Messages), Name = "Photo")]
+        [Display(ResourceType = typeof (Messages), Name = "Photo")]
         public string ContentPhotoThumbURL
         {
             get { return _contentPhotoThumbURL; }
@@ -105,8 +105,8 @@ namespace DasKlub.Web.Models
 
 
         [Required(ErrorMessageResourceName = "Required",
-            ErrorMessageResourceType = typeof(Messages))]
-        [Display(ResourceType = typeof(Messages), Name = "Title")]
+            ErrorMessageResourceType = typeof (Messages))]
+        [Display(ResourceType = typeof (Messages), Name = "Title")]
         public string Title
         {
             get
@@ -119,8 +119,8 @@ namespace DasKlub.Web.Models
         }
 
         [Required(ErrorMessageResourceName = "Required",
-            ErrorMessageResourceType = typeof(Messages))]
-        [Display(ResourceType = typeof(Messages), Name = "Detail")]
+            ErrorMessageResourceType = typeof (Messages))]
+        [Display(ResourceType = typeof (Messages), Name = "Detail")]
         public string Detail
         {
             get { return _detail; }
@@ -129,8 +129,8 @@ namespace DasKlub.Web.Models
 
 
         [Required(ErrorMessageResourceName = "Required",
-            ErrorMessageResourceType = typeof(Messages))]
-        [Display(ResourceType = typeof(Messages), Name = "MetaDescription")]
+            ErrorMessageResourceType = typeof (Messages))]
+        [Display(ResourceType = typeof (Messages), Name = "MetaDescription")]
         public string MetaDescription
         {
             get { return _metaDescription; }
@@ -138,8 +138,8 @@ namespace DasKlub.Web.Models
         }
 
         [Required(ErrorMessageResourceName = "Required",
-            ErrorMessageResourceType = typeof(Messages))]
-        [Display(ResourceType = typeof(Messages), Name = "Keywords")]
+            ErrorMessageResourceType = typeof (Messages))]
+        [Display(ResourceType = typeof (Messages), Name = "Keywords")]
         public string MetaKeywords
         {
             get { return _metaKeywords; }
@@ -161,7 +161,7 @@ namespace DasKlub.Web.Models
         }
 
 
-        [Display(ResourceType = typeof(Messages), Name = "ReleaseDate")]
+        [Display(ResourceType = typeof (Messages), Name = "ReleaseDate")]
         [DataType(DataType.Time)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:u}")]
         public DateTime ReleaseDate
@@ -178,6 +178,8 @@ namespace DasKlub.Web.Models
 
         #endregion
 
+        private Uri _urlTo;
+
         public IList<ContentComment> Comments
         {
             get
@@ -192,20 +194,15 @@ namespace DasKlub.Web.Models
 
         public string ContentDetail
         {
-            get
-            {
-                return Detail == null ? string.Empty : Detail.Replace(Environment.NewLine, "<br />");
-            }
+            get { return Detail == null ? string.Empty : Detail.Replace(Environment.NewLine, "<br />"); }
         }
-
-        private Uri _urlTo;
 
         public Uri UrlTo
         {
             get
             {
-                var theUrl = string.Concat("http://",
-                                              HttpContext.Current.Request.Url.Authority);
+                string theUrl = string.Concat("http://",
+                    HttpContext.Current.Request.Url.Authority);
 
                 theUrl += string.Concat("/news/", ContentKey);
 
@@ -220,15 +217,15 @@ namespace DasKlub.Web.Models
         {
             get
             {
-                return VirtualPathUtility.ToAbsolute(string.IsNullOrEmpty(ContentPhotoURL) ? 
-                    "~/content/contentinfo/default.png" : 
-                    ContentPhotoURL);
+                return VirtualPathUtility.ToAbsolute(string.IsNullOrEmpty(ContentPhotoURL)
+                    ? "~/content/contentinfo/default.png"
+                    : ContentPhotoURL);
             }
         }
 
         public string RatingAmount
         {
-            get { return (Rating * 15).ToString(); }
+            get { return (Rating*15).ToString(); }
         }
 
 
@@ -239,18 +236,18 @@ namespace DasKlub.Web.Models
                 if (string.IsNullOrEmpty(MetaKeywords)) return string.Empty;
 
                 var sb = new StringBuilder(100);
-                var keywords = MetaKeywords.Split(',');
-                var keywordCount = 0;
+                string[] keywords = MetaKeywords.Split(',');
+                int keywordCount = 0;
 
-                foreach (var keyword in keywords)
+                foreach (string keyword in keywords)
                 {
                     keywordCount++;
 
                     sb.Append(string.Format(@"<a href=""{0}"">{1}</a>",
-                                            VirtualPathUtility.ToAbsolute("~/news/tag/" +
-                                                                          FromString.URLKey(keyword)
-                                                )
-                                            , keyword));
+                        VirtualPathUtility.ToAbsolute("~/news/tag/" +
+                                                      FromString.URLKey(keyword)
+                            )
+                        , keyword));
 
                     if (keywordCount < keywords.Length)
                     {
@@ -261,8 +258,5 @@ namespace DasKlub.Web.Models
                 return sb.ToString();
             }
         }
-
- 
- 
     }
 }

@@ -22,7 +22,7 @@ namespace DasKlub.Web.Controllers
         public ActionResult Index()
         {
             _pitms = new PhotoItems {UseThumb = true, ShowTitle = false};
-            var cacheName = _pitm + "1";
+            string cacheName = _pitm + "1";
             if (HttpRuntime.Cache[cacheName] == null)
             {
                 ViewBag.TotalPhotos = _pitms.GetPhotoItemsPageWise(1, PageSize);
@@ -30,7 +30,7 @@ namespace DasKlub.Web.Controllers
             }
             else
             {
-                _pitms = (PhotoItems)HttpRuntime.Cache[cacheName];
+                _pitms = (PhotoItems) HttpRuntime.Cache[cacheName];
                 ViewBag.TotalPhotos = PageSize; //lie
             }
 
@@ -138,10 +138,9 @@ namespace DasKlub.Web.Controllers
             _pitms.IncludeStartAndEndTags = false;
 
             return Json(new
-                {
-                    ListItems = _pitms.ToUnorderdList
-                });
+            {
+                ListItems = _pitms.ToUnorderdList
+            });
         }
     }
 }
- 

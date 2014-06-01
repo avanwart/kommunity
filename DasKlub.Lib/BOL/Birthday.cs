@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class Birthday  
+    public class Birthday
     {
-
         public Birthday(DataRow dr)
         {
             Get(dr);
@@ -26,7 +26,6 @@ namespace DasKlub.Lib.BOL
 
         private void Get(DataRow dr)
         {
-
             UserAccountID = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => UserAccountID)]);
             Birthdate = FromObj.DateFromObj(dr[StaticReflection.GetMemberName<string>(x => Birthdate)]);
             AgeNow = FromObj.IntFromObj(dr[StaticReflection.GetMemberName<string>(x => AgeNow)]);
@@ -36,25 +35,25 @@ namespace DasKlub.Lib.BOL
 
     public class Birhtdays : List<Birthday>
     {
-          public void GetBirhtdays(int daysForward)
-          {
-              // get a configured DbCommand object
-              var comm = DbAct.CreateCommand();
-              
-              // set the stored procedure name
-              comm.CommandText = "up_GetBirhtdays";
+        public void GetBirhtdays(int daysForward)
+        {
+            // get a configured DbCommand object
+            DbCommand comm = DbAct.CreateCommand();
 
-              comm.AddParameter("daysForward", daysForward);
+            // set the stored procedure name
+            comm.CommandText = "up_GetBirhtdays";
 
-              // execute the stored procedure
-              var dt = DbAct.ExecuteSelectCommand(comm);
+            comm.AddParameter("daysForward", daysForward);
 
-              if (dt.Rows.Count <= 0) return;
+            // execute the stored procedure
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
-              foreach (var pitm in from DataRow dr in dt.Rows select new Birthday(dr))
-              {
-                  Add(pitm);
-              }
-          }
+            if (dt.Rows.Count <= 0) return;
+
+            foreach (Birthday pitm in from DataRow dr in dt.Rows select new Birthday(dr))
+            {
+                Add(pitm);
+            }
+        }
     }
 }

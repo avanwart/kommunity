@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,11 @@ namespace DasKlub.Web.Controllers
 
         private const int PageSize = 50;
 
-        private readonly char[] _letters = new[]
-            {
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-                'V', 'W', 'X', 'Y', 'Z'
-            };
+        private readonly char[] _letters =
+        {
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+            'V', 'W', 'X', 'Y', 'Z'
+        };
 
         private char _chosen = ' ';
         private Contest _contest;
@@ -30,11 +31,6 @@ namespace DasKlub.Web.Controllers
         private int _videoPageNumber = 1;
 
         #endregion
-
-        public VideoController()
-        {
-            
-        }
 
         [HttpGet]
         public ActionResult Contests()
@@ -65,7 +61,7 @@ namespace DasKlub.Web.Controllers
         }
 
         /// <summary>
-        /// Gets bands and users
+        ///     Gets bands and users
         /// </summary>
         private void LoadUserBandViewBag()
         {
@@ -73,14 +69,14 @@ namespace DasKlub.Web.Controllers
 
             sb.Append(@"<div class=""letter_group""><ul>");
 
-            foreach (var ch2 in _letters)
+            foreach (char ch2 in _letters)
             {
                 sb.Append("<li>");
 
 
                 sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
                     "~/video/bands/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())),
-                                Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
+                    Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
 
 
                 sb.Append("</li>");
@@ -92,14 +88,15 @@ namespace DasKlub.Web.Controllers
 
             sb = new StringBuilder();
             sb.Append(@"<div class=""letter_group""><ul>");
-            
-            foreach (var ch2 in _letters)
+
+            foreach (char ch2 in _letters)
             {
                 sb.Append("<li>");
 
                 sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                    string.Format("~/video/users/{0}", Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()))),
-                                Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
+                    string.Format("~/video/users/{0}",
+                        Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()))),
+                    Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
 
                 sb.Append("</li>");
             }
@@ -131,14 +128,14 @@ namespace DasKlub.Web.Controllers
             sngrcs.IncludeStateAndEndTag = false;
 
             return Json(new
-                {
-                    ListItems = sngrcs.VideosPageList()
-                });
+            {
+                ListItems = sngrcs.VideosPageList()
+            });
         }
 
         public ActionResult Index()
         {
-            var randomVideo = Video.RandomVideoIDVideo();
+            int randomVideo = Video.RandomVideoIDVideo();
 
             if (randomVideo > 0)
             {
@@ -150,7 +147,7 @@ namespace DasKlub.Web.Controllers
 
             LoadFilteredVideos(false);
 
-            var cndss = Lib.BOL.VideoContest.Contest.GetCurrentContest();
+            Contest cndss = Lib.BOL.VideoContest.Contest.GetCurrentContest();
             var cvids = new ContestVideos();
             var vidsInContest = new Videos();
             vidsInContest.AddRange(cvids.Select(cv1 => new Video(cv1.VideoID)));
@@ -161,8 +158,8 @@ namespace DasKlub.Web.Controllers
             ViewBag.ContestVideoList = sngrcds3.VideosList();
             ViewBag.CurrentContest = cndss;
             ViewBag.VideoTypes = GetVideoTypes();
-            ViewBag.PersonTypes  = GetPersonTypes();
-            ViewBag.FootageTypes =  GetFootageTypes();
+            ViewBag.PersonTypes = GetPersonTypes();
+            ViewBag.FootageTypes = GetFootageTypes();
 
             return View();
         }
@@ -257,7 +254,7 @@ namespace DasKlub.Web.Controllers
                 footageType = Convert.ToInt32(
                     Request.QueryString[SiteEnums.QueryStringNames.footageType.ToString()]);
             }
-            
+
             _toShow.GetListFilter(_videoPageNumber, PageSize, personType, footageType, videoType);
 
             if (isAjax) return true;
@@ -284,23 +281,23 @@ namespace DasKlub.Web.Controllers
             ViewBag.FirstLetter = firstLetter.ToUpper();
 
             var cloud1 = new Cloud
-                {
-                    DataIDField = @"keyword_id",
-                    DataKeywordField = "keyword_value",
-                    DataCountField = "keyword_count",
-                    DataURLField = "keyword_url"
-                };
+            {
+                DataIDField = @"keyword_id",
+                DataKeywordField = "keyword_value",
+                DataCountField = "keyword_count",
+                DataURLField = "keyword_url"
+            };
 
-            var theDs = firstLetter == "0"
-                                ? Artists.GetArtistCloudByNonLetter()
-                                : Artists.GetArtistCloudByLetter(firstLetter);
+            DataSet theDs = firstLetter == "0"
+                ? Artists.GetArtistCloudByNonLetter()
+                : Artists.GetArtistCloudByLetter(firstLetter);
             cloud1.DataSource = theDs;
 
             cloud1.MinFontSize = 14;
             cloud1.MaxFontSize = 30;
             cloud1.FontUnit = "px";
 
-            foreach (var chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
+            foreach (char chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
             {
                 _chosen = chl;
             }
@@ -309,7 +306,7 @@ namespace DasKlub.Web.Controllers
 
             sb.Append(@"<div class=""letter_group""><ul>");
 
-            foreach (var ch2 in _letters)
+            foreach (char ch2 in _letters)
             {
                 sb.Append("<li>");
 
@@ -323,8 +320,9 @@ namespace DasKlub.Web.Controllers
                 else
                 {
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                        string.Format("~/video/bands/{0}", Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()))),
-                                    Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
+                        string.Format("~/video/bands/{0}",
+                            Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()))),
+                        Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
                 }
 
                 sb.Append("</li>");
@@ -346,21 +344,21 @@ namespace DasKlub.Web.Controllers
             ViewBag.FirstLetter = firstLetter.ToUpper();
 
             var cloud1 = new Cloud
-                {
-                    DataIDField = "keyword_id",
-                    DataKeywordField = "keyword_value",
-                    DataCountField = "keyword_count",
-                    DataURLField = "keyword_url"
-                };
+            {
+                DataIDField = "keyword_id",
+                DataKeywordField = "keyword_value",
+                DataCountField = "keyword_count",
+                DataURLField = "keyword_url"
+            };
 
-            var theDs = Videos.GetAccountCloudByLetter(firstLetter);
+            DataSet theDs = Videos.GetAccountCloudByLetter(firstLetter);
 
             cloud1.DataSource = theDs;
             cloud1.MinFontSize = 14;
             cloud1.MaxFontSize = 30;
             cloud1.FontUnit = "px";
 
-            foreach (var chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
+            foreach (char chl in _letters.Where(chl => chl == Convert.ToChar(firstLetter)))
             {
                 _chosen = chl;
             }
@@ -370,7 +368,7 @@ namespace DasKlub.Web.Controllers
             sb.Append(@"<div class=""letter_group""><ul>");
 
 
-            foreach (var ch2 in _letters)
+            foreach (char ch2 in _letters)
             {
                 sb.Append("<li>");
 
@@ -384,8 +382,9 @@ namespace DasKlub.Web.Controllers
                 else
                 {
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                        string.Format("~/video/users/{0}", Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()))),
-                                    Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
+                        string.Format("~/video/users/{0}",
+                            Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()))),
+                        Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
                 }
 
                 sb.Append("</li>");

@@ -14,15 +14,15 @@ namespace DasKlub.Web.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (var cnt in crs)
+            foreach (ChatRoom cnt in crs)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
 
             return Json(new
-                {
-                    ListItems = sb.ToString()
-                });
+            {
+                ListItems = sb.ToString()
+            });
         }
 
 
@@ -36,17 +36,15 @@ namespace DasKlub.Web.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (var cnt in crus)
+            foreach (ChatRoomUser cnt in crus)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
 
             return Json(new
-                {
-                    ChattingUsers = sb.ToString()
-                });
+            {
+                ChattingUsers = sb.ToString()
+            });
         }
-
-
     }
 }

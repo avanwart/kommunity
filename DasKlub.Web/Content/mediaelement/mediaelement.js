@@ -90,10 +90,10 @@ mejs.Utility = {
             seconds = Math.floor(time % 60),
             frames = Math.floor(((time % 1) * fps).toFixed(3)),
             result =
-            ((forceHours || hours > 0) ? (hours < 10 ? '0' + hours : hours) + ':' : '')
-                + (minutes < 10 ? '0' + minutes : minutes) + ':'
-                + (seconds < 10 ? '0' + seconds : seconds)
-                + ((showFrameCount) ? ':' + (frames < 10 ? '0' + frames : frames) : '');
+                ((forceHours || hours > 0) ? (hours < 10 ? '0' + hours : hours) + ':' : '')
+                    + (minutes < 10 ? '0' + minutes : minutes) + ':'
+                    + (seconds < 10 ? '0' + seconds : seconds)
+                    + ((showFrameCount) ? ':' + (frames < 10 ? '0' + frames : frames) : '');
 
         return result;
     },
@@ -141,8 +141,8 @@ mejs.Utility = {
             secs += Number(SMPTE[i]) * multiplier;
         }
         return Number(secs.toFixed(decimalLen));
-    },	
-	
+    },
+
     /* borrowed from SWFObject: http://code.google.com/p/swfobject/source/browse/trunk/swfobject/src/swfobject.js#474 */
     removeSwf: function(id) {
         var obj = document.getElementById(id);
@@ -221,7 +221,7 @@ mejs.PluginDetector = {
                 if (ax) {
                     version = axDetect(ax);
                 }
-            } catch(e) {
+            } catch (e) {
             }
         }
         return version;
@@ -542,8 +542,8 @@ mejs.PluginMediaElement.prototype = {
         if (this.pluginApi != null && this.pluginApi.hideFullscreenButton) {
             this.pluginApi.hideFullscreenButton();
         }
-    },	
-	
+    },
+
 
     // custom methods since not all JavaScript implementations support get/set
 
@@ -638,7 +638,7 @@ mejs.PluginMediaElement.prototype = {
         if (this.pluginApi != null && this.pluginApi.setFullscreen) {
             this.setFullscreen(false);
         }
-    },	
+    },
 
     // start: fake events
     addEventListener: function(eventName, callback, bubble) {
@@ -677,7 +677,7 @@ mejs.PluginMediaElement.prototype = {
         }
     },
     // end: fake events
-	
+
     // fake DOM attribute methods
     attributes: {},
     hasAttribute: function(name) {
@@ -779,10 +779,10 @@ Default options
 mejs.MediaElementDefaults = {
     // allows testing on HTML5, flash, silverlight
     // auto: attempts to detect what the browser can do
-	// auto_plugin: prefer plugins and then attempt native HTML5
-	// native: forces HTML5 playback
-	// shim: disallows HTML5, will attempt either Flash or Silverlight
-	// none: forces fallback view
+    // auto_plugin: prefer plugins and then attempt native HTML5
+    // native: forces HTML5 playback
+    // shim: disallows HTML5, will attempt either Flash or Silverlight
+    // none: forces fallback view
     mode: 'auto',
     // remove or reorder to change plugin priority and availability
     plugins: ['flash', 'silverlight', 'youtube', 'vimeo'],
@@ -809,7 +809,7 @@ mejs.MediaElementDefaults = {
     // overrides <video height>
     pluginHeight: -1,
     // additional plugin variables in 'key=value' form
-    pluginVars: [],	
+    pluginVars: [],
     // rate in milliseconds for Flash and Silverlight to fire the timeupdate event
     // larger number is less accurate, but less strain on plugin->JavaScript bridge
     timerRate: 250,
@@ -968,7 +968,7 @@ mejs.HtmlMediaElementShim = {
 
             for (i = 0; i < mediaFiles.length; i++) {
                 // normal check
-                if (htmlMediaElement.canPlayType(mediaFiles[i].type).replace(/no/, '') !== '' 
+                if (htmlMediaElement.canPlayType(mediaFiles[i].type).replace(/no/, '') !== ''
                     // special case for Mac/Safari 5.0.3 which answers '' to canPlayType('audio/mp3') but 'maybe' to canPlayType('audio/mpeg')
                     || htmlMediaElement.canPlayType(mediaFiles[i].type.replace(/mp3/, 'mpeg')).replace(/no/, '') !== '') {
                     result.method = 'native';
@@ -1093,7 +1093,7 @@ mejs.HtmlMediaElementShim = {
         try {
             errorContainer.style.width = htmlMediaElement.width + 'px';
             errorContainer.style.height = htmlMediaElement.height + 'px';
-        } catch(e) {
+        } catch (e) {
         }
 
         errorContainer.innerHTML = (poster !== '') ?
@@ -1175,7 +1175,8 @@ mejs.HtmlMediaElementShim = {
             'startvolume=' + options.startVolume,
             'timerrate=' + options.timerRate,
             'flashstreamer=' + options.flashStreamer,
-            'height=' + height];
+            'height=' + height
+        ];
 
         if (playback.url !== null) {
             if (playback.method == 'flash') {
@@ -1201,13 +1202,13 @@ mejs.HtmlMediaElementShim = {
         case 'silverlight':
             container.innerHTML =
                 '<object data="data:application/x-silverlight-2," type="application/x-silverlight-2" id="' + pluginid + '" name="' + pluginid + '" width="' + width + '" height="' + height + '">' +
-                    '<param name="initParams" value="' + initVars.join(',') + '" />' +
-                    '<param name="windowless" value="true" />' +
-                    '<param name="background" value="black" />' +
-                    '<param name="minRuntimeVersion" value="3.0.0.0" />' +
-                    '<param name="autoUpgrade" value="true" />' +
-                    '<param name="source" value="' + options.pluginPath + options.silverlightName + '" />' +
-                    '</object>';
+                '<param name="initParams" value="' + initVars.join(',') + '" />' +
+                '<param name="windowless" value="true" />' +
+                '<param name="background" value="black" />' +
+                '<param name="minRuntimeVersion" value="3.0.0.0" />' +
+                '<param name="autoUpgrade" value="true" />' +
+                '<param name="source" value="' + options.pluginPath + options.silverlightName + '" />' +
+                '</object>';
             break;
         case 'flash':
             if (mejs.MediaFeatures.isIE) {
@@ -1215,32 +1216,32 @@ mejs.HtmlMediaElementShim = {
                 container.appendChild(specialIEContainer);
                 specialIEContainer.outerHTML =
                     '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="//download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab" ' +
-                        'id="' + pluginid + '" width="' + width + '" height="' + height + '">' +
-                        '<param name="movie" value="' + options.pluginPath + options.flashName + '?x=' + (new Date()) + '" />' +
-                        '<param name="flashvars" value="' + initVars.join('&amp;') + '" />' +
-                        '<param name="quality" value="high" />' +
-                        '<param name="bgcolor" value="#000000" />' +
-                        '<param name="wmode" value="transparent" />' +
-                        '<param name="allowScriptAccess" value="always" />' +
-                        '<param name="allowFullScreen" value="true" />' +
-                        '</object>';
+                    'id="' + pluginid + '" width="' + width + '" height="' + height + '">' +
+                    '<param name="movie" value="' + options.pluginPath + options.flashName + '?x=' + (new Date()) + '" />' +
+                    '<param name="flashvars" value="' + initVars.join('&amp;') + '" />' +
+                    '<param name="quality" value="high" />' +
+                    '<param name="bgcolor" value="#000000" />' +
+                    '<param name="wmode" value="transparent" />' +
+                    '<param name="allowScriptAccess" value="always" />' +
+                    '<param name="allowFullScreen" value="true" />' +
+                    '</object>';
 
             } else {
 
                 container.innerHTML =
                     '<embed id="' + pluginid + '" name="' + pluginid + '" ' +
-                        'play="true" ' +
-                        'loop="false" ' +
-                        'quality="high" ' +
-                        'bgcolor="#000000" ' +
-                        'wmode="transparent" ' +
-                        'allowScriptAccess="always" ' +
-                        'allowFullScreen="true" ' +
-                        'type="application/x-shockwave-flash" pluginspage="//www.macromedia.com/go/getflashplayer" ' +
-                        'src="' + options.pluginPath + options.flashName + '" ' +
-                        'flashvars="' + initVars.join('&') + '" ' +
-                        'width="' + width + '" ' +
-                        'height="' + height + '"></embed>';
+                    'play="true" ' +
+                    'loop="false" ' +
+                    'quality="high" ' +
+                    'bgcolor="#000000" ' +
+                    'wmode="transparent" ' +
+                    'allowScriptAccess="always" ' +
+                    'allowFullScreen="true" ' +
+                    'type="application/x-shockwave-flash" pluginspage="//www.macromedia.com/go/getflashplayer" ' +
+                    'src="' + options.pluginPath + options.flashName + '" ' +
+                    'flashvars="' + initVars.join('&') + '" ' +
+                    'width="' + width + '" ' +
+                    'height="' + height + '"></embed>';
             }
             break;
         case 'youtube':
@@ -1450,7 +1451,7 @@ mejs.YouTubeApi = {
             this.createIframe(settings);
         }
     },
-	
+
     // FLASH!
     flashPlayers: {},
     createFlash: function(settings) {
@@ -1483,10 +1484,10 @@ mejs.YouTubeApi = {
         } else {
             settings.container.innerHTML =
                 '<object type="application/x-shockwave-flash" id="' + settings.pluginId + '" data="' + youtubeUrl + '" ' +
-                    'width="' + settings.width + '" height="' + settings.height + '" style="visibility: visible; ">' +
-                    '<param name="allowScriptAccess" value="always">' +
-                    '<param name="wmode" value="transparent">' +
-                    '</object>';
+                'width="' + settings.width + '" height="' + settings.height + '" style="visibility: visible; ">' +
+                '<param name="allowScriptAccess" value="always">' +
+                '<param name="wmode" value="transparent">' +
+                '</object>';
         }
 
     },
@@ -1551,6 +1552,7 @@ mejs.YouTubeApi = {
 
     }
 };
+
 // IFRAME
 
 function onYouTubePlayerAPIReady() {
@@ -1643,7 +1645,8 @@ window.MediaElement = mejs.MediaElement;
      * Encode special characters in a plain-text string for display as HTML.
      */
     i18n.methods.checkPlain = function(str) {
-        var character, regex,
+        var character,
+            regex,
             replace = {
                 '&': '&amp;',
                 '"': '&quot;',
@@ -1680,7 +1683,7 @@ window.MediaElement = mejs.MediaElement;
         // Transform arguments before inserting them.
         for (var key in args) {
             switch (key.charAt(0)) {
-            // Escaped only.
+                // Escaped only.
             case '@':
                 args[key] = i18n.methods.checkPlain(args[key]);
                 break;

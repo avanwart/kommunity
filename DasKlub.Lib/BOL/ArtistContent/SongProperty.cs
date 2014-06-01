@@ -51,18 +51,15 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
             // the result is their ID
             // execute the stored procedure
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
                 return 0;
             }
-            else
-            {
-                SongPropertyID = Convert.ToInt32(result);
+            SongPropertyID = Convert.ToInt32(result);
 
-                return SongPropertyID;
-            }
+            return SongPropertyID;
         }
 
 

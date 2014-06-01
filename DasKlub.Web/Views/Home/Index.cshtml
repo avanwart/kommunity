@@ -1,10 +1,9 @@
-﻿
-@using DasKlub.Lib.BOL.DomainConnection
+﻿@using DasKlub.Lib.BOL.DomainConnection
+@using DasKlub.Lib.BOL.UserContent
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
 @using DasKlub.Lib.Values
-
-
+@using DasKlub.Web.Models
 @{
     ViewBag.Title = SiteDomain.GetSiteDomainValue(
         SiteEnums.SiteBrandType.TAGLN,
@@ -25,58 +24,59 @@
 }
 
 
-        @section _css {
-            @if (Request.Browser.IsMobileDevice)
-            {
-                <style type="text/css">
-                    .photo_item_list li img {
-                        height: 55px;
-                        width: 55px;
-                    }
-
-                    .photo_item_list img {
-                        margin: 0;
-                        padding: 0;
-                    }
-                </style>
+@section _css {
+    @if (Request.Browser.IsMobileDevice)
+    {
+        <style type="text/css">
+            .photo_item_list li img {
+                height: 55px;
+                width: 55px;
             }
-            <style type="text/css">
-                ul.photo_item_list {
-                    margin: 0;
-                    padding: 0;
-                }
-                .rounded {
-    border: 1px solid #999;
-    -webkit-border-radius: 10px;
-       -moz-border-radius: 10px;
-            border-radius: 10px;
-}
-                       .align_right { text-align: right !important;}
-       .sub_forum_text { font-size: 10px;}
-            </style>
+
+            .photo_item_list img {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    }
+    <style type="text/css">
+        ul.photo_item_list {
+            margin: 0;
+            padding: 0;
         }
+
+        .rounded {
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border: 1px solid #999;
+            border-radius: 10px;
+        }
+
+        .align_right { text-align: right !important; }
+
+        .sub_forum_text { font-size: 10px; }
+    </style>
+}
 
 <div class="row">
     <div class="span4">
       
-      <h5>Advertisement</h5>
+        <h5>Advertisement</h5>
         @{ Html.RenderPartial("_AdBanner300x250"); } 
-         <hr />
+        <hr />
        
         @if (ViewBag.RecentArticles != null)
         {
             <h5>@Messages.News</h5>
-            
+
             <ul class="photo_navs">
-                @foreach (DasKlub.Lib.BOL.UserContent.Content newsItem in ViewBag.RecentArticles)
+                @foreach (Content newsItem in ViewBag.RecentArticles)
                 {
                     @Html.Raw(newsItem.ToUnorderdListItem)
                 }
 
             </ul>
             <a class="btn btn-primary" href="~/news">@Messages.News : @Messages.ReadMore »</a>
-            
-        
         }
        
     </div>
@@ -99,34 +99,33 @@
                     {
                         <div class="clear">
                         </div>
-         
 
-                     
+
                         <table class="table table-condensed table-striped">
 
                             @if (ViewBag.TopThreadOfTheWeek != null)
                             {
                                 <tr >
                                     <td>
-                                            <span class="bright_green">Top This Week: </span>
-                                            @if (ViewBag.TopThreadOfTheWeek.IsNewPost)
-                                            {
-                                                <a  class="notification_color" href="@ViewBag.TopThreadOfTheWeek.URLTo.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
-                                            }
-                                            else
-                                            {
-                                                <a href="@ViewBag.TopThreadOfTheWeek.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
-                                            }
+                                        <span class="bright_green">Top This Week: </span>
+                                        @if (ViewBag.TopThreadOfTheWeek.IsNewPost)
+                                        {
+                                            <a  class="notification_color" href="@ViewBag.TopThreadOfTheWeek.URLTo.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@ViewBag.TopThreadOfTheWeek.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(ViewBag.TopThreadOfTheWeek.ForumSubCategory.Title)</a>
+                                        }
                                         
-                                          @if (ViewBag.TopThreadOfTheWeek.PostCount == 0)
+                                        @if (ViewBag.TopThreadOfTheWeek.PostCount == 0)
                                         {
                                             <span class="badge badge-inverse">@Messages.New</span>
                                         }
-                                          else if (ViewBag.TopThreadOfTheWeek.PostCount == 1)
+                                        else if (ViewBag.TopThreadOfTheWeek.PostCount == 1)
                                         {
                                             <span class="badge badge-success">@ViewBag.TopThreadOfTheWeek.PostCount post</span>
                                         }
-                                          else if (ViewBag.TopThreadOfTheWeek.PostCount > 9)
+                                        else if (ViewBag.TopThreadOfTheWeek.PostCount > 9)
                                         {
                                             <span class="badge badge-important">@ViewBag.TopThreadOfTheWeek.PostCount posts</span>
                                         }
@@ -154,22 +153,22 @@
                                         </td>
                                     }
 
-                                </tr> 
+                                </tr>
                             }
 
 
-                            @foreach (DasKlub.Web.Models.ForumFeedModel forumFeedModel in ViewBag.ForumFeed)
+                            @foreach (ForumFeedModel forumFeedModel in ViewBag.ForumFeed)
                             {
                                 <tr>
                                     <td>
-                                            @if (forumFeedModel.IsNewPost)
-                                            {
-                                                <a   class="notification_color" href="@forumFeedModel.URLTo.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
-                                            }
-                                            else
-                                            {
-                                                <a href="@forumFeedModel.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
-                                            }
+                                        @if (forumFeedModel.IsNewPost)
+                                        {
+                                            <a   class="notification_color" href="@forumFeedModel.URLTo.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@forumFeedModel.ForumSubCategory.SubForumURL.ToString()">@Html.Raw(forumFeedModel.ForumSubCategory.Title)</a>
+                                        }
                                       
                                         @if (forumFeedModel.PostCount == 0)
                                         {
@@ -185,11 +184,11 @@
                                         }
                                         else
                                         {
-                                              <span class="badge badge-info" >@forumFeedModel.PostCount posts</span>
+                                            <span class="badge badge-info" >@forumFeedModel.PostCount posts</span>
                                         }
                                         <br />
                                         <i class="sub_forum_text"><a
-                                             href="@forumFeedModel.ForumCategory.ForumURL.ToString()">@Html.Raw(forumFeedModel.ForumCategory.Title)</a></i>
+                                                                      href="@forumFeedModel.ForumCategory.ForumURL.ToString()">@Html.Raw(forumFeedModel.ForumCategory.Title)</a></i>
                                         <br />
 
                                     </td>
@@ -198,14 +197,13 @@
                                         <span title="@forumFeedModel.LastPosted.ToString("u")">
                                             @Html.Raw(Utilities.TimeElapsedMessage(forumFeedModel.LastPosted))
                                         </span>
-                                          <br />
-                                            <a class="sub_forum_text" href="~/@forumFeedModel.UserName.ToLower()">@forumFeedModel.UserName</a>
+                                        <br />
+                                        <a class="sub_forum_text" href="~/@forumFeedModel.UserName.ToLower()">@forumFeedModel.UserName</a>
                                     </td>
 
                                 </tr>
                             }
                         </table>
-                      
                     }
                         
          
@@ -229,45 +227,37 @@
                             <div class="clear">
                             </div>
                         </div>
-                                    <div class="clear">
-            </div>
-              <hr />
-                           @{ Html.RenderPartial("_AdBanner728x90"); }
+                        <div class="clear">
+                        </div>
+                        <hr />
+                        @{ Html.RenderPartial("_AdBanner728x90"); }
               
                     </div>
                 </div>
-                   
             }
             
            
             
             @if (ViewBag.RecentPhotos != null && ViewBag.RecentPhotos.Count > 0)
             {
-           
-              
-              
                 <div class="span8">
                    
                     <div class="span8">
-                                                  <div class="clear">
-            </div>
-              <hr />
+                        <div class="clear">
+                        </div>
+                        <hr />
                         <h5>@Messages.NewestPhotos</h5>
                         @Html.Raw(ViewBag.RecentPhotos.ToUnorderdList)
                       
-                             <div class="clear">
-            </div>
-              <br />
+                        <div class="clear">
+                        </div>
+                        <br />
                     </div>
                 </div>
-               
-             
-                
             }
                        
             @if (ViewBag.TopUsersOfTheMonth != null)
             {
-                 
                 <div class="span8">
                     <div class="span8">
                         <div class="well rounded">
@@ -280,11 +270,10 @@
                         <div class="clear">
                         </div>
                         <hr />
-                    @{ Html.RenderPartial("_AdBanner728x90"); }
+                        @{ Html.RenderPartial("_AdBanner728x90"); }
               
                     </div>
                 </div>
-          
             }
         </div>
 

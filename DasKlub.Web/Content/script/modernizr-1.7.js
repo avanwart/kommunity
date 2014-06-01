@@ -16,7 +16,7 @@
 * Copyright (c) 2009-2011
 */
 
- 
+
 /*
  * Modernizr is a script that detects native CSS3 and HTML5 features
  * available in the current UA and provides an object containing all
@@ -72,14 +72,14 @@ window.Modernizr = (function(window, document, undefined) {
         prefixes = ' -webkit- -moz- -o- -ms- -khtml- '.split(' '),
         // Following spec is to expose vendor-specific style properties as:
         //   elem.style.WebkitBorderRadius
-    // and the following would be incorrect:
-    //   elem.style.webkitBorderRadius
-    
-    // Webkit ghosts their properties in lowercase but Opera & Moz do not.
-    // Microsoft foregoes prefixes entirely <= IE8, but appears to 
-    //   use a lowercase `ms` instead of the correct `Ms` in IE9
-    
-    // More here: http://github.com/Modernizr/Modernizr/issues/issue/21
+        // and the following would be incorrect:
+        //   elem.style.webkitBorderRadius
+
+        // Webkit ghosts their properties in lowercase but Opera & Moz do not.
+        // Microsoft foregoes prefixes entirely <= IE8, but appears to 
+        //   use a lowercase `ms` instead of the correct `Ms` in IE9
+
+        // More here: http://github.com/Modernizr/Modernizr/issues/issue/21
         domPrefixes = 'Webkit Moz O ms Khtml'.split(' '),
         ns = { 'svg': 'http://www.w3.org/2000/svg' },
         tests = {},
@@ -87,10 +87,9 @@ window.Modernizr = (function(window, document, undefined) {
         attrs = {},
         classes = [],
         featurename, // used in testing loop
-    
-    
-    
-        // todo: consider using http://javascript.nwbox.com/CSSSupport/css-support.js instead
+
+
+// todo: consider using http://javascript.nwbox.com/CSSSupport/css-support.js instead
         testMediaQuery = function(mq) {
 
             var st = document.createElement('style'),
@@ -562,7 +561,8 @@ window.Modernizr = (function(window, document, undefined) {
     // http://javascript.nwbox.com/CSSSupport/
     tests['fontface'] = function() {
 
-        var sheet, bool,
+        var sheet,
+            bool,
             head = docHead || docElement,
             style = document.createElement("style"),
             impl = document.implementation || { hasFeature: function() { return false; } };
@@ -579,7 +579,7 @@ window.Modernizr = (function(window, document, undefined) {
                     sheet.insertRule(rule, 0);
                     result = (/src/i).test(sheet.cssRules[0].cssText);
                     sheet.deleteRule(sheet.cssRules.length - 1);
-                } catch(e) {
+                } catch (e) {
                 }
                 return result;
             } :
@@ -589,8 +589,8 @@ window.Modernizr = (function(window, document, undefined) {
 
                 return sheet.cssText.length !== 0 && (/src/i).test(sheet.cssText) &&
                     sheet.cssText
-                        .replace(/\r+|\n+/g, '')
-                        .indexOf(rule.split(' ')[0]) === 0;
+                    .replace(/\r+|\n+/g, '')
+                    .indexOf(rule.split(' ')[0]) === 0;
             };
 
         bool = supportAtRule('@font-face { font-family: "font"; src: url(data:,); }');
@@ -670,7 +670,7 @@ window.Modernizr = (function(window, document, undefined) {
     tests['localstorage'] = function() {
         try {
             return !!localStorage.getItem;
-        } catch(e) {
+        } catch (e) {
             return false;
         }
     };
@@ -678,7 +678,7 @@ window.Modernizr = (function(window, document, undefined) {
     tests['sessionstorage'] = function() {
         try {
             return !!sessionStorage.getItem;
-        } catch(e) {
+        } catch (e) {
             return false;
         }
     };
@@ -883,7 +883,7 @@ window.Modernizr = (function(window, document, undefined) {
             function shim(doc) {
                 var a = -1;
                 while (++a < elemsArrLen)
-                    // Use createElement so IE allows HTML5-named elements in a document
+                // Use createElement so IE allows HTML5-named elements in a document
                     doc.createElement(elemsArr[a]);
             }
 
@@ -916,7 +916,7 @@ window.Modernizr = (function(window, document, undefined) {
                     body = body || doc.body;
                     // Get only rules which reference HTML5 elements by name
                     while ((rule = ruleRegExp.exec(cssText)) != null)
-                        // Replace all html5 element references with iepp substitute classnames
+                    // Replace all html5 element references with iepp substitute classnames
                         cssTextArr.push((rule[1] + rule[2] + rule[3]).replace(elemRegExp, '$1.iepp_$2') + rule[4]);
                     // Write iepp custom print CSS
                     styleElem.styleSheet.cssText = cssTextArr.join('\n');
@@ -926,7 +926,7 @@ window.Modernizr = (function(window, document, undefined) {
                             b = -1;
                         while (++b < nodeListLen)
                             if (nodeList[b].className.indexOf('iepp_') < 0)
-                                // Append iepp substitute classnames to all html5 elements
+                            // Append iepp substitute classnames to all html5 elements
                                 nodeList[b].className += ' iepp_' + elemsArr[a];
                     }
                     docFrag.appendChild(body);

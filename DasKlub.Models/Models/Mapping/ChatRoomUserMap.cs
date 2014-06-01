@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
@@ -8,25 +7,25 @@ namespace DasKlubModel.Models.Mapping
         public ChatRoomUserMap()
         {
             // Primary Key
-            this.HasKey(t => t.chatRoomUserID);
+            HasKey(t => t.chatRoomUserID);
 
             // Properties
-            this.Property(t => t.ipAddress)
+            Property(t => t.ipAddress)
                 .HasMaxLength(50);
 
-            this.Property(t => t.connectionCode)
+            Property(t => t.connectionCode)
                 .HasMaxLength(50);
 
             // Table & Column Mappings
-            this.ToTable("ChatRoomUser");
-            this.Property(t => t.chatRoomUserID).HasColumnName("chatRoomUserID");
-            this.Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
-            this.Property(t => t.updateDate).HasColumnName("updateDate");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.ipAddress).HasColumnName("ipAddress");
-            this.Property(t => t.roomID).HasColumnName("roomID");
-            this.Property(t => t.connectionCode).HasColumnName("connectionCode");
+            ToTable("ChatRoomUser");
+            Property(t => t.chatRoomUserID).HasColumnName("chatRoomUserID");
+            Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
+            Property(t => t.updateDate).HasColumnName("updateDate");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.ipAddress).HasColumnName("ipAddress");
+            Property(t => t.roomID).HasColumnName("roomID");
+            Property(t => t.connectionCode).HasColumnName("connectionCode");
         }
     }
 }

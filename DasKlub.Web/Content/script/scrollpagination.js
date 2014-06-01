@@ -9,7 +9,6 @@
 */
 
 
-
 function getUrlVars() {
     return window.location.search.substring(1);
 }

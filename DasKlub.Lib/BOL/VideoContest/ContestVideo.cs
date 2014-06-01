@@ -61,7 +61,7 @@ namespace DasKlub.Lib.BOL.VideoContest
 
             // the result is their ID
             // execute the stored procedure
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result)) return 0;
 
@@ -174,22 +174,23 @@ namespace DasKlub.Lib.BOL.VideoContest
     {
         public void GetContestVideosForContest(int contestID)
         {
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetContestVideosForContest";
 
             comm.AddParameter("contestID", contestID);
 
             // execute the stored procedure
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var cvid in from DataRow dr in dt.Rows 
-                select new ContestVideo(dr) 
-                into cvid let vid = new Video(cvid.VideoID) 
-                where vid.IsEnabled 
+            foreach (ContestVideo cvid in from DataRow dr in dt.Rows
+                select new ContestVideo(dr)
+                into cvid
+                let vid = new Video(cvid.VideoID)
+                where vid.IsEnabled
                 select cvid)
             {
                 Add(cvid);

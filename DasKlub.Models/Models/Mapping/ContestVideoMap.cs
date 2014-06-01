@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
@@ -8,33 +7,32 @@ namespace DasKlubModel.Models.Mapping
         public ContestVideoMap()
         {
             // Primary Key
-            this.HasKey(t => t.contestVideoID);
+            HasKey(t => t.contestVideoID);
 
             // Properties
-            this.Property(t => t.subContest)
+            Property(t => t.subContest)
                 .IsFixedLength()
                 .HasMaxLength(1);
 
             // Table & Column Mappings
-            this.ToTable("ContestVideo");
-            this.Property(t => t.contestVideoID).HasColumnName("contestVideoID");
-            this.Property(t => t.videoID).HasColumnName("videoID");
-            this.Property(t => t.contestID).HasColumnName("contestID");
-            this.Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
-            this.Property(t => t.updateDate).HasColumnName("updateDate");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.contestRank).HasColumnName("contestRank");
-            this.Property(t => t.subContest).HasColumnName("subContest");
+            ToTable("ContestVideo");
+            Property(t => t.contestVideoID).HasColumnName("contestVideoID");
+            Property(t => t.videoID).HasColumnName("videoID");
+            Property(t => t.contestID).HasColumnName("contestID");
+            Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
+            Property(t => t.updateDate).HasColumnName("updateDate");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.contestRank).HasColumnName("contestRank");
+            Property(t => t.subContest).HasColumnName("subContest");
 
             // Relationships
-            this.HasRequired(t => t.Contest)
+            HasRequired(t => t.Contest)
                 .WithMany(t => t.ContestVideos)
                 .HasForeignKey(d => d.contestID);
-            this.HasRequired(t => t.Video)
+            HasRequired(t => t.Video)
                 .WithMany(t => t.ContestVideos)
                 .HasForeignKey(d => d.videoID);
-
         }
     }
 }

@@ -228,7 +228,7 @@ namespace DasKlub.Lib.BOL
                 // execute the stored procedure
                 return DbAct.ExecuteNonQuery(comm) > 0;
             }
-            else return Delete();
+            return Delete();
         }
 
 
@@ -296,7 +296,6 @@ namespace DasKlub.Lib.BOL
 
         public void RemoveCache()
         {
-            return;
         }
 
         #endregion
@@ -350,7 +349,7 @@ namespace DasKlub.Lib.BOL
                     sb.Append(@"<div class=""span2"">");
 
                     sb.AppendFormat(@"<form method=""post"" action=""{0}?rslt=1&username=",
-                                    VirtualPathUtility.ToAbsolute("~/account/contactrequest/"));
+                        VirtualPathUtility.ToAbsolute("~/account/contactrequest/"));
                     sb.Append(ua1.UserName);
                     sb.Append(@"&contacttype=");
                     sb.Append(uc1.StatusType);
@@ -360,7 +359,7 @@ namespace DasKlub.Lib.BOL
                         Messages.Confirm);
 
                     sb.AppendFormat(@"<form method=""post"" action=""{0}?rslt=0&username=",
-                                    VirtualPathUtility.ToAbsolute("~/account/contactrequest/"));
+                        VirtualPathUtility.ToAbsolute("~/account/contactrequest/"));
                     sb.Append(ua1.UserName);
                     sb.Append(@"&contacttype=");
                     sb.Append(uc1.StatusType);
@@ -400,7 +399,7 @@ namespace DasKlub.Lib.BOL
             {
                 return Convert.ToInt32(rslt);
             }
-            else return 0;
+            return 0;
         }
 
         public void GetUserConnections(int fromUserAccountID)

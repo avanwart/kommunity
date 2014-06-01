@@ -14,10 +14,9 @@ namespace DasKlub.DBMigrator
         public static int ExitCode = -1;
         public static string dbName = ConfigurationManager.AppSettings["DatabaseName"];
 
- 
+
         private static void Main(string[] args)
         {
- 
             Database.SetInitializer(new DropCreateDatabaseTables());
 
             if (!Database.Exists(dbName))
@@ -35,7 +34,7 @@ namespace DasKlub.DBMigrator
         {
             Console.WriteLine("RUNNING MIGRATIONS FOR CONNECTION NAME: " + connectionName);
 
-            var configuration = new  Configuration();
+            var configuration = new Configuration();
 
             configuration.TargetDatabase =
                 new DbConnectionInfo(connectionName);

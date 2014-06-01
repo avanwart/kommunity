@@ -14,18 +14,18 @@ namespace DasKlub.Web.IntegrationTests.Controllers.Forum
         public void ForumCategory_CanBeCreated_ReturnsID()
         {
             // arrange
-            var uniqueKey = Guid.NewGuid().ToString();
+            string uniqueKey = Guid.NewGuid().ToString();
 
             // act
             using (var context = new DasKlubDbContext())
             {
                 context.ForumCategory.Add(new ForumCategory
-                    {
-                        Description = Guid.NewGuid().ToString(),
-                        Title = Guid.NewGuid().ToString(),
-                        Key = uniqueKey,
-                        CreatedByUserID = 0
-                    });
+                {
+                    Description = Guid.NewGuid().ToString(),
+                    Title = Guid.NewGuid().ToString(),
+                    Key = uniqueKey,
+                    CreatedByUserID = 0
+                });
 
                 context.SaveChanges();
             }
@@ -41,53 +41,8 @@ namespace DasKlub.Web.IntegrationTests.Controllers.Forum
         public void ForumSubCategory_CanBeCreated_ReturnsID()
         {
             // arrange
-            var uniqueKeyForum = Guid.NewGuid().ToString();
-            var uniqueKeySubCat = Guid.NewGuid().ToString();
-
-            // act
-            using (var context = new DasKlubDbContext())
-            {
-                context.ForumCategory.Add(new ForumCategory
-                    {
-                        Description = Guid.NewGuid().ToString(),
-                        Title = Guid.NewGuid().ToString(),
-                        Key = uniqueKeyForum,
-                        CreatedByUserID = 0
-                    });
-
-                context.SaveChanges();
-            }
- 
-            using (var context = new DasKlubDbContext())
-            {
-                var forumSubCatID = context.ForumCategory.FirstOrDefault(x => x.Key == uniqueKeyForum).ForumCategoryID;
-
-                context.ForumSubCategory.Add(new ForumSubCategory
-                    {
-                        Description = Guid.NewGuid().ToString(),
-                        Title = Guid.NewGuid().ToString(),
-                        Key = uniqueKeySubCat,
-                        CreatedByUserID = 0,
-                        ForumCategoryID = forumSubCatID
-                    });
-
-                context.SaveChanges();
-            }
-
-            // assert
-            using (var context = new DasKlubDbContext())
-            {
-                Assert.IsNotNull(context.ForumSubCategory.FirstOrDefault().Key == uniqueKeySubCat);
-            }
-        }
-
-        [TestMethod]
-        public void ForumPost_CanBeCreated_ReturnsID()
-        {
-            // arrange
-            var uniqueKeyForum = Guid.NewGuid().ToString();
-            var uniqueKeySubCat = Guid.NewGuid().ToString();
-            var uniqueKeyPost = Guid.NewGuid().ToString();
+            string uniqueKeyForum = Guid.NewGuid().ToString();
+            string uniqueKeySubCat = Guid.NewGuid().ToString();
 
             // act
             using (var context = new DasKlubDbContext())
@@ -105,7 +60,52 @@ namespace DasKlub.Web.IntegrationTests.Controllers.Forum
 
             using (var context = new DasKlubDbContext())
             {
-                var forumID = context.ForumCategory.FirstOrDefault(x => x.Key == uniqueKeyForum).ForumCategoryID;
+                int forumSubCatID = context.ForumCategory.FirstOrDefault(x => x.Key == uniqueKeyForum).ForumCategoryID;
+
+                context.ForumSubCategory.Add(new ForumSubCategory
+                {
+                    Description = Guid.NewGuid().ToString(),
+                    Title = Guid.NewGuid().ToString(),
+                    Key = uniqueKeySubCat,
+                    CreatedByUserID = 0,
+                    ForumCategoryID = forumSubCatID
+                });
+
+                context.SaveChanges();
+            }
+
+            // assert
+            using (var context = new DasKlubDbContext())
+            {
+                Assert.IsNotNull(context.ForumSubCategory.FirstOrDefault().Key == uniqueKeySubCat);
+            }
+        }
+
+        [TestMethod]
+        public void ForumPost_CanBeCreated_ReturnsID()
+        {
+            // arrange
+            string uniqueKeyForum = Guid.NewGuid().ToString();
+            string uniqueKeySubCat = Guid.NewGuid().ToString();
+            string uniqueKeyPost = Guid.NewGuid().ToString();
+
+            // act
+            using (var context = new DasKlubDbContext())
+            {
+                context.ForumCategory.Add(new ForumCategory
+                {
+                    Description = Guid.NewGuid().ToString(),
+                    Title = Guid.NewGuid().ToString(),
+                    Key = uniqueKeyForum,
+                    CreatedByUserID = 0
+                });
+
+                context.SaveChanges();
+            }
+
+            using (var context = new DasKlubDbContext())
+            {
+                int forumID = context.ForumCategory.FirstOrDefault(x => x.Key == uniqueKeyForum).ForumCategoryID;
 
                 context.ForumSubCategory.Add(new ForumSubCategory
                 {
@@ -121,7 +121,8 @@ namespace DasKlub.Web.IntegrationTests.Controllers.Forum
 
             using (var context = new DasKlubDbContext())
             {
-                var forumSubCategoryID = context.ForumSubCategory.FirstOrDefault(x => x.Key == uniqueKeySubCat).ForumSubCategoryID;
+                int forumSubCategoryID =
+                    context.ForumSubCategory.FirstOrDefault(x => x.Key == uniqueKeySubCat).ForumSubCategoryID;
 
                 context.ForumPost.Add(new ForumPost
                 {

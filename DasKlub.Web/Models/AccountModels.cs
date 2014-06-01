@@ -179,19 +179,19 @@ namespace DasKlub.Web.Models
         }
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata,
-                                                                               ControllerContext context)
+            ControllerContext context)
         {
             return new[]
-                {
-                    new ModelClientValidationStringLengthRule(FormatErrorMessage(metadata.GetDisplayName()),
-                                                              _minCharacters, int.MaxValue)
-                };
+            {
+                new ModelClientValidationStringLengthRule(FormatErrorMessage(metadata.GetDisplayName()),
+                    _minCharacters, int.MaxValue)
+            };
         }
 
         public override string FormatErrorMessage(string name)
         {
             return String.Format(CultureInfo.CurrentCulture, ErrorMessageString,
-                                 name, _minCharacters);
+                name, _minCharacters);
         }
 
         public override bool IsValid(object value)

@@ -7,7 +7,7 @@ namespace DasKlub.Web.App_Start
         public static void Register(HttpConfiguration configuration)
         {
             configuration.Routes.MapHttpRoute("DefaultAPI", "api/v1/{controller}/{id}",
-                new { id = RouteParameter.Optional });
+                new {id = RouteParameter.Optional});
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Transactions;
 using DasKlub.Models;
-using DasKlub.Web.Models;
 
 namespace DBMigrator.Migrations
 {
@@ -18,7 +17,6 @@ namespace DBMigrator.Migrations
 
         protected override void Seed(DasKlubDbContext context)
         {
-
             Console.WriteLine("RUNNING SEED METHOD");
 
             // inserts mandatory values
@@ -411,7 +409,6 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
 
         public void InitializeDatabase(DasKlubDbContext context)
         {
-            
             bool dbExists;
 
             using (new TransactionScope(TransactionScopeOption.Suppress))
@@ -431,18 +428,6 @@ IF NOT EXISTS(SELECT * FROM [InterestedIn] WHERE name = ''MaleAndFemale'')
 
                 //Seed(context);
                 //context.SaveChanges();
-            }
-            else
-            {
-                //// create a writer and open the file
-                //TextWriter tw = new StreamWriter("~/Initial/dk_script.sql");
-
-                //context.Database.ExecuteSqlCommand(tw.ToString());
-
-                //// close the stream
-                //tw.Close();
-
-                //throw new ApplicationException("No database instance");
             }
         }
 

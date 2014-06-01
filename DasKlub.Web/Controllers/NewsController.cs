@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -9,8 +11,8 @@ using DasKlub.Lib.BOL;
 using DasKlub.Lib.BOL.UserContent;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
-using IntrepidStudios.SearchCloud;
 using DasKlub.Web.Models;
+using IntrepidStudios.SearchCloud;
 
 namespace DasKlub.Web.Controllers
 {
@@ -36,15 +38,15 @@ namespace DasKlub.Web.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (var cnt in model)
+            foreach (Content cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
 
             return Json(new
-                {
-                    ListItems = sb.ToString()
-                });
+            {
+                ListItems = sb.ToString()
+            });
         }
 
 
@@ -58,15 +60,15 @@ namespace DasKlub.Web.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (var cnt in model)
+            foreach (Content cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
 
             return Json(new
-                {
-                    ListItems = sb.ToString()
-                });
+            {
+                ListItems = sb.ToString()
+            });
         }
 
         [HttpPost]
@@ -89,16 +91,16 @@ namespace DasKlub.Web.Controllers
 
             var sb = new StringBuilder();
 
-            foreach (var cnt in model)
+            foreach (Content cnt in model)
             {
                 sb.Append(cnt.ToUnorderdListItem);
             }
 
             return Json(new
-                {
-                    ListItems = sb.ToString(),
-                    JsonRequestBehavior.AllowGet
-                });
+            {
+                ListItems = sb.ToString(),
+                JsonRequestBehavior.AllowGet
+            });
         }
 
         public ActionResult Lang(string lang)
@@ -107,7 +109,7 @@ namespace DasKlub.Web.Controllers
 
             var model = new Contents();
 
-            var total = model.GetContentPageWiseRelease(1, PageSize, lang);
+            int total = model.GetContentPageWiseRelease(1, PageSize, lang);
 
             ViewBag.EnableLoadingMore = (PageSize < total);
 
@@ -125,11 +127,13 @@ namespace DasKlub.Web.Controllers
 
         private void LoadLang()
         {
-            var dict = Contents.GetDistinctNewsLanguages();
+            Dictionary<string, string> dict = Contents.GetDistinctNewsLanguages();
 
             if (dict == null) return;
 
-            var sortedDict = (from entry in dict orderby entry.Value ascending select entry).ToDictionary(pair => pair.Key, pair => pair.Value);
+            Dictionary<string, string> sortedDict =
+                (from entry in dict orderby entry.Value ascending select entry).ToDictionary(pair => pair.Key,
+                    pair => pair.Value);
 
             ViewBag.Langs = sortedDict;
         }
@@ -142,14 +146,14 @@ namespace DasKlub.Web.Controllers
             if (HttpRuntime.Cache[cacheName] == null)
             {
                 var cloud1 = new Cloud
-                    {
-                        DataIDField = "keyword_id",
-                        DataKeywordField = "keyword_value",
-                        DataCountField = "keyword_count",
-                        DataURLField = "keyword_url"
-                    };
+                {
+                    DataIDField = "keyword_id",
+                    DataKeywordField = "keyword_value",
+                    DataCountField = "keyword_count",
+                    DataURLField = "keyword_url"
+                };
 
-                var theDs = Contents.GetContentTagsAll();
+                DataSet theDs = Contents.GetContentTagsAll();
 
                 cloud1.DataSource = theDs;
                 cloud1.MinFontSize = 14;
@@ -176,13 +180,13 @@ namespace DasKlub.Web.Controllers
                 HostedVideoLog.AddHostedVideoLog(Request.UrlReferrer.ToString(), Request.UserHostAddress, 0, "NW");
 
             return new JsonResult
+            {
+                Data = new
                 {
-                    Data = new
-                        {
-                            Success = true,
-                            ContentID = contentID
-                        }
-                };
+                    Success = true,
+                    ContentID = contentID
+                }
+            };
         }
 
 
@@ -195,7 +199,7 @@ namespace DasKlub.Web.Controllers
             ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ? 285 : 600;
 
             var modelOut = new ContentModel();
-            var cacheKey = string.Concat("news-", key);
+            string cacheKey = string.Concat("news-", key);
 
             if (HttpRuntime.Cache[cacheKey] == null)
             {
@@ -227,34 +231,34 @@ namespace DasKlub.Web.Controllers
                     modelOut.VideoWidth = "100%";
                 }
 
-                modelOut.ContentID              = model.ContentID;
-                modelOut.ContentKey             = model.ContentKey;
-                modelOut.ContentPhotoThumbURL   = model.ContentPhotoThumbURL;
-                modelOut.ContentPhotoURL        = model.ContentPhotoURL;
-                modelOut.ContentTypeID          = model.ContentTypeID;
-                modelOut.ContentVideoURL        = model.ContentVideoURL;
-                modelOut.ContentVideoURL2       = model.ContentVideoURL2;
-                modelOut.CurrentStatus          = model.CurrentStatus;
-                modelOut.Detail                 = model.Detail;
-                modelOut.IsEnabled              = model.IsEnabled;
-                modelOut.Language               = model.Language;
-                modelOut.MetaDescription        = model.MetaDescription;
-                modelOut.MetaKeywords           = model.MetaKeywords;
-                modelOut.OutboundURL            = model.OutboundURL;
-                modelOut.ReleaseDate            = model.ReleaseDate;
-                modelOut.SiteDomainID           = model.SiteDomainID;
-                modelOut.Title                  = model.Title;
-                modelOut.UrlTo                  = model.UrlTo;
-                modelOut.CreateDate             = model.CreateDate;
-                modelOut.CreatedByUserID        = model.CreatedByUserID;
-                modelOut.UpdateDate             = model.UpdateDate;
-                modelOut.UpdatedByUserID        = model.UpdatedByUserID;
+                modelOut.ContentID = model.ContentID;
+                modelOut.ContentKey = model.ContentKey;
+                modelOut.ContentPhotoThumbURL = model.ContentPhotoThumbURL;
+                modelOut.ContentPhotoURL = model.ContentPhotoURL;
+                modelOut.ContentTypeID = model.ContentTypeID;
+                modelOut.ContentVideoURL = model.ContentVideoURL;
+                modelOut.ContentVideoURL2 = model.ContentVideoURL2;
+                modelOut.CurrentStatus = model.CurrentStatus;
+                modelOut.Detail = model.Detail;
+                modelOut.IsEnabled = model.IsEnabled;
+                modelOut.Language = model.Language;
+                modelOut.MetaDescription = model.MetaDescription;
+                modelOut.MetaKeywords = model.MetaKeywords;
+                modelOut.OutboundURL = model.OutboundURL;
+                modelOut.ReleaseDate = model.ReleaseDate;
+                modelOut.SiteDomainID = model.SiteDomainID;
+                modelOut.Title = model.Title;
+                modelOut.UrlTo = model.UrlTo;
+                modelOut.CreateDate = model.CreateDate;
+                modelOut.CreatedByUserID = model.CreatedByUserID;
+                modelOut.UpdateDate = model.UpdateDate;
+                modelOut.UpdatedByUserID = model.UpdatedByUserID;
 
                 HttpRuntime.Cache.AddObjToCache(modelOut, cacheKey);
             }
-            else 
+            else
             {
-                modelOut = (ContentModel)HttpRuntime.Cache[cacheKey];
+                modelOut = (ContentModel) HttpRuntime.Cache[cacheKey];
             }
 
             return View(modelOut);
@@ -275,7 +279,7 @@ namespace DasKlub.Web.Controllers
 
             var ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
 
-            if (_mu == null || ( model.CreatedByUserID != Convert.ToInt32(_mu.ProviderUserKey) && !ua.IsAdmin)) 
+            if (_mu == null || (model.CreatedByUserID != Convert.ToInt32(_mu.ProviderUserKey) && !ua.IsAdmin))
                 return new EmptyResult();
 
             model.Delete();
@@ -289,9 +293,9 @@ namespace DasKlub.Web.Controllers
         public ActionResult Detail(FormCollection fc, int contentID)
         {
             var model = new Content(contentID)
-                {
-                    Reply = new ContentComment {StatusType = Convert.ToChar(SiteEnums.CommentStatus.C.ToString())}
-                };
+            {
+                Reply = new ContentComment {StatusType = Convert.ToChar(SiteEnums.CommentStatus.C.ToString())}
+            };
 
             if (_mu != null) model.Reply.CreatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
             model.Reply.ContentID = contentID;
@@ -308,9 +312,10 @@ namespace DasKlub.Web.Controllers
                 return View(model);
             }
 
-            var hasBeenSaid = false;
+            bool hasBeenSaid = false;
 
-            foreach (var cmt in model.Comments.Where(cmt => cmt.CreatedByUserID == model.Reply.CreatedByUserID &&
+            foreach (
+                ContentComment cmt in model.Comments.Where(cmt => cmt.CreatedByUserID == model.Reply.CreatedByUserID &&
                                                                   cmt.Detail == model.Reply.Detail))
             {
                 hasBeenSaid = true;
@@ -333,7 +338,7 @@ namespace DasKlub.Web.Controllers
 
             var model = new Contents();
 
-            var total = model.GetContentPageWiseKeyRelease(1, PageSize, key);
+            int total = model.GetContentPageWiseKeyRelease(1, PageSize, key);
 
             if (model.Count == 0)
             {
@@ -349,9 +354,8 @@ namespace DasKlub.Web.Controllers
             ViewBag.EnableLoadingMore = (PageSize < total);
 
             ViewBag.TagName = key;
- 
+
             return View(model);
         }
     }
 }
-

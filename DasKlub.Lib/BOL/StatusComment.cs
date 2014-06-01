@@ -35,9 +35,7 @@ namespace DasKlub.Lib.BOL
 
         public string Message
         {
-            get {
-                return _message == null ? _message : _message.Trim();
-            }
+            get { return _message == null ? _message : _message.Trim(); }
             set { _message = value; }
         }
 
@@ -83,7 +81,7 @@ namespace DasKlub.Lib.BOL
 
             // the result is their ID
             // execute the stored procedure
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
@@ -159,7 +157,7 @@ namespace DasKlub.Lib.BOL
             {
                 var sb = new StringBuilder(100);
 
-                var mu = Membership.GetUser();
+                MembershipUser mu = Membership.GetUser();
 
                 if (mu == null) return string.Empty;
 
@@ -170,10 +168,9 @@ namespace DasKlub.Lib.BOL
 
                     sb.Append(@"<span class=""status_comment_count_applaud"">");
                     sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
-                                                                                           Convert.ToChar(
-                                                                                               SiteEnums
-                                                                                                   .AcknowledgementType
-                                                                                                   .A.ToString())));
+                        Convert.ToChar(
+                            SiteEnums.AcknowledgementType
+                                .A.ToString())));
                     sb.Append(@"</span>");
 
                     var ack = new StatusCommentAcknowledgement();
@@ -183,7 +180,7 @@ namespace DasKlub.Lib.BOL
                         ack.AcknowledgementType == Convert.ToChar(SiteEnums.AcknowledgementType.A.ToString()))
                     {
                         sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_applaud""",
-                                        Messages.YouResponded);
+                            Messages.YouResponded);
 
                         sb.Append(@"  class=""applaud_status_comment_complete""  type=""button"" value=""");
                         sb.Append(StatusCommentID.ToString());
@@ -192,7 +189,7 @@ namespace DasKlub.Lib.BOL
                     else
                     {
                         sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_applaud""",
-                                        Messages.YouResponded);
+                            Messages.YouResponded);
 
                         sb.Append(@"   class=""applaud_status_comment""  type=""button"" value=""");
                         sb.Append(StatusCommentID.ToString());
@@ -202,7 +199,7 @@ namespace DasKlub.Lib.BOL
                     sb.Append(@"</div>");
 
                     sb.Append(@"<div class=""left_float"">");
-                     
+
 
                     sb.Append(@"</div>");
                 }
@@ -212,10 +209,9 @@ namespace DasKlub.Lib.BOL
 
                     sb.Append(@"<span class=""status_comment_count_applaud"">");
                     sb.Append(StatusCommentAcknowledgements.GetCommentAcknowledgementCount(StatusCommentID,
-                                                                                           Convert.ToChar(
-                                                                                               SiteEnums
-                                                                                                   .AcknowledgementType
-                                                                                                   .A.ToString())));
+                        Convert.ToChar(
+                            SiteEnums.AcknowledgementType
+                                .A.ToString())));
                     sb.Append(@"</span>");
                     sb.AppendFormat(@"<button title=""{0}"" name=""status_comment_update_id_applaud""", Messages.Applaud);
                     sb.Append(@" class=""applaud_status_comment"" type=""button"" value=""");
@@ -225,7 +221,7 @@ namespace DasKlub.Lib.BOL
                     sb.Append(@"</div>");
 
                     sb.Append(@"<div class=""left_float"">");
- 
+
                     sb.Append(@"</div>");
                 }
 
@@ -249,7 +245,7 @@ namespace DasKlub.Lib.BOL
                 sb.Append(StatusCommentID.ToString());
                 sb.Append(@""">");
                 sb.Append(@"<div class=""inner_status_com"">");
- 
+
                 var uad = new UserAccountDetail();
 
                 uad.GetUserAccountDeailForUser(UserAccountID);
@@ -257,7 +253,7 @@ namespace DasKlub.Lib.BOL
                 sb.Append(@"<div>");
 
                 sb.AppendFormat(@"<div class=""user_account_thumb"">{0}</div>", uad.SmallUserIcon);
- 
+
 
                 // comment acknowledgements
                 sb.AppendFormat(
@@ -269,10 +265,10 @@ namespace DasKlub.Lib.BOL
                 sb.Append(@"<div class=""clear""></div>");
 
                 sb.AppendFormat(@"<i title=""{1}"">{0}</i>", Utilities.TimeElapsedMessage(CreateDate),
-                                CreateDate.ToString("o"));
+                    CreateDate.ToString("o"));
 
                 sb.Append("<br />");
-             
+
                 sb.Append(Utilities.MakeLink(FromString.ReplaceNewLineSingleWithHTML(Message), true));
 
                 var currentUser = new UserAccount(HttpContext.Current.User.Identity.Name);
@@ -364,9 +360,8 @@ namespace DasKlub.Lib.BOL
             string str = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(str)) return 0;
-            else
-                return
-                    FromObj.IntFromObj(str);
+            return
+                FromObj.IntFromObj(str);
         }
 
 
@@ -379,10 +374,10 @@ namespace DasKlub.Lib.BOL
 
             comm.AddParameter("statusUpdateID", statusUpdateID);
 
-            var str = DbAct.ExecuteScalar(comm);
+            string str = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(str)) return 0;
-            
+
             return Convert.ToInt32(str) > 0 ? Convert.ToInt32(str) : 0;
         }
 
@@ -396,12 +391,12 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("statusUpdateID", statusUpdateID);
 
             // execute the stored procedure
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
-            
-            foreach (var statusCom in from DataRow dr in dt.Rows select new StatusComment(dr))
+
+            foreach (StatusComment statusCom in from DataRow dr in dt.Rows select new StatusComment(dr))
             {
                 Add(statusCom);
             }

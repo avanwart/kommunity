@@ -55,14 +55,15 @@
             });
         },
         activate: function(element, container, callback) {
-            var $active = container.find('> .active'), transition = callback
-                && $.support.transition
-                && $active.hasClass('fade');
+            var $active = container.find('* > .active'),
+                transition = callback
+                    && $.support.transition
+                    && $active.hasClass('fade');
 
             function next() {
                 $active
                     .removeClass('active')
-                    .find('> .dropdown-menu > .active')
+                    .find('* > .dropdown-menu > .active')
                     .removeClass('active');
                 element.addClass('active');
                 if (transition) {

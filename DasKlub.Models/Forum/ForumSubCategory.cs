@@ -29,6 +29,8 @@ namespace DasKlub.Models.Forum
 
         #region properties
 
+        private string _description = string.Empty;
+        private string _title = string.Empty;
         public int ForumSubCategoryID { get; set; }
 
         public ForumCategory ForumCategory { get; set; }
@@ -39,20 +41,18 @@ namespace DasKlub.Models.Forum
         [Required]
         public string Key { get; set; }
 
-        private string _title = string.Empty;
-        
         [StringLength(150)]
         [Required]
         public string Title
         {
-            get {
+            get
+            {
                 if (_title != null)
                     _title = _title.Trim();
-                return _title; }
+                return _title;
+            }
             set { _title = value; }
         }
-
-        private string _description = string.Empty;
 
         [Required]
         public string Description
@@ -75,13 +75,14 @@ namespace DasKlub.Models.Forum
         {
             get
             {
-                return ForumCategory != null ? new Uri(
-                    string.Format("{0}{1}",
-                        Utilities.URLAuthority(),
-                        VirtualPathUtility.ToAbsolute(
-                            string.Format("~/forum/{0}/{1}",
-                                ForumCategory.Key, 
-                                Key)))) 
+                return ForumCategory != null
+                    ? new Uri(
+                        string.Format("{0}{1}",
+                            Utilities.URLAuthority(),
+                            VirtualPathUtility.ToAbsolute(
+                                string.Format("~/forum/{0}/{1}",
+                                    ForumCategory.Key,
+                                    Key))))
                     : null;
             }
         }

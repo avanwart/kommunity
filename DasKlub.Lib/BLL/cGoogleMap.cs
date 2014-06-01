@@ -167,7 +167,7 @@ namespace DasKlub.Lib.BLL
         }
 
         public GooglePoint(string pID, double plat, double plon, string picon, string pinfohtml, string pTooltipText,
-                           bool pDraggable)
+            bool pDraggable)
         {
             ID = pID;
             Latitude = plat;
@@ -187,13 +187,13 @@ namespace DasKlub.Lib.BLL
         public string IconImage
         {
             get { return _icon; }
-            
+
             private set
             {
-                var sIconImage = value;
+                string sIconImage = value;
                 if (sIconImage == "")
                     return;
-                var imageIconPhysicalPath = cCommon.GetLocalPath() + sIconImage.Replace("/", "\\");
+                string imageIconPhysicalPath = cCommon.GetLocalPath() + sIconImage.Replace("/", "\\");
 
                 using (Image img = Image.FromFile(imageIconPhysicalPath))
                 {
@@ -273,10 +273,10 @@ namespace DasKlub.Lib.BLL
         public static GooglePoints CloneMe(GooglePoints prev)
         {
             var p = new GooglePoints();
-            for (var i = 0; i < prev.Count; i++)
+            for (int i = 0; i < prev.Count; i++)
             {
                 p.Add(new GooglePoint(prev[i].ID, prev[i].Latitude, prev[i].Longitude, prev[i].IconImage,
-                                      prev[i].InfoHTML, prev[i].ToolTip, prev[i].Draggable));
+                    prev[i].InfoHTML, prev[i].ToolTip, prev[i].Draggable));
             }
             return p;
         }
@@ -339,26 +339,6 @@ namespace DasKlub.Lib.BLL
 
     public class GooglePolyline
     {
-        private bool Equals(GooglePolyline other)
-        {
-            return string.Equals(_colorcode, other._colorcode) && Equals(_gpoints, other._gpoints) && string.Equals(_id, other._id) && string.Equals(_linestatus, other._linestatus) 
-                && _width == other._width && Geodesic.Equals(other.Geodesic);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = (_colorcode != null ? _colorcode.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (_gpoints != null ? _gpoints.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (_id != null ? _id.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (_linestatus != null ? _linestatus.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ _width;
-                hashCode = (hashCode*397) ^ Geodesic.GetHashCode();
-                return hashCode;
-            }
-        }
-
         private string _colorcode = "#66FF00";
         private GooglePoints _gpoints = new GooglePoints();
         private string _id = "";
@@ -397,11 +377,32 @@ namespace DasKlub.Lib.BLL
 
         public bool Geodesic { get; set; }
 
+        private bool Equals(GooglePolyline other)
+        {
+            return string.Equals(_colorcode, other._colorcode) && Equals(_gpoints, other._gpoints) &&
+                   string.Equals(_id, other._id) && string.Equals(_linestatus, other._linestatus)
+                   && _width == other._width && Geodesic.Equals(other.Geodesic);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = (_colorcode != null ? _colorcode.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_gpoints != null ? _gpoints.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_id != null ? _id.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_linestatus != null ? _linestatus.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ _width;
+                hashCode = (hashCode*397) ^ Geodesic.GetHashCode();
+                return hashCode;
+            }
+        }
+
         public override bool Equals(Object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((GooglePolyline) obj);
         }
     }
@@ -504,28 +505,6 @@ namespace DasKlub.Lib.BLL
 
     public class GooglePolygon
     {
-        private bool Equals(GooglePolygon other)
-        {
-            return string.Equals(_fillcolor, other._fillcolor) && _fillopacity.Equals(other._fillopacity) &&
-                Equals(_gpoints, other._gpoints) && string.Equals(_id, other._id) && string.Equals(_status, other._status) && string.Equals(_strokecolor, other._strokecolor) && _strokeopacity.Equals(other._strokeopacity) && _strokeweight == other._strokeweight;
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hashCode = (_fillcolor != null ? _fillcolor.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ _fillopacity.GetHashCode();
-                hashCode = (hashCode*397) ^ (_gpoints != null ? _gpoints.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (_id != null ? _id.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (_status != null ? _status.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (_strokecolor != null ? _strokecolor.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ _strokeopacity.GetHashCode();
-                hashCode = (hashCode*397) ^ _strokeweight;
-                return hashCode;
-            }
-        }
-
         private string _fillcolor = "#66FF00";
         private double _fillopacity = 0.2;
         private GooglePoints _gpoints = new GooglePoints();
@@ -583,11 +562,35 @@ namespace DasKlub.Lib.BLL
             set { _fillopacity = value; }
         }
 
+        private bool Equals(GooglePolygon other)
+        {
+            return string.Equals(_fillcolor, other._fillcolor) && _fillopacity.Equals(other._fillopacity) &&
+                   Equals(_gpoints, other._gpoints) && string.Equals(_id, other._id) &&
+                   string.Equals(_status, other._status) && string.Equals(_strokecolor, other._strokecolor) &&
+                   _strokeopacity.Equals(other._strokeopacity) && _strokeweight == other._strokeweight;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = (_fillcolor != null ? _fillcolor.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ _fillopacity.GetHashCode();
+                hashCode = (hashCode*397) ^ (_gpoints != null ? _gpoints.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_id != null ? _id.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_status != null ? _status.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (_strokecolor != null ? _strokecolor.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ _strokeopacity.GetHashCode();
+                hashCode = (hashCode*397) ^ _strokeweight;
+                return hashCode;
+            }
+        }
+
         public override bool Equals(Object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((GooglePolygon) obj);
         }
     }

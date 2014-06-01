@@ -2,8 +2,8 @@
 using System.Data;
 using System.Data.Common;
 using System.Web;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
@@ -201,7 +201,7 @@ namespace DasKlub.Lib.BOL
 
         public string CacheName
         {
-            get { return string.Format("{0}-{1}", GetType().FullName, PlaylistID.ToString()); }
+            get { return string.Format("{0}-{1}", GetType().FullName, PlaylistID); }
         }
 
         public void RemoveCache()

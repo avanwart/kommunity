@@ -16,9 +16,9 @@ namespace DasKlub.Lib.Operational
         /// <returns></returns>
         public static void AddParameter(this DbCommand comm, string parameterName, object value)
         {
-            var factory = DbProviderFactories.GetFactory(DataBaseConfigs.DbProviderName);
+            DbProviderFactory factory = DbProviderFactories.GetFactory(DataBaseConfigs.DbProviderName);
 
-            var type = ((value != null) ? value.GetType() : null) ?? typeof (object);
+            Type type = ((value != null) ? value.GetType() : null) ?? typeof (object);
 
             DbType dbType;
 
@@ -76,13 +76,14 @@ namespace DasKlub.Lib.Operational
         }
 
 
-        private static void AddParameter(this DbCommand comm, DbProviderFactory factory, string parameterName, DbType type, object value)
+        private static void AddParameter(this DbCommand comm, DbProviderFactory factory, string parameterName,
+            DbType type, object value)
         {
             if (parameterName == null)
             {
                 throw new ArgumentNullException("parameterName");
             }
-            var param = factory.CreateParameter();
+            DbParameter param = factory.CreateParameter();
             if (param == null) return;
             param.DbType = type;
             param.ParameterName = parameterName;

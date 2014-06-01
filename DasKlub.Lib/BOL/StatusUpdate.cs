@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Security;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
@@ -53,9 +53,7 @@ namespace DasKlub.Lib.BOL
 
         public string Message
         {
-            get {
-                return _message == null ? _message : _message.Trim();
-            }
+            get { return _message == null ? _message : _message.Trim(); }
             set { _message = value; }
         }
 
@@ -120,8 +118,8 @@ namespace DasKlub.Lib.BOL
 
                     sb.AppendFormat(@"<span class=""status_count_applaud"" title=""{0}"">", sbApplaud);
                     sb.Append(Acknowledgements.GetAcknowledgementCount(StatusUpdateID,
-                                                                       Convert.ToChar(
-                                                                           SiteEnums.AcknowledgementType.A.ToString())));
+                        Convert.ToChar(
+                            SiteEnums.AcknowledgementType.A.ToString())));
                     sb.Append(@"</span>");
 
                     ack = new Acknowledgement();
@@ -131,7 +129,7 @@ namespace DasKlub.Lib.BOL
                         ack.AcknowledgementType == Convert.ToChar(SiteEnums.AcknowledgementType.A.ToString()))
                     {
                         sb.AppendFormat(@"<button title=""{0}"" name=""status_update_id_applaud""",
-                                        Messages.YouResponded);
+                            Messages.YouResponded);
                         sb.Append(@" class=""applaud_status_complete""  type=""button"" value=""");
                         sb.Append(StatusUpdateID.ToString());
                         sb.AppendFormat(@""">{0}</button>", Messages.Applaud);
@@ -139,7 +137,7 @@ namespace DasKlub.Lib.BOL
                     else
                     {
                         sb.AppendFormat(@"<button title=""{0}"" name=""status_update_id_applaud""",
-                                        Messages.YouResponded);
+                            Messages.YouResponded);
                         sb.Append(@" disabled=""disabled"" class=""applaud_status""  type=""button"" value=""");
                         sb.Append(StatusUpdateID.ToString());
                         sb.AppendFormat(@""">{0}</button>", Messages.Applaud);
@@ -151,7 +149,7 @@ namespace DasKlub.Lib.BOL
 
                     DisplayTime(sb);
 
-                  
+
                     sb.Append(@"</div>");
                 }
                 else
@@ -172,8 +170,8 @@ namespace DasKlub.Lib.BOL
 
                     sb.AppendFormat(@"<span class=""status_count_applaud"" title=""{0}"">", sbApplaud);
                     sb.Append(Acknowledgements.GetAcknowledgementCount(StatusUpdateID,
-                                                                       Convert.ToChar(
-                                                                           SiteEnums.AcknowledgementType.A.ToString())));
+                        Convert.ToChar(
+                            SiteEnums.AcknowledgementType.A.ToString())));
                     sb.Append(@"</span>");
                     sb.AppendFormat(@"<button title=""{0}"" name=""status_update_id_applaud""", Messages.Applaud);
                     sb.Append(@" class=""applaud_status"" type=""button"" value=""");
@@ -193,29 +191,6 @@ namespace DasKlub.Lib.BOL
             }
         }
 
-        private void DisplayTime(StringBuilder sb)
-        {
-            sb.Append(@"<br />&nbsp;  &nbsp;");
-
-            if (IsMobile)
-            {
-                sb.AppendFormat(@"<img src=""{0}"" alt=""{1}"" title=""{1}"" />&nbsp;",
-                    VirtualPathUtility.ToAbsolute("~/content/images/icons/icon_mobile.png"),
-                    Messages.FromMobile);
-            }
-            else
-            {
-                sb.AppendFormat(@"<img src=""{0}"" alt=""{1}"" title=""{1}"" />&nbsp;",
-                    VirtualPathUtility.ToAbsolute("~/content/images/icons/icon_desktop.png"),
-                    Messages.FromDesktop);
-            }
-
-            var timeElapsed = Utilities.TimeElapsedMessage(CreateDate);
-
-
-            sb.AppendFormat(@"<i title=""{1}"">{0}</i>", timeElapsed, CreateDate.ToString("o"));
-        }
-
         public bool PhotoDisplay { private get; set; }
 
         public string JSONResponse
@@ -231,7 +206,7 @@ namespace DasKlub.Lib.BOL
 
                 var sb = new StringBuilder(100);
                 var ua = new UserAccount(UserAccountID);
-                var isUsersPost = false;
+                bool isUsersPost = false;
 
                 if (HttpContext.Current.Request.IsAuthenticated)
                 {
@@ -253,9 +228,9 @@ namespace DasKlub.Lib.BOL
                                       <div class=""span6"">
                         <a class=""m_over"" href=""{0}""><img src=""{1}"" alt=""{2}"" title=""{2}"" /></a>
                                        ",
-                                    VirtualPathUtility.ToAbsolute("~/photos/" + PhotoItemID),
-                                    Utilities.S3ContentPath(pitem.FilePathStandard),
-                                    Messages.Photos);
+                        VirtualPathUtility.ToAbsolute("~/photos/" + PhotoItemID),
+                        Utilities.S3ContentPath(pitem.FilePathStandard),
+                        Messages.Photos);
 
 
                     if (isUsersPost)
@@ -263,10 +238,10 @@ namespace DasKlub.Lib.BOL
                         if (PhotoItemID != null && PhotoItemID > 0)
                         {
                             sb.AppendFormat(@"<br /><span class=""rotate_photo""><a href=""{0}"">{1}</a></span>",
-                                            VirtualPathUtility.ToAbsolute(
-                                                "~/account/RotateStatusImage?statusUpdateID=" +
-                                                StatusUpdateID),
-                                            Messages.RotatePhoto);
+                                VirtualPathUtility.ToAbsolute(
+                                    "~/account/RotateStatusImage?statusUpdateID=" +
+                                    StatusUpdateID),
+                                Messages.RotatePhoto);
                         }
                     }
 
@@ -287,7 +262,7 @@ namespace DasKlub.Lib.BOL
                 else
                 {
                     sb.AppendFormat(@"<div>{0}: <a href=""{1}"">{2}</a></div>", Messages.Uploader,
-                                    VirtualPathUtility.ToAbsolute("~/" + ua.UserName), ua.UserName);
+                        VirtualPathUtility.ToAbsolute("~/" + ua.UserName), ua.UserName);
                 }
 
                 #endregion
@@ -297,17 +272,16 @@ namespace DasKlub.Lib.BOL
                 if (!PhotoDisplay)
                 {
                     sb.AppendFormat(@"<div class=""acknowlege_options""><div id=""status_ack_{0}"">{1}</div></div>",
-                                    StatusUpdateID, StatusAcknowledgements);
+                        StatusUpdateID, StatusAcknowledgements);
                 }
                 else
                 {
                     sb.AppendFormat(@"<div>{0}: {1}</div>",
-                                    Messages.Applauded,
-                                    Acknowledgements.GetAcknowledgementCount(StatusUpdateID,
-                                                                             Convert.ToChar(
-                                                                                 SiteEnums.AcknowledgementType.A
-                                                                                          .ToString())));
-
+                        Messages.Applauded,
+                        Acknowledgements.GetAcknowledgementCount(StatusUpdateID,
+                            Convert.ToChar(
+                                SiteEnums.AcknowledgementType.A
+                                    .ToString())));
                 }
 
                 #endregion
@@ -319,9 +293,9 @@ namespace DasKlub.Lib.BOL
                 #region message
 
                 sb.AppendFormat(@"<div class=""post_content"">{0}</div>",
-                                PhotoItemID == null
-                                    ? Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(Message))
-                                    : Utilities.MakeLink(FromString.ReplaceNewLineWithHTML(Message)));
+                    PhotoItemID == null
+                        ? Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(Message))
+                        : Utilities.MakeLink(FromString.ReplaceNewLineWithHTML(Message)));
 
                 #endregion
 
@@ -346,7 +320,7 @@ namespace DasKlub.Lib.BOL
 
 
                 sb.AppendFormat(@"<div class=""status_comment_content""  id=""status_comments_{1}"">{0}</div>",
-                                statcoms.ToUnorderdList, StatusUpdateID);
+                    statcoms.ToUnorderdList, StatusUpdateID);
 
 
                 // end: comments
@@ -365,16 +339,16 @@ namespace DasKlub.Lib.BOL
                 {
                     sb.AppendFormat(@"<button   title=""{0}"" name=""comment_status_id"" 
                                 class=""btn btn-success comment_on_status""  type=""button"" value=""{1}"">{0}</button>",
-                                    Messages.Comment, StatusUpdateID);
+                        Messages.Comment, StatusUpdateID);
                 }
                 else
                 {
                     sb.AppendFormat(@"<button disabled=""disabled"" title=""{0}"" name=""comment_status_id"" 
                                 class=""btn btn-success comment_on_status""  type=""button"" value=""{1}"">{0}</button> ",
-                                    Messages.Comment, StatusUpdateID);
+                        Messages.Comment, StatusUpdateID);
 
                     sb.AppendFormat(@" &nbsp;<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute("~/account/logon"),
-                                    Messages.SignIn);
+                        Messages.SignIn);
                     ;
                 }
 
@@ -394,7 +368,7 @@ namespace DasKlub.Lib.BOL
                     {
                         sb.AppendFormat(@"<button title=""{0}"" name=""delete_status_id"" 
                     class=""delete_icon btn btn-danger btn-mini"" type=""button"" value=""{1}"">{0}</button>",
-                                        Messages.Delete, StatusUpdateID);
+                            Messages.Delete, StatusUpdateID);
                     }
                 }
 
@@ -409,6 +383,29 @@ namespace DasKlub.Lib.BOL
 
                 return sb.ToString();
             }
+        }
+
+        private void DisplayTime(StringBuilder sb)
+        {
+            sb.Append(@"<br />&nbsp;  &nbsp;");
+
+            if (IsMobile)
+            {
+                sb.AppendFormat(@"<img src=""{0}"" alt=""{1}"" title=""{1}"" />&nbsp;",
+                    VirtualPathUtility.ToAbsolute("~/content/images/icons/icon_mobile.png"),
+                    Messages.FromMobile);
+            }
+            else
+            {
+                sb.AppendFormat(@"<img src=""{0}"" alt=""{1}"" title=""{1}"" />&nbsp;",
+                    VirtualPathUtility.ToAbsolute("~/content/images/icons/icon_desktop.png"),
+                    Messages.FromDesktop);
+            }
+
+            string timeElapsed = Utilities.TimeElapsedMessage(CreateDate);
+
+
+            sb.AppendFormat(@"<i title=""{1}"">{0}</i>", timeElapsed, CreateDate.ToString("o"));
         }
 
         public void GetMostAcknowledgedStatus(int daysBack, SiteEnums.AcknowledgementType acknowledgementType)
@@ -488,7 +485,7 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => ZoneID), ZoneID);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsMobile), IsMobile);
 
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
@@ -503,7 +500,7 @@ namespace DasKlub.Lib.BOL
         {
             if (StatusUpdateID == 0) return false;
 
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             comm.CommandText = "up_DeleteStatusUpdate";
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusUpdateID), StatusUpdateID);
             RemoveCache();
@@ -516,11 +513,11 @@ namespace DasKlub.Lib.BOL
         {
             UserAccountID = userAccountID;
 
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetMostRecentUserStatus";
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
 
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt != null && dt.Rows.Count > 0)
             {
@@ -533,7 +530,7 @@ namespace DasKlub.Lib.BOL
         {
             PhotoItemID = photoItemID;
 
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetStatusUpdateByPhotoID";
 
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => PhotoItemID), PhotoItemID);
@@ -582,7 +579,7 @@ namespace DasKlub.Lib.BOL
 
                 if (IncludeStartAndEndTags) sb.Append(@"<ul>");
 
-                foreach (var su in this)
+                foreach (StatusUpdate su in this)
                 {
                     sb.Append(su.ToUnorderdListItem);
                 }
@@ -634,7 +631,7 @@ namespace DasKlub.Lib.BOL
                         }
                     }
 
-                    var myList = bandCount.ToList();
+                    List<KeyValuePair<string, int>> myList = bandCount.ToList();
 
                     myList.Sort(
                         (firstPair, nextPair) => nextPair.Value.CompareTo(firstPair.Value)
@@ -672,16 +669,18 @@ namespace DasKlub.Lib.BOL
 
         public void GetMostAcknowledgedStatus(int daysBack, SiteEnums.AcknowledgementType acknowledgementType)
         {
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetMostAcknowledgedStatus";
             comm.AddParameter("daysBack", daysBack);
             comm.AddParameter("acknowledgementType", Convert.ToChar(acknowledgementType.ToString()));
-            
-            var dt = DbAct.ExecuteSelectCommand(comm);
+
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var su in from DataRow dr in dt.Rows select new StatusUpdate(FromObj.IntFromObj(dr["statusUpdateID"])))
+            foreach (
+                StatusUpdate su in
+                    from DataRow dr in dt.Rows select new StatusUpdate(FromObj.IntFromObj(dr["statusUpdateID"])))
             {
                 Add(su);
             }
@@ -691,11 +690,11 @@ namespace DasKlub.Lib.BOL
         public int GetStatusUpdatesPageWise(int pageIndex, int pageSize)
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetStatusUpdatesPageWise";
 
-            var param = comm.CreateParameter();
+            DbParameter param = comm.CreateParameter();
             param.ParameterName = "@RecordCount";
             //http://stackoverflow.com/questions/3759285/ado-net-the-size-property-has-an-invalid-size-of-0
             param.Size = 1000;
@@ -705,15 +704,15 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("PageIndex", pageIndex);
             comm.AddParameter("PageSize", pageSize);
 
-            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
-            
+            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+
             if (ds == null) return 0;
 
-            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds.Tables[0].Rows.Count <= 0) return recordCount;
 
-            foreach (var statup in from DataRow dr in ds.Tables[0].Rows select new StatusUpdate(dr))
+            foreach (StatusUpdate statup in from DataRow dr in ds.Tables[0].Rows select new StatusUpdate(dr))
             {
                 Add(statup);
             }
@@ -754,7 +753,7 @@ namespace DasKlub.Lib.BOL
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var art in from DataRow dr in dt.Rows select new StatusUpdate(dr))
+            foreach (StatusUpdate art in from DataRow dr in dt.Rows select new StatusUpdate(dr))
             {
                 Add(art);
             }
@@ -774,7 +773,7 @@ namespace DasKlub.Lib.BOL
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var art in from DataRow dr in dt.Rows select new StatusUpdate(dr))
+            foreach (StatusUpdate art in from DataRow dr in dt.Rows select new StatusUpdate(dr))
             {
                 Add(art);
             }
@@ -792,8 +791,8 @@ namespace DasKlub.Lib.BOL
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
-            
-            foreach (var art in from DataRow dr in dt.Rows select new StatusUpdate(dr))
+
+            foreach (StatusUpdate art in from DataRow dr in dt.Rows select new StatusUpdate(dr))
             {
                 Add(art);
             }

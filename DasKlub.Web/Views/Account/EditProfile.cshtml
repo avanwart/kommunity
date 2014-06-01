@@ -1,5 +1,4 @@
 ﻿@using System.Globalization
-
 @using DasKlub.Lib.BOL
 @using DasKlub.Lib.Configs
 @using DasKlub.Lib.Operational
@@ -44,7 +43,7 @@
                 <div class="editor-field">
 
                     @Html.DropDownList("YouAreID", new SelectList(
-                                                       ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model.YouAreID), Messages.DashSelect)
+                        ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model.YouAreID), Messages.DashSelect)
 
       
                 </div>
@@ -77,11 +76,11 @@
                         }
                         @for (int i = 1; i <= 12; i++)
                         {
-                               var culture = CultureInfo.GetCultureInfo(Utilities.GetCurrentLanguageCode());
-                                var dateTimeInfo = DateTimeFormatInfo.GetInstance(culture);
-                                int monthNumber = i;
-                                string monthName = dateTimeInfo.GetMonthName(monthNumber);
-                          
+                            CultureInfo culture = CultureInfo.GetCultureInfo(Utilities.GetCurrentLanguageCode());
+                            DateTimeFormatInfo dateTimeInfo = DateTimeFormatInfo.GetInstance(culture);
+                            int monthNumber = i;
+                            string monthName = dateTimeInfo.GetMonthName(monthNumber);
+
                             if (Model.BirthDate.Month == i && Model.BirthDate != DateTime.MinValue)
                             {
                                 <option selected="selected" value="@i">@monthName</option>
@@ -118,7 +117,7 @@
                 <div class="editor-field">
 
                     @Html.DropDownList("RelationshipStatusID", new SelectList(
-                                                                   ViewBag.RelationshipStatuses, "RelationshipStatusID", "LocalizedName", Model.RelationshipStatusID == null ? 0 : Model.RelationshipStatusID), Messages.DashSelect)
+                        ViewBag.RelationshipStatuses, "RelationshipStatusID", "LocalizedName", Model.RelationshipStatusID == null ? 0 : Model.RelationshipStatusID), Messages.DashSelect)
 
       
                 </div>
@@ -129,7 +128,7 @@
                 <div class="editor-field">
 
                     @Html.DropDownList("InterestedInID", new SelectList(
-                                                             ViewBag.InterestedIns, "InterestedInID", "LocalizedName", Model.InterestedInID == null ? 0 : Model.InterestedInID), Messages.DashSelect)
+                        ViewBag.InterestedIns, "InterestedInID", "LocalizedName", Model.InterestedInID == null ? 0 : Model.InterestedInID), Messages.DashSelect)
 
 
  

@@ -4,8 +4,8 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Web;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
@@ -20,7 +20,7 @@ namespace DasKlub.Lib.BOL.DomainConnection
             get
             {
                 return string.Format("{0}-{1}-{2}",
-                                     GetType().FullName, PropertyType, Language);
+                    GetType().FullName, PropertyType, Language);
             }
         }
 
@@ -62,7 +62,6 @@ namespace DasKlub.Lib.BOL.DomainConnection
 
         public SiteDomain()
         {
-            
         }
 
         public SiteDomain(int siteDomainID)
@@ -141,8 +140,8 @@ namespace DasKlub.Lib.BOL.DomainConnection
         public override bool Update()
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
-            
+            DbCommand comm = DbAct.CreateCommand();
+
             // set the stored procedure name
             comm.CommandText = "up_UpdateSiteDomain";
 
@@ -152,7 +151,7 @@ namespace DasKlub.Lib.BOL.DomainConnection
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => Description), Description);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => SiteDomainID), SiteDomainID);
 
-            var result = DbAct.ExecuteNonQuery(comm);
+            int result = DbAct.ExecuteNonQuery(comm);
 
             RemoveCache();
 
@@ -174,18 +173,15 @@ namespace DasKlub.Lib.BOL.DomainConnection
 
             // the result is their ID
             // execute the stored procedure
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
                 return 0;
             }
-            else
-            {
-                SiteDomainID = Convert.ToInt32(result);
+            SiteDomainID = Convert.ToInt32(result);
 
-                return SiteDomainID;
-            }
+            return SiteDomainID;
         }
 
         public void Get(string propertyType, string language)
@@ -232,7 +228,7 @@ namespace DasKlub.Lib.BOL.DomainConnection
                     table.Columns.Add("language", typeof (string));
 
                     table.Rows.Add(DateTime.MinValue, DateTime.MinValue, 0, 0, 0, string.Empty, string.Empty,
-                                   string.Empty);
+                        string.Empty);
 
                     HttpRuntime.Cache.AddObjToCache(table.Rows[0], CacheName);
                 }
@@ -297,17 +293,17 @@ namespace DasKlub.Lib.BOL.DomainConnection
         public void GetAll()
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetAllSiteDomain";
 
             // execute the stored procedure
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var sdomain in from DataRow dr in dt.Rows select new SiteDomain(dr))
+            foreach (SiteDomain sdomain in from DataRow dr in dt.Rows select new SiteDomain(dr))
             {
                 Add(sdomain);
             }

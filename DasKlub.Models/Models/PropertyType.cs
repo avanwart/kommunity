@@ -4,19 +4,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
-    public partial class PropertyType
+    public class PropertyType
     {
         public PropertyType()
         {
-            this.MultiProperties = new List<MultiProperty>();
+            MultiProperties = new List<MultiProperty>();
         }
+
         [Key]
         public int propertyTypeID { get; set; }
+
         public string propertyTypeCode { get; set; }
-        public System.DateTime createDate { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> createdByUserID { get; set; }
-        public Nullable<int> updatedByUserID { get; set; }
+        public DateTime createDate { get; set; }
+        public DateTime? updateDate { get; set; }
+        public int? createdByUserID { get; set; }
+        public int? updatedByUserID { get; set; }
         public string propertyTypeName { get; set; }
         public virtual ICollection<MultiProperty> MultiProperties { get; set; }
     }

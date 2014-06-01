@@ -67,13 +67,13 @@ namespace DasKlub.Lib.BOL.Logging
 
             // the result is their ID
             // execute the stored procedure
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
                 return 0;
             }
-            
+
             ClickLogID = Convert.ToInt32(result);
 
             return ClickLogID;

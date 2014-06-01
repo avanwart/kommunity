@@ -295,11 +295,11 @@
         _findActive: function(selector) {
             return selector
                 ? typeof selector === "number"
-                    ? this.headers.filter(":eq(" + selector + ")")
-                    : this.headers.not(this.headers.not(selector))
+                ? this.headers.filter(":eq(" + selector + ")")
+                : this.headers.not(this.headers.not(selector))
                 : selector === false
-                    ? $([])
-                    : this.headers.filter(":eq(0)");
+                ? $([])
+                : this.headers.filter(":eq(0)");
         },
 
         // TODO isn't event.target enough? why the separate target argument?
@@ -577,11 +577,11 @@
                             // with small values, which is common for padding
                             if (settings.prop == "height") {
                                 percentDone = (settings.end - settings.start === 0) ? 0 :
-                                    (settings.now - settings.start) / (settings.end - settings.start);
+                                (settings.now - settings.start) / (settings.end - settings.start);
                             }
 
                             options.toShow[0].style[settings.prop] =
-                            (percentDone * showProps[settings.prop].value)
+                                (percentDone * showProps[settings.prop].value)
                                 + showProps[settings.prop].unit;
                         },
                         duration: options.duration,

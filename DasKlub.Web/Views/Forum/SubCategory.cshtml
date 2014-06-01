@@ -2,8 +2,7 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
 @using DasKlub.Models.Forum
-
-@model ICollection<ForumSubCategory>
+@model ICollection<DasKlub.Models.Forum.ForumSubCategory>
 
 
 <div class="row">
@@ -19,7 +18,7 @@
                     
                 </p>
 
-<a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew : Thread</a>
+                <a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew : Thread</a>
                   
                   
              
@@ -54,7 +53,7 @@
                 </div>
 
                 <div class="span2">
-                                  <b>@Messages.LastReply</b>
+                    <b>@Messages.LastReply</b>
                 </div>
 
             </div>
@@ -127,33 +126,31 @@
             if (pageSize > 1)
             {
                 <hr />
-            
+
                 <ul class="pager" style="float: left">
 
                     @for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
                     {
-                        
-                         if (ViewBag.PageNumber == pageNumber)
-                         {
-                             <li>
-                                 <a href="#" style="color: #000; background-color: #696969">@pageNumber</a>
-                             </li>
-                         }
-                         else if (pageNumber == 1)
-                         {
-                             <li> 
+                        if (ViewBag.PageNumber == pageNumber)
+                        {
+                            <li>
+                                <a href="#" style="background-color: #696969; color: #000;">@pageNumber</a>
+                            </li>
+                        }
+                        else if (pageNumber == 1)
+                        {
+                            <li> 
 
-                                 <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key)">@pageNumber.ToString(CultureInfo.InvariantCulture)</a>
-                             </li>
-                         }
-                         else
-                         {
-                             <li> 
+                                <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key)">@pageNumber.ToString(CultureInfo.InvariantCulture)</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li> 
 
-                                 <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/page/" + pageNumber.ToString())">@pageNumber.ToString(CultureInfo.InvariantCulture)</a>
-                             </li>
-                         }
-
+                                <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/page/" + pageNumber.ToString())">@pageNumber.ToString(CultureInfo.InvariantCulture)</a>
+                            </li>
+                        }
                     }
                 </ul>
                 <div class="clear"></div>
@@ -166,7 +163,7 @@
 
         <hr />
         
-<a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew : Thread</a>
+        <a  class="btn  btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/create")">@Messages.CreateNew : Thread</a>
                   
        
 

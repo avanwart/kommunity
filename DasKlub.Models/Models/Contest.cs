@@ -4,23 +4,24 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DasKlubModel.Models
 {
-    public partial class Contest
+    public class Contest
     {
         public Contest()
         {
-            this.ContestVideos = new List<ContestVideo>();
+            ContestVideos = new List<ContestVideo>();
         }
 
         [Key]
         public int contestID { get; set; }
+
         public string name { get; set; }
-        public System.DateTime deadLine { get; set; }
+        public DateTime deadLine { get; set; }
         public string description { get; set; }
-        public Nullable<int> updatedByUserID { get; set; }
-        public System.DateTime createDate { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> createdByUserID { get; set; }
-        public Nullable<System.DateTime> beginDate { get; set; }
+        public int? updatedByUserID { get; set; }
+        public DateTime createDate { get; set; }
+        public DateTime? updateDate { get; set; }
+        public int? createdByUserID { get; set; }
+        public DateTime? beginDate { get; set; }
         public string contestKey { get; set; }
         public virtual ICollection<ContestVideo> ContestVideos { get; set; }
     }

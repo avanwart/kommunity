@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 
 namespace DasKlub.Models
 {
@@ -13,8 +12,6 @@ namespace DasKlub.Models
         protected BaseContext(string con)
             : base(con)
         {
-
         }
-       
     }
 }

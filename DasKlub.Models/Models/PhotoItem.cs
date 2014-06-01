@@ -5,19 +5,20 @@ using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models
 {
-    public partial class PhotoItem
+    public class PhotoItem
     {
         public PhotoItem()
         {
-            this.StatusUpdates = new List<StatusUpdate>();
+            StatusUpdates = new List<StatusUpdate>();
         }
 
-                [Key]
+        [Key]
         public int photoItemID { get; set; }
-        public Nullable<int> updatedByUserID { get; set; }
-        public System.DateTime createDate { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> createdByUserID { get; set; }
+
+        public int? updatedByUserID { get; set; }
+        public DateTime createDate { get; set; }
+        public DateTime? updateDate { get; set; }
+        public int? createdByUserID { get; set; }
         public string title { get; set; }
         public string filePathRaw { get; set; }
         public string filePathThumb { get; set; }
