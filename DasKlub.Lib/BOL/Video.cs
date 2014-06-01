@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.BOL.ArtistContent;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
@@ -161,11 +162,10 @@ namespace DasKlub.Lib.BOL
 
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
-                if (dt.Rows.Count == 1)
-                {
-                    HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
-                    Get(dt.Rows[0]);
-                }
+                if (dt.Rows.Count != 1) return;
+
+                HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                Get(dt.Rows[0]);
             }
             else
             {

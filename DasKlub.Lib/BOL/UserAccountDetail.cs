@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using System.Web.Security;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
@@ -1023,12 +1024,11 @@ namespace DasKlub.Lib.BOL
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    if (HttpContext.Current != null) HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheNameAlt);
+                if (dt == null || dt.Rows.Count <= 0) return;
 
-                    Get(dt.Rows[0]);
-                }
+                if (HttpContext.Current != null) HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheNameAlt);
+
+                Get(dt.Rows[0]);
             }
             else
             {
