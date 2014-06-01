@@ -228,7 +228,7 @@ namespace DasKlub.Lib.Operational
 
 
         /// <summary>
-        ///     http://weblogs.asp.net/farazshahkhan/archive/2008/08/09/regex-to-find-url-within-text-and-make-them-as-link.aspx
+        ///     http://weblogs.asp.net/farazshahkhan/archive/2008/08/09/regex-to-find-url-within-text-and-make-them-as-originUrl.aspx
         /// </summary>
         /// <param name="txt"></param>
         /// <returns></returns>
@@ -244,7 +244,7 @@ namespace DasKlub.Lib.Operational
 
 
         /// <summary>
-        ///     http://weblogs.asp.net/farazshahkhan/archive/2008/08/09/regex-to-find-url-within-text-and-make-them-as-link.aspx
+        ///     http://weblogs.asp.net/farazshahkhan/archive/2008/08/09/regex-to-find-url-within-text-and-make-them-as-originUrl.aspx
         /// </summary>
         /// <param name="txt"></param>
         /// <param name="linkText"></param>
@@ -311,45 +311,52 @@ namespace DasKlub.Lib.Operational
 
         public static string ConvertTextToHtml(string inputText)
         {
-            int linkTextMaxLength = 30;
+            const int linkTextMaxLength = 30;
             var regx = new Regex(
                 @"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?",
                 RegexOptions.IgnoreCase);
-            MatchCollection mactches = regx.Matches(inputText);
-            string newText = string.Concat(inputText, " "); // hack: space at end for regex match
+            var mactches = regx.Matches(inputText);
+            var newText = string.Concat(inputText, " "); // hack: space at end for regex match
             IEnumerable<Match> allLinks = mactches.Cast<Match>()
-                .GroupBy(x => x.Value)
-                .Select(x => x.First());
+                                   .GroupBy(x => x.Value)
+                                   .Select(x => x.First());
 
             foreach (Match link in allLinks)
             {
-                string matchedUrl = link.Value;
+                var originUrl = link.Value;
+                var cleanedUrl = CleanLink(link.Value);
                 string replacementText;
 
-                if ((matchedUrl.Contains("youtube.com") && matchedUrl.Contains("v=")) || // excludes channel links
-                    matchedUrl.Contains("youtu.be"))
+                if ((cleanedUrl.Contains("youtube.com") && cleanedUrl.Contains("v=")) || // excludes channel links
+                    cleanedUrl.Contains("youtu.be"))
                 {
-                    replacementText = FormatYouTubeVideo(matchedUrl);
+                    replacementText = FormatYouTubeVideo(cleanedUrl);
                 }
                 else
                 {
-                    replacementText = FormatLink(linkTextMaxLength, link, matchedUrl);
+                    replacementText = FormatLink(linkTextMaxLength, originUrl, cleanedUrl);
                 }
 
-                newText = ReplaceNewLineSpaceWithLink(newText, link, replacementText);
+                newText = ReplaceNewLineSpaceWithLink(newText, originUrl, replacementText);
             }
 
-            string listBreaksHTML = newText.Replace(Environment.NewLine, string.Concat("<br />", Environment.NewLine));
+            var listBreaksHtml = newText.Replace(Environment.NewLine, string.Concat("<br />", Environment.NewLine));
 
-            return listBreaksHTML.Trim();
+            return listBreaksHtml.Trim();
         }
 
-        private static string ReplaceNewLineSpaceWithLink(string newText, Match link, string replacementText)
+        private static string CleanLink(string input)
+        {
+            // TODO: USE REGEX FOR WHOLE LINK
+            return input.TrimEnd(')', ']', '}');
+        }
+
+        private static string ReplaceNewLineSpaceWithLink(string newText, string link, string replacementText)
         {
             // replace links with new lines and spaces after them then put those characters back in
-            var regexReplace = new Regex(string.Concat(Regex.Escape(link.Value), "(", Environment.NewLine, ")"));
+            var regexReplace = new Regex(string.Concat(Regex.Escape(link), "(", Environment.NewLine, ")"));
             newText = regexReplace.Replace(newText, string.Concat(replacementText, Environment.NewLine));
-            regexReplace = new Regex(string.Concat(Regex.Escape(link.Value), @"(\s)"));
+            regexReplace = new Regex(string.Concat(Regex.Escape(link), @"(\s)"));
             newText = regexReplace.Replace(newText, string.Concat(replacementText, " "));
             return newText;
         }
@@ -357,7 +364,7 @@ namespace DasKlub.Lib.Operational
         private
             static
             string
-            FormatLink(int linkTextMaxLength, Match link, string matchedUrl)
+            FormatLink(int linkTextMaxLength, string originUrl, string cleanedUrl)
         {
             if (HttpContext.Current == null)
             {
@@ -370,33 +377,29 @@ namespace DasKlub.Lib.Operational
                         new StringWriter()));
             }
 
-            string replacementText;
-            string linkText = link.Value;
+            string linkText = originUrl;
             string internalHost = HttpContext.Current.Request.Url.Host;
 
             if (linkText.Length > linkTextMaxLength)
             {
-                string ellipsis = "...";
+                const string ellipsis = "...";
                 linkText = string.Concat(
                     linkText.Substring(0,
-                        linkTextMaxLength - ellipsis.Length
-                        ),
+                        linkTextMaxLength - ellipsis.Length),
                     ellipsis);
-            }
-
-            if (matchedUrl.Contains(internalHost))
-            {
-                // internal link
-                replacementText = string.Format(@"<a href=""{0}"">{1}</a>",
-                    matchedUrl,
-                    linkText);
             }
             else
             {
-                replacementText = string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>",
-                    matchedUrl,
-                    linkText);
+                linkText = cleanedUrl;
             }
+
+            var replacementText = string.Format(
+                cleanedUrl.Contains(internalHost) ? 
+                    @"<a href=""{0}"">{1}</a>" : 
+                    @"<a target=""_blank"" href=""{0}"">{1}</a>", 
+                cleanedUrl,
+                linkText);
+
             return replacementText;
         }
 
