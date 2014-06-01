@@ -14,7 +14,6 @@ using DasKlub.Lib.BOL;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
-using DasKlub.Web.App_Start;
 using log4net;
 using log4net.Config;
 

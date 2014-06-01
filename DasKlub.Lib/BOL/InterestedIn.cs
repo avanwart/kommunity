@@ -12,7 +12,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class InterestedIn : BaseIUserLogCrud, ICacheName, ILocalizedName
+    public class InterestedIn : BaseIUserLogCrud, ICacheName 
     {
         #region properties
 

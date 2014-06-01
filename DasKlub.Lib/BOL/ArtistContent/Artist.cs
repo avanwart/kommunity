@@ -13,7 +13,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL.ArtistContent
 {
-    public class Artist : BaseIUserLogCrud, ICacheName, IURLTo, IDisplayName
+    public class Artist : BaseIUserLogCrud, ICacheName, IUrlTo, IDisplayName
     {
         #region properties
 

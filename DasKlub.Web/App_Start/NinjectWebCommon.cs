@@ -1,7 +1,7 @@
 using System;
 using System.Web;
 using DasKlub.Lib.Services;
-using DasKlub.Web.App_Start;
+using DasKlub.Web;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
@@ -10,7 +10,7 @@ using WebActivatorEx;
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof (NinjectWebCommon), "Start")]
 [assembly: ApplicationShutdownMethod(typeof (NinjectWebCommon), "Stop")]
 
-namespace DasKlub.Web.App_Start
+namespace DasKlub.Web
 {
     public static class NinjectWebCommon
     {

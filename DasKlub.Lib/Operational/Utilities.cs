@@ -94,7 +94,7 @@ namespace DasKlub.Lib.Operational
             // Loop through each of the values to diminish the number
             for (int i = 0; i < 13; i++)
             {
-                // If the number being converted is less than the test value, append
+                // If the number being converted is less than the test enumValue, append
                 // the corresponding numeral or numeral pair to the resultant string
                 while (number >= values[i])
                 {
@@ -228,7 +228,7 @@ namespace DasKlub.Lib.Operational
 
 
         /// <summary>
-        ///     http://weblogs.asp.net/farazshahkhan/archive/2008/08/09/regex-to-find-url-within-text-and-make-them-as-link.aspx
+        ///     http://weblogs.asp.net/farazshahkhan/archive/2008/08/09/regex-to-find-url-within-text-and-make-them-as-originUrl.aspx
         /// </summary>
         /// <param name="txt"></param>
         /// <returns></returns>
@@ -244,7 +244,7 @@ namespace DasKlub.Lib.Operational
 
 
         /// <summary>
-        ///     http://weblogs.asp.net/farazshahkhan/archive/2008/08/09/regex-to-find-url-within-text-and-make-them-as-link.aspx
+        ///     http://weblogs.asp.net/farazshahkhan/archive/2008/08/09/regex-to-find-url-within-text-and-make-them-as-originUrl.aspx
         /// </summary>
         /// <param name="txt"></param>
         /// <param name="linkText"></param>
@@ -311,45 +311,52 @@ namespace DasKlub.Lib.Operational
 
         public static string ConvertTextToHtml(string inputText)
         {
-            int linkTextMaxLength = 30;
+            const int linkTextMaxLength = 30;
             var regx = new Regex(
                 @"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?",
                 RegexOptions.IgnoreCase);
-            MatchCollection mactches = regx.Matches(inputText);
-            string newText = string.Concat(inputText, " "); // hack: space at end for regex match
+            var mactches = regx.Matches(inputText);
+            var newText = string.Concat(inputText, " "); // hack: space at end for regex match
             IEnumerable<Match> allLinks = mactches.Cast<Match>()
-                .GroupBy(x => x.Value)
-                .Select(x => x.First());
+                                   .GroupBy(x => x.Value)
+                                   .Select(x => x.First());
 
             foreach (Match link in allLinks)
             {
-                string matchedUrl = link.Value;
+                var originUrl = link.Value;
+                var cleanedUrl = CleanLink(link.Value);
                 string replacementText;
 
-                if ((matchedUrl.Contains("youtube.com") && matchedUrl.Contains("v=")) || // excludes channel links
-                    matchedUrl.Contains("youtu.be"))
+                if ((cleanedUrl.Contains("youtube.com") && cleanedUrl.Contains("v=")) || // excludes channel links
+                    cleanedUrl.Contains("youtu.be"))
                 {
-                    replacementText = FormatYouTubeVideo(matchedUrl);
+                    replacementText = FormatYouTubeVideo(cleanedUrl);
                 }
                 else
                 {
-                    replacementText = FormatLink(linkTextMaxLength, link, matchedUrl);
+                    replacementText = FormatLink(linkTextMaxLength, originUrl, cleanedUrl);
                 }
 
-                newText = ReplaceNewLineSpaceWithLink(newText, link, replacementText);
+                newText = ReplaceNewLineSpaceWithLink(newText, originUrl, replacementText);
             }
 
-            string listBreaksHTML = newText.Replace(Environment.NewLine, string.Concat("<br />", Environment.NewLine));
+            var listBreaksHtml = newText.Replace(Environment.NewLine, string.Concat("<br />", Environment.NewLine));
 
-            return listBreaksHTML.Trim();
+            return listBreaksHtml.Trim();
         }
 
-        private static string ReplaceNewLineSpaceWithLink(string newText, Match link, string replacementText)
+        private static string CleanLink(string input)
+        {
+            // TODO: USE REGEX FOR WHOLE LINK
+            return input.TrimEnd(')', ']', '}');
+        }
+
+        private static string ReplaceNewLineSpaceWithLink(string newText, string link, string replacementText)
         {
             // replace links with new lines and spaces after them then put those characters back in
-            var regexReplace = new Regex(string.Concat(Regex.Escape(link.Value), "(", Environment.NewLine, ")"));
+            var regexReplace = new Regex(string.Concat(Regex.Escape(link), "(", Environment.NewLine, ")"));
             newText = regexReplace.Replace(newText, string.Concat(replacementText, Environment.NewLine));
-            regexReplace = new Regex(string.Concat(Regex.Escape(link.Value), @"(\s)"));
+            regexReplace = new Regex(string.Concat(Regex.Escape(link), @"(\s)"));
             newText = regexReplace.Replace(newText, string.Concat(replacementText, " "));
             return newText;
         }
@@ -357,7 +364,7 @@ namespace DasKlub.Lib.Operational
         private
             static
             string
-            FormatLink(int linkTextMaxLength, Match link, string matchedUrl)
+            FormatLink(int linkTextMaxLength, string originUrl, string cleanedUrl)
         {
             if (HttpContext.Current == null)
             {
@@ -370,33 +377,29 @@ namespace DasKlub.Lib.Operational
                         new StringWriter()));
             }
 
-            string replacementText;
-            string linkText = link.Value;
+            string linkText = originUrl;
             string internalHost = HttpContext.Current.Request.Url.Host;
 
             if (linkText.Length > linkTextMaxLength)
             {
-                string ellipsis = "...";
+                const string ellipsis = "...";
                 linkText = string.Concat(
                     linkText.Substring(0,
-                        linkTextMaxLength - ellipsis.Length
-                        ),
+                        linkTextMaxLength - ellipsis.Length),
                     ellipsis);
-            }
-
-            if (matchedUrl.Contains(internalHost))
-            {
-                // internal link
-                replacementText = string.Format(@"<a href=""{0}"">{1}</a>",
-                    matchedUrl,
-                    linkText);
             }
             else
             {
-                replacementText = string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>",
-                    matchedUrl,
-                    linkText);
+                linkText = cleanedUrl;
             }
+
+            var replacementText = string.Format(
+                cleanedUrl.Contains(internalHost) ? 
+                    @"<a href=""{0}"">{1}</a>" : 
+                    @"<a target=""_blank"" href=""{0}"">{1}</a>", 
+                cleanedUrl,
+                linkText);
+
             return replacementText;
         }
 
@@ -413,29 +416,15 @@ namespace DasKlub.Lib.Operational
 
         private static string FormatYouTubeVideo(string matchedUrl, int height = 200, int width = 300)
         {
-            string videoKey = ExtractYouTubeVideoKey(matchedUrl);
-            string replacementText;
+            var videoKey = ExtractYouTubeVideoKey(matchedUrl);
 
             // YouTube video
-            replacementText = string.Format(
+            var replacementText = string.Format(
                 @"<div class=""you_tube_iframe""><iframe width=""{2}"" height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
                 videoKey, height, ((width == 0) ? (object) "100%" : width));
 
             return replacementText;
         }
-
-        #region SQL injection
-
-        //Defines the set of characters that will be checked.
-        //You can add to this list, or remove items from this list, as appropriate for your site
-        private static readonly string[] BlackList =
-        {
-            "--", ";--", ";", "/*", "*/", "@@", "@",
-            "delete", "drop", "end", "exec", "execute", "select",
-            "table", "update"
-        };
-
-        #endregion
 
         #region validation
 
@@ -557,7 +546,7 @@ namespace DasKlub.Lib.Operational
 
         /// <summary>
         ///     Given the cookie name, check if it exists, if it does, check if the name
-        ///     in the name value collection exists, if so remove it and add the new one
+        ///     in the name enumValue collection exists, if so remove it and add the new one
         /// </summary>
         /// <param name="cn"></param>
         /// <param name="nvc"></param>
@@ -573,11 +562,10 @@ namespace DasKlub.Lib.Operational
                     if (cookie.Values[s] != null)
                     {
                         cookie.Values.Remove(s);
-                        cookie.Values.Add(s, nvc[s]); // changed 2010-12-02
+                        cookie.Values.Add(s, nvc[s]);
                     }
                     else
                     {
-                        //cookie.Values.Add(nvc);
                         cookie.Values.Add(s, nvc[s]);
                     }
                 }
@@ -634,7 +622,8 @@ namespace DasKlub.Lib.Operational
 
             if (exception != null)
             {
-                SqlException sqlEx = exception;
+                var sqlEx = exception;
+
                 if (sqlEx.ErrorCode == -2146232060)
                 {
                     // connection is bad, forget it
@@ -678,42 +667,40 @@ namespace DasKlub.Lib.Operational
             }
 
             WebRequest request = WebRequest.Create(input) as HttpWebRequest;
-            if (request != null)
-            {
-                request.Method = SiteEnums.HTTPTypes.GET.ToString();
+            
+            if (request == null) return false;
+            
+            request.Method = SiteEnums.HTTPTypes.GET.ToString();
 
-                try
+            try
+            {
+                using (var response = (HttpWebResponse) request.GetResponse())
                 {
-                    using (var response = (HttpWebResponse) request.GetResponse())
+                    if (response.StatusCode == HttpStatusCode.OK) return true;
+                    using (Stream dataStream = response.GetResponseStream())
                     {
-                        if (response.StatusCode == HttpStatusCode.OK) return true;
-                        using (Stream dataStream = response.GetResponseStream())
-                        {
-                            if (dataStream != null)
-                                using (var reader = new StreamReader(dataStream))
-                                {
-                                    reader.ReadToEnd();
-                                }
-                        }
+                        if (dataStream != null)
+                            using (var reader = new StreamReader(dataStream))
+                            {
+                                reader.ReadToEnd();
+                            }
                     }
                 }
-                catch (WebException ex)
+            }
+            catch (WebException ex)
+            {
+                if (ex.Status != WebExceptionStatus.ProtocolError || ex.Response == null) return false;
+
+                var resp = (HttpWebResponse) ex.Response;
+                if (resp.StatusCode == HttpStatusCode.NotFound)
                 {
-                    if (ex.Status == WebExceptionStatus.ProtocolError &&
-                        ex.Response != null)
-                    {
-                        var resp = (HttpWebResponse) ex.Response;
-                        if (resp.StatusCode == HttpStatusCode.NotFound)
-                        {
-                            return false;
-                            // Do something
-                        }
-                    }
+                    return false;
+                    // Do something
                 }
-                catch
-                {
-                    // Utilities.LogError(debugMsg, ex);
-                }
+            }
+            catch
+            {
+                // Utilities.LogError(debugMsg, ex);
             }
 
             return false;
@@ -730,28 +717,28 @@ namespace DasKlub.Lib.Operational
             string responseData = string.Empty;
 
             WebRequest request = WebRequest.Create(input) as HttpWebRequest;
-            if (request != null)
-            {
-                request.Method = SiteEnums.HTTPTypes.GET.ToString();
+            
+            if (request == null) return responseData;
 
-                try
+            request.Method = SiteEnums.HTTPTypes.GET.ToString();
+
+            try
+            {
+                using (var response = (HttpWebResponse) request.GetResponse())
                 {
-                    using (var response = (HttpWebResponse) request.GetResponse())
+                    using (Stream dataStream = response.GetResponseStream())
                     {
-                        using (Stream dataStream = response.GetResponseStream())
-                        {
-                            if (dataStream != null)
-                                using (var reader = new StreamReader(dataStream))
-                                {
-                                    responseData = reader.ReadToEnd();
-                                }
-                        }
+                        if (dataStream != null)
+                            using (var reader = new StreamReader(dataStream))
+                            {
+                                responseData = reader.ReadToEnd();
+                            }
                     }
                 }
-                catch (Exception ex)
-                {
-                    LogError(ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                LogError(ex);
             }
             return responseData;
         }
@@ -763,18 +750,18 @@ namespace DasKlub.Lib.Operational
         /// <summary>
         ///     Turns an enum into a string, if it has a description
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="enumValue"></param>
         /// <returns></returns>
-        public static string GetEnumDescription(Enum value)
+        public static string GetEnumDescription(Enum enumValue)
         {
-            FieldInfo fi = value.GetType().GetField(value.ToString());
+            var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
 
             var attributes =
-                (DescriptionAttribute[]) fi.GetCustomAttributes(typeof (DescriptionAttribute), false);
+                (DescriptionAttribute[]) fieldInfo.GetCustomAttributes(typeof (DescriptionAttribute), false);
 
-            if (attributes != null && attributes.Length > 0)
-                return attributes[0].Description;
-            return value.ToString();
+            return attributes.Length > 0 ? 
+                    attributes[0].Description : 
+                    enumValue.ToString();
         }
 
         #endregion

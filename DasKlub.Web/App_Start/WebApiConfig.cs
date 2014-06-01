@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace DasKlub.Web.App_Start
+namespace DasKlub.Web
 {
     public static class WebApiConfig
     {

@@ -477,12 +477,12 @@ namespace DasKlub.Lib.Providers
 
             MembershipUser mu = null;
             var eu = new UserAccount(username);
-            if (eu.UserAccountID != 0) // && eu.IsOnLine == userIsOnline)
-            {
-                eu.Update(); // updates the last activity date
-                // get the values for this end user
-                mu = GetMembershipUserFromUserAccount(eu);
-            }
+            
+            if (eu.UserAccountID == 0) return mu;
+            
+            eu.Update(); // updates the last activity date
+            // get the values for this end user
+            mu = GetMembershipUserFromUserAccount(eu);
             return mu;
         }
 
@@ -531,7 +531,7 @@ namespace DasKlub.Lib.Providers
         {
             if (!EnablePasswordRetrieval) throw new ProviderException(Messages.PasswordRetrievalNotEnabled);
 
-            string password = RandomPassword.Generate(8, 10); // string.Empty;
+            string password = RandomPassword.Generate(8, 10); 
 
             var eu = new UserAccount(username);
 
@@ -652,12 +652,11 @@ namespace DasKlub.Lib.Providers
             if (IsValidPasswordComparison(password, eu.Password))
             {
                 //if (eu.IsApproved && eu.IsLockedOut == false)
-                if (eu.IsLockedOut == false)
-                {
-                    isValid = true;
-                    eu.IsOnLine = true;
-                    eu.Update();
-                }
+                if (eu.IsLockedOut) return isValid;
+
+                isValid = true;
+                eu.IsOnLine = true;
+                eu.Update();
             }
             else
             {

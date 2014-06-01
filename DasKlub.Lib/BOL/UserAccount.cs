@@ -23,7 +23,7 @@ using LitS3;
 
 namespace DasKlub.Lib.BOL
 {
-    public class UserAccount : BaseIUserLogCrud, ICacheName, IUnorderdListItem, IURLTo
+    public class UserAccount : BaseIUserLogCrud, ICacheName, IUnorderdListItem, IUrlTo
     {
         #region BOLAction Members
 

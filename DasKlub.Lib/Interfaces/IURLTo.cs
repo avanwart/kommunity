@@ -2,7 +2,7 @@
 
 namespace DasKlub.Lib.Interfaces
 {
-    internal interface IURLTo
+    internal interface IUrlTo
     {
         /// <summary>
         ///     Returns a full url to navigate to

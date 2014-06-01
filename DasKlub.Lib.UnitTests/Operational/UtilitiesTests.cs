@@ -15,6 +15,53 @@ namespace DasKlub.Lib.UnitTests.Operational
             _expectedDoman = GeneralConfigs.SiteDomain;
         }
 
+        
+        [TestMethod]
+        public void ConvertTextToHTML_EndsWithBrackParen_DisplaysNoLink()
+        {
+            // arrange
+            const string input = "[see: http://i.imgur.com/PksccO4.jpg]";
+
+            // act
+            var actual = Utilities.ConvertTextToHtml(input);
+
+            // assert 
+            const string expected = @"[see: http://i.imgur.com/PksccO4.jpg]";
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void ConvertTextToHTML_EndsWithCloseParenShort_DisplaysUrlWithoutParen()
+        {
+            // arrange
+            const string input = "Contact: Ciwana (http://dasklub.com/ciwana) for more details.";
+
+            // act
+            var actual = Utilities.ConvertTextToHtml(input);
+
+            // assert 
+            const string expected = @"Contact: Ciwana (<a href=""http://dasklub.com/ciwana"">http://dasklub.com/ciwana</a> for more details.";
+
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void ConvertTextToHTML_EndsWithCloseParen_DisplaysUrlWithoutParen()
+        {
+            // arrange
+            const string input = "(see: http://i.imgur.com/PksccO4.jpg)";
+
+            // act
+            var actual = Utilities.ConvertTextToHtml(input);
+
+            // assert 
+            const string expected = @"(see: <a target=""_blank"" href=""http://i.imgur.com/PksccO4.jpg"">http://i.imgur.com/PksccO4....</a>";
+
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestMethod]
         public void ConvertTextToHTML_SameExternalLink_DisplaysCorrectly()
         {

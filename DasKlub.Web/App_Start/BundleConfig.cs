@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace DasKlub.Web.App_Start
+namespace DasKlub.Web
 {
     public class BundleConfig
     {
