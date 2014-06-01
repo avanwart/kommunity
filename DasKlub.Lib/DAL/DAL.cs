@@ -22,9 +22,9 @@ namespace DasKlub.Lib.DAL
         {
             using (command)
             {
-                var factory = DbProviderFactories.GetFactory(DataBaseConfigs.DbProviderName);
+                DbProviderFactory factory = DbProviderFactories.GetFactory(DataBaseConfigs.DbProviderName);
 
-                using (var adapter = factory.CreateDataAdapter())
+                using (DbDataAdapter adapter = factory.CreateDataAdapter())
                 {
                     if (adapter == null) return null;
 
@@ -66,7 +66,7 @@ namespace DasKlub.Lib.DAL
                     command.Connection.Open();
 
                     table = new DataTable();
-                    using (var reader = command.ExecuteReader())
+                    using (DbDataReader reader = command.ExecuteReader())
                     {
                         table.Load(reader);
                         reader.Close();
@@ -95,7 +95,7 @@ namespace DasKlub.Lib.DAL
         /// <param name="command">database command</param>
         public static int ExecuteNonQuery(DbCommand command)
         {
-            var affectedRows = -1;
+            int affectedRows = -1;
 
             using (command)
             {
@@ -126,14 +126,14 @@ namespace DasKlub.Lib.DAL
         /// <param name="command">database command</param>
         public static string ExecuteScalar(DbCommand command)
         {
-            var value = string.Empty;
+            string value = string.Empty;
 
             using (command)
             {
                 try
                 {
                     command.Connection.Open();
-                    var result = command.ExecuteScalar();
+                    object result = command.ExecuteScalar();
                     value = result != null ? Convert.ToString(result) : string.Empty;
                 }
                 catch (Exception ex)
@@ -162,14 +162,14 @@ namespace DasKlub.Lib.DAL
         /// </summary>
         public static DbCommand CreateCommand()
         {
-            var dataProviderName = DataBaseConfigs.DbProviderName;
-            var connectionString = DataBaseConfigs.DbConnectionString;
-            var factory = DbProviderFactories.GetFactory(dataProviderName);
-            var conn = factory.CreateConnection();
+            string dataProviderName = DataBaseConfigs.DbProviderName;
+            string connectionString = DataBaseConfigs.DbConnectionString;
+            DbProviderFactory factory = DbProviderFactories.GetFactory(dataProviderName);
+            DbConnection conn = factory.CreateConnection();
 
             if (conn != null)
             {
-                var comm = conn.CreateCommand();
+                DbCommand comm = conn.CreateCommand();
                 conn.ConnectionString = connectionString;
                 comm.CommandType = CommandType.StoredProcedure;
                 return comm;
@@ -187,14 +187,14 @@ namespace DasKlub.Lib.DAL
         /// <remarks>allows the use of text or stored procedure for command type</remarks>
         public static DbCommand CreateCommand(bool isText)
         {
-            var dataProviderName = DataBaseConfigs.DbProviderName;
-            var connectionString = DataBaseConfigs.DbConnectionString;
-            var factory = DbProviderFactories.GetFactory(dataProviderName);
-            var conn = factory.CreateConnection();
+            string dataProviderName = DataBaseConfigs.DbProviderName;
+            string connectionString = DataBaseConfigs.DbConnectionString;
+            DbProviderFactory factory = DbProviderFactories.GetFactory(dataProviderName);
+            DbConnection conn = factory.CreateConnection();
 
             if (conn != null)
             {
-                var comm = conn.CreateCommand();
+                DbCommand comm = conn.CreateCommand();
                 conn.ConnectionString = connectionString;
                 comm.CommandType = isText ? CommandType.Text : CommandType.StoredProcedure;
                 return comm;

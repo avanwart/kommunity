@@ -11,7 +11,7 @@ namespace DasKlub.Web.App_Start
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.IgnoreRoute("{*favicon}", new { favicon = "(.*/)?favicon.ico(/.*)" });
+            routes.IgnoreRoute("{*favicon}", new {favicon = "(.*/)?favicon.ico(/.*)"});
 
             #region store
 
@@ -543,7 +543,7 @@ namespace DasKlub.Web.App_Start
             routes.MapRoute(
                 "market_detail",
                 "market/{productKey}",
-                new { controller = "Market", action = "Detail", id = "" }
+                new {controller = "Market", action = "Detail", id = ""}
                 );
 
 
@@ -594,21 +594,21 @@ namespace DasKlub.Web.App_Start
             routes.MapRoute(
                 "live_video",
                 "video/live",
-                new { controller = "Video", action = "Live", id = "" }
+                new {controller = "Video", action = "Live", id = ""}
                 );
 
 
             routes.MapRoute(
                 "about_us",
                 "about",
-                new { controller = "Home", action = "About", id = "" }
+                new {controller = "Home", action = "About", id = ""}
                 );
 
 
             routes.MapRoute(
                 "video_detail",
                 "video/{videoContext}",
-                new { controller = "Video", action = "Detail", id = "" }
+                new {controller = "Video", action = "Detail", id = ""}
                 );
 
 
@@ -626,14 +626,14 @@ namespace DasKlub.Web.App_Start
             routes.MapRoute(
                 "wall_user_detail",
                 "{userName}/WallMessages/{pageNumber}",
-                new { controller = "Profile", action = "WallMessages" }
+                new {controller = "Profile", action = "WallMessages"}
                 );
 
 
             routes.MapRoute(
                 "wall_user_delete",
                 "{userName}/DeleteWallItem/{wallItemID}",
-                new { controller = "Profile", action = "DeleteWallItem" }
+                new {controller = "Profile", action = "DeleteWallItem"}
                 );
 
             #region photos
@@ -731,45 +731,45 @@ namespace DasKlub.Web.App_Start
             #region forum
 
             routes.MapRoute("delete_forum_post", "forum/deleteforumpost/{forumPostID}",
-                            new
-                            {
-                                controller = "Forum",
-                                action = "DeleteForumPost"
-                            }
+                new
+                {
+                    controller = "Forum",
+                    action = "DeleteForumPost"
+                }
                 );
 
 
             routes.MapRoute("delete_sub_forum", "forum/deletesubforum/{forumSubCategoryID}",
-                            new
-                            {
-                                controller = "Forum",
-                                action = "DeleteSubForum"
-                            }
+                new
+                {
+                    controller = "Forum",
+                    action = "DeleteSubForum"
+                }
                 );
 
             routes.MapRoute("forum_create", "forum/create",
-                            new
-                            {
-                                controller = "Forum",
-                                action = "CreateForum"
-                            }
+                new
+                {
+                    controller = "Forum",
+                    action = "CreateForum"
+                }
                 );
- 
+
 
             routes.MapRoute("forum", "forum",
-                            new
-                            {
-                                controller = "Forum",
-                                action = "Index"
-                            }
+                new
+                {
+                    controller = "Forum",
+                    action = "Index"
+                }
                 );
 
             routes.MapRoute("sub_forum_create", "forum/{key}/create",
-                            new
-                            {
-                                controller = "Forum",
-                                action = "CreateSubCategory"
-                            }
+                new
+                {
+                    controller = "Forum",
+                    action = "CreateSubCategory"
+                }
                 );
 
             routes.MapRoute("sub_forum_edit", "forum/{key}/{subKey}/edit",
@@ -778,14 +778,14 @@ namespace DasKlub.Web.App_Start
                     controller = "Forum",
                     action = "EditSubCategory"
                 }
-    );
+                );
 
             routes.MapRoute("sub_forum_post", "forum/{key}/{subKey}",
-                            new
-                            {
-                                controller = "Forum",
-                                action = "ForumPost"
-                            }
+                new
+                {
+                    controller = "Forum",
+                    action = "ForumPost"
+                }
                 );
 
             routes.MapRoute("sub_forum_post_edit", "forum/{key}/{subKey}/{forumPostID}/edit",
@@ -794,50 +794,50 @@ namespace DasKlub.Web.App_Start
                     controller = "Forum",
                     action = "EditForumPost"
                 }
-            );
+                );
 
 
             routes.MapRoute("sub_forum_page1", "forum/{key}/{pageNumber}",
-                            new
-                            {
-                                controller = "Forum",
-                                action = "SubCategory"
-                            }
+                new
+                {
+                    controller = "Forum",
+                    action = "SubCategory"
+                }
                 );
 
             routes.MapRoute("sub_forum_page2", "forum/{key}/page/{pageNumber}",
-                            new
-                            {
-                                controller = "Forum",
-                                action = "SubCategory"
-                            }
+                new
+                {
+                    controller = "Forum",
+                    action = "SubCategory"
+                }
                 );
 
 
             routes.MapRoute("sub_forum_post_create", "forum/{key}/{subKey}/create",
-                            new
-                            {
-                                controller = "Forum",
-                                action = "CreateForumPost"
-                            }
+                new
+                {
+                    controller = "Forum",
+                    action = "CreateForumPost"
+                }
                 );
- 
+
 
             routes.MapRoute("sub_forum", "forum/{key}",
-                            new
-                            {
-                                controller = "Forum",
-                                action = "SubCategory"
-                            }
+                new
+                {
+                    controller = "Forum",
+                    action = "SubCategory"
+                }
                 );
 
 
             routes.MapRoute("sub_forum_post_page", "forum/{key}/{subKey}/{pageNumber}",
-                            new
-                            {
-                                controller = "Forum",
-                                action = "ForumPost"
-                            }
+                new
+                {
+                    controller = "Forum",
+                    action = "ForumPost"
+                }
                 );
 
             #endregion
@@ -846,14 +846,14 @@ namespace DasKlub.Web.App_Start
             routes.MapRoute(
                 "user_detail",
                 "{userName}",
-                new { controller = "Profile", action = "ProfileDetail" }
+                new {controller = "Profile", action = "ProfileDetail"}
                 );
 
 
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                new {controller = "Home", action = "Index", id = UrlParameter.Optional} // Parameter defaults
                 );
         }
     }

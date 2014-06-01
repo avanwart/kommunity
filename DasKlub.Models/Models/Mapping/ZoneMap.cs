@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
@@ -8,20 +7,20 @@ namespace DasKlubModel.Models.Mapping
         public ZoneMap()
         {
             // Primary Key
-            this.HasKey(t => t.zoneID);
+            HasKey(t => t.zoneID);
 
             // Properties
-            this.Property(t => t.name)
+            Property(t => t.name)
                 .HasMaxLength(50);
 
             // Table & Column Mappings
-            this.ToTable("Zone");
-            this.Property(t => t.zoneID).HasColumnName("zoneID");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
-            this.Property(t => t.updateDate).HasColumnName("updateDate");
-            this.Property(t => t.name).HasColumnName("name");
+            ToTable("Zone");
+            Property(t => t.zoneID).HasColumnName("zoneID");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
+            Property(t => t.updateDate).HasColumnName("updateDate");
+            Property(t => t.name).HasColumnName("name");
         }
     }
 }

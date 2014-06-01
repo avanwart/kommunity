@@ -43,7 +43,8 @@ namespace DasKlub.Lib.Providers
         ///     Indicates whether the membership provider is configured to allow users to retrieve their passwords.
         /// </summary>
         /// <returns>
-        ///     true if the membership provider is configured to support password retrieval; otherwise, false. The default is false.
+        ///     true if the membership provider is configured to support password retrieval; otherwise, false. The default is
+        ///     false.
         /// </returns>
         public override bool EnablePasswordRetrieval
         {
@@ -62,7 +63,8 @@ namespace DasKlub.Lib.Providers
         }
 
         /// <summary>
-        ///     Gets a value indicating whether the membership provider is configured to require the user to answer a password question for password reset and retrieval.
+        ///     Gets a value indicating whether the membership provider is configured to require the user to answer a password
+        ///     question for password reset and retrieval.
         /// </summary>
         /// <returns>
         ///     true if a password answer is required for password reset and retrieval; otherwise, false. The default is true.
@@ -92,10 +94,12 @@ namespace DasKlub.Lib.Providers
         }
 
         /// <summary>
-        ///     Gets the number of minutes in which a maximum number of invalid password or password-answer attempts are allowed before the membership user is locked out.
+        ///     Gets the number of minutes in which a maximum number of invalid password or password-answer attempts are allowed
+        ///     before the membership user is locked out.
         /// </summary>
         /// <returns>
-        ///     The number of minutes in which a maximum number of invalid password or password-answer attempts are allowed before the membership user is locked out.
+        ///     The number of minutes in which a maximum number of invalid password or password-answer attempts are allowed before
+        ///     the membership user is locked out.
         /// </returns>
         public override int PasswordAttemptWindow
         {
@@ -103,7 +107,8 @@ namespace DasKlub.Lib.Providers
         }
 
         /// <summary>
-        ///     Gets a value indicating whether the membership provider is configured to require a unique e-mail address for each user name.
+        ///     Gets a value indicating whether the membership provider is configured to require a unique e-mail address for each
+        ///     user name.
         /// </summary>
         /// <returns>
         ///     true if the membership provider requires a unique e-mail address; otherwise, false. The default is true.
@@ -117,7 +122,8 @@ namespace DasKlub.Lib.Providers
         ///     Gets a value indicating the format for storing passwords in the membership data store.
         /// </summary>
         /// <returns>
-        ///     One of the <see cref="T:System.Web.Security.MembershipPasswordFormat" /> values indicating the format for storing passwords in the data store.
+        ///     One of the <see cref="T:System.Web.Security.MembershipPasswordFormat" /> values indicating the format for storing
+        ///     passwords in the data store.
         /// </returns>
         public override MembershipPasswordFormat PasswordFormat
         {
@@ -196,7 +202,7 @@ namespace DasKlub.Lib.Providers
             _requiresQuestionAndAnswer = Convert.ToBoolean(GetConfigValue(config["requiresQuestionAndAnswer"], "false"));
             _requiresUniqueEmail = Convert.ToBoolean(GetConfigValue(config["requiresUniqueEmail"], "true"));
 
-            var temp_format = config["passwordFormat"] ?? "Hashed";
+            string temp_format = config["passwordFormat"] ?? "Hashed";
 
             switch (temp_format)
             {
@@ -340,25 +346,25 @@ namespace DasKlub.Lib.Providers
             }
 
             // Check whether user with passed username already exists
-            var mu = GetUser(username, false);
+            MembershipUser mu = GetUser(username, false);
 
             if (mu == null)
             {
                 var eu = new UserAccount
-                    {
-                        UserName = username,
-                        EMail = email,
-                        Password = EncodePassword(password),
-                        PasswordFormat = MembershipPasswordFormat.Hashed.ToString(),
-                        PasswordSalt = string.Empty,
-                        PasswordQuestion = passwordQuestion,
-                        PasswordAnswer = EncodePassword(passwordAnswer),
-                        FailedPasswordAttemptCount = 0,
-                        IsOnLine = false,
-                        IsApproved = isApproved,
-                        Comment = string.Empty,
-                        IsLockedOut = false,
-                    };
+                {
+                    UserName = username,
+                    EMail = email,
+                    Password = EncodePassword(password),
+                    PasswordFormat = MembershipPasswordFormat.Hashed.ToString(),
+                    PasswordSalt = string.Empty,
+                    PasswordQuestion = passwordQuestion,
+                    PasswordAnswer = EncodePassword(passwordAnswer),
+                    FailedPasswordAttemptCount = 0,
+                    IsOnLine = false,
+                    IsApproved = isApproved,
+                    Comment = string.Empty,
+                    IsLockedOut = false,
+                };
                 try
                 {
                     eu.Create();
@@ -390,13 +396,13 @@ namespace DasKlub.Lib.Providers
         }
 
         public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize,
-                                                                  out int totalRecords)
+            out int totalRecords)
         {
             throw new NotImplementedException();
         }
 
         public override MembershipUserCollection FindUsersByName(string usernameToMatch, int pageIndex, int pageSize,
-                                                                 out int totalRecords)
+            out int totalRecords)
         {
             throw new NotImplementedException();
         }
@@ -421,7 +427,7 @@ namespace DasKlub.Lib.Providers
         {
             if (!EnablePasswordRetrieval) throw new ProviderException("Password Retrieval Not Enabled.");
 
-            var password = string.Empty;
+            string password = string.Empty;
 
             var eu = new UserAccount(username);
 
@@ -545,16 +551,13 @@ namespace DasKlub.Lib.Providers
                 UpdateFailureCount(username, SiteEnums.MembershipFailureTypes.passwordAnswer);
                 throw new MembershipPasswordException(Messages.IncorrectPasswordAnswer);
             }
-            else
+            if (PasswordFormat == MembershipPasswordFormat.Hashed)
             {
-                if (PasswordFormat == MembershipPasswordFormat.Hashed)
-                {
-                    //  reset the password
-                    eu.IsLockedOut = false;
-                    eu.FailedPasswordAttemptCount = 0;
-                    eu.Password = EncodePassword(password);
-                    eu.Update();
-                }
+                //  reset the password
+                eu.IsLockedOut = false;
+                eu.FailedPasswordAttemptCount = 0;
+                eu.Password = EncodePassword(password);
+                eu.Update();
             }
 
             if (PasswordFormat == MembershipPasswordFormat.Encrypted)
@@ -688,7 +691,7 @@ namespace DasKlub.Lib.Providers
                 failureCount = Convert.ToInt32(eu.FailedPasswordAnswerAttemptCount);
             }
 
-            if (failureCount == 0) 
+            if (failureCount == 0)
             {
                 // First password failure or outside of PasswordAttemptWindow. 
                 // Start a new password failure count from 1 and a new window starting now.

@@ -40,6 +40,7 @@
     text-align: center;
     width: 16px;
 }
+
 /* more specificity required here to overide default borders */
 
 .ui-spinner a.ui-spinner-button {
@@ -47,6 +48,7 @@
     border-right: none;
     border-top: none;
 }
+
 /* vertical centre icon */
 
 .ui-spinner .ui-icon {
@@ -62,4 +64,6 @@
 
 /* TR overrides */
 
-.ui-spinner .ui-icon-triangle-1-s { /* need to fix icons sprite */background-position: -65px -16px; }
+.ui-spinner .ui-icon-triangle-1-s { /* need to fix icons sprite */
+    background-position: -65px -16px;
+}

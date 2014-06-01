@@ -5,21 +5,21 @@ using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models
 {
-    public partial class Role
+    public class Role
     {
         public Role()
         {
-            this.UserAccounts = new List<UserAccountEntity>();
+            UserAccounts = new List<UserAccountEntity>();
         }
 
-                [Key]
-
+        [Key]
         public int roleID { get; set; }
+
         public string roleName { get; set; }
-        public Nullable<System.DateTime> createDate { get; set; }
-        public Nullable<System.DateTime> updatedDate { get; set; }
-        public Nullable<int> createdByEndUserID { get; set; }
-        public Nullable<int> updatedByEndUserID { get; set; }
+        public DateTime? createDate { get; set; }
+        public DateTime? updatedDate { get; set; }
+        public int? createdByEndUserID { get; set; }
+        public int? updatedByEndUserID { get; set; }
         public string description { get; set; }
         public virtual ICollection<UserAccountEntity> UserAccounts { get; set; }
     }

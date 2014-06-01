@@ -1731,7 +1731,7 @@ Sys.Serialization.JavaScriptSerializer.deserialize = function(data, secure) {
         var exp = data.replace(Sys.Serialization.JavaScriptSerializer._dateRegEx, "$1new Date($2)");
         if (secure && Sys.Serialization.JavaScriptSerializer._jsonRegEx.test(exp.replace(Sys.Serialization.JavaScriptSerializer._jsonStringRegEx, ""))) throw null;
         return eval("(" + exp + ")");
-    } catch(a) {
+    } catch (a) {
         throw Error.argument("data", Sys.Res.cannotDeserializeInvalidJson);
     }
 };
@@ -1928,39 +1928,41 @@ Sys.UI.DomEvent.prototype = {
 };
 Sys.UI.DomEvent.registerClass("Sys.UI.DomEvent");
 var $addHandler = Sys.UI.DomEvent.addHandler = function(a, d, e, g) {
-    if (!a._events) a._events = {};
-    var c = a._events[d];
-    if (!c) a._events[d] = c = [];
-    var b;
-    if (a.addEventListener) {
-        b = function(b) { return e.call(a, new Sys.UI.DomEvent(b)); };
-        a.addEventListener(d, b, false);
-    } else if (a.attachEvent) {
-        b = function() {
-            var b = {};
-            try {
-                b = Sys.UI.DomElement._getWindow(a).event;
-            } catch(c) {
-            }
-            return e.call(a, new Sys.UI.DomEvent(b));
-        };
-        a.attachEvent("on" + d, b);
-    }
-    c[c.length] = { handler: e, browserHandler: b, autoRemove: g };
-    if (g) {
-        var f = a.dispose;
-        if (f !== Sys.UI.DomEvent._disposeHandlers) {
-            a.dispose = Sys.UI.DomEvent._disposeHandlers;
-            if (typeof f !== "undefined") a._chainDispose = f;
+        if (!a._events) a._events = {};
+        var c = a._events[d];
+        if (!c) a._events[d] = c = [];
+        var b;
+        if (a.addEventListener) {
+            b = function(b) { return e.call(a, new Sys.UI.DomEvent(b)); };
+            a.addEventListener(d, b, false);
+        } else if (a.attachEvent) {
+            b = function() {
+                var b = {};
+                try {
+                    b = Sys.UI.DomElement._getWindow(a).event;
+                } catch (c) {
+                }
+                return e.call(a, new Sys.UI.DomEvent(b));
+            };
+            a.attachEvent("on" + d, b);
         }
-    }
-}, $addHandlers = Sys.UI.DomEvent.addHandlers = function(f, d, c, e) {
-    for (var b in d) {
-        var a = d[b];
-        if (c) a = Function.createDelegate(c, a);
-        $addHandler(f, b, a, e || false);
-    }
-}, $clearHandlers = Sys.UI.DomEvent.clearHandlers = function(a) { Sys.UI.DomEvent._clearHandlers(a, false); };
+        c[c.length] = { handler: e, browserHandler: b, autoRemove: g };
+        if (g) {
+            var f = a.dispose;
+            if (f !== Sys.UI.DomEvent._disposeHandlers) {
+                a.dispose = Sys.UI.DomEvent._disposeHandlers;
+                if (typeof f !== "undefined") a._chainDispose = f;
+            }
+        }
+    },
+    $addHandlers = Sys.UI.DomEvent.addHandlers = function(f, d, c, e) {
+        for (var b in d) {
+            var a = d[b];
+            if (c) a = Function.createDelegate(c, a);
+            $addHandler(f, b, a, e || false);
+        }
+    },
+    $clearHandlers = Sys.UI.DomEvent.clearHandlers = function(a) { Sys.UI.DomEvent._clearHandlers(a, false); };
 Sys.UI.DomEvent._clearHandlers = function(a, g) {
     if (a._events) {
         var e = a._events;
@@ -2041,7 +2043,7 @@ if (document.documentElement.getBoundingClientRect)
                     c += k;
                     d += k;
                 }
-            } catch(l) {
+            } catch (l) {
             }
             if (Sys.Browser.version <= 7) {
                 var a, j, g, e = document.createElement("div");
@@ -2052,7 +2054,7 @@ if (document.documentElement.getBoundingClientRect)
                     g = e.getBoundingClientRect();
                     document.body.removeChild(e);
                     a = g.right - g.left;
-                } catch(l) {
+                } catch (l) {
                 }
                 if (a && a !== 1) {
                     c = Math.floor(c / a);
@@ -2451,7 +2453,7 @@ Sys._Application.prototype = {
                     document.removeEventListener("DOMContentLoaded", a, false);
                     b();
                 }, false);
-            } catch(h) {
+            } catch (h) {
             }
         else if (document.attachEvent)
             if (window == window.top && document.documentElement.doScroll) {
@@ -2459,7 +2461,7 @@ Sys._Application.prototype = {
                 a = function() {
                     try {
                         d.doScroll("left");
-                    } catch(c) {
+                    } catch (c) {
                         e = window.setTimeout(a, 0);
                         return;
                     }
@@ -2690,7 +2692,7 @@ Sys._Application.prototype._ensureHistory = function() {
         this._timerCookie = window.setTimeout(this._timerHandler, 100);
         try {
             this._initialState = this._deserializeState(this.get_stateString());
-        } catch(a) {
+        } catch (a) {
         }
         this._historyInitialized = true;
     }
@@ -2753,7 +2755,7 @@ Sys._Application.prototype._raiseNavigate = function() {
     var e;
     try {
         if (Sys.Browser.agent === Sys.Browser.Firefox && window.location.hash && (!window.frameElement || window.top.location.hash)) window.history.go(0);
-    } catch(f) {
+    } catch (f) {
     }
 };
 Sys._Application.prototype._serializeState = function(d) {
@@ -2806,7 +2808,7 @@ if (!window.XMLHttpRequest)
         for (var a = 0, c = b.length; a < c; a++)
             try {
                 return new ActiveXObject(b[a]);
-            } catch(d) {
+            } catch (d) {
             }
         return null;
     };
@@ -2846,13 +2848,13 @@ Sys.Net.XMLDOM = function(d) {
                 a.loadXML(d);
                 a.setProperty("SelectionLanguage", "XPath");
                 return a;
-            } catch(g) {
+            } catch (g) {
             }
     } else
         try {
             var e = new window.DOMParser;
             return e.parseFromString(d, "text/xml");
-        } catch(g) {
+        } catch (g) {
         }
     return null;
 };
@@ -2870,7 +2872,7 @@ Sys.Net.XMLHttpExecutor = function() {
         if (a._xmlHttpRequest.readyState === 4) {
             try {
                 if (typeof a._xmlHttpRequest.status === "undefined") return;
-            } catch(b) {
+            } catch (b) {
                 return;
             }
             a._clearTimer();
@@ -2933,7 +2935,7 @@ Sys.Net.XMLHttpExecutor.prototype = {
         var a;
         try {
             a = this._xmlHttpRequest.getResponseHeader(b);
-        } catch(c) {
+        } catch (c) {
         }
         if (!a) a = "";
         return a;
@@ -2944,7 +2946,7 @@ Sys.Net.XMLHttpExecutor.prototype = {
         var a = 0;
         try {
             a = this._xmlHttpRequest.status;
-        } catch(b) {
+        } catch (b) {
         }
         return a;
     },
@@ -2996,7 +2998,7 @@ Sys.Net._WebRequestManager.prototype = {
             try {
                 var executorType = eval(this._defaultExecutorType);
                 executor = new executorType;
-            } catch(a) {
+            } catch (a) {
                 failed = true;
             }
             webRequest.set_executor(executor);
@@ -3265,7 +3267,7 @@ Sys.Net.WebServiceProxy.invoke = function(q, a, m, l, j, b, g, e, w, p) {
                 if (e.startsWith("application/json")) c = d.get_object();
                 else if (e.startsWith("text/xml")) c = d.get_xml();
                 else c = d.get_responseData();
-            } catch(m) {
+            } catch (m) {
             }
             var k = d.getResponseHeader("jsonerror"), h = k === "true";
             if (h) {

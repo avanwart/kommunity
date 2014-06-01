@@ -1,5 +1,4 @@
 ﻿@using DasKlub.Lib.Resources
-
 @{
     ViewBag.Title = Messages.Playlist;
 }
@@ -12,11 +11,11 @@
 
 <div class="row">
     
-      @{ Html.RenderPartial("_AdBanner728x90"); }
-            <h2>@Messages.Playlist</h2>
-            <hr />
+    @{ Html.RenderPartial("_AdBanner728x90"); }
+    <h2>@Messages.Playlist</h2>
+    <hr />
             
-            @{ Html.RenderPartial("_editProfileMenu"); }
+    @{ Html.RenderPartial("_editProfileMenu"); }
 
     
     @if (string.IsNullOrEmpty(ViewBag.PlaylistVideos))
@@ -108,7 +107,7 @@
                             playlistID = @Html.Raw(Convert.ToString(ViewBag.UserPlaylistID));
                             youtubeVideoHeight = '@ViewBag.VideoHeight';
                             youtubeVideoWidth = '@ViewBag.VideoWidth',
-                            loadFromHash = false;
+                                loadFromHash = false;
                             autoPlay = @ViewBag.AutoPlayNumber;
 
                             var urlToFetch;

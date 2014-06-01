@@ -39,8 +39,7 @@
             ///     A set of key/value pairs that configure the validate. All options are optional.
             /// </param>
             /// <returns type="Validator" />
-
-            // if nothing is selected, return nothing; can't chain anyway
+// if nothing is selected, return nothing; can't chain anyway
             if (!this.length) {
                 options && options.debug && window.console && console.warn("nothing selected, can't validate, returning nothing");
                 return;
@@ -72,7 +71,7 @@
                 // validate the form on submit
                 this.submit(function(event) {
                     if (validator.settings.debug)
-                        // prevent form submit to be able to see console output
+                    // prevent form submit to be able to see console output
                         event.preventDefault();
 
                     function handle() {
@@ -290,7 +289,7 @@
                 // click on selects, radiobuttons and checkboxes
                 if (element.name in this.submitted)
                     this.element(element);
-                    // or option elements, check parent select in that case
+                // or option elements, check parent select in that case
                 else if (element.parentNode.name in this.submitted)
                     this.element(element.parentNode);
             },
@@ -397,7 +396,7 @@
                 }
                 return this.valid();
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Validator/element
             element: function(element) {
                 /// <summary>
@@ -430,7 +429,8 @@
             showErrors: function(errors) {
                 /// <summary>
                 ///     Show the specified messages.
-                ///     Keys have to refer to the names of elements, values are displayed for those elements, using the configured error placement.
+                ///     Keys have to refer to the names of elements, values are displayed for those elements, using the configured error
+                ///     placement.
                 /// </summary>
                 /// <param name="errors" type="Object">
                 ///     One or more key/value pairs of input names and messages.
@@ -455,7 +455,7 @@
                     ? this.settings.showErrors.call(this, this.errorMap, this.errorList)
                     : this.defaultShowErrors();
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Validator/resetForm
             resetForm: function() {
                 /// <summary>
@@ -511,7 +511,7 @@
                             .focus()
                             // manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
                             .trigger("focusin");
-                    } catch(e) {
+                    } catch (e) {
                         // ignore IE throwing errors when focusing hidden elements
                     }
                 }
@@ -605,7 +605,7 @@
                             this.formatAndAdd(element, rule);
                             return false;
                         }
-                    } catch(e) {
+                    } catch (e) {
                         this.settings.debug && window.console && console.log("exception occured when checking element " + element.id
                             + ", check the '" + rule.method + "' method", e);
                         throw e;
@@ -617,7 +617,7 @@
                     this.successList.push(element);
                 return true;
             },
-		
+
             // return the custom message for the given element and validation method
             // specified in the element's "messages" metadata
             customMetaMessage: function(element, method) {
@@ -630,7 +630,7 @@
 
                 return meta && meta.messages && meta.messages[method];
             },
-		
+
             // return the custom message for the given element name and validation method
             customMessage: function(name, method) {
                 var m = this.settings.messages[name];
@@ -638,7 +638,7 @@
                     ? m
                     : m[method]);
             },
-		
+
             // return the first defined argument, allowing empty strings
             findDefined: function() {
                 for (var i = 0; i < arguments.length; i++) {
@@ -978,7 +978,7 @@
 
             return rules;
         },
-	
+
         // Converts a simple string to a {string: true} rule, e.g., "required" to {required:true}
         normalizeRule: function(data) {
             if (typeof data == "string") {
@@ -990,7 +990,7 @@
             }
             return data;
         },
-	
+
         // http://docs.jquery.com/Plugins/Validation/Validator/addMethod
         addMethod: function(name, method, message) {
             /// <summary>
@@ -1035,7 +1035,7 @@
                     return $.trim(value).length > 0;
                 }
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Methods/remote
             remote: function(value, element, param) {
                 if (this.optional(element))
@@ -1093,65 +1093,65 @@
             minlength: function(value, element, param) {
                 return this.optional(element) || this.getLength($.trim(value), element) >= param;
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Methods/maxlength
             maxlength: function(value, element, param) {
                 return this.optional(element) || this.getLength($.trim(value), element) <= param;
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Methods/rangelength
             rangelength: function(value, element, param) {
                 var length = this.getLength($.trim(value), element);
                 return this.optional(element) || (length >= param[0] && length <= param[1]);
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Methods/min
             min: function(value, element, param) {
                 return this.optional(element) || value >= param;
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Methods/max
             max: function(value, element, param) {
                 return this.optional(element) || value <= param;
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Methods/range
             range: function(value, element, param) {
                 return this.optional(element) || (value >= param[0] && value <= param[1]);
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Methods/email
             email: function(value, element) {
                 // contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
                 return this.optional(element) || /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(value);
             },
-	
+
             // http://docs.jquery.com/Plugins/Validation/Methods/url
             url: function(value, element) {
                 // contributed by Scott Gonzalez: http://projects.scottsplayground.com/iri/
                 return this.optional(element) || /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
             },
-        
+
             // http://docs.jquery.com/Plugins/Validation/Methods/date
             date: function(value, element) {
                 return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
             },
-	
+
             // http://docs.jquery.com/Plugins/Validation/Methods/dateISO
             dateISO: function(value, element) {
                 return this.optional(element) || /^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}$/.test(value);
             },
-	
+
             // http://docs.jquery.com/Plugins/Validation/Methods/number
             number: function(value, element) {
                 return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value);
             },
-	
+
             // http://docs.jquery.com/Plugins/Validation/Methods/digits
             digits: function(value, element) {
                 return this.optional(element) || /^\d+$/.test(value);
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Methods/creditcard
             // based on http://en.wikipedia.org/wiki/Luhn
             creditcard: function(value, element) {
@@ -1179,13 +1179,13 @@
 
                 return (nCheck % 10) == 0;
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Methods/accept
             accept: function(value, element, param) {
                 param = typeof param == "string" ? param.replace(/,/g, '|') : "png|jpe?g|gif";
                 return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i"));
             },
-		
+
             // http://docs.jquery.com/Plugins/Validation/Methods/equalTo
             equalTo: function(value, element, param) {
                 // bind to the blur event of the target in order to revalidate whenever the target field is updated
@@ -1249,31 +1249,30 @@
     // TODO verify if jQuery 1.4's implementation is compatible with older jQuery special-event APIs
     if (!jQuery.event.special.focusin && !jQuery.event.special.focusout && document.addEventListener) {
         $.each({
-                focus: 'focusin',
-                blur: 'focusout'
-            }, function(original, fix) {
-                $.event.special[fix] = {
-                    setup: function() {
-                        this.addEventListener(original, handler, true);
-                    },
-                    teardown: function() {
-                        this.removeEventListener(original, handler, true);
-                    },
-                    handler: function(e) {
-                        arguments[0] = $.event.fix(e);
-                        arguments[0].type = fix;
-                        return $.event.handle.apply(this, arguments);
-                    }
-                };
-
-                function handler(e) {
-                    e = $.event.fix(e);
-                    e.type = fix;
-                    return $.event.handle.call(this, e);
+            focus: 'focusin',
+            blur: 'focusout'
+        }, function(original, fix) {
+            $.event.special[fix] = {
+                setup: function() {
+                    this.addEventListener(original, handler, true);
+                },
+                teardown: function() {
+                    this.removeEventListener(original, handler, true);
+                },
+                handler: function(e) {
+                    arguments[0] = $.event.fix(e);
+                    arguments[0].type = fix;
+                    return $.event.handle.apply(this, arguments);
                 }
-            });
-    }
-    ;
+            };
+
+            function handler(e) {
+                e = $.event.fix(e);
+                e.type = fix;
+                return $.event.handle.call(this, e);
+            }
+        });
+    };
     $.extend($.fn, {
         validateDelegate: function(delegate, type, handler) {
             return this.bind(type, function(event) {

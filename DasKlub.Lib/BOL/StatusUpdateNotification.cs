@@ -65,7 +65,7 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsRead), IsRead);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusUpdateNotificationID),
-                              StatusUpdateNotificationID);
+                StatusUpdateNotificationID);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => ResponseType), ResponseType);
 
 
@@ -89,7 +89,7 @@ namespace DasKlub.Lib.BOL
             comm.CommandText = "up_DeleteStatusUpdateNotification";
 
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => StatusUpdateNotificationID),
-                              StatusUpdateNotificationID);
+                StatusUpdateNotificationID);
 
             //RemoveCache();
 
@@ -181,7 +181,7 @@ namespace DasKlub.Lib.BOL
                     (SiteEnums.ResponseType) Enum.Parse(typeof (SiteEnums.ResponseType), ResponseType.ToString());
 
                 sb.AppendFormat(@"<a class=""notification_link"" href=""{0}"">",
-                                VirtualPathUtility.ToAbsolute("~/account/statusupdate/" + StatusUpdateID));
+                    VirtualPathUtility.ToAbsolute("~/account/statusupdate/" + StatusUpdateID));
 
                 switch (rtype)
                 {
@@ -208,7 +208,7 @@ namespace DasKlub.Lib.BOL
         }
 
         public void GetStatusUpdateNotificationForUserStatus(int userAccountID, int statusUpdateID,
-                                                             SiteEnums.ResponseType responseType)
+            SiteEnums.ResponseType responseType)
         {
             ResponseType = Convert.ToChar(responseType.ToString());
             UserAccountID = userAccountID;
@@ -281,7 +281,7 @@ namespace DasKlub.Lib.BOL
             {
                 return Convert.ToInt32(rslt);
             }
-            else return 0;
+            return 0;
         }
 
         public static bool DeleteNotificationsForStatusUpdate(int statusUpdateID)

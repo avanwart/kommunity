@@ -108,6 +108,7 @@ hr.soften {
 
 /* Specific jumbotrons
 ------------------------- */
+
 /* supporting docs pages */
 
 .subhead {
@@ -217,7 +218,7 @@ hr.soften {
 }
 
 
-    /* Quick links
+/* Quick links
 -------------------------------------------------- */
 
 .bs-links { margin: 36px 0; }
@@ -478,9 +479,11 @@ hr.soften {
 
 /* Color swatches on LESS docs page
 -------------------------------------------------- */
+
 /* Sets the width of the td */
 
 .swatch-col { width: 30px; }
+
 /* Le swatch */
 
 .swatch {
@@ -492,6 +495,7 @@ hr.soften {
     margin: -6px 0;
     width: 30px;
 }
+
 /* For white swatches, give a border */
 
 .swatch-bordered {
@@ -653,7 +657,7 @@ form.well { padding: 14px; }
     /* Reduce padding above jumbotron */
     body { padding-top: 70px; }
 
-  /* Change up some type stuff */
+    /* Change up some type stuff */
 
     h2 { margin-top: 27px; }
 
@@ -664,11 +668,11 @@ form.well { padding: 14px; }
 
     h3 { margin-top: 18px; }
 
-  /* icons */
+    /* icons */
 
     .marketing .bs-icon { margin: 0; }
 
-  /* Adjust the jumbotron */
+    /* Adjust the jumbotron */
 
     .jumbotron h1,
     .jumbotron p {
@@ -694,18 +698,20 @@ form.well { padding: 14px; }
         margin: 0 auto 10px;
         padding: 10px 14px;
     }
-  /* Masthead (home page jumbotron) */
+
+    /* Masthead (home page jumbotron) */
 
     .masthead { padding-top: 0; }
 
-  /* Don't space out quick links so much */
+    /* Don't space out quick links so much */
 
     .quick-links { margin: 40px 0 0; }
-  /* hide the bullets on mobile since our horizontal space is limited */
+
+    /* hide the bullets on mobile since our horizontal space is limited */
 
     .quick-links .divider { display: none; }
 
-  /* center example sites */
+    /* center example sites */
 
     .example-sites { margin-left: 0; }
 
@@ -725,7 +731,7 @@ form.well { padding: 14px; }
         word-wrap: break-word;
     }
 
-  /* Modal example */
+    /* Modal example */
 
     .modal-example .modal {
         bottom: auto;
@@ -741,11 +747,11 @@ form.well { padding: 14px; }
     /* Remove any padding from the body */
     body { padding-top: 0; }
 
-  /* Jumbotron buttons */
+    /* Jumbotron buttons */
 
     .jumbotron .btn { margin-bottom: 10px; }
 
-  /* Subnav */
+    /* Subnav */
 
     .subnav {
         -moz-box-shadow: none;
@@ -772,17 +778,17 @@ form.well { padding: 14px; }
         border-radius: 4px 4px 0 0;
     }
 
-  /* Popovers */
+    /* Popovers */
 
     .large-bird { display: none; }
 
     .popover-well .popover-wrapper { margin-left: 0; }
 
-  /* Space out the show-grid examples */
+    /* Space out the show-grid examples */
 
     .show-grid [class*="span"] { margin-bottom: 5px; }
 
-  /* Unfloat the back to top link in footer */
+    /* Unfloat the back to top link in footer */
 
     .footer .pull-right { float: none; }
 
@@ -805,7 +811,7 @@ form.well { padding: 14px; }
     /* Remove any padding from the body */
     body { padding-top: 0; }
 
-  /* Scale down the jumbotron content */
+    /* Scale down the jumbotron content */
 
     .jumbotron h1 { font-size: 72px; }
 }
@@ -820,7 +826,7 @@ form.well { padding: 14px; }
         padding-right: 10px;
     }
 
-  /* Inline-block quick links for more spacing */
+    /* Inline-block quick links for more spacing */
 
     .quick-links li {
         display: inline-block;
@@ -829,9 +835,11 @@ form.well { padding: 14px; }
 }
 
 
-    /* LARGE DESKTOP SCREENS */
+/* LARGE DESKTOP SCREENS */
 
 @media (min-width: 1210px) {
     /* Update subnav container */
-    .subnav-fixed .nav { width: 1168px; /* 2px less to account for left/right borders being removed when in fixed mode */ }
+    .subnav-fixed .nav {
+        width: 1168px; /* 2px less to account for left/right borders being removed when in fixed mode */
+    }
 }

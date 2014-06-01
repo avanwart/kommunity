@@ -8,20 +8,20 @@ namespace DasKlubModel.Models.Mapping
         public WishListMap()
         {
             // Primary Key
-            this.HasKey(t => new { t.productID, t.createdByUserID });
+            HasKey(t => new {t.productID, t.createdByUserID});
 
             // Properties
-            this.Property(t => t.productID)
+            Property(t => t.productID)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            this.Property(t => t.createdByUserID)
+            Property(t => t.createdByUserID)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             // Table & Column Mappings
-            this.ToTable("WishList");
-            this.Property(t => t.productID).HasColumnName("productID");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
+            ToTable("WishList");
+            Property(t => t.productID).HasColumnName("productID");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
         }
     }
 }

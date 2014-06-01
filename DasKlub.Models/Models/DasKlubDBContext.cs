@@ -1,11 +1,10 @@
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using DasKlub.Models.Models;
 using DasKlubModel.Models.Mapping;
 
 namespace DasKlubModel.Models
 {
-    public partial class DasKlubDBContext : DbContext
+    public class DasKlubDBContext : DbContext
     {
         static DasKlubDBContext()
         {

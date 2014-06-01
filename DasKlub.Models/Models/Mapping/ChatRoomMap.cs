@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
@@ -8,26 +7,26 @@ namespace DasKlubModel.Models.Mapping
         public ChatRoomMap()
         {
             // Primary Key
-            this.HasKey(t => t.chatRoomID);
+            HasKey(t => t.chatRoomID);
 
             // Properties
-            this.Property(t => t.userName)
+            Property(t => t.userName)
                 .HasMaxLength(25);
 
-            this.Property(t => t.ipAddress)
+            Property(t => t.ipAddress)
                 .HasMaxLength(50);
 
             // Table & Column Mappings
-            this.ToTable("ChatRoom");
-            this.Property(t => t.chatRoomID).HasColumnName("chatRoomID");
-            this.Property(t => t.userName).HasColumnName("userName");
-            this.Property(t => t.chatMessage).HasColumnName("chatMessage");
-            this.Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
-            this.Property(t => t.updateDate).HasColumnName("updateDate");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.ipAddress).HasColumnName("ipAddress");
-            this.Property(t => t.roomID).HasColumnName("roomID");
+            ToTable("ChatRoom");
+            Property(t => t.chatRoomID).HasColumnName("chatRoomID");
+            Property(t => t.userName).HasColumnName("userName");
+            Property(t => t.chatMessage).HasColumnName("chatMessage");
+            Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
+            Property(t => t.updateDate).HasColumnName("updateDate");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.ipAddress).HasColumnName("ipAddress");
+            Property(t => t.roomID).HasColumnName("roomID");
         }
     }
 }

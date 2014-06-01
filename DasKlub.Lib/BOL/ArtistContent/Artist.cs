@@ -5,8 +5,8 @@ using System.Data.Common;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
@@ -23,10 +23,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
         public string AltName
         {
-            get
-            {
-                return _altName == null ? string.Empty : _altName.Trim();
-            }
+            get { return _altName == null ? string.Empty : _altName.Trim(); }
             set { _altName = value; }
         }
 
@@ -53,11 +50,12 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
         public string FullURLOfArtist
         {
-            get {
-                return 
+            get
+            {
+                return
                     string.Format("{0}/{1}",
-                    Utilities.URLAuthority(), 
-                    AltName.ToLower());
+                        Utilities.URLAuthority(),
+                        AltName.ToLower());
             }
         }
 
@@ -65,10 +63,10 @@ namespace DasKlub.Lib.BOL.ArtistContent
         {
             get
             {
-                return 
-                    string.Format(@"<a href=""{0}"">{1}</a>", 
-                    FullURLOfArtist,
-                    Name);
+                return
+                    string.Format(@"<a href=""{0}"">{1}</a>",
+                        FullURLOfArtist,
+                        Name);
             }
         }
 
@@ -107,13 +105,13 @@ namespace DasKlub.Lib.BOL.ArtistContent
             if (HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
-                var comm = DbAct.CreateCommand();
+                DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
                 comm.CommandText = "up_GetArtistByID";
                 // create a new parameter
                 comm.AddParameter("artistID", ArtistID);
 
-                var dt = DbAct.ExecuteSelectCommand(comm);
+                DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 if (dt.Rows.Count != 1) return;
 
@@ -148,13 +146,13 @@ namespace DasKlub.Lib.BOL.ArtistContent
             AltName = altName;
 
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetArtistByAltname";
             // create a new parameter
             comm.AddParameter("altName", altName);
 
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt.Rows.Count == 1)
             {
@@ -183,7 +181,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
             if (string.IsNullOrEmpty(Name)) return 0;
 
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddArtist";
 
@@ -194,7 +192,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
             // the result is their ID
             // execute the stored procedure
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
@@ -207,7 +205,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
         public override bool Update()
         {
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_UpdateArtist";
 
@@ -218,7 +216,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
             comm.AddParameter("altName", AltName);
 
 
-            var result = DbAct.ExecuteNonQuery(comm);
+            int result = DbAct.ExecuteNonQuery(comm);
 
             RemoveCache();
 
@@ -229,9 +227,11 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
         public string CacheName
         {
-            get { return string.Format("{0}-{1}", 
-                        GetType().FullName,
-                        ArtistID.ToString(CultureInfo.InvariantCulture)); 
+            get
+            {
+                return string.Format("{0}-{1}",
+                    GetType().FullName,
+                    ArtistID.ToString(CultureInfo.InvariantCulture));
             }
         }
 
@@ -258,13 +258,13 @@ namespace DasKlub.Lib.BOL.ArtistContent
         public static DataSet GetArtistCloudByLetter(string letter)
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetArtistCloudByLetter";
 
             comm.AddParameter("firstLetter", letter);
 
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             var ds = new DataSet();
 
@@ -276,11 +276,11 @@ namespace DasKlub.Lib.BOL.ArtistContent
         public static DataSet GetArtistCloudByNonLetter()
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetArtistCloudByNonLetter";
             //
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             var ds = new DataSet();
 
@@ -306,15 +306,15 @@ namespace DasKlub.Lib.BOL.ArtistContent
             comm.AddParameter("PageIndex", pageIndex);
             comm.AddParameter("PageSize", pageSize);
 
-            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds.Tables[0].Rows.Count <= 0) return recordCount;
 
-            foreach (var art in from DataRow dr 
-                                in ds.Tables[0].Rows
-                                select new Artist(dr))
+            foreach (Artist art in from DataRow dr
+                in ds.Tables[0].Rows
+                select new Artist(dr))
             {
                 Add(art);
             }
@@ -329,18 +329,18 @@ namespace DasKlub.Lib.BOL.ArtistContent
             if (HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
-                var comm = DbAct.CreateCommand();
+                DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
                 comm.CommandText = "up_GetAllArtists";
                 // execute the stored procedure
-                var dt = DbAct.ExecuteSelectCommand(comm);
+                DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
                 if (dt == null || dt.Rows.Count <= 0) return;
-                
-                foreach (var art in from DataRow dr 
-                                    in dt.Rows
-                                    select new Artist(dr))
+
+                foreach (Artist art in from DataRow dr
+                    in dt.Rows
+                    select new Artist(dr))
                 {
                     Add(art);
                 }
@@ -351,7 +351,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
             {
                 var arts = (Artists) HttpRuntime.Cache[CacheName];
 
-                foreach (var uad in arts) Add(uad);
+                foreach (Artist uad in arts) Add(uad);
             }
         }
 

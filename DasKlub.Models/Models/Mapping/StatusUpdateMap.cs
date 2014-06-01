@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
@@ -8,42 +7,41 @@ namespace DasKlubModel.Models.Mapping
         public StatusUpdateMap()
         {
             // Primary Key
-            this.HasKey(t => t.statusUpdateID);
+            HasKey(t => t.statusUpdateID);
 
             // Properties
-            this.Property(t => t.message)
+            Property(t => t.message)
                 .IsRequired();
 
-            this.Property(t => t.statusType)
+            Property(t => t.statusType)
                 .IsRequired()
                 .IsFixedLength()
                 .HasMaxLength(1);
 
             // Table & Column Mappings
-            this.ToTable("StatusUpdate");
-            this.Property(t => t.statusUpdateID).HasColumnName("statusUpdateID");
-            this.Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
-            this.Property(t => t.updateDate).HasColumnName("updateDate");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.userAccountID).HasColumnName("userAccountID");
-            this.Property(t => t.message).HasColumnName("message");
-            this.Property(t => t.statusType).HasColumnName("statusType");
-            this.Property(t => t.photoItemID).HasColumnName("photoItemID");
-            this.Property(t => t.zoneID).HasColumnName("zoneID");
-            this.Property(t => t.isMobile).HasColumnName("isMobile");
+            ToTable("StatusUpdate");
+            Property(t => t.statusUpdateID).HasColumnName("statusUpdateID");
+            Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
+            Property(t => t.updateDate).HasColumnName("updateDate");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.userAccountID).HasColumnName("userAccountID");
+            Property(t => t.message).HasColumnName("message");
+            Property(t => t.statusType).HasColumnName("statusType");
+            Property(t => t.photoItemID).HasColumnName("photoItemID");
+            Property(t => t.zoneID).HasColumnName("zoneID");
+            Property(t => t.isMobile).HasColumnName("isMobile");
 
             // Relationships
-            this.HasOptional(t => t.PhotoItem)
+            HasOptional(t => t.PhotoItem)
                 .WithMany(t => t.StatusUpdates)
                 .HasForeignKey(d => d.photoItemID);
-            this.HasRequired(t => t.UserAccountEntity)
+            HasRequired(t => t.UserAccountEntity)
                 .WithMany(t => t.StatusUpdates)
                 .HasForeignKey(d => d.userAccountID);
-            this.HasOptional(t => t.Zone)
+            HasOptional(t => t.Zone)
                 .WithMany(t => t.StatusUpdates)
                 .HasForeignKey(d => d.zoneID);
-
         }
     }
 }

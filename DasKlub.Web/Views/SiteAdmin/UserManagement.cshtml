@@ -1,6 +1,5 @@
 ﻿@using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
- 
 @{
     ViewBag.Title = Messages.UserManagement;
 }
@@ -21,7 +20,7 @@
                         ID
                     </div>
                     <div class="editor-field">
-                 <b>       @ViewBag.SelectedUser.UserAccountID</b>
+                        <b>       @ViewBag.SelectedUser.UserAccountID</b>
                     </div>
                     
 
@@ -102,7 +101,7 @@
                     </span>
                     @if (ViewBag.SelectedUser.IsLockedOut)
                     {
-                    <input type="checkbox" checked="checked" name="isLockedOut" />    
+                        <input type="checkbox" checked="checked" name="isLockedOut" />
                     }
                     else
                     {

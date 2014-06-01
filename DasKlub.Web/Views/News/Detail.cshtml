@@ -3,7 +3,6 @@
 @using DasKlub.Lib.BOL.UserContent
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
-
 @using DasKlub.Web.Helpers
 @model DasKlub.Web.Models.ContentModel
 
@@ -69,9 +68,7 @@
             }
             else if (!string.IsNullOrWhiteSpace(Model.ContentVideoURL2))
             {
-                
                 <iframe width="@Model.VideoWidth" height="@ViewBag.VideoHeight"   src="@Model.ContentVideoURL2" allowfullscreen></iframe>
-                
             }
             else
             {
@@ -124,14 +121,14 @@
 
                             <br />
 
-                            <b>Author:</b> <a href="@ua.UrlTo.ToString()"><span itemprop="reviewer">@ua.UserName</span></a>
+                            <b>Author:</b>
+                            <a href="@ua.UrlTo.ToString()"><span itemprop="reviewer">@ua.UserName</span></a>
                             <a href="@ua.UrlTo.ToString()">@Html.Raw(ua.TinyUserIcon)</a>
 
                             string coName = string.Format(@"<div  class=""sprites  sprite-{0}_small""></div> ", uad.Country);
                             @Html.Raw(uad.SiteBagesLine)
-                            @Html.Raw(coName)      <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span>
-
-
+                            @Html.Raw(coName)
+                            <span class="badge  badge-inverse" title="@Utilities.GetLanguageNameForCode(Model.Language)">@Model.Language.ToUpper()</span>
                         }
 
 
@@ -152,7 +149,7 @@
         @{ Html.RenderPartial("_AdBanner728x90"); }
         <hr />
         @{ Html.RenderPartial("_socialShares"); }
-              <hr />
+        <hr />
         <div id="respond">
             <h4>@Messages.LeaveAComment</h4>
             @Html.ValidationSummary(false)
@@ -164,7 +161,7 @@
                         @Html.LabelFor(m => m.Reply.Detail)
                     </div>
                     <div class="editor-field">
-                        @Html.TextAreaFor(m => m.Reply.Detail, new { @class = "input-xlarge input-xlarge expand100-200", @rows = "3" })
+                        @Html.TextAreaFor(m => m.Reply.Detail, new {@class = "input-xlarge input-xlarge expand100-200", @rows = "3"})
                         @Html.CSSClassValidationMessageFor(m => m.Reply.Detail)
                     </div>
                     @if (Request.IsAuthenticated)
@@ -193,20 +190,20 @@
         }
         <hr />
         
-                <div id="article_tags" >
+        <div id="article_tags" >
             <h4  >@Messages.FilterNewsByTag
             </h4>
             <p class="line_space">
                 @Html.Raw(HttpUtility.HtmlDecode(ViewBag.CloudTags))
             </p>
-                    <hr />
-                    @{ Html.RenderPartial("_AdBanner120x60"); }
+            <hr />
+            @{ Html.RenderPartial("_AdBanner120x60"); }
         </div>
     </div>
     <div class="span4">
 
                   
-            @{ Html.RenderPartial("_AdBanner300x250"); }
+        @{ Html.RenderPartial("_AdBanner300x250"); }
      
   
         <hr />
@@ -229,7 +226,7 @@
         @{ Html.RenderPartial("_AdBanner160x600"); }
         <hr />
         
-           @{ Html.RenderPartial("_AdBanner300x250"); }
+        @{ Html.RenderPartial("_AdBanner300x250"); }
 
         <hr />
        
@@ -238,13 +235,13 @@
 @section _javascript {
     <script type="text/javascript">
 
-      
+
         var DK = DK || {};
 
         (function() {
 
             'use strict';
- 
+
             function VideoLog(options) {
                 this.options = {
                     serviceUrl: $rootUrl + 'News/VideoLog'
@@ -314,18 +311,18 @@
                     // enables Flash and Silverlight to resize to content size
                     //enableAutosize: true,
                     // the order of controls you want on the control bar (and other plugins below)
-                    features: ['playpause', 'progress', 'duration', 'fullscreen', 'volume']//,
+                    features: ['playpause', 'progress', 'duration', 'fullscreen', 'volume'] //,
 
                     // automatically selects a <track> element
                     //startLanguage: '@Thread.CurrentThread.CurrentUICulture.Parent.IetfLanguageTag',
-                    // a list of languages to auto-translate via Google
-                    //translations:[], 
-                
-                    // a dropdownlist of automatic translations
-                    //translationSelector: false,
+                // a list of languages to auto-translate via Google
+                //translations:[], 
+
+                // a dropdownlist of automatic translations
+                //translationSelector: false,
                 // key for tranlsations
                 //googleApiKey: ''
-                });
+            });
         }());
 
         $('video').mediaelementplayer().bind('ended', function() { $(this).parents('.mejs-inner').find('.mejs-poster').show(); });

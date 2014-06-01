@@ -33,9 +33,9 @@ namespace DasKlub.Lib.BOL.ArtistContent
             get
             {
                 return string.Format(@"<a href=""{0}"">{1}</a>",
-                                     VirtualPathUtility.ToAbsolute(
-                                        string.Format("~/{0}", 
-                                                UserAccount)), UserAccount);
+                    VirtualPathUtility.ToAbsolute(
+                        string.Format("~/{0}",
+                            UserAccount)), UserAccount);
             }
         }
 
@@ -125,11 +125,11 @@ namespace DasKlub.Lib.BOL.ArtistContent
                     art = new Artist(sng.ArtistID);
                     SongDisplay += HttpUtility.HtmlEncode(
                         string.Format(@"{0} : <a href=""{1}/{2}"">{3}</a> - {4}<br />",
-                                      cnt.ToString(CultureInfo.InvariantCulture),
-                                      Utilities.URLAuthority(),
-                                      art.AltName,
-                                      art.Name,
-                                      sng.Name));
+                            cnt.ToString(CultureInfo.InvariantCulture),
+                            Utilities.URLAuthority(),
+                            art.AltName,
+                            art.Name,
+                            sng.Name));
 
                     cnt++;
                 }
@@ -141,7 +141,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
                 SongDisplay +=
                     HttpUtility.HtmlEncode(
                         string.Format(@"<a href=""{0}/{1}"">{2}</a> - {3}",
-                                      Utilities.URLAuthority(), art.AltName, art.Name, sngs[0].Name));
+                            Utilities.URLAuthority(), art.AltName, art.Name, sngs[0].Name));
             }
         }
 
@@ -169,18 +169,18 @@ namespace DasKlub.Lib.BOL.ArtistContent
                     // sort oldest 1st 
                     sngs.Sort((p1, p2) => p1.RankOrder.CompareTo(p2.RankOrder));
 
-                    var cnt = 1;
+                    int cnt = 1;
 
                     Songs = new ArrayList();
 
-                    foreach (var sng in sngs)
+                    foreach (Song sng in sngs)
                     {
                         Songs.Add(sng.SongID);
 
                         art = new Artist(sng.ArtistID);
                         _songDisplayNoLink += HttpUtility.HtmlEncode(
                             string.Format("{0}:  {1} - {2} <br />", cnt.ToString(CultureInfo.InvariantCulture),
-                                          art.Name, sng.Name));
+                                art.Name, sng.Name));
                         cnt++;
                     }
                 }
@@ -208,11 +208,11 @@ namespace DasKlub.Lib.BOL.ArtistContent
                 {
                     sngs.Sort((p1, p2) => p1.RankOrder.CompareTo(p2.RankOrder));
 
-                    var cnt = 1;
+                    int cnt = 1;
 
                     Songs = new ArrayList();
 
-                    foreach (var sng in sngs)
+                    foreach (Song sng in sngs)
                     {
                         Songs.Add(sng.SongID);
 
@@ -226,7 +226,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
                 else if (sngs.Count == 1)
                 {
                     art = new Artist(sngs[0].ArtistID);
-                    _songDisplayNoLink2  = HttpUtility.HtmlEncode(art.Name + " - " + sngs[0].Name);
+                    _songDisplayNoLink2 = HttpUtility.HtmlEncode(art.Name + " - " + sngs[0].Name);
                 }
                 return _songDisplayNoLink2;
             }
@@ -261,14 +261,14 @@ namespace DasKlub.Lib.BOL.ArtistContent
                         art = new Artist(sng.ArtistID);
 
                         return _songDisplayNoLink +=
-                               string.Format("{0}: {1} - {2} <br />", arg0: cnt, arg1: art.Name, arg2: sng.Name);
+                            string.Format("{0}: {1} - {2} <br />", cnt, art.Name, sng.Name);
                     }
                 }
                 else if (sngs.Count == 1)
                 {
                     art = new Artist(sngs[0].ArtistID);
                     _songDisplayNoLink += string.Format(@"<a href=""{0}"">{1}</a> - {2}", art.UrlTo, art.Name,
-                                                        sngs[0].Name);
+                        sngs[0].Name);
                 }
                 return _songDisplayNoLink;
             }
@@ -360,8 +360,8 @@ namespace DasKlub.Lib.BOL.ArtistContent
                 else
                 {
                     sb.AppendFormat(@"<b>{0}: {1} / {2}</b>", Messages.Random,
-                                    Utilities.ResourceValue(humanType),
-                                    Utilities.ResourceValue(videoType));
+                        Utilities.ResourceValue(humanType),
+                        Utilities.ResourceValue(videoType));
                 }
             }
 
@@ -372,13 +372,14 @@ namespace DasKlub.Lib.BOL.ArtistContent
             {
                 sb.Append(@"<li class=""vid_preview"">");
 
-                var videoLink = VirtualPathUtility.ToAbsolute("~/video/YT#!") + v.ProviderKey;
+                string videoLink = VirtualPathUtility.ToAbsolute("~/video/YT#!") + v.ProviderKey;
 
                 sb.Append(@"<div class=""image"">");
 
                 sb.AppendFormat(@"<a href=""{0}"">", videoLink);
 
-                sb.AppendFormat(@"<img longdesc=""{0}""  alt=""{1}"" class=""preview_thmb mini"" style=""width: 100px;height: 75px;"" src=""http://i3.ytimg.com/vi/{2}/2.jpg""  />", 
+                sb.AppendFormat(
+                    @"<img longdesc=""{0}""  alt=""{1}"" class=""preview_thmb mini"" style=""width: 100px;height: 75px;"" src=""http://i3.ytimg.com/vi/{2}/2.jpg""  />",
                     v.SongDisplayNoLink, videoLink, v.ProviderKey);
                 sb.Append(@"</a>");
 
@@ -408,9 +409,9 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
             sb.Append("<ul>");
 
-            var i = 1;
+            int i = 1;
 
-            foreach (var v in this)
+            foreach (SongRecord v in this)
             {
                 sb.Append(@"<li class=""playlist_mod"">");
                 sb.Append(@"<ul>");
@@ -424,7 +425,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
                 sb.AppendFormat(@"<img longdesc=""{0}"" alt=""{1}/{2}#!{3}"" class=""preview_thmb mini"" style=""width: 100px;height: 75px;"" 
    src=""http://i3.ytimg.com/vi/{3}/2.jpg""    />", v.SongDisplayNoLink, VirtualPathUtility.ToAbsolute("~/video"),
-                                v.ProviderCode, v.ProviderKey);
+                    v.ProviderCode, v.ProviderKey);
 
                 sb.Append(@"</a>");
 
@@ -499,7 +500,7 @@ name=""video_delete_id"" class=""btn btn-danger"" type=""submit""
                 sb.Append("<ul>");
             }
 
-            foreach (var v in this)
+            foreach (SongRecord v in this)
             {
                 sb.Append(@"<li class=""vid_preview"">");
                 sb.Append(@"<div class=""image"">");
@@ -537,13 +538,13 @@ name=""video_delete_id"" class=""btn btn-danger"" type=""submit""
                 sb.Append(@"<ul>");
             }
 
-            foreach (var v in this)
+            foreach (SongRecord v in this)
             {
                 sb.Append(@"<li class=""video_page_list_item"">");
 
                 sb.AppendFormat(@"<a class=""m_over"" title=""{2}"" href=""{0}{1}"">
                                 <img alt=""{2}"" src=""http://i3.ytimg.com/vi/{1}/0.jpg"" /></a>",
-                                VirtualPathUtility.ToAbsolute("~/video/YT#!"), v.ProviderKey, v.SongDisplayNoLink2);
+                    VirtualPathUtility.ToAbsolute("~/video/YT#!"), v.ProviderKey, v.SongDisplayNoLink2);
 
                 sb.Append(@"</li>");
             }

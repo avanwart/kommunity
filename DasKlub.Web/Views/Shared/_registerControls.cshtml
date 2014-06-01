@@ -1,6 +1,4 @@
-﻿
-@using System.Globalization
-
+﻿@using System.Globalization
 @using DasKlub.Lib.BOL
 @using DasKlub.Lib.Configs
 @using DasKlub.Lib.Operational
@@ -62,8 +60,8 @@
                             <option selected="selected" value="">@Messages.Month</option>
                             @for (int i = 1; i <= 12; i++)
                             {
-                                var culture = CultureInfo.GetCultureInfo(Utilities.GetCurrentLanguageCode());
-                                var dateTimeInfo = DateTimeFormatInfo.GetInstance(culture);
+                                CultureInfo culture = CultureInfo.GetCultureInfo(Utilities.GetCurrentLanguageCode());
+                                DateTimeFormatInfo dateTimeInfo = DateTimeFormatInfo.GetInstance(culture);
                                 int monthNumber = i;
                                 string monthName = dateTimeInfo.GetMonthName(monthNumber);
                                 <option value="@i">@monthName</option>
@@ -94,7 +92,7 @@
 
                     <div class="editor-field">
                         @Html.DropDownList("YouAreID", new SelectList(
-                                                           ViewBag.YouAres, "YouAreID", "LocalizedName", Model == null ? 0 : Model.YouAreID), Messages.DashSelect)
+                            ViewBag.YouAres, "YouAreID", "LocalizedName", Model == null ? 0 : Model.YouAreID), Messages.DashSelect)
                         @Html.ValidationMessageFor(m => m.YouAreID)
                     </div>
                     <div class="editor-field">
@@ -102,7 +100,7 @@
  
                                
                         @Messages.BySigningUpYouAgreeToTheTermsOfService
-                        <a target="_blank" href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS.ToString())">@Messages.Here</a>
+                        <a target="_blank" href="@Url.Content("~/SiteContent?brandType=" + SiteEnums.SiteBrandType.TERMS)">@Messages.Here</a>
                               
                     </div>
                     <br />

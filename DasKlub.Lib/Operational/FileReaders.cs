@@ -84,7 +84,7 @@ namespace DasKlub.Lib.Operational
                 CsvRecord record = Records[recordIndex];
                 if (fieldIndex > (record.Fields.Count - 1))
                     throw new IndexOutOfRangeException(string.Format("There is no field at index {0} in record {1}.",
-                                                                     fieldIndex, recordIndex));
+                        fieldIndex, recordIndex));
 
                 return record.Fields[fieldIndex];
             }
@@ -133,7 +133,7 @@ namespace DasKlub.Lib.Operational
 
                 if (fieldIndex > (record.Fields.Count - 1))
                     throw new IndexOutOfRangeException(string.Format("There is no field at index {0} in record {1}.",
-                                                                     fieldIndex, recordIndex));
+                        fieldIndex, recordIndex));
 
                 return record.Fields[fieldIndex];
             }
@@ -160,7 +160,7 @@ namespace DasKlub.Lib.Operational
 
                 if (fieldIndex > (record.Fields.Count - 1))
                     throw new IndexOutOfRangeException(string.Format("There is no field at index {0} in record {1}.",
-                                                                     fieldIndex, recordIndex));
+                        fieldIndex, recordIndex));
 
                 record.Fields[fieldIndex] = value;
             }
@@ -276,10 +276,10 @@ namespace DasKlub.Lib.Operational
         {
             using (
                 var reader = new CsvReader(encoding, csvContent)
-                    {
-                        HasHeaderRow = hasHeaderRow,
-                        TrimColumns = trimColumns
-                    })
+                {
+                    HasHeaderRow = hasHeaderRow,
+                    TrimColumns = trimColumns
+                })
             {
                 PopulateCsvFile(reader);
             }
@@ -1000,10 +1000,8 @@ namespace DasKlub.Lib.Operational
                     fieldValue = fieldValue.Replace("\n", CarriageReturnAndLineFeedReplacement);
                 }
 
-                writer.Write(string.Format("{0}{1}{0}{2}",
-                                           (quotesRequired || escapeQuotes ? "\"" : string.Empty),
-                                           fieldValue,
-                                           (i < (fields.Count - 1) ? "," : string.Empty)));
+                writer.Write("{0}{1}{0}{2}", (quotesRequired || escapeQuotes ? "\"" : string.Empty), fieldValue,
+                    (i < (fields.Count - 1) ? "," : string.Empty));
             }
 
             writer.WriteLine();

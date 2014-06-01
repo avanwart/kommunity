@@ -1,45 +1,38 @@
-﻿
-
-@using DasKlub.Lib.BOL.DomainConnection
+﻿@using DasKlub.Lib.BOL.DomainConnection
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Values
 <!-- 160 x 600 -->
 @if (!HttpContext.Current.Request.Browser.IsMobileDevice)
 {
+    int randomID = Utilities.RandomNumber(1, 4);
 
- 
-        int randomID = Utilities.RandomNumber(1, 4);
+    switch (randomID)
+    {
+        case 1:
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A1601,
+                Utilities.GetCurrentLanguageCode()))
+            break;
+        case 2:
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A1602,
+                Utilities.GetCurrentLanguageCode()))
+            break;
+        case 3:
 
-        switch (randomID)
-        {
-            case 1:
-                @Html.Raw(SiteDomain.GetSiteDomainValue(
-                    SiteEnums.SiteBrandType.A1601,
-                    Utilities.GetCurrentLanguageCode()))
-                break;
-            case 2:
-                @Html.Raw(SiteDomain.GetSiteDomainValue(
-                    SiteEnums.SiteBrandType.A1602,
-                    Utilities.GetCurrentLanguageCode()))
-                break;
-            case 3:
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A1603,
+                Utilities.GetCurrentLanguageCode()))
 
-                @Html.Raw(SiteDomain.GetSiteDomainValue(
-                    SiteEnums.SiteBrandType.A1603,
-                    Utilities.GetCurrentLanguageCode()))
+            break;
+        default:
 
-                break;
-            default:
-
-                @Html.Raw(SiteDomain.GetSiteDomainValue(
-                    SiteEnums.SiteBrandType.A1603,
-                    Utilities.GetCurrentLanguageCode()))
-                break;
-        }
- 
-}
-
-@*@if(!Request.Browser.IsMobileDevice)
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A1603,
+                Utilities.GetCurrentLanguageCode()))
+            break;
+    }
+}@*@if(!Request.Browser.IsMobileDevice)
 { 
 <div class="ad_items">
 

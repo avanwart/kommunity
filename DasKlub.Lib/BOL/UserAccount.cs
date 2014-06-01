@@ -10,10 +10,10 @@ using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.Security;
+using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.BLL;
 using DasKlub.Lib.BOL.UserContent;
 using DasKlub.Lib.BOL.VideoContest;
-using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
@@ -79,7 +79,7 @@ namespace DasKlub.Lib.BOL
             // create a new parameter
 
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => IpAddress),
-                              HttpContext.Current.Request.UserHostAddress);
+                HttpContext.Current.Request.UserHostAddress);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserAccountID), UserAccountID);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserName), UserName);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => EMail), EMail);
@@ -89,16 +89,16 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => PasswordQuestion), PasswordQuestion);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => PasswordAnswer), PasswordAnswer);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => FailedPasswordAttemptCount),
-                              FailedPasswordAttemptCount);
+                FailedPasswordAttemptCount);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => FailedPasswordAttemptWindowStart),
-                              FailedPasswordAttemptWindowStart);
+                FailedPasswordAttemptWindowStart);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsApproved), IsApproved);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => Comment), Comment);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => IsLockedOut), IsLockedOut);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => FailedPasswordAnswerAttemptCount),
-                              FailedPasswordAnswerAttemptCount);
+                FailedPasswordAnswerAttemptCount);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => FailedPasswordAnswerAttemptWindowStart),
-                              FailedPasswordAnswerAttemptWindowStart);
+                FailedPasswordAnswerAttemptWindowStart);
 
             if (LastLoginDate == DateTime.MinValue)
             {
@@ -245,14 +245,14 @@ namespace DasKlub.Lib.BOL
             if (HttpRuntime.Cache[CacheName] == null)
             {
                 // get a configured DbCommand object
-                var comm = DbAct.CreateCommand();
+                DbCommand comm = DbAct.CreateCommand();
                 // set the stored procedure name
                 comm.CommandText = "up_GetUserAccountFromUsername";
 
                 comm.AddParameter(StaticReflection.GetMemberName<string>(x => UserName), UserName);
 
                 // execute the stored procedure
-                var dt = DbAct.ExecuteSelectCommand(comm);
+                DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
                 if (dt == null || dt.Rows.Count <= 0) return;
@@ -284,11 +284,11 @@ namespace DasKlub.Lib.BOL
             if (mu == null) return;
 
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
 
             comm.AddParameter("UserAccountID", Convert.ToInt32(mu.ProviderUserKey));
 
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
@@ -475,7 +475,7 @@ namespace DasKlub.Lib.BOL
         /// <param name="eMail"></param>
         public static string GetUserAccountNameFromEMail(string eMail)
         {
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetUserAccountnameFromEMail";
             comm.AddParameter("eMail", eMail.Trim());
 
@@ -487,10 +487,10 @@ namespace DasKlub.Lib.BOL
         {
             if (string.IsNullOrWhiteSpace(ipAddress)) return false;
 
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             comm.CommandText = "up_IsAccountIPTaken";
             comm.AddParameter("ipAddress", ipAddress.Trim());
-            
+
             return DbAct.ExecuteScalar(comm) == "1";
         }
 
@@ -513,10 +513,7 @@ namespace DasKlub.Lib.BOL
             {
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            return true;
         }
 
         /// <summary>
@@ -538,10 +535,7 @@ namespace DasKlub.Lib.BOL
             {
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            return true;
         }
 
         /// <summary>
@@ -591,11 +585,11 @@ namespace DasKlub.Lib.BOL
         public void GetNewestPhotoUploader()
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetNewestPhotoUploader";
 
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt != null && dt.Rows.Count > 0)
                 Get(FromObj.IntFromObj(dt.Rows[0]["userAccountID"]));
@@ -609,7 +603,8 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                return string.Format("{0}-{1}-{2}", GetType().FullName, UserName.ToLower(CultureInfo.InvariantCulture), UserAccountID);
+                return string.Format("{0}-{1}-{2}", GetType().FullName, UserName.ToLower(CultureInfo.InvariantCulture),
+                    UserAccountID);
             }
         }
 
@@ -717,7 +712,7 @@ namespace DasKlub.Lib.BOL
 
                 uad.GetUserAccountDeailForUser(UserAccountID);
 
-                uad.ForumPosts = this.ForumPosts;
+                uad.ForumPosts = ForumPosts;
 
                 var sb = new StringBuilder(100);
 
@@ -743,7 +738,7 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                return new Uri(Utilities.URLAuthority() + 
+                return new Uri(Utilities.URLAuthority() +
                                VirtualPathUtility.ToAbsolute(string.Format("~/{0}", UserName.ToLower())));
             }
         }
@@ -758,10 +753,10 @@ namespace DasKlub.Lib.BOL
             if (!deleteAllRelatedData) return Delete();
 
             var s3 = new S3Service
-                {
-                    AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
-                    SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
-                };
+            {
+                AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+            };
 
 
             var uad = new UserAccountDetail();
@@ -869,7 +864,7 @@ namespace DasKlub.Lib.BOL
             var pitms = new PhotoItems();
             pitms.GetUserPhotos(UserAccountID);
 
-            foreach (var pitm1 in pitms)
+            foreach (PhotoItem pitm1 in pitms)
             {
                 if (!string.IsNullOrWhiteSpace(s3.AccessKeyID) &&
                     !string.IsNullOrWhiteSpace(s3.SecretAccessKey) &&
@@ -913,7 +908,7 @@ namespace DasKlub.Lib.BOL
             var uabs = new BlockedUsers();
             uabs.GetBlockedUsers(UserAccountID);
 
-            foreach (var uab1 in uabs)
+            foreach (BlockedUser uab1 in uabs)
             {
                 uab1.Delete();
             }
@@ -926,7 +921,7 @@ namespace DasKlub.Lib.BOL
 
             uavs.GetPlaylistVideosForPlaylistAll(plyslt.PlaylistID);
 
-            foreach (var plv1 in uavs)
+            foreach (PlaylistVideo plv1 in uavs)
             {
                 plv1.Delete();
             }
@@ -948,9 +943,9 @@ namespace DasKlub.Lib.BOL
                 }
             }
 
-            var roles = Roles.GetRolesForUser(UserName);
+            string[] roles = Roles.GetRolesForUser(UserName);
 
-            foreach (var role1 in roles)
+            foreach (string role1 in roles)
             {
                 Roles.RemoveUserFromRole(UserName, role1);
             }
@@ -963,16 +958,16 @@ namespace DasKlub.Lib.BOL
 
         public void GetUserAccountByEmail(string email)
         {
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetUserAccountByEmail";
-            var param = comm.CreateParameter();
+            DbParameter param = comm.CreateParameter();
             param.ParameterName = "@email";
             param.Value = email.Trim();
             param.DbType = DbType.String;
             comm.Parameters.Add(param);
-            
-            var dt = DbAct.ExecuteSelectCommand(comm);
-            
+
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+
             if (dt != null && dt.Rows.Count > 0)
             {
                 Get(dt.Rows[0]);
@@ -983,7 +978,7 @@ namespace DasKlub.Lib.BOL
         {
             if (userAccountID == 0) return false;
 
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             comm.CommandText = "up_IsUserOnline";
             comm.AddParameter("userAccountID", userAccountID);
 
@@ -1029,7 +1024,7 @@ namespace DasKlub.Lib.BOL
 
                 if (IncludeStartAndEndTags) sb.Append(@"<ul class=""user_list"">");
 
-                foreach (var ua in this)
+                foreach (UserAccount ua in this)
                 {
                     sb.Append(ua.ToUnorderdListItem);
                 }
@@ -1041,9 +1036,9 @@ namespace DasKlub.Lib.BOL
         }
 
         public int GetListUsers(int pageNumber, int resultSize,
-                                int? ageFrom, int? ageTo, int? interestedInID,
-                                int? relationshipStatusID, int? youAreID, string country,
-                                string postalcode, string lang, out bool sortByDistance)
+            int? ageFrom, int? ageTo, int? interestedInID,
+            int? relationshipStatusID, int? youAreID, string country,
+            string postalcode, string lang, out bool sortByDistance)
         {
             string currentLang = Utilities.GetCurrentLanguageCode();
 
@@ -1084,8 +1079,8 @@ namespace DasKlub.Lib.BOL
                     DateTime yearFrom = DateTime.UtcNow.AddYears(-Convert.ToInt32(ageFrom));
                     DateTime yearTo = DateTime.UtcNow.AddYears(-Convert.ToInt32(ageTo));
                     alFilters.Add(string.Format(@" birthDate BETWEEN '{1}' AND '{0}' ",
-                                                yearFrom.ToString("yyyy-MM-dd HH':'mm':'ss"),
-                                                yearTo.ToString("yyyy-MM-dd HH':'mm':'ss")));
+                        yearFrom.ToString("yyyy-MM-dd HH':'mm':'ss"),
+                        yearTo.ToString("yyyy-MM-dd HH':'mm':'ss")));
                 }
 
                 if (interestedInID != null)
@@ -1208,16 +1203,19 @@ DROP TABLE #Results
  ", pageNumber, resultSize, whereCondition);
             }
 
-            var totalResults = 0;
-            var comm = DbAct.CreateCommand(true);
+            int totalResults = 0;
+            DbCommand comm = DbAct.CreateCommand(true);
             comm.CommandText = sb.ToString();
-            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
             if (ds != null && ds.Tables.Count > 0 && ds.Tables[1].Rows.Count > 0)
             {
                 totalResults = FromObj.IntFromObj(ds.Tables[0].Rows[0]["totalResults"]);
 
-                foreach (var ua in from DataRow dr in ds.Tables[1].Rows select new UserAccount(FromObj.IntFromObj(dr["userAccountID"])))
+                foreach (
+                    UserAccount ua in
+                        from DataRow dr in ds.Tables[1].Rows
+                        select new UserAccount(FromObj.IntFromObj(dr["userAccountID"])))
                 {
                     Add(ua);
                 }
@@ -1230,14 +1228,13 @@ DROP TABLE #Results
         }
 
         /// <summary>
-        /// Get the top people from acknowledgements on statuses and comments
+        ///     Get the top people from acknowledgements on statuses and comments
         /// </summary>
         public void GetMostApplaudedLastDays(int daysBack = 7)
         {
+            DbCommand comm = DbAct.CreateCommand(true);
 
-            var comm = DbAct.CreateCommand(true);
-
-            comm.CommandText = string.Format( @"   
+            comm.CommandText = string.Format(@"   
    select top 7  createdbyuserid, sum(total) total from (
 SELECT  sc.createdbyuserid
      ,count(*) total
@@ -1257,11 +1254,13 @@ SELECT  sc.createdbyuserid
 order by total desc
 ", daysBack);
 
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var ua in from DataRow dr in dt.Rows select new UserAccount(FromObj.IntFromObj(dr["createdbyuserid"])))
+            foreach (
+                UserAccount ua in
+                    from DataRow dr in dt.Rows select new UserAccount(FromObj.IntFromObj(dr["createdbyuserid"])))
             {
                 Add(ua);
             }
@@ -1341,7 +1340,7 @@ order by total desc
 
             // execute the stored procedure
 
-            var rslt = DbAct.ExecuteScalar(comm);
+            string rslt = DbAct.ExecuteScalar(comm);
 
             return string.IsNullOrWhiteSpace(rslt) ? 0 : Convert.ToInt32(rslt);
         }
@@ -1483,7 +1482,7 @@ order by total desc
                 // was something returned?
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    foreach (var art in from DataRow dr in dt.Rows select new UserAccount(dr))
+                    foreach (UserAccount art in from DataRow dr in dt.Rows select new UserAccount(dr))
                     {
                         Add(art);
                     }

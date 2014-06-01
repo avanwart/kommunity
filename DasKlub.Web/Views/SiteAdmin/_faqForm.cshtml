@@ -30,19 +30,19 @@
 
         @{
             IEnumerable<SelectListItem> listItems = Enum.GetValues(typeof (SiteEnums.CommentStatus)).OfType<Enum>().Select(e =>
-                                                                                                                           new SelectListItem
-                                                                                                                               {
-                                                                                                                                   Text = Utilities.ResourceValue(Utilities.GetEnumDescription(e)),
-                                                                                                                                   Value = e.ToString(),
-                                                                                                                                   Selected = e.Equals(Model)
-                                                                                                                               });
+                new SelectListItem
+                {
+                    Text = Utilities.ResourceValue(Utilities.GetEnumDescription(e)),
+                    Value = e.ToString(),
+                    Selected = e.Equals(Model)
+                });
             string prefix = "StatusType";
             int index = 0;
 
             foreach (SelectListItem li in listItems)
             {
                 string fieldName = string.Format(CultureInfo.InvariantCulture,
-                                                 "{0}_{1}", prefix, index++);
+                    "{0}_{1}", prefix, index++);
 
                 if (Model.StatusType.ToString() == li.Value)
                 {
@@ -105,7 +105,7 @@
                 function toggleArea1() {
                     if (!area1) {
                         area1 = new nicEditor({ fullPanel: true }).panelInstance('Answer',
-                            { hasPanel: true });
+                        { hasPanel: true });
                     } else {
                         area1.removeInstance('Answer');
                         area1 = null;

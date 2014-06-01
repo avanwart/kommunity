@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
 using DasKlub.Models;
 
 namespace DasKlub.Web.Models.Models
@@ -18,6 +13,6 @@ namespace DasKlub.Web.Models.Models
         // 
         // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<DasKlub.Web.Models.Models.DasKlubModelsContext>());
 
-     //   public DbSet<DasKlub.Web.Models.Forum.ForumCategory> ForumCategories { get; set; }
+        //   public DbSet<DasKlub.Web.Models.Forum.ForumCategory> ForumCategories { get; set; }
     }
 }

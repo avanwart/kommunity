@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
@@ -8,28 +7,27 @@ namespace DasKlubModel.Models.Mapping
         public PlaylistVideoMap()
         {
             // Primary Key
-            this.HasKey(t => t.playlistVideoID);
+            HasKey(t => t.playlistVideoID);
 
             // Properties
             // Table & Column Mappings
-            this.ToTable("PlaylistVideo");
-            this.Property(t => t.playlistVideoID).HasColumnName("playlistVideoID");
-            this.Property(t => t.playlistID).HasColumnName("playlistID");
-            this.Property(t => t.videoID).HasColumnName("videoID");
-            this.Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
-            this.Property(t => t.updateDate).HasColumnName("updateDate");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.rankOrder).HasColumnName("rankOrder");
+            ToTable("PlaylistVideo");
+            Property(t => t.playlistVideoID).HasColumnName("playlistVideoID");
+            Property(t => t.playlistID).HasColumnName("playlistID");
+            Property(t => t.videoID).HasColumnName("videoID");
+            Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
+            Property(t => t.updateDate).HasColumnName("updateDate");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.rankOrder).HasColumnName("rankOrder");
 
             // Relationships
-            this.HasRequired(t => t.Playlist)
+            HasRequired(t => t.Playlist)
                 .WithMany(t => t.PlaylistVideos)
                 .HasForeignKey(d => d.playlistID);
-            this.HasRequired(t => t.Video)
+            HasRequired(t => t.Video)
                 .WithMany(t => t.PlaylistVideos)
                 .HasForeignKey(d => d.videoID);
-
         }
     }
 }

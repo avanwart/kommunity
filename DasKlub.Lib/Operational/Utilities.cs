@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.Common;
@@ -15,13 +16,11 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.UI.WebControls;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Resources;
 using DasKlub.Lib.Values;
 using log4net;
-using System.Collections.Generic;
 
 namespace DasKlub.Lib.Operational
 {
@@ -87,12 +86,12 @@ namespace DasKlub.Lib.Operational
 
             if (number == 0) return "N";
 
-            var values = new[] { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
-            var numerals = new[] { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+            var values = new[] {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+            var numerals = new[] {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
             // Initialise the string builder
             var result = new StringBuilder(100);
             // Loop through each of the values to diminish the number
-            for (var i = 0; i < 13; i++)
+            for (int i = 0; i < 13; i++)
             {
                 // If the number being converted is less than the test value, append
                 // the corresponding numeral or numeral pair to the resultant string
@@ -121,7 +120,7 @@ namespace DasKlub.Lib.Operational
         {
             try
             {
-                var iPAddress = Dns.GetHostAddresses(domain);
+                IPAddress[] iPAddress = Dns.GetHostAddresses(domain);
                 return iPAddress[0].ToString();
             }
             catch (Exception ex)
@@ -137,7 +136,7 @@ namespace DasKlub.Lib.Operational
             {
                 return false;
             }
-            var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
+            string userAgent = HttpContext.Current.Request.UserAgent.ToLower();
 
             return userAgent.Contains("iphone") || userAgent.Contains("ipad");
         }
@@ -145,7 +144,7 @@ namespace DasKlub.Lib.Operational
 
         public static string TimeElapsedMessage(DateTime occurance)
         {
-            var now = DateTime.UtcNow;
+            DateTime now = DateTime.UtcNow;
 
             return TimeElapsedMessage(occurance, now);
         }
@@ -154,7 +153,7 @@ namespace DasKlub.Lib.Operational
         {
             string timeElapsed;
 
-            var elapsed = now.Subtract(occurance);
+            TimeSpan elapsed = now.Subtract(occurance);
 
             if (elapsed.TotalSeconds <= 1)
             {
@@ -164,7 +163,7 @@ namespace DasKlub.Lib.Operational
             else if (elapsed.TotalMinutes < 1)
             {
                 // seconds old
-                timeElapsed = string.Format(Messages.SecondsAgo, (int)Math.Floor(elapsed.TotalSeconds));
+                timeElapsed = string.Format(Messages.SecondsAgo, (int) Math.Floor(elapsed.TotalSeconds));
             }
             else if (elapsed.TotalMinutes < 2)
             {
@@ -174,12 +173,12 @@ namespace DasKlub.Lib.Operational
             else if (elapsed.TotalMinutes < 120)
             {
                 // minutes old
-                timeElapsed = string.Format(Messages.MinutesAgo, (int)Math.Floor(elapsed.TotalMinutes));
+                timeElapsed = string.Format(Messages.MinutesAgo, (int) Math.Floor(elapsed.TotalMinutes));
             }
             else if (elapsed.TotalHours < 24)
             {
                 // hours old
-                timeElapsed = string.Format(Messages.HoursAgo, (int)Math.Floor(elapsed.TotalHours));
+                timeElapsed = string.Format(Messages.HoursAgo, (int) Math.Floor(elapsed.TotalHours));
             }
             else if (elapsed.TotalDays < 2)
             {
@@ -189,22 +188,22 @@ namespace DasKlub.Lib.Operational
             else if (elapsed.TotalDays < 14)
             {
                 // less than 1 week
-                timeElapsed = string.Format(Messages.DaysAgo, (int)Math.Floor(elapsed.TotalDays));
+                timeElapsed = string.Format(Messages.DaysAgo, (int) Math.Floor(elapsed.TotalDays));
             }
             else if (elapsed.TotalDays < 60)
             {
                 // 1 to 4 weeks ago
                 timeElapsed =
                     string.Format(Messages.WeeksAgo,
-                                  (int)Math.Floor(elapsed.TotalDays / 7));
+                        (int) Math.Floor(elapsed.TotalDays/7));
             }
             else if (elapsed.TotalDays < 365)
             {
                 // months old but less than a year old
                 timeElapsed
-                    = string.Format(Messages.MonthsAgo, (int)Math.Floor(elapsed.TotalDays / 30));
+                    = string.Format(Messages.MonthsAgo, (int) Math.Floor(elapsed.TotalDays/30));
             }
-            else if (elapsed.TotalDays < (365 * 2))
+            else if (elapsed.TotalDays < (365*2))
             {
                 // 1 year 
                 timeElapsed = string.Format(Messages.YearAgo, 1);
@@ -212,7 +211,7 @@ namespace DasKlub.Lib.Operational
             else
             {
                 // over a year old
-                var years = (int)Math.Floor(elapsed.TotalDays / 365.2425);
+                var years = (int) Math.Floor(elapsed.TotalDays/365.2425);
 
                 timeElapsed = string.Format(Messages.YearsAgo, years);
             }
@@ -260,12 +259,14 @@ namespace DasKlub.Lib.Operational
                     "http://([\\w+?\\.\\w+])+([a-zA-Z0-9\\~\\!\\@\\#\\$\\%\\^\\&amp;\\*\\(\\)_\\-\\=\\+\\\\\\/\\?\\.\\:\\;\\'\\,]*)?",
                     RegexOptions.IgnoreCase);
 
-            var mactches = regx.Matches(txt);
+            MatchCollection mactches = regx.Matches(txt);
 
-            foreach (var match in mactches.Cast<Match>().Where(match => !match.Value.Contains(@"//www.youtube.com/embed/")))
+            foreach (
+                Match match in mactches.Cast<Match>().Where(match => !match.Value.Contains(@"//www.youtube.com/embed/"))
+                )
             {
                 const int maxChars = 30;
-                var displayLink = match.Value;
+                string displayLink = match.Value;
                 if (displayLink.Length > maxChars)
                 {
                     displayLink = string.Format("{0}...", displayLink.Substring(0, maxChars));
@@ -300,11 +301,126 @@ namespace DasKlub.Lib.Operational
             }
 
             var lang =
-                (SiteEnums.SiteLanguages)Enum.Parse(typeof(SiteEnums.SiteLanguages), defaultLanguage.ToUpper());
+                (SiteEnums.SiteLanguages) Enum.Parse(typeof (SiteEnums.SiteLanguages), defaultLanguage.ToUpper());
 
-            var langKey = GetEnumDescription(lang);
+            string langKey = GetEnumDescription(lang);
 
             return ResourceValue(langKey);
+        }
+
+        public static string ConvertTextToHtml(string inputText)
+        {
+            int linkTextMaxLength = 30;
+            var regx = new Regex(
+                @"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?",
+                RegexOptions.IgnoreCase);
+            MatchCollection mactches = regx.Matches(inputText);
+            string newText = string.Concat(inputText, " "); // hack: space at end for regex match
+            IEnumerable<Match> allLinks = mactches.Cast<Match>()
+                .GroupBy(x => x.Value)
+                .Select(x => x.First());
+
+            foreach (Match link in allLinks)
+            {
+                string matchedUrl = link.Value;
+                string replacementText;
+
+                if ((matchedUrl.Contains("youtube.com") && matchedUrl.Contains("v=")) || // excludes channel links
+                    matchedUrl.Contains("youtu.be"))
+                {
+                    replacementText = FormatYouTubeVideo(matchedUrl);
+                }
+                else
+                {
+                    replacementText = FormatLink(linkTextMaxLength, link, matchedUrl);
+                }
+
+                newText = ReplaceNewLineSpaceWithLink(newText, link, replacementText);
+            }
+
+            string listBreaksHTML = newText.Replace(Environment.NewLine, string.Concat("<br />", Environment.NewLine));
+
+            return listBreaksHTML.Trim();
+        }
+
+        private static string ReplaceNewLineSpaceWithLink(string newText, Match link, string replacementText)
+        {
+            // replace links with new lines and spaces after them then put those characters back in
+            var regexReplace = new Regex(string.Concat(Regex.Escape(link.Value), "(", Environment.NewLine, ")"));
+            newText = regexReplace.Replace(newText, string.Concat(replacementText, Environment.NewLine));
+            regexReplace = new Regex(string.Concat(Regex.Escape(link.Value), @"(\s)"));
+            newText = regexReplace.Replace(newText, string.Concat(replacementText, " "));
+            return newText;
+        }
+
+        private
+            static
+            string
+            FormatLink(int linkTextMaxLength, Match link, string matchedUrl)
+        {
+            if (HttpContext.Current == null)
+            {
+                HttpContext.Current = new HttpContext(
+                    new HttpRequest(
+                        string.Empty,
+                        GeneralConfigs.SiteDomain,
+                        string.Empty),
+                    new HttpResponse(
+                        new StringWriter()));
+            }
+
+            string replacementText;
+            string linkText = link.Value;
+            string internalHost = HttpContext.Current.Request.Url.Host;
+
+            if (linkText.Length > linkTextMaxLength)
+            {
+                string ellipsis = "...";
+                linkText = string.Concat(
+                    linkText.Substring(0,
+                        linkTextMaxLength - ellipsis.Length
+                        ),
+                    ellipsis);
+            }
+
+            if (matchedUrl.Contains(internalHost))
+            {
+                // internal link
+                replacementText = string.Format(@"<a href=""{0}"">{1}</a>",
+                    matchedUrl,
+                    linkText);
+            }
+            else
+            {
+                replacementText = string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>",
+                    matchedUrl,
+                    linkText);
+            }
+            return replacementText;
+        }
+
+        public static string ExtractYouTubeVideoKey(string text)
+        {
+            if (text.Contains("youtu.be"))
+            {
+                return text.Replace("https", "http").Replace("http://youtu.be/", string.Empty);
+            }
+
+            NameValueCollection nvcKey = HttpUtility.ParseQueryString(new Uri(text).Query);
+            return nvcKey["v"];
+        }
+
+        private static string FormatYouTubeVideo(string matchedUrl, int height = 200, int width = 300)
+        {
+            string videoKey = ExtractYouTubeVideoKey(matchedUrl);
+            string replacementText;
+
+            // YouTube video
+            replacementText = string.Format(
+                @"<div class=""you_tube_iframe""><iframe width=""{2}"" height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
+                videoKey, height, ((width == 0) ? (object) "100%" : width));
+
+            return replacementText;
         }
 
         #region SQL injection
@@ -312,11 +428,11 @@ namespace DasKlub.Lib.Operational
         //Defines the set of characters that will be checked.
         //You can add to this list, or remove items from this list, as appropriate for your site
         private static readonly string[] BlackList =
-            {
-                "--", ";--", ";", "/*", "*/", "@@", "@",
-                "delete", "drop", "end", "exec", "execute", "select",
-                "table", "update"
-            };
+        {
+            "--", ";--", ";", "/*", "*/", "@@", "@",
+            "delete", "drop", "end", "exec", "execute", "select",
+            "table", "update"
+        };
 
         #endregion
 
@@ -367,7 +483,7 @@ namespace DasKlub.Lib.Operational
             }
             else
             {
-                if (HttpContext.Current != null) totalSecondsDif = (double)HttpRuntime.Cache[cacheName];
+                if (HttpContext.Current != null) totalSecondsDif = (double) HttpRuntime.Cache[cacheName];
             }
 
 
@@ -394,7 +510,7 @@ namespace DasKlub.Lib.Operational
                 arl.Sort(new ListItemComparer());
                 ddlList.Items.Clear();
 
-                foreach (var t in arl)
+                foreach (object t in arl)
                 {
                     ddlList.Items.Add(t.ToString());
                 }
@@ -407,8 +523,8 @@ namespace DasKlub.Lib.Operational
 
             public int Compare(object x, object y)
             {
-                var lix = (ListItem)x;
-                var liy = (ListItem)y;
+                var lix = (ListItem) x;
+                var liy = (ListItem) y;
                 var c = new CaseInsensitiveComparer();
                 return c.Compare(lix.Text, liy.Text);
             }
@@ -517,7 +633,7 @@ namespace DasKlub.Lib.Operational
 
             if (exception != null)
             {
-                var sqlEx = exception;
+                SqlException sqlEx = exception;
                 if (sqlEx.ErrorCode == -2146232060)
                 {
                     // connection is bad, forget it
@@ -531,7 +647,6 @@ namespace DasKlub.Lib.Operational
             {
                 Log.Fatal(ex);
             }
-
         }
 
 
@@ -568,10 +683,10 @@ namespace DasKlub.Lib.Operational
 
                 try
                 {
-                    using (var response = (HttpWebResponse)request.GetResponse())
+                    using (var response = (HttpWebResponse) request.GetResponse())
                     {
                         if (response.StatusCode == HttpStatusCode.OK) return true;
-                        using (var dataStream = response.GetResponseStream())
+                        using (Stream dataStream = response.GetResponseStream())
                         {
                             if (dataStream != null)
                                 using (var reader = new StreamReader(dataStream))
@@ -586,7 +701,7 @@ namespace DasKlub.Lib.Operational
                     if (ex.Status == WebExceptionStatus.ProtocolError &&
                         ex.Response != null)
                     {
-                        var resp = (HttpWebResponse)ex.Response;
+                        var resp = (HttpWebResponse) ex.Response;
                         if (resp.StatusCode == HttpStatusCode.NotFound)
                         {
                             return false;
@@ -611,7 +726,7 @@ namespace DasKlub.Lib.Operational
         /// <returns></returns>
         private static string GETRequest(Uri input, string debugMsg)
         {
-            var responseData = string.Empty;
+            string responseData = string.Empty;
 
             WebRequest request = WebRequest.Create(input) as HttpWebRequest;
             if (request != null)
@@ -620,9 +735,9 @@ namespace DasKlub.Lib.Operational
 
                 try
                 {
-                    using (var response = (HttpWebResponse)request.GetResponse())
+                    using (var response = (HttpWebResponse) request.GetResponse())
                     {
-                        using (var dataStream = response.GetResponseStream())
+                        using (Stream dataStream = response.GetResponseStream())
                         {
                             if (dataStream != null)
                                 using (var reader = new StreamReader(dataStream))
@@ -642,7 +757,6 @@ namespace DasKlub.Lib.Operational
 
         #endregion
 
-
         #region enum methods
 
         /// <summary>
@@ -655,129 +769,13 @@ namespace DasKlub.Lib.Operational
             FieldInfo fi = value.GetType().GetField(value.ToString());
 
             var attributes =
-                (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                (DescriptionAttribute[]) fi.GetCustomAttributes(typeof (DescriptionAttribute), false);
 
             if (attributes != null && attributes.Length > 0)
                 return attributes[0].Description;
-            else
-                return value.ToString();
+            return value.ToString();
         }
 
         #endregion
-
-        public static string ConvertTextToHtml(string inputText)
-        {
-            var linkTextMaxLength   = 30;
-            var regx                = new Regex(
-                    @"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?",
-                    RegexOptions.IgnoreCase);
-            var mactches            = regx.Matches(inputText);
-            var newText             = string.Concat(inputText, " ");// hack: space at end for regex match
-            var allLinks            = mactches.Cast<Match>()
-                                              .GroupBy(x => x.Value)
-                                              .Select(x => x.First());
-
-            foreach (var link in allLinks)
-            {
-                var     matchedUrl          = link.Value;
-                string  replacementText;
-
-                if ((matchedUrl.Contains("youtube.com") && matchedUrl.Contains("v=")) || // excludes channel links
-                     matchedUrl.Contains("youtu.be"))
-                {
-                    replacementText = FormatYouTubeVideo(matchedUrl);
-                }
-                else
-                {
-                    replacementText = FormatLink(linkTextMaxLength, link, matchedUrl);
-                }
-
-                newText = ReplaceNewLineSpaceWithLink(newText, link, replacementText);
-            }
-
-            var listBreaksHTML = newText.Replace(Environment.NewLine, string.Concat("<br />", Environment.NewLine));
-
-            return listBreaksHTML.Trim();
-        }
-
-        private static string ReplaceNewLineSpaceWithLink(string newText, Match link, string replacementText)
-        {
-            // replace links with new lines and spaces after them then put those characters back in
-            var regexReplace    = new Regex(string.Concat(Regex.Escape(link.Value), "(", Environment.NewLine, ")"));
-            newText             = regexReplace.Replace(newText, string.Concat(replacementText, Environment.NewLine));
-            regexReplace        = new Regex(string.Concat(Regex.Escape(link.Value), @"(\s)"));
-            newText             = regexReplace.Replace(newText, string.Concat(replacementText, " "));
-            return newText;
-        }
-
-        private
-        static
-        string
-        FormatLink(int linkTextMaxLength, Match link, string matchedUrl)
-        {
-            if (HttpContext.Current == null)
-            {
-                HttpContext.Current = new HttpContext(
-                                            new HttpRequest(    
-                                                string.Empty, 
-                                                GeneralConfigs.SiteDomain,
-                                                string.Empty), 
-                                                new HttpResponse(
-                                                    new StringWriter()));
-            }
-
-            string replacementText;
-            var linkText            = link.Value;
-            var internalHost        = HttpContext.Current.Request.Url.Host;
-
-            if (linkText.Length > linkTextMaxLength)
-            {
-                var ellipsis    = "...";
-                linkText        = string.Concat(
-                                        linkText.Substring(0,
-                                                           linkTextMaxLength - ellipsis.Length
-                                                           ),
-                                        ellipsis);
-            }
-
-            if (matchedUrl.Contains(internalHost))
-            {
-                // internal link
-                replacementText = string.Format(@"<a href=""{0}"">{1}</a>", 
-                                                  matchedUrl, 
-                                                  linkText);
-            }
-            else
-            {
-                replacementText = string.Format(@"<a target=""_blank"" href=""{0}"">{1}</a>", 
-                                                matchedUrl, 
-                                                linkText);
-            }
-            return replacementText;
-        }
-
-        public static string ExtractYouTubeVideoKey(string text)
-        {
-            if (text.Contains("youtu.be"))
-            {
-                return text.Replace("https", "http").Replace("http://youtu.be/", string.Empty);
-            }
-            
-            var nvcKey = HttpUtility.ParseQueryString(new Uri(text).Query);
-            return nvcKey["v"];
-        }
-
-        private static string FormatYouTubeVideo(string matchedUrl, int height = 200, int width = 300)
-        {
-            string videoKey = ExtractYouTubeVideoKey(matchedUrl);
-            string replacementText;
-
-            // YouTube video
-            replacementText = string.Format(
-@"<div class=""you_tube_iframe""><iframe width=""{2}"" height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
-        videoKey, height, ((width == 0) ? (object)"100%" : width));
-
-            return replacementText;
-        }
     }
 }

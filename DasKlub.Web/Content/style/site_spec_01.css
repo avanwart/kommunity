@@ -1,7 +1,11 @@
 ﻿body { font-family: Tahoma, Geneva, sans-serif; }
 
 
-p { color: #ffffff;font-family: Verdana, Arial, sans-serif; text-align:justify; }
+p {
+    color: #ffffff;
+    font-family: Verdana, Arial, sans-serif;
+    text-align: justify;
+}
 
 
 .gallery ul {
@@ -300,21 +304,28 @@ button.beat_status_comment_complete[type="button"], button.beat_status_complete[
     padding-left: 20px;
 }
 
-article { text-align: justify;}
+article { text-align: justify; }
 
-p { line-height: 1.8em;}
+p { line-height: 1.8em; }
 
 article, article p {
-    line-height: 1.8em;
-    font-size: 16px; 
     color: #ffffff;
     font-family: Verdana, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.8em;
 }
 
-article img { margin: 15px;box-shadow: 7px 7px 5px #000000;}
+article img {
+    box-shadow: 7px 7px 5px #000000;
+    margin: 15px;
+}
 
-ul#article_list img{box-shadow: 7px 7px 5px #000000;}
-ul.photo_navs img {box-shadow: 6px 6px 4px #000000;margin: 5px;}
+ul#article_list img { box-shadow: 7px 7px 5px #000000; }
+
+ul.photo_navs img {
+    box-shadow: 6px 6px 4px #000000;
+    margin: 5px;
+}
 
 .photo_item_list span {
     color: white;
@@ -483,14 +494,15 @@ input.blur {
 }
           
 
-.mail_message {color: #FFF;}
-                 
+.mail_message { color: #FFF; }
+
 /* Webkit */
 
 ::selection {
     background: #FFF;
     color: #000;
 }
+
 /* Gecko/Mozilla */
 
 ::-moz-selection {
@@ -512,7 +524,7 @@ input.blur {
 ul.photo_navs li img.small_site_badge,
 ul#article_list img.small_site_badge {
     border: none;
-    box-shadow:none;
+    box-shadow: none;
 }
 
 .delete_icon { margin-left: 5px; }
@@ -561,7 +573,7 @@ li.status_post .span2 { margin-left: 0; }
     font-size: 17px;
     letter-spacing: 1px;
 }
-                             
+
 /* google search */
 
 .gsc-branding, .gsc-clear-button {
@@ -677,7 +689,7 @@ li {
     margin: 3px;
     margin-bottom: 18px;
     padding-bottom: 12px;
-    width: 90px;      
+    width: 90px;
 }
 
 .user_list a { font-size: 10px; }
@@ -694,12 +706,12 @@ li {
 }
 
 .profile_thumb img { border: 3px solid transparent; }
-  
+
 .table tbody tr:hover td,
 .table tbody tr:hover th { color: #000; }
- 
+
 .ui-accordion-content a { color: #08C }
- 
+
 ul.photo_navs a:hover img {
     border: 3px solid #08C;
     opacity: 0.6;
@@ -729,15 +741,15 @@ a.m_over:visited:hover img {
     opacity: 0.6;
 }
 
-.user_contacts a img { border: 3px solid transparent;}
+.user_contacts a img { border: 3px solid transparent; }
 
 
 a.current_view_profile_pic img { border: solid 3px #468847 }
 
 #logged_in_menu li a.alert_blue { color: #3A87AD }
-     
+
 .comment_list li { display: block; }
- 
+
 button.applaud_status[type="button"] { border: 1px solid transparent; }
 
 button.applaud_status:hover { border: 1px solid #08C; }
@@ -777,6 +789,7 @@ div#rotator {
     position: relative;
     width: 100%;
 }
+
 /* rotator css */
 
 div#rotator ul li {
@@ -784,11 +797,14 @@ div#rotator ul li {
     list-style: none;
     position: absolute;
 }
+
 /* rotator image style */
 
-div#rotator ul li img { width: 100%
+div#rotator ul li img {
+    width: 100%
 
-/*background: #FFF;*/ }
+    /*background: #FFF;*/
+}
 
 div#rotator ul li.show { z-index: 500; }
 
@@ -796,14 +812,22 @@ div#rotator ul li.show { z-index: 500; }
 
 
 h1, h2, h4, legend { text-shadow: 4px 4px #000; }
-h1 {font-size:35px; letter-spacing: .07em;}
-h3 { line-height: 1.3em;}
 
-h3.main_title { text-shadow: 5px 5px #000; font-family: Verdana, Geneva, sans-serif}
+h1 {
+    font-size: 35px;
+    letter-spacing: .07em;
+}
+
+h3 { line-height: 1.3em; }
+
+h3.main_title {
+    font-family: Verdana, Geneva, sans-serif;
+    text-shadow: 5px 5px #000;
+}
 
 h4 {
-    font-size:22px;
-    line-height:1.2em;
+    font-size: 22px;
+    line-height: 1.2em;
 }
 
 h4.title { text-shadow: none; }
@@ -855,14 +879,12 @@ ul.radio_stations2 li {
 }
     
 
-strong, b {letter-spacing: .05em}
+strong, b { letter-spacing: .05em }
     
     
-a:visited {
-    color: #9933FF;
-}
+a:visited { color: #9933FF; }
 
-a.btn:visited{color:#ffffff}
+a.btn:visited { color: #ffffff }
     
     
     
@@ -880,7 +902,7 @@ a.play_button:hover { background-position: center center; }
 
 a.play_button:hover { background-position: center bottom; }
 
-.forum_post_content {color: #FFF;}
+.forum_post_content { color: #FFF; }
 
 
 .user_name {
@@ -890,51 +912,72 @@ a.play_button:hover { background-position: center bottom; }
     text-shadow: 4px 4px #000;
 }
 
-    .ad_text {font-size: 11px;}
+.ad_text { font-size: 11px; }
 
 
-a { color: #09c  }
-a:visited { color: magenta;}
-a:hover  { color: #FFFF00  }
-a:active {color:#FF0000 !important}
+a { color: #09c }
 
-a:visited:hover { color: #FF6600;}
+a:visited { color: magenta; }
+
+a:hover { color: #FFFF00 }
+
+a:active { color: #FF0000 !important }
+
+a:visited:hover { color: #FF6600; }
 
  
 
-ul.photo_navs a:link:hover img  { border-color: #FFFF00  }
-ul.photo_navs a:visited:hover img  { border-color: #FF6600}
-ul.photo_item_list a:hover img  {border-color: #FFFF00  }
-ul.photo_item_list a:visited:hover img  {border-color: #FFFF00  }
-a.m_over img:hover  { border-color: #FFFF00  }
-a.m_over:visited img:hover  { border-color: #FF6600}
+ul.photo_navs a:link:hover img { border-color: #FFFF00 }
+
+ul.photo_navs a:visited:hover img { border-color: #FF6600 }
+
+ul.photo_item_list a:hover img { border-color: #FFFF00 }
+
+ul.photo_item_list a:visited:hover img { border-color: #FFFF00 }
+
+a.m_over img:hover { border-color: #FFFF00 }
+
+a.m_over:visited img:hover { border-color: #FF6600 }
 
 
-ul.photo_navs a:link:hover img  { border-color: #FFFF00 !important }
+ul.photo_navs a:link:hover img { border-color: #FFFF00 !important }
 
-ul.photo_navs a:active img { border-color: #FFFF00  }
-ul.photo_navs a:visited:active img  { border-color: #FF6600}
-ul.photo_item_list a:active img {border-color:#FF0000}
-ul.photo_item_list a:visited:hover img {border-color:#FF6600}
+ul.photo_navs a:active img { border-color: #FFFF00 }
+
+ul.photo_navs a:visited:active img { border-color: #FF6600 }
+
+ul.photo_item_list a:active img { border-color: #FF0000 }
+
+ul.photo_item_list a:visited:hover img { border-color: #FF6600 }
+
 ul.photo_item_list a:visited:active img,
 a.m_over img:active,
-a.m_over:visited img:active
-{border-color:#FF0000}
+a.m_over:visited img:active { border-color: #FF0000 }
 
-ul.photo_navs a:active img {border-color:#FF0000  !important }
+ul.photo_navs a:active img { border-color: #FF0000 !important }
 
-::selection {color:#000;background:  #FFFF00 }
+::selection {
+    background: #FFFF00;
+    color: #000;
+}
 
-#logged_in a.btn:visited:hover { color: #FFF !important;}
-a.btn:hover { color: #FFF !important;}
-a.btn:active { color: #FFF !important;}
-a.btn:visited:hover { color: #FFF !important;}
-a.btn:visited:active { color: #FFF !important;}
+#logged_in a.btn:visited:hover { color: #FFF !important; }
 
-.table tbody tr:hover td, .table tbody tr:hover th { background-color: #1C1C1C; color: #999}
+a.btn:hover { color: #FFF !important; }
+
+a.btn:active { color: #FFF !important; }
+
+a.btn:visited:hover { color: #FFF !important; }
+
+a.btn:visited:active { color: #FFF !important; }
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #1C1C1C;
+    color: #999
+}
 
 
- /* theme */
+/* theme */
  
  
 .status_post {
@@ -986,10 +1029,19 @@ ul.birthdays {
 textarea { border-style: dashed; }
 
 .line_space { line-height: 2em }
-.user_icons li { list-style-type: none; }
-.profile_username { font-size: .7em; }
-.bright_green {color: #00FF1E}
-.notification_color {color:#f89406}
-#submit_post { margin-top: 3px;font-weight: bold;margin-bottom: 3px;}
 
-.span8 .well { padding:25px;    }
+.user_icons li { list-style-type: none; }
+
+.profile_username { font-size: .7em; }
+
+.bright_green { color: #00FF1E }
+
+.notification_color { color: #f89406 }
+
+#submit_post {
+    font-weight: bold;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+.span8 .well { padding: 25px; }

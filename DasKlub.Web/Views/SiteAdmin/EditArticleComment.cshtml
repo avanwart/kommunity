@@ -2,7 +2,6 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
 @using DasKlub.Lib.Values
-
 @using DasKlub.Web.Helpers
 @model DasKlub.Lib.BOL.UserContent.ContentComment
 @{
@@ -29,19 +28,19 @@
             <div class="editor-field">
                 @{
                     IEnumerable<SelectListItem> listItems = Enum.GetValues(typeof (SiteEnums.CommentStatus)).OfType<Enum>().Select(e =>
-                                                                                                                                   new SelectListItem
-                                                                                                                                       {
-                                                                                                                                           Text = Utilities.ResourceValue(Utilities.GetEnumDescription(e)),
-                                                                                                                                           Value = e.ToString(),
-                                                                                                                                           Selected = e.Equals(Model)
-                                                                                                                                       });
+                        new SelectListItem
+                        {
+                            Text = Utilities.ResourceValue(Utilities.GetEnumDescription(e)),
+                            Value = e.ToString(),
+                            Selected = e.Equals(Model)
+                        });
                     string prefix = "StatusType";
                     int index = 0;
 
                     foreach (SelectListItem li in listItems)
                     {
                         string fieldName = string.Format(CultureInfo.InvariantCulture,
-                                                         "{0}_{1}", prefix, index++);
+                            "{0}_{1}", prefix, index++);
 
                         if (Model.StatusType.ToString() == li.Value)
                         {
@@ -74,7 +73,7 @@
                 @Html.LabelFor(m => m.Detail)
             </div>
             <div class="editor-field">
-                @Html.TextAreaFor(m => m.Detail, new {@style = "width:500px;height:100px"})
+                @Html.TextAreaFor(m => m.Detail, new {@style = "height:100px;width:500px;"})
                 @Html.CSSClassValidationMessageFor(m => m.Detail)
             </div>
         </fieldset>
@@ -85,22 +84,22 @@
             type="submit" value="save" class="btn btn-success">@Messages.Save</button>
 
     @Html.ActionLink(Messages.Delete,
-                     "DeleteComment", new {id = Model.ContentCommentID},
-                     new
-                         {
-                             @style = "margin-right: 100px;",
-                             @class = "red",
-                             onclick = "return confirm('" +
-                                       Messages.Delete + "?')"
-                         })
+        "DeleteComment", new {id = Model.ContentCommentID},
+        new
+        {
+            @style = "margin-right:100px;",
+            @class = "red",
+            onclick = "return confirm('" +
+                      Messages.Delete + "?')"
+        })
 
 
     @Html.ActionLink(Messages.BlockIP,
-                     "BlockIP", new {id = Model.ContentCommentID},
-                     new
-                         {
-                             @class = "red",
-                             onclick = "return confirm('" +
-                                       Messages.BlockIP + "?')"
-                         })
+        "BlockIP", new {id = Model.ContentCommentID},
+        new
+        {
+            @class = "red",
+            onclick = "return confirm('" +
+                      Messages.BlockIP + "?')"
+        })
 }

@@ -556,7 +556,7 @@
                 },
                 error: function(errData, textStatus) {
                     if (textStatus === "abort" ||
-                        (textStatus === "parsererror" && connection.ajaxDataType === "jsonp")) {
+                    (textStatus === "parsererror" && connection.ajaxDataType === "jsonp")) {
                         // The parsererror happens for sends that don't return any data, and hence
                         // don't write the jsonp callback to the response. This is harder to fix on the server
                         // so just hack around it on the client for now.
@@ -609,7 +609,7 @@
                 $.each(data.Messages, function() {
                     try {
                         $connection.trigger(events.onReceived, [this]);
-                    } catch(e) {
+                    } catch (e) {
                         connection.log("Error raising received " + e);
                         $(connection).trigger(events.onError, [e]);
                     }
@@ -734,17 +734,17 @@
         reconnect: function(connection) {
             var that = this;
             window.setTimeout(function() {
-                that.stop(connection);
+                    that.stop(connection);
 
-                if (connection.state === signalR.connectionState.reconnecting ||
-                    changeState(connection,
-                        signalR.connectionState.connected,
-                        signalR.connectionState.reconnecting) === true) {
+                    if (connection.state === signalR.connectionState.reconnecting ||
+                        changeState(connection,
+                            signalR.connectionState.connected,
+                            signalR.connectionState.reconnecting) === true) {
 
-                    connection.log("Websocket reconnecting");
-                    that.start(connection);
-                }
-            },
+                        connection.log("Websocket reconnecting");
+                        that.start(connection);
+                    }
+                },
                 connection.reconnectDelay);
         },
 
@@ -806,7 +806,7 @@
             try {
                 connection.log("Attempting to connect to SSE endpoint '" + url + "'");
                 connection.eventSource = new window.EventSource(url);
-            } catch(e) {
+            } catch (e) {
                 connection.log("EventSource failed trying to connect with error " + e.Message);
                 if (onFailed) {
                     // The connection failed, call the failed callback
@@ -824,27 +824,27 @@
             // After connecting, if after the specified timeout there's no response stop the connection
             // and raise on failed
             connectTimeOut = window.setTimeout(function() {
-                if (opened === false) {
-                    connection.log("EventSource timed out trying to connect");
-                    connection.log("EventSource readyState: " + connection.eventSource.readyState);
+                    if (opened === false) {
+                        connection.log("EventSource timed out trying to connect");
+                        connection.log("EventSource readyState: " + connection.eventSource.readyState);
 
-                    if (!reconnecting) {
-                        that.stop(connection);
-                    }
-
-                    if (reconnecting) {
-                        // If we're reconnecting and the event source is attempting to connect,
-                        // don't keep retrying. This causes duplicate connections to spawn.
-                        if (connection.eventSource.readyState !== window.EventSource.CONNECTING &&
-                            connection.eventSource.readyState !== window.EventSource.OPEN) {
-                            // If we were reconnecting, rather than doing initial connect, then try reconnect again
-                            that.reconnect(connection);
+                        if (!reconnecting) {
+                            that.stop(connection);
                         }
-                    } else if (onFailed) {
-                        onFailed();
+
+                        if (reconnecting) {
+                            // If we're reconnecting and the event source is attempting to connect,
+                            // don't keep retrying. This causes duplicate connections to spawn.
+                            if (connection.eventSource.readyState !== window.EventSource.CONNECTING &&
+                                connection.eventSource.readyState !== window.EventSource.OPEN) {
+                                // If we were reconnecting, rather than doing initial connect, then try reconnect again
+                                that.reconnect(connection);
+                            }
+                        } else if (onFailed) {
+                            onFailed();
+                        }
                     }
-                }
-            },
+                },
                 that.timeOut);
 
             connection.eventSource.addEventListener("open", function(e) {
@@ -1234,16 +1234,16 @@
 
                     if (raiseReconnect === true) {
                         reconnectTimeOut = window.setTimeout(function() {
-                            if (reconnectFired === false) {
-                                if (changeState(connection,
-                                    signalR.connectionState.reconnecting,
-                                    signalR.connectionState.connected) === true) {
+                                if (reconnectFired === false) {
+                                    if (changeState(connection,
+                                        signalR.connectionState.reconnecting,
+                                        signalR.connectionState.connected) === true) {
 
-                                    $(instance).trigger(events.onReconnect);
-                                    reconnectFired = true;
+                                        $(instance).trigger(events.onReconnect);
+                                        reconnectFired = true;
+                                    }
                                 }
-                            }
-                        },
+                            },
                             that.reconnectDelay);
                     }
 
@@ -1412,10 +1412,10 @@
 
     hubConnection.fn.init = function(url, options) {
         var settings = {
-            qs: null,
-            logging: false,
-            useDefaultPath: true
-        },
+                qs: null,
+                logging: false,
+                useDefaultPath: true
+            },
             connection = this;
 
         $.extend(settings, options);
@@ -1486,8 +1486,7 @@
         /// <param name="hubName" type="String">
         ///     The name of the hub on the server to create the proxy for.
         /// </param>
-
-        // Normalize the name to lowercase
+// Normalize the name to lowercase
         hubName = hubName.toLowerCase();
 
         var proxy = this.proxies[hubName];

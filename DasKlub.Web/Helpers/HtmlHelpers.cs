@@ -23,8 +23,8 @@ namespace DasKlub.Web.Helpers
         public static MvcHtmlString QueryAsHiddenFields(this HtmlHelper htmlHelper)
         {
             var result = new StringBuilder();
-            var query = htmlHelper.ViewContext.HttpContext.Request.QueryString;
-            foreach (var key in query.Keys.Cast<string>().Where(key => key != null))
+            NameValueCollection query = htmlHelper.ViewContext.HttpContext.Request.QueryString;
+            foreach (string key in query.Keys.Cast<string>().Where(key => key != null))
             {
                 result.Append(htmlHelper.Hidden(key, query[key]).ToHtmlString());
             }

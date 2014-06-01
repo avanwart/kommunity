@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Xml;
-using DasKlub.Lib.BOL;
-using DasKlub.Lib.BOL.ArtistContent;
 using DasKlub.Lib.BOL.UserContent;
+using DasKlub.Lib.Configs;
 using DasKlub.Models;
+using DasKlub.Models.Forum;
 using DasKlub.Web.Controllers;
 
 namespace DasKlub.Web
@@ -15,8 +16,8 @@ namespace DasKlub.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var minWordCount = 300;
-            var siteDomain = string.Format("{0}/", Lib.Configs.GeneralConfigs.SiteDomain);
+            int minWordCount = 300;
+            string siteDomain = string.Format("{0}/", GeneralConfigs.SiteDomain);
             Response.Clear();
             Response.ContentType = "text/xml";
 
@@ -40,15 +41,15 @@ namespace DasKlub.Web
             var contents = new Contents();
             contents.GetContentPageWiseReleaseAll(1, 10000);
 
-            foreach (var c1 in contents)
+            foreach (Content c1 in contents)
             {
-                var text = c1.ContentDetail;
+                string text = c1.ContentDetail;
 
                 if (text.Split(' ').Length < minWordCount) continue;
 
                 writer.WriteStartElement("url");
                 writer.WriteElementString("loc", string.Format("{0}news/{1}", siteDomain, c1.ContentKey.ToLower()));
-                var lastmod = c1.ReleaseDate;
+                DateTime lastmod = c1.ReleaseDate;
                 if (c1.Comments != null && c1.Comments.Count > 0)
                 {
                     lastmod = c1.Comments[c1.Comments.Count - 1].CreateDate;
@@ -62,38 +63,43 @@ namespace DasKlub.Web
 
             using (var context = new DasKlubDbContext())
             {
-                var forumCategory = context.ForumCategory
-                                           .OrderBy(x => x.CreateDate)
-                                           .ToList();
+                List<ForumCategory> forumCategory = context.ForumCategory
+                    .OrderBy(x => x.CreateDate)
+                    .ToList();
 
-                foreach (var category in forumCategory)
+                foreach (ForumCategory category in forumCategory)
                 {
-                    var category1 = category;
-                    var subForums = context.ForumSubCategory.Where(x => x.ForumCategoryID == category1.ForumCategoryID);
+                    ForumCategory category1 = category;
+                    IQueryable<ForumSubCategory> subForums =
+                        context.ForumSubCategory.Where(x => x.ForumCategoryID == category1.ForumCategoryID);
 
                     using (var context2 = new DasKlubDbContext())
                     {
-                        foreach (var thread in subForums)
+                        foreach (ForumSubCategory thread in subForums)
                         {
-                            var text = thread.Description;
-                            var allPosts = context2.ForumPost.Where(x => x.ForumSubCategoryID == thread.ForumSubCategoryID);
+                            string text = thread.Description;
+                            IQueryable<ForumPost> allPosts =
+                                context2.ForumPost.Where(x => x.ForumSubCategoryID == thread.ForumSubCategoryID);
 
                             var allPostText = new StringBuilder();
 
-                            foreach(var item in allPosts)
+                            foreach (ForumPost item in allPosts)
                             {
                                 allPostText.Append(item.Detail);
                             }
 
                             allPostText.Append(text);
 
-                            if (allPostText.ToString().Split(' ').Length < minWordCount) { continue;  }
+                            if (allPostText.ToString().Split(' ').Length < minWordCount)
+                            {
+                                continue;
+                            }
 
                             writer.WriteStartElement("url");
                             writer.WriteElementString("loc", thread.SubForumURL.ToString().ToLower());
 
-                            var thread1 = thread;
-                            var lastPost = context2.ForumPost
+                            ForumSubCategory thread1 = thread;
+                            ForumPost lastPost = context2.ForumPost
                                 .Where(post => post.ForumSubCategoryID == thread1.ForumSubCategoryID)
                                 .OrderByDescending(post => post.CreateDate).FirstOrDefault();
 
@@ -106,16 +112,18 @@ namespace DasKlub.Web
                             writer.WriteEndElement();
                             writer.WriteString(Environment.NewLine);
 
-                            var totalCount =
+                            int totalCount =
                                 context2.ForumPost.Count(x => x.ForumSubCategoryID == thread.ForumSubCategoryID);
-                            var pageCount = (totalCount + ForumController.PageSizeForumPost - 1) / ForumController.PageSizeForumPost;
+                            int pageCount = (totalCount + ForumController.PageSizeForumPost - 1)/
+                                            ForumController.PageSizeForumPost;
 
                             if (pageCount <= 1) continue;
 
-                            for (var i = 2; i <= pageCount; i++)
+                            for (int i = 2; i <= pageCount; i++)
                             {
                                 writer.WriteStartElement("url");
-                                writer.WriteElementString("loc", string.Format("{0}/{1}", thread.SubForumURL, i).ToLower());
+                                writer.WriteElementString("loc",
+                                    string.Format("{0}/{1}", thread.SubForumURL, i).ToLower());
                                 writer.WriteElementString("lastmod", String.Format("{0:yyyy-MM-dd}", thread.CreateDate));
                                 writer.WriteElementString("changefreq", "weekly");
                                 writer.WriteElementString("priority", "0.8");

@@ -502,6 +502,7 @@
 .ui-icon-seek-end { background-position: -64px -160px; }
 
 .ui-icon-seek-start { background-position: -80px -160px; }
+
 /* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
 
 .ui-icon-seek-first { background-position: -80px -160px; }
@@ -632,7 +633,9 @@
     margin: -7px 0 0 -7px;
     opacity: .60;
     padding: 7px;
-}/*!
+}
+
+/*!
  * jQuery UI Resizable 1.8.23
  *
  * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
@@ -714,7 +717,9 @@
     right: -5px;
     top: -5px;
     width: 9px;
-}/*!
+}
+
+/*!
  * jQuery UI Selectable 1.8.23
  *
  * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
@@ -729,6 +734,7 @@
     position: absolute;
     z-index: 100;
 }
+
 /*!
  * jQuery UI Accordion 1.8.23
  *
@@ -738,6 +744,7 @@
  *
  * http://docs.jquery.com/UI/Accordion#theming
  */
+
 /* IE/Win - Fix animation bug - #4615 */
 
 .ui-accordion { width: 100%; }
@@ -781,6 +788,7 @@
 }
 
 .ui-accordion .ui-accordion-content-active { display: block; }
+
 /*!
  * jQuery UI Autocomplete 1.8.23
  *
@@ -794,11 +802,13 @@
 .ui-autocomplete {
     cursor: default;
     position: absolute;
-}	
+}
 
 /* workarounds */
 
-* html .ui-autocomplete { width: 1px; } /* without this, the menu expands to 100% in IE6 */
+* html .ui-autocomplete { width: 1px; }
+
+/* without this, the menu expands to 100% in IE6 */
 
 /*
  * jQuery UI Menu 1.8.23
@@ -842,6 +852,7 @@
     font-weight: normal;
     margin: -1px;
 }
+
 /*!
  * jQuery UI Button 1.8.23
  *
@@ -862,15 +873,21 @@
     text-align: center;
     text-decoration: none !important;
     zoom: 1;
-} /* the overflow property removes extra width in IE */
+}
 
-.ui-button-icon-only { width: 2.2em; } /* to make room for the icon, a width needs to be set here */
+/* the overflow property removes extra width in IE */
 
-button.ui-button-icon-only { width: 2.4em; } /* button elements seem to need a little more width */
+.ui-button-icon-only { width: 2.2em; }
+
+/* to make room for the icon, a width needs to be set here */
+
+button.ui-button-icon-only { width: 2.4em; }
+
+/* button elements seem to need a little more width */
 
 .ui-button-icons-only { width: 3.4em; }
 
-button.ui-button-icons-only { width: 3.7em; } 
+button.ui-button-icons-only { width: 3.7em; }
 
 /*button text element */
 
@@ -894,6 +911,7 @@ button.ui-button-icons-only { width: 3.7em; }
     padding-left: 2.1em;
     padding-right: 2.1em;
 }
+
 /* no icon support for input elements, provide padding by default */
 
 input.ui-button { padding: .4em 1em; }
@@ -931,7 +949,10 @@ input.ui-button { padding: .4em 1em; }
 button.ui-button::-moz-focus-inner {
     border: 0;
     padding: 0;
-} /* reset extra padding in Firefox */
+}
+
+/* reset extra padding in Firefox */
+
 /*!
  * jQuery UI Dialog 1.8.23
  *
@@ -1008,6 +1029,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-draggable .ui-dialog-titlebar { cursor: move; }
+
 /*!
  * jQuery UI Slider 1.8.23
  *
@@ -1074,7 +1096,9 @@ button.ui-button::-moz-focus-inner {
 
 .ui-slider-vertical .ui-slider-range-min { bottom: 0; }
 
-.ui-slider-vertical .ui-slider-range-max { top: 0; }/*!
+.ui-slider-vertical .ui-slider-range-max { top: 0; }
+
+/*!
  * jQuery UI Tabs 1.8.23
  *
  * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
@@ -1088,7 +1112,9 @@ button.ui-button::-moz-focus-inner {
     padding: .2em;
     position: relative;
     zoom: 1;
-} /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+}
+
+/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
 
 .ui-tabs .ui-tabs-nav {
     margin: 0;
@@ -1119,7 +1145,9 @@ button.ui-button::-moz-focus-inner {
 
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
 
-.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; }
+
+/* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
 
 .ui-tabs .ui-tabs-panel {
     background: none;
@@ -1129,6 +1157,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 .ui-tabs .ui-tabs-hide { display: none !important; }
+
 /*!
  * jQuery UI Datepicker 1.8.23
  *
@@ -1319,7 +1348,9 @@ button.ui-button::-moz-focus-inner {
     top: -4px; /*must have*/
     width: 200px; /*must have*/
     z-index: -1; /*must have*/
-}/*!
+}
+
+/*!
  * jQuery UI Progressbar 1.8.23
  *
  * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)

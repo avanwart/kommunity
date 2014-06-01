@@ -8,29 +8,28 @@ namespace DasKlubModel.Models.Mapping
         public VideoSongMap()
         {
             // Primary Key
-            this.HasKey(t => new { t.videoID, t.songID });
+            HasKey(t => new {t.videoID, t.songID});
 
             // Properties
-            this.Property(t => t.videoID)
+            Property(t => t.videoID)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            this.Property(t => t.songID)
+            Property(t => t.songID)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             // Table & Column Mappings
-            this.ToTable("VideoSong");
-            this.Property(t => t.videoID).HasColumnName("videoID");
-            this.Property(t => t.songID).HasColumnName("songID");
-            this.Property(t => t.rankOrder).HasColumnName("rankOrder");
+            ToTable("VideoSong");
+            Property(t => t.videoID).HasColumnName("videoID");
+            Property(t => t.songID).HasColumnName("songID");
+            Property(t => t.rankOrder).HasColumnName("rankOrder");
 
             // Relationships
-            this.HasRequired(t => t.Song)
+            HasRequired(t => t.Song)
                 .WithMany(t => t.VideoSongs)
                 .HasForeignKey(d => d.songID);
-            this.HasRequired(t => t.Video)
+            HasRequired(t => t.Video)
                 .WithMany(t => t.VideoSongs)
                 .HasForeignKey(d => d.videoID);
-
         }
     }
 }

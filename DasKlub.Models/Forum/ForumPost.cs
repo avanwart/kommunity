@@ -8,9 +8,8 @@ namespace DasKlub.Models.Forum
 {
     public class ForumPost : StateInfo
     {
-        public int ForumPostID { get; set; }
-        
         private string _detail = string.Empty;
+        public int ForumPostID { get; set; }
 
         [Required]
         public string Detail

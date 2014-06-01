@@ -1,9 +1,6 @@
-﻿
-@using DasKlub.Lib.BOL.UserContent
+﻿@using DasKlub.Lib.BOL.UserContent
 @using DasKlub.Lib.Resources
 @using DasKlub.Lib.Values
-
-@using DasKlub.Web.Helpers
 @model DasKlub.Lib.BOL.UserContent.Contents
 @{
     ViewBag.Title = Messages.ManageNews;
@@ -52,7 +49,7 @@
             </td>
             <td>
                 @Html.ActionLink(Messages.Edit,
-                                 "EditArticle", new {id = item.ContentID})
+                    "EditArticle", new {id = item.ContentID})
             </td>
         </tr>
     }
@@ -79,8 +76,8 @@
         else
         {
             <a href="@Url.Content("~/siteadmin/articles/?" +
-                                  SiteEnums.QueryStringNames.pg.ToString() +
-                                  "=" + pageNumber.ToString())">@pageNumber.ToString()</a>
+                                  SiteEnums.QueryStringNames.pg +
+                                  "=" + pageNumber)">@pageNumber.ToString()</a>
         }
     }
 }

@@ -32,7 +32,7 @@
                         @if (ViewBag.YouAres != null)
                         {
                             @Html.DropDownList("YouAreID", new SelectList(
-                                                               ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model.YouAreID), Messages.All)
+                                ViewBag.YouAres, "YouAreID", "LocalizedName", Model.YouAreID == null ? 0 : Model.YouAreID), Messages.All)
                         }
                     </div>
                 </div>
@@ -46,8 +46,8 @@
                         @if (ViewBag.RelationshipStatuses != null)
                         {
                             @Html.DropDownList("RelationshipStatusID", new SelectList(
-                                                                           ViewBag.RelationshipStatuses, "RelationshipStatusID", "LocalizedName",
-                                                                           Model.RelationshipStatusID == null ? 0 : Model.RelationshipStatusID), Messages.All)
+                                ViewBag.RelationshipStatuses, "RelationshipStatusID", "LocalizedName",
+                                Model.RelationshipStatusID == null ? 0 : Model.RelationshipStatusID), Messages.All)
                         }
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                         @if (ViewBag.InterestedIns != null)
                         {
                             @Html.DropDownList("InterestedInID", new SelectList(
-                                                                     ViewBag.InterestedIns, "InterestedInID", "LocalizedName", Model.InterestedInID == null ? 0 : Model.InterestedInID), Messages.All)
+                                ViewBag.InterestedIns, "InterestedInID", "LocalizedName", Model.InterestedInID == null ? 0 : Model.InterestedInID), Messages.All)
                         }
                     </div>
                 </div>
@@ -262,9 +262,9 @@
         <br />
         <a class="m_over" href="@Url.Content("~/map")"><img src="~/content/images/map/worldmap.jpg" />
         </a>
-         <hr />
+        <hr />
                   
-            @{ Html.RenderPartial("_AdBanner300x250"); }
+        @{ Html.RenderPartial("_AdBanner300x250"); }
      
 
     </div>

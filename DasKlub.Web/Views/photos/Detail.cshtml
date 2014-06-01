@@ -1,13 +1,10 @@
-﻿
-@using DasKlub.Lib.Operational
-@using DasKlub.Lib.Resources
-
+﻿@using DasKlub.Lib.Resources
 @using DasKlub.Web.Helpers
 @model  DasKlub.Lib.BOL.PhotoItem
 @{
     ViewBag.Title = Model.Title;
     ViewBag.MetaDescription = Model.Title;
-    ViewBag.ThumbIcon =  Html.S3ContentPath(Model.FilePathThumb).ToString() ;
+    ViewBag.ThumbIcon = Html.S3ContentPath(Model.FilePathThumb).ToString();
 }
 @{ Html.RenderPartial("_AdBanner728x90"); }
 <div class="row">
@@ -21,7 +18,6 @@
             <div id="status_update_list">
                 @Html.Raw(ViewBag.StatusUpdateList)
             </div>
-            
         }
         @section _javascript {
             @{ Html.RenderPartial("_statusCommenting-js"); }

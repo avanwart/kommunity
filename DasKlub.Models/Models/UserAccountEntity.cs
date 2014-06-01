@@ -7,36 +7,36 @@ using DasKlubModel.Models;
 namespace DasKlub.Models.Models
 {
     [Table("UserAccount")]
-    public partial class UserAccountEntity
+    public class UserAccountEntity
     {
         public UserAccountEntity()
         {
-
-            this.BlockedUsers = new List<BlockedUser>();
-            this.Contents = new List<Content>();
-            this.ContentComments = new List<ContentComment>();
-            this.ContestVideoVotes = new List<ContestVideoVote>();
-            this.DirectMessages = new List<DirectMessage>();
-            this.DirectMessages1 = new List<DirectMessage>();
-            this.PhotoItems = new List<PhotoItem>();
-            this.Playlists = new List<Playlist>();
-            this.ProfileLogs = new List<ProfileLog>();
-            this.ProfileLogs1 = new List<ProfileLog>();
-            this.StatusUpdates = new List<StatusUpdate>();
-            this.UserAccountDetails = new List<UserAccountDetailEntity>();
-            this.UserAccountMets = new List<UserAccountMet>();
-            this.UserAccountMets1 = new List<UserAccountMet>();
-            this.UserAccountVideos = new List<UserAccountVideo>();
-            this.UserAddresses = new List<UserAddress>();
-            this.UserConnections = new List<UserConnection>();
-            this.UserConnections1 = new List<UserConnection>();
-            this.UserPhotoes = new List<UserPhoto>();
-            this.Languages = new List<Language>();
-            this.Roles = new List<Role>();
+            BlockedUsers = new List<BlockedUser>();
+            Contents = new List<Content>();
+            ContentComments = new List<ContentComment>();
+            ContestVideoVotes = new List<ContestVideoVote>();
+            DirectMessages = new List<DirectMessage>();
+            DirectMessages1 = new List<DirectMessage>();
+            PhotoItems = new List<PhotoItem>();
+            Playlists = new List<Playlist>();
+            ProfileLogs = new List<ProfileLog>();
+            ProfileLogs1 = new List<ProfileLog>();
+            StatusUpdates = new List<StatusUpdate>();
+            UserAccountDetails = new List<UserAccountDetailEntity>();
+            UserAccountMets = new List<UserAccountMet>();
+            UserAccountMets1 = new List<UserAccountMet>();
+            UserAccountVideos = new List<UserAccountVideo>();
+            UserAddresses = new List<UserAddress>();
+            UserConnections = new List<UserConnection>();
+            UserConnections1 = new List<UserConnection>();
+            UserPhotoes = new List<UserPhoto>();
+            Languages = new List<Language>();
+            Roles = new List<Role>();
         }
 
         [Key]
         public int userAccountID { get; set; }
+
         public string userName { get; set; }
         public string password { get; set; }
         public string passwordFormat { get; set; }
@@ -44,22 +44,22 @@ namespace DasKlub.Models.Models
         public string eMail { get; set; }
         public string passwordQuestion { get; set; }
         public string passwordAnswer { get; set; }
-        public Nullable<bool> isApproved { get; set; }
-        public Nullable<System.DateTime> lastLoginDate { get; set; }
-        public Nullable<System.DateTime> lastPasswordChangeDate { get; set; }
-        public Nullable<System.DateTime> lastLockoutDate { get; set; }
-        public Nullable<short> failedPasswordAttemptCount { get; set; }
-        public Nullable<System.DateTime> failedPasswordAttemptWindowStart { get; set; }
-        public Nullable<short> failedPasswordAnswerAttemptCount { get; set; }
-        public Nullable<System.DateTime> failedPasswordAnswerAttemptWindowStart { get; set; }
+        public bool? isApproved { get; set; }
+        public DateTime? lastLoginDate { get; set; }
+        public DateTime? lastPasswordChangeDate { get; set; }
+        public DateTime? lastLockoutDate { get; set; }
+        public short? failedPasswordAttemptCount { get; set; }
+        public DateTime? failedPasswordAttemptWindowStart { get; set; }
+        public short? failedPasswordAnswerAttemptCount { get; set; }
+        public DateTime? failedPasswordAnswerAttemptWindowStart { get; set; }
         public string comment { get; set; }
-        public Nullable<System.DateTime> createDate { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> updatedByUserAccountID { get; set; }
-        public Nullable<int> createdByUserAccountID { get; set; }
-        public Nullable<bool> isOnline { get; set; }
-        public Nullable<bool> isLockedOut { get; set; }
-        public Nullable<System.DateTime> lastActivityDate { get; set; }
+        public DateTime? createDate { get; set; }
+        public DateTime? updateDate { get; set; }
+        public int? updatedByUserAccountID { get; set; }
+        public int? createdByUserAccountID { get; set; }
+        public bool? isOnline { get; set; }
+        public bool? isLockedOut { get; set; }
+        public DateTime? lastActivityDate { get; set; }
         public string ipAddress { get; set; }
         public virtual ICollection<BlockedUser> BlockedUsers { get; set; }
         public virtual ICollection<Content> Contents { get; set; }

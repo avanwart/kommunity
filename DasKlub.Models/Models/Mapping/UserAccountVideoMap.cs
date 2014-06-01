@@ -8,35 +8,34 @@ namespace DasKlubModel.Models.Mapping
         public UserAccountVideoMap()
         {
             // Primary Key
-            this.HasKey(t => new { t.videoID, t.userAccountID, t.videoType });
+            HasKey(t => new {t.videoID, t.userAccountID, t.videoType});
 
             // Properties
-            this.Property(t => t.videoID)
+            Property(t => t.videoID)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            this.Property(t => t.userAccountID)
+            Property(t => t.userAccountID)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            this.Property(t => t.videoType)
+            Property(t => t.videoType)
                 .IsRequired()
                 .IsFixedLength()
                 .HasMaxLength(1);
 
             // Table & Column Mappings
-            this.ToTable("UserAccountVideo");
-            this.Property(t => t.videoID).HasColumnName("videoID");
-            this.Property(t => t.userAccountID).HasColumnName("userAccountID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
-            this.Property(t => t.videoType).HasColumnName("videoType");
+            ToTable("UserAccountVideo");
+            Property(t => t.videoID).HasColumnName("videoID");
+            Property(t => t.userAccountID).HasColumnName("userAccountID");
+            Property(t => t.createDate).HasColumnName("createDate");
+            Property(t => t.videoType).HasColumnName("videoType");
 
             // Relationships
-            this.HasRequired(t => t.UserAccountEntity)
+            HasRequired(t => t.UserAccountEntity)
                 .WithMany(t => t.UserAccountVideos)
                 .HasForeignKey(d => d.userAccountID);
-            this.HasRequired(t => t.Video)
+            HasRequired(t => t.Video)
                 .WithMany(t => t.UserAccountVideos)
                 .HasForeignKey(d => d.videoID);
-
         }
     }
 }

@@ -5,21 +5,21 @@ using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models
 {
-    public partial class Playlist
+    public class Playlist
     {
         public Playlist()
         {
-            this.PlaylistVideos = new List<PlaylistVideo>();
+            PlaylistVideos = new List<PlaylistVideo>();
         }
 
-                [Key]
-
+        [Key]
         public int playlistID { get; set; }
-        public Nullable<int> updatedByUserID { get; set; }
-        public System.DateTime createDate { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> createdByUserID { get; set; }
-        public Nullable<System.DateTime> playlistBegin { get; set; }
+
+        public int? updatedByUserID { get; set; }
+        public DateTime createDate { get; set; }
+        public DateTime? updateDate { get; set; }
+        public int? createdByUserID { get; set; }
+        public DateTime? playlistBegin { get; set; }
         public string playListName { get; set; }
         public int userAccountID { get; set; }
         public bool autoPlay { get; set; }

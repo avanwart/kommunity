@@ -1,5 +1,4 @@
 ﻿@using DasKlub.Lib.Resources
-
 <div class="row">
     <div class="span2">
         <ul class="nav nav-pills nav-stacked">
@@ -29,7 +28,7 @@
                 ><a href="@Url.Content("~/account/managevideos")">@Messages.Videos</a>
             </li>
           
-                        <li
+            <li
               
                 @if (ViewContext.RouteData.Values["action"].ToString().ToLower() == "playlist")
                 {

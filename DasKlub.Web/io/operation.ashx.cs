@@ -12,17 +12,16 @@ using DasKlub.Lib.Resources;
 using DasKlub.Lib.Services;
 using DasKlub.Lib.Values;
 using LitS3;
-using Microsoft.Practices.ServiceLocation;
 
 namespace DasKlub.Web.io
 {
     public class operation : IHttpHandler
     {
         private IMailService _mail;
- 
+
         public operation()
         {
-            _mail = new MailService();// TODO: FIX NINJECT, FAILING TO WORK HERE
+            _mail = new MailService(); // TODO: FIX NINJECT, FAILING TO WORK HERE
         }
 
         public void ProcessRequest(HttpContext context)
@@ -31,7 +30,7 @@ namespace DasKlub.Web.io
                 return;
 
             var ptyc = (SiteEnums.QueryStringNames) Enum.Parse(typeof (SiteEnums.QueryStringNames),
-                                                               context.Request.QueryString[SiteEnums.QueryStringNames.param_type.ToString()]);
+                context.Request.QueryString[SiteEnums.QueryStringNames.param_type.ToString()]);
 
             MembershipUser mu;
 
@@ -41,14 +40,16 @@ namespace DasKlub.Web.io
 
                     #region status_update
 
-                    var key = context.Request.QueryString[SiteEnums.QueryStringNames.status_update_id.ToString()];
+                    string key = context.Request.QueryString[SiteEnums.QueryStringNames.status_update_id.ToString()];
 
                     if (string.IsNullOrEmpty(key))
                     {
-                        key = context.Request.QueryString[SiteEnums.QueryStringNames.most_applauded_status_update_id.ToString()];
+                        key =
+                            context.Request.QueryString[
+                                SiteEnums.QueryStringNames.most_applauded_status_update_id.ToString()];
                     }
 
-                    var statusUpdateID = Convert.ToInt32(key);
+                    int statusUpdateID = Convert.ToInt32(key);
 
                     StatusUpdate statup;
 
@@ -113,10 +114,12 @@ namespace DasKlub.Web.io
                                     sun.Update();
                                 }
 
-                                SendNotificationEmail(statup.UserAccountID, Convert.ToInt32(mu.ProviderUserKey), rspType, sun.StatusUpdateID);
+                                SendNotificationEmail(statup.UserAccountID, Convert.ToInt32(mu.ProviderUserKey), rspType,
+                                    sun.StatusUpdateID);
                             }
 
-                            context.Response.Write(string.Format(@"{{""StatusAcks"": ""{0}""}}", HttpUtility.HtmlEncode(statup.StatusAcknowledgements)));
+                            context.Response.Write(string.Format(@"{{""StatusAcks"": ""{0}""}}",
+                                HttpUtility.HtmlEncode(statup.StatusAcknowledgements)));
                         }
                         else
                         {
@@ -128,7 +131,8 @@ namespace DasKlub.Web.io
 
                             // TODO: DELETE NOTIFICATION
 
-                            context.Response.Write(string.Format(@"{{""StatusAcks"": ""{0}""}}", HttpUtility.HtmlEncode(statup.StatusAcknowledgements)));
+                            context.Response.Write(string.Format(@"{{""StatusAcks"": ""{0}""}}",
+                                HttpUtility.HtmlEncode(statup.StatusAcknowledgements)));
                         }
                     }
                     else if (
@@ -200,7 +204,8 @@ namespace DasKlub.Web.io
                                 }
 
 
-                                SendNotificationEmail(statup.UserAccountID, Convert.ToInt32(mu.ProviderUserKey), rspType, sun.StatusUpdateID);
+                                SendNotificationEmail(statup.UserAccountID, Convert.ToInt32(mu.ProviderUserKey), rspType,
+                                    sun.StatusUpdateID);
                             }
 
                             context.Response.Write(string.Format(@"{{""StatusAcks"": ""{0}""}}", HttpUtility.HtmlEncode(
@@ -231,13 +236,13 @@ namespace DasKlub.Web.io
                         if (mu == null) return;
 
                         var statCom = new StatusComment
-                            {
-                                CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
-                                Message = HttpUtility.HtmlEncode(
-                                    context.Request.QueryString[SiteEnums.QueryStringNames.comment_msg.ToString()]),
-                                StatusUpdateID = statusUpdateID,
-                                UserAccountID = Convert.ToInt32(mu.ProviderUserKey)
-                            };
+                        {
+                            CreatedByUserID = Convert.ToInt32(mu.ProviderUserKey),
+                            Message = HttpUtility.HtmlEncode(
+                                context.Request.QueryString[SiteEnums.QueryStringNames.comment_msg.ToString()]),
+                            StatusUpdateID = statusUpdateID,
+                            UserAccountID = Convert.ToInt32(mu.ProviderUserKey)
+                        };
 
                         // TODO: CHECK IF THERE IS A RECENT MESSAGE THAT IS THE SAME
                         if (statCom.StatusCommentID != 0) return;
@@ -281,14 +286,15 @@ namespace DasKlub.Web.io
                                 sun.Update();
                             }
 
-                            SendNotificationEmail(statup.UserAccountID, Convert.ToInt32(mu.ProviderUserKey), SiteEnums.ResponseType.C, sun.StatusUpdateID);
+                            SendNotificationEmail(statup.UserAccountID, Convert.ToInt32(mu.ProviderUserKey),
+                                SiteEnums.ResponseType.C, sun.StatusUpdateID);
                         }
 
                         var statComs = new StatusComments();
 
                         statComs.GetAllStatusCommentsForUpdate(statusUpdateID);
 
-                        foreach (var sc1 in statComs)
+                        foreach (StatusComment sc1 in statComs)
                         {
                             sun = new StatusUpdateNotification();
 
@@ -343,10 +349,10 @@ namespace DasKlub.Web.io
                             var pitm = new PhotoItem(Convert.ToInt32(statup.PhotoItemID));
 
                             var s3 = new S3Service
-                                {
-                                    AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
-                                    SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
-                                };
+                            {
+                                AccessKeyID = AmazonCloudConfigs.AmazonAccessKey,
+                                SecretAccessKey = AmazonCloudConfigs.AmazonSecretKey
+                            };
 
                             if (s3.ObjectExists(AmazonCloudConfigs.AmazonBucketName, pitm.FilePathRaw))
                             {
@@ -403,7 +409,7 @@ namespace DasKlub.Web.io
                         statComs.AddRange(
                             preFilter.Where(
                                 su1 =>
-                                !BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID)));
+                                    !BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID)));
 
                         statComs.IncludeStartAndEndTags = true;
 
@@ -411,12 +417,13 @@ namespace DasKlub.Web.io
 
                         sb.Append(statComs.ToUnorderdList);
 
-                        context.Response.Write(string.Format(@"{{""StatusComs"": ""{0}""}}", HttpUtility.HtmlEncode(sb.ToString())));
+                        context.Response.Write(string.Format(@"{{""StatusComs"": ""{0}""}}",
+                            HttpUtility.HtmlEncode(sb.ToString())));
                     }
                     else if (!string.IsNullOrEmpty(
                         context.Request.QueryString[SiteEnums.QueryStringNames.comment_page.ToString()]))
                     {
-                        var pcount =
+                        int pcount =
                             Convert.ToInt32(
                                 context.Request.QueryString[
                                     SiteEnums.QueryStringNames.comment_page.ToString()]);
@@ -435,11 +442,13 @@ namespace DasKlub.Web.io
                         statups.AddRange(
                             preFilter.Where(
                                 su1 =>
-                                mu != null && !BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID)));
+                                    mu != null &&
+                                    !BlockedUser.IsBlockingUser(Convert.ToInt32(mu.ProviderUserKey), su1.UserAccountID)));
 
                         statups.IncludeStartAndEndTags = false;
 
-                        context.Response.Write(string.Format(@"{{""StatusUpdates"": ""{0}""}}", HttpUtility.HtmlEncode(statups.ToUnorderdList)));
+                        context.Response.Write(string.Format(@"{{""StatusUpdates"": ""{0}""}}",
+                            HttpUtility.HtmlEncode(statups.ToUnorderdList)));
                     }
 
                     #endregion
@@ -462,10 +471,10 @@ namespace DasKlub.Web.io
 
                     mu = Membership.GetUser();
 
-                    var userCountChat = 0;
-                    var userMessages = 0;
-                    var unconfirmedUsers = 0;
-                    var notifications = 0;
+                    int userCountChat = 0;
+                    int userMessages = 0;
+                    int unconfirmedUsers = 0;
+                    int notifications = 0;
 
                     if (mu != null)
                     {
@@ -474,7 +483,7 @@ namespace DasKlub.Web.io
                         var uasOffline = new UserAccounts();
                         uasOffline.GetWhoIsOffline(true);
 
-                        foreach (var uaoff1 in uasOffline)
+                        foreach (UserAccount uaoff1 in uasOffline)
                         {
                             var cru = new ChatRoomUser();
                             cru.GetChatRoomUserByUserAccountID(uaoff1.UserAccountID);
@@ -506,7 +515,7 @@ namespace DasKlub.Web.io
                                 Convert.ToInt32(mu.ProviderUserKey));
                     }
 
-                    var timedMessge = string.Format(
+                    string timedMessge = string.Format(
                         @"{{""UserCountChat"": ""{0}"",
                ""UserMessages"": ""{1}"", 
                ""OnlineUsers"": ""{2}"",
@@ -586,7 +595,7 @@ namespace DasKlub.Web.io
                     #endregion
 
                     break;
-              
+
                 case SiteEnums.QueryStringNames.playlist:
 
                     #region playlist
@@ -631,7 +640,7 @@ namespace DasKlub.Web.io
         }
 
         /// <summary>
-        /// Sends email notification for status updates
+        ///     Sends email notification for status updates
         /// </summary>
         /// <param name="userTo"></param>
         /// <param name="userFrom"></param>
@@ -645,7 +654,7 @@ namespace DasKlub.Web.io
 
             uad.GetUserAccountDeailForUser(uaTo.UserAccountID);
 
-            var language = Utilities.GetCurrentLanguageCode();
+            string language = Utilities.GetCurrentLanguageCode();
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(uad.DefaultLanguage);
             string typeGiven;
@@ -666,18 +675,18 @@ namespace DasKlub.Web.io
                     break;
             }
 
-            var statupMess = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", 
+            string statupMess = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}",
                 typeGiven,
-                string.Format("{0}{0}", Environment.NewLine), 
-                GeneralConfigs.SiteDomain, 
-                    VirtualPathUtility.ToAbsolute("~/account/statusupdate/"), 
-                    statusUpdateID,
+                string.Format("{0}{0}", Environment.NewLine),
+                GeneralConfigs.SiteDomain,
+                VirtualPathUtility.ToAbsolute("~/account/statusupdate/"),
+                statusUpdateID,
                 Environment.NewLine + Environment.NewLine,
                 Messages.From + Environment.NewLine + Environment.NewLine,
                 uaFrom.UrlTo
                 );
 
-            var title = string.Format("{0} -> {1}", uaFrom.UserName, typeGiven);
+            string title = string.Format("{0} -> {1}", uaFrom.UserName, typeGiven);
 
             if (uad.EmailMessages)
             {
@@ -691,6 +700,5 @@ namespace DasKlub.Web.io
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(language);
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
         }
- 
     }
 }

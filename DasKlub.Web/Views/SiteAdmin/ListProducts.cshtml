@@ -35,7 +35,7 @@
            
             <td>
                 @Html.ActionLink(Messages.Edit,
-                                 "EditProduct", new {id = item.ProductID})
+                    "EditProduct", new {id = item.ProductID})
             </td>
         </tr>
     }
@@ -63,8 +63,8 @@
         else
         {
             <a href="@Url.Content("~/account/articlecomments/?" +
-                                  SiteEnums.QueryStringNames.pg.ToString() +
-                                  "=" + pageNumber.ToString())">@pageNumber.ToString()</a>
+                                  SiteEnums.QueryStringNames.pg +
+                                  "=" + pageNumber)">@pageNumber.ToString()</a>
         }
     }
 }

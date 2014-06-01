@@ -56,8 +56,6 @@ namespace DasKlub.Lib.BOL
         public int ProductID { get; set; }
 
         #endregion
-
-    
     }
 
     public class MultiPropertyVideos : List<MultiPropertyVideo>

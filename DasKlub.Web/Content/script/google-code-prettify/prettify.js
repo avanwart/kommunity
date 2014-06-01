@@ -19,8 +19,13 @@ window.PR_SHOULD_USE_CONTINUATION = !0;
         }
 
         function h(a) {
-            for (var f = a.substring(1, a.length - 1).match(/\\u[\dA-Fa-f]{4}|\\x[\dA-Fa-f]{2}|\\[0-3][0-7]{0,2}|\\[0-7]{1,2}|\\[\S\s]|[^\\]/g), a =
-                [], b = [], o = f[0] === "^", c = o ? 1 : 0, i = f.length; c < i; ++c) {
+            for (var f = a.substring(1, a.length - 1).match(/\\u[\dA-Fa-f]{4}|\\x[\dA-Fa-f]{2}|\\[0-3][0-7]{0,2}|\\[0-7]{1,2}|\\[\S\s]|[^\\]/g),
+                a =
+                [],
+                b = [],
+                o = f[0] === "^",
+                c = o ? 1 : 0,
+                i = f.length; c < i; ++c) {
                 var j = f[c];
                 if (/\\[bdsw]/i.test(j)) a.push(j);
                 else {
@@ -51,7 +56,7 @@ window.PR_SHOULD_USE_CONTINUATION = !0;
             for (c = 1; c < d.length; ++c) -1 === d[c] && (d[c] = ++t);
             for (i = c = 0; c < b; ++c)
                 j = f[c], j === "(" ? (++i, d[i] === void 0 && (f[c] = "(?:")) : "\\" === j.charAt(0) &&
-                    (j = +j.substring(1)) && j <= i && (f[c] = "\\" + d[i]);
+                (j = +j.substring(1)) && j <= i && (f[c] = "\\" + d[i]);
             for (i = c = 0; c < b; ++c) "^" === f[c] && "^" !== f[c + 1] && (f[c] = "");
             if (a.ignoreCase && s)
                 for (c = 0; c < b; ++c)
@@ -72,7 +77,10 @@ window.PR_SHOULD_USE_CONTINUATION = !0;
             }
         }
         for (var r =
-            { b: 8, t: 9, n: 10, v: 11, f: 12, r: 13 }, n = [], p = 0, d = a.length; p < d; ++p) {
+                 { b: 8, t: 9, n: 10, v: 11, f: 12, r: 13 },
+            n = [],
+            p = 0,
+            d = a.length; p < d; ++p) {
             g = a[p];
             if (g.global || g.multiline) throw Error("" + g);
             n.push("(?:" + y(g) + ")");
@@ -93,7 +101,7 @@ window.PR_SHOULD_USE_CONTINUATION = !0;
             case 3:
             case 4:
                 g = a.nodeValue, g.length && (g = p ? g.replace(/\r\n?/g, "\n") : g.replace(/[\t\n\r ]+/g, " "), h[s] = g, t[s << 1] = y, y += g.length,
-                t[s++ << 1 | 1] = a);
+                    t[s++ << 1 | 1] = a);
             }
         }
 
@@ -145,7 +153,10 @@ window.PR_SHOULD_USE_CONTINUATION = !0;
         var h = {}, y;
         (function() {
             for (var e = a.concat(m),
-                l = [], p = {}, d = 0, g = e.length; d < g; ++d) {
+                l = [],
+                p = {},
+                d = 0,
+                g = e.length; d < g; ++d) {
                 var r = e[d], n = r[3];
                 if (n) for (var k = n.length; --k >= 0;) h[n.charAt(k)] = r;
                 r = r[1];
@@ -161,12 +172,16 @@ window.PR_SHOULD_USE_CONTINUATION = !0;
 
     function u(a) {
         var m = [], e = [];
-        a.tripleQuotedStrings ? m.push(["str", /^(?:'''(?:[^'\\]|\\[\S\s]|''?(?=[^']))*(?:'''|$)|"""(?:[^"\\]|\\[\S\s]|""?(?=[^"]))*(?:"""|$)|'(?:[^'\\]|\\[\S\s])*(?:'|$)|"(?:[^"\\]|\\[\S\s])*(?:"|$))/, q, "'\""]) : a.multiLineStrings ? m.push(["str", /^(?:'(?:[^'\\]|\\[\S\s])*(?:'|$)|"(?:[^"\\]|\\[\S\s])*(?:"|$)|`(?:[^\\`]|\\[\S\s])*(?:`|$))/,
-            q, "'\"`"]) : m.push(["str", /^(?:'(?:[^\n\r'\\]|\\.)*(?:'|$)|"(?:[^\n\r"\\]|\\.)*(?:"|$))/, q, "\"'"]);
+        a.tripleQuotedStrings ? m.push(["str", /^(?:'''(?:[^'\\]|\\[\S\s]|''?(?=[^']))*(?:'''|$)|"""(?:[^"\\]|\\[\S\s]|""?(?=[^"]))*(?:"""|$)|'(?:[^'\\]|\\[\S\s])*(?:'|$)|"(?:[^"\\]|\\[\S\s])*(?:"|$))/, q, "'\""]) : a.multiLineStrings ? m.push([
+            "str", /^(?:'(?:[^'\\]|\\[\S\s])*(?:'|$)|"(?:[^"\\]|\\[\S\s])*(?:"|$)|`(?:[^\\`]|\\[\S\s])*(?:`|$))/,
+            q, "'\"`"
+        ]) : m.push(["str", /^(?:'(?:[^\n\r'\\]|\\.)*(?:'|$)|"(?:[^\n\r"\\]|\\.)*(?:"|$))/, q, "\"'"]);
         a.verbatimStrings && e.push(["str", /^@"(?:[^"]|"")*(?:"|$)/, q]);
         var h = a.hashComments;
-        h && (a.cStyleComments ? (h > 1 ? m.push(["com", /^#(?:##(?:[^#]|#(?!##))*(?:###|$)|.*)/, q, "#"]) : m.push(["com", /^#(?:(?:define|elif|else|endif|error|ifdef|include|ifndef|line|pragma|undef|warning)\b|[^\n\r]*)/, q, "#"]), e.push(["str", /^<(?:(?:(?:\.\.\/)*|\/?)(?:[\w-]+(?:\/[\w-]+)+)?[\w-]+\.h|[a-z]\w*)>/, q])) : m.push(["com", /^#[^\n\r]*/,
-            q, "#"]));
+        h && (a.cStyleComments ? (h > 1 ? m.push(["com", /^#(?:##(?:[^#]|#(?!##))*(?:###|$)|.*)/, q, "#"]) : m.push(["com", /^#(?:(?:define|elif|else|endif|error|ifdef|include|ifndef|line|pragma|undef|warning)\b|[^\n\r]*)/, q, "#"]), e.push(["str", /^<(?:(?:(?:\.\.\/)*|\/?)(?:[\w-]+(?:\/[\w-]+)+)?[\w-]+\.h|[a-z]\w*)>/, q])) : m.push([
+            "com", /^#[^\n\r]*/,
+            q, "#"
+        ]));
         a.cStyleComments && (e.push(["com", /^\/\/[^\n\r]*/, q]), e.push(["com", /^\/\*[\S\s]*?(?:\*\/|$)/, q]));
         a.regexLiterals && e.push(["lang-regex", /^(?:^^\.?|[!+-]|!=|!==|#|%|%=|&|&&|&&=|&=|\(|\*|\*=|\+=|,|-=|->|\/|\/=|:|::|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|[?@[^]|\^=|\^\^|\^\^=|{|\||\|=|\|\||\|\|=|~|break|case|continue|delete|do|else|finally|instanceof|return|throw|try|typeof)\s*(\/(?=[^*/])(?:[^/[\\]|\\[\S\s]|\[(?:[^\\\]]|\\[\S\s])*(?:]|$))+\/)/]);
         (h = a.types) && e.push(["typ", h]);
@@ -186,7 +201,7 @@ window.PR_SHOULD_USE_CONTINUATION = !0;
                 if (k.test(a.className)) break;
                 if ("BR" === a.nodeName)
                     h(a),
-                    a.parentNode && a.parentNode.removeChild(a);
+                        a.parentNode && a.parentNode.removeChild(a);
                 else for (a = a.firstChild; a; a = a.nextSibling) e(a);
                 break;
             case 3:
@@ -283,27 +298,45 @@ window.PR_SHOULD_USE_CONTINUATION = !0;
                 e >= o && (h += 2);
                 e >= c && (a += 2);
             }
-        } catch(w) {
+        } catch (w) {
             "console" in window && console.log(w && w.stack ? w.stack : w);
         }
     }
 
-    var v = ["break,continue,do,else,for,if,return,while"], w = [[v, "auto,case,char,const,default,double,enum,extern,float,goto,int,long,register,short,signed,sizeof,static,struct,switch,typedef,union,unsigned,void,volatile"],
-        "catch,class,delete,false,import,new,operator,private,protected,public,this,throw,true,try,typeof"], F = [w, "alignof,align_union,asm,axiom,bool,concept,concept_map,const_cast,constexpr,decltype,dynamic_cast,explicit,export,friend,inline,late_check,mutable,namespace,nullptr,reinterpret_cast,static_assert,static_cast,template,typeid,typename,using,virtual,where"], G = [w, "abstract,boolean,byte,extends,final,finally,implements,import,instanceof,null,native,package,strictfp,super,synchronized,throws,transient"],
-        H = [G, "as,base,by,checked,decimal,delegate,descending,dynamic,event,fixed,foreach,from,group,implicit,in,interface,internal,into,is,lock,object,out,override,orderby,params,partial,readonly,ref,sbyte,sealed,stackalloc,string,select,uint,ulong,unchecked,unsafe,ushort,var"], w = [w, "debugger,eval,export,function,get,null,set,undefined,var,with,Infinity,NaN"], I = [v, "and,as,assert,class,def,del,elif,except,exec,finally,from,global,import,in,is,lambda,nonlocal,not,or,pass,print,raise,try,with,yield,False,True,None"],
-        J = [v, "alias,and,begin,case,class,def,defined,elsif,end,ensure,false,in,module,next,nil,not,or,redo,rescue,retry,self,super,then,true,undef,unless,until,when,yield,BEGIN,END"], v = [v, "case,done,elif,esac,eval,fi,function,in,local,set,then,until"], K = /^(DIR|FILE|vector|(de|priority_)?queue|list|stack|(const_)?iterator|(multi)?(set|map)|bitset|u?(int|float)\d*)/, N = /\S/, O = u({
-            keywords: [F, H, w, "caller,delete,die,do,dump,elsif,eval,exit,foreach,for,goto,if,import,last,local,my,next,no,our,print,package,redo,require,sub,undef,unless,until,use,wantarray,while,BEGIN,END" +
-                I, J, v],
+    var v = ["break,continue,do,else,for,if,return,while"],
+        w = [
+            [v, "auto,case,char,const,default,double,enum,extern,float,goto,int,long,register,short,signed,sizeof,static,struct,switch,typedef,union,unsigned,void,volatile"],
+            "catch,class,delete,false,import,new,operator,private,protected,public,this,throw,true,try,typeof"
+        ],
+        F = [w, "alignof,align_union,asm,axiom,bool,concept,concept_map,const_cast,constexpr,decltype,dynamic_cast,explicit,export,friend,inline,late_check,mutable,namespace,nullptr,reinterpret_cast,static_assert,static_cast,template,typeid,typename,using,virtual,where"],
+        G = [w, "abstract,boolean,byte,extends,final,finally,implements,import,instanceof,null,native,package,strictfp,super,synchronized,throws,transient"],
+        H = [G, "as,base,by,checked,decimal,delegate,descending,dynamic,event,fixed,foreach,from,group,implicit,in,interface,internal,into,is,lock,object,out,override,orderby,params,partial,readonly,ref,sbyte,sealed,stackalloc,string,select,uint,ulong,unchecked,unsafe,ushort,var"],
+        w = [w, "debugger,eval,export,function,get,null,set,undefined,var,with,Infinity,NaN"],
+        I = [v, "and,as,assert,class,def,del,elif,except,exec,finally,from,global,import,in,is,lambda,nonlocal,not,or,pass,print,raise,try,with,yield,False,True,None"],
+        J = [v, "alias,and,begin,case,class,def,defined,elsif,end,ensure,false,in,module,next,nil,not,or,redo,rescue,retry,self,super,then,true,undef,unless,until,when,yield,BEGIN,END"],
+        v = [v, "case,done,elif,esac,eval,fi,function,in,local,set,then,until"],
+        K = /^(DIR|FILE|vector|(de|priority_)?queue|list|stack|(const_)?iterator|(multi)?(set|map)|bitset|u?(int|float)\d*)/,
+        N = /\S/,
+        O = u({
+            keywords: [
+                F, H, w, "caller,delete,die,do,dump,elsif,eval,exit,foreach,for,goto,if,import,last,local,my,next,no,our,print,package,redo,require,sub,undef,unless,until,use,wantarray,while,BEGIN,END" +
+                I, J, v
+            ],
             hashComments: !0,
             cStyleComments: !0,
             multiLineStrings: !0,
             regexLiterals: !0
-        }), A = {};
+        }),
+        A = {};
     k(O, ["default-code"]);
     k(x([], [["pln", /^[^<?]+/], ["dec", /^<!\w[^>]*(?:>|$)/], ["com", /^<\!--[\S\s]*?(?:--\>|$)/], ["lang-", /^<\?([\S\s]+?)(?:\?>|$)/], ["lang-", /^<%([\S\s]+?)(?:%>|$)/], ["pun", /^(?:<[%?]|[%?]>)/], ["lang-", /^<xmp\b[^>]*>([\S\s]+?)<\/xmp\b[^>]*>/i], ["lang-js", /^<script\b[^>]*>([\S\s]*?)(<\/script\b[^>]*>)/i], ["lang-css", /^<style\b[^>]*>([\S\s]*?)(<\/style\b[^>]*>)/i], ["lang-in.tag", /^(<\/?[a-z][^<>]*>)/i]]),
-        ["default-markup", "htm", "html", "mxml", "xhtml", "xml", "xsl"]);
-    k(x([["pln", /^\s+/, q, " \t\r\n"], ["atv", /^(?:"[^"]*"?|'[^']*'?)/, q, "\"'"]], [["tag", /^^<\/?[a-z](?:[\w-.:]*\w)?|\/?>$/i], ["atn", /^(?!style[\s=]|on)[a-z](?:[\w:-]*\w)?/i], ["lang-uq.val", /^=\s*([^\s"'>]*(?:[^\s"'/>]|\/(?=\s)))/], ["pun", /^[/<->]+/], ["lang-js", /^on\w+\s*=\s*"([^"]+)"/i], ["lang-js", /^on\w+\s*=\s*'([^']+)'/i], ["lang-js", /^on\w+\s*=\s*([^\s"'>]+)/i], ["lang-css", /^style\s*=\s*"([^"]+)"/i], ["lang-css", /^style\s*=\s*'([^']+)'/i], ["lang-css",
-        /^style\s*=\s*([^\s"'>]+)/i]]), ["in.tag"]);
+    ["default-markup", "htm", "html", "mxml", "xhtml", "xml", "xsl"]);
+    k(x([["pln", /^\s+/, q, " \t\r\n"], ["atv", /^(?:"[^"]*"?|'[^']*'?)/, q, "\"'"]], [
+        ["tag", /^^<\/?[a-z](?:[\w-.:]*\w)?|\/?>$/i], ["atn", /^(?!style[\s=]|on)[a-z](?:[\w:-]*\w)?/i], ["lang-uq.val", /^=\s*([^\s"'>]*(?:[^\s"'/>]|\/(?=\s)))/], ["pun", /^[/<->]+/], ["lang-js", /^on\w+\s*=\s*"([^"]+)"/i], ["lang-js", /^on\w+\s*=\s*'([^']+)'/i], ["lang-js", /^on\w+\s*=\s*([^\s"'>]+)/i], ["lang-css", /^style\s*=\s*"([^"]+)"/i], ["lang-css", /^style\s*=\s*'([^']+)'/i], [
+            "lang-css",
+            /^style\s*=\s*([^\s"'>]+)/i
+        ]
+    ]), ["in.tag"]);
     k(x([], [["atv", /^[\S\s]+/]]), ["uq.val"]);
     k(u({ keywords: F, hashComments: !0, cStyleComments: !0, types: K }), ["c", "cc", "cpp", "cxx", "cyc", "m"]);
     k(u({ keywords: "null,true,false" }), ["json"]);
@@ -311,7 +344,7 @@ window.PR_SHOULD_USE_CONTINUATION = !0;
     k(u({ keywords: G, cStyleComments: !0 }), ["java"]);
     k(u({ keywords: v, hashComments: !0, multiLineStrings: !0 }), ["bsh", "csh", "sh"]);
     k(u({ keywords: I, hashComments: !0, multiLineStrings: !0, tripleQuotedStrings: !0 }),
-        ["cv", "py"]);
+    ["cv", "py"]);
     k(u({ keywords: "caller,delete,die,do,dump,elsif,eval,exit,foreach,for,goto,if,import,last,local,my,next,no,our,print,package,redo,require,sub,undef,unless,until,use,wantarray,while,BEGIN,END", hashComments: !0, multiLineStrings: !0, regexLiterals: !0 }), ["perl", "pl", "pm"]);
     k(u({ keywords: J, hashComments: !0, multiLineStrings: !0, regexLiterals: !0 }), ["rb"]);
     k(u({ keywords: w, cStyleComments: !0, regexLiterals: !0 }), ["js"]);

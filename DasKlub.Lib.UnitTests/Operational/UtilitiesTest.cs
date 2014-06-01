@@ -1,18 +1,13 @@
 ﻿using DasKlub.Lib.Configs;
 using DasKlub.Lib.Operational;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DasKlub.Lib.UnitTests.DasKlub.Lib.Operational
 {
     [TestClass]
     public class UtilitiesTest
     {
-        string expectedDoman;
+        private string expectedDoman;
 
         [TestInitialize]
         public void Init()
@@ -24,7 +19,7 @@ namespace DasKlub.Lib.UnitTests.DasKlub.Lib.Operational
         public void ConvertTextToHTML_SameExternalLink_DisplaysCorrectly()
         {
             // arrange
-            var text = @"Hey all!
+            string text = @"Hey all!
 
 Brand new track from Reactor7x - Sick of it all, which is foretaste of slowly upcoming full-length album - powerful dark electro / aggrotech / electro-industrial song.
 
@@ -42,9 +37,9 @@ iTunes: http://itunes.apple.com/ca/album/sick-of-it-all-single/id863056054
 Amazon: http://www.amazon.com/Sick-of-it-all/dp/B00JRIQ4LU/ref=sr_1_2?s=dmusic&ie=UTF8&qid=1398078516&sr=1-2&keywords=Reactor7x";
 
             // act
-            var result = Utilities.ConvertTextToHtml(text);
+            string result = Utilities.ConvertTextToHtml(text);
 
-            var expected = @"Hey all!<br />
+            string expected = @"Hey all!<br />
 <br />
 Brand new track from Reactor7x - Sick of it all, which is foretaste of slowly upcoming full-length album - powerful dark electro / aggrotech / electro-industrial song.<br />
 <br />
@@ -68,7 +63,7 @@ Amazon: <a target=""_blank"" href=""http://www.amazon.com/Sick-of-it-all/dp/B00J
         public void ConvertTextToHTML_InternalLinkLinks_DoesNotOpenInNewWindow()
         {
             // arrange
-            var text = string.Format(@"Das Cabaret Fledermaus Präsentiert den 
+            string text = string.Format(@"Das Cabaret Fledermaus Präsentiert den 
 BALL DER SCHWARZEN MASKEN 2014
 Deuxvolt live @ Wien (AT)
 Friday 28th February 2014 - 22:00 PM
@@ -85,10 +80,10 @@ Poster: {0}/propaganda/Deuxvolt_tour_2014_01_wien.png
 note: Thanks to DasKlub community", expectedDoman);
 
             // act
-            var result = Utilities.ConvertTextToHtml(text);
+            string result = Utilities.ConvertTextToHtml(text);
 
             // assert 
-            var expected = string.Format(@"Das Cabaret Fledermaus Präsentiert den <br />
+            string expected = string.Format(@"Das Cabaret Fledermaus Präsentiert den <br />
 BALL DER SCHWARZEN MASKEN 2014<br />
 Deuxvolt live @ Wien (AT)<br />
 Friday 28th February 2014 - 22:00 PM<br />
@@ -111,7 +106,7 @@ note: Thanks to DasKlub community", expectedDoman);
         public void ConvertTextToHTML_TextWithLinks_ContainsHrefsCorrectly()
         {
             // arrange
-            var text = @"Das Cabaret Fledermaus Präsentiert den 
+            string text = @"Das Cabaret Fledermaus Präsentiert den 
 BALL DER SCHWARZEN MASKEN 2014
 Deuxvolt live @ Wien (AT)
 Friday 28th February 2014 - 22:00 PM
@@ -128,10 +123,10 @@ Poster: http://www.deuxvolt.com/propaganda/Deuxvolt_tour_2014_01_wien.png
 note: Thanks to DasKlub community";
 
             // act
-            var result = Utilities.ConvertTextToHtml(text);
+            string result = Utilities.ConvertTextToHtml(text);
 
             // assert 
-            var expected = @"Das Cabaret Fledermaus Präsentiert den <br />
+            string expected = @"Das Cabaret Fledermaus Präsentiert den <br />
 BALL DER SCHWARZEN MASKEN 2014<br />
 Deuxvolt live @ Wien (AT)<br />
 Friday 28th February 2014 - 22:00 PM<br />
@@ -154,15 +149,15 @@ note: Thanks to DasKlub community";
         public void ConvertTextToHTML_TextWithHttpsYouTubeLinks_ContainsHrefsCorrectly()
         {
             // arrange
-            var text = @"blah blah
+            string text = @"blah blah
  
 https://www.youtube.com/watch?v=v0HBy6JxweE";
 
             // act
-            var result = Utilities.ConvertTextToHtml(text);
+            string result = Utilities.ConvertTextToHtml(text);
 
             // assert 
-            var expected = @"blah blah<br />
+            string expected = @"blah blah<br />
  <br />
 <div class=""you_tube_iframe""><iframe width=""300"" height=""200"" src=""http://www.youtube.com/embed/v0HBy6JxweE?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>";
 
@@ -173,15 +168,15 @@ https://www.youtube.com/watch?v=v0HBy6JxweE";
         public void ConvertTextToHTML_TextWithRegularYouTubeLinks_ContainsHrefsCorrectly()
         {
             // arrange
-            var text = @"blah blah
+            string text = @"blah blah
  
 http://www.youtube.com/watch?v=v0HBy6JxweE";
 
             // act
-            var result = Utilities.ConvertTextToHtml(text);
+            string result = Utilities.ConvertTextToHtml(text);
 
             // assert 
-            var expected = @"blah blah<br />
+            string expected = @"blah blah<br />
  <br />
 <div class=""you_tube_iframe""><iframe width=""300"" height=""200"" src=""http://www.youtube.com/embed/v0HBy6JxweE?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>";
 
@@ -192,15 +187,15 @@ http://www.youtube.com/watch?v=v0HBy6JxweE";
         public void ConvertTextToHTML_TextWithShortYouTubeLinks_ContainsHrefsCorrectly()
         {
             // arrange
-            var text = @"blah blah
+            string text = @"blah blah
  
 http://youtu.be/v0HBy6JxweE";
 
             // act
-            var result = Utilities.ConvertTextToHtml(text);
+            string result = Utilities.ConvertTextToHtml(text);
 
             // assert 
-            var expected = @"blah blah<br />
+            string expected = @"blah blah<br />
  <br />
 <div class=""you_tube_iframe""><iframe width=""300"" height=""200"" src=""http://www.youtube.com/embed/v0HBy6JxweE?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>";
 
@@ -211,18 +206,18 @@ http://youtu.be/v0HBy6JxweE";
         public void ConvertTextToHTML_TextWithYouTubeProfileLinks_ContainsHrefsCorrectly()
         {
             // arrange
-            var text = @"blah blah
+            string text = @"blah blah
  
 https://www.youtube.com/user/dasklubber";
 
             // act
-            var result = Utilities.ConvertTextToHtml(text);
+            string result = Utilities.ConvertTextToHtml(text);
 
             // assert 
-            var expected = @"blah blah<br />
+            string expected = @"blah blah<br />
  <br />
 <a target=""_blank"" href=""https://www.youtube.com/user/dasklubber"">https://www.youtube.com/use...</a>";
-                                                                      
+
             Assert.AreEqual(expected, result);
         }
 
@@ -230,10 +225,10 @@ https://www.youtube.com/user/dasklubber";
         public void ExtractYouTubeVideoKey_NonYouTubeLink_ReturnsNull()
         {
             // arrange
-            var text = @"https://something.com";
+            string text = @"https://something.com";
 
             // act
-            var result = Utilities.ExtractYouTubeVideoKey(text);
+            string result = Utilities.ExtractYouTubeVideoKey(text);
 
             // assert 
             Assert.AreEqual(null, result);
@@ -243,53 +238,52 @@ https://www.youtube.com/user/dasklubber";
         public void ExtractYouTubeVideoKey_HttpNoWwwYouTubeLink_ReturnsVideoKey()
         {
             // arrange
-            var text = "http://youtube.com/watch?v=v0HBy6JxweE";
+            string text = "http://youtube.com/watch?v=v0HBy6JxweE";
 
             // act
-            var result = Utilities.ExtractYouTubeVideoKey(text);
+            string result = Utilities.ExtractYouTubeVideoKey(text);
 
             // assert 
-            Assert.AreEqual(expected: "v0HBy6JxweE", actual: result);
+            Assert.AreEqual("v0HBy6JxweE", result);
         }
 
         [TestMethod]
         public void ExtractYouTubeVideoKey_HttpYouTubeLink_ReturnsVideoKey()
         {
             // arrange
-            var text = "http://www.youtube.com/watch?v=v0HBy6JxweE";
+            string text = "http://www.youtube.com/watch?v=v0HBy6JxweE";
 
             // act
-            var result = Utilities.ExtractYouTubeVideoKey(text);
+            string result = Utilities.ExtractYouTubeVideoKey(text);
 
             // assert 
-            Assert.AreEqual(expected: "v0HBy6JxweE", actual: result);
+            Assert.AreEqual("v0HBy6JxweE", result);
         }
 
         [TestMethod]
         public void ExtractYouTubeVideoKey_HttpsYouTubeLink_ReturnsVideoKey()
         {
             // arrange
-            var text = "https://www.youtube.com/watch?v=v0HBy6JxweE";
+            string text = "https://www.youtube.com/watch?v=v0HBy6JxweE";
 
             // act
-            var result = Utilities.ExtractYouTubeVideoKey(text);
+            string result = Utilities.ExtractYouTubeVideoKey(text);
 
             // assert 
-            Assert.AreEqual(expected: "v0HBy6JxweE" , actual: result);
+            Assert.AreEqual("v0HBy6JxweE", result);
         }
 
         [TestMethod]
         public void ExtractYouTubeVideoKey_HttpsNoWwwYouTubeLink_ReturnsVideoKey()
         {
             // arrange
-            var text = "https://youtube.com/watch?v=v0HBy6JxweE";
+            string text = "https://youtube.com/watch?v=v0HBy6JxweE";
 
             // act
-            var result = Utilities.ExtractYouTubeVideoKey(text);
+            string result = Utilities.ExtractYouTubeVideoKey(text);
 
             // assert 
-            Assert.AreEqual(expected: "v0HBy6JxweE", actual: result);
+            Assert.AreEqual("v0HBy6JxweE", result);
         }
-
     }
 }

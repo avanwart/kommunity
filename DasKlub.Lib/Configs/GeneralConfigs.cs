@@ -62,13 +62,10 @@ namespace DasKlub.Lib.Configs
         private static readonly string _youTubeDevUser = string.Empty;
         private static readonly string _youTubeDevPass = string.Empty;
         private static readonly string _youTubeDevApp = string.Empty;
-        
 
         #endregion
 
         #region properties
-
- 
 
         public static bool EnableSameIP
         {
@@ -119,7 +116,7 @@ namespace DasKlub.Lib.Configs
         {
             get { return _youtubeLink; }
         }
- 
+
         public static string DefaultVideo
         {
             get { return _defaultVideo; }
@@ -131,7 +128,6 @@ namespace DasKlub.Lib.Configs
             get { return _postInterval; }
         }
 
-     
 
         public static string SiteName
         {
@@ -144,7 +140,6 @@ namespace DasKlub.Lib.Configs
             get { return _defaultLanguage; }
         }
 
-      
 
         public static string GoogleAPIKey
         {
@@ -199,7 +194,7 @@ namespace DasKlub.Lib.Configs
             get { return _enableErrorLogEmail; }
         }
 
-     
+
         public static string NonWebFilePath
         {
             get { return _nonWebFilePath; }
@@ -225,7 +220,6 @@ namespace DasKlub.Lib.Configs
         {
             get { return _youTubeDevApp; }
         }
- 
 
         #endregion
     }

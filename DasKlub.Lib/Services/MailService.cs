@@ -1,19 +1,16 @@
 ﻿using System;
+using Amazon;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
 using DasKlub.Lib.Configs;
 using DasKlub.Lib.Resources;
-using Ninject;
 
 namespace DasKlub.Lib.Services
 {
-
     public class MailService : IMailService
     {
-        public MailService() { }
-
         /// <summary>
-        /// Sends an email with opt out option
+        ///     Sends an email with opt out option
         /// </summary>
         /// <param name="fromEmail"></param>
         /// <param name="toEmail"></param>
@@ -23,17 +20,17 @@ namespace DasKlub.Lib.Services
         public bool SendMail(string fromEmail, string toEmail, string subject, string body)
         {
             if (string.IsNullOrEmpty(toEmail) ||
-                         string.IsNullOrEmpty(fromEmail) ||
-                         string.IsNullOrEmpty(subject) ||
-                         string.IsNullOrEmpty(body)) return false; 
+                string.IsNullOrEmpty(fromEmail) ||
+                string.IsNullOrEmpty(subject) ||
+                string.IsNullOrEmpty(body)) return false;
 
             try
             {
                 toEmail = toEmail.Trim();
                 fromEmail = fromEmail.Trim();
-                
+
                 var amzClient = new AmazonSimpleEmailServiceClient(
-                    AmazonCloudConfigs.AmazonAccessKey, AmazonCloudConfigs.AmazonSecretKey, Amazon.RegionEndpoint.USEast1);
+                    AmazonCloudConfigs.AmazonAccessKey, AmazonCloudConfigs.AmazonSecretKey, RegionEndpoint.USEast1);
                 var dest = new Destination();
                 dest.ToAddresses.Add(toEmail);
 
@@ -59,13 +56,13 @@ namespace DasKlub.Lib.Services
                     Messages.DoNotRespondToThisEmail +
                     Environment.NewLine;
 
-                var bdy = new Body { Text = new Content(body) };
+                var bdy = new Body {Text = new Content(body)};
                 var title = new Content(subject);
                 var message = new Message(title, bdy);
                 var ser = new SendEmailRequest(fromEmail, dest, message);
- 
+
                 amzClient.SendEmailAsync(ser);
-                
+
                 return true;
             }
             catch (Exception)

@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
@@ -8,45 +7,44 @@ namespace DasKlubModel.Models.Mapping
         public ContentCommentMap()
         {
             // Primary Key
-            this.HasKey(t => t.contentCommentID);
+            HasKey(t => t.contentCommentID);
 
             // Properties
-            this.Property(t => t.statusType)
+            Property(t => t.statusType)
                 .IsRequired()
                 .IsFixedLength()
                 .HasMaxLength(1);
 
-            this.Property(t => t.fromName)
+            Property(t => t.fromName)
                 .HasMaxLength(50);
 
-            this.Property(t => t.fromEmail)
+            Property(t => t.fromEmail)
                 .HasMaxLength(50);
 
-            this.Property(t => t.ipAddress)
+            Property(t => t.ipAddress)
                 .HasMaxLength(50);
 
             // Table & Column Mappings
-            this.ToTable("ContentComment");
-            this.Property(t => t.contentCommentID).HasColumnName("contentCommentID");
-            this.Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
-            this.Property(t => t.updateDate).HasColumnName("updateDate");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.statusType).HasColumnName("statusType");
-            this.Property(t => t.detail).HasColumnName("detail");
-            this.Property(t => t.contentID).HasColumnName("contentID");
-            this.Property(t => t.fromName).HasColumnName("fromName");
-            this.Property(t => t.fromEmail).HasColumnName("fromEmail");
-            this.Property(t => t.ipAddress).HasColumnName("ipAddress");
+            ToTable("ContentComment");
+            Property(t => t.contentCommentID).HasColumnName("contentCommentID");
+            Property(t => t.updatedByUserID).HasColumnName("updatedByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
+            Property(t => t.updateDate).HasColumnName("updateDate");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.statusType).HasColumnName("statusType");
+            Property(t => t.detail).HasColumnName("detail");
+            Property(t => t.contentID).HasColumnName("contentID");
+            Property(t => t.fromName).HasColumnName("fromName");
+            Property(t => t.fromEmail).HasColumnName("fromEmail");
+            Property(t => t.ipAddress).HasColumnName("ipAddress");
 
             // Relationships
-            this.HasOptional(t => t.Content)
+            HasOptional(t => t.Content)
                 .WithMany(t => t.ContentComments)
                 .HasForeignKey(d => d.contentID);
-            this.HasOptional(t => t.UserAccountEntity)
+            HasOptional(t => t.UserAccountEntity)
                 .WithMany(t => t.ContentComments)
                 .HasForeignKey(d => d.createdByUserID);
-
         }
     }
 }

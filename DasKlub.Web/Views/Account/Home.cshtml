@@ -3,7 +3,6 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
 @using DasKlub.Lib.Values
-@using DasKlub.Web.Helpers
 @{
     ViewBag.Title = Messages.StatusUpdate;
     Layout = "~/Views/Shared/Site.cshtml";
@@ -48,7 +47,7 @@
 
                             <i>
                                 @Acknowledgements.GetAcknowledgementCount(s1.StatusUpdateID,
-                                                                          Convert.ToChar(SiteEnums.AcknowledgementType.A.ToString()))</i>
+                                    Convert.ToChar(SiteEnums.AcknowledgementType.A.ToString()))</i>
                         </div>
 
                         @if (s1.PhotoItemID != null)
@@ -127,7 +126,7 @@
                                
                 <i>
                     @Acknowledgements.GetAcknowledgementCount(ViewBag.MostBeatDown.StatusUpdateID,
-                                                              Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString()))</i>
+                        Convert.ToChar(SiteEnums.AcknowledgementType.B.ToString()))</i>
             </div>
             if (ViewBag.MostBeatDown.PhotoItemID != null)
             {
@@ -150,7 +149,7 @@
         @{ Html.RenderPartial("_AdBanner120x60"); } 
     </div>
     <div class="span7">
-        <div class="row" style="margin-left: 0;margin-top:4px;">
+        <div class="row" style="margin-left: 0; margin-top: 4px;">
           
             @using (Html.BeginForm("home", "Account", FormMethod.Post, new {enctype = "multipart/form-data"}))
             {
@@ -163,7 +162,7 @@
                     <img
                      
                         alt="@Messages.Photo" title="@Messages.Photo" src="@Url.Content("~/content/images/icons/icon_photo.png")"  />
-                    <div style="color: #08C; display: inline;font-weight: bold;" class="upload_photo " >@Messages.UploadPhoto</div>
+                    <div style="color: #08C; display: inline; font-weight: bold;" class="upload_photo " >@Messages.UploadPhoto</div>
                     <div class="upload_photo_input"  style="display: none">
                         <input type="file" id="fileUpload" name="file" style="float: left;" />
                         <br />
@@ -179,7 +178,7 @@
         </div>
 
         <div id="status_update_list">
-         @Html.Raw(ViewBag.StatusUpdateList)
+            @Html.Raw(ViewBag.StatusUpdateList)
         </div>
         @if (Request.Browser.IsMobileDevice)
         {
@@ -300,7 +299,7 @@
             var hasInteractedWithPost = false;
             var lastPost = '';
 
-            $("#status_update_list_items ").click(function() {
+            $("#status_update_list_items").click(function() {
                 // stop refresh if they click on a status
                 hasInteractedWithPost = true;
             });
@@ -333,7 +332,7 @@
 
             }
 
-        //setInterval(loadNewContent, 15000);
+            //setInterval(loadNewContent, 15000);
 
         </script>
     }

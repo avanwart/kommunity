@@ -55,12 +55,9 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else
-            {
-                VideoRequestID = Convert.ToInt32(result);
+            VideoRequestID = Convert.ToInt32(result);
 
-                return VideoRequestID;
-            }
+            return VideoRequestID;
         }
 
         public void GetVideoRequest()

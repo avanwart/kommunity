@@ -46,7 +46,7 @@
             if (this.transitioning) return;
             dimension = this.dimension();
             scroll = $.camelCase(['scroll', dimension].join('-'));
-            actives = this.$parent && this.$parent.find('> .accordion-group > .in');
+            actives = this.$parent && this.$parent.find('* > .accordion-group > .in');
             if (actives && actives.length) {
                 hasData = actives.data('collapse');
                 if (hasData && hasData.transitioning) return;
@@ -74,11 +74,12 @@
             return this;
         },
         transition: function(method, startEvent, completeEvent) {
-            var that = this, complete = function() {
-                if (startEvent.type == 'show') that.reset();
-                that.transitioning = 0;
-                that.$element.trigger(completeEvent);
-            };
+            var that = this,
+                complete = function() {
+                    if (startEvent.type == 'show') that.reset();
+                    that.transitioning = 0;
+                    that.$element.trigger(completeEvent);
+                };
             this.$element.trigger(startEvent);
             if (startEvent.isDefaultPrevented()) return;
             this.transitioning = 1;
@@ -108,10 +109,13 @@
 
     $(function() {
         $('body').on('click.collapse.data-api', '[data-toggle=collapse]', function(e) {
-            var $this = $(this), href, target = $this.attr('data-target')
-                || e.preventDefault()
-                || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') //strip for ie7
-                , option = $(target).data('collapse') ? 'toggle' : $this.data();
+            var $this = $(this),
+                href,
+                target = $this.attr('data-target')
+                    || e.preventDefault()
+                    || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') //strip for ie7
+                ,
+                option = $(target).data('collapse') ? 'toggle' : $this.data();
             $(target).collapse(option);
         });
     });

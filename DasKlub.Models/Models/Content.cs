@@ -5,28 +5,29 @@ using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models
 {
-    public partial class Content
+    public class Content
     {
         public Content()
         {
-            this.ContentComments = new List<ContentComment>();
+            ContentComments = new List<ContentComment>();
         }
 
-                [Key]
+        [Key]
         public int contentID { get; set; }
-        public Nullable<int> siteDomainID { get; set; }
+
+        public int? siteDomainID { get; set; }
         public string contentKey { get; set; }
         public string title { get; set; }
-        public Nullable<int> updatedByUserID { get; set; }
-        public System.DateTime createDate { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> createdByUserID { get; set; }
+        public int? updatedByUserID { get; set; }
+        public DateTime createDate { get; set; }
+        public DateTime? updateDate { get; set; }
+        public int? createdByUserID { get; set; }
         public string detail { get; set; }
         public string metaDescription { get; set; }
         public string metaKeywords { get; set; }
-        public Nullable<int> contentTypeID { get; set; }
-        public Nullable<System.DateTime> releaseDate { get; set; }
-        public Nullable<double> rating { get; set; }
+        public int? contentTypeID { get; set; }
+        public DateTime? releaseDate { get; set; }
+        public double? rating { get; set; }
         public string contentPhotoURL { get; set; }
         public string contentPhotoThumbURL { get; set; }
         public string contentVideoURL { get; set; }

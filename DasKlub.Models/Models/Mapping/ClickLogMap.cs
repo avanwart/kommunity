@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
 namespace DasKlubModel.Models.Mapping
@@ -8,32 +7,32 @@ namespace DasKlubModel.Models.Mapping
         public ClickLogMap()
         {
             // Primary Key
-            this.HasKey(t => t.clickLogID);
+            HasKey(t => t.clickLogID);
 
             // Properties
-            this.Property(t => t.ipAddress)
+            Property(t => t.ipAddress)
                 .HasMaxLength(25);
 
-            this.Property(t => t.clickType)
+            Property(t => t.clickType)
                 .IsFixedLength()
                 .HasMaxLength(1);
 
-            this.Property(t => t.referringURL)
+            Property(t => t.referringURL)
                 .HasMaxLength(255);
 
-            this.Property(t => t.currentURL)
+            Property(t => t.currentURL)
                 .HasMaxLength(255);
 
             // Table & Column Mappings
-            this.ToTable("ClickLog");
-            this.Property(t => t.clickLogID).HasColumnName("clickLogID");
-            this.Property(t => t.ipAddress).HasColumnName("ipAddress");
-            this.Property(t => t.clickType).HasColumnName("clickType");
-            this.Property(t => t.referringURL).HasColumnName("referringURL");
-            this.Property(t => t.currentURL).HasColumnName("currentURL");
-            this.Property(t => t.productID).HasColumnName("productID");
-            this.Property(t => t.createdByUserID).HasColumnName("createdByUserID");
-            this.Property(t => t.createDate).HasColumnName("createDate");
+            ToTable("ClickLog");
+            Property(t => t.clickLogID).HasColumnName("clickLogID");
+            Property(t => t.ipAddress).HasColumnName("ipAddress");
+            Property(t => t.clickType).HasColumnName("clickType");
+            Property(t => t.referringURL).HasColumnName("referringURL");
+            Property(t => t.currentURL).HasColumnName("currentURL");
+            Property(t => t.productID).HasColumnName("productID");
+            Property(t => t.createdByUserID).HasColumnName("createdByUserID");
+            Property(t => t.createDate).HasColumnName("createDate");
         }
     }
 }

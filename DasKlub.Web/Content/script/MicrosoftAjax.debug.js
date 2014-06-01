@@ -7,7 +7,7 @@
 //-----------------------------------------------------------------------
 // MicrosoftAjax.js
 // Microsoft AJAX Framework.
- 
+
 Function.__typeName = 'Function';
 Function.__class = true;
 Function.createCallback = function Function$createCallback(method, context) {
@@ -89,7 +89,8 @@ Function._validateParams = function Function$_validateParams(params, expectedPar
     return null;
 };
 Function._validateParameterCount = function Function$_validateParameterCount(params, expectedParams, validateParameterCount) {
-    var i, error,
+    var i,
+        error,
         expectedLen = expectedParams.length,
         actualLen = params.length;
     if (actualLen < expectedLen) {
@@ -133,7 +134,7 @@ Function._validateParameter = function Function$_validateParameter(param, expect
     var expectedElementType = expectedParam.elementType,
         elementMayBeNull = !!expectedParam.elementMayBeNull;
     if (expectedType === Array && typeof(param) !== "undefined" && param !== null &&
-        (expectedElementType || !elementMayBeNull)) {
+    (expectedElementType || !elementMayBeNull)) {
         var expectedElementInteger = !!expectedParam.elementInteger,
             expectedElementDomElement = !!expectedParam.elementDomElement;
         for (var i = 0; i < param.length; i++) {
@@ -759,7 +760,7 @@ Type.prototype.registerClass = function Type$registerClass(typeName, baseType, i
     var parsedName;
     try {
         parsedName = eval(typeName);
-    } catch(e) {
+    } catch (e) {
         throw Error.argument('typeName', Sys.Res.argumentTypeName);
     }
     if (parsedName !== this) throw Error.argument('typeName', Sys.Res.badTypeName);
@@ -804,7 +805,7 @@ Type.prototype.registerInterface = function Type$registerInterface(typeName) {
     var parsedName;
     try {
         parsedName = eval(typeName);
-    } catch(e) {
+    } catch (e) {
         throw Error.argument('typeName', Sys.Res.argumentTypeName);
     }
     if (parsedName !== this) throw Error.argument('typeName', Sys.Res.badTypeName);
@@ -934,7 +935,7 @@ Type._registerNamespace = function Type$_registerNamespace(namespacePath) {
             var parsedName;
             try {
                 parsedName = eval(ns.__typeName);
-            } catch(e) {
+            } catch (e) {
                 parsedName = null;
             }
             if (parsedName !== ns) {
@@ -981,8 +982,8 @@ Sys._isInstanceOfType = function Sys$_isInstanceOfType(type, instance) {
     if (instance instanceof type) return true;
     var instanceType = Object.getType(instance);
     return !!(instanceType === type) ||
-        (instanceType.inheritsFrom && instanceType.inheritsFrom(type)) ||
-        (instanceType.implementsInterface && instanceType.implementsInterface(type));
+    (instanceType.inheritsFrom && instanceType.inheritsFrom(type)) ||
+    (instanceType.implementsInterface && instanceType.implementsInterface(type));
 };
 Sys._getBaseMethod = function Sys$_getBaseMethod(type, instance, name) {
     if (!Sys._isInstanceOfType(type, instance)) throw Error.argumentType('instance', Object.getType(instance), type);
@@ -1212,7 +1213,7 @@ Sys.StringBuilder = function Sys$StringBuilder(initialText) {
     ]);
     if (e) throw e;
     this._parts = (typeof(initialText) !== 'undefined' && initialText !== null && initialText !== '') ?
-        [initialText.toString()] : [];
+    [initialText.toString()] : [];
     this._value = {};
     this._len = 0;
 };
@@ -1235,7 +1236,7 @@ function Sys$StringBuilder$appendLine(text) {
     ]);
     if (e) throw e;
     this._parts[this._parts.length] =
-    ((typeof(text) === 'undefined') || (text === null) || (text === '')) ?
+        ((typeof(text) === 'undefined') || (text === null) || (text === '')) ?
         '\r\n' : text + '\r\n';
 }
 
@@ -1482,8 +1483,8 @@ function Sys$_Debug$_traceDump(object, name, recursive, indentationPadding, loop
         }
         Array.add(loopArray, object);
         if ((object == window) || (object === document) ||
-            (window.HTMLElement && (object instanceof HTMLElement)) ||
-            (typeof(object.nodeName) === 'string')) {
+        (window.HTMLElement && (object instanceof HTMLElement)) ||
+        (typeof(object.nodeName) === 'string')) {
             var tag = object.tagName ? object.tagName : 'DomElement';
             if (object.id) {
                 tag += ' - ' + object.id;
@@ -1629,7 +1630,7 @@ Type.prototype.registerEnum = function Type$registerEnum(name, flags) {
     var parsedName;
     try {
         parsedName = eval(name);
-    } catch(e) {
+    } catch (e) {
         throw Error.argument('name', Sys.Res.argumentTypeName);
     }
     if (parsedName !== this) throw Error.argument('name', Sys.Res.badTypeName);
@@ -1942,8 +1943,7 @@ Sys.Observer._setValue = function Sys$Observer$_setValue(target, propertyName, v
         if (ctx && ctx.updating) {
             ctx.dirty = true;
             return;
-        }
-        ;
+        };
         Sys.Observer.raisePropertyChanged(mainTarget, path[0]);
     }
 };
@@ -2446,8 +2446,17 @@ Date._parseExact = function Date$_parseExact(value, format, cultureInfo) {
     if (match === null) return null;
 
     var groups = parseInfo.groups,
-        era = null, year = null, month = null, date = null, weekDay = null,
-        hour = 0, hourOffset, min = 0, sec = 0, msec = 0, tzMinOffset = null,
+        era = null,
+        year = null,
+        month = null,
+        date = null,
+        weekDay = null,
+        hour = 0,
+        hourOffset,
+        min = 0,
+        sec = 0,
+        msec = 0,
+        tzMinOffset = null,
         pmHour = false;
     for (var j = 0, jl = groups.length; j < jl; j++) {
         var matchGroup = match[j + 1];
@@ -3149,7 +3158,8 @@ function Sys$CultureInfo$_getDateTimeFormats() {
     if (!this._dateTimeFormats) {
         var dtf = this.dateTimeFormat;
         this._dateTimeFormats =
-        [dtf.MonthDayPattern,
+        [
+            dtf.MonthDayPattern,
             dtf.YearMonthPattern,
             dtf.ShortDatePattern,
             dtf.ShortTimePattern,
@@ -3158,7 +3168,8 @@ function Sys$CultureInfo$_getDateTimeFormats() {
             dtf.FullDateTimePattern,
             dtf.RFC1123Pattern,
             dtf.SortableDateTimePattern,
-            dtf.UniversalSortableDateTimePattern];
+            dtf.UniversalSortableDateTimePattern
+        ];
     }
     return this._dateTimeFormats;
 }
@@ -3255,10 +3266,12 @@ Sys.Serialization.JavaScriptSerializer._jsonRegEx = new RegExp('[^,:{}\\[\\]0-9.
 Sys.Serialization.JavaScriptSerializer._jsonStringRegEx = new RegExp('"(\\\\.|[^"\\\\])*"', 'g');
 Sys.Serialization.JavaScriptSerializer._serverTypeFieldName = '__type';
 Sys.Serialization.JavaScriptSerializer._init = function Sys$Serialization$JavaScriptSerializer$_init() {
-    var replaceChars = ['\\u0000', '\\u0001', '\\u0002', '\\u0003', '\\u0004', '\\u0005', '\\u0006', '\\u0007',
+    var replaceChars = [
+        '\\u0000', '\\u0001', '\\u0002', '\\u0003', '\\u0004', '\\u0005', '\\u0006', '\\u0007',
         '\\b', '\\t', '\\n', '\\u000b', '\\f', '\\r', '\\u000e', '\\u000f', '\\u0010', '\\u0011',
         '\\u0012', '\\u0013', '\\u0014', '\\u0015', '\\u0016', '\\u0017', '\\u0018', '\\u0019',
-        '\\u001a', '\\u001b', '\\u001c', '\\u001d', '\\u001e', '\\u001f'];
+        '\\u001a', '\\u001b', '\\u001c', '\\u001d', '\\u001e', '\\u001f'
+    ];
     Sys.Serialization.JavaScriptSerializer._charsToEscape[0] = '\\';
     Sys.Serialization.JavaScriptSerializer._charsToEscapeRegExs['\\'] = new RegExp('\\\\', 'g');
     Sys.Serialization.JavaScriptSerializer._escapeChars['\\'] = '\\\\';
@@ -3433,7 +3446,7 @@ Sys.Serialization.JavaScriptSerializer.deserialize = function Sys$Serialization$
         if (secure && Sys.Serialization.JavaScriptSerializer._jsonRegEx.test(
             exp.replace(Sys.Serialization.JavaScriptSerializer._jsonStringRegEx, ''))) throw null;
         return eval('(' + exp + ')');
-    } catch(e) {
+    } catch (e) {
         throw Error.argument('data', Sys.Res.cannotDeserializeInvalidJson);
     }
 };
@@ -3997,8 +4010,8 @@ Sys.UI.DomEvent = function Sys$UI$DomEvent(eventObject) {
     if (typeof(ev.button) !== 'undefined') {
         this.button = (typeof(ev.which) !== 'undefined') ? ev.button :
             (ev.button === 4) ? Sys.UI.MouseButton.middleButton :
-                (ev.button === 2) ? Sys.UI.MouseButton.rightButton :
-                    Sys.UI.MouseButton.leftButton;
+            (ev.button === 2) ? Sys.UI.MouseButton.rightButton :
+            Sys.UI.MouseButton.leftButton;
     }
     if (etype === 'keypress') {
         this.charCode = ev.charCode || ev.keyCode;
@@ -4085,7 +4098,7 @@ var $addHandler = Sys.UI.DomEvent.addHandler = function Sys$UI$DomEvent$addHandl
             var e = {};
             try {
                 e = Sys.UI.DomElement._getWindow(element).event;
-            } catch(ex) {
+            } catch (ex) {
             }
             return handler.call(element, new Sys.UI.DomEvent(e));
         };
@@ -4308,7 +4321,7 @@ if (document.documentElement.getBoundingClientRect) {
                     offsetX += offset;
                     offsetY += offset;
                 }
-            } catch(ex) {
+            } catch (ex) {
             }
             if (Sys.Browser.version <= 7) {
 
@@ -4320,7 +4333,7 @@ if (document.documentElement.getBoundingClientRect) {
                     rect = d.getBoundingClientRect();
                     document.body.removeChild(d);
                     multiplier = (rect.right - rect.left);
-                } catch(e) {
+                } catch (e) {
                 }
                 if (multiplier && (multiplier !== 1)) {
                     offsetX = Math.floor(offsetX / multiplier);
@@ -4344,7 +4357,8 @@ if (document.documentElement.getBoundingClientRect) {
         ]);
         if (e) throw e;
         if ((element.window && (element.window === element)) || element.nodeType === 9) return new Sys.UI.Point(0, 0);
-        var offsetX = 0, offsetY = 0,
+        var offsetX = 0,
+            offsetY = 0,
             parent,
             previous = null,
             previousStyle = null,
@@ -4353,7 +4367,7 @@ if (document.documentElement.getBoundingClientRect) {
             currentStyle = Sys.UI.DomElement._getCurrentStyle(parent);
             var tagName = parent.tagName ? parent.tagName.toUpperCase() : null;
             if ((parent.offsetLeft || parent.offsetTop) &&
-                ((tagName !== "BODY") || (!previousStyle || previousStyle.position !== "absolute"))) {
+            ((tagName !== "BODY") || (!previousStyle || previousStyle.position !== "absolute"))) {
                 offsetX += parent.offsetLeft;
                 offsetY += parent.offsetTop;
             }
@@ -4388,7 +4402,8 @@ if (document.documentElement.getBoundingClientRect) {
         ]);
         if (e) throw e;
         if ((element.window && (element.window === element)) || element.nodeType === 9) return new Sys.UI.Point(0, 0);
-        var offsetX = 0, offsetY = 0,
+        var offsetX = 0,
+            offsetY = 0,
             parent,
             previous = null,
             previousStyle = null,
@@ -4398,7 +4413,7 @@ if (document.documentElement.getBoundingClientRect) {
             currentStyle = Sys.UI.DomElement._getCurrentStyle(parent);
             if ((parent.offsetLeft || parent.offsetTop) &&
                 !((tagName === "BODY") &&
-                    (!previousStyle || previousStyle.position !== "absolute"))) {
+                (!previousStyle || previousStyle.position !== "absolute"))) {
                 offsetX += parent.offsetLeft;
                 offsetY += parent.offsetTop;
             }
@@ -4408,7 +4423,7 @@ if (document.documentElement.getBoundingClientRect) {
                     offsetY += parseInt(currentStyle.borderTopWidth) || 0;
                 }
                 if (tagName === "TABLE" &&
-                    (currentStyle.position === "relative" || currentStyle.position === "absolute")) {
+                (currentStyle.position === "relative" || currentStyle.position === "absolute")) {
                     offsetX += parseInt(currentStyle.marginLeft) || 0;
                     offsetY += parseInt(currentStyle.marginTop) || 0;
                 }
@@ -5099,7 +5114,7 @@ function Sys$_Application$_domReady() {
                 document.removeEventListener("DOMContentLoaded", check, false);
                 init();
             }, false);
-        } catch(er) {
+        } catch (er) {
         }
     } else if (document.attachEvent) {
         if ((window == window.top) && document.documentElement.doScroll) {
@@ -5107,7 +5122,7 @@ function Sys$_Application$_domReady() {
             check = function() {
                 try {
                     el.doScroll("left");
-                } catch(er) {
+                } catch (er) {
                     timeout = window.setTimeout(check, 0);
                     return;
                 }
@@ -5704,7 +5719,7 @@ Sys._Application.prototype._ensureHistory = function Sys$_Application$_ensureHis
 
         try {
             this._initialState = this._deserializeState(this.get_stateString());
-        } catch(e) {
+        } catch (e) {
         }
 
         this._historyInitialized = true;
@@ -5787,10 +5802,10 @@ Sys._Application.prototype._raiseNavigate = function Sys$_Application$_raiseNavi
     var err;
     try {
         if ((Sys.Browser.agent === Sys.Browser.Firefox) && window.location.hash &&
-            (!window.frameElement || window.top.location.hash)) {
+        (!window.frameElement || window.top.location.hash)) {
             window.history.go(0);
         }
-    } catch(err) {
+    } catch (err) {
     }
 };
 Sys._Application.prototype._serializeState = function Sys$_Application$_serializeState(state) {
@@ -5861,7 +5876,7 @@ if (!window.XMLHttpRequest) {
         for (var i = 0, l = progIDs.length; i < l; i++) {
             try {
                 return new ActiveXObject(progIDs[i]);
-            } catch(ex) {
+            } catch (ex) {
             }
         }
         return null;
@@ -6009,14 +6024,14 @@ Sys.Net.XMLDOM = function Sys$Net$XMLDOM(markup) {
                 xmlDOM.loadXML(markup);
                 xmlDOM.setProperty('SelectionLanguage', 'XPath');
                 return xmlDOM;
-            } catch(ex) {
+            } catch (ex) {
             }
         }
     } else {
         try {
             var domParser = new window.DOMParser();
             return domParser.parseFromString(markup, 'text/xml');
-        } catch(ex) {
+        } catch (ex) {
         }
     }
     return null;
@@ -6040,7 +6055,7 @@ Sys.Net.XMLHttpExecutor = function Sys$Net$XMLHttpExecutor() {
                 if (typeof(_this._xmlHttpRequest.status) === "undefined") {
                     return;
                 }
-            } catch(ex) {
+            } catch (ex) {
                 return;
             }
 
@@ -6152,7 +6167,7 @@ function Sys$Net$XMLHttpExecutor$getResponseHeader(header) {
     var result;
     try {
         result = this._xmlHttpRequest.getResponseHeader(header);
-    } catch(e) {
+    } catch (e) {
     }
     if (!result) result = "";
     return result;
@@ -6195,7 +6210,7 @@ function Sys$Net$XMLHttpExecutor$get_statusCode() {
     var result = 0;
     try {
         result = this._xmlHttpRequest.status;
-    } catch(ex) {
+    } catch (ex) {
     }
     return result;
 }
@@ -6356,7 +6371,7 @@ function Sys$Net$_WebRequestManager$executeRequest(webRequest) {
         try {
             var executorType = eval(this._defaultExecutorType);
             executor = new executorType();
-        } catch(e) {
+        } catch (e) {
             failed = true;
         }
         if (failed || !Sys.Net.WebRequestExecutor.isInstanceOfType(executor) || !executor) {
@@ -6762,7 +6777,7 @@ function Sys$_ScriptLoaderTask$_scriptLoadHandler() {
     }
     var scriptElement = this.get_scriptElement();
     if ((scriptElement.readyState !== 'loaded') &&
-        (scriptElement.readyState !== 'complete')) {
+    (scriptElement.readyState !== 'complete')) {
         return;
     }
 
@@ -6947,8 +6962,9 @@ Sys.Net.WebServiceProxy.invoke = function Sys$Net$WebServiceProxy$invoke(service
     ]);
     if (e) throw e;
     var schemeHost = (enableJsonp !== false) ? Sys.Net.WebServiceProxy._xdomain.exec(servicePath) : null,
-        tempCallback, jsonp = schemeHost && (schemeHost.length === 3) &&
-            ((schemeHost[1] !== location.protocol) || (schemeHost[2] !== location.host));
+        tempCallback,
+        jsonp = schemeHost && (schemeHost.length === 3) &&
+        ((schemeHost[1] !== location.protocol) || (schemeHost[2] !== location.host));
     useGet = jsonp || useGet;
     if (jsonp) {
         jsonpCallbackParameter = jsonpCallbackParameter || "callback";
@@ -6957,7 +6973,11 @@ Sys.Net.WebServiceProxy.invoke = function Sys$Net$WebServiceProxy$invoke(service
     if (!params) params = {};
     var urlParams = params;
     if (!useGet || !urlParams) urlParams = {};
-    var script, error, timeoutcookie = null, loader, body = null,
+    var script,
+        error,
+        timeoutcookie = null,
+        loader,
+        body = null,
         url = Sys.Net.WebRequest._createUrl(methodName
             ? (servicePath + "/" + encodeURIComponent(methodName))
             : servicePath, urlParams, jsonp ? (jsonpCallbackParameter + "=Sys." + tempCallback) : null);
@@ -7031,7 +7051,7 @@ Sys.Net.WebServiceProxy.invoke = function Sys$Net$WebServiceProxy$invoke(service
                 } else {
                     result = response.get_responseData();
                 }
-            } catch(ex) {
+            } catch (ex) {
             }
             var error = response.getResponseHeader("jsonerror");
             var errorObj = (error === "true");

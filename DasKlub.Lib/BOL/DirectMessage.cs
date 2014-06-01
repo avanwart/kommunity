@@ -42,7 +42,7 @@ namespace DasKlub.Lib.BOL
             get
             {
                 if (_message == null) return _message;
-                else return _message.Trim();
+                return _message.Trim();
             }
             set { _message = value; }
         }
@@ -104,12 +104,9 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else
-            {
-                DirectMessageID = Convert.ToInt32(result);
+            DirectMessageID = Convert.ToInt32(result);
 
-                return DirectMessageID;
-            }
+            return DirectMessageID;
         }
 
         public override bool Update()
@@ -164,7 +161,7 @@ namespace DasKlub.Lib.BOL
 
                 sb.Append(@"<li class=""inbox_message"">");
 
-                var ua = IsInbox ? new UserAccount(FromUserAccountID) : new UserAccount(ToUserAccountID);
+                UserAccount ua = IsInbox ? new UserAccount(FromUserAccountID) : new UserAccount(ToUserAccountID);
 
                 var uad = new UserAccountDetail();
                 uad.GetUserAccountDeailForUser(ua.UserAccountID);
@@ -198,7 +195,7 @@ namespace DasKlub.Lib.BOL
                 sb.Append(FromString.ReplaceNewLineWithHTML(Utilities.MakeLink(Message)));
                 sb.Append(@"</p>");
 
-                var mu = Membership.GetUser();
+                MembershipUser mu = Membership.GetUser();
 
                 if (mu != null && Convert.ToInt32(mu.ProviderUserKey) != ua.UserAccountID)
                 {
@@ -240,9 +237,9 @@ namespace DasKlub.Lib.BOL
 
     public class DirectMessages : List<DirectMessage>, IUnorderdList
     {
+        private const int messagereturncount = 20;
         private bool _allInInbox = true;
         private bool _includeStartAndEndTags = true;
-        private const int messagereturncount = 20;
 
         public bool IsChat { get; set; }
 
@@ -267,7 +264,7 @@ namespace DasKlub.Lib.BOL
 
                 if (IncludeStartAndEndTags) sb.Append(@"<ul id=""mail_items"">");
 
-                foreach (var dm in this)
+                foreach (DirectMessage dm in this)
                 {
                     if (!AllInInbox)
                     {
@@ -504,14 +501,14 @@ namespace DasKlub.Lib.BOL
         public static int GetDirectMessagesToUserCount(MembershipUser mu)
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetDirectMessagesToUserCount";
 
             comm.AddParameter("toUserAccountID", Convert.ToInt32(mu.ProviderUserKey));
 
             // execute the stored procedure
-            var rslt = DbAct.ExecuteScalar(comm);
+            string rslt = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(rslt) && Convert.ToInt32(rslt) == 0) return 0;
             return Convert.ToInt32(rslt);

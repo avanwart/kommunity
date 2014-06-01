@@ -71,6 +71,7 @@ ul.path a {
     padding-right: 10px;
     text-decoration: none;
 }
+
 /*begin float clearing hack*/
 
 .floatContainer:after {
@@ -82,14 +83,16 @@ ul.path a {
     visibility: hidden;
 }
 
-.floatContainer { display: inline-block; } 
+.floatContainer { display: inline-block; }
 
 /* Hides from IE Mac \*/
 
 * html .floatContainer { height: 1%; }
 
 .floatContainer { display: block; }
-/* End Hack */ 
+
+/* End Hack */
+
 /*end float clearing hack*/
 
 div.overTip {
@@ -544,6 +547,7 @@ ul.admin li {
     border: 1px solid #000000;
     color: #333333;
 }
+
 /*tinymce editor*/
 
 body#tinymce p {

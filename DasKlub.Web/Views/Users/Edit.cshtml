@@ -7,12 +7,12 @@
 </ul>
 <h1>@ViewBag.Title</h1>
 @Html.ValidationSummary("<h3>" + S("Please check the following errors:") + "</h3>", new Dictionary<string, object>
-    {
-        {"Email", S("Email format is invalid.")}
-        , {"Website", S("Website url format is invalid.")}
-        , {"Photo", S("Photo url format is invalid.")}
-        , {"Username", S("Username is required.")}
-    }, null)
+{
+    {"Email", S("Email format is invalid.")}
+    , {"Website", S("Website url format is invalid.")}
+    , {"Photo", S("Photo url format is invalid.")}
+    , {"Username", S("Username is required.")}
+}, null)
 @{ Html.BeginForm(null, null, FormMethod.Post, new {@id = "accountForm"}); }
 <fieldset>
     <legend>@T("Change your account information")</legend>

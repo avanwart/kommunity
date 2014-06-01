@@ -38,7 +38,9 @@
 
 .ui-helper-clearfix:after { clear: both; }
 
-.ui-helper-clearfix { min-height: 0; /* support: IE7 */ }
+.ui-helper-clearfix {
+    min-height: 0; /* support: IE7 */
+}
 
 .ui-helper-zfix {
     filter: Alpha(Opacity=0);
@@ -137,9 +139,11 @@
 .ui-button:visited,
 .ui-button:hover,
 .ui-button:active { text-decoration: none; }
+
 /* to make room for the icon, a width needs to be set here */
 
 .ui-button-icon-only { width: 2.2em; }
+
 /* button elements seem to need a little more width */
 
 button.ui-button-icon-only { width: 2.4em; }
@@ -173,6 +177,7 @@ button.ui-button-icons-only { width: 3.7em; }
     padding-left: 2.1em;
     padding-right: 2.1em;
 }
+
 /* no icon support for input elements, provide padding by default */
 
 input.ui-button { padding: .4em 1em; }
@@ -212,6 +217,7 @@ input.ui-button { padding: .4em 1em; }
 }
 
 /* workarounds */
+
 /* reset extra padding in Firefox, see h5bp.com/l */
 
 input.ui-button::-moz-focus-inner,
@@ -723,6 +729,7 @@ button.ui-button::-moz-focus-inner {
     text-align: center;
     width: 16px;
 }
+
 /* more specificity required here to overide default borders */
 
 .ui-spinner a.ui-spinner-button {
@@ -730,6 +737,7 @@ button.ui-button::-moz-focus-inner {
     border-right: none;
     border-top: none;
 }
+
 /* vertical centre icon */
 
 .ui-spinner .ui-icon {
@@ -745,7 +753,9 @@ button.ui-button::-moz-focus-inner {
 
 /* TR overrides */
 
-.ui-spinner .ui-icon-triangle-1-s { /* need to fix icons sprite */background-position: -65px -16px; }
+.ui-spinner .ui-icon-triangle-1-s { /* need to fix icons sprite */
+    background-position: -65px -16px;
+}
 
 .ui-tabs {
     padding: .2em;
@@ -945,7 +955,9 @@ body .ui-tooltip { border-width: 2px; }
     opacity: .35;
 }
 
-.ui-state-disabled .ui-icon { filter: Alpha(Opacity=35); /* For IE8 - See #6059 */ }
+.ui-state-disabled .ui-icon {
+    filter: Alpha(Opacity=35); /* For IE8 - See #6059 */
+}
 
 /* Icons
 ----------------------------------*/
@@ -1248,6 +1260,7 @@ body .ui-tooltip { border-width: 2px; }
 .ui-icon-seek-end { background-position: -64px -160px; }
 
 .ui-icon-seek-start { background-position: -80px -160px; }
+
 /* ui-icon-seek-first is deprecated, use ui-icon-seek-start instead */
 
 .ui-icon-seek-first { background-position: -80px -160px; }

@@ -1,15 +1,13 @@
 ﻿@using System.Globalization
-
 @using DasKlub.Lib.BOL
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
 @using DasKlub.Models.Forum
-
-@model ICollection<ForumPost>
+@model ICollection<DasKlub.Models.Forum.ForumPost>
  
-          @{
-              int pageSize = Convert.ToInt32(ViewBag.PageCount);
-          }
+@{
+    int pageSize = Convert.ToInt32(ViewBag.PageCount);
+}
 <div class="row">
     <div class="span8" >
       
@@ -18,24 +16,23 @@
           
                 <hr />
                 <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                        <a href="~/forum" itemprop="url"><span itemprop="title">Forum</span></a></span> &gt; 
-                        <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <a href="@ViewBag.Forum.ForumURL"  itemprop="url"><span itemprop="title">@ViewBag.Forum.Title</span></a>
-                        </span> &gt;     
+                    <a href="~/forum" itemprop="url"><span itemprop="title">Forum</span></a></span> &gt; 
+                <span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="@ViewBag.Forum.ForumURL"  itemprop="url"><span itemprop="title">@ViewBag.Forum.Title</span></a>
+                </span> &gt;     
              
                 
                 @{
-                                              if (ViewBag.PageNumber == 1)
-                                              {
-                                                  <span>
-                                                  @ViewBag.PageTitle
-                                                  </span>
-                                              }
-                                              else
-                                              {
-                                                  <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key)">@ViewBag.PageTitle</a>
-                                              }
-
+                    if (ViewBag.PageNumber == 1)
+                    {
+                        <span>
+                            @ViewBag.PageTitle
+                        </span>
+                    }
+                    else
+                    {
+                        <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key)">@ViewBag.PageTitle</a>
+                    }
                 }   
                 
 
@@ -43,46 +40,39 @@
 
       
                  
-                  @{
-                              if (ViewBag.PageNumber == 1)
-                              {
+                @{
+                    if (ViewBag.PageNumber == 1)
+                    {
+                        <h1>@ViewBag.PageTitle</h1>
+                        <div class="forum_post_content">
+                            <p>
+                                @Html.Raw(Utilities.ConvertTextToHtml(ViewBag.SubForum.Description))
+                            </p>
+                        </div>
+                        <span>Posted By: </span>
+                        <a href="@ViewBag.SubForum.UserAccount.UrlTo.ToString()">@ViewBag.SubForum.UserAccount.UserName</a>
+                        <span>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</span>
+                        <i>@ViewBag.SubForum.CreateDate.ToString("yyyy-MM-dd")</i>
 
-                                  <h1>@ViewBag.PageTitle</h1>
-    <div class="forum_post_content">
-        <p>
-            @Html.Raw(Utilities.ConvertTextToHtml(ViewBag.SubForum.Description))
-        </p>
-    </div>
-                              <span>Posted By: </span> <a href="@ViewBag.SubForum.UserAccount.UrlTo.ToString()">@ViewBag.SubForum.UserAccount.UserName</a>
-                                   <span>@Utilities.TimeElapsedMessage(ViewBag.SubForum.CreateDate)</span> <i>@ViewBag.SubForum.CreateDate.ToString("yyyy-MM-dd")</i> 
-                      
-                                  
-                      @Html.Raw("&nbsp;")
-                             
-                                  if (ViewBag.UserID == ViewBag.SubForum.UserAccount.UserAccountID || ViewBag.IsAdmin)
-                                   {
-                                     
-                                
-                                       @Html.ActionLink(Messages.Edit, "EditSubCategory", 
-                                       new {@key = ViewBag.Forum.Key, @subKey = ViewBag.SubForum.Key} )
 
-                      
-                             @Html.Raw(" | ")
+                        @Html.Raw("&nbsp;")
 
-                                       @Html.ActionLink(Messages.Delete, "DeleteSubForum", new { @forumSubCategoryID = ViewBag.SubForum.ForumSubCategoryID },
-                                                                       new { onclick = "return confirm('" + Messages.Delete + "');" })
-                                       
-                                       
-                                       
-                                   }
-                                   
-                                
-                              }
-                                  
-                  }
+                        if (ViewBag.UserID == ViewBag.SubForum.UserAccount.UserAccountID || ViewBag.IsAdmin)
+                        {
+                            @Html.ActionLink(Messages.Edit, "EditSubCategory",
+                                new {@key = ViewBag.Forum.Key, @subKey = ViewBag.SubForum.Key})
+
+
+                            @Html.Raw(" | ")
+
+                            @Html.ActionLink(Messages.Delete, "DeleteSubForum", new {@forumSubCategoryID = ViewBag.SubForum.ForumSubCategoryID},
+                                new {onclick = "return confirm('" + Messages.Delete + "');"})
+                        }
+                    }
+                }
               
  
-                 <hr />
+                <hr />
             </div>
 
         </div>
@@ -90,40 +80,42 @@
       
         @if (Model != null && Model.Count > 0)
         {
-        
             <br />
-            foreach (var forumCat in Model)
+            foreach (ForumPost forumCat in Model)
             {
                 <div class="row">
                     <a name="@forumCat.ForumPostID"></a>
                           
-                    <div class="span2 user_icons" style="width:120px">
+                    <div class="span2 user_icons" style="width: 120px">
                         <ul>
-                            @{var user = forumCat.UserAccount;
-                              user.ForumPosts = ViewBag.UserPostCounts[forumCat.UserAccount.UserAccountID]; }
+                            @{
+                                UserAccount user = forumCat.UserAccount;
+                                user.ForumPosts = ViewBag.UserPostCounts[forumCat.UserAccount.UserAccountID];
+                            }
                             @Html.Raw(user.ToUnorderdListItem) 
                         </ul>
                     </div>
                     <div class="span6">
                         @if (forumCat.UpdateDate != null)
                         {
-                            <i>@Messages.Edited</i>      @Html.Raw("&nbsp;")
+                            <i>@Messages.Edited</i>
+                            @Html.Raw("&nbsp;")
                             <span title="@FromDate.DateToYYYY_MM_DD(Convert.ToDateTime(forumCat.UpdateDate))">
-                                @Utilities.TimeElapsedMessage(Convert.ToDateTime(forumCat.UpdateDate))</span> 
+                                @Utilities.TimeElapsedMessage(Convert.ToDateTime(forumCat.UpdateDate))</span>
                         }
                         else
                         {
-                        <span title="@FromDate.DateToYYYY_MM_DD(forumCat.CreateDate)">@Utilities.TimeElapsedMessage(forumCat.CreateDate)</span>    
+                            <span title="@FromDate.DateToYYYY_MM_DD(forumCat.CreateDate)">@Utilities.TimeElapsedMessage(forumCat.CreateDate)</span>
                         }
                         
                         
                         @if (ViewBag.UserID == forumCat.CreatedByUserID || ViewBag.IsAdmin)
                         {
-                            @Html.Raw("&nbsp;") 
-                            
-                             
+                            @Html.Raw("&nbsp;")
+
+
                             @Html.ActionLink(Messages.Edit, "EditForumPost", new {@forumPostID = forumCat.ForumPostID})
-                            @Html.Raw(" | ") 
+                            @Html.Raw(" | ")
                             @Html.ActionLink(Messages.Delete, "DeleteForumPost", new {@forumPostID = forumCat.ForumPostID},
                                 new {onclick = "return confirm('" + Messages.Delete + "');"})
                         }
@@ -136,7 +128,7 @@
                             </p>
 
                         </div>
-                        </div>
+                    </div>
                            
                   
                 </div>
@@ -144,44 +136,41 @@
             }
         }
       
-@{ Html.RenderPartial("_socialShares"); }
+        @{ Html.RenderPartial("_socialShares"); }
       
-           <hr />               
+        <hr />               
         <a  class="btn btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/create")">@Messages.Reply : @ViewBag.PageTitle</a>
          
-           <hr />
+        <hr />
             
-          @{
-        
+        @{
+
             if (pageSize > 1)
             {
-             
                 <ul class="pager" style="float: left">
 
                     @for (int pageNumber = 1; pageNumber <= pageSize; pageNumber++)
                     {
-                        
-                         if (ViewBag.PageNumber == pageNumber)
-                         {
-                             <li>
-                                 <a href="#" style="color: #000; background-color: #696969">@pageNumber</a>
-                             </li>
-                         }
-                         else if (pageNumber == 1)
-                         {
-                             <li> 
+                        if (ViewBag.PageNumber == pageNumber)
+                        {
+                            <li>
+                                <a href="#" style="background-color: #696969; color: #000;">@pageNumber</a>
+                            </li>
+                        }
+                        else if (pageNumber == 1)
+                        {
+                            <li> 
 
-                                  <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key)">@pageNumber.ToString(CultureInfo.InvariantCulture)</a>
-                             </li>
-                         }
-                         else
-                         {
-                             <li> 
+                                <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key)">@pageNumber.ToString(CultureInfo.InvariantCulture)</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li> 
 
-                                  <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/" + pageNumber.ToString())">@pageNumber.ToString(CultureInfo.InvariantCulture)</a>
-                             </li>
-                         }
-
+                                <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/" + pageNumber.ToString())">@pageNumber.ToString(CultureInfo.InvariantCulture)</a>
+                            </li>
+                        }
                     }
                 </ul>
                 <div class="clear"></div>
@@ -195,23 +184,22 @@
 
         
         <a href="~/forum">Forum</a> &gt; <a href="@ViewBag.Forum.ForumURL">@ViewBag.Forum.Title</a> &gt;   @{
-                                              if (ViewBag.PageNumber == 1)
-                                              {
-                                                  <span>
-                                                  @ViewBag.PageTitle
-                                                  </span>
-                                              }
-                                              else
-                                              {
-                                                  <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key)">@ViewBag.PageTitle</a>
-                                              }
-
-                                          }
+                                                                                                               if (ViewBag.PageNumber == 1)
+                                                                                                               {
+                                                                                                                   <span>
+                                                                                                                       @ViewBag.PageTitle
+                                                                                                                   </span>
+                                                                                                               }
+                                                                                                               else
+                                                                                                               {
+                                                                                                                   <a href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key)">@ViewBag.PageTitle</a>
+                                                                                                               }
+                                                                                                           }
     </div>
 
     <div class="span4"  >
         
-          <h5>Advertisement</h5>
+        <h5>Advertisement</h5>
         @{ Html.RenderPartial("_AdBanner300x250"); }
         <hr />
         @{ Html.RenderPartial("_AdBanner160x600"); }

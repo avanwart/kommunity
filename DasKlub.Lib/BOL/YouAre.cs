@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Web;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
@@ -57,7 +56,7 @@ namespace DasKlub.Lib.BOL
 
         public string CacheName
         {
-            get { return string.Format("{0}-{1}", GetType().FullName, YouAreID.ToString()); }
+            get { return string.Format("{0}-{1}", GetType().FullName, YouAreID); }
         }
 
         public void RemoveCache()

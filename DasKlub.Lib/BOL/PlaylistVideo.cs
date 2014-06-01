@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using DasKlub.Lib.BOL.ArtistContent;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BOL.ArtistContent;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Operational;
 
@@ -101,9 +101,9 @@ namespace DasKlub.Lib.BOL
 
             if (plvids.Count == 0) return string.Empty;
 
-            var now = DateTime.UtcNow;
-            var elapsedTime = now - ply.PlaylistBegin;
-            var totalSecondsElapsed = Convert.ToInt32(elapsedTime.TotalSeconds);
+            DateTime now = DateTime.UtcNow;
+            TimeSpan elapsedTime = now - ply.PlaylistBegin;
+            int totalSecondsElapsed = Convert.ToInt32(elapsedTime.TotalSeconds);
 
             Video v1 = null;
             SongRecord sngr = null;
@@ -119,12 +119,12 @@ namespace DasKlub.Lib.BOL
 
                 if (totalSecondsElapsed <= v1.ClipLength)
                 {
-                    v1.Intro += totalSecondsElapsed; 
+                    v1.Intro += totalSecondsElapsed;
                     sngr = new SongRecord(v1);
                     sngr.GetRelatedVideos = false;
                     return sngr.JSONResponse;
                 }
-                else if (totalSecondsElapsed <= (secondsElapsed + v1.ClipLength))
+                if (totalSecondsElapsed <= (secondsElapsed + v1.ClipLength))
                 {
                     v1.Intro += (totalSecondsElapsed - secondsElapsed);
                     sngr = new SongRecord(v1);
@@ -158,13 +158,10 @@ namespace DasKlub.Lib.BOL
                 v1 = new Video(plv.VideoID);
 
                 if (!v1.IsEnabled) continue;
-                else
-                {
-                    v1 = new Video(plvids[0].VideoID);
-                    sngr = new SongRecord(v1);
-                    sngr.GetRelatedVideos = false;
-                    return sngr.JSONResponse;
-                }
+                v1 = new Video(plvids[0].VideoID);
+                sngr = new SongRecord(v1);
+                sngr.GetRelatedVideos = false;
+                return sngr.JSONResponse;
             }
 
             return string.Empty;
@@ -180,7 +177,7 @@ namespace DasKlub.Lib.BOL
 
             int indx = 0;
 
-            foreach (var plv in plvids)
+            foreach (PlaylistVideo plv in plvids)
             {
                 var v1 = new Video(plv.VideoID);
 
@@ -210,7 +207,7 @@ namespace DasKlub.Lib.BOL
         public static bool IsPlaylistVideo(int playlistID, int videoID)
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_IsPlaylistVideo";
 
@@ -223,7 +220,7 @@ namespace DasKlub.Lib.BOL
 
         public override bool Update()
         {
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_UpdatePlaylistVideo";
 
@@ -244,7 +241,7 @@ namespace DasKlub.Lib.BOL
         public override bool Delete()
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_DeletePlaylistVideoByID";
 
@@ -316,7 +313,7 @@ namespace DasKlub.Lib.BOL
             string str = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(str)) return 0;
-            else return Convert.ToInt32(str);
+            return Convert.ToInt32(str);
         }
 
         public void GetPlaylistVideosForPlaylist(int playlistID)

@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Common;
 using System.Text;
 using System.Web;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
@@ -267,15 +266,12 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else
-            {
-                var venus = new Venues();
-                venus.RemoveCache();
+            var venus = new Venues();
+            venus.RemoveCache();
 
-                VenueID = Convert.ToInt32(result);
+            VenueID = Convert.ToInt32(result);
 
-                return VenueID;
-            }
+            return VenueID;
         }
 
         public override bool Update()

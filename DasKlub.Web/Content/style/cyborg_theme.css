@@ -122,10 +122,10 @@ textarea {
 
 @media print {
     * {
-        background: transparent!important;
-        box-shadow: none!important;
-        color: #000!important;
-        text-shadow: none!important;
+        background: transparent !important;
+        box-shadow: none !important;
+        color: #000 !important;
+        text-shadow: none !important;
     }
 
     a, a:visited { text-decoration: underline }
@@ -145,7 +145,7 @@ textarea {
 
     tr, img { page-break-inside: avoid }
 
-    img { max-width: 100%!important }
+    img { max-width: 100% !important }
 
     @page {
         margin: .5cm
@@ -4656,7 +4656,7 @@ div.subnav-fixed {
     border-bottom: 1px solid #222
 }
 
-.nav-stacked li > a { border: 1px solid #222!important }
+.nav-stacked li > a { border: 1px solid #222 !important }
 
 .nav-stacked li > a:hover, .nav-stacked li.active > a {
     background-color: #33b5e5;

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using DasKlub.Lib.BaseTypes;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
@@ -191,12 +190,10 @@ namespace DasKlub.Lib.BOL.UserContent
 
         public Content()
         {
-            
         }
 
         public Content(int p)
         {
-           
             Get(p);
         }
 
@@ -317,7 +314,7 @@ namespace DasKlub.Lib.BOL.UserContent
         }
 
         public override bool Update()
-        {        
+        {
             return Set() > 0;
         }
 
@@ -328,9 +325,8 @@ namespace DasKlub.Lib.BOL.UserContent
 
         public int Set()
         {
-
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_SetContent";
 
@@ -356,7 +352,7 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContentVideoURL2), ContentVideoURL2);
 
             // execute the stored procedure
-            var result = DbAct.ExecuteScalar(comm);
+            string result = DbAct.ExecuteScalar(comm);
 
             if (!string.IsNullOrEmpty(result))
                 ContentID = Convert.ToInt32(result);
@@ -458,8 +454,8 @@ namespace DasKlub.Lib.BOL.UserContent
         {
             get
             {
-                var theURL = string.Concat("http://", 
-                                              HttpContext.Current.Request.Url.Authority);
+                string theURL = string.Concat("http://",
+                    HttpContext.Current.Request.Url.Authority);
 
                 theURL += string.Concat("/news/", ContentKey);
 
@@ -478,10 +474,7 @@ namespace DasKlub.Lib.BOL.UserContent
                 {
                     return VirtualPathUtility.ToAbsolute("~/content/contentinfo/default.png");
                 }
-                else
-                {
-                    return VirtualPathUtility.ToAbsolute(ContentPhotoURL);
-                }
+                return VirtualPathUtility.ToAbsolute(ContentPhotoURL);
             }
         }
 
@@ -499,19 +492,19 @@ namespace DasKlub.Lib.BOL.UserContent
 
                 var sb = new StringBuilder(100);
 
-                var keywords = MetaKeywords.Split(',');
+                string[] keywords = MetaKeywords.Split(',');
 
-                var keywordCount = 0;
+                int keywordCount = 0;
 
-                foreach (var keyword in keywords)
+                foreach (string keyword in keywords)
                 {
                     keywordCount++;
 
                     sb.Append(string.Format(@"<a href=""{0}"">{1}</a>",
-                                            VirtualPathUtility.ToAbsolute("~/news/tag/" +
-                                                                          FromString.URLKey(keyword)
-                                                )
-                                            , keyword));
+                        VirtualPathUtility.ToAbsolute("~/news/tag/" +
+                                                      FromString.URLKey(keyword)
+                            )
+                        , keyword));
 
                     if (keywordCount < keywords.Length)
                     {
@@ -537,8 +530,8 @@ namespace DasKlub.Lib.BOL.UserContent
                 sb.Append(@"<div class=""span3"">");
 
                 sb.AppendFormat(@"<a class=""m_over"" href=""{0}""><img src=""{1}""  title=""{2}"" alt=""{2}""></a>",
-                                UrlTo,
-                                Utilities.S3ContentPath(ContentPhotoThumbURL), Title);
+                    UrlTo,
+                    Utilities.S3ContentPath(ContentPhotoThumbURL), Title);
                 sb.Append(@"</div>");
 
 
@@ -555,7 +548,7 @@ namespace DasKlub.Lib.BOL.UserContent
                 sb.Append(@": ");
 
                 sb.AppendFormat(@"<span class=""badge  badge-inverse"" title=""{1}"">{0}</span> ",
-                                Language.ToUpper(), Utilities.GetLanguageNameForCode(Language));
+                    Language.ToUpper(), Utilities.GetLanguageNameForCode(Language));
 
                 sb.Append(@"<br />");
 
@@ -572,7 +565,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
 
                     sb.AppendFormat(@"<div title=""{0}"" class=""sprites sprite-{1}_small""></div>", uad.CountryName,
-                                    uad.Country);
+                        uad.Country);
                     sb.Append(" ");
                     sb.Append(uad.SiteBagesLine);
 
@@ -596,9 +589,9 @@ namespace DasKlub.Lib.BOL.UserContent
                 if (Comments != null && Comments.Count > 0)
                 {
                     sb.AppendFormat(@"<a href=""{0}#content_comments"">{1}: {2}</a>",
-                                    UrlTo,
-                                    Messages.Comments,
-                                    Comments.Count.ToString());
+                        UrlTo,
+                        Messages.Comments,
+                        Comments.Count);
                 }
                 else
                 {
@@ -642,7 +635,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
                 int i = 0;
 
-                foreach (var con in this)
+                foreach (Content con in this)
                 {
                     sb.Append(con.ToUnorderdListItem);
 
@@ -657,9 +650,9 @@ namespace DasKlub.Lib.BOL.UserContent
 
         public static Dictionary<string, string> GetDistinctNewsLanguages()
         {
-            var comm = DbAct.CreateCommand();
+            DbCommand comm = DbAct.CreateCommand();
             comm.CommandText = "up_GetDistinctNewsLanguages";
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt == null || dt.Rows.Count == 0) return null;
 
@@ -667,7 +660,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
             foreach (DataRow dr in dt.Rows)
             {
-                var lang = FromObj.StringFromObj(dr["language"]);
+                string lang = FromObj.StringFromObj(dr["language"]);
                 if (!string.IsNullOrWhiteSpace(lang))
                 {
                     dict.Add(lang, Utilities.GetLanguageNameForCode(lang));
@@ -721,7 +714,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
             keywordsDict =
                 (from entry in keywordsDict orderby entry.Key ascending select entry).ToDictionary(pair => pair.Key,
-                                                                                                   pair => pair.Value);
+                    pair => pair.Value);
 
             var contentTagList = new DataTable();
 
@@ -737,9 +730,9 @@ namespace DasKlub.Lib.BOL.UserContent
                 keywordID++;
 
                 contentTagList.Rows.Add(keywordID, tag.Key, tag.Value, VirtualPathUtility.ToAbsolute("~/news/tag/" +
-                                                                                                      FromString.URLKey(
-                                                                                                          tag.Key)
-                                                                            ));
+                                                                                                     FromString.URLKey(
+                                                                                                         tag.Key)
+                    ));
             }
 
             ds.Tables.Add(contentTagList);
@@ -770,13 +763,13 @@ namespace DasKlub.Lib.BOL.UserContent
             {
                 keywords = FromObj.StringFromObj(dr["metaKeywords"]).Split(',');
 
-                foreach (var keyword in keywords)
+                foreach (string keyword in keywords)
                 {
-                    var word = keyword.Trim().ToLower();
+                    string word = keyword.Trim().ToLower();
 
                     if (keywordsDict.ContainsKey(word))
                     {
-                        var timeFound = keywordsDict[word];
+                        int timeFound = keywordsDict[word];
                         keywordsDict.Remove(word);
                         keywordsDict.Add(word, timeFound + 1);
                     }
@@ -789,12 +782,12 @@ namespace DasKlub.Lib.BOL.UserContent
 
             const int minimumNumberOfTagsToDisplay = 3;
 
-            var keywordsDict2 = keywordsDict.Where(tag => tag.Value >= minimumNumberOfTagsToDisplay)
-                                            .ToDictionary(tag => tag.Key, tag => tag.Value);
+            Dictionary<string, int> keywordsDict2 = keywordsDict.Where(tag => tag.Value >= minimumNumberOfTagsToDisplay)
+                .ToDictionary(tag => tag.Key, tag => tag.Value);
 
             keywordsDict2 =
                 (from entry in keywordsDict2 orderby entry.Key ascending select entry).ToDictionary(pair => pair.Key,
-                                                                                                    pair => pair.Value);
+                    pair => pair.Value);
 
             var contentTagList = new DataTable();
 
@@ -803,16 +796,16 @@ namespace DasKlub.Lib.BOL.UserContent
             contentTagList.Columns.Add("keyword_count", typeof (int));
             contentTagList.Columns.Add("keyword_url", typeof (string));
 
-            var keywordID = 1;
+            int keywordID = 1;
 
             foreach (var tag in keywordsDict2)
             {
                 keywordID++;
 
                 contentTagList.Rows.Add(keywordID, tag.Key, tag.Value, VirtualPathUtility.ToAbsolute("~/news/tag/" +
-                                                                                                      FromString.URLKey(
-                                                                                                          tag.Key)
-                                                                            ));
+                                                                                                     FromString.URLKey(
+                                                                                                         tag.Key)
+                    ));
             }
 
             ds.Tables.Add(contentTagList);
@@ -839,13 +832,13 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter("PageSize", pageSize);
             comm.AddParameter("language", language);
 
-            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
+                foreach (Content content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
                 {
                     Add(content);
                 }
@@ -872,13 +865,13 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter("PageSize", pageSize);
             comm.AddParameter("language", language);
 
-            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
+                foreach (Content content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
                 {
                     Add(content);
                 }
@@ -888,7 +881,7 @@ namespace DasKlub.Lib.BOL.UserContent
         }
 
 
-        public int GetContentPageWiseReleaseAll(int pageIndex, int pageSize )
+        public int GetContentPageWiseReleaseAll(int pageIndex, int pageSize)
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -904,15 +897,15 @@ namespace DasKlub.Lib.BOL.UserContent
 
             comm.AddParameter("PageIndex", pageIndex);
             comm.AddParameter("PageSize", pageSize);
- 
 
-            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+
+            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
+                foreach (Content content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
                 {
                     Add(content);
                 }
@@ -922,7 +915,7 @@ namespace DasKlub.Lib.BOL.UserContent
         }
 
 
-        public int  GetContentPageWiseKeyRelease(int pageIndex, int pageSize,   string key)
+        public int GetContentPageWiseKeyRelease(int pageIndex, int pageSize, string key)
         {
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -940,13 +933,13 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter("PageSize", pageSize);
             comm.AddParameter("key", key);
 
-            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
+                foreach (Content content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
                 {
                     Add(content);
                 }
@@ -974,13 +967,13 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter("PageSize", pageSize);
 
 
-            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds == null || ds.Tables[0].Rows.Count <= 0) return recordCount;
 
-            foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
+            foreach (Content content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
             {
                 Add(content);
             }
@@ -1007,13 +1000,13 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter("key", key);
 
 
-            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
-                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
+                foreach (Content content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
                 {
                     Add(content);
                 }
@@ -1032,7 +1025,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
             comm.AddParameter("createdByUserID", createdByUserID);
 
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
@@ -1047,18 +1040,18 @@ namespace DasKlub.Lib.BOL.UserContent
         public void GetAll()
         {
             // get a configured DbCommand object
-            var comm = DbAct.CreateCommand();
-            
+            DbCommand comm = DbAct.CreateCommand();
+
             // set the stored procedure name
             comm.CommandText = "up_GetAllContent";
 
             // execute the stored procedure
-            var dt = DbAct.ExecuteSelectCommand(comm);
+            DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            foreach (var cnt in from DataRow dr in dt.Rows select new Content(dr))
+            foreach (Content cnt in from DataRow dr in dt.Rows select new Content(dr))
             {
                 Add(cnt);
             }
@@ -1079,11 +1072,11 @@ namespace DasKlub.Lib.BOL.UserContent
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
 
-            var currentTime = DateTime.UtcNow;
+            DateTime currentTime = DateTime.UtcNow;
 
-            foreach (var cnt in dt.Rows.Cast<DataRow>()
-                                       .Select(dr => new Content(dr))
-                                       .Where(cnt => cnt.ReleaseDate < currentTime))
+            foreach (Content cnt in dt.Rows.Cast<DataRow>()
+                .Select(dr => new Content(dr))
+                .Where(cnt => cnt.ReleaseDate < currentTime))
             {
                 Add(cnt);
             }

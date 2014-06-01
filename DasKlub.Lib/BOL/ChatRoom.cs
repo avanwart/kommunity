@@ -45,7 +45,6 @@ namespace DasKlub.Lib.BOL
 
         public ChatRoom()
         {
-            
         }
 
 
@@ -67,7 +66,7 @@ namespace DasKlub.Lib.BOL
 
                 sb.AppendFormat(@"<li><div class=""user_face"">{0}</div>
                         <span style=""font-size:10px"">{1}</span> <span style=""font-size:14px;color:#FFF;font-family: ‘Lucida Sans Unicode’, ‘Lucida Grande’, sans-serif;"">{2}</span> </li>",
-                                uad.UserFace, CreateDate.ToString("u"), Video.IFrameVideo(ChatMessage));
+                    uad.UserFace, CreateDate.ToString("u"), Video.IFrameVideo(ChatMessage));
 
                 return sb.ToString();
             }
@@ -133,12 +132,9 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else
-            {
-                ChatRoomID = Convert.ToInt32(result);
+            ChatRoomID = Convert.ToInt32(result);
 
-                return ChatRoomID;
-            }
+            return ChatRoomID;
         }
     }
 
@@ -169,16 +165,13 @@ namespace DasKlub.Lib.BOL
     }
 }
 
-
 namespace SignalRChat.Common
 {
     public class MessageDetail
     {
-
         public string UserName { get; set; }
 
         public string Message { get; set; }
-
     }
 
     public class UserDetail
@@ -187,5 +180,3 @@ namespace SignalRChat.Common
         public string UserName { get; set; }
     }
 }
-
- 

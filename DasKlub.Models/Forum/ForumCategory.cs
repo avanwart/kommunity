@@ -17,7 +17,7 @@ namespace DasKlub.Models.Forum
 
         #region constructors
 
-        public ForumCategory( )
+        public ForumCategory()
         {
             ForumSubCategory = new Collection<ForumSubCategory>();
         }
@@ -46,7 +46,8 @@ namespace DasKlub.Models.Forum
         {
             get
             {
-                return new Uri(Utilities.URLAuthority() + VirtualPathUtility.ToAbsolute(string.Format("~/forum/{0}", Key)));
+                return
+                    new Uri(Utilities.URLAuthority() + VirtualPathUtility.ToAbsolute(string.Format("~/forum/{0}", Key)));
             }
         }
 
@@ -58,6 +59,5 @@ namespace DasKlub.Models.Forum
         public int TotalPosts { get; set; }
 
         #endregion
-
     }
 }

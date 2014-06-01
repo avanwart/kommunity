@@ -35,7 +35,7 @@ namespace DasKlub.Lib.BOL
                 return theIDs;
             }
 
-       
+
             return null;
         }
 
@@ -73,12 +73,9 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else
-            {
-                ProfileLogID = Convert.ToInt32(result);
+            ProfileLogID = Convert.ToInt32(result);
 
-                return ProfileLogID;
-            }
+            return ProfileLogID;
         }
 
         #region properties

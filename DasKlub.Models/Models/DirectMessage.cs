@@ -1,18 +1,18 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DasKlub.Models.Models;
 
 namespace DasKlubModel.Models
 {
-    public partial class DirectMessage
+    public class DirectMessage
     {
-                [Key]
+        [Key]
         public int directMessageID { get; set; }
-        public Nullable<int> updatedByUserID { get; set; }
-        public System.DateTime createDate { get; set; }
-        public Nullable<System.DateTime> updateDate { get; set; }
-        public Nullable<int> createdByUserID { get; set; }
+
+        public int? updatedByUserID { get; set; }
+        public DateTime createDate { get; set; }
+        public DateTime? updateDate { get; set; }
+        public int? createdByUserID { get; set; }
         public int fromUserAccountID { get; set; }
         public int toUserAccountID { get; set; }
         public bool isRead { get; set; }

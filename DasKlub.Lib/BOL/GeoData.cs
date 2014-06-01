@@ -83,10 +83,6 @@ namespace DasKlub.Lib.BOL
                     postalCode = postalCode + "-000";
                 }
             }
-            else
-            {
-                // not sure why
-            }
 
             // get a configured DbCommand object
             DbCommand comm = DbAct.CreateCommand();
@@ -172,22 +168,22 @@ namespace DasKlub.Lib.BOL
             if (countryCode == SiteEnums.CountryCodeISO.US)
             {
                 param.Value = (postalCode.Length >= 5) ? postalCode.Substring(0, 5) : string.Empty;
-                    // it has to be this way for US
+                // it has to be this way for US
             }
             else if (countryCode == SiteEnums.CountryCodeISO.CA)
             {
                 param.Value = (postalCode.Length >= 3) ? postalCode.Substring(0, 3) : string.Empty;
-                    // it has to be this way for CA
+                // it has to be this way for CA
             }
             else if (countryCode == SiteEnums.CountryCodeISO.NZ)
             {
                 param.Value = (postalCode.Length >= 4) ? postalCode.Substring(0, 4) : string.Empty;
-                    // it has to be this way for NZ
+                // it has to be this way for NZ
             }
             else if (countryCode.ToString() == "GB" || countryCode == SiteEnums.CountryCodeISO.UK)
             {
                 param.Value = (postalCode.Length >= 3) ? postalCode.Substring(0, 3) : string.Empty;
-                    // it has to be this way for GB and UK
+                // it has to be this way for GB and UK
             }
             else if (countryCode == SiteEnums.CountryCodeISO.JP)
             {
@@ -232,22 +228,22 @@ namespace DasKlub.Lib.BOL
             if (countryCode == SiteEnums.CountryCodeISO.US)
             {
                 param.Value = (postalCode.Length >= 5) ? postalCode.Substring(0, 5) : string.Empty;
-                    // it has to be this way for US
+                // it has to be this way for US
             }
             else if (countryCode == SiteEnums.CountryCodeISO.CA)
             {
                 param.Value = (postalCode.Length >= 3) ? postalCode.Substring(0, 3) : string.Empty;
-                    // it has to be this way for CA
+                // it has to be this way for CA
             }
             else if (countryCode == SiteEnums.CountryCodeISO.NZ)
             {
                 param.Value = (postalCode.Length >= 4) ? postalCode.Substring(0, 4) : string.Empty;
-                    // it has to be this way for NZ
+                // it has to be this way for NZ
             }
             else if (countryCode.ToString() == "GB" || countryCode == SiteEnums.CountryCodeISO.UK)
             {
                 param.Value = (postalCode.Length >= 3) ? postalCode.Substring(0, 3) : string.Empty;
-                    // it has to be this way for GB and UK
+                // it has to be this way for GB and UK
             }
             else
             {
@@ -314,10 +310,7 @@ namespace DasKlub.Lib.BOL
             {
                 return GetStateCodeForStateName(rsult);
             }
-            else
-            {
-                return rsult;
-            }
+            return rsult;
         }
 
         /// <summary>
@@ -358,13 +351,12 @@ namespace DasKlub.Lib.BOL
                 string city = FromObj.StringFromObj(dt.Rows[0]["placename"]);
                 string state = FromObj.StringFromObj(dt.Rows[0]["state"]);
 
-                return string.Concat(@"{""City"":""", city, 
-                                   @""",""State"":""", GetStateCodeForStateName(state), 
-                                    @"""}");
-                    //JSON String
+                return string.Concat(@"{""City"":""", city,
+                    @""",""State"":""", GetStateCodeForStateName(state),
+                    @"""}");
+                //JSON String
             }
-            else
-                return string.Empty;
+            return string.Empty;
         }
 
         /// <summary>
@@ -652,10 +644,7 @@ namespace DasKlub.Lib.BOL
             {
                 return (SiteEnums.CountryCodeISO) Enum.Parse(typeof (SiteEnums.CountryCodeISO), countryCode);
             }
-            else
-            {
-                return SiteEnums.CountryCodeISO.U0;
-            }
+            return SiteEnums.CountryCodeISO.U0;
         }
 
 
@@ -675,8 +664,8 @@ namespace DasKlub.Lib.BOL
             }
 
             IOrderedEnumerable<string> items = from k in d.Keys
-                                               orderby d[k] ascending
-                                               select k;
+                orderby d[k] ascending
+                select k;
 
             var theList = new Dictionary<string, string>();
 
@@ -712,8 +701,8 @@ namespace DasKlub.Lib.BOL
             }
 
             IOrderedEnumerable<string> items = from k in d.Keys
-                                               orderby d[k] ascending
-                                               select k;
+                orderby d[k] ascending
+                select k;
 
             var theList = new Dictionary<string, string>();
 

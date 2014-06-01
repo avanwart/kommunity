@@ -1,98 +1,95 @@
-﻿@using DasKlub.Lib.Configs
-@using DasKlub.Lib.Operational
-@using DasKlub.Lib.Resources
-@using DasKlub.Lib.Values          
-   <ul class="nav the-icons">
+﻿@using DasKlub.Lib.Resources
+<ul class="nav the-icons">
                             
 
                             
                             
-                            @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "news" &&
-                                 ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
-                            {
-                                <li class="active"><a  
+    @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "news" &&
+         ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
+    {
+        <li class="active"><a  
                             
                             
-                                                       href="~/news">
-                                                       <i class="icon-th-list"></i> @Messages.News</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="~/news">
-                                        <i class="icon-th-list"></i> @Messages.News</a> </li>
-                            }
+                               href="~/news">
+                               <i class="icon-th-list"></i> @Messages.News</a> </li>
+    }
+    else
+    {
+        <li><a href="~/news">
+                <i class="icon-th-list"></i> @Messages.News</a> </li>
+    }
        
        
-                            @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "forum" &&
-                                  ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
-                            {
-                                <li class="active"><a class="current_page_item" href="~/forum">
-                                                       <i class="icon-flag"></i> Forum</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="~/forum">
-                                        <i class="icon-flag"></i> Forum</a> </li>
-                            }
+    @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "forum" &&
+          ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
+    {
+        <li class="active"><a class="current_page_item" href="~/forum">
+                               <i class="icon-flag"></i> Forum</a> </li>
+    }
+    else
+    {
+        <li><a href="~/forum">
+                <i class="icon-flag"></i> Forum</a> </li>
+    }
 
-       <li
+    <li
                   
-                                @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "findusers" &&
-                                     ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
-                                {
-                                    <text>class="active" </text>
-                                }
-                                ><a href="~/findusers">
-                                     <i class="icon-search"></i>
-                                     @Messages.FindUsers</a> </li>
+        @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "findusers" &&
+             ViewContext.RouteData.Values["action"].ToString().ToLower() == "index")
+        {
+            <text>class="active" </text>
+        }
+        ><a href="~/findusers">
+             <i class="icon-search"></i>
+             @Messages.FindUsers</a> </li>
 
                                
 
-                            @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "video" &&
-                                  ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
-                            {
-                                <li class="active"><a class="current_page_item" href="~/video">
-                                                       <i class="icon-film"></i> @Messages.Videos</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="~/video">
-                                        <i class="icon-film"></i> @Messages.Videos</a> </li>
-                            }
-                            @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "radio")
-                            {
-                                <li class="active"><a class="current_page_item " href="~/radio">
-                                                       <i class="icon-music"></i> @Messages.Radio</a> </li>
-                            }
-                            else
-                            {
-                                <li><a class="current_page_item " href="~/radio">
-                                        <i class="icon-music"></i> @Messages.Radio</a> </li>
-                            }
-                            @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "photos" &&
-                                  ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
-                            {
-                                <li class="active"><a class="current_page_item" href="~/photos">
-                                                       <i class="icon-camera"></i> @Messages.Photos</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="~/photos">
-                                        <i class="icon-camera"></i> @Messages.Photos</a> </li>
-                            }
+    @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "video" &&
+          ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
+    {
+        <li class="active"><a class="current_page_item" href="~/video">
+                               <i class="icon-film"></i> @Messages.Videos</a> </li>
+    }
+    else
+    {
+        <li><a href="~/video">
+                <i class="icon-film"></i> @Messages.Videos</a> </li>
+    }
+    @if (ViewContext.RouteData.Values["controller"].ToString().ToLower() == "radio")
+    {
+        <li class="active"><a class="current_page_item " href="~/radio">
+                               <i class="icon-music"></i> @Messages.Radio</a> </li>
+    }
+    else
+    {
+        <li><a class="current_page_item " href="~/radio">
+                <i class="icon-music"></i> @Messages.Radio</a> </li>
+    }
+    @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "photos" &&
+          ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
+    {
+        <li class="active"><a class="current_page_item" href="~/photos">
+                               <i class="icon-camera"></i> @Messages.Photos</a> </li>
+    }
+    else
+    {
+        <li><a href="~/photos">
+                <i class="icon-camera"></i> @Messages.Photos</a> </li>
+    }
 
        
-       @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "store" &&
-                                  ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
-                            {
-                                <li class="active"><a class="current_page_item" href="~/store">
-                                                       <i class="icon-tag"></i> @Messages.Store</a> </li>
-                            }
-                            else
-                            {
-                                <li><a href="~/store">
-                                        <i class="icon-tag"></i> @Messages.Store</a> </li>
-                            }
+    @if ((ViewContext.RouteData.Values["controller"].ToString().ToLower() == "store" &&
+          ViewContext.RouteData.Values["action"].ToString().ToLower() == "index"))
+    {
+        <li class="active"><a class="current_page_item" href="~/store">
+                               <i class="icon-tag"></i> @Messages.Store</a> </li>
+    }
+    else
+    {
+        <li><a href="~/store">
+                <i class="icon-tag"></i> @Messages.Store</a> </li>
+    }
                                         
                        
-                        </ul>
+</ul>

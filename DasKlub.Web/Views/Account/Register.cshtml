@@ -2,7 +2,6 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
 @using DasKlub.Lib.Values
-
 @{
     ViewBag.Title = Messages.Register;
 }
@@ -15,9 +14,9 @@
         @{ Html.RenderPartial("_registerControls"); }
     </div>
     <div class="span4">
-                    @Html.Raw(SiteDomain.GetSiteDomainValue(
-                        SiteEnums.SiteBrandType.MISSN,
-                        Utilities.GetCurrentLanguageCode())) 
+        @Html.Raw(SiteDomain.GetSiteDomainValue(
+            SiteEnums.SiteBrandType.MISSN,
+            Utilities.GetCurrentLanguageCode())) 
   
         
 

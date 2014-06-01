@@ -1,4 +1,7 @@
-﻿@using DasKlub.Lib.Resources
+﻿@using DasKlub.Lib.BOL.DomainConnection
+@using DasKlub.Lib.Operational
+@using DasKlub.Lib.Resources
+@using DasKlub.Lib.Values
 @{
     ViewBag.Title = Messages.Visitors;
 }
@@ -37,9 +40,9 @@
     </div>
     <div class="span4">
     
-            @Html.Raw(DasKlub.Lib.BOL.DomainConnection.SiteDomain.GetSiteDomainValue(
-            DasKlub.Lib.Values.SiteEnums.SiteBrandType.UWRIT,
-            DasKlub.Lib.Operational.Utilities.GetCurrentLanguageCode()))
+        @Html.Raw(SiteDomain.GetSiteDomainValue(
+            SiteEnums.SiteBrandType.UWRIT,
+            Utilities.GetCurrentLanguageCode()))
       
 
         @if (ViewBag.AdminLink != null)

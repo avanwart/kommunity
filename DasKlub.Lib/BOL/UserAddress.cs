@@ -234,12 +234,9 @@ namespace DasKlub.Lib.BOL
             {
                 return 0;
             }
-            else
-            {
-                UserAddressID = Convert.ToInt32(result);
+            UserAddressID = Convert.ToInt32(result);
 
-                return UserAddressID;
-            }
+            return UserAddressID;
         }
 
 
@@ -417,7 +414,7 @@ namespace DasKlub.Lib.BOL
         public bool Set()
         {
             if (UserAddressID == 0) return Create() > 0;
-            else return Update();
+            return Update();
         }
     }
 

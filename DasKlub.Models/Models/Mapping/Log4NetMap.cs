@@ -8,44 +8,44 @@ namespace DasKlubModel.Models.Mapping
         public Log4NetMap()
         {
             // Primary Key
-            this.HasKey(t => new { t.Id, t.Date, t.Thread, t.Level, t.Logger, t.Message });
+            HasKey(t => new {t.Id, t.Date, t.Thread, t.Level, t.Logger, t.Message});
 
             // Properties
-            this.Property(t => t.Id)
+            Property(t => t.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            this.Property(t => t.Thread)
+            Property(t => t.Thread)
                 .IsRequired()
                 .HasMaxLength(255);
 
-            this.Property(t => t.Level)
+            Property(t => t.Level)
                 .IsRequired()
                 .HasMaxLength(50);
 
-            this.Property(t => t.Logger)
+            Property(t => t.Logger)
                 .IsRequired()
                 .HasMaxLength(255);
 
-            this.Property(t => t.Message)
+            Property(t => t.Message)
                 .IsRequired()
                 .HasMaxLength(4000);
 
-            this.Property(t => t.Exception)
+            Property(t => t.Exception)
                 .HasMaxLength(2000);
 
-            this.Property(t => t.Location)
+            Property(t => t.Location)
                 .HasMaxLength(255);
 
             // Table & Column Mappings
-            this.ToTable("Log4Net");
-            this.Property(t => t.Id).HasColumnName("Id");
-            this.Property(t => t.Date).HasColumnName("Date");
-            this.Property(t => t.Thread).HasColumnName("Thread");
-            this.Property(t => t.Level).HasColumnName("Level");
-            this.Property(t => t.Logger).HasColumnName("Logger");
-            this.Property(t => t.Message).HasColumnName("Message");
-            this.Property(t => t.Exception).HasColumnName("Exception");
-            this.Property(t => t.Location).HasColumnName("Location");
+            ToTable("Log4Net");
+            Property(t => t.Id).HasColumnName("Id");
+            Property(t => t.Date).HasColumnName("Date");
+            Property(t => t.Thread).HasColumnName("Thread");
+            Property(t => t.Level).HasColumnName("Level");
+            Property(t => t.Logger).HasColumnName("Logger");
+            Property(t => t.Message).HasColumnName("Message");
+            Property(t => t.Exception).HasColumnName("Exception");
+            Property(t => t.Location).HasColumnName("Location");
         }
     }
 }

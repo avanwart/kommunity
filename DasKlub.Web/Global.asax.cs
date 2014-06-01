@@ -1,4 +1,5 @@
-﻿using System;
+﻿// needed
+using System;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
@@ -16,8 +17,6 @@ using DasKlub.Lib.Values;
 using DasKlub.Web.App_Start;
 using log4net;
 using log4net.Config;
-using Microsoft.AspNet.SignalR;// needed
-using System.Web.Http;
 
 namespace DasKlub.Web
 {
@@ -34,7 +33,7 @@ namespace DasKlub.Web
             filters.Add(new HandleErrorAttribute());
         }
 
-         
+
         public void Application_Start()
         {
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -48,7 +47,7 @@ namespace DasKlub.Web
             AreaRegistration.RegisterAllAreas();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             RegisterGlobalFilters(GlobalFilters.Filters);
-           
+
             DefaultModelBinder.ResourceClassKey = "Messages";
         }
 
@@ -56,13 +55,13 @@ namespace DasKlub.Web
         {
             if (string.IsNullOrWhiteSpace(Request.QueryString[SiteEnums.QueryStringNames.language.ToString()]) ||
                 User == null) return;
-            var mu = Membership.GetUser();
+            MembershipUser mu = Membership.GetUser();
 
             if (mu == null) return;
             var uad = new UserAccountDetail();
             uad.GetUserAccountDeailForUser(Convert.ToInt32(mu.ProviderUserKey));
 
-            var language = Request.QueryString[SiteEnums.QueryStringNames.language.ToString()];
+            string language = Request.QueryString[SiteEnums.QueryStringNames.language.ToString()];
 
             uad.DefaultLanguage = language;
             uad.Update();
@@ -72,14 +71,14 @@ namespace DasKlub.Web
         {
             HttpContext.Current.Response.Cache.SetNoServerCaching(); //.SetMaxAge(TimeSpan.FromDays(366));
 
-            var browserLanguage = GeneralConfigs.DefaultLanguage;
+            string browserLanguage = GeneralConfigs.DefaultLanguage;
 
             if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
             {
                 browserLanguage = Request.UserLanguages[0];
             }
 
-            var language = GeneralConfigs.DefaultLanguage;
+            string language = GeneralConfigs.DefaultLanguage;
 
             if (HttpContext.Current == null) return;
             if (!string.IsNullOrWhiteSpace(Request.QueryString[SiteEnums.QueryStringNames.language.ToString()]))
@@ -92,7 +91,7 @@ namespace DasKlub.Web
             }
             else if (Request.Cookies[SiteEnums.CookieName.Usersetting.ToString()] != null)
             {
-                var hc = Request.Cookies[SiteEnums.CookieName.Usersetting.ToString()];
+                HttpCookie hc = Request.Cookies[SiteEnums.CookieName.Usersetting.ToString()];
 
                 if (hc != null)
                 {
@@ -103,7 +102,7 @@ namespace DasKlub.Web
             {
                 language = browserLanguage.Substring(0, 2);
 
-                var isImplmented =
+                bool isImplmented =
                     Enum.GetValues(typeof (SiteEnums.SiteLanguages))
                         .Cast<SiteEnums.SiteLanguages>()
                         .Any(possibleLang => possibleLang.ToString() == language.ToUpper());
@@ -129,7 +128,7 @@ namespace DasKlub.Web
 
         protected void Application_Error()
         {
-            var exception = Server.GetLastError();
+            Exception exception = Server.GetLastError();
             var httpException = exception as HttpException;
 
             //Utilities.LogError(httpException);
@@ -174,14 +173,14 @@ namespace DasKlub.Web
 
             vids.GetAll();
 
-            foreach (var vv1 in from vv1 in vids
-                                  where vv1.IsEnabled
-                                  let sss = Utilities.GETRequest(new Uri(
-                                                                     string.Format("http://i3.ytimg.com/vi/{0}/1.jpg",
-                                                                                   vv1.ProviderKey)), true)
-                                  where sss != null
-                                  where !Convert.ToBoolean(sss)
-                                  select vv1)
+            foreach (Video vv1 in from vv1 in vids
+                where vv1.IsEnabled
+                let sss = Utilities.GETRequest(new Uri(
+                    string.Format("http://i3.ytimg.com/vi/{0}/1.jpg",
+                        vv1.ProviderKey)), true)
+                where sss != null
+                where !Convert.ToBoolean(sss)
+                select vv1)
             {
                 vv1.IsEnabled = false;
                 vv1.Update();
@@ -213,14 +212,13 @@ namespace DasKlub.Web
             var chatters = new ChatRoomUsers();
             chatters.GetChattingUsers();
 
-            foreach (var chatUser in from chatUser in chatters
-                                              let user = new UserAccount(chatUser.CreatedByUserID)
-                                              where !user.IsOnLine
-                                              select chatUser)
+            foreach (ChatRoomUser chatUser in from chatUser in chatters
+                let user = new UserAccount(chatUser.CreatedByUserID)
+                where !user.IsOnLine
+                select chatUser)
             {
                 chatUser.DeleteChatRoomUser();
             }
         }
     }
 }
- 

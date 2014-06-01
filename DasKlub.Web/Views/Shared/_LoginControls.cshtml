@@ -3,16 +3,16 @@
 {
     <h4>@Messages.SignIn</h4>
     using (Html.BeginForm("LogOn", "Account", FormMethod.Post, new
-        {
-            @class = "form-inline",
-            @style="margin-bottom:0;"
-        }))
+    {
+        @class = "form-inline",
+        @style = "margin-bottom:0;"
+    }))
     {
         @Html.TextBox("userName", string.Empty,
-                      new {@class = "input-small", placeholder = @Messages.UserName, @style = "margin-right:5px;"})
+            new {@class = "input-small", placeholder = @Messages.UserName, @style = "margin-right:5px;"})
 
         @Html.Password("password", string.Empty,
-                       new {@class = "input-small", placeholder = @Messages.Password})
+            new {@class = "input-small", placeholder = @Messages.Password})
 
         <button class="btn btn-primary" type="submit">
             @Messages.SignIn</button>

@@ -198,6 +198,7 @@
     margin: 1px 2px 0 0;
     width: auto;
 }
+
 /* End: Time (current / duration) */
 
 
@@ -206,12 +207,14 @@
 .mejs-controls .mejs-play button { background-position: 0 0; }
 
 .mejs-controls .mejs-pause button { background-position: 0 -16px; }
+
 /* End: Play/pause */
 
 
 /* Stop */
 
 .mejs-controls .mejs-stop button { background-position: -112px 0; }
+
 /* End: Play/pause */
 
 /* Start: Progress bar */
@@ -376,6 +379,7 @@
 	visibility:visible;
 }
 */
+
 /* End: Progress bar */
 
 /* Start: Fullscreen */
@@ -383,6 +387,7 @@
 .mejs-controls .mejs-fullscreen-button button { background-position: -32px 0; }
 
 .mejs-controls .mejs-unfullscreen button { background-position: -32px -16px; }
+
 /* End: Fullscreen */
 
 
@@ -417,6 +422,7 @@
     -webkit-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
 }
+
 /*
 .mejs-controls .mejs-volume-button:hover .mejs-volume-slider {
 	display: block;
@@ -547,6 +553,7 @@
     visibility: hidden;
     width: 130px;
 }
+
 /*
 .mejs-controls .mejs-captions-button:hover  .mejs-captions-selector {
 	visibility: visible;
@@ -696,6 +703,7 @@
     background: url(background.png);
     padding: 3px 5px;
 }
+
 /* End: TRACK (Captions and Chapters) */
 
 
@@ -715,6 +723,7 @@
     display: block;
     padding: 15px;
 }
+
 /* End: ERROR */
 
 
@@ -723,6 +732,7 @@
 .mejs-controls .mejs-loop-off button { background-position: -64px -16px; }
 
 .mejs-controls .mejs-loop-on button { background-position: -64px 0; }
+
 /* End: Loop */
 
 /* Start: backlight */
@@ -730,12 +740,14 @@
 .mejs-controls .mejs-backlight-off button { background-position: -80px -16px; }
 
 .mejs-controls .mejs-backlight-on button { background-position: -80px 0; }
+
 /* End: backlight */
 
 
 /* Start: picture controls */
 
 .mejs-controls .mejs-picturecontrols-button { background-position: -96px 0; }
+
 /* End: picture controls */
 
 
@@ -828,6 +840,7 @@
     padding: 4px 0 0 0;
     width: 100px;
 }
+
 /* End: SourceChooser */
 
 

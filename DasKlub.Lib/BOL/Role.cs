@@ -79,7 +79,7 @@ namespace DasKlub.Lib.BOL
             {
                 return true;
             }
-            else return false;
+            return false;
         }
 
         /// <summary>
@@ -114,7 +114,6 @@ namespace DasKlub.Lib.BOL
         {
             // TODO: IMPLMENET
             return true;
-         
         }
 
         #region ICacheName Members

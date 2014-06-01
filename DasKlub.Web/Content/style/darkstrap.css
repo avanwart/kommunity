@@ -29,6 +29,7 @@ body {
 /* line 39, ../sass/darkstrap.scss */
 
 .breadcrumb { border: 0; }
+
 /* line 42, ../sass/darkstrap.scss */
 
 .breadcrumb li { text-shadow: 0 1px 0 #000; }
@@ -72,6 +73,7 @@ h6 { color: #999; }
 /* line 68, ../sass/darkstrap.scss */
 
 .nav-tabs { border-bottom: 1px solid #666; }
+
 /* line 71, ../sass/darkstrap.scss */
 
 .nav-tabs > .active > a, .nav-tabs > .active > a:hover {
@@ -79,6 +81,7 @@ h6 { color: #999; }
     border-color: #666 #666 transparent #666;
     color: #fff;
 }
+
 /* line 76, ../sass/darkstrap.scss */
 
 .nav-tabs > li > a:hover {
@@ -86,6 +89,7 @@ h6 { color: #999; }
     border-color: #2f2f2f #2f2f2f #666666 #2f2f2f;
     color: #00aaff;
 }
+
 /* line 83, ../sass/darkstrap.scss */
 
 .nav-tabs.nav-stacked > li > a, .nav-tabs.nav-stacked > li > a:hover { border-color: #666; }
@@ -223,12 +227,14 @@ legend {
 .control-group.warning > label,
 .control-group.warning .help-block,
 .control-group.warning .help-inline { color: #faa732; }
+
 /* line 13, ../sass/mixins.scss */
 
 .control-group.warning input, .control-group.warning select, .control-group.warning textarea {
     border-color: #faa732;
     color: #faa732;
 }
+
 /* line 20, ../sass/mixins.scss */
 
 .control-group.warning input:focus,
@@ -240,15 +246,18 @@ legend {
     border-color: #faa732;
     box-shadow: 0 0 6px #faa732;
 }
+
 /* line 12, ../sass/mixins.scss */
 
 .control-group.success > label, .control-group.success .help-block, .control-group.success .help-inline { color: #5bb75b; }
+
 /* line 13, ../sass/mixins.scss */
 
 .control-group.success input, .control-group.success select, .control-group.success textarea {
     border-color: #5bb75b;
     color: #5bb75b;
 }
+
 /* line 20, ../sass/mixins.scss */
 
 .control-group.success input:focus, .control-group.success select:focus, .control-group.success textarea:focus {
@@ -258,15 +267,18 @@ legend {
     border-color: #5bb75b;
     box-shadow: 0 0 6px #5bb75b;
 }
+
 /* line 12, ../sass/mixins.scss */
 
 .control-group.error > label, .control-group.error .help-block, .control-group.error .help-inline { color: #fc5b5e; }
+
 /* line 13, ../sass/mixins.scss */
 
 .control-group.error input, .control-group.error select, .control-group.error textarea {
     border-color: #fc5b5e;
     color: #fc5b5e;
 }
+
 /* line 20, ../sass/mixins.scss */
 
 .control-group.error input:focus, .control-group.error select:focus, .control-group.error textarea:focus {
@@ -280,6 +292,7 @@ legend {
 /* line 182, ../sass/darkstrap.scss */
 
 .table thead { color: white; }
+
 /* line 185, ../sass/darkstrap.scss */
 
 .table td { border-top-color: #666; }
@@ -291,6 +304,7 @@ legend {
 /* line 197, ../sass/darkstrap.scss */
 
 .table-bordered { border: 1px solid #666; }
+
 /* line 202, ../sass/darkstrap.scss */
 
 .table-bordered th + th,
@@ -322,6 +336,7 @@ legend {
     background-color: #2f2f2f;
     border-color: #666;
 }
+
 /* line 222, ../sass/darkstrap.scss */
 
 .pager a:hover {
@@ -337,6 +352,7 @@ legend {
     color: #fff;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
+
 /* line 234, ../sass/darkstrap.scss */
 
 .alert h4 { color: #c17305; }
@@ -349,6 +365,7 @@ legend {
     color: #fff;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
+
 /* line 234, ../sass/darkstrap.scss */
 
 .alert-success h4 { color: #347834; }
@@ -361,6 +378,7 @@ legend {
     color: #fff;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
+
 /* line 234, ../sass/darkstrap.scss */
 
 .alert-error h4 { color: #ed0409; }
@@ -373,6 +391,7 @@ legend {
     color: #fff;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
+
 /* line 234, ../sass/darkstrap.scss */
 
 .alert-info h4 { color: #204b61; }
@@ -403,6 +422,7 @@ legend {
 /* line 266, ../sass/darkstrap.scss */
 
 blockquote { border-left-color: #111; }
+
 /* line 268, ../sass/darkstrap.scss */
 
 blockquote.pull-right { border-right-color: #111; }

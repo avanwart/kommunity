@@ -137,10 +137,10 @@ var pager =
     highlightMessage: function(selector) {
         var original = $(selector).css("backgroundColor");
         $(selector).animate({
-                backgroundColor: "#DCECF4"
-            }, 2000, "linear", function() {
-                $(selector).animate({ backgroundColor: original }, 2000, "linear", function() { $(selector).css("backgroundColor", null); });
-            });
+            backgroundColor: "#DCECF4"
+        }, 2000, "linear", function() {
+            $(selector).animate({ backgroundColor: original }, 2000, "linear", function() { $(selector).css("backgroundColor", null); });
+        });
     },
     showAll: function() {
         if (pager.enabled) {
