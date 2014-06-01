@@ -7,7 +7,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL.VideoContest
 {
-    public class ContestVideoVote : BaseIUserLogCRUD
+    public class ContestVideoVote : BaseIUserLogCrud
     {
         #region properties
 

@@ -18,10 +18,8 @@ using DasKlub.Models.Models;
 using DasKlub.Web.Models;
 using Google.GData.Client;
 using Google.YouTube;
-using HttpUtility = System.Web.HttpUtility;
 using Utilities = DasKlub.Lib.Operational.Utilities;
 using Video = DasKlub.Lib.BOL.Video;
-using System.Text;
 using DasKlub.Lib.DAL;
 using System.Data;
 
@@ -32,12 +30,11 @@ namespace DasKlub.Web.Controllers
     {
         private readonly IForumCategoryRepository _forumcategoryRepository;
         private readonly MembershipUser _mu;
-        private const int AmountOfNewThreadsOnHomepage = 15;
         private const int CountOfNewsItemsOnHomepage = 3;
         private const int AmountOfImagesToShowOnTheHomepage = 12;
-        private const string provider = "YT";// YouTube
+        private const string Provider = "YT";// YouTube
         private const int ForumThreadsToDisplay = 20;
-        private char InvalidStatus = 'I';
+        private const char InvalidStatus = 'I';
 
         public HomeController()
             : this(new ForumCategoryRepository())
@@ -82,7 +79,7 @@ namespace DasKlub.Web.Controllers
             }
             var vir = new VideoRequest {RequestURL = video};
 
-            string vidKey = string.Empty;
+            var vidKey = string.Empty;
             vir.RequestURL = vir.RequestURL;
             vir.VideoKey = Utilities.ExtractYouTubeVideoKey(video);
 
@@ -104,11 +101,11 @@ namespace DasKlub.Web.Controllers
                 return new EmptyResult();
             }
 
-            var vid = new Video(provider, vidKey) {ProviderCode = provider};
+            var vid = new Video(Provider, vidKey) {ProviderCode = Provider};
             
             try
             {
-                Google.YouTube.Video youTubeVideo = GetYouTubeVideo(vidKey);
+                var youTubeVideo = GetYouTubeVideo(vidKey);
                 vid.Duration = (float)Convert.ToDouble(youTubeVideo.YouTubeEntry.Duration.Seconds);
                 vid.ProviderUserKey = youTubeVideo.Uploader;
                 vid.PublishDate = youTubeVideo.YouTubeEntry.Published;
@@ -153,16 +150,17 @@ namespace DasKlub.Web.Controllers
             else vid.Update();
 
             // if there is a contest, add it now since there is an id
-            int subContestID;
+            int subContestId;
+
             if (!string.IsNullOrWhiteSpace(contestID) && 
-                int.TryParse(contestID, out subContestID) &&
-                subContestID > 0)
+                int.TryParse(contestID, out subContestId) &&
+                subContestId > 0)
             {
                 //TODO: check if it already is in the contest
 
                 ContestVideo.DeleteVideoFromAllContests(vid.VideoID);
 
-                var cv = new ContestVideo {ContestID = subContestID, VideoID = vid.VideoID};
+                var cv = new ContestVideo {ContestID = subContestId, VideoID = vid.VideoID};
 
                 cv.Create();
             }
@@ -277,20 +275,18 @@ namespace DasKlub.Web.Controllers
                         {
                             var isNew = context.ForumPostNotification
                                             .FirstOrDefault(x => x.ForumSubCategoryID == threadId && x.UserAccountID == ua.UserAccountID);
-                            feedItem.IsNewPost = (isNew == null) ? false : !isNew.IsRead;
+                            feedItem.IsNewPost = (isNew != null) && !isNew.IsRead;
                         } 
                         
                         var lastPost = context.ForumPost
                                               .Where(x => x.ForumSubCategoryID == threadId)
                                               .OrderByDescending(x => x.CreateDate).FirstOrDefault();
                         feedItem.ForumSubCategory = context.ForumSubCategory
-                                                           .Where(x => x.ForumSubCategoryID == threadId)
-                                                           .FirstOrDefault();
+                                                           .FirstOrDefault(x => x.ForumSubCategoryID == threadId);
                         feedItem.ForumCategory = context.ForumCategory
-                                                        .Where(x => x.ForumCategoryID == feedItem.ForumSubCategory.ForumCategoryID)
-                                                        .FirstOrDefault();
+                                                        .FirstOrDefault(x => x.ForumCategoryID == feedItem.ForumSubCategory.ForumCategoryID);
                         feedItem.LastPosted = (lastPost == null) ? feedItem.ForumSubCategory.CreateDate : lastPost.CreateDate;
-                        feedItem.PostCount = context.ForumPost.Where(x => x.ForumSubCategoryID == threadId).Count();
+                        feedItem.PostCount = context.ForumPost.Count(x => x.ForumSubCategoryID == threadId);
                         
                         var pageCount = (feedItem.PostCount + ForumController.PageSizeForumPost - 1) / ForumController.PageSizeForumPost;
                         feedItem.URLTo = (lastPost == null) ? 
@@ -344,7 +340,7 @@ namespace DasKlub.Web.Controllers
             public DateTime CreateDate      { get; set; }
         }
 
-        private List<int> LoadRecentActiveThreads(int excludeTopThreadId)
+        private IEnumerable<int> LoadRecentActiveThreads(int excludeTopThreadId)
         {
             using (var context = new DasKlubDbContext())
             {

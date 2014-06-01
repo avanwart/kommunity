@@ -42,17 +42,14 @@ namespace DasKlub.Lib.BOL.VideoContest
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                ContestResult rslt = null;
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-                foreach (DataRow dr in dt.Rows)
-                {
-                    rslt = new ContestResult();
-                    rslt.Get(dr);
-                    Add(rslt);
-                    TotalVotes += rslt.TotalCount;
-                }
+            foreach (DataRow dr in dt.Rows)
+            {
+                var rslt = new ContestResult();
+                rslt.Get(dr);
+                Add(rslt);
+                TotalVotes += rslt.TotalCount;
             }
         }
     }

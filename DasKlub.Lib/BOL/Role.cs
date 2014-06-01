@@ -9,7 +9,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class Role : BaseIUserLogCRUD, ICacheName
+    public class Role : BaseIUserLogCrud, ICacheName
     {
         #region properties 
 

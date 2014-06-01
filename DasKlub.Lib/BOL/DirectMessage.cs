@@ -13,7 +13,7 @@ using DasKlub.Lib.Resources;
 
 namespace DasKlub.Lib.BOL
 {
-    public class DirectMessage : BaseIUserLogCRUD, ICacheName, IUnorderdListItem
+    public class DirectMessage : BaseIUserLogCrud, ICacheName, IUnorderdListItem
     {
         #region properties
 

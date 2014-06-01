@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Operational;
@@ -9,7 +10,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL.VideoContest
 {
-    public class ContestVideo : BaseIUserLogCRUD
+    public class ContestVideo : BaseIUserLogCrud
     {
         #region constructors
 
@@ -53,17 +54,14 @@ namespace DasKlub.Lib.BOL.VideoContest
             // set the stored procedure name
             comm.CommandText = "up_AddContestVideo";
 
-
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => CreatedByUserID), CreatedByUserID);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => VideoID), VideoID);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContestID), ContestID);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => SubContest), SubContest);
 
-
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result)) return 0;
 
@@ -176,28 +174,25 @@ namespace DasKlub.Lib.BOL.VideoContest
     {
         public void GetContestVideosForContest(int contestID)
         {
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetContestVideosForContest";
 
             comm.AddParameter("contestID", contestID);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (var cvid in from DataRow dr in dt.Rows 
+                select new ContestVideo(dr) 
+                into cvid let vid = new Video(cvid.VideoID) 
+                where vid.IsEnabled 
+                select cvid)
             {
-                ContestVideo cvid = null;
-                Video vid = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    cvid = new ContestVideo(dr);
-                    vid = new Video(cvid.VideoID);
-
-                    if (vid.IsEnabled) Add(cvid);
-                }
+                Add(cvid);
             }
         }
     }

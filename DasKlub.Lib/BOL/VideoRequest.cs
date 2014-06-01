@@ -9,7 +9,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class VideoRequest : BaseIUserLogCRUD, ICacheName
+    public class VideoRequest : BaseIUserLogCrud, ICacheName
     {
         #region methods 
 

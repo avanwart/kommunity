@@ -249,7 +249,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\Chat.cs" />
-    <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ChatController.cs" />

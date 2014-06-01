@@ -12,7 +12,7 @@ using DasKlub.Lib.Resources;
 
 namespace DasKlub.Lib.BOL
 {
-    public class WallMessage : BaseIUserLogCRUD, IUnorderdListItem
+    public class WallMessage : BaseIUserLogCrud, IUnorderdListItem
     {
         #region constructors
 

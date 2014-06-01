@@ -10,7 +10,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class Playlist : BaseIUserLogCRUD, ICacheName
+    public class Playlist : BaseIUserLogCrud, ICacheName
     {
         #region properties
 

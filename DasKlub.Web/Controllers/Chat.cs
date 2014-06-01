@@ -45,7 +45,7 @@ namespace DasKlub.Web.Controllers
         public void Connect(string userName)
         {
             var mu = Membership.GetUser();
-            string id = Context.ConnectionId;
+            var id = Context.ConnectionId;
 
             if (ConnectedUsers.Count(x => x.ConnectionId == id) != 0) return;
             ConnectedUsers.Add(new UserDetail {ConnectionId = id, UserName = userName});
@@ -122,17 +122,17 @@ namespace DasKlub.Web.Controllers
         public override Task OnDisconnected()
         {
             var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            if (item != null)
-            {
-                ConnectedUsers.Remove(item);
+            
+            if (item == null) return base.OnDisconnected();
 
-                var id = Context.ConnectionId;
-                Clients.All.onUserDisconnected(id, item.UserName);
+            ConnectedUsers.Remove(item);
 
-                var exitRoom = new ChatRoomUser();
-                exitRoom.GetChatRoomUserByConnection(id);
-                exitRoom.DeleteChatRoomUser();
-            }
+            var id = Context.ConnectionId;
+            Clients.All.onUserDisconnected(id, item.UserName);
+
+            var exitRoom = new ChatRoomUser();
+            exitRoom.GetChatRoomUserByConnection(id);
+            exitRoom.DeleteChatRoomUser();
 
 
             return base.OnDisconnected();

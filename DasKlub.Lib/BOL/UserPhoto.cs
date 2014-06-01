@@ -9,7 +9,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class UserPhoto : BaseIUserLogCRUD
+    public class UserPhoto : BaseIUserLogCrud
     {
         #region properties
 

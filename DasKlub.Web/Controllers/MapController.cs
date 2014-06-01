@@ -70,7 +70,7 @@ namespace DasKlub.Web.Controllers
             Thread.CurrentThread.CurrentCulture =
                 CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
 
-            foreach (UserAccount u1 in uas)
+            foreach (var u1 in uas)
             {
                 uad = new UserAccountDetail();
                 uad.GetUserAccountDeailForUser(u1.UserAccountID);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
@@ -94,13 +95,13 @@ namespace DasKlub.Web.Controllers
 
                             if (_mu != null)
                             {
-                                var userID = Convert.ToInt32(_mu.ProviderUserKey);
+                                var userId = Convert.ToInt32(_mu.ProviderUserKey);
 
                                 var isNew =
                                     context2.ForumPostNotification.FirstOrDefault(
                                         x =>
                                         x.ForumSubCategoryID == lastPost.ForumSubCategoryID &&
-                                        x.UserAccountID == userID);
+                                        x.UserAccountID == userId);
 
                                 if (isNew != null && !isNew.IsRead)
                                 {
@@ -118,9 +119,6 @@ namespace DasKlub.Web.Controllers
 
                 return View(forumCategory);
             }
-
-
-
         }
 
         private void GetValue(string key, string subKey, DasKlubDbContext context)
@@ -436,16 +434,15 @@ namespace DasKlub.Web.Controllers
                     group by CreatedByUserID
                     order by CreatedByUserID ", subForum.ForumSubCategoryID);
 
-                comm.CommandType = System.Data.CommandType.Text;
+                comm.CommandType = CommandType.Text;
 
-                var userPostCounts = DasKlub.Lib.DAL.DbAct.ExecuteSelectCommand(comm);
+                var userPostCounts = Lib.DAL.DbAct.ExecuteSelectCommand(comm);
 
-                var userPostCountList = new Dictionary<int, int>();
-
-                foreach (System.Data.DataRow row in userPostCounts.Rows)
-                {
-                    userPostCountList.Add(Convert.ToInt32(row["CreatedByUserID"]), Convert.ToInt32( row["count"]));
-                }
+                var userPostCountList = userPostCounts.Rows
+                                                      .Cast<DataRow>()
+                                                      .ToDictionary(
+                                                            row => Convert.ToInt32(row["CreatedByUserID"]),
+                                                            row => Convert.ToInt32(row["count"]));
 
                 ViewBag.UserPostCounts = userPostCountList;
 
@@ -461,15 +458,15 @@ namespace DasKlub.Web.Controllers
 
                 if (_mu != null)
                 {
-                    var userID = Convert.ToInt32(_mu.ProviderUserKey);
-                    var ua = new UserAccount(userID);
+                    var userId = Convert.ToInt32(_mu.ProviderUserKey);
+                    var ua = new UserAccount(userId);
                     ViewBag.IsAdmin = ua.IsAdmin;
 
                     var forumPostNotification =
                         context.ForumPostNotification.FirstOrDefault(
                             x =>
                             x.ForumSubCategoryID == subForum.ForumSubCategoryID &&
-                            x.UserAccountID == userID);
+                            x.UserAccountID == userId);
 
                     if (forumPostNotification != null)
                     {
@@ -584,53 +581,51 @@ namespace DasKlub.Web.Controllers
 
                 if (context.ForumPost.FirstOrDefault(
                     x =>
-                    x.ForumSubCategoryID == forumSubCategoryID && x.Detail == model.Detail &&
-                    x.CreatedByUserID == ua.UserAccountID) == null)
+                        x.ForumSubCategoryID == forumSubCategoryID && x.Detail == model.Detail &&
+                        x.CreatedByUserID == ua.UserAccountID) != null) return new EmptyResult();
+                Thread.CurrentThread.CurrentUICulture =
+                    CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+                Thread.CurrentThread.CurrentCulture =
+                    CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+
+                foreach (
+                    var forumPostNotification in
+                        allUserNotifications.Where(
+                            forumPostNotification => forumPostNotification.UserAccountID != ua.UserAccountID))
                 {
-                    Thread.CurrentThread.CurrentUICulture =
-                        CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
-                    Thread.CurrentThread.CurrentCulture =
-                        CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());
+                    forumPostNotification.IsRead = false;
+                    forumPostNotification.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
+                    context.Entry(forumPostNotification).State = EntityState.Modified;
 
-                    foreach (
-                        var forumPostNotification in
-                            allUserNotifications.Where(
-                                forumPostNotification => forumPostNotification.UserAccountID != ua.UserAccountID))
-                    {
-                        forumPostNotification.IsRead = false;
-                        forumPostNotification.UpdatedByUserID = Convert.ToInt32(_mu.ProviderUserKey);
-                        context.Entry(forumPostNotification).State = EntityState.Modified;
+                    var notifiedUser = new UserAccount(forumPostNotification.UserAccountID);
+                    var notifiedUserDetails = new UserAccountDetail();
+                    notifiedUserDetails.GetUserAccountDeailForUser(forumPostNotification.UserAccountID);
 
-                        var notifiedUser = new UserAccount(forumPostNotification.UserAccountID);
-                        var notifiedUserDetails = new UserAccountDetail();
-                        notifiedUserDetails.GetUserAccountDeailForUser(forumPostNotification.UserAccountID);
+                    if (!notifiedUserDetails.EmailMessages) continue;
 
-                        if (!notifiedUserDetails.EmailMessages) continue;
+                    var title = ua.UserName + " => " + subForum.Title;
+                    var body = new StringBuilder(100);
+                    body.Append(Messages.New);
+                    body.Append(": ");
+                    body.Append(subForum.SubForumURL);
+                    body.AppendLine();
+                    body.AppendLine();
+                    body.Append(model.Detail);
+                    body.AppendLine();
+                    body.AppendLine();
+                    body.Append(Messages.Reply);
+                    body.Append(": ");
+                    body.AppendFormat("{0}/create", subForum.SubForumURL);
 
-                        var title = ua.UserName + " => " + subForum.Title;
-                        var body = new StringBuilder(100);
-                        body.Append(Messages.New);
-                        body.Append(": ");
-                        body.Append(subForum.SubForumURL);
-                        body.AppendLine();
-                        body.AppendLine();
-                        body.Append(model.Detail);
-                        body.AppendLine();
-                        body.AppendLine();
-                        body.Append(Messages.Reply);
-                        body.Append(": ");
-                        body.AppendFormat("{0}/create", subForum.SubForumURL);
-
-                        _mail.SendMail(Lib.Configs.AmazonCloudConfigs.SendFromEmail, notifiedUser.EMail, title, body.ToString());
-                    }
-
-                    context.SaveChanges();
-
-                    Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
-                    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(currentLang);
-
-                    Response.Redirect(subForum.SubForumURL.ToString());
+                    _mail.SendMail(Lib.Configs.AmazonCloudConfigs.SendFromEmail, notifiedUser.EMail, title, body.ToString());
                 }
+
+                context.SaveChanges();
+
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(currentLang);
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(currentLang);
+
+                Response.Redirect(subForum.SubForumURL.ToString());
 
                 return new EmptyResult();
             }
@@ -673,13 +668,13 @@ namespace DasKlub.Web.Controllers
             using (var context = new DasKlubDbContext())
             {
                 var forumPost = context.ForumPost.First(x => x.ForumPostID == forumPostID);
-                
-                if (Convert.ToInt32(_mu.ProviderUserKey) == forumPost.CreatedByUserID || _ua.IsAdmin)
-                {
-                    context.ForumPost.Remove(forumPost);
 
-                    context.SaveChanges();
-                }
+                if (Convert.ToInt32(_mu.ProviderUserKey) != forumPost.CreatedByUserID && !_ua.IsAdmin)
+                    return RedirectToAction("Index");
+
+                context.ForumPost.Remove(forumPost);
+
+                context.SaveChanges();
 
                 return RedirectToAction("Index");
             }

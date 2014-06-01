@@ -11,7 +11,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL
 {
-    public class PropertyType : BaseIUserLogCRUD, ICacheName
+    public class PropertyType : BaseIUserLogCrud, ICacheName
     {
         #region properties
 

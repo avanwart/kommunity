@@ -9,23 +9,21 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL.ArtistContent
 {
-    public class Song : BaseIUserLogCRUD
+    public class Song : BaseIUserLogCrud
     {
         public Song(int artistID, string songName)
         {
             ArtistID = artistID;
             Name = songName;
 
-
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetSongByArtistIDName";
-
             comm.AddParameter("artistID", artistID);
             comm.AddParameter("name", songName);
 
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt.Rows.Count == 1)
             {

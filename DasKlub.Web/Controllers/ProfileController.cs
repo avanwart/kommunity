@@ -180,7 +180,7 @@ namespace DasKlub.Web.Controllers
 
                 const int maxPhotos = 8;
 
-                foreach (PhotoItem pitm1 in ptiems)
+                foreach (var pitm1 in ptiems)
                 {
                     pitm1.UseThumb = true;
                     if (ptiemsDisplay.Count < maxPhotos)
@@ -665,11 +665,7 @@ namespace DasKlub.Web.Controllers
             conts.Sort((x, y) => (y.ReleaseDate.CompareTo(x.ReleaseDate)));
 
             var contentToLoad = new Contents();
-
-            foreach (var content in conts.Where(content => content.ReleaseDate < DateTime.UtcNow))
-            {
-                contentToLoad.Add(content);
-            }
+            contentToLoad.AddRange(conts.Where(content => content.ReleaseDate < DateTime.UtcNow));
 
             ViewBag.NewsCount = contentToLoad.Count;
 
@@ -715,13 +711,12 @@ namespace DasKlub.Web.Controllers
             pitm2 = new PhotoItem();
             pitm2.GetNextPhotoForUser(_pitm.CreateDate, _ua.UserAccountID);
 
-            if (pitm2.PhotoItemID > 0)
-            {
-                pitm2.IsUserPhoto = true;
-                pitm2.ShowTitle = false;
-                pitm2.UseThumb = true;
-                ViewBag.NextPhoto = pitm2;
-            }
+            if (pitm2.PhotoItemID <= 0) return View(_pitm);
+
+            pitm2.IsUserPhoto = true;
+            pitm2.ShowTitle = false;
+            pitm2.UseThumb = true;
+            ViewBag.NextPhoto = pitm2;
 
             return View(_pitm);
         }

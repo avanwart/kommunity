@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Web;
 using DasKlub.Lib.BLL;
 using DasKlub.Lib.BaseTypes;
@@ -12,7 +13,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL.DomainConnection
 {
-    public class SiteDomain : BaseIUserLogCRUD, ICacheName, ISet
+    public class SiteDomain : BaseIUserLogCrud, ICacheName, ISet
     {
         public string CacheName
         {
@@ -140,7 +141,8 @@ namespace DasKlub.Lib.BOL.DomainConnection
         public override bool Update()
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
+            
             // set the stored procedure name
             comm.CommandText = "up_UpdateSiteDomain";
 
@@ -150,10 +152,7 @@ namespace DasKlub.Lib.BOL.DomainConnection
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => Description), Description);
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => SiteDomainID), SiteDomainID);
 
-
-            int result = -1;
-
-            result = DbAct.ExecuteNonQuery(comm);
+            var result = DbAct.ExecuteNonQuery(comm);
 
             RemoveCache();
 
@@ -174,9 +173,8 @@ namespace DasKlub.Lib.BOL.DomainConnection
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => Description), Description);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
@@ -299,22 +297,19 @@ namespace DasKlub.Lib.BOL.DomainConnection
         public void GetAll()
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_GetAllSiteDomain";
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (var sdomain in from DataRow dr in dt.Rows select new SiteDomain(dr))
             {
-                SiteDomain sdomain = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    sdomain = new SiteDomain(dr);
-                    Add(sdomain);
-                }
+                Add(sdomain);
             }
         }
     }

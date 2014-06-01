@@ -66,20 +66,17 @@ namespace DasKlub.Lib.BOL.Logging
             comm.AddParameter("createdByUserID", CreatedByUserID);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
                 return 0;
             }
-            else
-            {
-                ClickLogID = Convert.ToInt32(result);
+            
+            ClickLogID = Convert.ToInt32(result);
 
-                return ClickLogID;
-            }
+            return ClickLogID;
         }
 
         #endregion

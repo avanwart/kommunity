@@ -11,7 +11,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class BlockedUser : BaseIUserLogCRUD
+    public class BlockedUser : BaseIUserLogCrud
     {
         public BlockedUser()
         {

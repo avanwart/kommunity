@@ -8,7 +8,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class StatusCommentAcknowledgement : BaseIUserLogCRUD
+    public class StatusCommentAcknowledgement : BaseIUserLogCrud
     {
         #region properties
 

@@ -9,7 +9,7 @@ namespace DasKlub.Lib.BaseTypes
     ///     This is used so that all the CRUD and logging actions
     ///     can be performed through inheritance
     /// </summary>
-    public abstract class BaseIUserLogCRUD : BaseExistance, ICRUD, IUserLog
+    public abstract class BaseIUserLogCrud : BaseExistance, ICRUD, IUserLog
     {
         #region properties
 
