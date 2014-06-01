@@ -1567,7 +1567,7 @@ namespace DasKlub.Web.Controllers
             // full
             Image fullPhoto = b;
 
-            fullPhoto = ImageResize.FixedSize(fullPhoto, 300, 300, Color.Black);
+            fullPhoto = ImageResize.FixedSize(imgPhoto: fullPhoto, width: 300, height: 300, bgColor: Color.Black);
 
             string fileNameFull = Utilities.CreateUniqueContentFilename(file);
             Stream maker = fullPhoto.ToAStream(ImageFormat.Jpeg);
@@ -1684,12 +1684,12 @@ namespace DasKlub.Web.Controllers
         public ActionResult EditPhoto()
         {
             _uad = new UserAccountDetail();
-            if (_mu != null)
-            {
-                _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
+            
+            if (_mu == null) return View(_uad);
 
-                LoadCurrentImagesViewBag(Convert.ToInt32(_mu.ProviderUserKey));
-            }
+            _uad.GetUserAccountDeailForUser(Convert.ToInt32(_mu.ProviderUserKey));
+
+            LoadCurrentImagesViewBag(Convert.ToInt32(_mu.ProviderUserKey));
 
             return View(_uad);
         }
@@ -2250,7 +2250,7 @@ namespace DasKlub.Web.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            MembershipUser mu = Membership.GetUser();
+            var mu = Membership.GetUser();
 
             if (mu != null && mu.ChangePassword(model.OldPassword, model.NewPassword))
             {
