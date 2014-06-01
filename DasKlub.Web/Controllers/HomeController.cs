@@ -202,7 +202,7 @@ namespace DasKlub.Web.Controllers
             if (artst.ArtistID == 0)
             {
                 artst.Name = band.Trim();
-                artst.AltName = FromString.URLKey(artst.Name);
+                artst.AltName = FromString.UrlKey(artst.Name);
                 artst.Create();
             }
 
@@ -211,7 +211,7 @@ namespace DasKlub.Web.Controllers
             if (sng.SongID == 0)
             {
                 sng.Name = sng.Name.Trim();
-                sng.SongKey = FromString.URLKey(sng.Name);
+                sng.SongKey = FromString.UrlKey(sng.Name);
                 sng.Create();
             }
 

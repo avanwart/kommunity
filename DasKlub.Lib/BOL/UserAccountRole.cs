@@ -37,12 +37,11 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("roleID", roleID);
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                uars = new UserAccounts();
+            if (dt == null || dt.Rows.Count <= 0) return uars;
 
-                uars.AddRange(from DataRow dr in dt.Rows select new UserAccount(dr));
-            }
+            uars = new UserAccounts();
+
+            uars.AddRange(from DataRow dr in dt.Rows select new UserAccount(dr));
             return uars;
         }
 

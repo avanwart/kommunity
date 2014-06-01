@@ -196,7 +196,7 @@ namespace DasKlub.Web.m.auth
 
                 if (artst.ArtistID == 0)
                 {
-                    artst.AltName = FromString.URLKey(artst.Name);
+                    artst.AltName = FromString.UrlKey(artst.Name);
                     artst.Create();
                 }
 
@@ -211,7 +211,7 @@ namespace DasKlub.Web.m.auth
 
                 if (sng.SongID == 0)
                 {
-                    sng.SongKey = FromString.URLKey(sng.Name);
+                    sng.SongKey = FromString.UrlKey(sng.Name);
                     sng.Create();
                 }
 
@@ -236,7 +236,7 @@ namespace DasKlub.Web.m.auth
 
                     if (artst.ArtistID == 0)
                     {
-                        artst.AltName = FromString.URLKey(artst.Name);
+                        artst.AltName = FromString.UrlKey(artst.Name);
                         artst.Create();
                     }
 
@@ -251,7 +251,7 @@ namespace DasKlub.Web.m.auth
 
                     if (sng.SongID == 0)
                     {
-                        sng.SongKey = FromString.URLKey(sng.Name);
+                        sng.SongKey = FromString.UrlKey(sng.Name);
                         sng.Create();
                     }
 
@@ -277,7 +277,7 @@ namespace DasKlub.Web.m.auth
 
                         if (artst.ArtistID == 0)
                         {
-                            artst.AltName = FromString.URLKey(artst.Name);
+                            artst.AltName = FromString.UrlKey(artst.Name);
                             artst.Create();
                         }
 
@@ -292,7 +292,7 @@ namespace DasKlub.Web.m.auth
 
                         if (sng.SongID == 0)
                         {
-                            sng.SongKey = FromString.URLKey(sng.Name);
+                            sng.SongKey = FromString.UrlKey(sng.Name);
                             sng.Create();
                         }
 
@@ -318,7 +318,7 @@ namespace DasKlub.Web.m.auth
 
                             if (artst.ArtistID == 0)
                             {
-                                artst.AltName = FromString.URLKey(artst.Name);
+                                artst.AltName = FromString.UrlKey(artst.Name);
                                 artst.Create();
                             }
 
@@ -333,7 +333,7 @@ namespace DasKlub.Web.m.auth
 
                             if (sng.SongID == 0)
                             {
-                                sng.SongKey = FromString.URLKey(sng.Name);
+                                sng.SongKey = FromString.UrlKey(sng.Name);
                                 sng.Create();
                             }
 
@@ -360,7 +360,7 @@ namespace DasKlub.Web.m.auth
 
                                 if (artst.ArtistID == 0)
                                 {
-                                    artst.AltName = FromString.URLKey(artst.Name);
+                                    artst.AltName = FromString.UrlKey(artst.Name);
                                     artst.Create();
                                 }
 
@@ -375,7 +375,7 @@ namespace DasKlub.Web.m.auth
 
                                 if (sng.SongID == 0)
                                 {
-                                    sng.SongKey = FromString.URLKey(sng.Name);
+                                    sng.SongKey = FromString.UrlKey(sng.Name);
                                     sng.Create();
                                 }
 
@@ -402,7 +402,7 @@ namespace DasKlub.Web.m.auth
 
                                     if (artst.ArtistID == 0)
                                     {
-                                        artst.AltName = FromString.URLKey(artst.Name);
+                                        artst.AltName = FromString.UrlKey(artst.Name);
                                         artst.Create();
                                     }
 
@@ -417,7 +417,7 @@ namespace DasKlub.Web.m.auth
 
                                     if (sng.SongID == 0)
                                     {
-                                        sng.SongKey = FromString.URLKey(sng.Name);
+                                        sng.SongKey = FromString.UrlKey(sng.Name);
                                         sng.Create();
                                     }
 

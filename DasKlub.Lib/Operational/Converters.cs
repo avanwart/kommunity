@@ -153,14 +153,14 @@ namespace DasKlub.Lib.Operational
             return input.Replace("\"", @"'").Replace("“", "'").Replace("”", "'");
         }
 
-        public static string ReplaceNewLineSingleWithHTML(string s)
+        public static string ReplaceNewLineSingleWithHtml(string s)
         {
             return s.Replace("\n", "<br />");
         }
 
-        public static string ReplaceNewLineWithHTML(string s)
+        public static string ReplaceNewLineWithHtml(string s)
         {
-            return s.Replace("\r\n", "<br />");
+            return s.Replace(Environment.NewLine, "<br />");
         }
 
 
@@ -200,15 +200,13 @@ namespace DasKlub.Lib.Operational
             return source;
         }
 
-        public static string SEOText(string input, int maxlength)
+        public static string SeoText(string input, int maxlength)
         {
             if (input.Length < maxlength) return input;
 
-            string myString = input.Substring(0, maxlength);
-
-            int index = myString.LastIndexOf(' ');
-
-            string outputString = myString.Substring(0, index);
+            var myString = input.Substring(0, maxlength);
+            var index = myString.LastIndexOf(' ');
+            var outputString = myString.Substring(0, index);
 
             return outputString;
         }
@@ -226,14 +224,12 @@ namespace DasKlub.Lib.Operational
         private static string GetFixedLengthString(string input, int length, string fillWith, bool isLeftAligned)
         {
             input = input ?? fillWith;
-            // what? http://stackoverflow.com/questions/446835/what-do-two-question-marks-together-mean-in-c
+ 
             input = input.Length > length ? input.Substring(0, length) : input;
 
-            if (isLeftAligned)
-                return string.Format("{0,-" + length + "}", input).Replace(" ", fillWith);
-            // align the string to the left
-            return string.Format("{0," + length + "}", input).Replace(" ", fillWith);
-            // align the string to the right
+            return isLeftAligned ? 
+                string.Format("{0,-" + length + "}", input).Replace(" ", fillWith) : 
+                string.Format("{0," + length + "}", input).Replace(" ", fillWith);
         }
 
         #endregion
@@ -245,7 +241,7 @@ namespace DasKlub.Lib.Operational
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static string URLKey(string p)
+        public static string UrlKey(string p)
         {
             var pname = Regex.Replace(p, @"[\W_-[#]]+", " ");
             return pname.Trim().Replace("  ", " ").Replace(" ", "-").Replace("%", string.Empty).ToLower();

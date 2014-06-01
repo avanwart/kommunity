@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
+using System.Globalization;
 using System.Web;
 using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.BLL;
@@ -59,14 +60,13 @@ namespace DasKlub.Lib.BOL
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
+                if (dt == null || dt.Rows.Count <= 0) return;
+
+                if (HttpContext.Current != null)
                 {
-                    if (HttpContext.Current != null)
-                    {
-                        HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
-                    }
-                    Get(dt.Rows[0]);
+                    HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
                 }
+                Get(dt.Rows[0]);
             }
             else
             {
@@ -100,18 +100,15 @@ namespace DasKlub.Lib.BOL
             {
                 base.Get(dr);
 
-
                 PropertyTypeID = FromObj.IntFromObj(dr["propertyTypeID"]);
 
-                string itemPropertyType = FromObj.StringFromObj(dr["propertyTypeCode"]);
+                var itemPropertyType = FromObj.StringFromObj(dr["propertyTypeCode"]);
 
                 if (string.IsNullOrEmpty(itemPropertyType))
                     PropertyTypeCode = SiteEnums.PropertyTypeCode.UNKNO;
                 else
-
                     PropertyTypeCode =
                         (SiteEnums.PropertyTypeCode) Enum.Parse(typeof (SiteEnums.PropertyTypeCode), itemPropertyType);
-
 
                 PropertyTypeName = FromObj.StringFromObj(dr["propertyTypeName"]);
                 CreateDate = FromObj.DateFromObj(dr["createDate"]);
@@ -133,7 +130,7 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                return string.Concat(GetType().FullName, "-", PropertyTypeID.ToString(), "-",
+                return string.Concat(GetType().FullName, "-", PropertyTypeID, "-",
                     PropertyTypeCode.ToString());
             }
         }

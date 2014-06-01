@@ -162,13 +162,6 @@ namespace DasKlub.Lib.BOL
                     sb.Append(PhoneNumber);
                 }
 
-                //if (!string.IsNullOrEmpty(this.Description))
-                //{
-                //    sb.Append("<br />");
-                //    sb.AppendFormat("{0}: ", Messages.Details);
-                //    sb.Append(Utilities.MakeLink(this.Description));
-                //}
-
                 sb.Append("</div>");
 
                 return sb.ToString();
@@ -223,11 +216,10 @@ namespace DasKlub.Lib.BOL
 
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
-                if (dt.Rows.Count == 1)
-                {
-                    HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
-                    Get(dt.Rows[0]);
-                }
+                if (dt.Rows.Count != 1) return;
+
+                HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                Get(dt.Rows[0]);
             }
             else
             {
@@ -337,7 +329,7 @@ namespace DasKlub.Lib.BOL
             }
             catch //(Exception ex)
             {
-                //Utilities.LogError(ex);
+               
             }
         }
 

@@ -192,7 +192,7 @@ namespace DasKlub.Lib.BOL
                 }
 
                 sb.Append(@"<p class=""mail_message"">");
-                sb.Append(FromString.ReplaceNewLineWithHTML(Utilities.MakeLink(Message)));
+                sb.Append(FromString.ReplaceNewLineWithHtml(Utilities.MakeLink(Message)));
                 sb.Append(@"</p>");
 
                 MembershipUser mu = Membership.GetUser();

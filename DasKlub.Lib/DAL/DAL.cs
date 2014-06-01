@@ -22,9 +22,9 @@ namespace DasKlub.Lib.DAL
         {
             using (command)
             {
-                DbProviderFactory factory = DbProviderFactories.GetFactory(DataBaseConfigs.DbProviderName);
+                var factory = DbProviderFactories.GetFactory(DataBaseConfigs.DbProviderName);
 
-                using (DbDataAdapter adapter = factory.CreateDataAdapter())
+                using (var adapter = factory.CreateDataAdapter())
                 {
                     if (adapter == null) return null;
 
@@ -66,7 +66,8 @@ namespace DasKlub.Lib.DAL
                     command.Connection.Open();
 
                     table = new DataTable();
-                    using (DbDataReader reader = command.ExecuteReader())
+
+                    using (var reader = command.ExecuteReader())
                     {
                         table.Load(reader);
                         reader.Close();
@@ -95,7 +96,7 @@ namespace DasKlub.Lib.DAL
         /// <param name="command">database command</param>
         public static int ExecuteNonQuery(DbCommand command)
         {
-            int affectedRows = -1;
+            var affectedRows = -1;
 
             using (command)
             {
@@ -126,14 +127,14 @@ namespace DasKlub.Lib.DAL
         /// <param name="command">database command</param>
         public static string ExecuteScalar(DbCommand command)
         {
-            string value = string.Empty;
+            var value = string.Empty;
 
             using (command)
             {
                 try
                 {
                     command.Connection.Open();
-                    object result = command.ExecuteScalar();
+                    var result = command.ExecuteScalar();
                     value = result != null ? Convert.ToString(result) : string.Empty;
                 }
                 catch (Exception ex)
@@ -162,20 +163,17 @@ namespace DasKlub.Lib.DAL
         /// </summary>
         public static DbCommand CreateCommand()
         {
-            string dataProviderName = DataBaseConfigs.DbProviderName;
-            string connectionString = DataBaseConfigs.DbConnectionString;
-            DbProviderFactory factory = DbProviderFactories.GetFactory(dataProviderName);
-            DbConnection conn = factory.CreateConnection();
+            var dataProviderName = DataBaseConfigs.DbProviderName;
+            var connectionString = DataBaseConfigs.DbConnectionString;
+            var factory = DbProviderFactories.GetFactory(dataProviderName);
+            var conn = factory.CreateConnection();
 
-            if (conn != null)
-            {
-                DbCommand comm = conn.CreateCommand();
-                conn.ConnectionString = connectionString;
-                comm.CommandType = CommandType.StoredProcedure;
-                return comm;
-            }
+            if (conn == null) return null;
 
-            return null;
+            var comm = conn.CreateCommand();
+            conn.ConnectionString = connectionString;
+            comm.CommandType = CommandType.StoredProcedure;
+            return comm;
         }
 
         /// <summary>
@@ -187,19 +185,17 @@ namespace DasKlub.Lib.DAL
         /// <remarks>allows the use of text or stored procedure for command type</remarks>
         public static DbCommand CreateCommand(bool isText)
         {
-            string dataProviderName = DataBaseConfigs.DbProviderName;
-            string connectionString = DataBaseConfigs.DbConnectionString;
-            DbProviderFactory factory = DbProviderFactories.GetFactory(dataProviderName);
-            DbConnection conn = factory.CreateConnection();
+            var dataProviderName = DataBaseConfigs.DbProviderName;
+            var connectionString = DataBaseConfigs.DbConnectionString;
+            var factory = DbProviderFactories.GetFactory(dataProviderName);
+            var conn = factory.CreateConnection();
 
-            if (conn != null)
-            {
-                DbCommand comm = conn.CreateCommand();
-                conn.ConnectionString = connectionString;
-                comm.CommandType = isText ? CommandType.Text : CommandType.StoredProcedure;
-                return comm;
-            }
-            return null;
+            if (conn == null) return null;
+
+            var comm = conn.CreateCommand();
+            conn.ConnectionString = connectionString;
+            comm.CommandType = isText ? CommandType.Text : CommandType.StoredProcedure;
+            return comm;
         }
 
         #endregion

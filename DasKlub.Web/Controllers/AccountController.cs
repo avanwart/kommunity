@@ -148,7 +148,7 @@ namespace DasKlub.Web.Controllers
                 return View(model);
             }
 
-            model.ContentKey = FromString.URLKey(model.Title);
+            model.ContentKey = FromString.UrlKey(model.Title);
 
             if (model.ContentID == 0)
             {

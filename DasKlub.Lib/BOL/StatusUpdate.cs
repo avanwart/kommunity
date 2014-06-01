@@ -294,8 +294,8 @@ namespace DasKlub.Lib.BOL
 
                 sb.AppendFormat(@"<div class=""post_content"">{0}</div>",
                     PhotoItemID == null
-                        ? Video.IFrameVideo(FromString.ReplaceNewLineWithHTML(Message))
-                        : Utilities.MakeLink(FromString.ReplaceNewLineWithHTML(Message)));
+                        ? Video.IFrameVideo(FromString.ReplaceNewLineWithHtml(Message))
+                        : Utilities.MakeLink(FromString.ReplaceNewLineWithHtml(Message)));
 
                 #endregion
 

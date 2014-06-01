@@ -3,7 +3,7 @@
     /// <summary>
     ///     Implementing this means that all operations are possible
     /// </summary>
-    public interface IBaseCRUD : IGet
+    public interface IBaseCrud : IGet
     {
         /// <summary>
         ///     Add row

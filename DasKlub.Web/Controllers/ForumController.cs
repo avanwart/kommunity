@@ -317,7 +317,7 @@ namespace DasKlub.Web.Controllers
 
                 model.ForumCategoryID = forum.ForumCategoryID;
                 model.CreatedByUserID = ua.UserAccountID;
-                model.Key = FromString.URLKey(model.Title);
+                model.Key = FromString.UrlKey(model.Title);
                 model.Title = model.Title.Trim();
                 model.Description = model.Description.Trim();
 
@@ -388,7 +388,7 @@ namespace DasKlub.Web.Controllers
                     if (model != null)
                     {
                         model.CreatedByUserID = ua.UserAccountID;
-                        model.Key = FromString.URLKey(model.Title);
+                        model.Key = FromString.UrlKey(model.Title);
                         model.Title = model.Title.Trim();
                         model.Description = model.Description.Trim();
 

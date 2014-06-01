@@ -30,7 +30,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="@Url.Content("~/content/images/brand/favicon.ico")" />
         @{
-            dynamic pageTitle = string.Format("{0} | {1}", FromString.SEOText(ViewBag.Title, 65 - 3 - GeneralConfigs.SiteName.Length), GeneralConfigs.SiteName);
+            dynamic pageTitle = string.Format("{0} | {1}", FromString.SeoText(ViewBag.Title, 65 - 3 - GeneralConfigs.SiteName.Length), GeneralConfigs.SiteName);
         }
         <title>@Html.Raw(pageTitle)</title>
 

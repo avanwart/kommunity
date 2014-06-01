@@ -319,16 +319,12 @@ namespace DasKlub.Lib.BOL
 
                 if (IncludeStartAndEndTags) sb.Append(@"<ul>");
 
-                UserAccount ua1 = null;
-                UserAccountDetail uad = null;
-
                 foreach (UserConnection uc1 in this)
                 {
                     sb.Append(@"<li>");
 
-
-                    ua1 = new UserAccount(uc1.FromUserAccountID);
-                    uad = new UserAccountDetail();
+                    var ua1 = new UserAccount(uc1.FromUserAccountID);
+                    var uad = new UserAccountDetail();
                     uad.GetUserAccountDeailForUser(ua1.UserAccountID);
 
                     sb.Append(@"<div class=""row"">");
@@ -344,7 +340,6 @@ namespace DasKlub.Lib.BOL
                     sb.Append(uc1.Icon);
 
                     sb.Append(@"</div>");
-
 
                     sb.Append(@"<div class=""span2"">");
 
@@ -367,7 +362,6 @@ namespace DasKlub.Lib.BOL
                     sb.AppendFormat(
                         @"<input name=""contact_request"" class=""btn btn-danger"" type=""submit"" value=""{0}"" /></form>",
                         Messages.NotNow);
-
 
                     sb.Append(@"</div>");
 
@@ -393,13 +387,9 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("toUserAccountID", toUserAccountID);
 
             // execute the stored procedure
-            string rslt = DbAct.ExecuteScalar(comm);
+            var rslt = DbAct.ExecuteScalar(comm);
 
-            if (!string.IsNullOrEmpty(rslt))
-            {
-                return Convert.ToInt32(rslt);
-            }
-            return 0;
+            return !string.IsNullOrEmpty(rslt) ? Convert.ToInt32(rslt) : 0;
         }
 
         public void GetUserConnections(int fromUserAccountID)

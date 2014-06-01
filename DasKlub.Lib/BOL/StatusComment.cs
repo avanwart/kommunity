@@ -269,7 +269,7 @@ namespace DasKlub.Lib.BOL
 
                 sb.Append("<br />");
 
-                sb.Append(Utilities.MakeLink(FromString.ReplaceNewLineSingleWithHTML(Message), true));
+                sb.Append(Utilities.MakeLink(FromString.ReplaceNewLineSingleWithHtml(Message), true));
 
                 var currentUser = new UserAccount(HttpContext.Current.User.Identity.Name);
 
@@ -360,6 +360,7 @@ namespace DasKlub.Lib.BOL
             string str = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(str)) return 0;
+            
             return
                 FromObj.IntFromObj(str);
         }

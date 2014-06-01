@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Web;
 using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.BLL;
@@ -88,12 +89,11 @@ namespace DasKlub.Lib.BOL
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    if (HttpContext.Current != null) HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                if (dt == null || dt.Rows.Count <= 0) return;
 
-                    Get(dt.Rows[0]);
-                }
+                if (HttpContext.Current != null) HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
+
+                Get(dt.Rows[0]);
             }
             else
             {
@@ -125,30 +125,24 @@ namespace DasKlub.Lib.BOL
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    InterestedIn art = null;
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        art = new InterestedIn(dr);
-                        Add(art);
-                    }
+                if (dt == null || dt.Rows.Count <= 0) return;
 
-                    HttpRuntime.Cache.AddObjToCache(dt, GetType().FullName);
+                foreach (var art in from DataRow dr in dt.Rows select new InterestedIn(dr))
+                {
+                    Add(art);
                 }
+
+                HttpRuntime.Cache.AddObjToCache(dt, GetType().FullName);
             }
             else
             {
                 var dt = (DataTable) HttpRuntime.Cache[GetType().FullName];
 
-                if (dt != null && dt.Rows.Count > 0)
+                if (dt == null || dt.Rows.Count <= 0) return;
+
+                foreach (var art in from DataRow dr in dt.Rows select new InterestedIn(dr))
                 {
-                    InterestedIn art = null;
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        art = new InterestedIn(dr);
-                        Add(art);
-                    }
+                    Add(art);
                 }
             }
         }

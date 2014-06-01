@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Web;
 using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.DAL;
@@ -203,15 +204,12 @@ namespace DasKlub.Lib.BOL
 
             comm.AddParameter("userAccountID", userAccountID);
 
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             if (dt != null && dt.Rows.Count > 0)
             {
-                UserPhoto up = null;
-
-                foreach (DataRow dr in dt.Rows)
+                foreach (var up in from DataRow dr in dt.Rows select new UserPhoto(dr))
                 {
-                    up = new UserPhoto(dr);
                     Add(up);
                 }
             }

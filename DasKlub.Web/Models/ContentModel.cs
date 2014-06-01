@@ -245,7 +245,7 @@ namespace DasKlub.Web.Models
 
                     sb.Append(string.Format(@"<a href=""{0}"">{1}</a>",
                         VirtualPathUtility.ToAbsolute("~/news/tag/" +
-                                                      FromString.URLKey(keyword)
+                                                      FromString.UrlKey(keyword)
                             )
                         , keyword));
 

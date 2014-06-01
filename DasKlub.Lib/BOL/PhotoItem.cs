@@ -359,13 +359,14 @@ namespace DasKlub.Lib.BOL
                     sb.Append(@"<ul class=""photo_item_list"">");
                 }
 
-                foreach (PhotoItem pitm in this)
+                foreach (var pitm in this)
                 {
                     pitm.IsUserPhoto = IsUserPhoto;
                     pitm.UseThumb = UseThumb;
                     pitm.ShowTitle = ShowTitle;
                     sb.Append(pitm.ToUnorderdListItem);
                 }
+
                 if (IncludeStartAndEndTags)
                 {
                     sb.Append(@"</ul>");

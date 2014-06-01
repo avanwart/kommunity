@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Text;
 using System.Web;
 using DasKlub.Lib.BaseTypes;
@@ -250,16 +251,12 @@ namespace DasKlub.Lib.BOL
             // execute the stored procedure
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
-            StatusUpdateNotification sun = null;
-
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (var sun in from DataRow dr in dt.Rows select new StatusUpdateNotification(dr))
             {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    sun = new StatusUpdateNotification(dr);
-                    Add(sun);
-                }
+                Add(sun);
             }
         }
 
