@@ -195,7 +195,7 @@ namespace DasKlub.Lib.BOL
 
         public string JSONResponse
         {
-            get { return @"{""StatusMessage"": """ + HttpUtility.HtmlEncode(ToUnorderdListItem) + @"""}"; }
+            get { return string.Format(@"{{""StatusMessage"": ""{0}""}}", HttpUtility.HtmlEncode(ToUnorderdListItem)); }
         }
 
         public string ToUnorderdListItem
@@ -228,7 +228,7 @@ namespace DasKlub.Lib.BOL
                                       <div class=""span6"">
                         <a class=""m_over"" href=""{0}""><img src=""{1}"" alt=""{2}"" title=""{2}"" /></a>
                                        ",
-                        VirtualPathUtility.ToAbsolute("~/photos/" + PhotoItemID),
+                        VirtualPathUtility.ToAbsolute(string.Format("~/photos/{0}", PhotoItemID)),
                         Utilities.S3ContentPath(pitem.FilePathStandard),
                         Messages.Photos);
 
@@ -262,7 +262,7 @@ namespace DasKlub.Lib.BOL
                 else
                 {
                     sb.AppendFormat(@"<div>{0}: <a href=""{1}"">{2}</a></div>", Messages.Uploader,
-                        VirtualPathUtility.ToAbsolute("~/" + ua.UserName), ua.UserName);
+                        VirtualPathUtility.ToAbsolute(string.Format("~/{0}", ua.UserNameLower)), ua.UserName);
                 }
 
                 #endregion

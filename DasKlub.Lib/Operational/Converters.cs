@@ -191,7 +191,7 @@ namespace DasKlub.Lib.Operational
                 {
                     length++;
                 }
-                source = source.Substring(0, length) + "...";
+                source = string.Format("{0}...", source.Substring(0, length));
             }
             else
             {
@@ -221,6 +221,7 @@ namespace DasKlub.Lib.Operational
         /// <param name="input"></param>
         /// <param name="length"></param>
         /// <param name="fillWith"></param>
+        /// <param name="isLeftAligned"></param>
         /// <returns></returns>
         private static string GetFixedLengthString(string input, int length, string fillWith, bool isLeftAligned)
         {
@@ -246,7 +247,7 @@ namespace DasKlub.Lib.Operational
         /// <returns></returns>
         public static string URLKey(string p)
         {
-            string pname = Regex.Replace(p, @"[\W_-[#]]+", " ");
+            var pname = Regex.Replace(p, @"[\W_-[#]]+", " ");
             return pname.Trim().Replace("  ", " ").Replace(" ", "-").Replace("%", string.Empty).ToLower();
         }
     }

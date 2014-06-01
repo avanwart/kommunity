@@ -156,8 +156,7 @@ namespace DasKlub.Lib.BOL
                 if (isUsersPost || IsUsersWall)
                 {
                     sb.AppendFormat(@"<a class=""delete_icon btn btn-danger btn-mini"" href=""{0}"">{1}</a>",
-                        VirtualPathUtility.ToAbsolute("~/" + ua.UserName + "/deletewallitem/" +
-                                                      WallMessageID),
+                        VirtualPathUtility.ToAbsolute(string.Format("~/{0}/deletewallitem/{1}", ua.UserNameLower, WallMessageID)),
                         Messages.Delete);
                 }
 

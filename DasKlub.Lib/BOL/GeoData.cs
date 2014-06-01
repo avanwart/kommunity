@@ -80,7 +80,7 @@ namespace DasKlub.Lib.BOL
                 if (postalCode.Contains("-"))
                 {
                     postalCode = postalCode.Split('-')[0];
-                    postalCode = postalCode + "-000";
+                    postalCode = string.Format("{0}-000", postalCode);
                 }
             }
 

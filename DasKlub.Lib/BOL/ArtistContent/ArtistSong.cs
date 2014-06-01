@@ -219,14 +219,14 @@ namespace DasKlub.Lib.BOL.ArtistContent
                         art = new Artist(sng.ArtistID);
                         if (_songDisplayNoLink2 != null)
                             return _songDisplayNoLink2 += HttpUtility.HtmlEncode(
-                                cnt.ToString(CultureInfo.InvariantCulture) + ": " + art.Name + " - " + sng.Name);
+                                string.Format("{0}: {1} - {2}", cnt.ToString(CultureInfo.InvariantCulture), art.Name, sng.Name));
                         cnt++;
                     }
                 }
                 else if (sngs.Count == 1)
                 {
                     art = new Artist(sngs[0].ArtistID);
-                    _songDisplayNoLink2 = HttpUtility.HtmlEncode(art.Name + " - " + sngs[0].Name);
+                    _songDisplayNoLink2 = HttpUtility.HtmlEncode(string.Format("{0} - {1}", art.Name, sngs[0].Name));
                 }
                 return _songDisplayNoLink2;
             }
@@ -372,7 +372,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
             {
                 sb.Append(@"<li class=""vid_preview"">");
 
-                string videoLink = VirtualPathUtility.ToAbsolute("~/video/YT#!") + v.ProviderKey;
+                string videoLink = string.Format("{0}{1}", VirtualPathUtility.ToAbsolute("~/video/YT#!"), v.ProviderKey);
 
                 sb.Append(@"<div class=""image"">");
 
@@ -504,10 +504,9 @@ name=""video_delete_id"" class=""btn btn-danger"" type=""submit""
             {
                 sb.Append(@"<li class=""vid_preview"">");
                 sb.Append(@"<div class=""image"">");
-                sb.Append(@"<a href=""/video/" + v.ProviderCode + @"#!" + v.ProviderKey + @""">");
-                sb.Append(@"<img longdesc=""" + v.SongDisplayNoLink + @"""   alt=""/video/YT#!" + v.ProviderKey +
-                          @""" class=""preview_thmb mini"" style=""width: 100px;height: 75px;"" src=""http://i3.ytimg.com/vi/" +
-                          v.ProviderKey + @"/2.jpg""    />");
+                sb.AppendFormat(@"<a href=""/video/{0}#!{1}"">", v.ProviderCode, v.ProviderKey);
+                sb.AppendFormat(@"<img longdesc=""{0}""   alt=""/video/YT#!{1}"" class=""preview_thmb mini"" style=""width: 100px;height: 75px;"" src=""http://i3.ytimg.com/vi/{1}/2.jpg""    />", 
+                    v.SongDisplayNoLink, v.ProviderKey);
                 sb.Append(@"</a>");
 
                 sb.Append(@"<div class=""text"">");

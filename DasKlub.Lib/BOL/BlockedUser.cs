@@ -98,8 +98,7 @@ namespace DasKlub.Lib.BOL
 
         public static bool IsBlockedUser(int userAccountIDBlocking, int userAccountIDBlocked)
         {
-            string cacheName = "IsBlockedUser" + "-" + userAccountIDBlocking + "-" +
-                               userAccountIDBlocked;
+            string cacheName = string.Format("IsBlockedUser-{0}-{1}", userAccountIDBlocking, userAccountIDBlocked);
 
             bool rslt;
 
@@ -127,7 +126,7 @@ namespace DasKlub.Lib.BOL
 
         public static bool IsBlockingUser(int userAccountIDBlocking, int userAccountIDBlocked)
         {
-            string cacheName = "IsBlockingUser" + "-" + userAccountIDBlocking + "-" + userAccountIDBlocked;
+            string cacheName = string.Format("IsBlockingUser-{0}-{1}", userAccountIDBlocking, userAccountIDBlocked);
 
             bool rslt;
 

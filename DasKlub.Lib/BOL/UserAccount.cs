@@ -610,7 +610,7 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                return string.Format("{0}-{1}-{2}", GetType().FullName, UserName.ToLower(CultureInfo.InvariantCulture),
+                return string.Format("{0}-{1}-{2}", GetType().FullName, UserNameLower,
                     UserAccountID);
             }
         }
@@ -746,7 +746,7 @@ namespace DasKlub.Lib.BOL
             get
             {
                 return new Uri(Utilities.URLAuthority() +
-                               VirtualPathUtility.ToAbsolute(string.Format("~/{0}", UserName.ToLower())));
+                               VirtualPathUtility.ToAbsolute(string.Format("~/{0}", UserNameLower)));
             }
         }
 
@@ -937,7 +937,7 @@ namespace DasKlub.Lib.BOL
 
 
             //delete their files folder
-            string mainPath = "~/content/users/" + UserAccountID;
+            string mainPath = string.Format("~/content/users/{0}", UserAccountID);
 
             if (Directory.Exists(HttpContext.Current.Server.MapPath(mainPath)))
             {

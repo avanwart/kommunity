@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Security;
@@ -540,43 +541,34 @@ namespace DasKlub.Lib.BOL
             {
                 var ua = new UserAccount(UserAccountID);
 
-                string[] rls = Roles.GetRolesForUser(ua.UserName);
+                var rls = Roles.GetRolesForUser(ua.UserName);
 
                 var sb = new StringBuilder(100);
 
-                Role role = null;
+                if (rls.Length <= 0) return sb.ToString();
 
-                if (rls.Length > 0)
+                if (rls.Length > 1)
                 {
-                    if (rls.Length > 1)
-                    {
-                        sb.Append(@"<div style=""margin: -7px;""></div>");
-                    }
+                    sb.Append(@"<div style=""margin: -7px;""></div>");
+                }
 
-                    foreach (string rle in rls)
-                    {
-                        sb.Append(@"<img class=""small_site_badge"" src=""");
+                foreach (string rle in rls)
+                {
+                    sb.Append(@"<img class=""small_site_badge"" src=""");
 
-                        switch (rle)
-                        {
-                                // override here
-                            default:
-                                sb.Append(VirtualPathUtility.ToAbsolute(
-                                    string.Concat(
-                                        "~/content/images/roles/",
-                                        rle,
-                                        ".png")));
-                                break;
-                        }
+                    sb.Append(VirtualPathUtility.ToAbsolute(
+                             string.Concat(
+                                 "~/content/images/roles/",
+                                 rle,
+                                 ".png")));
 
-                        role = new Role(rle);
+                    var role = new Role(rle);
 
-                        sb.Append(@""" alt=""");
-                        sb.Append(role.Description);
-                        sb.Append(@""" title=""");
-                        sb.Append(role.Description);
-                        sb.Append(@""" style=""margin-right:3px;"" />");
-                    }
+                    sb.Append(@""" alt=""");
+                    sb.Append(role.Description);
+                    sb.Append(@""" title=""");
+                    sb.Append(role.Description);
+                    sb.Append(@""" style=""margin-right:3px;"" />");
                 }
 
                 return sb.ToString();
@@ -590,38 +582,29 @@ namespace DasKlub.Lib.BOL
             {
                 var ua = new UserAccount(UserAccountID);
 
-                string[] rls = Roles.GetRolesForUser(ua.UserName);
+                var rls = Roles.GetRolesForUser(ua.UserName);
 
                 var sb = new StringBuilder(100);
 
-                Role role = null;
+                if (rls.Length <= 0) return sb.ToString();
 
-                if (rls.Length > 0)
+                foreach (var rle in rls)
                 {
-                    foreach (string rle in rls)
-                    {
-                        sb.Append(@"<img class=""small_site_badge"" src=""");
+                    sb.Append(@"<img class=""small_site_badge"" src=""");
 
-                        switch (rle)
-                        {
-                                // override here
-                            default:
-                                sb.Append(VirtualPathUtility.ToAbsolute(
-                                    string.Concat(
-                                        "~/content/images/roles/",
-                                        rle,
-                                        ".png")));
-                                break;
-                        }
+                    sb.Append(VirtualPathUtility.ToAbsolute(
+                               string.Concat(
+                                   "~/content/images/roles/",
+                                   rle,
+                                   ".png")));
 
-                        role = new Role(rle);
+                    var role = new Role(rle);
 
-                        sb.Append(@""" alt=""");
-                        sb.Append(role.Description);
-                        sb.Append(@""" title=""");
-                        sb.Append(role.Description);
-                        sb.Append(@""" style=""margin-right:3px;"" />");
-                    }
+                    sb.Append(@""" alt=""");
+                    sb.Append(role.Description);
+                    sb.Append(@""" title=""");
+                    sb.Append(role.Description);
+                    sb.Append(@""" style=""margin-right:3px;"" />");
                 }
 
                 return sb.ToString();
@@ -638,13 +621,9 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                if (string.IsNullOrEmpty(Country.Trim()))
-                {
-                    return VirtualPathUtility.ToAbsolute("~/content/images/countries/defaultcountry_small.png");
-                }
-                return VirtualPathUtility.ToAbsolute("~/content/images/countries/flag_sprite.png");
-                //return System.Web.VirtualPathUtility.ToAbsolute( string.Format( "~/content/images/countries/{0}_small.png",  this.Country ));
-                //images/countries/
+                return VirtualPathUtility.ToAbsolute(string.IsNullOrEmpty(Country.Trim()) ?
+                    "~/content/images/countries/defaultcountry_small.png" : 
+                    "~/content/images/countries/flag_sprite.png");
             }
         }
 
@@ -652,11 +631,9 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                if (string.IsNullOrEmpty(Country.Trim()))
-                {
-                    return VirtualPathUtility.ToAbsolute("~/content/images/countries/defaultcountry.png");
-                }
-                return VirtualPathUtility.ToAbsolute(string.Format("~/content/images/countries/{0}.png", Country));
+                return VirtualPathUtility.ToAbsolute(string.IsNullOrEmpty(Country.Trim()) ? 
+                    "~/content/images/countries/defaultcountry.png" : 
+                    string.Format("~/content/images/countries/{0}.png", Country));
             }
         }
 
@@ -664,11 +641,9 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                if (string.IsNullOrEmpty(ProfileThumbPicURL))
-                {
-                    return VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuser.png");
-                }
-                return Utilities.S3ContentPath(ProfilePicURL);
+                return string.IsNullOrEmpty(ProfileThumbPicURL) ? 
+                    VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuser.png") : 
+                    Utilities.S3ContentPath(ProfilePicURL);
             }
         }
 
@@ -677,11 +652,9 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                if (string.IsNullOrEmpty(ProfileThumbPicURL))
-                {
-                    return VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuserthumb.png");
-                }
-                return Utilities.S3ContentPath(ProfileThumbPicURL);
+                return string.IsNullOrEmpty(ProfileThumbPicURL) ?
+                    VirtualPathUtility.ToAbsolute("~/content/images/users/defaultuserthumb.png") :
+                    Utilities.S3ContentPath(ProfileThumbPicURL);
             }
         }
 
@@ -712,7 +685,7 @@ namespace DasKlub.Lib.BOL
 
         public string AboutDescription
         {
-            get { return Utilities.MakeLink(AboutDesc).Replace("\r\n", "<br />"); }
+            get { return Utilities.MakeLink(AboutDesc).Replace(Environment.NewLine, "<br />"); }
         }
 
         public int YearsOld
@@ -725,7 +698,7 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                int age = Utilities.CalculateAge(BirthDate);
+                var age = Utilities.CalculateAge(BirthDate);
                 return (age >= 16);
             }
         }
@@ -735,7 +708,7 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                int age = Utilities.CalculateAge(BirthDate);
+                var age = Utilities.CalculateAge(BirthDate);
                 return (age >= 18);
             }
         }
@@ -757,21 +730,14 @@ namespace DasKlub.Lib.BOL
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                relations = new RelationshipStatuses();
+            if (dt == null || dt.Rows.Count <= 0) return relations;
 
-                RelationshipStatus relation = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    relation = new RelationshipStatus(FromObj.IntFromObj(dr["relationshipStatusID"]));
-
-                    if (relation.RelationshipStatusID == 0) continue;
-
-                    relations.Add(relation);
-                }
-            }
+            relations = new RelationshipStatuses();
+            relations.AddRange(dt.Rows.Cast<DataRow>()
+                .Select(dr => 
+                    new RelationshipStatus(
+                        FromObj.IntFromObj(dr["relationshipStatusID"])))
+                .Where(relation => relation.RelationshipStatusID != 0));
 
             return relations;
         }
@@ -792,17 +758,10 @@ namespace DasKlub.Lib.BOL
             if (dt != null && dt.Rows.Count > 0)
             {
                 iterests = new InterestedIns();
-
-                InterestedIn iterest = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    iterest = new InterestedIn(FromObj.IntFromObj(dr["interestedInID"]));
-
-                    if (iterest.InterestedInID == 0) continue;
-
-                    iterests.Add(iterest);
-                }
+                iterests.AddRange(dt.Rows.Cast<DataRow>()
+                                         .Select(dr => new InterestedIn(
+                                                FromObj.IntFromObj(dr["interestedInID"])))
+                                         .Where(iterest => iterest.InterestedInID != 0));
             }
 
             return iterests;
@@ -822,20 +781,13 @@ namespace DasKlub.Lib.BOL
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                youAres = new YouAres();
+            if (dt == null || dt.Rows.Count <= 0) return youAres;
 
-                YouAre youAre = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    youAre = new YouAre(FromObj.IntFromObj(dr["youAreID"]));
+            youAres = new YouAres();
 
-                    if (youAre.YouAreID == 0) continue;
-
-                    youAres.Add(youAre);
-                }
-            }
+            youAres.AddRange(dt.Rows.Cast<DataRow>()
+                .Select(dr => new YouAre(FromObj.IntFromObj(dr["youAreID"])))
+                .Where(youAre => youAre.YouAreID != 0));
 
             return youAres;
         }
@@ -855,20 +807,13 @@ namespace DasKlub.Lib.BOL
             // was something returned?
             if (dt != null && dt.Rows.Count > 0)
             {
-                SiteEnums.CountryCodeISO country;
-
-                string uniqueCountry = string.Empty;
-
                 foreach (DataRow dr in dt.Rows)
                 {
-                    uniqueCountry = FromObj.StringFromObj(dr["country"]);
+                    var uniqueCountry = FromObj.StringFromObj(dr["country"]);
 
-                    if (!string.IsNullOrWhiteSpace(uniqueCountry))
-                    {
-                        country =
-                            (SiteEnums.CountryCodeISO) Enum.Parse(typeof (SiteEnums.CountryCodeISO), uniqueCountry);
-                        countries.Add(country);
-                    }
+                    if (string.IsNullOrWhiteSpace(uniqueCountry)) continue;
+                    var country = (SiteEnums.CountryCodeISO) Enum.Parse(typeof (SiteEnums.CountryCodeISO), uniqueCountry);
+                    countries.Add(country);
                 }
             }
 
@@ -1057,12 +1002,11 @@ namespace DasKlub.Lib.BOL
                 DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
                 // was something returned?
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    if (HttpContext.Current != null)
-                        HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
-                    Get(dt.Rows[0]);
-                }
+                if (dt == null || dt.Rows.Count <= 0) return;
+
+                if (HttpContext.Current != null)
+                    HttpRuntime.Cache.AddObjToCache(dt.Rows[0], CacheName);
+                Get(dt.Rows[0]);
             }
             else
             {
@@ -1263,7 +1207,7 @@ namespace DasKlub.Lib.BOL
                     case 'R':
                     case 'C':
                         sb.Append(VirtualPathUtility.ToAbsolute(
-                            "~/content/images/interestedin/" + InterestedInID + ".png"));
+                            string.Format("~/content/images/interestedin/{0}.png", InterestedInID)));
                         break;
                     default:
                         sb.Append(VirtualPathUtility.ToAbsolute(
@@ -1397,7 +1341,7 @@ namespace DasKlub.Lib.BOL
                 var ua = new UserAccount(UserAccountID);
                 var sb = new StringBuilder(100);
                 sb.AppendFormat(@"<a title=""{0}"" class=""m_over"" href=""{1}"">", ua.UserName,
-                    VirtualPathUtility.ToAbsolute("~/" + ua.UserName.ToLower()));
+                    VirtualPathUtility.ToAbsolute(string.Format("~/{0}", ua.UserNameLower)));
                 sb.AppendFormat(@"<img title=""{0}"" alt=""{0}"" src=""", ua.UserName);
                 sb.Append(FullProfilePicThumbURL);
                 sb.Append(@""" />");
@@ -1417,7 +1361,7 @@ namespace DasKlub.Lib.BOL
 
                 sb.AppendFormat(@"<span class=""profile_username""><a title=""{0}"" class=""m_over"" href=""{1}"">",
                     ua.UserName,
-                    VirtualPathUtility.ToAbsolute(string.Format("~/{0}", ua.UserName.ToLower())));
+                    VirtualPathUtility.ToAbsolute(string.Format("~/{0}", ua.UserNameLower)));
                 sb.Append(ua.UserName);
                 sb.Append(@"</a></span>");
                 sb.Append("<br />");
@@ -1499,11 +1443,8 @@ namespace DasKlub.Lib.BOL
         public int Set()
         {
             if (UserAccountDetailID == 0) return Create();
-            if (Update())
-            {
-                return 1;
-            }
-            return 0;
+            
+            return Update() ? 1 : 0;
         }
     }
 }
