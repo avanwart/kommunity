@@ -416,11 +416,10 @@ namespace DasKlub.Lib.Operational
 
         private static string FormatYouTubeVideo(string matchedUrl, int height = 200, int width = 300)
         {
-            string videoKey = ExtractYouTubeVideoKey(matchedUrl);
-            string replacementText;
+            var videoKey = ExtractYouTubeVideoKey(matchedUrl);
 
             // YouTube video
-            replacementText = string.Format(
+            var replacementText = string.Format(
                 @"<div class=""you_tube_iframe""><iframe width=""{2}"" height=""{1}"" src=""http://www.youtube.com/embed/{0}?rel=0"" frameborder=""0"" allowfullscreen></iframe></div>",
                 videoKey, height, ((width == 0) ? (object) "100%" : width));
 
@@ -718,28 +717,28 @@ namespace DasKlub.Lib.Operational
             string responseData = string.Empty;
 
             WebRequest request = WebRequest.Create(input) as HttpWebRequest;
-            if (request != null)
-            {
-                request.Method = SiteEnums.HTTPTypes.GET.ToString();
+            
+            if (request == null) return responseData;
 
-                try
+            request.Method = SiteEnums.HTTPTypes.GET.ToString();
+
+            try
+            {
+                using (var response = (HttpWebResponse) request.GetResponse())
                 {
-                    using (var response = (HttpWebResponse) request.GetResponse())
+                    using (Stream dataStream = response.GetResponseStream())
                     {
-                        using (Stream dataStream = response.GetResponseStream())
-                        {
-                            if (dataStream != null)
-                                using (var reader = new StreamReader(dataStream))
-                                {
-                                    responseData = reader.ReadToEnd();
-                                }
-                        }
+                        if (dataStream != null)
+                            using (var reader = new StreamReader(dataStream))
+                            {
+                                responseData = reader.ReadToEnd();
+                            }
                     }
                 }
-                catch (Exception ex)
-                {
-                    LogError(ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                LogError(ex);
             }
             return responseData;
         }

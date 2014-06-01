@@ -16,7 +16,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL.UserContent
 {
-    public class ContentComment : BaseIUserLogCrud, IUnorderdListItem, IURLTo
+    public class ContentComment : BaseIUserLogCrud, IUnorderdListItem, IUrlTo
     {
         #region properties
 

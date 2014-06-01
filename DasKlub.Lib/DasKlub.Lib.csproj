@@ -170,10 +170,8 @@
     <Compile Include="BaseTypes\BaseExistance.cs" />
     <Compile Include="Configs\AmazonCloudConfigs.cs" />
     <Compile Include="Configs\DataBaseConfigs.cs" />
-    <Compile Include="Interfaces\ILocalizedName.cs" />
     <Compile Include="Interfaces\IUnorderdListItem.cs" />
     <Compile Include="Interfaces\IUnorderdList.cs" />
-    <Compile Include="Interfaces\ICalendarEvent.cs" />
     <Compile Include="Interfaces\IDatesInRange.cs" />
     <Compile Include="Interfaces\IGet.cs" />
     <Compile Include="Interfaces\IGetCachedDataRow.cs" />
@@ -185,7 +183,6 @@
     <Compile Include="Interfaces\IBaseCRUD.cs" />
     <Compile Include="Interfaces\IGetAll.cs" />
     <Compile Include="Interfaces\ISet.cs" />
-    <Compile Include="Interfaces\ISetReportingControls.cs" />
     <Compile Include="Interfaces\IURLTo.cs" />
     <Compile Include="Interfaces\IUserLog.cs" />
     <Compile Include="Interfaces\ICRUD.cs" />
@@ -195,7 +192,6 @@
     <Compile Include="Operational\StaticReflection.cs" />
     <Compile Include="Operational\Converters.cs" />
     <Compile Include="Operational\Encryption.cs" />
-    <Compile Include="Operational\FileReaders.cs" />
     <Compile Include="Operational\Utilities.cs" />
     <Compile Include="Providers\MembershipProvider.cs" />
     <Compile Include="Providers\RolesProvider.cs" />

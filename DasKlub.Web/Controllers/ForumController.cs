@@ -364,11 +364,10 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public ActionResult CreateForum()
         {
-            if (_mu != null)
-            {
-                var ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
-                if (!ua.IsAdmin) return new EmptyResult();
-            }
+            if (_mu == null) return View();
+
+            var ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
+            if (!ua.IsAdmin) return new EmptyResult();
 
             return View();
         }
@@ -377,26 +376,24 @@ namespace DasKlub.Web.Controllers
         [HttpPost]
         public ActionResult CreateForum(ForumCategory model)
         {
-            if (_mu != null)
+            if (_mu == null) return RedirectToAction("Index");
+
+            var ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
+
+            if (!ua.IsAdmin) return new EmptyResult();
+
+            using (var context = new DasKlubDbContext())
             {
-                var ua = new UserAccount(Convert.ToInt32(_mu.ProviderUserKey));
+                if (model == null) return RedirectToAction("Index");
 
-                if (!ua.IsAdmin) return new EmptyResult();
+                model.CreatedByUserID = ua.UserAccountID;
+                model.Key = FromString.UrlKey(model.Title);
+                model.Title = model.Title.Trim();
+                model.Description = model.Description.Trim();
 
-                using (var context = new DasKlubDbContext())
-                {
-                    if (model != null)
-                    {
-                        model.CreatedByUserID = ua.UserAccountID;
-                        model.Key = FromString.UrlKey(model.Title);
-                        model.Title = model.Title.Trim();
-                        model.Description = model.Description.Trim();
+                context.ForumCategory.Add(model);
 
-                        context.ForumCategory.Add(model);
-
-                        context.SaveChanges();
-                    }
-                }
+                context.SaveChanges();
             }
 
             return RedirectToAction("Index");

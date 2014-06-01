@@ -73,11 +73,9 @@ namespace DasKlub.Web.Controllers
             {
                 sb.Append("<li>");
 
-
                 sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                    "~/video/bands/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())),
+                    string.Format("~/video/bands/{0}", Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()))),
                     Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
-
 
                 sb.Append("</li>");
             }

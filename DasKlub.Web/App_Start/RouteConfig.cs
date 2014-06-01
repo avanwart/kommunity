@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace DasKlub.Web.App_Start
+namespace DasKlub.Web
 {
     public class RouteConfig
     {

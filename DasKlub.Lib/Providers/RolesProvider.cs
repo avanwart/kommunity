@@ -29,7 +29,9 @@ namespace DasKlub.Lib.Providers
             foreach (string t in usernames)
             {
                 var eu = new UserAccount(t);
+                
                 if (eu.UserAccountID <= 0) continue;
+                
                 foreach (string t1 in roleNames)
                 {
                     UserAccount.AddUserToRole(eu.UserAccountID, t1);
@@ -81,7 +83,7 @@ namespace DasKlub.Lib.Providers
 
             var allRoles = new ArrayList();
 
-            IList<UserAccount> users = UserAccountRole.GetUsersInRole(rle.RoleID);
+            var users = UserAccountRole.GetUsersInRole(rle.RoleID);
 
             foreach (UserAccount ua1 in users) allRoles.Add(ua1.UserName);
 
