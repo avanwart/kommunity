@@ -3,6 +3,7 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Resources
 @using DasKlub.Lib.Values
+@using DasKlub.Web.Helpers
 @{
     ViewBag.Title = Messages.StatusUpdate;
     Layout = "~/Views/Shared/Site.cshtml";
@@ -35,7 +36,7 @@
                        
 
                         <div class="status_count_applaud">
-                            <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
+                            <a href="@Url.Content("~/" + ua.UserNameLower)">@ua.UserName</a>
 
 
                             @{ string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName); }
@@ -81,7 +82,7 @@
             <div class="status_comment_count">
                 @{ var ua = new UserAccount(
                        Convert.ToInt32(ViewBag.MostCommented.UserAccountID)); }
-                <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
+                <a href="@Url.Content("~/" + ua.UserNameLower)">@ua.UserName</a>
                   
                 @{ string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName); }
              
@@ -117,7 +118,7 @@
             <div class="status_count_beatdown">
                 @{ var ua = new UserAccount(
                        Convert.ToInt32(ViewBag.MostBeatDown.UserAccountID)); }
-                <a href="@Url.Content("~/" + ua.UserName)">@ua.UserName</a>
+                <a href="@Url.Content("~/" + ua.UserNameLower)">@ua.UserName</a>
                                      
                 @{ string coName = string.Format(@"<div title=""{1}""  class=""sprites  sprite-{0}_small""></div> ", ua.Country, ua.CountryName); }
              

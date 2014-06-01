@@ -444,6 +444,13 @@ namespace DasKlub.Lib.BOL
             set { _eMail = value; }
         }
 
+        public string UserNameLower
+        {
+            get { return UserName.ToLower(); }
+         
+        }
+
+
         public string UserName
         {
             get
