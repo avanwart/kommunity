@@ -190,13 +190,9 @@ namespace DasKlub.Lib.BOL
             comm.CommandText = "up_GetChattingUserCount";
 
             // execute the stored procedure
-            string rslt = DbAct.ExecuteScalar(comm);
+            var rslt = DbAct.ExecuteScalar(comm);
 
-            if (!string.IsNullOrEmpty(rslt))
-            {
-                return Convert.ToInt32(rslt);
-            }
-            return 0;
+            return !string.IsNullOrEmpty(rslt) ? Convert.ToInt32(rslt) : 0;
         }
 
         public void GetChattingUsers()
@@ -211,7 +207,8 @@ namespace DasKlub.Lib.BOL
 
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
-            foreach (ChatRoomUser cru in from DataRow dr in dt.Rows select new ChatRoomUser(dr))
+
+            foreach (var cru in from DataRow dr in dt.Rows select new ChatRoomUser(dr))
             {
                 Add(cru);
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Operational;
 
@@ -108,15 +109,11 @@ namespace DasKlub.Lib.BOL
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                UserAccountVideo uav = null;
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-                foreach (DataRow dr in dt.Rows)
-                {
-                    uav = new UserAccountVideo(dr);
-                    Add(uav);
-                }
+            foreach (var uav in from DataRow dr in dt.Rows select new UserAccountVideo(dr))
+            {
+                Add(uav);
             }
         }
 
@@ -148,15 +145,11 @@ namespace DasKlub.Lib.BOL
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                UserAccountVideo uav = null;
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-                foreach (DataRow dr in dt.Rows)
-                {
-                    uav = new UserAccountVideo(dr);
-                    Add(uav);
-                }
+            foreach (var uav in from DataRow dr in dt.Rows select new UserAccountVideo(dr))
+            {
+                Add(uav);
             }
         }
     }

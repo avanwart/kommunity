@@ -157,13 +157,9 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("acknowledgementType", acknowledgementType);
 
             // execute the stored procedure
-            string str = DbAct.ExecuteScalar(comm);
+            var str = DbAct.ExecuteScalar(comm);
 
-            if (string.IsNullOrEmpty(str))
-            {
-                return 0;
-            }
-            return Convert.ToInt32(str);
+            return string.IsNullOrEmpty(str) ? 0 : Convert.ToInt32(str);
         }
 
 

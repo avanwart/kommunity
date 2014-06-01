@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Web;
 using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.BLL;
@@ -148,14 +149,11 @@ namespace DasKlub.Lib.BOL
             {
                 var dt = (DataTable) HttpRuntime.Cache[GetType().FullName];
 
-                if (dt != null && dt.Rows.Count > 0)
+                if (dt == null || dt.Rows.Count <= 0) return;
+
+                foreach (var art in from DataRow dr in dt.Rows select new RelationshipStatus(dr))
                 {
-                    RelationshipStatus art = null;
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        art = new RelationshipStatus(dr);
-                        Add(art);
-                    }
+                    Add(art);
                 }
             }
         }

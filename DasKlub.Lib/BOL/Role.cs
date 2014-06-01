@@ -75,11 +75,7 @@ namespace DasKlub.Lib.BOL
             int result = Convert.ToInt32(DbAct.ExecuteScalar(comm));
 
             // was something returned?
-            if (result != 0)
-            {
-                return true;
-            }
-            return false;
+            return result != 0;
         }
 
         /// <summary>

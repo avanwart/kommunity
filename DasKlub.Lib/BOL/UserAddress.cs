@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Text;
 using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.DAL;
@@ -434,15 +435,11 @@ namespace DasKlub.Lib.BOL
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                UserAddress uadd = null;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    uadd = new UserAddress(dr);
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-                    Add(uadd);
-                }
+            foreach (var uadd in from DataRow dr in dt.Rows select new UserAddress(dr))
+            {
+                Add(uadd);
             }
         }
     }

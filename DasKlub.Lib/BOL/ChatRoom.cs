@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Text;
 using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.DAL;
@@ -149,18 +150,14 @@ namespace DasKlub.Lib.BOL
 
             DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            if (ds == null || ds.Tables[0].Rows.Count <= 0) return;
+
+            foreach (var content in from DataRow dr in ds.Tables[0].Rows select new ChatRoom(dr))
             {
-                ChatRoom content = null;
-
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    content = new ChatRoom(dr);
-                    Add(content);
-                }
-
-                Sort((x, y) => (x.CreateDate.CompareTo(y.CreateDate)));
+                Add(content);
             }
+
+            Sort((x, y) => (x.CreateDate.CompareTo(y.CreateDate)));
         }
     }
 }

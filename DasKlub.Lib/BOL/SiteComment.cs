@@ -35,9 +35,8 @@ namespace DasKlub.Lib.BOL
             comm.AddParameter("createdByUserID", CreatedByUserID);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result)) return 0;
 

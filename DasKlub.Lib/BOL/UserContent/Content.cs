@@ -502,7 +502,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
                     sb.Append(string.Format(@"<a href=""{0}"">{1}</a>",
                         VirtualPathUtility.ToAbsolute("~/news/tag/" +
-                                                      FromString.URLKey(keyword)
+                                                      FromString.UrlKey(keyword)
                             )
                         , keyword));
 
@@ -730,7 +730,7 @@ namespace DasKlub.Lib.BOL.UserContent
                 keywordID++;
 
                 contentTagList.Rows.Add(keywordID, tag.Key, tag.Value, VirtualPathUtility.ToAbsolute("~/news/tag/" +
-                                                                                                     FromString.URLKey(
+                                                                                                     FromString.UrlKey(
                                                                                                          tag.Key)
                     ));
             }
@@ -803,7 +803,7 @@ namespace DasKlub.Lib.BOL.UserContent
                 keywordID++;
 
                 contentTagList.Rows.Add(keywordID, tag.Key, tag.Value, VirtualPathUtility.ToAbsolute("~/news/tag/" +
-                                                                                                     FromString.URLKey(
+                                                                                                     FromString.UrlKey(
                                                                                                          tag.Key)
                     ));
             }
