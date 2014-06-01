@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Security;
@@ -15,7 +16,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL.UserContent
 {
-    public class ContentComment : BaseIUserLogCRUD, IUnorderdListItem, IURLTo
+    public class ContentComment : BaseIUserLogCrud, IUnorderdListItem, IURLTo
     {
         #region properties
 
@@ -98,14 +99,11 @@ namespace DasKlub.Lib.BOL.UserContent
         {
             get
             {
-                var theCO = SiteEnums.CommentStatus.U;
+                var theCo = SiteEnums.CommentStatus.U;
 
-                if (Enum.TryParse(StatusType.ToString(), out theCO))
-                {
-                    return Utilities.ResourceValue(Utilities.GetEnumDescription(theCO));
-                }
-
-                return string.Empty;
+                return Enum.TryParse(StatusType.ToString(), out theCo) ? 
+                    Utilities.ResourceValue(Utilities.GetEnumDescription(theCo)) : 
+                    string.Empty;
             }
         }
 
@@ -154,7 +152,7 @@ namespace DasKlub.Lib.BOL.UserContent
                     if (CreatedByUserID == Convert.ToInt32(mu.ProviderUserKey) || user.IsAdmin)
                     {
                         sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                            "~/news/deletecomment?commentID=" + ContentCommentID.ToString()), Messages.Delete);
+                            string.Format("~/news/deletecomment?commentID={0}", ContentCommentID)), Messages.Delete);
                     }
                 }
 
@@ -313,18 +311,14 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter("createdByUserID", createdByUserID);
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                ContentComment ccomm = null;
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-                foreach (DataRow dr in dt.Rows)
-                {
-                    ccomm = new ContentComment(dr);
-                    Add(ccomm);
-                }
+            foreach (var ccomm in from DataRow dr in dt.Rows select new ContentComment(dr))
+            {
+                Add(ccomm);
             }
         }
 
@@ -343,15 +337,11 @@ namespace DasKlub.Lib.BOL.UserContent
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                ContentComment ccomm = null;
+            if (dt == null || dt.Rows.Count <= 0) return;
 
-                foreach (DataRow dr in dt.Rows)
-                {
-                    ccomm = new ContentComment(dr);
-                    Add(ccomm);
-                }
+            foreach (var ccomm in from DataRow dr in dt.Rows select new ContentComment(dr))
+            {
+                Add(ccomm);
             }
         }
 
@@ -373,19 +363,15 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter("PageIndex", pageIndex);
             comm.AddParameter("PageSize", pageSize);
 
-            DataSet ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
+            var ds = DbAct.ExecuteMultipleTableSelectCommand(comm);
 
-            int recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
+            var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            if (ds == null || ds.Tables[0].Rows.Count <= 0) return recordCount;
+
+            foreach (var content in from DataRow dr in ds.Tables[0].Rows select new ContentComment(dr))
             {
-                ContentComment content = null;
-
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    content = new ContentComment(dr);
-                    Add(content);
-                }
+                Add(content);
             }
 
             return recordCount;

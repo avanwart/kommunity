@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Web.Mvc;
-using System.Web.Security;
 using DasKlub.Lib.Resources;
 using DasKlub.Lib.BOL.UserContent;
 using DasKlub.Lib.Values;
@@ -14,7 +11,7 @@ using DasKlub.Lib.BaseTypes;
 
 namespace DasKlub.Web.Models
 {
-    public class ContentModel : BaseIUserLogCRUD
+    public class ContentModel : BaseIUserLogCrud
     {
         #region properties
 
@@ -177,7 +174,7 @@ namespace DasKlub.Web.Models
 
         #region constants
 
-        public const string CONTENT_IMAGE_PATH = "~/content/contentinfo/";
+        public const string ContentImagePath = "~/content/contentinfo/";
 
         #endregion
 
@@ -197,9 +194,7 @@ namespace DasKlub.Web.Models
         {
             get
             {
-                if (Detail == null) return string.Empty;
-
-                return Detail.Replace(Environment.NewLine, "<br />");
+                return Detail == null ? string.Empty : Detail.Replace(Environment.NewLine, "<br />");
             }
         }
 
@@ -209,12 +204,12 @@ namespace DasKlub.Web.Models
         {
             get
             {
-                string theURL = string.Concat("http://",
+                var theUrl = string.Concat("http://",
                                               HttpContext.Current.Request.Url.Authority);
 
-                theURL += string.Concat("/news/", ContentKey);
+                theUrl += string.Concat("/news/", ContentKey);
 
-                _urlTo = new Uri(theURL);
+                _urlTo = new Uri(theUrl);
                 return _urlTo;
             }
             set { _urlTo = value; }
@@ -225,14 +220,9 @@ namespace DasKlub.Web.Models
         {
             get
             {
-                if (string.IsNullOrEmpty(ContentPhotoURL))
-                {
-                    return VirtualPathUtility.ToAbsolute("~/content/contentinfo/default.png");
-                }
-                else
-                {
-                    return VirtualPathUtility.ToAbsolute(ContentPhotoURL);
-                }
+                return VirtualPathUtility.ToAbsolute(string.IsNullOrEmpty(ContentPhotoURL) ? 
+                    "~/content/contentinfo/default.png" : 
+                    ContentPhotoURL);
             }
         }
 
@@ -249,12 +239,10 @@ namespace DasKlub.Web.Models
                 if (string.IsNullOrEmpty(MetaKeywords)) return string.Empty;
 
                 var sb = new StringBuilder(100);
+                var keywords = MetaKeywords.Split(',');
+                var keywordCount = 0;
 
-                string[] keywords = MetaKeywords.Split(',');
-
-                int keywordCount = 0;
-
-                foreach (string keyword in keywords)
+                foreach (var keyword in keywords)
                 {
                     keywordCount++;
 

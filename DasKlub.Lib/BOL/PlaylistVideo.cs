@@ -9,7 +9,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class PlaylistVideo : BaseIUserLogCRUD
+    public class PlaylistVideo : BaseIUserLogCrud
     {
         #region properties 
 

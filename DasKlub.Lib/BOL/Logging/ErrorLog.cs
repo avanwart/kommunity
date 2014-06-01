@@ -7,7 +7,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL.Logging
 {
-    public class ErrorLog : BaseIUserLogCRUD, ICacheName
+    public class ErrorLog : BaseIUserLogCrud, ICacheName
     {
         #region properties
 
@@ -44,7 +44,7 @@ namespace DasKlub.Lib.BOL.Logging
 
         public override int Create()
         {
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_AddErrorLog";
 
@@ -54,9 +54,8 @@ namespace DasKlub.Lib.BOL.Logging
             comm.AddParameter("responseCode", ResponseCode);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result)) return 0;
 

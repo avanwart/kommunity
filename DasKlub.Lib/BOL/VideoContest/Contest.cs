@@ -12,7 +12,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL.VideoContest
 {
-    public class Contest : BaseIUserLogCRUD
+    public class Contest : BaseIUserLogCrud
     {
         #region properties
 
@@ -150,16 +150,7 @@ namespace DasKlub.Lib.BOL.VideoContest
             var sns = new Contests();
             sns.GetAll();
 
-            var cndss = new Contest();
-
-            foreach (Contest c1 in sns)
-            {
-                if (DateTime.UtcNow > c1.BeginDate && DateTime.UtcNow < c1.DeadLine)
-                {
-                    return c1;
-                }
-            }
-            return null;
+            return sns.FirstOrDefault(c1 => DateTime.UtcNow > c1.BeginDate && DateTime.UtcNow < c1.DeadLine);
         }
 
         public static Contest GetLastContest()
@@ -171,10 +162,7 @@ namespace DasKlub.Lib.BOL.VideoContest
 
             sns.Sort(delegate(Contest p1, Contest p2) { return p2.DeadLine.CompareTo(p1.DeadLine); });
 
-            if (sns.Count > 0)
-                return sns[0];
-            else
-                return null;
+            return sns.Count > 0 ? sns[0] : null;
         }
     }
 
@@ -209,7 +197,7 @@ namespace DasKlub.Lib.BOL.VideoContest
             // was something returned?
             if (dt == null || dt.Rows.Count <= 0) return;
             
-            foreach (Contest cont in from DataRow dr in dt.Rows select new Contest(dr))
+            foreach (var cont in from DataRow dr in dt.Rows select new Contest(dr))
             {
                 Add(cont);
             }

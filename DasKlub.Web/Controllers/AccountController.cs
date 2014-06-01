@@ -60,23 +60,22 @@ namespace DasKlub.Web.Controllers
         [Authorize]
         public ActionResult DeleteArticle(int? id)
         {
-            if (id != null && id > 0)
-            {
-                var model = new Content(Convert.ToInt32(id));
+            if (id == null || !(id > 0)) return RedirectToAction("Articles");
 
-                var concoms = new ContentComments();
-                concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.U);
-                concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.C);
+            var model = new Content(Convert.ToInt32(id));
 
-                if (_mu != null && model.CreatedByUserID == Convert.ToInt32(_mu.ProviderUserKey))
-                {
-                    // security check
-                    foreach (var c1 in concoms)
-                        c1.Delete();
+            var concoms = new ContentComments();
+            concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.U);
+            concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.C);
 
-                    model.Delete();
-                }
-            }
+            if (_mu == null || model.CreatedByUserID != Convert.ToInt32(_mu.ProviderUserKey))
+                return RedirectToAction("Articles");
+
+            // security check
+            foreach (var c1 in concoms)
+                c1.Delete();
+
+            model.Delete();
 
             return RedirectToAction("Articles");
         }
@@ -120,6 +119,11 @@ namespace DasKlub.Web.Controllers
             }
 
             TryUpdateModel(model);
+
+            HttpRuntime.Cache.DeleteCacheObj(
+                   string.Concat(
+                       "news-",
+                       model.ContentKey));
             
             const CannedAcl acl = CannedAcl.PublicRead;
 
@@ -161,7 +165,10 @@ namespace DasKlub.Web.Controllers
                 }
             }
 
-            if (model.Set() <= 0) return View(model);
+            if (model.Set() <= 0)
+            {           
+                return View(model);
+            }
 
             if (imageFile != null)
             {
@@ -246,7 +253,7 @@ namespace DasKlub.Web.Controllers
 
                     model.Set();
                 }
-                catch (Exception)
+                catch
                 {
                 }
             }
@@ -1748,30 +1755,28 @@ namespace DasKlub.Web.Controllers
         {
             //TODO: DON'T DO THIS basing the user on the referrer, this will be blank if it uses SSL, change then
 
-            if (Request.UrlReferrer != null)
+            if (Request.UrlReferrer == null) return null;
+
+            var referrring = Request.UrlReferrer.ToString();
+            var partsOfreferring = referrring.Split('/');
+            var ua = new UserAccount(partsOfreferring[partsOfreferring.Length - 1]);
+            var model = new DirectMessages();
+
+            if (_mu != null)
+                model.GetMailPageWiseToUser(pageNumber, PageSize,
+                    Convert.ToInt32(_mu.ProviderUserKey), ua.UserAccountID);
+
+            var sb = new StringBuilder();
+
+            foreach (var cnt in model)
             {
-                var referrring = Request.UrlReferrer.ToString();
-                var partsOfreferring = referrring.Split('/');
-                var ua = new UserAccount(partsOfreferring[partsOfreferring.Length - 1]);
-                var model = new DirectMessages();
-
-                if (_mu != null)
-                    model.GetMailPageWiseToUser(pageNumber, PageSize,
-                                                Convert.ToInt32(_mu.ProviderUserKey), ua.UserAccountID);
-
-                var sb = new StringBuilder();
-
-                foreach (var cnt in model)
-                {
-                    sb.Append(cnt.ToUnorderdListItem);
-                }
-
-                return Json(new
-                    {
-                        ListItems = sb.ToString()
-                    });
+                sb.Append(cnt.ToUnorderdListItem);
             }
-            return null;
+
+            return Json(new
+            {
+                ListItems = sb.ToString()
+            });
         }
 
         [Authorize]

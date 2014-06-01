@@ -6,7 +6,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class SiteComment : BaseIUserLogCRUD
+    public class SiteComment : BaseIUserLogCrud
     {
         #region properties 
 

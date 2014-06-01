@@ -56,7 +56,7 @@ namespace DasKlub.Web.Controllers
             }
 
             sus.IncludeStartAndEndTags = false;
-            ViewBag.StatusUpdateList = @"<ul id=""status_update_list_items"">" + sus.ToUnorderdList + @"</ul>";
+            ViewBag.StatusUpdateList = string.Format(@"<ul id=""status_update_list_items"">{0}</ul>", sus.ToUnorderdList);
 
             var pitm2 = new PhotoItem();
 
@@ -120,7 +120,7 @@ namespace DasKlub.Web.Controllers
                     s3.DeleteObject(AmazonCloudConfigs.AmazonBucketName, _pitm.FilePathThumb);
                 }
             }
-            catch (Exception)
+            catch
             {
                 // whatever
             }

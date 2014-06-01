@@ -13,7 +13,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL
 {
-    public class StatusUpdateNotification : BaseIUserLogCRUD, IUnorderdListItem
+    public class StatusUpdateNotification : BaseIUserLogCrud, IUnorderdListItem
     {
         #region properties
 

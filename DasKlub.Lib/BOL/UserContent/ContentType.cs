@@ -9,7 +9,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL.UserContent
 {
-    public class ContentType : BaseIUserLogCRUD
+    public class ContentType : BaseIUserLogCrud
     {
         #region properties
 

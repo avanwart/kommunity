@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.BOL;
 using DasKlub.Lib.BOL.ArtistContent;
 using DasKlub.Lib.BOL.VideoContest;
 using DasKlub.Lib.Values;
-using IntrepidStudios;
 using IntrepidStudios.SearchCloud;
 
 namespace DasKlub.Web.Controllers
@@ -100,7 +98,7 @@ namespace DasKlub.Web.Controllers
                 sb.Append("<li>");
 
                 sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                    "~/video/users/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())),
+                    string.Format("~/video/users/{0}", Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()))),
                                 Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
 
                 sb.Append("</li>");
@@ -264,14 +262,13 @@ namespace DasKlub.Web.Controllers
 
             if (isAjax) return true;
 
-            if (_videoPageNumber == 1)
-            {
-                var sngrcs = new SongRecords();
+            if (_videoPageNumber != 1) return false;
 
-                sngrcs.AddRange(_toShow.Select(vi => new SongRecord(vi)));
+            var sngrcs = new SongRecords();
 
-                ViewBag.VideosFiltered = sngrcs.VideosPageList();
-            }
+            sngrcs.AddRange(_toShow.Select(vi => new SongRecord(vi)));
+
+            ViewBag.VideosFiltered = sngrcs.VideosPageList();
             return false;
         }
 
@@ -326,7 +323,7 @@ namespace DasKlub.Web.Controllers
                 else
                 {
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                        "~/video/bands/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())),
+                        string.Format("~/video/bands/{0}", Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()))),
                                     Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
                 }
 
@@ -387,7 +384,7 @@ namespace DasKlub.Web.Controllers
                 else
                 {
                     sb.AppendFormat(@"<a href=""{0}"">{1}</a>", VirtualPathUtility.ToAbsolute(
-                        "~/video/users/" + Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower())),
+                        string.Format("~/video/users/{0}", Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture).ToLower()))),
                                     Convert.ToChar(ch2.ToString(CultureInfo.InvariantCulture)));
                 }
 

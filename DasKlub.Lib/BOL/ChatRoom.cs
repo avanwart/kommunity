@@ -10,7 +10,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class ChatRoom : BaseIUserLogCRUD, IUnorderdListItem
+    public class ChatRoom : BaseIUserLogCrud, IUnorderdListItem
     {
         #region properties 
 

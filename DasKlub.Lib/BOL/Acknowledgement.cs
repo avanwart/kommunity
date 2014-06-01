@@ -9,7 +9,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class Acknowledgement : BaseIUserLogCRUD
+    public class Acknowledgement : BaseIUserLogCrud
     {
         #region properties
 

@@ -5,7 +5,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class BlackIP : BaseIUserLogCRUD
+    public class BlackIP : BaseIUserLogCrud
     {
         #region properties 
 

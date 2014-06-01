@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using DasKlub.Lib.BaseTypes;
+using DasKlub.Lib.BLL;
 using DasKlub.Lib.DAL;
 using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
@@ -15,7 +16,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL.UserContent
 {
-    public class Content : BaseIUserLogCRUD, IUnorderdListItem
+    public class Content : BaseIUserLogCrud, IUnorderdListItem
     {
         #region properties
 
@@ -316,7 +317,7 @@ namespace DasKlub.Lib.BOL.UserContent
         }
 
         public override bool Update()
-        {
+        {        
             return Set() > 0;
         }
 
@@ -327,8 +328,9 @@ namespace DasKlub.Lib.BOL.UserContent
 
         public int Set()
         {
+
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
             // set the stored procedure name
             comm.CommandText = "up_SetContent";
 
@@ -354,10 +356,10 @@ namespace DasKlub.Lib.BOL.UserContent
             comm.AddParameter(StaticReflection.GetMemberName<string>(x => ContentVideoURL2), ContentVideoURL2);
 
             // execute the stored procedure
-            string gg = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
-            if (!string.IsNullOrEmpty(gg))
-                ContentID = Convert.ToInt32(gg);
+            if (!string.IsNullOrEmpty(result))
+                ContentID = Convert.ToInt32(result);
             return ContentID;
         }
 
@@ -456,7 +458,7 @@ namespace DasKlub.Lib.BOL.UserContent
         {
             get
             {
-                string theURL = string.Concat("http://", 
+                var theURL = string.Concat("http://", 
                                               HttpContext.Current.Request.Url.Authority);
 
                 theURL += string.Concat("/news/", ContentKey);
@@ -497,11 +499,11 @@ namespace DasKlub.Lib.BOL.UserContent
 
                 var sb = new StringBuilder(100);
 
-                string[] keywords = MetaKeywords.Split(',');
+                var keywords = MetaKeywords.Split(',');
 
-                int keywordCount = 0;
+                var keywordCount = 0;
 
-                foreach (string keyword in keywords)
+                foreach (var keyword in keywords)
                 {
                     keywordCount++;
 
@@ -665,7 +667,7 @@ namespace DasKlub.Lib.BOL.UserContent
 
             foreach (DataRow dr in dt.Rows)
             {
-                string lang = FromObj.StringFromObj(dr["language"]);
+                var lang = FromObj.StringFromObj(dr["language"]);
                 if (!string.IsNullOrWhiteSpace(lang))
                 {
                     dict.Add(lang, Utilities.GetLanguageNameForCode(lang));
@@ -768,13 +770,13 @@ namespace DasKlub.Lib.BOL.UserContent
             {
                 keywords = FromObj.StringFromObj(dr["metaKeywords"]).Split(',');
 
-                foreach (string keyword in keywords)
+                foreach (var keyword in keywords)
                 {
-                    string word = keyword.Trim().ToLower();
+                    var word = keyword.Trim().ToLower();
 
                     if (keywordsDict.ContainsKey(word))
                     {
-                        int timeFound = keywordsDict[word];
+                        var timeFound = keywordsDict[word];
                         keywordsDict.Remove(word);
                         keywordsDict.Add(word, timeFound + 1);
                     }
@@ -976,12 +978,11 @@ namespace DasKlub.Lib.BOL.UserContent
 
             var recordCount = Convert.ToInt32(comm.Parameters["@RecordCount"].Value);
 
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            if (ds == null || ds.Tables[0].Rows.Count <= 0) return recordCount;
+
+            foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
             {
-                foreach (var content in from DataRow dr in ds.Tables[0].Rows select new Content(dr))
-                {
-                    Add(content);
-                }
+                Add(content);
             }
 
             return recordCount;
@@ -1046,24 +1047,20 @@ namespace DasKlub.Lib.BOL.UserContent
         public void GetAll()
         {
             // get a configured DbCommand object
-            DbCommand comm = DbAct.CreateCommand();
+            var comm = DbAct.CreateCommand();
+            
             // set the stored procedure name
             comm.CommandText = "up_GetAllContent";
 
             // execute the stored procedure
-            DataTable dt = DbAct.ExecuteSelectCommand(comm);
+            var dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            foreach (var cnt in from DataRow dr in dt.Rows select new Content(dr))
             {
-                Content cnt = null;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    cnt = new Content(dr);
-
-                    Add(cnt);
-                }
+                Add(cnt);
             }
         }
 
@@ -1080,20 +1077,15 @@ namespace DasKlub.Lib.BOL.UserContent
             DataTable dt = DbAct.ExecuteSelectCommand(comm);
 
             // was something returned?
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count <= 0) return;
+
+            var currentTime = DateTime.UtcNow;
+
+            foreach (var cnt in dt.Rows.Cast<DataRow>()
+                                       .Select(dr => new Content(dr))
+                                       .Where(cnt => cnt.ReleaseDate < currentTime))
             {
-                Content cnt = null;
-                DateTime currentTime = DateTime.UtcNow;
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    cnt = new Content(dr);
-
-                    if (cnt.ReleaseDate < currentTime) // forget about the future ones
-                    {
-                        Add(cnt);
-                    }
-                }
+                Add(cnt);
             }
         }
 

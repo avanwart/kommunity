@@ -15,7 +15,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL
 {
-    public class StatusComment : BaseIUserLogCRUD, ICacheName, IUnorderdListItem
+    public class StatusComment : BaseIUserLogCrud, ICacheName, IUnorderdListItem
     {
         #region properties
 

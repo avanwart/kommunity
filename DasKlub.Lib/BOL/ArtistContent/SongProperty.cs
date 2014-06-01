@@ -10,7 +10,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL.ArtistContent
 {
-    public class SongProperty : BaseIUserLogCRUD, ICacheName
+    public class SongProperty : BaseIUserLogCrud, ICacheName
     {
         #region properties
 
@@ -50,9 +50,8 @@ namespace DasKlub.Lib.BOL.ArtistContent
             comm.AddParameter("propertyType", PropertyType);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result))
             {
@@ -146,12 +145,11 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
                 sp.GetSongPropertySongIDTypeID(sng.SongID, SPropType.IT.ToString());
 
-                if (!string.IsNullOrEmpty(sp.PropertyContent))
-                {
-                    sb.Append(@"<a target=""_blank"" class=""info"" href=""" + sp.PropertyContent + @""">");
-                    sb.Append(sng.Name);
-                    sb.Append(@"</a>");
-                }
+                if (string.IsNullOrEmpty(sp.PropertyContent)) continue;
+
+                sb.Append(@"<a target=""_blank"" class=""info"" href=""" + sp.PropertyContent + @""">");
+                sb.Append(sng.Name);
+                sb.Append(@"</a>");
             }
 
             return HttpUtility.HtmlEncode(sb.ToString().Trim());

@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using DasKlub.Lib.BLL;
 using DasKlub.Lib.BOL;
 using DasKlub.Lib.BOL.DomainConnection;
 using DasKlub.Lib.BOL.UserContent;
-using DasKlub.Lib.Configs;
-using DasKlub.Lib.Operational;
 using DasKlub.Lib.Values;
 using DasKlub.Web.Models;
-using LitS3;
 
 namespace DasKlub.Web.Controllers
 {
@@ -198,20 +189,19 @@ namespace DasKlub.Web.Controllers
         [HttpGet]
         public ActionResult DeleteArticle(int? id)
         {
-            if (id != null && id > 0)
-            {
-                var model = new Content(
-                    Convert.ToInt32(id));
+            if (id == null || !(id > 0)) return RedirectToAction("Articles");
 
-                var concoms = new ContentComments();
-                concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.U);
-                concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.C);
+            var model = new Content(
+                Convert.ToInt32(id));
 
-                foreach (ContentComment c1 in concoms)
-                    c1.Delete();
+            var concoms = new ContentComments();
+            concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.U);
+            concoms.GetCommentsForContent(model.ContentID, SiteEnums.CommentStatus.C);
 
-                model.Delete();
-            }
+            foreach (var c1 in concoms)
+                c1.Delete();
+
+            model.Delete();
 
             return RedirectToAction("Articles");
         }
@@ -331,8 +321,7 @@ namespace DasKlub.Web.Controllers
         [HttpPost]
         public ActionResult UpdateRoles(int userAccountID, IEnumerable<string> roleOption)
         {
-            var ua = new UserAccount(userAccountID);
-            ua.IsLockedOut = (Request.Form["isLockedOut"] == null) ? false : true;
+            var ua = new UserAccount(userAccountID) {IsLockedOut = (Request.Form["isLockedOut"] != null)};
             ua.Update();
 
             UserAccountRole.DeleteUserRoles(userAccountID);

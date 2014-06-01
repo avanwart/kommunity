@@ -25,8 +25,8 @@ namespace DasKlub.Lib.BLL
     {
         #region variables
 
-        private static CacheItemRemovedCallback onRemove;
-        private static CacheItemRemovedReason reasonRemoved;
+        private static CacheItemRemovedCallback _onRemove;
+        private static CacheItemRemovedReason _reasonRemoved;
 
         #endregion
 
@@ -66,7 +66,7 @@ namespace DasKlub.Lib.BLL
         /// <param name="cacheName"></param>
         public static void AddObjToCache(this Cache cache, object obj, string cacheName)
         {
-            onRemove = RemovedCallback;
+            _onRemove = RemovedCallback;
 
             if (HttpContext.Current != null && obj != null && !string.IsNullOrEmpty(cacheName))
             {
@@ -76,14 +76,14 @@ namespace DasKlub.Lib.BLL
                                               Cache.NoAbsoluteExpiration,
                                               new TimeSpan(0, 5, 0),
                                               CacheItemPriority.Default,
-                                              onRemove);
+                                              _onRemove);
             }
         }
 
 
         public static void AddObjToCache(this Cache cache, object obj, string cacheName, int minutes)
         {
-            onRemove = RemovedCallback;
+            _onRemove = RemovedCallback;
 
             if (HttpContext.Current != null && obj != null && !string.IsNullOrEmpty(cacheName))
             {
@@ -93,7 +93,7 @@ namespace DasKlub.Lib.BLL
                                               DateTime.UtcNow.AddMinutes(minutes),
                                               Cache.NoSlidingExpiration,
                                               CacheItemPriority.Default,
-                                              onRemove);
+                                              _onRemove);
             }
         }
 
@@ -130,7 +130,7 @@ namespace DasKlub.Lib.BLL
 
         public static void RemovedCallback(String keyName, Object obj, CacheItemRemovedReason reason)
         {
-            reasonRemoved = reason;
+            _reasonRemoved = reason;
 
             RemoveExternalCache(keyName);
         }

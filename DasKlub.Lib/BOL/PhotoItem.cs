@@ -12,7 +12,7 @@ using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL
 {
-    public class PhotoItem : BaseIUserLogCRUD, IUnorderdListItem
+    public class PhotoItem : BaseIUserLogCrud, IUnorderdListItem
     {
         private bool _showTitle = true;
 

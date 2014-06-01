@@ -99,45 +99,44 @@ namespace DasKlub.Web.Controllers
 
             var girlModels = UserAccountRole.GetUsersInRole(rle.RoleID);
 
-            if (girlModels != null && girlModels.Count > 0)
+            if (girlModels == null || girlModels.Count <= 0) return View(model);
+
+            girlModels.Shuffle();
+
+            var featuredModel = girlModels[0];
+
+            var featuredPhoto = new UserAccountDetail();
+            featuredPhoto.GetUserAccountDeailForUser(featuredModel.UserAccountID);
+
+            var photoNumber = Utilities.RandomNumber(1, 4);
+
+            var photoPath = featuredPhoto.FullProfilePicURL;
+
+            if (photoNumber > 1)
             {
-                girlModels.Shuffle();
+                var ups = new UserPhotos();
 
-                var featuredModel = girlModels[0];
+                ups.GetUserPhotos(featuredModel.UserAccountID);
 
-                var featuredPhoto = new UserAccountDetail();
-                featuredPhoto.GetUserAccountDeailForUser(featuredModel.UserAccountID);
-
-                var photoNumber = Utilities.RandomNumber(1, 4);
-
-                var photoPath = featuredPhoto.FullProfilePicURL;
-
-                if (photoNumber > 1)
+                if (ups.Count > 0)
                 {
-                    var ups = new UserPhotos();
-
-                    ups.GetUserPhotos(featuredModel.UserAccountID);
-
-                    if (ups.Count > 0)
+                    foreach (var up1 in ups.Where(up1 => (up1.RankOrder + 1) == photoNumber))
                     {
-                        foreach (var up1 in ups.Where(up1 => (up1.RankOrder + 1) == photoNumber))
-                        {
-                            photoPath = up1.FullProfilePicURL;
-                            break;
-                        }
+                        photoPath = up1.FullProfilePicURL;
+                        break;
                     }
                 }
+            }
 
-                var colorBorder = GeneralConfigs.RandomColors.Split(',');
+            var colorBorder = GeneralConfigs.RandomColors.Split(',');
 
-                var rnd = new Random();
-                var myRandomArray = colorBorder.OrderBy(x => rnd.Next()).ToArray();
+            var rnd = new Random();
+            var myRandomArray = colorBorder.OrderBy(x => rnd.Next()).ToArray();
 
-                ViewBag.FeaturedModel = string.Format(@"
+            ViewBag.FeaturedModel = string.Format(@"
 <a class=""m_over"" href=""{1}"">
 <img src=""{0}"" class=""featured_user"" style="" border: 2px dashed {2}; "" /></a>", photoPath,
-                                                      featuredModel.UrlTo, myRandomArray[0]);
-            }
+                featuredModel.UrlTo, myRandomArray[0]);
 
             return View(model);
         }
@@ -164,7 +163,7 @@ namespace DasKlub.Web.Controllers
 
             _userPageNumber = pageNumber;
 
-            string currentLang = Utilities.GetCurrentLanguageCode();
+            var currentLang = Utilities.GetCurrentLanguageCode();
 
             Thread.CurrentThread.CurrentUICulture =
                 CultureInfo.CreateSpecificCulture(SiteEnums.SiteLanguages.EN.ToString());

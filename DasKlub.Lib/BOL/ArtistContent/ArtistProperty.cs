@@ -3,12 +3,11 @@ using System.Data;
 using System.Data.Common;
 using DasKlub.Lib.BaseTypes;
 using DasKlub.Lib.DAL;
-using DasKlub.Lib.Interfaces;
 using DasKlub.Lib.Operational;
 
 namespace DasKlub.Lib.BOL.ArtistContent
 {
-    public class ArtistProperty : BaseIUserLogCRUD 
+    public class ArtistProperty : BaseIUserLogCrud 
     {
         #region properties
 
@@ -89,9 +88,8 @@ namespace DasKlub.Lib.BOL.ArtistContent
             comm.AddParameter("artistPropertyID", ArtistPropertyID);
 
             // result will represent the number of changed rows
-            bool result = false;
             // execute the stored procedure
-            result = Convert.ToBoolean(DbAct.ExecuteNonQuery(comm));
+            var result = Convert.ToBoolean(DbAct.ExecuteNonQuery(comm));
  
             return result;
         }
@@ -111,9 +109,8 @@ namespace DasKlub.Lib.BOL.ArtistContent
             comm.AddParameter("propertyType", PropertyType);
 
             // the result is their ID
-            string result = string.Empty;
             // execute the stored procedure
-            result = DbAct.ExecuteScalar(comm);
+            var result = DbAct.ExecuteScalar(comm);
 
             if (string.IsNullOrEmpty(result)) return 0;
 

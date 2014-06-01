@@ -13,7 +13,7 @@ using DasKlub.Lib.Resources;
 
 namespace DasKlub.Lib.BOL
 {
-    public class Venue : BaseIUserLogCRUD, ICacheName
+    public class Venue : BaseIUserLogCrud, ICacheName
     {
         #region properties
 

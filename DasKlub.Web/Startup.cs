@@ -1,8 +1,9 @@
-﻿using Microsoft.Owin;
+﻿using DasKlub.Web;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(SignalRChat.Startup))]
-namespace SignalRChat
+[assembly: OwinStartup(typeof(Startup))]
+namespace DasKlub.Web
 {
 
     public class Startup

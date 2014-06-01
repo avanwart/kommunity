@@ -14,7 +14,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL
 {
-    public class MultiProperty : BaseIUserLogCRUD, ICacheName, IDisplayName
+    public class MultiProperty : BaseIUserLogCrud, ICacheName, IDisplayName
     {
         #region properties
 

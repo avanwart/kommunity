@@ -19,7 +19,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL
 {
-    public class Video : BaseIUserLogCRUD, ICacheName
+    public class Video : BaseIUserLogCrud, ICacheName
     {
         #region properties
 

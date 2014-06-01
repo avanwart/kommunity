@@ -372,17 +372,14 @@ namespace DasKlub.Lib.BOL.ArtistContent
             {
                 sb.Append(@"<li class=""vid_preview"">");
 
-
-                string videoLink = VirtualPathUtility.ToAbsolute("~/video/YT#!") + v.ProviderKey;
-
+                var videoLink = VirtualPathUtility.ToAbsolute("~/video/YT#!") + v.ProviderKey;
 
                 sb.Append(@"<div class=""image"">");
 
                 sb.AppendFormat(@"<a href=""{0}"">", videoLink);
 
-                sb.Append(@"<img longdesc=""" + v.SongDisplayNoLink + @"""  alt=""" + videoLink +
-                          @""" class=""preview_thmb mini"" style=""width: 100px;height: 75px;"" src=""http://i3.ytimg.com/vi/" +
-                          v.ProviderKey + @"/2.jpg""  />");
+                sb.AppendFormat(@"<img longdesc=""{0}""  alt=""{1}"" class=""preview_thmb mini"" style=""width: 100px;height: 75px;"" src=""http://i3.ytimg.com/vi/{2}/2.jpg""  />", 
+                    v.SongDisplayNoLink, videoLink, v.ProviderKey);
                 sb.Append(@"</a>");
 
                 sb.Append(@"<div class=""text"">");
@@ -411,9 +408,9 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
             sb.Append("<ul>");
 
-            int i = 1;
+            var i = 1;
 
-            foreach (SongRecord v in this)
+            foreach (var v in this)
             {
                 sb.Append(@"<li class=""playlist_mod"">");
                 sb.Append(@"<ul>");
@@ -421,11 +418,9 @@ namespace DasKlub.Lib.BOL.ArtistContent
                 sb.Append(@"<li class=""playlist_vid"">");
                 sb.Append(@"<div class=""image"">");
 
-
                 sb.AppendFormat(
                     @"<a href=""{0}/{1}#!{2}"">", VirtualPathUtility.ToAbsolute("~/video"), v.ProviderCode,
                     v.ProviderKey);
-
 
                 sb.AppendFormat(@"<img longdesc=""{0}"" alt=""{1}/{2}#!{3}"" class=""preview_thmb mini"" style=""width: 100px;height: 75px;"" 
    src=""http://i3.ytimg.com/vi/{3}/2.jpg""    />", v.SongDisplayNoLink, VirtualPathUtility.ToAbsolute("~/video"),
@@ -440,14 +435,11 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
                 sb.Append(@"</div>");
 
-
                 sb.Append(@"</li>");
-
                 sb.Append(@"<li class=""playlist_up_down_delete"">");
 
                 sb.Append(@"<table>");
                 sb.Append(@"<tr>");
-
 
                 sb.Append(@"<td>");
 
@@ -500,14 +492,12 @@ name=""video_delete_id"" class=""btn btn-danger"" type=""submit""
         {
             if (Count == 0) return string.Empty;
 
-
             var sb = new StringBuilder(100);
 
             if (IncludeStateAndEndTag)
             {
                 sb.Append("<ul>");
             }
-
 
             foreach (var v in this)
             {
@@ -527,7 +517,6 @@ name=""video_delete_id"" class=""btn btn-danger"" type=""submit""
                 sb.Append(@"</li>");
             }
 
-
             if (IncludeStateAndEndTag)
             {
                 sb.Append("</ul>");
@@ -541,7 +530,6 @@ name=""video_delete_id"" class=""btn btn-danger"" type=""submit""
         {
             if (Count == 0) return string.Empty;
 
-
             var sb = new StringBuilder(100);
 
             if (IncludeStateAndEndTag)
@@ -549,15 +537,13 @@ name=""video_delete_id"" class=""btn btn-danger"" type=""submit""
                 sb.Append(@"<ul>");
             }
 
-
             foreach (var v in this)
             {
                 sb.Append(@"<li class=""video_page_list_item"">");
 
                 sb.AppendFormat(@"<a class=""m_over"" title=""{2}"" href=""{0}{1}"">
-                                <img alt=""{2}"" src=""http://i3.ytimg.com/vi/{1}/0.jpg""    /></a>",
+                                <img alt=""{2}"" src=""http://i3.ytimg.com/vi/{1}/0.jpg"" /></a>",
                                 VirtualPathUtility.ToAbsolute("~/video/YT#!"), v.ProviderKey, v.SongDisplayNoLink2);
-
 
                 sb.Append(@"</li>");
             }

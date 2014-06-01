@@ -16,7 +16,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL
 {
-    public class StatusUpdate : BaseIUserLogCRUD, ICacheName, IUnorderdListItem
+    public class StatusUpdate : BaseIUserLogCrud, ICacheName, IUnorderdListItem
     {
         #region constructors
 

@@ -11,7 +11,7 @@ using DasKlub.Lib.Values;
 
 namespace DasKlub.Lib.BOL
 {
-    public class UserAddress : BaseIUserLogCRUD, ISet
+    public class UserAddress : BaseIUserLogCrud, ISet
     {
         #region properties 
 
