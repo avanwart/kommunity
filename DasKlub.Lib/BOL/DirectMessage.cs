@@ -202,7 +202,7 @@ namespace DasKlub.Lib.BOL
                     // TODO: NO NEED FOR THIS WHEN VIEWING MESSAGES TO THE USER WHERE YOU REPLY
                     sb.Append(@" <a class=""btn btn-success"" href=""");
                     sb.AppendFormat(VirtualPathUtility.ToAbsolute("~/account/reply/"));
-                    sb.Append(ua.UserName.ToLowerInvariant());
+                    sb.Append(ua.UserNameLower);
                     sb.Append(@""">");
                     sb.Append(Messages.Reply);
                     sb.Append(@"</a>");

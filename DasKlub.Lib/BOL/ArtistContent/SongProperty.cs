@@ -144,7 +144,7 @@ namespace DasKlub.Lib.BOL.ArtistContent
 
                 if (string.IsNullOrEmpty(sp.PropertyContent)) continue;
 
-                sb.Append(@"<a target=""_blank"" class=""info"" href=""" + sp.PropertyContent + @""">");
+                sb.AppendFormat(@"<a target=""_blank"" class=""info"" href=""{0}"">", sp.PropertyContent);
                 sb.Append(sng.Name);
                 sb.Append(@"</a>");
             }

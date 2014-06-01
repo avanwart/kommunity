@@ -107,7 +107,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Operational\UtilitiesTest.cs" />
+    <Compile Include="Operational\ConverterTests.cs" />
+    <Compile Include="Operational\UtilitiesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

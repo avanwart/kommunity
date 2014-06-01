@@ -2,17 +2,17 @@
 using DasKlub.Lib.Operational;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DasKlub.Lib.UnitTests.DasKlub.Lib.Operational
+namespace DasKlub.Lib.UnitTests.Operational
 {
     [TestClass]
-    public class UtilitiesTest
+    public class UtilitiesTests
     {
-        private string expectedDoman;
+        private string _expectedDoman;
 
         [TestInitialize]
         public void Init()
         {
-            expectedDoman = GeneralConfigs.SiteDomain;
+            _expectedDoman = GeneralConfigs.SiteDomain;
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ Contact me for more informations here: www.justdeux.com
 Just Deux
 
 Poster: {0}/propaganda/Deuxvolt_tour_2014_01_wien.png
-note: Thanks to DasKlub community", expectedDoman);
+note: Thanks to DasKlub community", _expectedDoman);
 
             // act
             string result = Utilities.ConvertTextToHtml(text);
@@ -97,7 +97,7 @@ Contact me for more informations here: www.justdeux.com<br />
 Just Deux<br />
 <br />
 Poster: <a href=""{0}/propaganda/Deuxvolt_tour_2014_01_wien.png"">{0}/propagan...</a><br />
-note: Thanks to DasKlub community", expectedDoman);
+note: Thanks to DasKlub community", _expectedDoman);
 
             Assert.AreEqual(expected, result);
         }

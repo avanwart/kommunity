@@ -181,7 +181,7 @@ namespace DasKlub.Lib.BOL
                     (SiteEnums.ResponseType) Enum.Parse(typeof (SiteEnums.ResponseType), ResponseType.ToString());
 
                 sb.AppendFormat(@"<a class=""notification_link"" href=""{0}"">",
-                    VirtualPathUtility.ToAbsolute("~/account/statusupdate/" + StatusUpdateID));
+                    VirtualPathUtility.ToAbsolute(string.Format("~/account/statusupdate/{0}", StatusUpdateID)));
 
                 switch (rtype)
                 {
