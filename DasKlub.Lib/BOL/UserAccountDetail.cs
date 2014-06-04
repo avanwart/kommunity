@@ -373,13 +373,9 @@ namespace DasKlub.Lib.BOL
         {
             get
             {
-                if (DisplayAge &&
-                    DateTime.UtcNow.Month == BirthDate.Month &&
-                    (DateTime.UtcNow.Day == BirthDate.Day))
-                {
-                    return true;
-                }
-                return false;
+                return DisplayAge &&
+                       DateTime.UtcNow.Month == BirthDate.Month &&
+                       (DateTime.UtcNow.Day == BirthDate.Day);
             }
         }
 
@@ -550,6 +546,13 @@ namespace DasKlub.Lib.BOL
                 if (rls.Length > 1)
                 {
                     sb.Append(@"<div style=""margin: -7px;""></div>");
+                }
+
+                if (IsBirthdayToday)
+                {
+                    sb.Append(@"<img class=""small_site_badge"" src=""");
+                    sb.Append(VirtualPathUtility.ToAbsolute("~/content/images/icons/b_day_hat.png"));
+                    sb.AppendFormat(@""" title=""{0}"" alt=""{0}""  />", Messages.HappyBirthday);
                 }
 
                 foreach (string rle in rls)
