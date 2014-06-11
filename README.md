@@ -1,5 +1,9 @@
 #[Das Klub](http://dasklub.com)
 ##A Kommunity For All And None.
+---
+
+#### Special Thanks
+- [Jetbrains](http://www.jetbrains.com/) for [ReSharper](http://www.jetbrains.com/resharper/), IDE productivity
 
 ---
 ### Development Software
