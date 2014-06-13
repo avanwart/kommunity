@@ -139,7 +139,11 @@
         @{ Html.RenderPartial("_socialShares"); }
       
         <hr />               
-        <a  class="btn btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/create")">@Messages.Reply : @ViewBag.PageTitle</a>
+        <b>Thread Topic:</b>
+        <i>  @ViewBag.PageTitle</i>
+        <br />
+        <br />
+        <a  class="btn btn-success" href="@Url.Content("~/forum/" + ViewBag.Forum.Key + "/" + ViewBag.SubForum.Key + "/create")">@Messages.Reply</a>
          
         <hr />
             
