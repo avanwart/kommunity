@@ -25,7 +25,7 @@ namespace DasKlub.EmailBlasterService
         private const string Group1 = "BusinessTasks";
         private const string Job = "Job";
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+        private const int MaxEmailsPerSecond = 5;
         private static IScheduler _scheduler;
 
         public ContactService()
@@ -41,7 +41,7 @@ namespace DasKlub.EmailBlasterService
             _scheduler = schedulerFactory.GetScheduler();
             _scheduler.Start();
 
-            Log.Info("Starting Windows Service: " + GeneralConfigs.SiteName);
+            Log.Info(string.Format("Starting Windows Service: {0}", GeneralConfigs.SiteName));
 
             AddJobs();
         }
@@ -56,7 +56,7 @@ namespace DasKlub.EmailBlasterService
         private void AddTopForumThreadsJob()
         {
             const string trigger1 = "TopForumThreads";
-            string timeToRun = "0 0 1 ? * SAT"; /* every saturday at 1am */
+            const string timeToRun = "0 0 1 ? * SAT";
 
             IMyJob myJob = new TopForumThreadsJob(); //This Constructor needs to be parameterless
             var jobDetail = new JobDetailImpl(trigger1 + Job, Group1, myJob.GetType());
@@ -65,13 +65,13 @@ namespace DasKlub.EmailBlasterService
             _scheduler.ScheduleJob(jobDetail, trigger);
             DateTimeOffset? nextFireTime = trigger.GetNextFireTimeUtc();
             if (nextFireTime != null)
-                Log.Info(Group1 + "+" + trigger1, new Exception(nextFireTime.Value.ToString("u")));
+                Log.Info(string.Format("{0}+{1}", Group1, trigger1), new Exception(nextFireTime.Value.ToString("u")));
         }
 
         public static void AddHealthMonitoringJob()
         {
             const string trigger1 = "HealthMonitoring";
-            string timeToRun = "0 0/10 * * * ?"; /* every 10 minutes */
+            const string timeToRun = "0 0/10 * * * ?";
 
             IMyJob myJob = new HealthMonitiorJob(); //This Constructor needs to be parameterless
             var jobDetail = new JobDetailImpl(trigger1 + Job, Group1, myJob.GetType());
@@ -80,14 +80,14 @@ namespace DasKlub.EmailBlasterService
             _scheduler.ScheduleJob(jobDetail, trigger);
             DateTimeOffset? nextFireTime = trigger.GetNextFireTimeUtc();
             if (nextFireTime != null)
-                Log.Info(Group1 + "+" + trigger1, new Exception(nextFireTime.Value.ToString("u")));
+                Log.Info(string.Format("{0}+{1}", Group1, trigger1), new Exception(nextFireTime.Value.ToString("u")));
         }
 
         public static void AddBirthdayJob()
         {
             const string trigger1 = "EmailTasksTrigger";
             const string jobName = trigger1 + Job;
-            string timeToRun = "0 0 2 * * ?"; /* run every day at 2:00 UTC */
+            const string timeToRun = "0 0 2 * * ?";
 
             IMyJob myJob = new BirthdayJob(); //This Constructor needs to be parameterless
             var jobDetail = new JobDetailImpl(jobName, Group1, myJob.GetType());
@@ -96,7 +96,7 @@ namespace DasKlub.EmailBlasterService
             _scheduler.ScheduleJob(jobDetail, trigger);
             DateTimeOffset? nextFireTime = trigger.GetNextFireTimeUtc();
             if (nextFireTime != null)
-                Log.Debug(Group1 + "+" + trigger1, new Exception(nextFireTime.Value.ToString("u")));
+                Log.Debug(string.Format("{0}+{1}", Group1, trigger1), new Exception(nextFireTime.Value.ToString("u")));
         }
 
         public void OnDebug()
@@ -155,13 +155,15 @@ namespace DasKlub.EmailBlasterService
                                 user.createDate.Value.Day,
                                 user.createDate.Value.Year);
 
+                            System.Threading.Thread.Sleep(1000 / MaxEmailsPerSecond);
+
                             _mail.SendMail(AmazonCloudConfigs.SendFromEmail, user.eMail,
                                 string.Format("Happy Birthday {0}!", user.userName),
                                 string.Format(
                                     "Happy birthday from Das Klub! {1}{1} Visit: {0} {1}{1} Membership Sign Up Date: {1}{1}{2}",
                                     GeneralConfigs.SiteDomain, Environment.NewLine, signUpDate));
 
-                            Log.Info("Sent to: " + user.eMail);
+                            Log.Info(string.Format("Sent to: {0}", user.eMail));
                         }
                     }
                     catch (Exception ex)
@@ -195,14 +197,14 @@ namespace DasKlub.EmailBlasterService
 
             public void Execute(IJobExecutionContext context)
             {
-                using (var contextDB = new DasKlubDbContext())
+                using (var contextDb = new DasKlubDbContext())
                 {
-                    DateTime oneWeekAgo = DateTime.UtcNow.AddDays(-7);
+                    var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
 
-                    int totalTopAmount = 3;
+                    const int totalTopAmount = 3;
 
-                    List<IGrouping<int, ForumPost>> mostPopularForumPosts =
-                        contextDB.ForumPost
+                    var mostPopularForumPosts =
+                        contextDb.ForumPost
                             .Where(x => x.CreateDate > oneWeekAgo)
                             .GroupBy(x => x.ForumSubCategoryID)
                             .OrderByDescending(y => y.Count())
@@ -216,11 +218,11 @@ namespace DasKlub.EmailBlasterService
                         foreach (var item in mostPopularForumPosts)
                         {
                             ForumSubCategory forumThread =
-                                contextDB.ForumSubCategory
+                                contextDb.ForumSubCategory
                                     .FirstOrDefault(x => x.ForumSubCategoryID == item.Key);
 
                             ForumCategory forum =
-                                contextDB.ForumCategory
+                                contextDb.ForumCategory
                                     .FirstOrDefault(x => x.ForumCategoryID == forumThread.ForumCategoryID);
 
                             threads.Append(forumThread.Title);
@@ -252,17 +254,22 @@ namespace DasKlub.EmailBlasterService
                             var uad = new UserAccountDetail();
                             uad.GetUserAccountDeailForUser(user.UserAccountID);
 
-                            if (!uad.EmailMessages) continue;
+                            if (!uad.EmailMessages || uad.UserAccountDetailID == 0) continue;
 
-                            string message = string.Format("Hello {0}! {1}{1}{2}", user.UserName, Environment.NewLine,
-                                top3Threads);
+                            string message = string.Format(
+                                                "Hello {0}! {1}{1}{2}", 
+                                                user.UserName,
+                                                Environment.NewLine,
+                                                top3Threads);
+
+                            System.Threading.Thread.Sleep(1000 / MaxEmailsPerSecond);
 
                             _mail.SendMail(AmazonCloudConfigs.SendFromEmail,
                                 user.EMail,
                                 title,
                                 message);
 
-                            Log.Info("Sent top 3 to: " + user.EMail);
+                            Log.Info(string.Format("Sent top 3 to: {0}", user.EMail));
                         }
                     }
                     else
