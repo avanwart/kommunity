@@ -79,9 +79,9 @@ namespace DasKlub.Web.Controllers
             }
             var vir = new VideoRequest {RequestURL = video};
 
-            string vidKey = string.Empty;
+            string vidKey = Utilities.ExtractYouTubeVideoKey(video);
             vir.RequestURL = vir.RequestURL;
-            vir.VideoKey = Utilities.ExtractYouTubeVideoKey(video);
+            vir.VideoKey = vidKey;
 
             if (string.IsNullOrWhiteSpace(vir.VideoKey))
             {
@@ -105,7 +105,7 @@ namespace DasKlub.Web.Controllers
 
             try
             {
-                Video youTubeVideo = GetYouTubeVideo(vidKey);
+                var youTubeVideo = GetYouTubeVideo(vidKey);
                 vid.Duration = (float) Convert.ToDouble(youTubeVideo.YouTubeEntry.Duration.Seconds);
                 vid.ProviderUserKey = youTubeVideo.Uploader;
                 vid.PublishDate = youTubeVideo.YouTubeEntry.Published;
