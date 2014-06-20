@@ -236,7 +236,7 @@ namespace DasKlub.Web.Controllers
 
         public ActionResult Index()
         {
-            DateTime oneWeekAgo = DateTime.UtcNow.AddDays(-7);
+            var oneWeekAgo = DateTime.UtcNow.AddDays(-7);
             UserAccount ua = null;
 
             if (_mu != null)
@@ -261,26 +261,25 @@ namespace DasKlub.Web.Controllers
                     ForumFeedModel mostPopularThread = LoadMostPopularThisWeek(mostPopularForumPosts, context, ua);
                     ViewBag.TopThreadOfTheWeek = mostPopularThread;
 
-                    List<ForumFeedModel> forumFeed;
                     ViewBag.MostRecentThreads = new object();
                     IEnumerable<int> threadResults =
                         LoadRecentActiveThreads(mostPopularThread.ForumSubCategory.ForumSubCategoryID);
 
-                    forumFeed = new List<ForumFeedModel>();
+                    var forumFeed = new List<ForumFeedModel>();
 
-                    foreach (int threadId in threadResults)
+                    foreach (var threadId in threadResults)
                     {
                         var feedItem = new ForumFeedModel();
 
                         if (ua != null)
                         {
-                            ForumPostNotification isNew = context.ForumPostNotification
+                            var isNew = context.ForumPostNotification
                                 .FirstOrDefault(
                                     x => x.ForumSubCategoryID == threadId && x.UserAccountID == ua.UserAccountID);
                             feedItem.IsNewPost = (isNew != null) && !isNew.IsRead;
                         }
 
-                        ForumPost lastPost = context.ForumPost
+                        var lastPost = context.ForumPost
                             .Where(x => x.ForumSubCategoryID == threadId)
                             .OrderByDescending(x => x.CreateDate).FirstOrDefault();
                         feedItem.ForumSubCategory = context.ForumSubCategory
@@ -331,12 +330,21 @@ namespace DasKlub.Web.Controllers
 
             ViewBag.RecentArticles = LoadRecentArticles();
             ViewBag.TopUsersOfTheMonth = LoadTopUsers();
+            ViewBag.NewestVideos= LoadNewestVideos();
 
             var recentPhotos = new PhotoItems {UseThumb = true, ShowTitle = false};
             recentPhotos.GetPhotoItemsPageWise(1, AmountOfImagesToShowOnTheHomepage);
             ViewBag.RecentPhotos = recentPhotos;
 
             return View();
+        }
+
+        private Videos LoadNewestVideos()
+        {
+            var vids = new Videos();
+            vids.GetMostRecentVideos();
+           
+            return vids;
         }
 
         private IEnumerable<int> LoadRecentActiveThreads(int excludeTopThreadId)

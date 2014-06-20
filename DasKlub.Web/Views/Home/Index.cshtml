@@ -92,8 +92,7 @@
                     @Html.Raw(SiteDomain.GetSiteDomainValue(
                         SiteEnums.SiteBrandType.HOMET,
                         Utilities.GetCurrentLanguageCode()))
-                 
-
+                  
 
                     @if (ViewBag.MostRecentThreads != null)
                     {
@@ -237,6 +236,41 @@
             }
             
            
+            
+            @if (ViewBag.NewestVideos != null)
+            {
+                <div class="span8">
+                    <div class="span8">
+                        <hr />
+                        <h5>@Messages.NewestVideos</h5>
+                        @foreach (DasKlub.Lib.BOL.Video vid in ViewBag.NewestVideos)
+                        {
+                            <table style="width: 31%;float:left;margin-right: 10px;">
+                                <tr>
+                                    <td>
+                                        <iframe width="100%" height="175" src="@Html.Raw("http://www.youtube.com/embed/" + @vid.ProviderKey)" frameborder="0" allowfullscreen></iframe>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span title="@vid.CreateDate.ToString("u")">
+                                            @Html.Raw(Utilities.TimeElapsedMessage(vid.CreateDate))
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                        <br />
+                        <div class="clear"></div>
+                        <i><a href="~/video">@Messages.SubmitYourYouTubeVideoLinkHere</a>    </i>
+
+                    </div>
+                    
+                    
+                </div>
+            }
+            
+         
             
             @if (ViewBag.RecentPhotos != null && ViewBag.RecentPhotos.Count > 0)
             {
