@@ -245,7 +245,7 @@
                         <h5>@Messages.NewestVideos</h5>
                         @foreach (DasKlub.Lib.BOL.Video vid in ViewBag.NewestVideos)
                         {
-                            <table style="width: 31%;float:left;">
+                            <table style="width: 31%;float:left;margin-right: 10px;">
                                 <tr>
                                     <td>
                                         <iframe width="100%" height="175" src="@Html.Raw("http://www.youtube.com/embed/" + @vid.ProviderKey)" frameborder="0" allowfullscreen></iframe>
