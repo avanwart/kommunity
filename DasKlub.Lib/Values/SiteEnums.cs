@@ -618,6 +618,36 @@ namespace DasKlub.Lib.Values
             ///     300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
             /// </summary>
             A2503,
+
+            /// <summary>
+            ///     300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
+            /// </summary>
+            A2504,
+
+            /// <summary>
+            ///     300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
+            /// </summary>
+            A2505,
+
+            /// <summary>
+            ///     300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
+            /// </summary>
+            A2506,
+
+            /// <summary>
+            ///     300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
+            /// </summary>
+            A2507,
+
+            /// <summary>
+            ///     300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
+            /// </summary>
+            A2508,
+
+            /// <summary>
+            ///     300 x 250 (TODO: CHANGE KEY AND SITE DB ENTRY)
+            /// </summary>
+            A2509,
  
             /// <summary>
             ///     New user greeting

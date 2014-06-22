@@ -2,24 +2,53 @@
 @using DasKlub.Lib.Operational
 @using DasKlub.Lib.Values
 @{
-    int randomID = Utilities.RandomNumber(1, 4);
+    int randomID = Utilities.RandomNumber(1, 9);
 
     switch (randomID)
     {
-        case 1:
-
+            case 1:
             @Html.Raw(SiteDomain.GetSiteDomainValue(
                 SiteEnums.SiteBrandType.A2501,
                 Utilities.GetCurrentLanguageCode()))
             break;
-        case 2:
+            case 2:
             @Html.Raw(SiteDomain.GetSiteDomainValue(
                 SiteEnums.SiteBrandType.A2502,
                 Utilities.GetCurrentLanguageCode()))
             break;
-        default:
+            case 3:
             @Html.Raw(SiteDomain.GetSiteDomainValue(
                 SiteEnums.SiteBrandType.A2503,
+                Utilities.GetCurrentLanguageCode()))
+            break;
+            case 4:
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A2504,
+                Utilities.GetCurrentLanguageCode()))
+            break;        
+            case 5:
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A2505,
+                Utilities.GetCurrentLanguageCode()))
+            break;
+            case 6:
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A2506,
+                Utilities.GetCurrentLanguageCode()))
+            break;
+            case 7:
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A2507,
+                Utilities.GetCurrentLanguageCode()))
+            break;
+            case 8:
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A2508,
+                Utilities.GetCurrentLanguageCode()))
+            break;
+            default:
+            @Html.Raw(SiteDomain.GetSiteDomainValue(
+                SiteEnums.SiteBrandType.A2509,
                 Utilities.GetCurrentLanguageCode()))
             break;
     }
