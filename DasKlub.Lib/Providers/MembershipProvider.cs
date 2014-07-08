@@ -470,19 +470,18 @@ namespace DasKlub.Lib.Providers
         /// <returns></returns>
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            if (username == string.Empty)
-            {
-                return null;
-            }
+            if (string.IsNullOrWhiteSpace(username)) return null;
 
-            MembershipUser mu = null;
             var eu = new UserAccount(username);
             
-            if (eu.UserAccountID == 0) return mu;
+            if (eu.UserAccountID == 0) return null;
+
+            if (eu.IsLockedOut) FormsAuthentication.SignOut();
+
+            eu.Update();
             
-            eu.Update(); // updates the last activity date
-            // get the values for this end user
-            mu = GetMembershipUserFromUserAccount(eu);
+            var mu = GetMembershipUserFromUserAccount(eu);
+
             return mu;
         }
 
