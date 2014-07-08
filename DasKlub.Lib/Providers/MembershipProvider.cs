@@ -645,12 +645,11 @@ namespace DasKlub.Lib.Providers
             var eu = new UserAccount(username);
 
             if (eu.UserAccountID == 0) return false;
-
+            if (!eu.IsApproved) return false;
             if (eu.IsLockedOut) return false;
 
             if (IsValidPasswordComparison(password, eu.Password))
             {
-                //if (eu.IsApproved && eu.IsLockedOut == false)
                 if (eu.IsLockedOut) return isValid;
 
                 isValid = true;

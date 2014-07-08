@@ -319,7 +319,7 @@ namespace DasKlub.Web.Controllers
         [HttpPost]
         public ActionResult UpdateRoles(int userAccountID, IEnumerable<string> roleOption)
         {
-            var ua = new UserAccount(userAccountID) {IsLockedOut = (Request.Form["isLockedOut"] != null)};
+            var ua = new UserAccount(userAccountID) { IsApproved = (Request.Form["isApproved"] != null) };
             ua.Update();
 
             UserAccountRole.DeleteUserRoles(userAccountID);
