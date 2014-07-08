@@ -317,7 +317,7 @@ namespace DasKlub.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool remember = Convert.ToBoolean(model.RememberMe);
+                var remember = Convert.ToBoolean(model.RememberMe);
 
                 if (string.IsNullOrWhiteSpace(model.UserName) ||
                     string.IsNullOrWhiteSpace(model.Password))
@@ -3074,7 +3074,6 @@ namespace DasKlub.Web.Controllers
             {
                 ua.FailedPasswordAnswerAttemptCount = 0;
                 ua.FailedPasswordAttemptCount = 0;
-                ua.IsLockedOut = false;
                 ua.Update();
 
                 _mu = Membership.GetUser(ua.UserName);

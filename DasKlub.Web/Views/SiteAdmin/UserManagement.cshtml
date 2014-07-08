@@ -97,15 +97,15 @@
 
                     </div>
                     <span>
-                        Is locked out?
+                        Is Approved?
                     </span>
-                    @if (ViewBag.SelectedUser.IsLockedOut)
+                    @if (ViewBag.SelectedUser.IsApproved)
                     {
-                        <input type="checkbox" checked="checked" name="isLockedOut" />
+                        <input type="checkbox" checked="checked" name="isApproved" />
                     }
                     else
                     {
-                        <input type="checkbox"  name="isLockedOut" />
+                        <input type="checkbox" name="isApproved" />
                     }
                     
                     <br />
