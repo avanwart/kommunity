@@ -199,7 +199,7 @@ namespace DasKlub.Web.Controllers
             ViewBag.VideoWidth = (Request.Browser.IsMobileDevice) ? 285 : 600;
 
             var modelOut = new ContentModel();
-            string cacheKey = string.Concat("news-", key);
+            string cacheKey = string.Concat("news-", key, Utilities.GetCurrentLanguageCode());
 
             if (HttpRuntime.Cache[cacheKey] == null)
             {
