@@ -120,10 +120,14 @@ namespace DasKlub.Web.Controllers
 
             TryUpdateModel(model);
 
-            HttpRuntime.Cache.DeleteCacheObj(
-                string.Concat(
-                    "news-",
-                    model.ContentKey));
+            foreach (var itemLanguages in (SiteEnums.SiteLanguages[]) Enum.GetValues(typeof (SiteEnums.SiteLanguages)))
+            {
+                HttpRuntime.Cache.DeleteCacheObj(
+                               string.Concat(
+                                   "news-",
+                                   model.ContentKey,
+                                   itemLanguages.ToString()));
+            }
 
             const CannedAcl acl = CannedAcl.PublicRead;
 
